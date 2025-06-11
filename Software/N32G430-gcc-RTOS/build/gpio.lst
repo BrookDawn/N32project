@@ -1,0 +1,131 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmsnmib.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 23, 1
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gpio.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "core/src/gpio.c"
+  18              		.section	.text.LED_GPIO_Config,"ax",%progbits
+  19              		.align	1
+  20              		.global	LED_GPIO_Config
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	LED_GPIO_Config:
+  26              	.LFB123:
+   1:core/src/gpio.c **** //
+   2:core/src/gpio.c **** // Created by Dawn on 25-6-10.
+   3:core/src/gpio.c **** //
+   4:core/src/gpio.c **** #include "gpio.h"
+   5:core/src/gpio.c **** 
+   6:core/src/gpio.c **** /**
+   7:core/src/gpio.c ****  * @brief  Configure the GPIO Pins.
+   8:core/src/gpio.c ****  * @param  None
+   9:core/src/gpio.c ****  * @retval None
+  10:core/src/gpio.c ****  */
+  11:core/src/gpio.c **** void LED_GPIO_Config(void)
+  12:core/src/gpio.c **** {
+  27              		.loc 1 12 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 24
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 00B5     		push	{lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 4
+  34              		.cfi_offset 14, -4
+  35 0002 87B0     		sub	sp, sp, #28
+  36              	.LCFI1:
+  37              		.cfi_def_cfa_offset 32
+  13:core/src/gpio.c ****     GPIO_InitType GPIO_InitStructure;
+  38              		.loc 1 13 5 view .LVU1
+  14:core/src/gpio.c **** 
+  15:core/src/gpio.c ****     /* Enable GPIOC clock */
+  16:core/src/gpio.c ****     RCC_AHB_Peripheral_Clock_Enable(RCC_AHB_PERIPH_GPIOC);
+  39              		.loc 1 16 5 view .LVU2
+  40 0004 4FF40070 		mov	r0, #512
+  41 0008 FFF7FEFF 		bl	RCC_AHB_Peripheral_Clock_Enable
+  42              	.LVL0:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmsnmib.s 			page 2
+
+
+  17:core/src/gpio.c **** 
+  18:core/src/gpio.c ****     /* Configure PC13 as output push-pull for LED */
+  19:core/src/gpio.c ****     GPIO_InitStructure.Pin              = GPIO_PIN_13;
+  43              		.loc 1 19 5 view .LVU3
+  44              		.loc 1 19 41 is_stmt 0 view .LVU4
+  45 000c 4FF40053 		mov	r3, #8192
+  46 0010 0093     		str	r3, [sp]
+  20:core/src/gpio.c ****     GPIO_InitStructure.GPIO_Mode        = GPIO_MODE_OUT_PP;
+  47              		.loc 1 20 5 is_stmt 1 view .LVU5
+  48              		.loc 1 20 41 is_stmt 0 view .LVU6
+  49 0012 0123     		movs	r3, #1
+  50 0014 0193     		str	r3, [sp, #4]
+  21:core/src/gpio.c ****     GPIO_InitStructure.GPIO_Pull        = GPIO_NO_PULL;
+  51              		.loc 1 21 5 is_stmt 1 view .LVU7
+  52              		.loc 1 21 41 is_stmt 0 view .LVU8
+  53 0016 0023     		movs	r3, #0
+  54 0018 0293     		str	r3, [sp, #8]
+  22:core/src/gpio.c ****     GPIO_InitStructure.GPIO_Slew_Rate   = GPIO_SLEW_RATE_FAST;
+  55              		.loc 1 22 5 is_stmt 1 view .LVU9
+  56              		.loc 1 22 41 is_stmt 0 view .LVU10
+  57 001a 0393     		str	r3, [sp, #12]
+  23:core/src/gpio.c ****     GPIO_InitStructure.GPIO_Current     = GPIO_DS_4MA;
+  58              		.loc 1 23 5 is_stmt 1 view .LVU11
+  59              		.loc 1 23 41 is_stmt 0 view .LVU12
+  60 001c 0222     		movs	r2, #2
+  61 001e 0492     		str	r2, [sp, #16]
+  24:core/src/gpio.c ****     GPIO_InitStructure.GPIO_Alternate   = 0;
+  62              		.loc 1 24 5 is_stmt 1 view .LVU13
+  63              		.loc 1 24 41 is_stmt 0 view .LVU14
+  64 0020 0593     		str	r3, [sp, #20]
+  25:core/src/gpio.c ****     GPIO_Peripheral_Initialize(GPIOC, &GPIO_InitStructure);
+  65              		.loc 1 25 5 is_stmt 1 view .LVU15
+  66 0022 6946     		mov	r1, sp
+  67 0024 0248     		ldr	r0, .L3
+  68 0026 FFF7FEFF 		bl	GPIO_Peripheral_Initialize
+  69              	.LVL1:
+  26:core/src/gpio.c **** }
+  70              		.loc 1 26 1 is_stmt 0 view .LVU16
+  71 002a 07B0     		add	sp, sp, #28
+  72              	.LCFI2:
+  73              		.cfi_def_cfa_offset 4
+  74              		@ sp needed
+  75 002c 5DF804FB 		ldr	pc, [sp], #4
+  76              	.L4:
+  77              		.align	2
+  78              	.L3:
+  79 0030 003C0240 		.word	1073888256
+  80              		.cfi_endproc
+  81              	.LFE123:
+  83              		.text
+  84              	.Letext0:
+  85              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+  86              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+  87              		.file 4 "CMSIS/device/n32g430.h"
+  88              		.file 5 "n32g430_std_periph_driver/inc/n32g430_gpio.h"
+  89              		.file 6 "n32g430_std_periph_driver/inc/n32g430_rcc.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmsnmib.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 gpio.c
+C:\Users\Dawn\AppData\Local\Temp\ccmsnmib.s:19     .text.LED_GPIO_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmsnmib.s:25     .text.LED_GPIO_Config:00000000 LED_GPIO_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmsnmib.s:79     .text.LED_GPIO_Config:00000030 $d
+
+UNDEFINED SYMBOLS
+RCC_AHB_Peripheral_Clock_Enable
+GPIO_Peripheral_Initialize

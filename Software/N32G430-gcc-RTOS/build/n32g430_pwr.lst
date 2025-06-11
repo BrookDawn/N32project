@@ -1,0 +1,1343 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 23, 1
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"n32g430_pwr.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "n32g430_std_periph_driver/src/n32g430_pwr.c"
+  18              		.section	.text.PWR_Reset,"ax",%progbits
+  19              		.align	1
+  20              		.global	PWR_Reset
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	PWR_Reset:
+  26              	.LFB123:
+   1:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+   2:n32g430_std_periph_driver/src/n32g430_pwr.c **** *     Copyright (c) 2022, Nations Technologies Inc.
+   3:n32g430_std_periph_driver/src/n32g430_pwr.c **** * 
+   4:n32g430_std_periph_driver/src/n32g430_pwr.c **** *     All rights reserved.
+   5:n32g430_std_periph_driver/src/n32g430_pwr.c **** *
+   6:n32g430_std_periph_driver/src/n32g430_pwr.c **** *     This software is the exclusive property of Nations Technologies Inc. (Hereinafter 
+   7:n32g430_std_periph_driver/src/n32g430_pwr.c **** * referred to as NATIONS). This software, and the product of NATIONS described herein 
+   8:n32g430_std_periph_driver/src/n32g430_pwr.c **** * (Hereinafter referred to as the Product) are owned by NATIONS under the laws and treaties
+   9:n32g430_std_periph_driver/src/n32g430_pwr.c **** * of the People's Republic of China and other applicable jurisdictions worldwide.
+  10:n32g430_std_periph_driver/src/n32g430_pwr.c **** *
+  11:n32g430_std_periph_driver/src/n32g430_pwr.c **** *     NATIONS does not grant any license under its patents, copyrights, trademarks, or other 
+  12:n32g430_std_periph_driver/src/n32g430_pwr.c **** * intellectual property rights. Names and brands of third party may be mentioned or referred 
+  13:n32g430_std_periph_driver/src/n32g430_pwr.c **** * thereto (if any) for identification purposes only.
+  14:n32g430_std_periph_driver/src/n32g430_pwr.c **** *
+  15:n32g430_std_periph_driver/src/n32g430_pwr.c **** *     NATIONS reserves the right to make changes, corrections, enhancements, modifications, and 
+  16:n32g430_std_periph_driver/src/n32g430_pwr.c **** * improvements to this software at any time without notice. Please contact NATIONS and obtain 
+  17:n32g430_std_periph_driver/src/n32g430_pwr.c **** * the latest version of this software before placing orders.
+  18:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+  19:n32g430_std_periph_driver/src/n32g430_pwr.c **** *     Although NATIONS has attempted to provide accurate and reliable information, NATIONS assumes 
+  20:n32g430_std_periph_driver/src/n32g430_pwr.c **** * no responsibility for the accuracy and reliability of this software.
+  21:n32g430_std_periph_driver/src/n32g430_pwr.c **** * 
+  22:n32g430_std_periph_driver/src/n32g430_pwr.c **** *     It is the responsibility of the user of this software to properly design, program, and test 
+  23:n32g430_std_periph_driver/src/n32g430_pwr.c **** * the functionality and safety of any application made of this information and any resulting produc
+  24:n32g430_std_periph_driver/src/n32g430_pwr.c **** * In no event shall NATIONS be liable for any direct, indirect, incidental, special,exemplary, or 
+  25:n32g430_std_periph_driver/src/n32g430_pwr.c **** * consequential damages arising in any way out of the use of this software or the Product.
+  26:n32g430_std_periph_driver/src/n32g430_pwr.c **** *
+  27:n32g430_std_periph_driver/src/n32g430_pwr.c **** *     NATIONS Products are neither intended nor warranted for usage in systems or equipment, any
+  28:n32g430_std_periph_driver/src/n32g430_pwr.c **** * malfunction or failure of which may cause loss of human life, bodily injury or severe property 
+  29:n32g430_std_periph_driver/src/n32g430_pwr.c **** * damage. Such applications are deemed, "Insecure Usage".
+  30:n32g430_std_periph_driver/src/n32g430_pwr.c **** *
+  31:n32g430_std_periph_driver/src/n32g430_pwr.c **** *     All Insecure Usage shall be made at user's risk. User shall indemnify NATIONS and hold NATION
+  32:n32g430_std_periph_driver/src/n32g430_pwr.c **** * harmless from and against all claims, costs, damages, and other liabilities, arising from or rela
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 2
+
+
+  33:n32g430_std_periph_driver/src/n32g430_pwr.c **** * to any customer's Insecure Usage.
+  34:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+  35:n32g430_std_periph_driver/src/n32g430_pwr.c **** *     Any express or implied warranty with regard to this software or the Product, including,but no
+  36:n32g430_std_periph_driver/src/n32g430_pwr.c **** * limited to, the warranties of merchantability, fitness for a particular purpose and non-infringem
+  37:n32g430_std_periph_driver/src/n32g430_pwr.c **** * are disclaimed to the fullest extent permitted by law.
+  38:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+  39:n32g430_std_periph_driver/src/n32g430_pwr.c **** *     Unless otherwise explicitly permitted by NATIONS, anyone may not duplicate, modify, transcrib
+  40:n32g430_std_periph_driver/src/n32g430_pwr.c **** * or otherwise distribute this software for any purposes, in whole or in part.
+  41:n32g430_std_periph_driver/src/n32g430_pwr.c **** *
+  42:n32g430_std_periph_driver/src/n32g430_pwr.c **** *     NATIONS products and technologies shall not be used for or incorporated into any products or 
+  43:n32g430_std_periph_driver/src/n32g430_pwr.c **** * whose manufacture, use, or sale is prohibited under any applicable domestic or foreign laws or re
+  44:n32g430_std_periph_driver/src/n32g430_pwr.c **** * User shall comply with any applicable export control laws and regulations promulgated and adminis
+  45:n32g430_std_periph_driver/src/n32g430_pwr.c **** * the governments of any countries asserting jurisdiction over the parties or transactions.
+  46:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+  47:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+  48:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+  49:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\file n32g430_pwr.c
+  50:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\author Nations
+  51:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\version v1.0.1
+  52:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\copyright Copyright (c) 2022, Nations Technologies Inc. All rights reserved.
+  53:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+  54:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+  55:n32g430_std_periph_driver/src/n32g430_pwr.c **** #include "n32g430_pwr.h"
+  56:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+  57:n32g430_std_periph_driver/src/n32g430_pwr.c **** /** PWR Private Defines **/
+  58:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+  59:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+  60:n32g430_std_periph_driver/src/n32g430_pwr.c **** /** PWR Driving Functions Declaration **/
+  61:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+  62:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+  63:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_Reset.
+  64:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Deinitializes the PWR peripheral registers to their default reset values.
+  65:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   none
+  66:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  none
+  67:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+  68:n32g430_std_periph_driver/src/n32g430_pwr.c **** void PWR_Reset(void)
+  69:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+  27              		.loc 1 69 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 08B5     		push	{r3, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+  70:n32g430_std_periph_driver/src/n32g430_pwr.c ****     RCC_APB1_Peripheral_Reset(RCC_APB1_PERIPH_PWR);
+  36              		.loc 1 70 5 view .LVU1
+  37 0002 4FF08050 		mov	r0, #268435456
+  38 0006 FFF7FEFF 		bl	RCC_APB1_Peripheral_Reset
+  39              	.LVL0:
+  71:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+  40              		.loc 1 71 1 is_stmt 0 view .LVU2
+  41 000a 08BD     		pop	{r3, pc}
+  42              		.cfi_endproc
+  43              	.LFE123:
+  45              		.section	.text.PWR_RTC_Backup_Access_Enable,"ax",%progbits
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 3
+
+
+  46              		.align	1
+  47              		.global	PWR_RTC_Backup_Access_Enable
+  48              		.syntax unified
+  49              		.thumb
+  50              		.thumb_func
+  52              	PWR_RTC_Backup_Access_Enable:
+  53              	.LFB124:
+  72:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+  73:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+  74:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_RTC_Backup_Access_Enable.
+  75:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Enables access to the RTC and backup registers.
+  76:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   none
+  77:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  none
+  78:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+  79:n32g430_std_periph_driver/src/n32g430_pwr.c **** void PWR_RTC_Backup_Access_Enable(void)
+  80:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+  54              		.loc 1 80 1 is_stmt 1 view -0
+  55              		.cfi_startproc
+  56              		@ args = 0, pretend = 0, frame = 0
+  57              		@ frame_needed = 0, uses_anonymous_args = 0
+  58              		@ link register save eliminated.
+  81:n32g430_std_periph_driver/src/n32g430_pwr.c ****     *(__IO uint32_t*)PWR_CTRL_DBKP_BITBAND = (uint32_t)ENABLE;
+  59              		.loc 1 81 5 view .LVU4
+  60              		.loc 1 81 44 is_stmt 0 view .LVU5
+  61 0000 014B     		ldr	r3, .L4
+  62 0002 0122     		movs	r2, #1
+  63 0004 1A62     		str	r2, [r3, #32]
+  82:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+  64              		.loc 1 82 1 view .LVU6
+  65 0006 7047     		bx	lr
+  66              	.L5:
+  67              		.align	2
+  68              	.L4:
+  69 0008 00000E42 		.word	1108213760
+  70              		.cfi_endproc
+  71              	.LFE124:
+  73              		.section	.text.PWR_RTC_Backup_Access_Disable,"ax",%progbits
+  74              		.align	1
+  75              		.global	PWR_RTC_Backup_Access_Disable
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  80              	PWR_RTC_Backup_Access_Disable:
+  81              	.LFB125:
+  83:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+  84:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+  85:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_RTC_Backup_Access_Disable.
+  86:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Disables access to the RTC and backup registers.
+  87:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   none
+  88:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  none
+  89:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+  90:n32g430_std_periph_driver/src/n32g430_pwr.c **** void PWR_RTC_Backup_Access_Disable(void)
+  91:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+  82              		.loc 1 91 1 is_stmt 1 view -0
+  83              		.cfi_startproc
+  84              		@ args = 0, pretend = 0, frame = 0
+  85              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 4
+
+
+  86              		@ link register save eliminated.
+  92:n32g430_std_periph_driver/src/n32g430_pwr.c ****     *(__IO uint32_t*)PWR_CTRL_DBKP_BITBAND = (uint32_t)DISABLE;
+  87              		.loc 1 92 5 view .LVU8
+  88              		.loc 1 92 44 is_stmt 0 view .LVU9
+  89 0000 014B     		ldr	r3, .L7
+  90 0002 0022     		movs	r2, #0
+  91 0004 1A62     		str	r2, [r3, #32]
+  93:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+  92              		.loc 1 93 1 view .LVU10
+  93 0006 7047     		bx	lr
+  94              	.L8:
+  95              		.align	2
+  96              	.L7:
+  97 0008 00000E42 		.word	1108213760
+  98              		.cfi_endproc
+  99              	.LFE125:
+ 101              		.section	.text.PWR_PVD_Enable,"ax",%progbits
+ 102              		.align	1
+ 103              		.global	PWR_PVD_Enable
+ 104              		.syntax unified
+ 105              		.thumb
+ 106              		.thumb_func
+ 108              	PWR_PVD_Enable:
+ 109              	.LFB126:
+  94:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+  95:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+  96:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_PVD_Enable.
+  97:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Enables the Power Voltage Detector(PVD).
+  98:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   none
+  99:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  none
+ 100:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+ 101:n32g430_std_periph_driver/src/n32g430_pwr.c **** void PWR_PVD_Enable(void)
+ 102:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+ 110              		.loc 1 102 1 is_stmt 1 view -0
+ 111              		.cfi_startproc
+ 112              		@ args = 0, pretend = 0, frame = 0
+ 113              		@ frame_needed = 0, uses_anonymous_args = 0
+ 114              		@ link register save eliminated.
+ 103:n32g430_std_periph_driver/src/n32g430_pwr.c ****     *(__IO uint32_t*)PWR_CTRL_PVDEN_BITBAND = (uint32_t)ENABLE;
+ 115              		.loc 1 103 5 view .LVU12
+ 116              		.loc 1 103 45 is_stmt 0 view .LVU13
+ 117 0000 014B     		ldr	r3, .L10
+ 118 0002 0122     		movs	r2, #1
+ 119 0004 1A61     		str	r2, [r3, #16]
+ 104:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+ 120              		.loc 1 104 1 view .LVU14
+ 121 0006 7047     		bx	lr
+ 122              	.L11:
+ 123              		.align	2
+ 124              	.L10:
+ 125 0008 00000E42 		.word	1108213760
+ 126              		.cfi_endproc
+ 127              	.LFE126:
+ 129              		.section	.text.PWR_PVD_Disable,"ax",%progbits
+ 130              		.align	1
+ 131              		.global	PWR_PVD_Disable
+ 132              		.syntax unified
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 5
+
+
+ 133              		.thumb
+ 134              		.thumb_func
+ 136              	PWR_PVD_Disable:
+ 137              	.LFB127:
+ 105:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 106:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+ 107:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_PVD_Disable.
+ 108:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Disables the Power Voltage Detector(PVD).
+ 109:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   none
+ 110:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  none
+ 111:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+ 112:n32g430_std_periph_driver/src/n32g430_pwr.c **** void PWR_PVD_Disable(void)
+ 113:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+ 138              		.loc 1 113 1 is_stmt 1 view -0
+ 139              		.cfi_startproc
+ 140              		@ args = 0, pretend = 0, frame = 0
+ 141              		@ frame_needed = 0, uses_anonymous_args = 0
+ 142              		@ link register save eliminated.
+ 114:n32g430_std_periph_driver/src/n32g430_pwr.c ****     *(__IO uint32_t*)PWR_CTRL_PVDEN_BITBAND = (uint32_t)DISABLE;
+ 143              		.loc 1 114 5 view .LVU16
+ 144              		.loc 1 114 45 is_stmt 0 view .LVU17
+ 145 0000 014B     		ldr	r3, .L13
+ 146 0002 0022     		movs	r2, #0
+ 147 0004 1A61     		str	r2, [r3, #16]
+ 115:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+ 148              		.loc 1 115 1 view .LVU18
+ 149 0006 7047     		bx	lr
+ 150              	.L14:
+ 151              		.align	2
+ 152              	.L13:
+ 153 0008 00000E42 		.word	1108213760
+ 154              		.cfi_endproc
+ 155              	.LFE127:
+ 157              		.section	.text.PWR_PVD_Level_Config,"ax",%progbits
+ 158              		.align	1
+ 159              		.global	PWR_PVD_Level_Config
+ 160              		.syntax unified
+ 161              		.thumb
+ 162              		.thumb_func
+ 164              	PWR_PVD_Level_Config:
+ 165              	.LVL1:
+ 166              	.LFB128:
+ 116:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 117:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+ 118:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_PVD_Level_Config.
+ 119:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Configures the voltage threshold detected by the Power Voltage Detector(PVD).
+ 120:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   level :
+ 121:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_2V18
+ 122:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_2V28
+ 123:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_2V38
+ 124:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_2V48
+ 125:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_2V58
+ 126:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_2V68
+ 127:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_2V78
+ 128:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_2V88
+ 129:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_1V78
+ 130:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_1V88
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 6
+
+
+ 131:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_1V98
+ 132:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_2V08
+ 133:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_3V28
+ 134:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_3V38
+ 135:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_3V48
+ 136:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_LEVEL_3V58
+ 137:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  none
+ 138:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+ 139:n32g430_std_periph_driver/src/n32g430_pwr.c **** void PWR_PVD_Level_Config(uint32_t level)
+ 140:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+ 167              		.loc 1 140 1 is_stmt 1 view -0
+ 168              		.cfi_startproc
+ 169              		@ args = 0, pretend = 0, frame = 0
+ 170              		@ frame_needed = 0, uses_anonymous_args = 0
+ 171              		@ link register save eliminated.
+ 141:n32g430_std_periph_driver/src/n32g430_pwr.c ****     uint32_t temp_value = 0;
+ 172              		.loc 1 141 5 view .LVU20
+ 142:n32g430_std_periph_driver/src/n32g430_pwr.c ****     temp_value = PWR->CTRL;
+ 173              		.loc 1 142 5 view .LVU21
+ 174              		.loc 1 142 16 is_stmt 0 view .LVU22
+ 175 0000 034A     		ldr	r2, .L16
+ 176 0002 1368     		ldr	r3, [r2]
+ 177              	.LVL2:
+ 143:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Clear PLS[7:5] bits and MSB bit */
+ 144:n32g430_std_periph_driver/src/n32g430_pwr.c ****     temp_value &= PWR_CTRL_PLSMSB_MASK;
+ 178              		.loc 1 144 5 is_stmt 1 view .LVU23
+ 179              		.loc 1 144 16 is_stmt 0 view .LVU24
+ 180 0004 23F43873 		bic	r3, r3, #736
+ 181              	.LVL3:
+ 145:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Set PLS[7:5] bits according to level value */
+ 146:n32g430_std_periph_driver/src/n32g430_pwr.c ****     temp_value |= level;
+ 182              		.loc 1 146 5 is_stmt 1 view .LVU25
+ 183              		.loc 1 146 16 is_stmt 0 view .LVU26
+ 184 0008 0343     		orrs	r3, r3, r0
+ 185              	.LVL4:
+ 147:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Store the new value */
+ 148:n32g430_std_periph_driver/src/n32g430_pwr.c ****     PWR->CTRL = temp_value;
+ 186              		.loc 1 148 5 is_stmt 1 view .LVU27
+ 187              		.loc 1 148 15 is_stmt 0 view .LVU28
+ 188 000a 1360     		str	r3, [r2]
+ 149:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+ 189              		.loc 1 149 1 view .LVU29
+ 190 000c 7047     		bx	lr
+ 191              	.L17:
+ 192 000e 00BF     		.align	2
+ 193              	.L16:
+ 194 0010 00700040 		.word	1073770496
+ 195              		.cfi_endproc
+ 196              	.LFE128:
+ 198              		.section	.text.PWR_Wakeup_Pin_Enable,"ax",%progbits
+ 199              		.align	1
+ 200              		.global	PWR_Wakeup_Pin_Enable
+ 201              		.syntax unified
+ 202              		.thumb
+ 203              		.thumb_func
+ 205              	PWR_Wakeup_Pin_Enable:
+ 206              	.LVL5:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 7
+
+
+ 207              	.LFB129:
+ 150:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 151:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 152:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+ 153:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_Wakeup_Pin_Enable.
+ 154:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Enables the Wakeup Pin functionality.
+ 155:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   pin :
+ 156:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - WAKEUP_PIN1 PA8
+ 157:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - WAKEUP_PIN2 PA0
+ 158:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - WAKEUP_PIN3 PC13
+ 159:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   polarity :
+ 160:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PIN_RISING
+ 161:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PIN_FALLING
+ 162:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  none
+ 163:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+ 164:n32g430_std_periph_driver/src/n32g430_pwr.c **** void PWR_Wakeup_Pin_Enable(WAKEUP_PINX pin, uint32_t polarity)
+ 165:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+ 208              		.loc 1 165 1 is_stmt 1 view -0
+ 209              		.cfi_startproc
+ 210              		@ args = 0, pretend = 0, frame = 0
+ 211              		@ frame_needed = 0, uses_anonymous_args = 0
+ 212              		@ link register save eliminated.
+ 166:n32g430_std_periph_driver/src/n32g430_pwr.c ****     switch(pin)
+ 213              		.loc 1 166 5 view .LVU31
+ 214 0000 B0F5007F 		cmp	r0, #512
+ 215 0004 0CD0     		beq	.L19
+ 216 0006 B0F5806F 		cmp	r0, #1024
+ 217 000a 10D0     		beq	.L20
+ 218 000c B0F5807F 		cmp	r0, #256
+ 219 0010 13D1     		bne	.L18
+ 167:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ 168:n32g430_std_periph_driver/src/n32g430_pwr.c ****         case WAKEUP_PIN1:
+ 169:n32g430_std_periph_driver/src/n32g430_pwr.c ****             *(__IO uint32_t*)PWR_CTRLSTS_WKUP1PS_BITBAND = polarity;
+ 220              		.loc 1 169 13 view .LVU32
+ 221              		.loc 1 169 58 is_stmt 0 view .LVU33
+ 222 0012 0A4B     		ldr	r3, .L22
+ 223 0014 C3F8B010 		str	r1, [r3, #176]
+ 170:n32g430_std_periph_driver/src/n32g430_pwr.c ****             *(__IO uint32_t*)PWR_CTRLSTS_WKUP1EN_BITBAND = (uint32_t)ENABLE;
+ 224              		.loc 1 170 13 is_stmt 1 view .LVU34
+ 225              		.loc 1 170 58 is_stmt 0 view .LVU35
+ 226 0018 0122     		movs	r2, #1
+ 227 001a C3F8A020 		str	r2, [r3, #160]
+ 171:n32g430_std_periph_driver/src/n32g430_pwr.c ****             break;
+ 228              		.loc 1 171 13 is_stmt 1 view .LVU36
+ 229 001e 7047     		bx	lr
+ 230              	.L19:
+ 172:n32g430_std_periph_driver/src/n32g430_pwr.c ****         case WAKEUP_PIN2:
+ 173:n32g430_std_periph_driver/src/n32g430_pwr.c ****             *(__IO uint32_t*)PWR_CTRLSTS_WKUP2PS_BITBAND = polarity;
+ 231              		.loc 1 173 13 view .LVU37
+ 232              		.loc 1 173 58 is_stmt 0 view .LVU38
+ 233 0020 064B     		ldr	r3, .L22
+ 234 0022 C3F8B410 		str	r1, [r3, #180]
+ 174:n32g430_std_periph_driver/src/n32g430_pwr.c ****             *(__IO uint32_t*)PWR_CTRLSTS_WKUP2EN_BITBAND = (uint32_t)ENABLE;
+ 235              		.loc 1 174 13 is_stmt 1 view .LVU39
+ 236              		.loc 1 174 58 is_stmt 0 view .LVU40
+ 237 0026 0122     		movs	r2, #1
+ 238 0028 C3F8A420 		str	r2, [r3, #164]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 8
+
+
+ 175:n32g430_std_periph_driver/src/n32g430_pwr.c ****             break;
+ 239              		.loc 1 175 13 is_stmt 1 view .LVU41
+ 240 002c 7047     		bx	lr
+ 241              	.L20:
+ 176:n32g430_std_periph_driver/src/n32g430_pwr.c ****         case WAKEUP_PIN3:
+ 177:n32g430_std_periph_driver/src/n32g430_pwr.c ****             *(__IO uint32_t*)PWR_CTRLSTS_WKUP3PS_BITBAND = polarity;
+ 242              		.loc 1 177 13 view .LVU42
+ 243              		.loc 1 177 58 is_stmt 0 view .LVU43
+ 244 002e 034B     		ldr	r3, .L22
+ 245 0030 C3F8B810 		str	r1, [r3, #184]
+ 178:n32g430_std_periph_driver/src/n32g430_pwr.c ****             *(__IO uint32_t*)PWR_CTRLSTS_WKUP3EN_BITBAND = (uint32_t)ENABLE;
+ 246              		.loc 1 178 13 is_stmt 1 view .LVU44
+ 247              		.loc 1 178 58 is_stmt 0 view .LVU45
+ 248 0034 0122     		movs	r2, #1
+ 249 0036 C3F8A820 		str	r2, [r3, #168]
+ 179:n32g430_std_periph_driver/src/n32g430_pwr.c ****             break;
+ 250              		.loc 1 179 13 is_stmt 1 view .LVU46
+ 251              	.L18:
+ 180:n32g430_std_periph_driver/src/n32g430_pwr.c ****         default:
+ 181:n32g430_std_periph_driver/src/n32g430_pwr.c ****             break;
+ 182:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 183:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+ 252              		.loc 1 183 1 is_stmt 0 view .LVU47
+ 253 003a 7047     		bx	lr
+ 254              	.L23:
+ 255              		.align	2
+ 256              	.L22:
+ 257 003c 00000E42 		.word	1108213760
+ 258              		.cfi_endproc
+ 259              	.LFE129:
+ 261              		.section	.text.PWR_Wakeup_Pin_Disable,"ax",%progbits
+ 262              		.align	1
+ 263              		.global	PWR_Wakeup_Pin_Disable
+ 264              		.syntax unified
+ 265              		.thumb
+ 266              		.thumb_func
+ 268              	PWR_Wakeup_Pin_Disable:
+ 269              	.LVL6:
+ 270              	.LFB130:
+ 184:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 185:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+ 186:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_Wakeup_Pin_Disable.
+ 187:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Disables the WakeUp Pin functionality.
+ 188:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   pin :
+ 189:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - WAKEUP_PIN1 PA8
+ 190:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - WAKEUP_PIN2 PA0
+ 191:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - WAKEUP_PIN3 PC13
+ 192:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  none
+ 193:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+ 194:n32g430_std_periph_driver/src/n32g430_pwr.c **** void PWR_Wakeup_Pin_Disable(WAKEUP_PINX pin)
+ 195:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+ 271              		.loc 1 195 1 is_stmt 1 view -0
+ 272              		.cfi_startproc
+ 273              		@ args = 0, pretend = 0, frame = 0
+ 274              		@ frame_needed = 0, uses_anonymous_args = 0
+ 275              		@ link register save eliminated.
+ 196:n32g430_std_periph_driver/src/n32g430_pwr.c ****     switch(pin)
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 9
+
+
+ 276              		.loc 1 196 5 view .LVU49
+ 277 0000 B0F5007F 		cmp	r0, #512
+ 278 0004 0AD0     		beq	.L25
+ 279 0006 B0F5806F 		cmp	r0, #1024
+ 280 000a 0CD0     		beq	.L26
+ 281 000c B0F5807F 		cmp	r0, #256
+ 282 0010 0DD1     		bne	.L24
+ 197:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ 198:n32g430_std_periph_driver/src/n32g430_pwr.c ****         case WAKEUP_PIN1:
+ 199:n32g430_std_periph_driver/src/n32g430_pwr.c ****             *(__IO uint32_t*)PWR_CTRLSTS_WKUP1EN_BITBAND = (uint32_t)DISABLE;
+ 283              		.loc 1 199 13 view .LVU50
+ 284              		.loc 1 199 58 is_stmt 0 view .LVU51
+ 285 0012 074B     		ldr	r3, .L28
+ 286 0014 0022     		movs	r2, #0
+ 287 0016 C3F8A020 		str	r2, [r3, #160]
+ 200:n32g430_std_periph_driver/src/n32g430_pwr.c ****             break;
+ 288              		.loc 1 200 13 is_stmt 1 view .LVU52
+ 289 001a 7047     		bx	lr
+ 290              	.L25:
+ 201:n32g430_std_periph_driver/src/n32g430_pwr.c ****         case WAKEUP_PIN2:
+ 202:n32g430_std_periph_driver/src/n32g430_pwr.c ****             *(__IO uint32_t*)PWR_CTRLSTS_WKUP2EN_BITBAND = (uint32_t)DISABLE;
+ 291              		.loc 1 202 13 view .LVU53
+ 292              		.loc 1 202 58 is_stmt 0 view .LVU54
+ 293 001c 044B     		ldr	r3, .L28
+ 294 001e 0022     		movs	r2, #0
+ 295 0020 C3F8A420 		str	r2, [r3, #164]
+ 203:n32g430_std_periph_driver/src/n32g430_pwr.c ****             break;
+ 296              		.loc 1 203 13 is_stmt 1 view .LVU55
+ 297 0024 7047     		bx	lr
+ 298              	.L26:
+ 204:n32g430_std_periph_driver/src/n32g430_pwr.c ****         case WAKEUP_PIN3:
+ 205:n32g430_std_periph_driver/src/n32g430_pwr.c ****             *(__IO uint32_t*)PWR_CTRLSTS_WKUP3EN_BITBAND = (uint32_t)DISABLE;
+ 299              		.loc 1 205 13 view .LVU56
+ 300              		.loc 1 205 58 is_stmt 0 view .LVU57
+ 301 0026 024B     		ldr	r3, .L28
+ 302 0028 0022     		movs	r2, #0
+ 303 002a C3F8A820 		str	r2, [r3, #168]
+ 206:n32g430_std_periph_driver/src/n32g430_pwr.c ****             break;
+ 304              		.loc 1 206 13 is_stmt 1 view .LVU58
+ 305              	.L24:
+ 207:n32g430_std_periph_driver/src/n32g430_pwr.c ****         default:
+ 208:n32g430_std_periph_driver/src/n32g430_pwr.c ****             break;
+ 209:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 210:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+ 306              		.loc 1 210 1 is_stmt 0 view .LVU59
+ 307 002e 7047     		bx	lr
+ 308              	.L29:
+ 309              		.align	2
+ 310              	.L28:
+ 311 0030 00000E42 		.word	1108213760
+ 312              		.cfi_endproc
+ 313              	.LFE130:
+ 315              		.section	.text.PWR_RTC_Wakeup_Enable,"ax",%progbits
+ 316              		.align	1
+ 317              		.global	PWR_RTC_Wakeup_Enable
+ 318              		.syntax unified
+ 319              		.thumb
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 10
+
+
+ 320              		.thumb_func
+ 322              	PWR_RTC_Wakeup_Enable:
+ 323              	.LFB131:
+ 211:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 212:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+ 213:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_RTC_Wakeup_Enable.
+ 214:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Enables RTC internal wakeup.
+ 215:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   none
+ 216:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  none
+ 217:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+ 218:n32g430_std_periph_driver/src/n32g430_pwr.c **** void PWR_RTC_Wakeup_Enable(void)
+ 219:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+ 324              		.loc 1 219 1 is_stmt 1 view -0
+ 325              		.cfi_startproc
+ 326              		@ args = 0, pretend = 0, frame = 0
+ 327              		@ frame_needed = 0, uses_anonymous_args = 0
+ 328              		@ link register save eliminated.
+ 220:n32g430_std_periph_driver/src/n32g430_pwr.c ****     *(__IO uint32_t*)PWR_CTRLSTS_WKUPRTCEN_BITBAND = (uint32_t)ENABLE;
+ 329              		.loc 1 220 5 view .LVU61
+ 330              		.loc 1 220 52 is_stmt 0 view .LVU62
+ 331 0000 024B     		ldr	r3, .L31
+ 332 0002 0122     		movs	r2, #1
+ 333 0004 C3F8AC20 		str	r2, [r3, #172]
+ 221:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+ 334              		.loc 1 221 1 view .LVU63
+ 335 0008 7047     		bx	lr
+ 336              	.L32:
+ 337 000a 00BF     		.align	2
+ 338              	.L31:
+ 339 000c 00000E42 		.word	1108213760
+ 340              		.cfi_endproc
+ 341              	.LFE131:
+ 343              		.section	.text.PWR_RTC_Wakeup_Disable,"ax",%progbits
+ 344              		.align	1
+ 345              		.global	PWR_RTC_Wakeup_Disable
+ 346              		.syntax unified
+ 347              		.thumb
+ 348              		.thumb_func
+ 350              	PWR_RTC_Wakeup_Disable:
+ 351              	.LFB132:
+ 222:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 223:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+ 224:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_RTC_Wakeup_Disable.
+ 225:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Disables RTC internal wakeup.
+ 226:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   none
+ 227:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  none
+ 228:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+ 229:n32g430_std_periph_driver/src/n32g430_pwr.c **** void PWR_RTC_Wakeup_Disable(void)
+ 230:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+ 352              		.loc 1 230 1 is_stmt 1 view -0
+ 353              		.cfi_startproc
+ 354              		@ args = 0, pretend = 0, frame = 0
+ 355              		@ frame_needed = 0, uses_anonymous_args = 0
+ 356              		@ link register save eliminated.
+ 231:n32g430_std_periph_driver/src/n32g430_pwr.c ****     *(__IO uint32_t*)PWR_CTRLSTS_WKUPRTCEN_BITBAND = (uint32_t)DISABLE;
+ 357              		.loc 1 231 5 view .LVU65
+ 358              		.loc 1 231 52 is_stmt 0 view .LVU66
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 11
+
+
+ 359 0000 024B     		ldr	r3, .L34
+ 360 0002 0022     		movs	r2, #0
+ 361 0004 C3F8AC20 		str	r2, [r3, #172]
+ 232:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+ 362              		.loc 1 232 1 view .LVU67
+ 363 0008 7047     		bx	lr
+ 364              	.L35:
+ 365 000a 00BF     		.align	2
+ 366              	.L34:
+ 367 000c 00000E42 		.word	1108213760
+ 368              		.cfi_endproc
+ 369              	.LFE132:
+ 371              		.section	.text.PWR_SLEEP_Mode_Enter,"ax",%progbits
+ 372              		.align	1
+ 373              		.global	PWR_SLEEP_Mode_Enter
+ 374              		.syntax unified
+ 375              		.thumb
+ 376              		.thumb_func
+ 378              	PWR_SLEEP_Mode_Enter:
+ 379              	.LVL7:
+ 380              	.LFB133:
+ 233:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 234:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+ 235:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_SLEEP_Mode_Enter.
+ 236:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Enters SLEEP mode.
+ 237:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   status :
+ 238:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_SLEEP_ON_EXIT
+ 239:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_SLEEP_NOW
+ 240:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   enter_mode :
+ 241:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_SLEEP_ENTRY_WFI enter SLEEP mode with WFI instruction
+ 242:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_SLEEP_ENTRY_WFE enter SLEEP mode with WFE instruction
+ 243:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  none
+ 244:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+ 245:n32g430_std_periph_driver/src/n32g430_pwr.c **** void PWR_SLEEP_Mode_Enter(PWR_SLEEPONEXIT_STATUS status, uint8_t enter_mode)
+ 246:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+ 381              		.loc 1 246 1 is_stmt 1 view -0
+ 382              		.cfi_startproc
+ 383              		@ args = 0, pretend = 0, frame = 0
+ 384              		@ frame_needed = 0, uses_anonymous_args = 0
+ 385              		@ link register save eliminated.
+ 247:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* CLEAR SLEEPDEEP bit of Cortex System Control Register */
+ 248:n32g430_std_periph_driver/src/n32g430_pwr.c ****     SCB->SCR &= (uint32_t) ~((uint32_t)SCB_SCR_SLEEPDEEP);
+ 386              		.loc 1 248 5 view .LVU69
+ 387              		.loc 1 248 8 is_stmt 0 view .LVU70
+ 388 0000 0C4A     		ldr	r2, .L43
+ 389 0002 1369     		ldr	r3, [r2, #16]
+ 390              		.loc 1 248 14 view .LVU71
+ 391 0004 23F00403 		bic	r3, r3, #4
+ 392 0008 1361     		str	r3, [r2, #16]
+ 249:n32g430_std_periph_driver/src/n32g430_pwr.c ****     
+ 250:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Select SLEEPONEXIT mode entry */
+ 251:n32g430_std_periph_driver/src/n32g430_pwr.c ****     if (status == PWR_SLEEP_ON_EXIT)
+ 393              		.loc 1 251 5 is_stmt 1 view .LVU72
+ 394              		.loc 1 251 8 is_stmt 0 view .LVU73
+ 395 000a 0128     		cmp	r0, #1
+ 396 000c 06D0     		beq	.L41
+ 252:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 12
+
+
+ 253:n32g430_std_periph_driver/src/n32g430_pwr.c ****         /* the MCU enters Sleep mode as soon as it exits the lowest priority INTSTS */
+ 254:n32g430_std_periph_driver/src/n32g430_pwr.c ****         SCB->SCR |= SCB_SCR_SLEEPONEXIT;
+ 255:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 256:n32g430_std_periph_driver/src/n32g430_pwr.c ****     else if (status == PWR_SLEEP_NOW)
+ 397              		.loc 1 256 10 is_stmt 1 view .LVU74
+ 398              		.loc 1 256 13 is_stmt 0 view .LVU75
+ 399 000e 48B9     		cbnz	r0, .L38
+ 257:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ 258:n32g430_std_periph_driver/src/n32g430_pwr.c ****         /* Sleep-now */
+ 259:n32g430_std_periph_driver/src/n32g430_pwr.c ****         SCB->SCR &= (uint32_t) ~((uint32_t)SCB_SCR_SLEEPONEXIT);
+ 400              		.loc 1 259 9 is_stmt 1 view .LVU76
+ 401              		.loc 1 259 12 is_stmt 0 view .LVU77
+ 402 0010 084A     		ldr	r2, .L43
+ 403 0012 1369     		ldr	r3, [r2, #16]
+ 404              		.loc 1 259 18 view .LVU78
+ 405 0014 23F00203 		bic	r3, r3, #2
+ 406 0018 1361     		str	r3, [r2, #16]
+ 407 001a 03E0     		b	.L38
+ 408              	.L41:
+ 254:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 409              		.loc 1 254 9 is_stmt 1 view .LVU79
+ 254:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 410              		.loc 1 254 12 is_stmt 0 view .LVU80
+ 411 001c 1369     		ldr	r3, [r2, #16]
+ 254:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 412              		.loc 1 254 18 view .LVU81
+ 413 001e 43F00203 		orr	r3, r3, #2
+ 414 0022 1361     		str	r3, [r2, #16]
+ 415              	.L38:
+ 260:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 261:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 262:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Select SLEEP mode entry */
+ 263:n32g430_std_periph_driver/src/n32g430_pwr.c ****     if (enter_mode == PWR_SLEEP_ENTRY_WFI)
+ 416              		.loc 1 263 5 is_stmt 1 view .LVU82
+ 417              		.loc 1 263 8 is_stmt 0 view .LVU83
+ 418 0024 0129     		cmp	r1, #1
+ 419 0026 03D0     		beq	.L42
+ 264:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ 265:n32g430_std_periph_driver/src/n32g430_pwr.c ****         /* Request Wait For Interrupt */
+ 266:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __WFI();
+ 267:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 268:n32g430_std_periph_driver/src/n32g430_pwr.c ****     else
+ 269:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ 270:n32g430_std_periph_driver/src/n32g430_pwr.c ****         /* Request Wait For Event */
+ 271:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __SEV();
+ 420              		.loc 1 271 9 is_stmt 1 view .LVU84
+ 421              		.syntax unified
+ 422              	@ 271 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 423 0028 40BF     		sev
+ 424              	@ 0 "" 2
+ 272:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __WFE();
+ 425              		.loc 1 272 9 view .LVU85
+ 426              	@ 272 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 427 002a 20BF     		wfe
+ 428              	@ 0 "" 2
+ 273:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __WFE();
+ 429              		.loc 1 273 9 view .LVU86
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 13
+
+
+ 430              	@ 273 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 431 002c 20BF     		wfe
+ 432              	@ 0 "" 2
+ 274:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 275:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+ 433              		.loc 1 275 1 is_stmt 0 view .LVU87
+ 434              		.thumb
+ 435              		.syntax unified
+ 436 002e 7047     		bx	lr
+ 437              	.L42:
+ 266:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 438              		.loc 1 266 9 is_stmt 1 view .LVU88
+ 439              		.syntax unified
+ 440              	@ 266 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 441 0030 30BF     		wfi
+ 442              	@ 0 "" 2
+ 443              		.thumb
+ 444              		.syntax unified
+ 445 0032 7047     		bx	lr
+ 446              	.L44:
+ 447              		.align	2
+ 448              	.L43:
+ 449 0034 00ED00E0 		.word	-536810240
+ 450              		.cfi_endproc
+ 451              	.LFE133:
+ 453              		.section	.text.PWR_STOP0_Mode_Enter,"ax",%progbits
+ 454              		.align	1
+ 455              		.global	PWR_STOP0_Mode_Enter
+ 456              		.syntax unified
+ 457              		.thumb
+ 458              		.thumb_func
+ 460              	PWR_STOP0_Mode_Enter:
+ 461              	.LVL8:
+ 462              	.LFB134:
+ 276:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 277:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+ 278:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_STOP0_Mode_Enter.
+ 279:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Enters STOP0 mode.
+ 280:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   status :
+ 281:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_REGULATOR_ON
+ 282:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_REGULATOR_LOWPOWER
+ 283:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   enter_mode :
+ 284:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_STOP0_ENTRY_WFI (enter STOP0 mode with WFI instruction)
+ 285:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_STOP0_ENTRY_WFE (enter STOP0 mode with WFE instruction)
+ 286:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  none
+ 287:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+ 288:n32g430_std_periph_driver/src/n32g430_pwr.c **** void PWR_STOP0_Mode_Enter(uint32_t status, uint8_t enter_mode)
+ 289:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+ 463              		.loc 1 289 1 view -0
+ 464              		.cfi_startproc
+ 465              		@ args = 0, pretend = 0, frame = 0
+ 466              		@ frame_needed = 0, uses_anonymous_args = 0
+ 467              		@ link register save eliminated.
+ 290:n32g430_std_periph_driver/src/n32g430_pwr.c ****     uint32_t temp_value = 0;
+ 468              		.loc 1 290 5 view .LVU90
+ 291:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Select the regulator state in STOP0 mode */
+ 292:n32g430_std_periph_driver/src/n32g430_pwr.c ****     temp_value = PWR->CTRL;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 14
+
+
+ 469              		.loc 1 292 5 view .LVU91
+ 470              		.loc 1 292 16 is_stmt 0 view .LVU92
+ 471 0000 0B4A     		ldr	r2, .L49
+ 472 0002 1368     		ldr	r3, [r2]
+ 473              	.LVL9:
+ 293:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Clear LPS and PDS bits */
+ 294:n32g430_std_periph_driver/src/n32g430_pwr.c ****     temp_value &= PWR_CTRL_LPSPDS_MASK;
+ 474              		.loc 1 294 5 is_stmt 1 view .LVU93
+ 475              		.loc 1 294 16 is_stmt 0 view .LVU94
+ 476 0004 23F00303 		bic	r3, r3, #3
+ 477              	.LVL10:
+ 295:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Set LPS bit according to PWR_Regulator value */
+ 296:n32g430_std_periph_driver/src/n32g430_pwr.c ****     temp_value |= status;
+ 478              		.loc 1 296 5 is_stmt 1 view .LVU95
+ 479              		.loc 1 296 16 is_stmt 0 view .LVU96
+ 480 0008 0343     		orrs	r3, r3, r0
+ 481              	.LVL11:
+ 297:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Store the new value */
+ 298:n32g430_std_periph_driver/src/n32g430_pwr.c ****     PWR->CTRL = temp_value;
+ 482              		.loc 1 298 5 is_stmt 1 view .LVU97
+ 483              		.loc 1 298 15 is_stmt 0 view .LVU98
+ 484 000a 1360     		str	r3, [r2]
+ 299:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Set SLEEPDEEP bit of Cortex System Control Register */
+ 300:n32g430_std_periph_driver/src/n32g430_pwr.c ****     SCB->SCR |= SCB_SCR_SLEEPDEEP;
+ 485              		.loc 1 300 5 is_stmt 1 view .LVU99
+ 486              		.loc 1 300 8 is_stmt 0 view .LVU100
+ 487 000c 094A     		ldr	r2, .L49+4
+ 488 000e 1369     		ldr	r3, [r2, #16]
+ 489              	.LVL12:
+ 490              		.loc 1 300 14 view .LVU101
+ 491 0010 43F00403 		orr	r3, r3, #4
+ 492 0014 1361     		str	r3, [r2, #16]
+ 493              	.LVL13:
+ 301:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 302:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Select STOP0 mode entry */
+ 303:n32g430_std_periph_driver/src/n32g430_pwr.c ****     if (enter_mode == PWR_STOP0_ENTRY_WFI)
+ 494              		.loc 1 303 5 is_stmt 1 view .LVU102
+ 495              		.loc 1 303 8 is_stmt 0 view .LVU103
+ 496 0016 0129     		cmp	r1, #1
+ 497 0018 08D0     		beq	.L48
+ 304:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ 305:n32g430_std_periph_driver/src/n32g430_pwr.c ****         /* Request Wait For Interrupt */
+ 306:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __WFI();
+ 307:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 308:n32g430_std_periph_driver/src/n32g430_pwr.c ****     else
+ 309:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ 310:n32g430_std_periph_driver/src/n32g430_pwr.c ****         /* Request Wait For Event */
+ 311:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __SEV();
+ 498              		.loc 1 311 9 is_stmt 1 view .LVU104
+ 499              		.syntax unified
+ 500              	@ 311 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 501 001a 40BF     		sev
+ 502              	@ 0 "" 2
+ 312:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __WFE();
+ 503              		.loc 1 312 9 view .LVU105
+ 504              	@ 312 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 505 001c 20BF     		wfe
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 15
+
+
+ 506              	@ 0 "" 2
+ 313:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __WFE();
+ 507              		.loc 1 313 9 view .LVU106
+ 508              	@ 313 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 509 001e 20BF     		wfe
+ 510              	@ 0 "" 2
+ 511              		.thumb
+ 512              		.syntax unified
+ 513              	.L47:
+ 314:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 315:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Reset SLEEPDEEP bit of Cortex System Control Register */
+ 316:n32g430_std_periph_driver/src/n32g430_pwr.c ****     SCB->SCR &= (uint32_t) ~((uint32_t)SCB_SCR_SLEEPDEEP);
+ 514              		.loc 1 316 5 view .LVU107
+ 515              		.loc 1 316 8 is_stmt 0 view .LVU108
+ 516 0020 044A     		ldr	r2, .L49+4
+ 517 0022 1369     		ldr	r3, [r2, #16]
+ 518              		.loc 1 316 14 view .LVU109
+ 519 0024 23F00403 		bic	r3, r3, #4
+ 520 0028 1361     		str	r3, [r2, #16]
+ 317:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+ 521              		.loc 1 317 1 view .LVU110
+ 522 002a 7047     		bx	lr
+ 523              	.L48:
+ 306:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 524              		.loc 1 306 9 is_stmt 1 view .LVU111
+ 525              		.syntax unified
+ 526              	@ 306 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 527 002c 30BF     		wfi
+ 528              	@ 0 "" 2
+ 529              		.thumb
+ 530              		.syntax unified
+ 531 002e F7E7     		b	.L47
+ 532              	.L50:
+ 533              		.align	2
+ 534              	.L49:
+ 535 0030 00700040 		.word	1073770496
+ 536 0034 00ED00E0 		.word	-536810240
+ 537              		.cfi_endproc
+ 538              	.LFE134:
+ 540              		.section	.text.PWR_STOP2_Mode_Enter,"ax",%progbits
+ 541              		.align	1
+ 542              		.global	PWR_STOP2_Mode_Enter
+ 543              		.syntax unified
+ 544              		.thumb
+ 545              		.thumb_func
+ 547              	PWR_STOP2_Mode_Enter:
+ 548              	.LVL14:
+ 549              	.LFB135:
+ 318:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 319:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+ 320:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_STOP2_Mode_Enter.
+ 321:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Enters STOP2 mode.
+ 322:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   enter_mode :
+ 323:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_STOP2_ENTRY_WFI (enter STOP2 mode with WFI instruction)
+ 324:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_STOP2_ENTRY_WFE (enter STOP2 mode with WFE instruction)
+ 325:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  none
+ 326:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 16
+
+
+ 327:n32g430_std_periph_driver/src/n32g430_pwr.c **** void PWR_STOP2_Mode_Enter(uint8_t enter_mode)
+ 328:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+ 550              		.loc 1 328 1 view -0
+ 551              		.cfi_startproc
+ 552              		@ args = 0, pretend = 0, frame = 0
+ 553              		@ frame_needed = 0, uses_anonymous_args = 0
+ 554              		@ link register save eliminated.
+ 329:n32g430_std_periph_driver/src/n32g430_pwr.c ****     uint32_t temp_value = 0;
+ 555              		.loc 1 329 5 view .LVU113
+ 330:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 331:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Select the regulator state in STOP2 mode */
+ 332:n32g430_std_periph_driver/src/n32g430_pwr.c ****     temp_value = PWR->CTRL;
+ 556              		.loc 1 332 5 view .LVU114
+ 557              		.loc 1 332 16 is_stmt 0 view .LVU115
+ 558 0000 0D4B     		ldr	r3, .L55
+ 559 0002 1A68     		ldr	r2, [r3]
+ 560              	.LVL15:
+ 333:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Clear PDS and LPS bits */
+ 334:n32g430_std_periph_driver/src/n32g430_pwr.c ****     temp_value &= PWR_CTRL_LPSPDS_MASK;
+ 561              		.loc 1 334 5 is_stmt 1 view .LVU116
+ 562              		.loc 1 334 16 is_stmt 0 view .LVU117
+ 563 0004 22F00302 		bic	r2, r2, #3
+ 564              	.LVL16:
+ 335:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Store the new value */
+ 336:n32g430_std_periph_driver/src/n32g430_pwr.c ****     PWR->CTRL = temp_value;
+ 565              		.loc 1 336 5 is_stmt 1 view .LVU118
+ 566              		.loc 1 336 15 is_stmt 0 view .LVU119
+ 567 0008 1A60     		str	r2, [r3]
+ 337:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /*STOP2 sleep mode control-stop2s*/
+ 338:n32g430_std_periph_driver/src/n32g430_pwr.c ****     PWR->CTRL2 |= PWR_STOP2_ENABLE;
+ 568              		.loc 1 338 5 is_stmt 1 view .LVU120
+ 569              		.loc 1 338 8 is_stmt 0 view .LVU121
+ 570 000a 9A68     		ldr	r2, [r3, #8]
+ 571              	.LVL17:
+ 572              		.loc 1 338 16 view .LVU122
+ 573 000c 42F00102 		orr	r2, r2, #1
+ 574 0010 9A60     		str	r2, [r3, #8]
+ 575              	.LVL18:
+ 339:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Set SLEEPDEEP bit of Cortex System Control Register */
+ 340:n32g430_std_periph_driver/src/n32g430_pwr.c ****     SCB->SCR |= SCB_SCR_SLEEPDEEP;
+ 576              		.loc 1 340 5 is_stmt 1 view .LVU123
+ 577              		.loc 1 340 8 is_stmt 0 view .LVU124
+ 578 0012 0A4A     		ldr	r2, .L55+4
+ 579 0014 1369     		ldr	r3, [r2, #16]
+ 580              		.loc 1 340 14 view .LVU125
+ 581 0016 43F00403 		orr	r3, r3, #4
+ 582 001a 1361     		str	r3, [r2, #16]
+ 341:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 342:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Select STOP2 mode entry */
+ 343:n32g430_std_periph_driver/src/n32g430_pwr.c ****     if (enter_mode == PWR_STOP2_ENTRY_WFI)
+ 583              		.loc 1 343 5 is_stmt 1 view .LVU126
+ 584              		.loc 1 343 8 is_stmt 0 view .LVU127
+ 585 001c 0128     		cmp	r0, #1
+ 586 001e 08D0     		beq	.L54
+ 344:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ 345:n32g430_std_periph_driver/src/n32g430_pwr.c ****         /* Request Wait For Interrupt */
+ 346:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __WFI();
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 17
+
+
+ 347:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 348:n32g430_std_periph_driver/src/n32g430_pwr.c ****     else
+ 349:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ 350:n32g430_std_periph_driver/src/n32g430_pwr.c ****         /* Request Wait For Event */
+ 351:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __SEV();
+ 587              		.loc 1 351 9 is_stmt 1 view .LVU128
+ 588              		.syntax unified
+ 589              	@ 351 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 590 0020 40BF     		sev
+ 591              	@ 0 "" 2
+ 352:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __WFE();
+ 592              		.loc 1 352 9 view .LVU129
+ 593              	@ 352 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 594 0022 20BF     		wfe
+ 595              	@ 0 "" 2
+ 353:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __WFE();
+ 596              		.loc 1 353 9 view .LVU130
+ 597              	@ 353 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 598 0024 20BF     		wfe
+ 599              	@ 0 "" 2
+ 600              		.thumb
+ 601              		.syntax unified
+ 602              	.L53:
+ 354:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 355:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Reset SLEEPDEEP bit of Cortex System Control Register */
+ 356:n32g430_std_periph_driver/src/n32g430_pwr.c ****     SCB->SCR &= (uint32_t) ~((uint32_t)SCB_SCR_SLEEPDEEP);
+ 603              		.loc 1 356 5 view .LVU131
+ 604              		.loc 1 356 8 is_stmt 0 view .LVU132
+ 605 0026 054A     		ldr	r2, .L55+4
+ 606 0028 1369     		ldr	r3, [r2, #16]
+ 607              		.loc 1 356 14 view .LVU133
+ 608 002a 23F00403 		bic	r3, r3, #4
+ 609 002e 1361     		str	r3, [r2, #16]
+ 357:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+ 610              		.loc 1 357 1 view .LVU134
+ 611 0030 7047     		bx	lr
+ 612              	.L54:
+ 346:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 613              		.loc 1 346 9 is_stmt 1 view .LVU135
+ 614              		.syntax unified
+ 615              	@ 346 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 616 0032 30BF     		wfi
+ 617              	@ 0 "" 2
+ 618              		.thumb
+ 619              		.syntax unified
+ 620 0034 F7E7     		b	.L53
+ 621              	.L56:
+ 622 0036 00BF     		.align	2
+ 623              	.L55:
+ 624 0038 00700040 		.word	1073770496
+ 625 003c 00ED00E0 		.word	-536810240
+ 626              		.cfi_endproc
+ 627              	.LFE135:
+ 629              		.section	.text.PWR_STANDBY_Mode_Enter,"ax",%progbits
+ 630              		.align	1
+ 631              		.global	PWR_STANDBY_Mode_Enter
+ 632              		.syntax unified
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 18
+
+
+ 633              		.thumb
+ 634              		.thumb_func
+ 636              	PWR_STANDBY_Mode_Enter:
+ 637              	.LVL19:
+ 638              	.LFB136:
+ 358:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 359:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+ 360:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_STANDBY_Mode_Enter.
+ 361:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Enters STANDBY mode.
+ 362:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   enter_mode :
+ 363:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_STANDBY_ENTRY_WFI (enter STANDBY mode with WFI instruction)
+ 364:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_STANDBY_ENTRY_WFE (enter STANDBY mode with WFE instruction)
+ 365:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  none
+ 366:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+ 367:n32g430_std_periph_driver/src/n32g430_pwr.c **** void PWR_STANDBY_Mode_Enter(uint8_t enter_mode)
+ 368:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+ 639              		.loc 1 368 1 view -0
+ 640              		.cfi_startproc
+ 641              		@ args = 0, pretend = 0, frame = 0
+ 642              		@ frame_needed = 0, uses_anonymous_args = 0
+ 643              		@ link register save eliminated.
+ 369:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Clear Wake-up flag */
+ 370:n32g430_std_periph_driver/src/n32g430_pwr.c ****     PWR->CTRL |= PWR_CLEAR_WKUPF_ALL;
+ 644              		.loc 1 370 5 view .LVU137
+ 645              		.loc 1 370 8 is_stmt 0 view .LVU138
+ 646 0000 0C4B     		ldr	r3, .L61
+ 647 0002 1A68     		ldr	r2, [r3]
+ 648              		.loc 1 370 15 view .LVU139
+ 649 0004 42F47052 		orr	r2, r2, #15360
+ 650 0008 1A60     		str	r2, [r3]
+ 371:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Clear PDS and LPS bits */
+ 372:n32g430_std_periph_driver/src/n32g430_pwr.c ****     PWR->CTRL &= PWR_CTRL_LPSPDS_MASK;
+ 651              		.loc 1 372 5 is_stmt 1 view .LVU140
+ 652              		.loc 1 372 8 is_stmt 0 view .LVU141
+ 653 000a 1A68     		ldr	r2, [r3]
+ 654              		.loc 1 372 15 view .LVU142
+ 655 000c 22F00302 		bic	r2, r2, #3
+ 656 0010 1A60     		str	r2, [r3]
+ 373:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Select STANDBY mode */
+ 374:n32g430_std_periph_driver/src/n32g430_pwr.c ****     PWR->CTRL |= PWR_CTRL_PDS;
+ 657              		.loc 1 374 5 is_stmt 1 view .LVU143
+ 658              		.loc 1 374 8 is_stmt 0 view .LVU144
+ 659 0012 1A68     		ldr	r2, [r3]
+ 660              		.loc 1 374 15 view .LVU145
+ 661 0014 42F00202 		orr	r2, r2, #2
+ 662 0018 1A60     		str	r2, [r3]
+ 375:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Set SLEEPDEEP bit of Cortex System Control Register */
+ 376:n32g430_std_periph_driver/src/n32g430_pwr.c ****     SCB->SCR |= SCB_SCR_SLEEPDEEP;
+ 663              		.loc 1 376 5 is_stmt 1 view .LVU146
+ 664              		.loc 1 376 8 is_stmt 0 view .LVU147
+ 665 001a 074A     		ldr	r2, .L61+4
+ 666 001c 1369     		ldr	r3, [r2, #16]
+ 667              		.loc 1 376 14 view .LVU148
+ 668 001e 43F00403 		orr	r3, r3, #4
+ 669 0022 1361     		str	r3, [r2, #16]
+ 377:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* This option is used to ensure that store operations are completed */
+ 378:n32g430_std_periph_driver/src/n32g430_pwr.c **** #if defined(__CC_ARM)
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 19
+
+
+ 379:n32g430_std_periph_driver/src/n32g430_pwr.c ****     __force_stores();
+ 380:n32g430_std_periph_driver/src/n32g430_pwr.c **** #endif
+ 381:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Select STANDBY mode entry */
+ 382:n32g430_std_periph_driver/src/n32g430_pwr.c ****     if (enter_mode == PWR_STANDBY_ENTRY_WFI)
+ 670              		.loc 1 382 5 is_stmt 1 view .LVU149
+ 671              		.loc 1 382 8 is_stmt 0 view .LVU150
+ 672 0024 0128     		cmp	r0, #1
+ 673 0026 03D0     		beq	.L60
+ 383:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ 384:n32g430_std_periph_driver/src/n32g430_pwr.c ****         /* Request Wait For Interrupt */
+ 385:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __WFI();
+ 386:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 387:n32g430_std_periph_driver/src/n32g430_pwr.c ****     else
+ 388:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ 389:n32g430_std_periph_driver/src/n32g430_pwr.c ****         /* Request Wait For Event */
+ 390:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __SEV();
+ 674              		.loc 1 390 9 is_stmt 1 view .LVU151
+ 675              		.syntax unified
+ 676              	@ 390 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 677 0028 40BF     		sev
+ 678              	@ 0 "" 2
+ 391:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __WFE();
+ 679              		.loc 1 391 9 view .LVU152
+ 680              	@ 391 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 681 002a 20BF     		wfe
+ 682              	@ 0 "" 2
+ 392:n32g430_std_periph_driver/src/n32g430_pwr.c ****         __WFE();
+ 683              		.loc 1 392 9 view .LVU153
+ 684              	@ 392 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 685 002c 20BF     		wfe
+ 686              	@ 0 "" 2
+ 393:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 394:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+ 687              		.loc 1 394 1 is_stmt 0 view .LVU154
+ 688              		.thumb
+ 689              		.syntax unified
+ 690 002e 7047     		bx	lr
+ 691              	.L60:
+ 385:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 692              		.loc 1 385 9 is_stmt 1 view .LVU155
+ 693              		.syntax unified
+ 694              	@ 385 "n32g430_std_periph_driver/src/n32g430_pwr.c" 1
+ 695 0030 30BF     		wfi
+ 696              	@ 0 "" 2
+ 697              		.thumb
+ 698              		.syntax unified
+ 699 0032 7047     		bx	lr
+ 700              	.L62:
+ 701              		.align	2
+ 702              	.L61:
+ 703 0034 00700040 		.word	1073770496
+ 704 0038 00ED00E0 		.word	-536810240
+ 705              		.cfi_endproc
+ 706              	.LFE136:
+ 708              		.section	.text.PWR_Flag_Status_Get,"ax",%progbits
+ 709              		.align	1
+ 710              		.global	PWR_Flag_Status_Get
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 20
+
+
+ 711              		.syntax unified
+ 712              		.thumb
+ 713              		.thumb_func
+ 715              	PWR_Flag_Status_Get:
+ 716              	.LVL20:
+ 717              	.LFB137:
+ 395:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 396:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+ 397:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_Flag_Status_Get.
+ 398:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Checks whether the specified PWR flag is set or not.
+ 399:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   flag :
+ 400:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_WKUP_FLAG_PA8
+ 401:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_WKUP_FLAG_PA0
+ 402:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_WKUP_FLAG_PC13
+ 403:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_WKUP_FLAG_RTC
+ 404:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_STBY_FLAG
+ 405:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_PVD_OUTPUT_FLAG
+ 406:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  SET or RESET.
+ 407:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+ 408:n32g430_std_periph_driver/src/n32g430_pwr.c **** FlagStatus PWR_Flag_Status_Get(uint32_t flag)
+ 409:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+ 718              		.loc 1 409 1 view -0
+ 719              		.cfi_startproc
+ 720              		@ args = 0, pretend = 0, frame = 0
+ 721              		@ frame_needed = 0, uses_anonymous_args = 0
+ 722              		@ link register save eliminated.
+ 410:n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Check the status of the PWR flag */
+ 411:n32g430_std_periph_driver/src/n32g430_pwr.c ****     if ((PWR->CTRLSTS & flag) == (uint32_t)RESET)
+ 723              		.loc 1 411 5 view .LVU157
+ 724              		.loc 1 411 13 is_stmt 0 view .LVU158
+ 725 0000 034B     		ldr	r3, .L66
+ 726 0002 5B68     		ldr	r3, [r3, #4]
+ 727              		.loc 1 411 8 view .LVU159
+ 728 0004 0342     		tst	r3, r0
+ 729 0006 01D1     		bne	.L65
+ 412:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ 413:n32g430_std_periph_driver/src/n32g430_pwr.c ****         /* PWR Flag is reset */
+ 414:n32g430_std_periph_driver/src/n32g430_pwr.c ****         return RESET;
+ 730              		.loc 1 414 16 view .LVU160
+ 731 0008 0020     		movs	r0, #0
+ 732              	.LVL21:
+ 733              		.loc 1 414 16 view .LVU161
+ 734 000a 7047     		bx	lr
+ 735              	.LVL22:
+ 736              	.L65:
+ 415:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 416:n32g430_std_periph_driver/src/n32g430_pwr.c ****     else
+ 417:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ 418:n32g430_std_periph_driver/src/n32g430_pwr.c ****         /* PWR Flag is set */
+ 419:n32g430_std_periph_driver/src/n32g430_pwr.c ****         return SET;
+ 737              		.loc 1 419 16 view .LVU162
+ 738 000c 0120     		movs	r0, #1
+ 739              	.LVL23:
+ 420:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 421:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+ 740              		.loc 1 421 1 view .LVU163
+ 741 000e 7047     		bx	lr
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 21
+
+
+ 742              	.L67:
+ 743              		.align	2
+ 744              	.L66:
+ 745 0010 00700040 		.word	1073770496
+ 746              		.cfi_endproc
+ 747              	.LFE137:
+ 749              		.section	.text.PWR_Flag_Status_Clear,"ax",%progbits
+ 750              		.align	1
+ 751              		.global	PWR_Flag_Status_Clear
+ 752              		.syntax unified
+ 753              		.thumb
+ 754              		.thumb_func
+ 756              	PWR_Flag_Status_Clear:
+ 757              	.LVL24:
+ 758              	.LFB138:
+ 422:n32g430_std_periph_driver/src/n32g430_pwr.c **** 
+ 423:n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
+ 424:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\name    PWR_Flag_Status_Clear.
+ 425:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\fun     Clears the PWR's pending flags.
+ 426:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\param   flag :
+ 427:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_WKUP_FLAG_PA8
+ 428:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_WKUP_FLAG_PA0
+ 429:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_WKUP_FLAG_PC13
+ 430:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_WKUP_FLAG_RTC
+ 431:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\          - PWR_STBY_FLAG
+ 432:n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\return  none
+ 433:n32g430_std_periph_driver/src/n32g430_pwr.c **** **/
+ 434:n32g430_std_periph_driver/src/n32g430_pwr.c **** void PWR_Flag_Status_Clear(uint32_t flag)
+ 435:n32g430_std_periph_driver/src/n32g430_pwr.c **** {
+ 759              		.loc 1 435 1 is_stmt 1 view -0
+ 760              		.cfi_startproc
+ 761              		@ args = 0, pretend = 0, frame = 0
+ 762              		@ frame_needed = 0, uses_anonymous_args = 0
+ 763              		@ link register save eliminated.
+ 436:n32g430_std_periph_driver/src/n32g430_pwr.c ****     if(flag == PWR_STBY_FLAG)
+ 764              		.loc 1 436 5 view .LVU165
+ 765              		.loc 1 436 7 is_stmt 0 view .LVU166
+ 766 0000 0228     		cmp	r0, #2
+ 767 0002 05D0     		beq	.L71
+ 437:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ 438:n32g430_std_periph_driver/src/n32g430_pwr.c ****         PWR->CTRL |= flag << PWR_BIT_SHIFT_2;
+ 439:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 440:n32g430_std_periph_driver/src/n32g430_pwr.c ****     else
+ 441:n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
+ 442:n32g430_std_periph_driver/src/n32g430_pwr.c ****         PWR->CTRL |= flag << PWR_BIT_SHIFT_7;
+ 768              		.loc 1 442 9 is_stmt 1 view .LVU167
+ 769              		.loc 1 442 12 is_stmt 0 view .LVU168
+ 770 0004 054A     		ldr	r2, .L72
+ 771 0006 1368     		ldr	r3, [r2]
+ 772              		.loc 1 442 19 view .LVU169
+ 773 0008 43EAC013 		orr	r3, r3, r0, lsl #7
+ 774 000c 1360     		str	r3, [r2]
+ 443:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 444:n32g430_std_periph_driver/src/n32g430_pwr.c **** }
+ 775              		.loc 1 444 1 view .LVU170
+ 776 000e 7047     		bx	lr
+ 777              	.L71:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 22
+
+
+ 438:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 778              		.loc 1 438 9 is_stmt 1 view .LVU171
+ 438:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 779              		.loc 1 438 12 is_stmt 0 view .LVU172
+ 780 0010 024A     		ldr	r2, .L72
+ 781 0012 1368     		ldr	r3, [r2]
+ 438:n32g430_std_periph_driver/src/n32g430_pwr.c ****     }
+ 782              		.loc 1 438 19 view .LVU173
+ 783 0014 43EA8003 		orr	r3, r3, r0, lsl #2
+ 784 0018 1360     		str	r3, [r2]
+ 785 001a 7047     		bx	lr
+ 786              	.L73:
+ 787              		.align	2
+ 788              	.L72:
+ 789 001c 00700040 		.word	1073770496
+ 790              		.cfi_endproc
+ 791              	.LFE138:
+ 793              		.text
+ 794              	.Letext0:
+ 795              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 796              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 797              		.file 4 "CMSIS/core/core_cm4.h"
+ 798              		.file 5 "CMSIS/device/n32g430.h"
+ 799              		.file 6 "n32g430_std_periph_driver/inc/n32g430_pwr.h"
+ 800              		.file 7 "n32g430_std_periph_driver/inc/n32g430_rcc.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s 			page 23
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 n32g430_pwr.c
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:19     .text.PWR_Reset:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:25     .text.PWR_Reset:00000000 PWR_Reset
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:46     .text.PWR_RTC_Backup_Access_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:52     .text.PWR_RTC_Backup_Access_Enable:00000000 PWR_RTC_Backup_Access_Enable
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:69     .text.PWR_RTC_Backup_Access_Enable:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:74     .text.PWR_RTC_Backup_Access_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:80     .text.PWR_RTC_Backup_Access_Disable:00000000 PWR_RTC_Backup_Access_Disable
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:97     .text.PWR_RTC_Backup_Access_Disable:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:102    .text.PWR_PVD_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:108    .text.PWR_PVD_Enable:00000000 PWR_PVD_Enable
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:125    .text.PWR_PVD_Enable:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:130    .text.PWR_PVD_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:136    .text.PWR_PVD_Disable:00000000 PWR_PVD_Disable
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:153    .text.PWR_PVD_Disable:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:158    .text.PWR_PVD_Level_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:164    .text.PWR_PVD_Level_Config:00000000 PWR_PVD_Level_Config
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:194    .text.PWR_PVD_Level_Config:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:199    .text.PWR_Wakeup_Pin_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:205    .text.PWR_Wakeup_Pin_Enable:00000000 PWR_Wakeup_Pin_Enable
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:257    .text.PWR_Wakeup_Pin_Enable:0000003c $d
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:262    .text.PWR_Wakeup_Pin_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:268    .text.PWR_Wakeup_Pin_Disable:00000000 PWR_Wakeup_Pin_Disable
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:311    .text.PWR_Wakeup_Pin_Disable:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:316    .text.PWR_RTC_Wakeup_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:322    .text.PWR_RTC_Wakeup_Enable:00000000 PWR_RTC_Wakeup_Enable
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:339    .text.PWR_RTC_Wakeup_Enable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:344    .text.PWR_RTC_Wakeup_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:350    .text.PWR_RTC_Wakeup_Disable:00000000 PWR_RTC_Wakeup_Disable
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:367    .text.PWR_RTC_Wakeup_Disable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:372    .text.PWR_SLEEP_Mode_Enter:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:378    .text.PWR_SLEEP_Mode_Enter:00000000 PWR_SLEEP_Mode_Enter
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:449    .text.PWR_SLEEP_Mode_Enter:00000034 $d
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:454    .text.PWR_STOP0_Mode_Enter:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:460    .text.PWR_STOP0_Mode_Enter:00000000 PWR_STOP0_Mode_Enter
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:535    .text.PWR_STOP0_Mode_Enter:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:541    .text.PWR_STOP2_Mode_Enter:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:547    .text.PWR_STOP2_Mode_Enter:00000000 PWR_STOP2_Mode_Enter
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:624    .text.PWR_STOP2_Mode_Enter:00000038 $d
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:630    .text.PWR_STANDBY_Mode_Enter:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:636    .text.PWR_STANDBY_Mode_Enter:00000000 PWR_STANDBY_Mode_Enter
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:703    .text.PWR_STANDBY_Mode_Enter:00000034 $d
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:709    .text.PWR_Flag_Status_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:715    .text.PWR_Flag_Status_Get:00000000 PWR_Flag_Status_Get
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:745    .text.PWR_Flag_Status_Get:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:750    .text.PWR_Flag_Status_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:756    .text.PWR_Flag_Status_Clear:00000000 PWR_Flag_Status_Clear
+C:\Users\Dawn\AppData\Local\Temp\cczQKqPd.s:789    .text.PWR_Flag_Status_Clear:0000001c $d
+
+UNDEFINED SYMBOLS
+RCC_APB1_Peripheral_Reset

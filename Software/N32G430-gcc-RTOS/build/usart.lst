@@ -1,0 +1,2584 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 23, 1
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"usart.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "core/src/usart.c"
+  18              		.section	.text.USART1_Init,"ax",%progbits
+  19              		.align	1
+  20              		.global	USART1_Init
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	USART1_Init:
+  26              	.LVL0:
+  27              	.LFB126:
+   1:core/src/usart.c **** /**
+   2:core/src/usart.c ****  * @file usart1.c
+   3:core/src/usart.c ****  * @brief USART1 Serial Communication Implementation
+   4:core/src/usart.c ****  * @version v1.0.0
+   5:core/src/usart.c ****  * @author N32G430 Project
+   6:core/src/usart.c ****  */
+   7:core/src/usart.c **** 
+   8:core/src/usart.c **** #include "usart.h"
+   9:core/src/usart.c **** #include "timer.h"
+  10:core/src/usart.c **** #include <string.h>
+  11:core/src/usart.c **** 
+  12:core/src/usart.c **** /* Private Variables */
+  13:core/src/usart.c **** static uint8_t usart1_initialized = 0;
+  14:core/src/usart.c **** static char tx_buffer[USART1_TX_BUFFER_SIZE];
+  15:core/src/usart.c **** static char rx_buffer[USART1_RX_BUFFER_SIZE];
+  16:core/src/usart.c **** static volatile uint16_t rx_write_index = 0;
+  17:core/src/usart.c **** static volatile uint16_t rx_read_index = 0;
+  18:core/src/usart.c **** static volatile uint16_t rx_count = 0;
+  19:core/src/usart.c **** 
+  20:core/src/usart.c **** /**
+  21:core/src/usart.c ****  * @brief Initialize USART1 with specified baudrate
+  22:core/src/usart.c ****  * @param baudrate: Serial communication baudrate
+  23:core/src/usart.c ****  * @retval None
+  24:core/src/usart.c ****  */
+  25:core/src/usart.c **** void USART1_Init(uint32_t baudrate)
+  26:core/src/usart.c **** {
+  28              		.loc 1 26 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 48
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 26 1 is_stmt 0 view .LVU1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 2
+
+
+  33 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 28
+  36              		.cfi_offset 4, -28
+  37              		.cfi_offset 5, -24
+  38              		.cfi_offset 6, -20
+  39              		.cfi_offset 7, -16
+  40              		.cfi_offset 8, -12
+  41              		.cfi_offset 9, -8
+  42              		.cfi_offset 14, -4
+  43 0004 8DB0     		sub	sp, sp, #52
+  44              	.LCFI1:
+  45              		.cfi_def_cfa_offset 80
+  46 0006 0646     		mov	r6, r0
+  27:core/src/usart.c ****     GPIO_InitType GPIO_InitStructure;
+  47              		.loc 1 27 5 is_stmt 1 view .LVU2
+  28:core/src/usart.c ****     USART_InitType USART_InitStructure;
+  48              		.loc 1 28 5 view .LVU3
+  29:core/src/usart.c ****     NVIC_InitType NVIC_InitStructure;
+  49              		.loc 1 29 5 view .LVU4
+  30:core/src/usart.c **** 
+  31:core/src/usart.c ****     /* Enable clocks */
+  32:core/src/usart.c ****     RCC_AHB_Peripheral_Clock_Enable(RCC_AHB_PERIPH_GPIOA);
+  50              		.loc 1 32 5 view .LVU5
+  51 0008 8020     		movs	r0, #128
+  52              	.LVL1:
+  53              		.loc 1 32 5 is_stmt 0 view .LVU6
+  54 000a FFF7FEFF 		bl	RCC_AHB_Peripheral_Clock_Enable
+  55              	.LVL2:
+  33:core/src/usart.c ****     RCC_APB2_Peripheral_Clock_Enable(RCC_APB2_PERIPH_USART1);
+  56              		.loc 1 33 5 is_stmt 1 view .LVU7
+  57 000e 4FF48040 		mov	r0, #16384
+  58 0012 FFF7FEFF 		bl	RCC_APB2_Peripheral_Clock_Enable
+  59              	.LVL3:
+  34:core/src/usart.c **** 
+  35:core/src/usart.c ****     /* Configure USART1 TX (PA9) */
+  36:core/src/usart.c ****     GPIO_InitStructure.Pin = USART1_TX_GPIO_PIN;
+  60              		.loc 1 36 5 view .LVU8
+  61              		.loc 1 36 28 is_stmt 0 view .LVU9
+  62 0016 4FF40073 		mov	r3, #512
+  63 001a 0693     		str	r3, [sp, #24]
+  37:core/src/usart.c ****     GPIO_InitStructure.GPIO_Mode = GPIO_MODE_AF_PP;
+  64              		.loc 1 37 5 is_stmt 1 view .LVU10
+  65              		.loc 1 37 34 is_stmt 0 view .LVU11
+  66 001c 0227     		movs	r7, #2
+  67 001e 0797     		str	r7, [sp, #28]
+  38:core/src/usart.c ****     GPIO_InitStructure.GPIO_Pull = GPIO_PULL_UP;
+  68              		.loc 1 38 5 is_stmt 1 view .LVU12
+  69              		.loc 1 38 34 is_stmt 0 view .LVU13
+  70 0020 0125     		movs	r5, #1
+  71 0022 0895     		str	r5, [sp, #32]
+  39:core/src/usart.c ****     GPIO_InitStructure.GPIO_Slew_Rate = GPIO_SLEW_RATE_FAST;
+  72              		.loc 1 39 5 is_stmt 1 view .LVU14
+  73              		.loc 1 39 39 is_stmt 0 view .LVU15
+  74 0024 0024     		movs	r4, #0
+  75 0026 0994     		str	r4, [sp, #36]
+  40:core/src/usart.c ****     GPIO_InitStructure.GPIO_Current = GPIO_DS_4MA;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 3
+
+
+  76              		.loc 1 40 5 is_stmt 1 view .LVU16
+  77              		.loc 1 40 37 is_stmt 0 view .LVU17
+  78 0028 0A97     		str	r7, [sp, #40]
+  41:core/src/usart.c ****     GPIO_InitStructure.GPIO_Alternate = USART1_TX_GPIO_AF;
+  79              		.loc 1 41 5 is_stmt 1 view .LVU18
+  80              		.loc 1 41 39 is_stmt 0 view .LVU19
+  81 002a 0B95     		str	r5, [sp, #44]
+  42:core/src/usart.c ****     GPIO_Peripheral_Initialize(USART1_TX_GPIO_PORT, &GPIO_InitStructure);
+  82              		.loc 1 42 5 is_stmt 1 view .LVU20
+  83 002c 0DF11809 		add	r9, sp, #24
+  84 0030 DFF8A080 		ldr	r8, .L3+24
+  85 0034 4946     		mov	r1, r9
+  86 0036 4046     		mov	r0, r8
+  87 0038 FFF7FEFF 		bl	GPIO_Peripheral_Initialize
+  88              	.LVL4:
+  43:core/src/usart.c **** 
+  44:core/src/usart.c ****     /* Configure USART1 RX (PA10) */
+  45:core/src/usart.c ****     GPIO_InitStructure.Pin = USART1_RX_GPIO_PIN;
+  89              		.loc 1 45 5 view .LVU21
+  90              		.loc 1 45 28 is_stmt 0 view .LVU22
+  91 003c 4FF48063 		mov	r3, #1024
+  92 0040 0693     		str	r3, [sp, #24]
+  46:core/src/usart.c ****     GPIO_InitStructure.GPIO_Mode = GPIO_MODE_AF_PP;
+  93              		.loc 1 46 5 is_stmt 1 view .LVU23
+  94              		.loc 1 46 34 is_stmt 0 view .LVU24
+  95 0042 0797     		str	r7, [sp, #28]
+  47:core/src/usart.c ****     GPIO_InitStructure.GPIO_Pull = GPIO_PULL_UP;
+  96              		.loc 1 47 5 is_stmt 1 view .LVU25
+  97              		.loc 1 47 34 is_stmt 0 view .LVU26
+  98 0044 0895     		str	r5, [sp, #32]
+  48:core/src/usart.c ****     GPIO_InitStructure.GPIO_Alternate = USART1_RX_GPIO_AF;
+  99              		.loc 1 48 5 is_stmt 1 view .LVU27
+ 100              		.loc 1 48 39 is_stmt 0 view .LVU28
+ 101 0046 0B95     		str	r5, [sp, #44]
+  49:core/src/usart.c ****     GPIO_Peripheral_Initialize(USART1_RX_GPIO_PORT, &GPIO_InitStructure);
+ 102              		.loc 1 49 5 is_stmt 1 view .LVU29
+ 103 0048 4946     		mov	r1, r9
+ 104 004a 4046     		mov	r0, r8
+ 105 004c FFF7FEFF 		bl	GPIO_Peripheral_Initialize
+ 106              	.LVL5:
+  50:core/src/usart.c **** 
+  51:core/src/usart.c ****     /* Configure USART1 */
+  52:core/src/usart.c ****     USART_InitStructure.BaudRate = baudrate;
+ 107              		.loc 1 52 5 view .LVU30
+ 108              		.loc 1 52 34 is_stmt 0 view .LVU31
+ 109 0050 0296     		str	r6, [sp, #8]
+  53:core/src/usart.c ****     USART_InitStructure.WordLength = USART_WL_8B;
+ 110              		.loc 1 53 5 is_stmt 1 view .LVU32
+ 111              		.loc 1 53 36 is_stmt 0 view .LVU33
+ 112 0052 ADF80C40 		strh	r4, [sp, #12]	@ movhi
+  54:core/src/usart.c ****     USART_InitStructure.StopBits = USART_STPB_1;
+ 113              		.loc 1 54 5 is_stmt 1 view .LVU34
+ 114              		.loc 1 54 34 is_stmt 0 view .LVU35
+ 115 0056 ADF80E40 		strh	r4, [sp, #14]	@ movhi
+  55:core/src/usart.c ****     USART_InitStructure.Parity = USART_PE_NO;
+ 116              		.loc 1 55 5 is_stmt 1 view .LVU36
+ 117              		.loc 1 55 32 is_stmt 0 view .LVU37
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 4
+
+
+ 118 005a ADF81040 		strh	r4, [sp, #16]	@ movhi
+  56:core/src/usart.c ****     USART_InitStructure.HardwareFlowControl = USART_HFCTRL_NONE;
+ 119              		.loc 1 56 5 is_stmt 1 view .LVU38
+ 120              		.loc 1 56 45 is_stmt 0 view .LVU39
+ 121 005e ADF81440 		strh	r4, [sp, #20]	@ movhi
+  57:core/src/usart.c ****     USART_InitStructure.Mode = USART_MODE_TX | USART_MODE_RX;
+ 122              		.loc 1 57 5 is_stmt 1 view .LVU40
+ 123              		.loc 1 57 30 is_stmt 0 view .LVU41
+ 124 0062 0C23     		movs	r3, #12
+ 125 0064 ADF81230 		strh	r3, [sp, #18]	@ movhi
+  58:core/src/usart.c ****     USART_Initializes(USART1, &USART_InitStructure);
+ 126              		.loc 1 58 5 is_stmt 1 view .LVU42
+ 127 0068 144E     		ldr	r6, .L3
+ 128              	.LVL6:
+ 129              		.loc 1 58 5 is_stmt 0 view .LVU43
+ 130 006a 02A9     		add	r1, sp, #8
+ 131              	.LVL7:
+ 132              		.loc 1 58 5 view .LVU44
+ 133 006c 3046     		mov	r0, r6
+ 134 006e FFF7FEFF 		bl	USART_Initializes
+ 135              	.LVL8:
+  59:core/src/usart.c **** 
+  60:core/src/usart.c ****     /* Configure NVIC for USART1 */
+  61:core/src/usart.c ****     NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
+ 136              		.loc 1 61 5 is_stmt 1 view .LVU45
+ 137              		.loc 1 61 40 is_stmt 0 view .LVU46
+ 138 0072 2423     		movs	r3, #36
+ 139 0074 8DF80430 		strb	r3, [sp, #4]
+  62:core/src/usart.c ****     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+ 140              		.loc 1 62 5 is_stmt 1 view .LVU47
+ 141              		.loc 1 62 58 is_stmt 0 view .LVU48
+ 142 0078 8DF80550 		strb	r5, [sp, #5]
+  63:core/src/usart.c ****     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+ 143              		.loc 1 63 5 is_stmt 1 view .LVU49
+ 144              		.loc 1 63 51 is_stmt 0 view .LVU50
+ 145 007c 8DF80650 		strb	r5, [sp, #6]
+  64:core/src/usart.c ****     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+ 146              		.loc 1 64 5 is_stmt 1 view .LVU51
+ 147              		.loc 1 64 43 is_stmt 0 view .LVU52
+ 148 0080 8DF80750 		strb	r5, [sp, #7]
+  65:core/src/usart.c ****     NVIC_Initializes(&NVIC_InitStructure);
+ 149              		.loc 1 65 5 is_stmt 1 view .LVU53
+ 150 0084 01A8     		add	r0, sp, #4
+ 151 0086 FFF7FEFF 		bl	NVIC_Initializes
+ 152              	.LVL9:
+  66:core/src/usart.c **** 
+  67:core/src/usart.c ****     /* Enable USART1 receive interrupt */
+  68:core/src/usart.c ****     USART_Interrput_Enable(USART1, USART_INT_RXDNE);
+ 153              		.loc 1 68 5 view .LVU54
+ 154 008a 40F22551 		movw	r1, #1317
+ 155 008e 3046     		mov	r0, r6
+ 156 0090 FFF7FEFF 		bl	USART_Interrput_Enable
+ 157              	.LVL10:
+  69:core/src/usart.c **** 
+  70:core/src/usart.c ****     /* Enable USART1 */
+  71:core/src/usart.c ****     USART_Enable(USART1);
+ 158              		.loc 1 71 5 view .LVU55
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 5
+
+
+ 159 0094 3046     		mov	r0, r6
+ 160 0096 FFF7FEFF 		bl	USART_Enable
+ 161              	.LVL11:
+  72:core/src/usart.c **** 
+  73:core/src/usart.c ****     /* Clear buffers */
+  74:core/src/usart.c ****     memset(rx_buffer, 0, sizeof(rx_buffer));
+ 162              		.loc 1 74 5 view .LVU56
+ 163 009a 4FF48072 		mov	r2, #256
+ 164 009e 2146     		mov	r1, r4
+ 165 00a0 0748     		ldr	r0, .L3+4
+ 166 00a2 FFF7FEFF 		bl	memset
+ 167              	.LVL12:
+  75:core/src/usart.c ****     rx_write_index = 0;
+ 168              		.loc 1 75 5 view .LVU57
+ 169              		.loc 1 75 20 is_stmt 0 view .LVU58
+ 170 00a6 074B     		ldr	r3, .L3+8
+ 171 00a8 1C80     		strh	r4, [r3]	@ movhi
+  76:core/src/usart.c ****     rx_read_index = 0;
+ 172              		.loc 1 76 5 is_stmt 1 view .LVU59
+ 173              		.loc 1 76 19 is_stmt 0 view .LVU60
+ 174 00aa 074B     		ldr	r3, .L3+12
+ 175 00ac 1C80     		strh	r4, [r3]	@ movhi
+  77:core/src/usart.c ****     rx_count = 0;
+ 176              		.loc 1 77 5 is_stmt 1 view .LVU61
+ 177              		.loc 1 77 14 is_stmt 0 view .LVU62
+ 178 00ae 074B     		ldr	r3, .L3+16
+ 179 00b0 1C80     		strh	r4, [r3]	@ movhi
+  78:core/src/usart.c **** 
+  79:core/src/usart.c ****     usart1_initialized = 1;
+ 180              		.loc 1 79 5 is_stmt 1 view .LVU63
+ 181              		.loc 1 79 24 is_stmt 0 view .LVU64
+ 182 00b2 074B     		ldr	r3, .L3+20
+ 183 00b4 1D70     		strb	r5, [r3]
+  80:core/src/usart.c **** }
+ 184              		.loc 1 80 1 view .LVU65
+ 185 00b6 0DB0     		add	sp, sp, #52
+ 186              	.LCFI2:
+ 187              		.cfi_def_cfa_offset 28
+ 188              		@ sp needed
+ 189 00b8 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 190              	.L4:
+ 191              		.align	2
+ 192              	.L3:
+ 193 00bc 00380140 		.word	1073821696
+ 194 00c0 00000000 		.word	rx_buffer
+ 195 00c4 00000000 		.word	rx_write_index
+ 196 00c8 00000000 		.word	rx_read_index
+ 197 00cc 00000000 		.word	rx_count
+ 198 00d0 00000000 		.word	usart1_initialized
+ 199 00d4 00340240 		.word	1073886208
+ 200              		.cfi_endproc
+ 201              	.LFE126:
+ 203              		.section	.text.USART1_DeInit,"ax",%progbits
+ 204              		.align	1
+ 205              		.global	USART1_DeInit
+ 206              		.syntax unified
+ 207              		.thumb
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 6
+
+
+ 208              		.thumb_func
+ 210              	USART1_DeInit:
+ 211              	.LFB127:
+  81:core/src/usart.c **** 
+  82:core/src/usart.c **** /**
+  83:core/src/usart.c ****  * @brief Deinitialize USART1
+  84:core/src/usart.c ****  * @param None
+  85:core/src/usart.c ****  * @retval None
+  86:core/src/usart.c ****  */
+  87:core/src/usart.c **** void USART1_DeInit(void)
+  88:core/src/usart.c **** {
+ 212              		.loc 1 88 1 is_stmt 1 view -0
+ 213              		.cfi_startproc
+ 214              		@ args = 0, pretend = 0, frame = 0
+ 215              		@ frame_needed = 0, uses_anonymous_args = 0
+ 216 0000 08B5     		push	{r3, lr}
+ 217              	.LCFI3:
+ 218              		.cfi_def_cfa_offset 8
+ 219              		.cfi_offset 3, -8
+ 220              		.cfi_offset 14, -4
+  89:core/src/usart.c ****     USART_Disable(USART1);
+ 221              		.loc 1 89 5 view .LVU67
+ 222 0002 0348     		ldr	r0, .L7
+ 223 0004 FFF7FEFF 		bl	USART_Disable
+ 224              	.LVL13:
+  90:core/src/usart.c ****     usart1_initialized = 0;
+ 225              		.loc 1 90 5 view .LVU68
+ 226              		.loc 1 90 24 is_stmt 0 view .LVU69
+ 227 0008 024B     		ldr	r3, .L7+4
+ 228 000a 0022     		movs	r2, #0
+ 229 000c 1A70     		strb	r2, [r3]
+  91:core/src/usart.c **** }
+ 230              		.loc 1 91 1 view .LVU70
+ 231 000e 08BD     		pop	{r3, pc}
+ 232              	.L8:
+ 233              		.align	2
+ 234              	.L7:
+ 235 0010 00380140 		.word	1073821696
+ 236 0014 00000000 		.word	usart1_initialized
+ 237              		.cfi_endproc
+ 238              	.LFE127:
+ 240              		.section	.text.USART1_Send_Char,"ax",%progbits
+ 241              		.align	1
+ 242              		.global	USART1_Send_Char
+ 243              		.syntax unified
+ 244              		.thumb
+ 245              		.thumb_func
+ 247              	USART1_Send_Char:
+ 248              	.LVL14:
+ 249              	.LFB128:
+  92:core/src/usart.c **** 
+  93:core/src/usart.c **** /**
+  94:core/src/usart.c ****  * @brief Send a character via USART1
+  95:core/src/usart.c ****  * @param ch: Character to send
+  96:core/src/usart.c ****  * @retval None
+  97:core/src/usart.c ****  */
+  98:core/src/usart.c **** void USART1_Send_Char(char ch)
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 7
+
+
+  99:core/src/usart.c **** {
+ 250              		.loc 1 99 1 is_stmt 1 view -0
+ 251              		.cfi_startproc
+ 252              		@ args = 0, pretend = 0, frame = 0
+ 253              		@ frame_needed = 0, uses_anonymous_args = 0
+ 254              		.loc 1 99 1 is_stmt 0 view .LVU72
+ 255 0000 10B5     		push	{r4, lr}
+ 256              	.LCFI4:
+ 257              		.cfi_def_cfa_offset 8
+ 258              		.cfi_offset 4, -8
+ 259              		.cfi_offset 14, -4
+ 260 0002 0446     		mov	r4, r0
+ 100:core/src/usart.c ****     if (!usart1_initialized) return;
+ 261              		.loc 1 100 5 is_stmt 1 view .LVU73
+ 262              		.loc 1 100 9 is_stmt 0 view .LVU74
+ 263 0004 094B     		ldr	r3, .L14
+ 264 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 265              		.loc 1 100 8 view .LVU75
+ 266 0008 7BB1     		cbz	r3, .L9
+ 267              	.LVL15:
+ 268              	.L11:
+ 101:core/src/usart.c **** 
+ 102:core/src/usart.c ****     /* Wait for TX register to be empty */
+ 103:core/src/usart.c ****     while (USART_Flag_Status_Get(USART1, USART_FLAG_TXDE) == RESET);
+ 269              		.loc 1 103 59 is_stmt 1 discriminator 1 view .LVU76
+ 270              		.loc 1 103 12 is_stmt 0 discriminator 1 view .LVU77
+ 271 000a 8021     		movs	r1, #128
+ 272 000c 0848     		ldr	r0, .L14+4
+ 273 000e FFF7FEFF 		bl	USART_Flag_Status_Get
+ 274              	.LVL16:
+ 275              		.loc 1 103 59 discriminator 1 view .LVU78
+ 276 0012 0028     		cmp	r0, #0
+ 277 0014 F9D0     		beq	.L11
+ 104:core/src/usart.c **** 
+ 105:core/src/usart.c ****     /* Send character */
+ 106:core/src/usart.c ****     USART_Data_Send(USART1, (uint8_t)ch);
+ 278              		.loc 1 106 5 is_stmt 1 view .LVU79
+ 279 0016 2146     		mov	r1, r4
+ 280 0018 0548     		ldr	r0, .L14+4
+ 281 001a FFF7FEFF 		bl	USART_Data_Send
+ 282              	.LVL17:
+ 107:core/src/usart.c **** 
+ 108:core/src/usart.c ****     /* Wait for transmission complete */
+ 109:core/src/usart.c ****     while (USART_Flag_Status_Get(USART1, USART_FLAG_TXC) == RESET);
+ 283              		.loc 1 109 5 view .LVU80
+ 284              	.L12:
+ 285              		.loc 1 109 58 discriminator 1 view .LVU81
+ 286              		.loc 1 109 12 is_stmt 0 discriminator 1 view .LVU82
+ 287 001e 4021     		movs	r1, #64
+ 288 0020 0348     		ldr	r0, .L14+4
+ 289 0022 FFF7FEFF 		bl	USART_Flag_Status_Get
+ 290              	.LVL18:
+ 291              		.loc 1 109 58 discriminator 1 view .LVU83
+ 292 0026 0028     		cmp	r0, #0
+ 293 0028 F9D0     		beq	.L12
+ 294              	.L9:
+ 110:core/src/usart.c **** }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 8
+
+
+ 295              		.loc 1 110 1 view .LVU84
+ 296 002a 10BD     		pop	{r4, pc}
+ 297              	.LVL19:
+ 298              	.L15:
+ 299              		.loc 1 110 1 view .LVU85
+ 300              		.align	2
+ 301              	.L14:
+ 302 002c 00000000 		.word	usart1_initialized
+ 303 0030 00380140 		.word	1073821696
+ 304              		.cfi_endproc
+ 305              	.LFE128:
+ 307              		.section	.text.USART1_Send_String,"ax",%progbits
+ 308              		.align	1
+ 309              		.global	USART1_Send_String
+ 310              		.syntax unified
+ 311              		.thumb
+ 312              		.thumb_func
+ 314              	USART1_Send_String:
+ 315              	.LVL20:
+ 316              	.LFB129:
+ 111:core/src/usart.c **** 
+ 112:core/src/usart.c **** /**
+ 113:core/src/usart.c ****  * @brief Send a string via USART1
+ 114:core/src/usart.c ****  * @param str: String to send
+ 115:core/src/usart.c ****  * @retval None
+ 116:core/src/usart.c ****  */
+ 117:core/src/usart.c **** void USART1_Send_String(const char* str)
+ 118:core/src/usart.c **** {
+ 317              		.loc 1 118 1 is_stmt 1 view -0
+ 318              		.cfi_startproc
+ 319              		@ args = 0, pretend = 0, frame = 0
+ 320              		@ frame_needed = 0, uses_anonymous_args = 0
+ 321              		.loc 1 118 1 is_stmt 0 view .LVU87
+ 322 0000 10B5     		push	{r4, lr}
+ 323              	.LCFI5:
+ 324              		.cfi_def_cfa_offset 8
+ 325              		.cfi_offset 4, -8
+ 326              		.cfi_offset 14, -4
+ 119:core/src/usart.c ****     if (!str) return;
+ 327              		.loc 1 119 5 is_stmt 1 view .LVU88
+ 328              		.loc 1 119 8 is_stmt 0 view .LVU89
+ 329 0002 0446     		mov	r4, r0
+ 330 0004 18B9     		cbnz	r0, .L18
+ 331 0006 05E0     		b	.L16
+ 332              	.LVL21:
+ 333              	.L19:
+ 120:core/src/usart.c **** 
+ 121:core/src/usart.c ****     while (*str)
+ 122:core/src/usart.c ****     {
+ 123:core/src/usart.c ****         USART1_Send_Char(*str++);
+ 334              		.loc 1 123 9 is_stmt 1 view .LVU90
+ 335              		.loc 1 123 30 is_stmt 0 view .LVU91
+ 336 0008 0134     		adds	r4, r4, #1
+ 337              	.LVL22:
+ 338              		.loc 1 123 9 view .LVU92
+ 339 000a FFF7FEFF 		bl	USART1_Send_Char
+ 340              	.LVL23:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 9
+
+
+ 341              	.L18:
+ 121:core/src/usart.c ****     {
+ 342              		.loc 1 121 12 is_stmt 1 view .LVU93
+ 343 000e 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 344 0010 0028     		cmp	r0, #0
+ 345 0012 F9D1     		bne	.L19
+ 346              	.L16:
+ 124:core/src/usart.c ****     }
+ 125:core/src/usart.c **** }
+ 347              		.loc 1 125 1 is_stmt 0 view .LVU94
+ 348 0014 10BD     		pop	{r4, pc}
+ 349              		.loc 1 125 1 view .LVU95
+ 350              		.cfi_endproc
+ 351              	.LFE129:
+ 353              		.section	.text.USART1_Send_Data,"ax",%progbits
+ 354              		.align	1
+ 355              		.global	USART1_Send_Data
+ 356              		.syntax unified
+ 357              		.thumb
+ 358              		.thumb_func
+ 360              	USART1_Send_Data:
+ 361              	.LVL24:
+ 362              	.LFB130:
+ 126:core/src/usart.c **** 
+ 127:core/src/usart.c **** /**
+ 128:core/src/usart.c ****  * @brief Send data array via USART1
+ 129:core/src/usart.c ****  * @param data: Data array to send
+ 130:core/src/usart.c ****  * @param length: Length of data
+ 131:core/src/usart.c ****  * @retval None
+ 132:core/src/usart.c ****  */
+ 133:core/src/usart.c **** void USART1_Send_Data(const uint8_t* data, uint16_t length)
+ 134:core/src/usart.c **** {
+ 363              		.loc 1 134 1 is_stmt 1 view -0
+ 364              		.cfi_startproc
+ 365              		@ args = 0, pretend = 0, frame = 0
+ 366              		@ frame_needed = 0, uses_anonymous_args = 0
+ 135:core/src/usart.c ****     if (!data || length == 0) return;
+ 367              		.loc 1 135 5 view .LVU97
+ 368              		.loc 1 135 8 is_stmt 0 view .LVU98
+ 369 0000 68B1     		cbz	r0, .L26
+ 134:core/src/usart.c ****     if (!data || length == 0) return;
+ 370              		.loc 1 134 1 view .LVU99
+ 371 0002 70B5     		push	{r4, r5, r6, lr}
+ 372              	.LCFI6:
+ 373              		.cfi_def_cfa_offset 16
+ 374              		.cfi_offset 4, -16
+ 375              		.cfi_offset 5, -12
+ 376              		.cfi_offset 6, -8
+ 377              		.cfi_offset 14, -4
+ 378 0004 0D46     		mov	r5, r1
+ 379 0006 0646     		mov	r6, r0
+ 380              		.loc 1 135 15 discriminator 2 view .LVU100
+ 381 0008 41B1     		cbz	r1, .L21
+ 382              	.LBB2:
+ 136:core/src/usart.c **** 
+ 137:core/src/usart.c ****     for (uint16_t i = 0; i < length; i++)
+ 383              		.loc 1 137 19 view .LVU101
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 10
+
+
+ 384 000a 0024     		movs	r4, #0
+ 385              	.LVL25:
+ 386              	.L23:
+ 387              		.loc 1 137 28 is_stmt 1 discriminator 1 view .LVU102
+ 388 000c AC42     		cmp	r4, r5
+ 389 000e 05D2     		bcs	.L21
+ 138:core/src/usart.c ****     {
+ 139:core/src/usart.c ****         USART1_Send_Char((char)data[i]);
+ 390              		.loc 1 139 9 view .LVU103
+ 391 0010 305D     		ldrb	r0, [r6, r4]	@ zero_extendqisi2
+ 392 0012 FFF7FEFF 		bl	USART1_Send_Char
+ 393              	.LVL26:
+ 137:core/src/usart.c ****     {
+ 394              		.loc 1 137 39 discriminator 3 view .LVU104
+ 395 0016 0134     		adds	r4, r4, #1
+ 396              	.LVL27:
+ 137:core/src/usart.c ****     {
+ 397              		.loc 1 137 39 is_stmt 0 discriminator 3 view .LVU105
+ 398 0018 A4B2     		uxth	r4, r4
+ 399              	.LVL28:
+ 137:core/src/usart.c ****     {
+ 400              		.loc 1 137 39 discriminator 3 view .LVU106
+ 401 001a F7E7     		b	.L23
+ 402              	.LVL29:
+ 403              	.L21:
+ 137:core/src/usart.c ****     {
+ 404              		.loc 1 137 39 discriminator 3 view .LVU107
+ 405              	.LBE2:
+ 140:core/src/usart.c ****     }
+ 141:core/src/usart.c **** }
+ 406              		.loc 1 141 1 view .LVU108
+ 407 001c 70BD     		pop	{r4, r5, r6, pc}
+ 408              	.LVL30:
+ 409              	.L26:
+ 410              	.LCFI7:
+ 411              		.cfi_def_cfa_offset 0
+ 412              		.cfi_restore 4
+ 413              		.cfi_restore 5
+ 414              		.cfi_restore 6
+ 415              		.cfi_restore 14
+ 416              		.loc 1 141 1 view .LVU109
+ 417 001e 7047     		bx	lr
+ 418              		.cfi_endproc
+ 419              	.LFE130:
+ 421              		.section	.text.USART1_Receive_Char,"ax",%progbits
+ 422              		.align	1
+ 423              		.global	USART1_Receive_Char
+ 424              		.syntax unified
+ 425              		.thumb
+ 426              		.thumb_func
+ 428              	USART1_Receive_Char:
+ 429              	.LFB131:
+ 142:core/src/usart.c **** 
+ 143:core/src/usart.c **** /**
+ 144:core/src/usart.c ****  * @brief Receive a character from USART1 (blocking)
+ 145:core/src/usart.c ****  * @param None
+ 146:core/src/usart.c ****  * @retval Received character
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 11
+
+
+ 147:core/src/usart.c ****  */
+ 148:core/src/usart.c **** char USART1_Receive_Char(void)
+ 149:core/src/usart.c **** {
+ 430              		.loc 1 149 1 is_stmt 1 view -0
+ 431              		.cfi_startproc
+ 432              		@ args = 0, pretend = 0, frame = 0
+ 433              		@ frame_needed = 0, uses_anonymous_args = 0
+ 434 0000 08B5     		push	{r3, lr}
+ 435              	.LCFI8:
+ 436              		.cfi_def_cfa_offset 8
+ 437              		.cfi_offset 3, -8
+ 438              		.cfi_offset 14, -4
+ 150:core/src/usart.c ****     if (!usart1_initialized) return 0;
+ 439              		.loc 1 150 5 view .LVU111
+ 440              		.loc 1 150 9 is_stmt 0 view .LVU112
+ 441 0002 074B     		ldr	r3, .L33
+ 442 0004 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 443              		.loc 1 150 8 view .LVU113
+ 444 0006 48B1     		cbz	r0, .L30
+ 445              	.L31:
+ 151:core/src/usart.c **** 
+ 152:core/src/usart.c ****     /* Wait for data to be received */
+ 153:core/src/usart.c ****     while (USART_Flag_Status_Get(USART1, USART_FLAG_RXDNE) == RESET);
+ 446              		.loc 1 153 60 is_stmt 1 discriminator 1 view .LVU114
+ 447              		.loc 1 153 12 is_stmt 0 discriminator 1 view .LVU115
+ 448 0008 2021     		movs	r1, #32
+ 449 000a 0648     		ldr	r0, .L33+4
+ 450 000c FFF7FEFF 		bl	USART_Flag_Status_Get
+ 451              	.LVL31:
+ 452              		.loc 1 153 60 discriminator 1 view .LVU116
+ 453 0010 0028     		cmp	r0, #0
+ 454 0012 F9D0     		beq	.L31
+ 154:core/src/usart.c **** 
+ 155:core/src/usart.c ****     /* Return received data */
+ 156:core/src/usart.c ****     return (char)USART_Data_Receive(USART1);
+ 455              		.loc 1 156 5 is_stmt 1 view .LVU117
+ 456              		.loc 1 156 18 is_stmt 0 view .LVU118
+ 457 0014 0348     		ldr	r0, .L33+4
+ 458 0016 FFF7FEFF 		bl	USART_Data_Receive
+ 459              	.LVL32:
+ 460              		.loc 1 156 12 discriminator 1 view .LVU119
+ 461 001a C0B2     		uxtb	r0, r0
+ 462              	.L30:
+ 157:core/src/usart.c **** }
+ 463              		.loc 1 157 1 view .LVU120
+ 464 001c 08BD     		pop	{r3, pc}
+ 465              	.L34:
+ 466 001e 00BF     		.align	2
+ 467              	.L33:
+ 468 0020 00000000 		.word	usart1_initialized
+ 469 0024 00380140 		.word	1073821696
+ 470              		.cfi_endproc
+ 471              	.LFE131:
+ 473              		.section	.text.USART1_Receive_String,"ax",%progbits
+ 474              		.align	1
+ 475              		.global	USART1_Receive_String
+ 476              		.syntax unified
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 12
+
+
+ 477              		.thumb
+ 478              		.thumb_func
+ 480              	USART1_Receive_String:
+ 481              	.LVL33:
+ 482              	.LFB132:
+ 158:core/src/usart.c **** 
+ 159:core/src/usart.c **** /**
+ 160:core/src/usart.c ****  * @brief Receive a string from USART1 with timeout
+ 161:core/src/usart.c ****  * @param buffer: Buffer to store received string
+ 162:core/src/usart.c ****  * @param max_length: Maximum length of buffer
+ 163:core/src/usart.c ****  * @param timeout_ms: Timeout in milliseconds
+ 164:core/src/usart.c ****  * @retval Number of characters received
+ 165:core/src/usart.c ****  */
+ 166:core/src/usart.c **** uint16_t USART1_Receive_String(char* buffer, uint16_t max_length, uint32_t timeout_ms)
+ 167:core/src/usart.c **** {
+ 483              		.loc 1 167 1 is_stmt 1 view -0
+ 484              		.cfi_startproc
+ 485              		@ args = 0, pretend = 0, frame = 0
+ 486              		@ frame_needed = 0, uses_anonymous_args = 0
+ 487              		.loc 1 167 1 is_stmt 0 view .LVU122
+ 488 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 489              	.LCFI9:
+ 490              		.cfi_def_cfa_offset 32
+ 491              		.cfi_offset 3, -32
+ 492              		.cfi_offset 4, -28
+ 493              		.cfi_offset 5, -24
+ 494              		.cfi_offset 6, -20
+ 495              		.cfi_offset 7, -16
+ 496              		.cfi_offset 8, -12
+ 497              		.cfi_offset 9, -8
+ 498              		.cfi_offset 14, -4
+ 168:core/src/usart.c ****     if (!buffer || max_length == 0) return 0;
+ 499              		.loc 1 168 5 is_stmt 1 view .LVU123
+ 500              		.loc 1 168 8 is_stmt 0 view .LVU124
+ 501 0004 B8B3     		cbz	r0, .L41
+ 502 0006 0D46     		mov	r5, r1
+ 503 0008 1646     		mov	r6, r2
+ 504 000a 0746     		mov	r7, r0
+ 505              		.loc 1 168 17 discriminator 2 view .LVU125
+ 506 000c 19B9     		cbnz	r1, .L44
+ 507              		.loc 1 168 44 discriminator 3 view .LVU126
+ 508 000e 0C46     		mov	r4, r1
+ 509              	.LVL34:
+ 510              	.L36:
+ 169:core/src/usart.c **** 
+ 170:core/src/usart.c ****     uint16_t count = 0;
+ 171:core/src/usart.c ****     uint32_t start_time = Get_Tick_Count();
+ 172:core/src/usart.c ****     uint32_t timeout_us = timeout_ms * 1000;
+ 173:core/src/usart.c **** 
+ 174:core/src/usart.c ****     while (count < (max_length - 1))
+ 175:core/src/usart.c ****     {
+ 176:core/src/usart.c ****         if (USART_Flag_Status_Get(USART1, USART_FLAG_RXDNE) != RESET)
+ 177:core/src/usart.c ****         {
+ 178:core/src/usart.c ****             char ch = (char)USART_Data_Receive(USART1);
+ 179:core/src/usart.c ****             
+ 180:core/src/usart.c ****             if (ch == '\r' || ch == '\n')
+ 181:core/src/usart.c ****             {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 13
+
+
+ 182:core/src/usart.c ****                 break; /* End of line */
+ 183:core/src/usart.c ****             }
+ 184:core/src/usart.c ****             
+ 185:core/src/usart.c ****             buffer[count++] = ch;
+ 186:core/src/usart.c ****             start_time = Get_Tick_Count(); /* Reset timeout on each character */
+ 187:core/src/usart.c ****         }
+ 188:core/src/usart.c ****         
+ 189:core/src/usart.c ****         /* Check timeout */
+ 190:core/src/usart.c ****         if ((Get_Tick_Count() - start_time) > timeout_us)
+ 191:core/src/usart.c ****         {
+ 192:core/src/usart.c ****             break;
+ 193:core/src/usart.c ****         }
+ 194:core/src/usart.c ****         
+ 195:core/src/usart.c ****         Delay_us(100); /* Small delay to prevent busy waiting */
+ 196:core/src/usart.c ****     }
+ 197:core/src/usart.c **** 
+ 198:core/src/usart.c ****     buffer[count] = '\0'; /* Null terminate */
+ 199:core/src/usart.c ****     return count;
+ 200:core/src/usart.c **** }
+ 511              		.loc 1 200 1 view .LVU127
+ 512 0010 2046     		mov	r0, r4
+ 513 0012 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 514              	.LVL35:
+ 515              	.L44:
+ 170:core/src/usart.c ****     uint32_t start_time = Get_Tick_Count();
+ 516              		.loc 1 170 5 is_stmt 1 view .LVU128
+ 171:core/src/usart.c ****     uint32_t timeout_us = timeout_ms * 1000;
+ 517              		.loc 1 171 5 view .LVU129
+ 171:core/src/usart.c ****     uint32_t timeout_us = timeout_ms * 1000;
+ 518              		.loc 1 171 27 is_stmt 0 view .LVU130
+ 519 0016 FFF7FEFF 		bl	Get_Tick_Count
+ 520              	.LVL36:
+ 171:core/src/usart.c ****     uint32_t timeout_us = timeout_ms * 1000;
+ 521              		.loc 1 171 27 view .LVU131
+ 522 001a 8046     		mov	r8, r0
+ 523              	.LVL37:
+ 172:core/src/usart.c **** 
+ 524              		.loc 1 172 5 is_stmt 1 view .LVU132
+ 172:core/src/usart.c **** 
+ 525              		.loc 1 172 14 is_stmt 0 view .LVU133
+ 526 001c 4FF47A73 		mov	r3, #1000
+ 527 0020 03FB06F6 		mul	r6, r3, r6
+ 528              	.LVL38:
+ 174:core/src/usart.c ****     {
+ 529              		.loc 1 174 5 is_stmt 1 view .LVU134
+ 170:core/src/usart.c ****     uint32_t start_time = Get_Tick_Count();
+ 530              		.loc 1 170 14 is_stmt 0 view .LVU135
+ 531 0024 0024     		movs	r4, #0
+ 174:core/src/usart.c ****     {
+ 532              		.loc 1 174 11 view .LVU136
+ 533 0026 08E0     		b	.L37
+ 534              	.LVL39:
+ 535              	.L38:
+ 190:core/src/usart.c ****         {
+ 536              		.loc 1 190 9 is_stmt 1 view .LVU137
+ 190:core/src/usart.c ****         {
+ 537              		.loc 1 190 14 is_stmt 0 view .LVU138
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 14
+
+
+ 538 0028 FFF7FEFF 		bl	Get_Tick_Count
+ 539              	.LVL40:
+ 190:core/src/usart.c ****         {
+ 540              		.loc 1 190 31 discriminator 1 view .LVU139
+ 541 002c A0EB0803 		sub	r3, r0, r8
+ 190:core/src/usart.c ****         {
+ 542              		.loc 1 190 12 discriminator 1 view .LVU140
+ 543 0030 B342     		cmp	r3, r6
+ 544 0032 1DD8     		bhi	.L39
+ 195:core/src/usart.c ****     }
+ 545              		.loc 1 195 9 is_stmt 1 view .LVU141
+ 546 0034 6420     		movs	r0, #100
+ 547 0036 FFF7FEFF 		bl	Delay_us
+ 548              	.LVL41:
+ 549              	.L37:
+ 174:core/src/usart.c ****     {
+ 550              		.loc 1 174 18 view .LVU142
+ 174:core/src/usart.c ****     {
+ 551              		.loc 1 174 32 is_stmt 0 view .LVU143
+ 552 003a 6B1E     		subs	r3, r5, #1
+ 174:core/src/usart.c ****     {
+ 553              		.loc 1 174 18 view .LVU144
+ 554 003c 9C42     		cmp	r4, r3
+ 555 003e 17DA     		bge	.L39
+ 176:core/src/usart.c ****         {
+ 556              		.loc 1 176 9 is_stmt 1 view .LVU145
+ 176:core/src/usart.c ****         {
+ 557              		.loc 1 176 13 is_stmt 0 view .LVU146
+ 558 0040 2021     		movs	r1, #32
+ 559 0042 0E48     		ldr	r0, .L45
+ 560 0044 FFF7FEFF 		bl	USART_Flag_Status_Get
+ 561              	.LVL42:
+ 176:core/src/usart.c ****         {
+ 562              		.loc 1 176 12 discriminator 1 view .LVU147
+ 563 0048 0028     		cmp	r0, #0
+ 564 004a EDD0     		beq	.L38
+ 565              	.LBB3:
+ 178:core/src/usart.c ****             
+ 566              		.loc 1 178 13 is_stmt 1 view .LVU148
+ 178:core/src/usart.c ****             
+ 567              		.loc 1 178 29 is_stmt 0 view .LVU149
+ 568 004c 0B48     		ldr	r0, .L45
+ 569 004e FFF7FEFF 		bl	USART_Data_Receive
+ 570              	.LVL43:
+ 178:core/src/usart.c ****             
+ 571              		.loc 1 178 18 discriminator 1 view .LVU150
+ 572 0052 C0B2     		uxtb	r0, r0
+ 573              	.LVL44:
+ 180:core/src/usart.c ****             {
+ 574              		.loc 1 180 13 is_stmt 1 view .LVU151
+ 180:core/src/usart.c ****             {
+ 575              		.loc 1 180 16 is_stmt 0 view .LVU152
+ 576 0054 0D28     		cmp	r0, #13
+ 577 0056 0BD0     		beq	.L39
+ 180:core/src/usart.c ****             {
+ 578              		.loc 1 180 28 discriminator 1 view .LVU153
+ 579 0058 0A28     		cmp	r0, #10
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 15
+
+
+ 580 005a 09D0     		beq	.L39
+ 185:core/src/usart.c ****             start_time = Get_Tick_Count(); /* Reset timeout on each character */
+ 581              		.loc 1 185 13 is_stmt 1 view .LVU154
+ 185:core/src/usart.c ****             start_time = Get_Tick_Count(); /* Reset timeout on each character */
+ 582              		.loc 1 185 25 is_stmt 0 view .LVU155
+ 583 005c 04F10109 		add	r9, r4, #1
+ 584 0060 1FFA89F9 		uxth	r9, r9
+ 585              	.LVL45:
+ 185:core/src/usart.c ****             start_time = Get_Tick_Count(); /* Reset timeout on each character */
+ 586              		.loc 1 185 29 view .LVU156
+ 587 0064 3855     		strb	r0, [r7, r4]
+ 186:core/src/usart.c ****         }
+ 588              		.loc 1 186 13 is_stmt 1 view .LVU157
+ 186:core/src/usart.c ****         }
+ 589              		.loc 1 186 26 is_stmt 0 view .LVU158
+ 590 0066 FFF7FEFF 		bl	Get_Tick_Count
+ 591              	.LVL46:
+ 186:core/src/usart.c ****         }
+ 592              		.loc 1 186 26 view .LVU159
+ 593 006a 8046     		mov	r8, r0
+ 594              	.LVL47:
+ 185:core/src/usart.c ****             start_time = Get_Tick_Count(); /* Reset timeout on each character */
+ 595              		.loc 1 185 25 view .LVU160
+ 596 006c 4C46     		mov	r4, r9
+ 597 006e DBE7     		b	.L38
+ 598              	.LVL48:
+ 599              	.L39:
+ 185:core/src/usart.c ****             start_time = Get_Tick_Count(); /* Reset timeout on each character */
+ 600              		.loc 1 185 25 view .LVU161
+ 601              	.LBE3:
+ 198:core/src/usart.c ****     return count;
+ 602              		.loc 1 198 5 is_stmt 1 view .LVU162
+ 198:core/src/usart.c ****     return count;
+ 603              		.loc 1 198 19 is_stmt 0 view .LVU163
+ 604 0070 0023     		movs	r3, #0
+ 605 0072 3B55     		strb	r3, [r7, r4]
+ 199:core/src/usart.c **** }
+ 606              		.loc 1 199 5 is_stmt 1 view .LVU164
+ 199:core/src/usart.c **** }
+ 607              		.loc 1 199 12 is_stmt 0 view .LVU165
+ 608 0074 CCE7     		b	.L36
+ 609              	.LVL49:
+ 610              	.L41:
+ 168:core/src/usart.c **** 
+ 611              		.loc 1 168 44 discriminator 3 view .LVU166
+ 612 0076 0024     		movs	r4, #0
+ 613 0078 CAE7     		b	.L36
+ 614              	.L46:
+ 615 007a 00BF     		.align	2
+ 616              	.L45:
+ 617 007c 00380140 		.word	1073821696
+ 618              		.cfi_endproc
+ 619              	.LFE132:
+ 621              		.section	.text.USART1_Printf,"ax",%progbits
+ 622              		.align	1
+ 623              		.global	USART1_Printf
+ 624              		.syntax unified
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 16
+
+
+ 625              		.thumb
+ 626              		.thumb_func
+ 628              	USART1_Printf:
+ 629              	.LVL50:
+ 630              	.LFB133:
+ 201:core/src/usart.c **** 
+ 202:core/src/usart.c **** /**
+ 203:core/src/usart.c ****  * @brief Printf-style formatted output via USART1
+ 204:core/src/usart.c ****  * @param format: Format string
+ 205:core/src/usart.c ****  * @param ...: Variable arguments
+ 206:core/src/usart.c ****  * @retval None
+ 207:core/src/usart.c ****  */
+ 208:core/src/usart.c **** void USART1_Printf(const char* format, ...)
+ 209:core/src/usart.c **** {
+ 631              		.loc 1 209 1 is_stmt 1 view -0
+ 632              		.cfi_startproc
+ 633              		@ args = 4, pretend = 16, frame = 8
+ 634              		@ frame_needed = 0, uses_anonymous_args = 1
+ 635              		.loc 1 209 1 is_stmt 0 view .LVU168
+ 636 0000 0FB4     		push	{r0, r1, r2, r3}
+ 637              	.LCFI10:
+ 638              		.cfi_def_cfa_offset 16
+ 639              		.cfi_offset 0, -16
+ 640              		.cfi_offset 1, -12
+ 641              		.cfi_offset 2, -8
+ 642              		.cfi_offset 3, -4
+ 643 0002 00B5     		push	{lr}
+ 644              	.LCFI11:
+ 645              		.cfi_def_cfa_offset 20
+ 646              		.cfi_offset 14, -20
+ 647 0004 83B0     		sub	sp, sp, #12
+ 648              	.LCFI12:
+ 649              		.cfi_def_cfa_offset 32
+ 650 0006 04AB     		add	r3, sp, #16
+ 651 0008 53F8042B 		ldr	r2, [r3], #4
+ 210:core/src/usart.c ****     va_list args;
+ 652              		.loc 1 210 5 is_stmt 1 view .LVU169
+ 211:core/src/usart.c ****     int length;
+ 653              		.loc 1 211 5 view .LVU170
+ 212:core/src/usart.c **** 
+ 213:core/src/usart.c ****     va_start(args, format);
+ 654              		.loc 1 213 5 view .LVU171
+ 655 000c 0193     		str	r3, [sp, #4]
+ 214:core/src/usart.c ****     length = vsnprintf(tx_buffer, sizeof(tx_buffer), format, args);
+ 656              		.loc 1 214 5 view .LVU172
+ 657              		.loc 1 214 14 is_stmt 0 view .LVU173
+ 658 000e 4FF48071 		mov	r1, #256
+ 659 0012 0748     		ldr	r0, .L51
+ 660 0014 FFF7FEFF 		bl	vsnprintf
+ 661              	.LVL51:
+ 215:core/src/usart.c ****     va_end(args);
+ 662              		.loc 1 215 5 is_stmt 1 view .LVU174
+ 216:core/src/usart.c **** 
+ 217:core/src/usart.c ****     if (length > 0 && length < sizeof(tx_buffer))
+ 663              		.loc 1 217 5 view .LVU175
+ 664              		.loc 1 217 20 is_stmt 0 view .LVU176
+ 665 0018 0138     		subs	r0, r0, #1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 17
+
+
+ 666              	.LVL52:
+ 667              		.loc 1 217 8 view .LVU177
+ 668 001a FE28     		cmp	r0, #254
+ 669 001c 04D9     		bls	.L50
+ 670              	.LVL53:
+ 671              	.L47:
+ 218:core/src/usart.c ****     {
+ 219:core/src/usart.c ****         USART1_Send_String(tx_buffer);
+ 220:core/src/usart.c ****     }
+ 221:core/src/usart.c **** }
+ 672              		.loc 1 221 1 view .LVU178
+ 673 001e 03B0     		add	sp, sp, #12
+ 674              	.LCFI13:
+ 675              		.cfi_remember_state
+ 676              		.cfi_def_cfa_offset 20
+ 677              		@ sp needed
+ 678 0020 5DF804EB 		ldr	lr, [sp], #4
+ 679              	.LCFI14:
+ 680              		.cfi_restore 14
+ 681              		.cfi_def_cfa_offset 16
+ 682 0024 04B0     		add	sp, sp, #16
+ 683              	.LCFI15:
+ 684              		.cfi_restore 3
+ 685              		.cfi_restore 2
+ 686              		.cfi_restore 1
+ 687              		.cfi_restore 0
+ 688              		.cfi_def_cfa_offset 0
+ 689 0026 7047     		bx	lr
+ 690              	.LVL54:
+ 691              	.L50:
+ 692              	.LCFI16:
+ 693              		.cfi_restore_state
+ 219:core/src/usart.c ****     }
+ 694              		.loc 1 219 9 is_stmt 1 view .LVU179
+ 695 0028 0148     		ldr	r0, .L51
+ 696              	.LVL55:
+ 219:core/src/usart.c ****     }
+ 697              		.loc 1 219 9 is_stmt 0 view .LVU180
+ 698 002a FFF7FEFF 		bl	USART1_Send_String
+ 699              	.LVL56:
+ 700              		.loc 1 221 1 view .LVU181
+ 701 002e F6E7     		b	.L47
+ 702              	.L52:
+ 703              		.align	2
+ 704              	.L51:
+ 705 0030 00000000 		.word	tx_buffer
+ 706              		.cfi_endproc
+ 707              	.LFE133:
+ 709              		.section	.rodata.USART1_Send_Hex.str1.4,"aMS",%progbits,1
+ 710              		.align	2
+ 711              	.LC0:
+ 712 0000 30782530 		.ascii	"0x%08X\000"
+ 712      385800
+ 713              		.section	.text.USART1_Send_Hex,"ax",%progbits
+ 714              		.align	1
+ 715              		.global	USART1_Send_Hex
+ 716              		.syntax unified
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 18
+
+
+ 717              		.thumb
+ 718              		.thumb_func
+ 720              	USART1_Send_Hex:
+ 721              	.LVL57:
+ 722              	.LFB134:
+ 222:core/src/usart.c **** 
+ 223:core/src/usart.c **** /**
+ 224:core/src/usart.c ****  * @brief Send hexadecimal value via USART1
+ 225:core/src/usart.c ****  * @param value: Value to send in hex
+ 226:core/src/usart.c ****  * @retval None
+ 227:core/src/usart.c ****  */
+ 228:core/src/usart.c **** void USART1_Send_Hex(uint32_t value)
+ 229:core/src/usart.c **** {
+ 723              		.loc 1 229 1 is_stmt 1 view -0
+ 724              		.cfi_startproc
+ 725              		@ args = 0, pretend = 0, frame = 0
+ 726              		@ frame_needed = 0, uses_anonymous_args = 0
+ 727              		.loc 1 229 1 is_stmt 0 view .LVU183
+ 728 0000 08B5     		push	{r3, lr}
+ 729              	.LCFI17:
+ 730              		.cfi_def_cfa_offset 8
+ 731              		.cfi_offset 3, -8
+ 732              		.cfi_offset 14, -4
+ 733 0002 0146     		mov	r1, r0
+ 230:core/src/usart.c ****     USART1_Printf("0x%08X", value);
+ 734              		.loc 1 230 5 is_stmt 1 view .LVU184
+ 735 0004 0148     		ldr	r0, .L55
+ 736              	.LVL58:
+ 737              		.loc 1 230 5 is_stmt 0 view .LVU185
+ 738 0006 FFF7FEFF 		bl	USART1_Printf
+ 739              	.LVL59:
+ 231:core/src/usart.c **** }
+ 740              		.loc 1 231 1 view .LVU186
+ 741 000a 08BD     		pop	{r3, pc}
+ 742              	.L56:
+ 743              		.align	2
+ 744              	.L55:
+ 745 000c 00000000 		.word	.LC0
+ 746              		.cfi_endproc
+ 747              	.LFE134:
+ 749              		.section	.rodata.USART1_Send_Dec.str1.4,"aMS",%progbits,1
+ 750              		.align	2
+ 751              	.LC1:
+ 752 0000 257500   		.ascii	"%u\000"
+ 753              		.section	.text.USART1_Send_Dec,"ax",%progbits
+ 754              		.align	1
+ 755              		.global	USART1_Send_Dec
+ 756              		.syntax unified
+ 757              		.thumb
+ 758              		.thumb_func
+ 760              	USART1_Send_Dec:
+ 761              	.LVL60:
+ 762              	.LFB135:
+ 232:core/src/usart.c **** 
+ 233:core/src/usart.c **** /**
+ 234:core/src/usart.c ****  * @brief Send decimal value via USART1
+ 235:core/src/usart.c ****  * @param value: Value to send in decimal
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 19
+
+
+ 236:core/src/usart.c ****  * @retval None
+ 237:core/src/usart.c ****  */
+ 238:core/src/usart.c **** void USART1_Send_Dec(uint32_t value)
+ 239:core/src/usart.c **** {
+ 763              		.loc 1 239 1 is_stmt 1 view -0
+ 764              		.cfi_startproc
+ 765              		@ args = 0, pretend = 0, frame = 0
+ 766              		@ frame_needed = 0, uses_anonymous_args = 0
+ 767              		.loc 1 239 1 is_stmt 0 view .LVU188
+ 768 0000 08B5     		push	{r3, lr}
+ 769              	.LCFI18:
+ 770              		.cfi_def_cfa_offset 8
+ 771              		.cfi_offset 3, -8
+ 772              		.cfi_offset 14, -4
+ 773 0002 0146     		mov	r1, r0
+ 240:core/src/usart.c ****     USART1_Printf("%u", value);
+ 774              		.loc 1 240 5 is_stmt 1 view .LVU189
+ 775 0004 0148     		ldr	r0, .L59
+ 776              	.LVL61:
+ 777              		.loc 1 240 5 is_stmt 0 view .LVU190
+ 778 0006 FFF7FEFF 		bl	USART1_Printf
+ 779              	.LVL62:
+ 241:core/src/usart.c **** }
+ 780              		.loc 1 241 1 view .LVU191
+ 781 000a 08BD     		pop	{r3, pc}
+ 782              	.L60:
+ 783              		.align	2
+ 784              	.L59:
+ 785 000c 00000000 		.word	.LC1
+ 786              		.cfi_endproc
+ 787              	.LFE135:
+ 789              		.section	.rodata.USART1_Send_Float.str1.4,"aMS",%progbits,1
+ 790              		.align	2
+ 791              	.LC2:
+ 792 0000 25252E25 		.ascii	"%%.%df\000"
+ 792      646600
+ 793              		.section	.text.USART1_Send_Float,"ax",%progbits
+ 794              		.align	1
+ 795              		.global	USART1_Send_Float
+ 796              		.syntax unified
+ 797              		.thumb
+ 798              		.thumb_func
+ 800              	USART1_Send_Float:
+ 801              	.LVL63:
+ 802              	.LFB136:
+ 242:core/src/usart.c **** 
+ 243:core/src/usart.c **** /**
+ 244:core/src/usart.c ****  * @brief Send floating point value via USART1
+ 245:core/src/usart.c ****  * @param value: Float value to send
+ 246:core/src/usart.c ****  * @param decimals: Number of decimal places
+ 247:core/src/usart.c ****  * @retval None
+ 248:core/src/usart.c ****  */
+ 249:core/src/usart.c **** void USART1_Send_Float(float value, uint8_t decimals)
+ 250:core/src/usart.c **** {
+ 803              		.loc 1 250 1 is_stmt 1 view -0
+ 804              		.cfi_startproc
+ 805              		@ args = 0, pretend = 0, frame = 16
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 20
+
+
+ 806              		@ frame_needed = 0, uses_anonymous_args = 0
+ 807              		.loc 1 250 1 is_stmt 0 view .LVU193
+ 808 0000 30B5     		push	{r4, r5, lr}
+ 809              	.LCFI19:
+ 810              		.cfi_def_cfa_offset 12
+ 811              		.cfi_offset 4, -12
+ 812              		.cfi_offset 5, -8
+ 813              		.cfi_offset 14, -4
+ 814 0002 85B0     		sub	sp, sp, #20
+ 815              	.LCFI20:
+ 816              		.cfi_def_cfa_offset 32
+ 817 0004 10EE104A 		vmov	r4, s0
+ 818 0008 0346     		mov	r3, r0
+ 251:core/src/usart.c ****     char format[16];
+ 819              		.loc 1 251 5 is_stmt 1 view .LVU194
+ 252:core/src/usart.c ****     snprintf(format, sizeof(format), "%%.%df", decimals);
+ 820              		.loc 1 252 5 view .LVU195
+ 821 000a 074A     		ldr	r2, .L63
+ 822 000c 1021     		movs	r1, #16
+ 823 000e 6846     		mov	r0, sp
+ 824              	.LVL64:
+ 825              		.loc 1 252 5 is_stmt 0 view .LVU196
+ 826 0010 FFF7FEFF 		bl	snprintf
+ 827              	.LVL65:
+ 253:core/src/usart.c ****     USART1_Printf(format, value);
+ 828              		.loc 1 253 5 is_stmt 1 view .LVU197
+ 829 0014 2046     		mov	r0, r4	@ float
+ 830 0016 FFF7FEFF 		bl	__aeabi_f2d
+ 831              	.LVL66:
+ 832 001a 0246     		mov	r2, r0
+ 833 001c 0B46     		mov	r3, r1
+ 834 001e 6846     		mov	r0, sp
+ 835 0020 FFF7FEFF 		bl	USART1_Printf
+ 836              	.LVL67:
+ 254:core/src/usart.c **** }
+ 837              		.loc 1 254 1 is_stmt 0 view .LVU198
+ 838 0024 05B0     		add	sp, sp, #20
+ 839              	.LCFI21:
+ 840              		.cfi_def_cfa_offset 12
+ 841              		@ sp needed
+ 842 0026 30BD     		pop	{r4, r5, pc}
+ 843              	.LVL68:
+ 844              	.L64:
+ 845              		.loc 1 254 1 view .LVU199
+ 846              		.align	2
+ 847              	.L63:
+ 848 0028 00000000 		.word	.LC2
+ 849              		.cfi_endproc
+ 850              	.LFE136:
+ 852              		.section	.text.USART1_Is_TX_Ready,"ax",%progbits
+ 853              		.align	1
+ 854              		.global	USART1_Is_TX_Ready
+ 855              		.syntax unified
+ 856              		.thumb
+ 857              		.thumb_func
+ 859              	USART1_Is_TX_Ready:
+ 860              	.LFB137:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 21
+
+
+ 255:core/src/usart.c **** 
+ 256:core/src/usart.c **** /**
+ 257:core/src/usart.c ****  * @brief Check if USART1 TX is ready
+ 258:core/src/usart.c ****  * @param None
+ 259:core/src/usart.c ****  * @retval 1 if ready, 0 if not
+ 260:core/src/usart.c ****  */
+ 261:core/src/usart.c **** uint8_t USART1_Is_TX_Ready(void)
+ 262:core/src/usart.c **** {
+ 861              		.loc 1 262 1 is_stmt 1 view -0
+ 862              		.cfi_startproc
+ 863              		@ args = 0, pretend = 0, frame = 0
+ 864              		@ frame_needed = 0, uses_anonymous_args = 0
+ 865 0000 08B5     		push	{r3, lr}
+ 866              	.LCFI22:
+ 867              		.cfi_def_cfa_offset 8
+ 868              		.cfi_offset 3, -8
+ 869              		.cfi_offset 14, -4
+ 263:core/src/usart.c ****     if (!usart1_initialized) return 0;
+ 870              		.loc 1 263 5 view .LVU201
+ 871              		.loc 1 263 9 is_stmt 0 view .LVU202
+ 872 0002 064B     		ldr	r3, .L69
+ 873 0004 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 874              		.loc 1 263 8 view .LVU203
+ 875 0006 00B9     		cbnz	r0, .L68
+ 876              	.L66:
+ 264:core/src/usart.c ****     return (USART_Flag_Status_Get(USART1, USART_FLAG_TXDE) != RESET) ? 1 : 0;
+ 265:core/src/usart.c **** }
+ 877              		.loc 1 265 1 view .LVU204
+ 878 0008 08BD     		pop	{r3, pc}
+ 879              	.L68:
+ 264:core/src/usart.c ****     return (USART_Flag_Status_Get(USART1, USART_FLAG_TXDE) != RESET) ? 1 : 0;
+ 880              		.loc 1 264 5 is_stmt 1 view .LVU205
+ 264:core/src/usart.c ****     return (USART_Flag_Status_Get(USART1, USART_FLAG_TXDE) != RESET) ? 1 : 0;
+ 881              		.loc 1 264 13 is_stmt 0 view .LVU206
+ 882 000a 8021     		movs	r1, #128
+ 883 000c 0448     		ldr	r0, .L69+4
+ 884 000e FFF7FEFF 		bl	USART_Flag_Status_Get
+ 885              	.LVL69:
+ 264:core/src/usart.c ****     return (USART_Flag_Status_Get(USART1, USART_FLAG_TXDE) != RESET) ? 1 : 0;
+ 886              		.loc 1 264 74 discriminator 1 view .LVU207
+ 887 0012 0038     		subs	r0, r0, #0
+ 888 0014 18BF     		it	ne
+ 889 0016 0120     		movne	r0, #1
+ 264:core/src/usart.c ****     return (USART_Flag_Status_Get(USART1, USART_FLAG_TXDE) != RESET) ? 1 : 0;
+ 890              		.loc 1 264 74 view .LVU208
+ 891 0018 F6E7     		b	.L66
+ 892              	.L70:
+ 893 001a 00BF     		.align	2
+ 894              	.L69:
+ 895 001c 00000000 		.word	usart1_initialized
+ 896 0020 00380140 		.word	1073821696
+ 897              		.cfi_endproc
+ 898              	.LFE137:
+ 900              		.section	.text.USART1_Is_RX_Ready,"ax",%progbits
+ 901              		.align	1
+ 902              		.global	USART1_Is_RX_Ready
+ 903              		.syntax unified
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 22
+
+
+ 904              		.thumb
+ 905              		.thumb_func
+ 907              	USART1_Is_RX_Ready:
+ 908              	.LFB138:
+ 266:core/src/usart.c **** 
+ 267:core/src/usart.c **** /**
+ 268:core/src/usart.c ****  * @brief Check if USART1 RX has data
+ 269:core/src/usart.c ****  * @param None
+ 270:core/src/usart.c ****  * @retval 1 if data available, 0 if not
+ 271:core/src/usart.c ****  */
+ 272:core/src/usart.c **** uint8_t USART1_Is_RX_Ready(void)
+ 273:core/src/usart.c **** {
+ 909              		.loc 1 273 1 is_stmt 1 view -0
+ 910              		.cfi_startproc
+ 911              		@ args = 0, pretend = 0, frame = 0
+ 912              		@ frame_needed = 0, uses_anonymous_args = 0
+ 913 0000 08B5     		push	{r3, lr}
+ 914              	.LCFI23:
+ 915              		.cfi_def_cfa_offset 8
+ 916              		.cfi_offset 3, -8
+ 917              		.cfi_offset 14, -4
+ 274:core/src/usart.c ****     if (!usart1_initialized) return 0;
+ 918              		.loc 1 274 5 view .LVU210
+ 919              		.loc 1 274 9 is_stmt 0 view .LVU211
+ 920 0002 064B     		ldr	r3, .L75
+ 921 0004 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 922              		.loc 1 274 8 view .LVU212
+ 923 0006 00B9     		cbnz	r0, .L74
+ 924              	.L72:
+ 275:core/src/usart.c ****     return (USART_Flag_Status_Get(USART1, USART_FLAG_RXDNE) != RESET) ? 1 : 0;
+ 276:core/src/usart.c **** }
+ 925              		.loc 1 276 1 view .LVU213
+ 926 0008 08BD     		pop	{r3, pc}
+ 927              	.L74:
+ 275:core/src/usart.c ****     return (USART_Flag_Status_Get(USART1, USART_FLAG_RXDNE) != RESET) ? 1 : 0;
+ 928              		.loc 1 275 5 is_stmt 1 view .LVU214
+ 275:core/src/usart.c ****     return (USART_Flag_Status_Get(USART1, USART_FLAG_RXDNE) != RESET) ? 1 : 0;
+ 929              		.loc 1 275 13 is_stmt 0 view .LVU215
+ 930 000a 2021     		movs	r1, #32
+ 931 000c 0448     		ldr	r0, .L75+4
+ 932 000e FFF7FEFF 		bl	USART_Flag_Status_Get
+ 933              	.LVL70:
+ 275:core/src/usart.c ****     return (USART_Flag_Status_Get(USART1, USART_FLAG_RXDNE) != RESET) ? 1 : 0;
+ 934              		.loc 1 275 75 discriminator 1 view .LVU216
+ 935 0012 0038     		subs	r0, r0, #0
+ 936 0014 18BF     		it	ne
+ 937 0016 0120     		movne	r0, #1
+ 275:core/src/usart.c ****     return (USART_Flag_Status_Get(USART1, USART_FLAG_RXDNE) != RESET) ? 1 : 0;
+ 938              		.loc 1 275 75 view .LVU217
+ 939 0018 F6E7     		b	.L72
+ 940              	.L76:
+ 941 001a 00BF     		.align	2
+ 942              	.L75:
+ 943 001c 00000000 		.word	usart1_initialized
+ 944 0020 00380140 		.word	1073821696
+ 945              		.cfi_endproc
+ 946              	.LFE138:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 23
+
+
+ 948              		.section	.text.USART1_Is_Initialized,"ax",%progbits
+ 949              		.align	1
+ 950              		.global	USART1_Is_Initialized
+ 951              		.syntax unified
+ 952              		.thumb
+ 953              		.thumb_func
+ 955              	USART1_Is_Initialized:
+ 956              	.LFB139:
+ 277:core/src/usart.c **** 
+ 278:core/src/usart.c **** /**
+ 279:core/src/usart.c ****  * @brief Check if USART1 is initialized
+ 280:core/src/usart.c ****  * @param None
+ 281:core/src/usart.c ****  * @retval 1 if initialized, 0 if not
+ 282:core/src/usart.c ****  */
+ 283:core/src/usart.c **** uint8_t USART1_Is_Initialized(void)
+ 284:core/src/usart.c **** {
+ 957              		.loc 1 284 1 is_stmt 1 view -0
+ 958              		.cfi_startproc
+ 959              		@ args = 0, pretend = 0, frame = 0
+ 960              		@ frame_needed = 0, uses_anonymous_args = 0
+ 961              		@ link register save eliminated.
+ 285:core/src/usart.c ****     return usart1_initialized;
+ 962              		.loc 1 285 5 view .LVU219
+ 286:core/src/usart.c **** }
+ 963              		.loc 1 286 1 is_stmt 0 view .LVU220
+ 964 0000 014B     		ldr	r3, .L78
+ 965 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 966 0004 7047     		bx	lr
+ 967              	.L79:
+ 968 0006 00BF     		.align	2
+ 969              	.L78:
+ 970 0008 00000000 		.word	usart1_initialized
+ 971              		.cfi_endproc
+ 972              	.LFE139:
+ 974              		.section	.text.USART1_IT_Enable,"ax",%progbits
+ 975              		.align	1
+ 976              		.global	USART1_IT_Enable
+ 977              		.syntax unified
+ 978              		.thumb
+ 979              		.thumb_func
+ 981              	USART1_IT_Enable:
+ 982              	.LFB140:
+ 287:core/src/usart.c **** 
+ 288:core/src/usart.c **** /**
+ 289:core/src/usart.c ****  * @brief Enable USART1 interrupts
+ 290:core/src/usart.c ****  * @param None
+ 291:core/src/usart.c ****  * @retval None
+ 292:core/src/usart.c ****  */
+ 293:core/src/usart.c **** void USART1_IT_Enable(void)
+ 294:core/src/usart.c **** {
+ 983              		.loc 1 294 1 is_stmt 1 view -0
+ 984              		.cfi_startproc
+ 985              		@ args = 0, pretend = 0, frame = 0
+ 986              		@ frame_needed = 0, uses_anonymous_args = 0
+ 987 0000 08B5     		push	{r3, lr}
+ 988              	.LCFI24:
+ 989              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 24
+
+
+ 990              		.cfi_offset 3, -8
+ 991              		.cfi_offset 14, -4
+ 295:core/src/usart.c ****     USART_Interrput_Enable(USART1, USART_INT_RXDNE);
+ 992              		.loc 1 295 5 view .LVU222
+ 993 0002 40F22551 		movw	r1, #1317
+ 994 0006 0248     		ldr	r0, .L82
+ 995 0008 FFF7FEFF 		bl	USART_Interrput_Enable
+ 996              	.LVL71:
+ 296:core/src/usart.c **** }
+ 997              		.loc 1 296 1 is_stmt 0 view .LVU223
+ 998 000c 08BD     		pop	{r3, pc}
+ 999              	.L83:
+ 1000 000e 00BF     		.align	2
+ 1001              	.L82:
+ 1002 0010 00380140 		.word	1073821696
+ 1003              		.cfi_endproc
+ 1004              	.LFE140:
+ 1006              		.section	.text.USART1_IT_Disable,"ax",%progbits
+ 1007              		.align	1
+ 1008              		.global	USART1_IT_Disable
+ 1009              		.syntax unified
+ 1010              		.thumb
+ 1011              		.thumb_func
+ 1013              	USART1_IT_Disable:
+ 1014              	.LFB141:
+ 297:core/src/usart.c **** 
+ 298:core/src/usart.c **** /**
+ 299:core/src/usart.c ****  * @brief Disable USART1 interrupts
+ 300:core/src/usart.c ****  * @param None
+ 301:core/src/usart.c ****  * @retval None
+ 302:core/src/usart.c ****  */
+ 303:core/src/usart.c **** void USART1_IT_Disable(void)
+ 304:core/src/usart.c **** {
+ 1015              		.loc 1 304 1 is_stmt 1 view -0
+ 1016              		.cfi_startproc
+ 1017              		@ args = 0, pretend = 0, frame = 0
+ 1018              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1019 0000 08B5     		push	{r3, lr}
+ 1020              	.LCFI25:
+ 1021              		.cfi_def_cfa_offset 8
+ 1022              		.cfi_offset 3, -8
+ 1023              		.cfi_offset 14, -4
+ 305:core/src/usart.c ****     USART_Interrput_Disable(USART1, USART_INT_RXDNE);
+ 1024              		.loc 1 305 5 view .LVU225
+ 1025 0002 40F22551 		movw	r1, #1317
+ 1026 0006 0248     		ldr	r0, .L86
+ 1027 0008 FFF7FEFF 		bl	USART_Interrput_Disable
+ 1028              	.LVL72:
+ 306:core/src/usart.c **** }
+ 1029              		.loc 1 306 1 is_stmt 0 view .LVU226
+ 1030 000c 08BD     		pop	{r3, pc}
+ 1031              	.L87:
+ 1032 000e 00BF     		.align	2
+ 1033              	.L86:
+ 1034 0010 00380140 		.word	1073821696
+ 1035              		.cfi_endproc
+ 1036              	.LFE141:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 25
+
+
+ 1038              		.section	.text.USART1_Get_RX_Buffer_Count,"ax",%progbits
+ 1039              		.align	1
+ 1040              		.global	USART1_Get_RX_Buffer_Count
+ 1041              		.syntax unified
+ 1042              		.thumb
+ 1043              		.thumb_func
+ 1045              	USART1_Get_RX_Buffer_Count:
+ 1046              	.LFB142:
+ 307:core/src/usart.c **** 
+ 308:core/src/usart.c **** /**
+ 309:core/src/usart.c ****  * @brief Get number of characters in RX buffer
+ 310:core/src/usart.c ****  * @param None
+ 311:core/src/usart.c ****  * @retval Number of characters available
+ 312:core/src/usart.c ****  */
+ 313:core/src/usart.c **** uint16_t USART1_Get_RX_Buffer_Count(void)
+ 314:core/src/usart.c **** {
+ 1047              		.loc 1 314 1 is_stmt 1 view -0
+ 1048              		.cfi_startproc
+ 1049              		@ args = 0, pretend = 0, frame = 0
+ 1050              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1051              		@ link register save eliminated.
+ 315:core/src/usart.c ****     return rx_count;
+ 1052              		.loc 1 315 5 view .LVU228
+ 1053              		.loc 1 315 12 is_stmt 0 view .LVU229
+ 1054 0000 014B     		ldr	r3, .L89
+ 1055 0002 1888     		ldrh	r0, [r3]
+ 316:core/src/usart.c **** }
+ 1056              		.loc 1 316 1 view .LVU230
+ 1057 0004 80B2     		uxth	r0, r0
+ 1058 0006 7047     		bx	lr
+ 1059              	.L90:
+ 1060              		.align	2
+ 1061              	.L89:
+ 1062 0008 00000000 		.word	rx_count
+ 1063              		.cfi_endproc
+ 1064              	.LFE142:
+ 1066              		.section	.text.USART1_Read_RX_Buffer,"ax",%progbits
+ 1067              		.align	1
+ 1068              		.global	USART1_Read_RX_Buffer
+ 1069              		.syntax unified
+ 1070              		.thumb
+ 1071              		.thumb_func
+ 1073              	USART1_Read_RX_Buffer:
+ 1074              	.LVL73:
+ 1075              	.LFB143:
+ 317:core/src/usart.c **** 
+ 318:core/src/usart.c **** /**
+ 319:core/src/usart.c ****  * @brief Read data from RX buffer
+ 320:core/src/usart.c ****  * @param buffer: Buffer to store data
+ 321:core/src/usart.c ****  * @param max_length: Maximum length to read
+ 322:core/src/usart.c ****  * @retval Number of characters read
+ 323:core/src/usart.c ****  */
+ 324:core/src/usart.c **** uint16_t USART1_Read_RX_Buffer(char* buffer, uint16_t max_length)
+ 325:core/src/usart.c **** {
+ 1076              		.loc 1 325 1 is_stmt 1 view -0
+ 1077              		.cfi_startproc
+ 1078              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 26
+
+
+ 1079              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1080              		@ link register save eliminated.
+ 1081              		.loc 1 325 1 is_stmt 0 view .LVU232
+ 1082 0000 0246     		mov	r2, r0
+ 326:core/src/usart.c ****     uint16_t read_count = 0;
+ 1083              		.loc 1 326 5 is_stmt 1 view .LVU233
+ 1084              	.LVL74:
+ 327:core/src/usart.c **** 
+ 328:core/src/usart.c ****     while (rx_count > 0 && read_count < max_length)
+ 1085              		.loc 1 328 5 view .LVU234
+ 326:core/src/usart.c ****     uint16_t read_count = 0;
+ 1086              		.loc 1 326 14 is_stmt 0 view .LVU235
+ 1087 0002 0020     		movs	r0, #0
+ 1088              	.LVL75:
+ 1089              		.loc 1 328 25 is_stmt 1 view .LVU236
+ 1090              		.loc 1 328 21 is_stmt 0 view .LVU237
+ 1091 0004 154B     		ldr	r3, .L101
+ 1092 0006 1B88     		ldrh	r3, [r3]
+ 1093 0008 9BB2     		uxth	r3, r3
+ 1094              		.loc 1 328 25 view .LVU238
+ 1095 000a 2BB3     		cbz	r3, .L98
+ 1096              		.loc 1 328 25 discriminator 1 view .LVU239
+ 1097 000c 8842     		cmp	r0, r1
+ 1098 000e 22D2     		bcs	.L100
+ 325:core/src/usart.c ****     uint16_t read_count = 0;
+ 1099              		.loc 1 325 1 view .LVU240
+ 1100 0010 30B4     		push	{r4, r5}
+ 1101              	.LCFI26:
+ 1102              		.cfi_def_cfa_offset 8
+ 1103              		.cfi_offset 4, -8
+ 1104              		.cfi_offset 5, -4
+ 1105              	.L94:
+ 329:core/src/usart.c ****     {
+ 330:core/src/usart.c ****         buffer[read_count++] = rx_buffer[rx_read_index];
+ 1106              		.loc 1 330 9 is_stmt 1 view .LVU241
+ 1107              		.loc 1 330 41 is_stmt 0 view .LVU242
+ 1108 0012 134C     		ldr	r4, .L101+4
+ 1109 0014 2388     		ldrh	r3, [r4]
+ 1110 0016 9BB2     		uxth	r3, r3
+ 1111              		.loc 1 330 26 view .LVU243
+ 1112 0018 00F1010C 		add	ip, r0, #1
+ 1113              	.LVL76:
+ 1114              		.loc 1 330 41 view .LVU244
+ 1115 001c 114D     		ldr	r5, .L101+8
+ 1116 001e EB5C     		ldrb	r3, [r5, r3]	@ zero_extendqisi2
+ 1117              		.loc 1 330 30 view .LVU245
+ 1118 0020 1354     		strb	r3, [r2, r0]
+ 331:core/src/usart.c ****         rx_read_index = (rx_read_index + 1) % USART1_RX_BUFFER_SIZE;
+ 1119              		.loc 1 331 9 is_stmt 1 view .LVU246
+ 1120              		.loc 1 331 40 is_stmt 0 view .LVU247
+ 1121 0022 2388     		ldrh	r3, [r4]
+ 1122 0024 9BB2     		uxth	r3, r3
+ 1123 0026 0133     		adds	r3, r3, #1
+ 1124              		.loc 1 331 45 view .LVU248
+ 1125 0028 5842     		rsbs	r0, r3, #0
+ 1126 002a DBB2     		uxtb	r3, r3
+ 1127 002c C0B2     		uxtb	r0, r0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 27
+
+
+ 1128 002e 58BF     		it	pl
+ 1129 0030 4342     		rsbpl	r3, r0, #0
+ 1130              		.loc 1 331 23 view .LVU249
+ 1131 0032 9BB2     		uxth	r3, r3
+ 1132 0034 2380     		strh	r3, [r4]	@ movhi
+ 332:core/src/usart.c ****         rx_count--;
+ 1133              		.loc 1 332 9 is_stmt 1 view .LVU250
+ 1134              		.loc 1 332 17 is_stmt 0 view .LVU251
+ 1135 0036 0948     		ldr	r0, .L101
+ 1136 0038 0388     		ldrh	r3, [r0]
+ 1137 003a 9BB2     		uxth	r3, r3
+ 1138 003c 013B     		subs	r3, r3, #1
+ 1139 003e 9BB2     		uxth	r3, r3
+ 1140 0040 0380     		strh	r3, [r0]	@ movhi
+ 330:core/src/usart.c ****         rx_read_index = (rx_read_index + 1) % USART1_RX_BUFFER_SIZE;
+ 1141              		.loc 1 330 26 view .LVU252
+ 1142 0042 1FFA8CF0 		uxth	r0, ip
+ 1143              	.LVL77:
+ 328:core/src/usart.c ****     {
+ 1144              		.loc 1 328 25 is_stmt 1 view .LVU253
+ 328:core/src/usart.c ****     {
+ 1145              		.loc 1 328 21 is_stmt 0 view .LVU254
+ 1146 0046 054B     		ldr	r3, .L101
+ 1147 0048 1B88     		ldrh	r3, [r3]
+ 1148 004a 9BB2     		uxth	r3, r3
+ 328:core/src/usart.c ****     {
+ 1149              		.loc 1 328 25 view .LVU255
+ 1150 004c 0BB1     		cbz	r3, .L93
+ 328:core/src/usart.c ****     {
+ 1151              		.loc 1 328 25 discriminator 1 view .LVU256
+ 1152 004e 8842     		cmp	r0, r1
+ 1153 0050 DFD3     		bcc	.L94
+ 1154              	.L93:
+ 333:core/src/usart.c ****     }
+ 334:core/src/usart.c **** 
+ 335:core/src/usart.c ****     return read_count;
+ 1155              		.loc 1 335 5 is_stmt 1 view .LVU257
+ 336:core/src/usart.c **** }
+ 1156              		.loc 1 336 1 is_stmt 0 view .LVU258
+ 1157 0052 30BC     		pop	{r4, r5}
+ 1158              	.LCFI27:
+ 1159              		.cfi_restore 5
+ 1160              		.cfi_restore 4
+ 1161              		.cfi_def_cfa_offset 0
+ 1162 0054 7047     		bx	lr
+ 1163              	.L100:
+ 1164              		.loc 1 336 1 view .LVU259
+ 1165 0056 7047     		bx	lr
+ 1166              	.L98:
+ 335:core/src/usart.c **** }
+ 1167              		.loc 1 335 5 is_stmt 1 view .LVU260
+ 1168              		.loc 1 336 1 is_stmt 0 view .LVU261
+ 1169 0058 7047     		bx	lr
+ 1170              	.L102:
+ 1171 005a 00BF     		.align	2
+ 1172              	.L101:
+ 1173 005c 00000000 		.word	rx_count
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 28
+
+
+ 1174 0060 00000000 		.word	rx_read_index
+ 1175 0064 00000000 		.word	rx_buffer
+ 1176              		.cfi_endproc
+ 1177              	.LFE143:
+ 1179              		.section	.text.USART1_IRQHandler,"ax",%progbits
+ 1180              		.align	1
+ 1181              		.global	USART1_IRQHandler
+ 1182              		.syntax unified
+ 1183              		.thumb
+ 1184              		.thumb_func
+ 1186              	USART1_IRQHandler:
+ 1187              	.LFB144:
+ 337:core/src/usart.c **** 
+ 338:core/src/usart.c **** /**
+ 339:core/src/usart.c ****  * @brief USART1 interrupt handler
+ 340:core/src/usart.c ****  * @param None
+ 341:core/src/usart.c ****  * @retval None
+ 342:core/src/usart.c ****  */
+ 343:core/src/usart.c **** void USART1_IRQHandler(void)
+ 344:core/src/usart.c **** {
+ 1188              		.loc 1 344 1 is_stmt 1 view -0
+ 1189              		.cfi_startproc
+ 1190              		@ args = 0, pretend = 0, frame = 0
+ 1191              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1192 0000 08B5     		push	{r3, lr}
+ 1193              	.LCFI28:
+ 1194              		.cfi_def_cfa_offset 8
+ 1195              		.cfi_offset 3, -8
+ 1196              		.cfi_offset 14, -4
+ 345:core/src/usart.c ****     /* Check if USART1 received data */
+ 346:core/src/usart.c ****     if (USART_Interrupt_Status_Get(USART1, USART_INT_RXDNE) != RESET)
+ 1197              		.loc 1 346 5 view .LVU263
+ 1198              		.loc 1 346 9 is_stmt 0 view .LVU264
+ 1199 0002 40F22551 		movw	r1, #1317
+ 1200 0006 1448     		ldr	r0, .L108
+ 1201 0008 FFF7FEFF 		bl	USART_Interrupt_Status_Get
+ 1202              	.LVL78:
+ 1203              		.loc 1 346 8 discriminator 1 view .LVU265
+ 1204 000c 00B9     		cbnz	r0, .L107
+ 1205              	.L103:
+ 347:core/src/usart.c ****     {
+ 348:core/src/usart.c ****         char received_char = (char)USART_Data_Receive(USART1);
+ 349:core/src/usart.c ****         
+ 350:core/src/usart.c ****         /* Store character in circular buffer */
+ 351:core/src/usart.c ****         if (rx_count < USART1_RX_BUFFER_SIZE)
+ 352:core/src/usart.c ****         {
+ 353:core/src/usart.c ****             rx_buffer[rx_write_index] = received_char;
+ 354:core/src/usart.c ****             rx_write_index = (rx_write_index + 1) % USART1_RX_BUFFER_SIZE;
+ 355:core/src/usart.c ****             rx_count++;
+ 356:core/src/usart.c ****         }
+ 357:core/src/usart.c ****         
+ 358:core/src/usart.c ****         /* Clear the interrupt flag */
+ 359:core/src/usart.c ****         USART_Interrupt_Status_Clear(USART1, USART_INT_RXDNE);
+ 360:core/src/usart.c ****     }
+ 361:core/src/usart.c **** }
+ 1206              		.loc 1 361 1 view .LVU266
+ 1207 000e 08BD     		pop	{r3, pc}
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 29
+
+
+ 1208              	.L107:
+ 1209              	.LBB4:
+ 348:core/src/usart.c ****         
+ 1210              		.loc 1 348 9 is_stmt 1 view .LVU267
+ 348:core/src/usart.c ****         
+ 1211              		.loc 1 348 36 is_stmt 0 view .LVU268
+ 1212 0010 1148     		ldr	r0, .L108
+ 1213 0012 FFF7FEFF 		bl	USART_Data_Receive
+ 1214              	.LVL79:
+ 348:core/src/usart.c ****         
+ 1215              		.loc 1 348 14 discriminator 1 view .LVU269
+ 1216 0016 C0B2     		uxtb	r0, r0
+ 1217              	.LVL80:
+ 351:core/src/usart.c ****         {
+ 1218              		.loc 1 351 9 is_stmt 1 view .LVU270
+ 351:core/src/usart.c ****         {
+ 1219              		.loc 1 351 22 is_stmt 0 view .LVU271
+ 1220 0018 104B     		ldr	r3, .L108+4
+ 1221 001a 1B88     		ldrh	r3, [r3]
+ 1222 001c 9BB2     		uxth	r3, r3
+ 351:core/src/usart.c ****         {
+ 1223              		.loc 1 351 12 view .LVU272
+ 1224 001e FF2B     		cmp	r3, #255
+ 1225 0020 14D8     		bhi	.L105
+ 353:core/src/usart.c ****             rx_write_index = (rx_write_index + 1) % USART1_RX_BUFFER_SIZE;
+ 1226              		.loc 1 353 13 is_stmt 1 view .LVU273
+ 353:core/src/usart.c ****             rx_write_index = (rx_write_index + 1) % USART1_RX_BUFFER_SIZE;
+ 1227              		.loc 1 353 22 is_stmt 0 view .LVU274
+ 1228 0022 0F4A     		ldr	r2, .L108+8
+ 1229 0024 1388     		ldrh	r3, [r2]
+ 1230 0026 9BB2     		uxth	r3, r3
+ 353:core/src/usart.c ****             rx_write_index = (rx_write_index + 1) % USART1_RX_BUFFER_SIZE;
+ 1231              		.loc 1 353 39 view .LVU275
+ 1232 0028 0E49     		ldr	r1, .L108+12
+ 1233 002a C854     		strb	r0, [r1, r3]
+ 354:core/src/usart.c ****             rx_count++;
+ 1234              		.loc 1 354 13 is_stmt 1 view .LVU276
+ 354:core/src/usart.c ****             rx_count++;
+ 1235              		.loc 1 354 46 is_stmt 0 view .LVU277
+ 1236 002c 1388     		ldrh	r3, [r2]
+ 1237 002e 9BB2     		uxth	r3, r3
+ 1238 0030 0133     		adds	r3, r3, #1
+ 354:core/src/usart.c ****             rx_count++;
+ 1239              		.loc 1 354 51 view .LVU278
+ 1240 0032 5942     		rsbs	r1, r3, #0
+ 1241 0034 DBB2     		uxtb	r3, r3
+ 1242 0036 C9B2     		uxtb	r1, r1
+ 1243 0038 58BF     		it	pl
+ 1244 003a 4B42     		rsbpl	r3, r1, #0
+ 354:core/src/usart.c ****             rx_count++;
+ 1245              		.loc 1 354 28 view .LVU279
+ 1246 003c 9BB2     		uxth	r3, r3
+ 1247 003e 1380     		strh	r3, [r2]	@ movhi
+ 355:core/src/usart.c ****         }
+ 1248              		.loc 1 355 13 is_stmt 1 view .LVU280
+ 355:core/src/usart.c ****         }
+ 1249              		.loc 1 355 21 is_stmt 0 view .LVU281
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 30
+
+
+ 1250 0040 064A     		ldr	r2, .L108+4
+ 1251 0042 1388     		ldrh	r3, [r2]
+ 1252 0044 9BB2     		uxth	r3, r3
+ 1253 0046 0133     		adds	r3, r3, #1
+ 1254 0048 9BB2     		uxth	r3, r3
+ 1255 004a 1380     		strh	r3, [r2]	@ movhi
+ 1256              	.L105:
+ 359:core/src/usart.c ****     }
+ 1257              		.loc 1 359 9 is_stmt 1 view .LVU282
+ 1258 004c 40F22551 		movw	r1, #1317
+ 1259 0050 0148     		ldr	r0, .L108
+ 1260              	.LVL81:
+ 359:core/src/usart.c ****     }
+ 1261              		.loc 1 359 9 is_stmt 0 view .LVU283
+ 1262 0052 FFF7FEFF 		bl	USART_Interrupt_Status_Clear
+ 1263              	.LVL82:
+ 1264              	.LBE4:
+ 1265              		.loc 1 361 1 view .LVU284
+ 1266 0056 DAE7     		b	.L103
+ 1267              	.L109:
+ 1268              		.align	2
+ 1269              	.L108:
+ 1270 0058 00380140 		.word	1073821696
+ 1271 005c 00000000 		.word	rx_count
+ 1272 0060 00000000 		.word	rx_write_index
+ 1273 0064 00000000 		.word	rx_buffer
+ 1274              		.cfi_endproc
+ 1275              	.LFE144:
+ 1277              		.section	.rodata.USART1_Test_Communication.str1.4,"aMS",%progbits,1
+ 1278              		.align	2
+ 1279              	.LC3:
+ 1280 0000 0D0A3D3D 		.ascii	"\015\012=== USART1 Communication Test ===\015\012\000"
+ 1280      3D205553 
+ 1280      41525431 
+ 1280      20436F6D 
+ 1280      6D756E69 
+ 1281 0026 0000     		.align	2
+ 1282              	.LC4:
+ 1283 0028 48656C6C 		.ascii	"Hello from N32G430!\015\012\000"
+ 1283      6F206672 
+ 1283      6F6D204E 
+ 1283      33324734 
+ 1283      3330210D 
+ 1284 003e 0000     		.align	2
+ 1285              	.LC5:
+ 1286 0040 53797374 		.ascii	"System Clock: %u Hz\015\012\000"
+ 1286      656D2043 
+ 1286      6C6F636B 
+ 1286      3A202575 
+ 1286      20487A0D 
+ 1287 0056 0000     		.align	2
+ 1288              	.LC6:
+ 1289 0058 43757272 		.ascii	"Current Tick: %u us\015\012\000"
+ 1289      656E7420 
+ 1289      5469636B 
+ 1289      3A202575 
+ 1289      2075730D 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 31
+
+
+ 1290 006e 0000     		.align	2
+ 1291              	.LC7:
+ 1292 0070 3D3D3D20 		.ascii	"=== Test Complete ===\015\012\015\012\000"
+ 1292      54657374 
+ 1292      20436F6D 
+ 1292      706C6574 
+ 1292      65203D3D 
+ 1293              		.section	.text.USART1_Test_Communication,"ax",%progbits
+ 1294              		.align	1
+ 1295              		.global	USART1_Test_Communication
+ 1296              		.syntax unified
+ 1297              		.thumb
+ 1298              		.thumb_func
+ 1300              	USART1_Test_Communication:
+ 1301              	.LFB145:
+ 362:core/src/usart.c **** 
+ 363:core/src/usart.c **** /**
+ 364:core/src/usart.c ****  * @brief Test USART1 communication
+ 365:core/src/usart.c ****  * @param None
+ 366:core/src/usart.c ****  * @retval None
+ 367:core/src/usart.c ****  */
+ 368:core/src/usart.c **** void USART1_Test_Communication(void)
+ 369:core/src/usart.c **** {
+ 1302              		.loc 1 369 1 is_stmt 1 view -0
+ 1303              		.cfi_startproc
+ 1304              		@ args = 0, pretend = 0, frame = 0
+ 1305              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1306 0000 08B5     		push	{r3, lr}
+ 1307              	.LCFI29:
+ 1308              		.cfi_def_cfa_offset 8
+ 1309              		.cfi_offset 3, -8
+ 1310              		.cfi_offset 14, -4
+ 370:core/src/usart.c ****     USART1_Send_String("\r\n=== USART1 Communication Test ===\r\n");
+ 1311              		.loc 1 370 5 view .LVU286
+ 1312 0002 0B48     		ldr	r0, .L112
+ 1313 0004 FFF7FEFF 		bl	USART1_Send_String
+ 1314              	.LVL83:
+ 371:core/src/usart.c ****     USART1_Send_String("Hello from N32G430!\r\n");
+ 1315              		.loc 1 371 5 view .LVU287
+ 1316 0008 0A48     		ldr	r0, .L112+4
+ 1317 000a FFF7FEFF 		bl	USART1_Send_String
+ 1318              	.LVL84:
+ 372:core/src/usart.c ****     
+ 373:core/src/usart.c ****     USART1_Printf("System Clock: %u Hz\r\n", Timer_Get_System_Clock_Hz());
+ 1319              		.loc 1 373 5 view .LVU288
+ 1320 000e FFF7FEFF 		bl	Timer_Get_System_Clock_Hz
+ 1321              	.LVL85:
+ 1322 0012 0146     		mov	r1, r0
+ 1323              		.loc 1 373 5 is_stmt 0 discriminator 1 view .LVU289
+ 1324 0014 0848     		ldr	r0, .L112+8
+ 1325 0016 FFF7FEFF 		bl	USART1_Printf
+ 1326              	.LVL86:
+ 374:core/src/usart.c ****     USART1_Printf("Current Tick: %u us\r\n", Get_Tick_Count());
+ 1327              		.loc 1 374 5 is_stmt 1 view .LVU290
+ 1328 001a FFF7FEFF 		bl	Get_Tick_Count
+ 1329              	.LVL87:
+ 1330 001e 0146     		mov	r1, r0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 32
+
+
+ 1331              		.loc 1 374 5 is_stmt 0 discriminator 1 view .LVU291
+ 1332 0020 0648     		ldr	r0, .L112+12
+ 1333 0022 FFF7FEFF 		bl	USART1_Printf
+ 1334              	.LVL88:
+ 375:core/src/usart.c ****     
+ 376:core/src/usart.c ****     USART1_Send_String("=== Test Complete ===\r\n\r\n");
+ 1335              		.loc 1 376 5 is_stmt 1 view .LVU292
+ 1336 0026 0648     		ldr	r0, .L112+16
+ 1337 0028 FFF7FEFF 		bl	USART1_Send_String
+ 1338              	.LVL89:
+ 377:core/src/usart.c **** }
+ 1339              		.loc 1 377 1 is_stmt 0 view .LVU293
+ 1340 002c 08BD     		pop	{r3, pc}
+ 1341              	.L113:
+ 1342 002e 00BF     		.align	2
+ 1343              	.L112:
+ 1344 0030 00000000 		.word	.LC3
+ 1345 0034 28000000 		.word	.LC4
+ 1346 0038 40000000 		.word	.LC5
+ 1347 003c 58000000 		.word	.LC6
+ 1348 0040 70000000 		.word	.LC7
+ 1349              		.cfi_endproc
+ 1350              	.LFE145:
+ 1352              		.section	.rodata.USART1_Test_Echo.str1.4,"aMS",%progbits,1
+ 1353              		.align	2
+ 1354              	.LC8:
+ 1355 0000 3D3D3D20 		.ascii	"=== Echo Test Mode ===\015\012\000"
+ 1355      4563686F 
+ 1355      20546573 
+ 1355      74204D6F 
+ 1355      6465203D 
+ 1356 0019 000000   		.align	2
+ 1357              	.LC9:
+ 1358 001c 54797065 		.ascii	"Type something and press Enter:\015\012\000"
+ 1358      20736F6D 
+ 1358      65746869 
+ 1358      6E672061 
+ 1358      6E642070 
+ 1359 003e 0000     		.align	2
+ 1360              	.LC10:
+ 1361 0040 4563686F 		.ascii	"Echo: %s\015\012\000"
+ 1361      3A202573 
+ 1361      0D0A00
+ 1362 004b 00       		.align	2
+ 1363              	.LC11:
+ 1364 004c 65786974 		.ascii	"exit\000"
+ 1364      00
+ 1365 0051 000000   		.align	2
+ 1366              	.LC12:
+ 1367 0054 45786974 		.ascii	"Exiting echo mode...\015\012\000"
+ 1367      696E6720 
+ 1367      6563686F 
+ 1367      206D6F64 
+ 1367      652E2E2E 
+ 1368              		.section	.text.USART1_Test_Echo,"ax",%progbits
+ 1369              		.align	1
+ 1370              		.global	USART1_Test_Echo
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 33
+
+
+ 1371              		.syntax unified
+ 1372              		.thumb
+ 1373              		.thumb_func
+ 1375              	USART1_Test_Echo:
+ 1376              	.LFB146:
+ 378:core/src/usart.c **** 
+ 379:core/src/usart.c **** /**
+ 380:core/src/usart.c ****  * @brief Test USART1 echo functionality
+ 381:core/src/usart.c ****  * @param None
+ 382:core/src/usart.c ****  * @retval None
+ 383:core/src/usart.c ****  */
+ 384:core/src/usart.c **** void USART1_Test_Echo(void)
+ 385:core/src/usart.c **** {
+ 1377              		.loc 1 385 1 is_stmt 1 view -0
+ 1378              		.cfi_startproc
+ 1379              		@ args = 0, pretend = 0, frame = 64
+ 1380              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1381 0000 10B5     		push	{r4, lr}
+ 1382              	.LCFI30:
+ 1383              		.cfi_def_cfa_offset 8
+ 1384              		.cfi_offset 4, -8
+ 1385              		.cfi_offset 14, -4
+ 1386 0002 90B0     		sub	sp, sp, #64
+ 1387              	.LCFI31:
+ 1388              		.cfi_def_cfa_offset 72
+ 386:core/src/usart.c ****     char buffer[64];
+ 1389              		.loc 1 386 5 view .LVU295
+ 387:core/src/usart.c ****     
+ 388:core/src/usart.c ****     USART1_Send_String("=== Echo Test Mode ===\r\n");
+ 1390              		.loc 1 388 5 view .LVU296
+ 1391 0004 0E48     		ldr	r0, .L118
+ 1392 0006 FFF7FEFF 		bl	USART1_Send_String
+ 1393              	.LVL90:
+ 389:core/src/usart.c ****     USART1_Send_String("Type something and press Enter:\r\n");
+ 1394              		.loc 1 389 5 view .LVU297
+ 1395 000a 0E48     		ldr	r0, .L118+4
+ 1396 000c FFF7FEFF 		bl	USART1_Send_String
+ 1397              	.LVL91:
+ 1398              	.L115:
+ 390:core/src/usart.c ****     
+ 391:core/src/usart.c ****     while (1)
+ 1399              		.loc 1 391 5 view .LVU298
+ 1400              	.LBB5:
+ 392:core/src/usart.c ****     {
+ 393:core/src/usart.c ****         uint16_t received = USART1_Receive_String(buffer, sizeof(buffer), 1000);
+ 1401              		.loc 1 393 9 view .LVU299
+ 1402              		.loc 1 393 29 is_stmt 0 view .LVU300
+ 1403 0010 4FF47A72 		mov	r2, #1000
+ 1404 0014 4021     		movs	r1, #64
+ 1405 0016 6846     		mov	r0, sp
+ 1406 0018 FFF7FEFF 		bl	USART1_Receive_String
+ 1407              	.LVL92:
+ 394:core/src/usart.c ****         
+ 395:core/src/usart.c ****         if (received > 0)
+ 1408              		.loc 1 395 9 is_stmt 1 view .LVU301
+ 1409              		.loc 1 395 12 is_stmt 0 view .LVU302
+ 1410 001c 0028     		cmp	r0, #0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 34
+
+
+ 1411 001e F7D0     		beq	.L115
+ 396:core/src/usart.c ****         {
+ 397:core/src/usart.c ****             USART1_Printf("Echo: %s\r\n", buffer);
+ 1412              		.loc 1 397 13 is_stmt 1 view .LVU303
+ 1413 0020 6946     		mov	r1, sp
+ 1414 0022 0948     		ldr	r0, .L118+8
+ 1415              	.LVL93:
+ 1416              		.loc 1 397 13 is_stmt 0 view .LVU304
+ 1417 0024 FFF7FEFF 		bl	USART1_Printf
+ 1418              	.LVL94:
+ 398:core/src/usart.c ****             
+ 399:core/src/usart.c ****             if (strcmp(buffer, "exit") == 0)
+ 1419              		.loc 1 399 13 is_stmt 1 view .LVU305
+ 1420              		.loc 1 399 17 is_stmt 0 view .LVU306
+ 1421 0028 0849     		ldr	r1, .L118+12
+ 1422 002a 6846     		mov	r0, sp
+ 1423 002c FFF7FEFF 		bl	strcmp
+ 1424              	.LVL95:
+ 1425              		.loc 1 399 16 discriminator 1 view .LVU307
+ 1426 0030 0028     		cmp	r0, #0
+ 1427 0032 EDD1     		bne	.L115
+ 400:core/src/usart.c ****             {
+ 401:core/src/usart.c ****                 USART1_Send_String("Exiting echo mode...\r\n");
+ 1428              		.loc 1 401 17 is_stmt 1 view .LVU308
+ 1429 0034 0648     		ldr	r0, .L118+16
+ 1430 0036 FFF7FEFF 		bl	USART1_Send_String
+ 1431              	.LVL96:
+ 402:core/src/usart.c ****                 break;
+ 1432              		.loc 1 402 17 view .LVU309
+ 1433              	.LBE5:
+ 403:core/src/usart.c ****             }
+ 404:core/src/usart.c ****         }
+ 405:core/src/usart.c ****     }
+ 406:core/src/usart.c **** }
+ 1434              		.loc 1 406 1 is_stmt 0 view .LVU310
+ 1435 003a 10B0     		add	sp, sp, #64
+ 1436              	.LCFI32:
+ 1437              		.cfi_def_cfa_offset 8
+ 1438              		@ sp needed
+ 1439 003c 10BD     		pop	{r4, pc}
+ 1440              	.L119:
+ 1441 003e 00BF     		.align	2
+ 1442              	.L118:
+ 1443 0040 00000000 		.word	.LC8
+ 1444 0044 1C000000 		.word	.LC9
+ 1445 0048 40000000 		.word	.LC10
+ 1446 004c 4C000000 		.word	.LC11
+ 1447 0050 54000000 		.word	.LC12
+ 1448              		.cfi_endproc
+ 1449              	.LFE146:
+ 1451              		.section	.rodata.USART1_Test_Send_Info.str1.4,"aMS",%progbits,1
+ 1452              		.align	2
+ 1453              	.LC13:
+ 1454 0000 59657300 		.ascii	"Yes\000"
+ 1455              		.align	2
+ 1456              	.LC14:
+ 1457 0004 4E6F00   		.ascii	"No\000"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 35
+
+
+ 1458 0007 00       		.align	2
+ 1459              	.LC15:
+ 1460 0008 0D0A3D3D 		.ascii	"\015\012=== N32G430 System Information ===\015\012\000"
+ 1460      3D204E33 
+ 1460      32473433 
+ 1460      30205379 
+ 1460      7374656D 
+ 1461 002f 00       		.align	2
+ 1462              	.LC16:
+ 1463 0030 41484220 		.ascii	"AHB Clock: %u Hz\015\012\000"
+ 1463      436C6F63 
+ 1463      6B3A2025 
+ 1463      7520487A 
+ 1463      0D0A00
+ 1464 0043 00       		.align	2
+ 1465              	.LC17:
+ 1466 0044 41504231 		.ascii	"APB1 Clock: %u Hz\015\012\000"
+ 1466      20436C6F 
+ 1466      636B3A20 
+ 1466      25752048 
+ 1466      7A0D0A00 
+ 1467              		.align	2
+ 1468              	.LC18:
+ 1469 0058 41504232 		.ascii	"APB2 Clock: %u Hz\015\012\000"
+ 1469      20436C6F 
+ 1469      636B3A20 
+ 1469      25752048 
+ 1469      7A0D0A00 
+ 1470              		.align	2
+ 1471              	.LC19:
+ 1472 006c 55534152 		.ascii	"USART1 Baudrate: %u\015\012\000"
+ 1472      54312042 
+ 1472      61756472 
+ 1472      6174653A 
+ 1472      2025750D 
+ 1473 0082 0000     		.align	2
+ 1474              	.LC20:
+ 1475 0084 54696D65 		.ascii	"Timer Initialized: %s\015\012\000"
+ 1475      7220496E 
+ 1475      69746961 
+ 1475      6C697A65 
+ 1475      643A2025 
+ 1476              		.align	2
+ 1477              	.LC21:
+ 1478 009c 55534152 		.ascii	"USART1 Initialized: %s\015\012\000"
+ 1478      54312049 
+ 1478      6E697469 
+ 1478      616C697A 
+ 1478      65643A20 
+ 1479 00b5 000000   		.align	2
+ 1480              	.LC22:
+ 1481 00b8 53797374 		.ascii	"System Uptime: %u us\015\012\000"
+ 1481      656D2055 
+ 1481      7074696D 
+ 1481      653A2025 
+ 1481      75207573 
+ 1482 00cf 00       		.align	2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 36
+
+
+ 1483              	.LC23:
+ 1484 00d0 53797374 		.ascii	"System Uptime: %u ms\015\012\000"
+ 1484      656D2055 
+ 1484      7074696D 
+ 1484      653A2025 
+ 1484      75206D73 
+ 1485 00e7 00       		.align	2
+ 1486              	.LC24:
+ 1487 00e8 3D3D3D20 		.ascii	"=== Information Complete ===\015\012\015\012\000"
+ 1487      496E666F 
+ 1487      726D6174 
+ 1487      696F6E20 
+ 1487      436F6D70 
+ 1488              		.section	.text.USART1_Test_Send_Info,"ax",%progbits
+ 1489              		.align	1
+ 1490              		.global	USART1_Test_Send_Info
+ 1491              		.syntax unified
+ 1492              		.thumb
+ 1493              		.thumb_func
+ 1495              	USART1_Test_Send_Info:
+ 1496              	.LFB147:
+ 407:core/src/usart.c **** 
+ 408:core/src/usart.c **** /**
+ 409:core/src/usart.c ****  * @brief Send system information via USART1
+ 410:core/src/usart.c ****  * @param None
+ 411:core/src/usart.c ****  * @retval None
+ 412:core/src/usart.c ****  */
+ 413:core/src/usart.c **** void USART1_Test_Send_Info(void)
+ 414:core/src/usart.c **** {
+ 1497              		.loc 1 414 1 is_stmt 1 view -0
+ 1498              		.cfi_startproc
+ 1499              		@ args = 0, pretend = 0, frame = 24
+ 1500              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1501 0000 10B5     		push	{r4, lr}
+ 1502              	.LCFI33:
+ 1503              		.cfi_def_cfa_offset 8
+ 1504              		.cfi_offset 4, -8
+ 1505              		.cfi_offset 14, -4
+ 1506 0002 86B0     		sub	sp, sp, #24
+ 1507              	.LCFI34:
+ 1508              		.cfi_def_cfa_offset 32
+ 415:core/src/usart.c ****     RCC_ClocksType clocks;
+ 1509              		.loc 1 415 5 view .LVU312
+ 416:core/src/usart.c ****     
+ 417:core/src/usart.c ****     USART1_Send_String("\r\n=== N32G430 System Information ===\r\n");
+ 1510              		.loc 1 417 5 view .LVU313
+ 1511 0004 1F48     		ldr	r0, .L126
+ 1512 0006 FFF7FEFF 		bl	USART1_Send_String
+ 1513              	.LVL97:
+ 418:core/src/usart.c ****     
+ 419:core/src/usart.c ****     /* Get clock information */
+ 420:core/src/usart.c ****     RCC_Clocks_Frequencies_Value_Get(&clocks);
+ 1514              		.loc 1 420 5 view .LVU314
+ 1515 000a 6846     		mov	r0, sp
+ 1516 000c FFF7FEFF 		bl	RCC_Clocks_Frequencies_Value_Get
+ 1517              	.LVL98:
+ 421:core/src/usart.c ****     
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 37
+
+
+ 422:core/src/usart.c ****     USART1_Printf("System Clock: %u Hz\r\n", clocks.SysclkFreq);
+ 1518              		.loc 1 422 5 view .LVU315
+ 1519 0010 0099     		ldr	r1, [sp]
+ 1520 0012 1D48     		ldr	r0, .L126+4
+ 1521 0014 FFF7FEFF 		bl	USART1_Printf
+ 1522              	.LVL99:
+ 423:core/src/usart.c ****     USART1_Printf("AHB Clock: %u Hz\r\n", clocks.HclkFreq);
+ 1523              		.loc 1 423 5 view .LVU316
+ 1524 0018 0199     		ldr	r1, [sp, #4]
+ 1525 001a 1C48     		ldr	r0, .L126+8
+ 1526 001c FFF7FEFF 		bl	USART1_Printf
+ 1527              	.LVL100:
+ 424:core/src/usart.c ****     USART1_Printf("APB1 Clock: %u Hz\r\n", clocks.Pclk1Freq);
+ 1528              		.loc 1 424 5 view .LVU317
+ 1529 0020 0299     		ldr	r1, [sp, #8]
+ 1530 0022 1B48     		ldr	r0, .L126+12
+ 1531 0024 FFF7FEFF 		bl	USART1_Printf
+ 1532              	.LVL101:
+ 425:core/src/usart.c ****     USART1_Printf("APB2 Clock: %u Hz\r\n", clocks.Pclk2Freq);
+ 1533              		.loc 1 425 5 view .LVU318
+ 1534 0028 0399     		ldr	r1, [sp, #12]
+ 1535 002a 1A48     		ldr	r0, .L126+16
+ 1536 002c FFF7FEFF 		bl	USART1_Printf
+ 1537              	.LVL102:
+ 426:core/src/usart.c ****     
+ 427:core/src/usart.c ****     USART1_Printf("USART1 Baudrate: %u\r\n", USART1_BAUDRATE);
+ 1538              		.loc 1 427 5 view .LVU319
+ 1539 0030 4FF4E131 		mov	r1, #115200
+ 1540 0034 1848     		ldr	r0, .L126+20
+ 1541 0036 FFF7FEFF 		bl	USART1_Printf
+ 1542              	.LVL103:
+ 428:core/src/usart.c ****     USART1_Printf("Timer Initialized: %s\r\n", Timer_Is_Initialized() ? "Yes" : "No");
+ 1543              		.loc 1 428 5 view .LVU320
+ 1544              		.loc 1 428 48 is_stmt 0 view .LVU321
+ 1545 003a FFF7FEFF 		bl	Timer_Is_Initialized
+ 1546              	.LVL104:
+ 1547              		.loc 1 428 5 discriminator 1 view .LVU322
+ 1548 003e E8B1     		cbz	r0, .L123
+ 1549 0040 1649     		ldr	r1, .L126+24
+ 1550              	.L121:
+ 1551              		.loc 1 428 5 discriminator 4 view .LVU323
+ 1552 0042 1748     		ldr	r0, .L126+28
+ 1553 0044 FFF7FEFF 		bl	USART1_Printf
+ 1554              	.LVL105:
+ 429:core/src/usart.c ****     USART1_Printf("USART1 Initialized: %s\r\n", USART1_Is_Initialized() ? "Yes" : "No");
+ 1555              		.loc 1 429 5 is_stmt 1 view .LVU324
+ 1556              		.loc 1 429 49 is_stmt 0 view .LVU325
+ 1557 0048 FFF7FEFF 		bl	USART1_Is_Initialized
+ 1558              	.LVL106:
+ 1559              		.loc 1 429 5 discriminator 1 view .LVU326
+ 1560 004c C0B1     		cbz	r0, .L124
+ 1561 004e 1349     		ldr	r1, .L126+24
+ 1562              	.L122:
+ 1563              		.loc 1 429 5 discriminator 4 view .LVU327
+ 1564 0050 1448     		ldr	r0, .L126+32
+ 1565 0052 FFF7FEFF 		bl	USART1_Printf
+ 1566              	.LVL107:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 38
+
+
+ 430:core/src/usart.c ****     
+ 431:core/src/usart.c ****     uint32_t tick_count = Get_Tick_Count();
+ 1567              		.loc 1 431 5 is_stmt 1 view .LVU328
+ 1568              		.loc 1 431 27 is_stmt 0 view .LVU329
+ 1569 0056 FFF7FEFF 		bl	Get_Tick_Count
+ 1570              	.LVL108:
+ 1571 005a 0446     		mov	r4, r0
+ 1572              	.LVL109:
+ 432:core/src/usart.c ****     USART1_Printf("System Uptime: %u us\r\n", tick_count);
+ 1573              		.loc 1 432 5 is_stmt 1 view .LVU330
+ 1574 005c 0146     		mov	r1, r0
+ 1575 005e 1248     		ldr	r0, .L126+36
+ 1576              	.LVL110:
+ 1577              		.loc 1 432 5 is_stmt 0 view .LVU331
+ 1578 0060 FFF7FEFF 		bl	USART1_Printf
+ 1579              	.LVL111:
+ 433:core/src/usart.c ****     USART1_Printf("System Uptime: %u ms\r\n", tick_count / 1000);
+ 1580              		.loc 1 433 5 is_stmt 1 view .LVU332
+ 1581 0064 114B     		ldr	r3, .L126+40
+ 1582 0066 A3FB0431 		umull	r3, r1, r3, r4
+ 1583 006a 8909     		lsrs	r1, r1, #6
+ 1584 006c 1048     		ldr	r0, .L126+44
+ 1585 006e FFF7FEFF 		bl	USART1_Printf
+ 1586              	.LVL112:
+ 434:core/src/usart.c ****     
+ 435:core/src/usart.c ****     USART1_Send_String("=== Information Complete ===\r\n\r\n");
+ 1587              		.loc 1 435 5 view .LVU333
+ 1588 0072 1048     		ldr	r0, .L126+48
+ 1589 0074 FFF7FEFF 		bl	USART1_Send_String
+ 1590              	.LVL113:
+ 436:core/src/usart.c **** }
+ 1591              		.loc 1 436 1 is_stmt 0 view .LVU334
+ 1592 0078 06B0     		add	sp, sp, #24
+ 1593              	.LCFI35:
+ 1594              		.cfi_remember_state
+ 1595              		.cfi_def_cfa_offset 8
+ 1596              		@ sp needed
+ 1597 007a 10BD     		pop	{r4, pc}
+ 1598              	.LVL114:
+ 1599              	.L123:
+ 1600              	.LCFI36:
+ 1601              		.cfi_restore_state
+ 428:core/src/usart.c ****     USART1_Printf("USART1 Initialized: %s\r\n", USART1_Is_Initialized() ? "Yes" : "No");
+ 1602              		.loc 1 428 5 discriminator 2 view .LVU335
+ 1603 007c 0E49     		ldr	r1, .L126+52
+ 1604 007e E0E7     		b	.L121
+ 1605              	.L124:
+ 429:core/src/usart.c ****     
+ 1606              		.loc 1 429 5 discriminator 2 view .LVU336
+ 1607 0080 0D49     		ldr	r1, .L126+52
+ 1608 0082 E5E7     		b	.L122
+ 1609              	.L127:
+ 1610              		.align	2
+ 1611              	.L126:
+ 1612 0084 08000000 		.word	.LC15
+ 1613 0088 40000000 		.word	.LC5
+ 1614 008c 30000000 		.word	.LC16
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 39
+
+
+ 1615 0090 44000000 		.word	.LC17
+ 1616 0094 58000000 		.word	.LC18
+ 1617 0098 6C000000 		.word	.LC19
+ 1618 009c 00000000 		.word	.LC13
+ 1619 00a0 84000000 		.word	.LC20
+ 1620 00a4 9C000000 		.word	.LC21
+ 1621 00a8 B8000000 		.word	.LC22
+ 1622 00ac D34D6210 		.word	274877907
+ 1623 00b0 D0000000 		.word	.LC23
+ 1624 00b4 E8000000 		.word	.LC24
+ 1625 00b8 04000000 		.word	.LC14
+ 1626              		.cfi_endproc
+ 1627              	.LFE147:
+ 1629              		.section	.text.__io_putchar,"ax",%progbits
+ 1630              		.align	1
+ 1631              		.global	__io_putchar
+ 1632              		.syntax unified
+ 1633              		.thumb
+ 1634              		.thumb_func
+ 1636              	__io_putchar:
+ 1637              	.LVL115:
+ 1638              	.LFB148:
+ 437:core/src/usart.c **** 
+ 438:core/src/usart.c **** /* Printf redirection to USART1 */
+ 439:core/src/usart.c **** int __io_putchar(int ch)
+ 440:core/src/usart.c **** {
+ 1639              		.loc 1 440 1 is_stmt 1 view -0
+ 1640              		.cfi_startproc
+ 1641              		@ args = 0, pretend = 0, frame = 0
+ 1642              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1643              		.loc 1 440 1 is_stmt 0 view .LVU338
+ 1644 0000 10B5     		push	{r4, lr}
+ 1645              	.LCFI37:
+ 1646              		.cfi_def_cfa_offset 8
+ 1647              		.cfi_offset 4, -8
+ 1648              		.cfi_offset 14, -4
+ 1649 0002 0446     		mov	r4, r0
+ 441:core/src/usart.c ****     if (usart1_initialized)
+ 1650              		.loc 1 441 5 is_stmt 1 view .LVU339
+ 1651              		.loc 1 441 9 is_stmt 0 view .LVU340
+ 1652 0004 044B     		ldr	r3, .L132
+ 1653 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1654              		.loc 1 441 8 view .LVU341
+ 1655 0008 0BB9     		cbnz	r3, .L131
+ 1656              	.LVL116:
+ 1657              	.L129:
+ 442:core/src/usart.c ****     {
+ 443:core/src/usart.c ****         USART1_Send_Char((char)ch);
+ 444:core/src/usart.c ****     }
+ 445:core/src/usart.c ****     return ch;
+ 1658              		.loc 1 445 5 is_stmt 1 view .LVU342
+ 446:core/src/usart.c **** }
+ 1659              		.loc 1 446 1 is_stmt 0 view .LVU343
+ 1660 000a 2046     		mov	r0, r4
+ 1661 000c 10BD     		pop	{r4, pc}
+ 1662              	.LVL117:
+ 1663              	.L131:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 40
+
+
+ 443:core/src/usart.c ****     }
+ 1664              		.loc 1 443 9 is_stmt 1 view .LVU344
+ 1665 000e C0B2     		uxtb	r0, r0
+ 1666              	.LVL118:
+ 443:core/src/usart.c ****     }
+ 1667              		.loc 1 443 9 is_stmt 0 view .LVU345
+ 1668 0010 FFF7FEFF 		bl	USART1_Send_Char
+ 1669              	.LVL119:
+ 1670 0014 F9E7     		b	.L129
+ 1671              	.L133:
+ 1672 0016 00BF     		.align	2
+ 1673              	.L132:
+ 1674 0018 00000000 		.word	usart1_initialized
+ 1675              		.cfi_endproc
+ 1676              	.LFE148:
+ 1678              		.section	.text.__io_getchar,"ax",%progbits
+ 1679              		.align	1
+ 1680              		.global	__io_getchar
+ 1681              		.syntax unified
+ 1682              		.thumb
+ 1683              		.thumb_func
+ 1685              	__io_getchar:
+ 1686              	.LFB149:
+ 447:core/src/usart.c **** 
+ 448:core/src/usart.c **** int __io_getchar(void)
+ 449:core/src/usart.c **** {
+ 1687              		.loc 1 449 1 is_stmt 1 view -0
+ 1688              		.cfi_startproc
+ 1689              		@ args = 0, pretend = 0, frame = 0
+ 1690              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1691 0000 08B5     		push	{r3, lr}
+ 1692              	.LCFI38:
+ 1693              		.cfi_def_cfa_offset 8
+ 1694              		.cfi_offset 3, -8
+ 1695              		.cfi_offset 14, -4
+ 450:core/src/usart.c ****     if (usart1_initialized)
+ 1696              		.loc 1 450 5 view .LVU347
+ 1697              		.loc 1 450 9 is_stmt 0 view .LVU348
+ 1698 0002 044B     		ldr	r3, .L139
+ 1699 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1700              		.loc 1 450 8 view .LVU349
+ 1701 0006 0BB9     		cbnz	r3, .L138
+ 451:core/src/usart.c ****     {
+ 452:core/src/usart.c ****         return (int)USART1_Receive_Char();
+ 453:core/src/usart.c ****     }
+ 454:core/src/usart.c ****     return 0;
+ 1702              		.loc 1 454 12 view .LVU350
+ 1703 0008 0020     		movs	r0, #0
+ 1704              	.L134:
+ 455:core/src/usart.c **** } ...
+ 1705              		.loc 1 455 1 view .LVU351
+ 1706 000a 08BD     		pop	{r3, pc}
+ 1707              	.L138:
+ 452:core/src/usart.c ****         return (int)USART1_Receive_Char();
+ 1708              		.loc 1 452 9 is_stmt 1 view .LVU352
+ 452:core/src/usart.c ****         return (int)USART1_Receive_Char();
+ 1709              		.loc 1 452 21 is_stmt 0 view .LVU353
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 41
+
+
+ 1710 000c FFF7FEFF 		bl	USART1_Receive_Char
+ 1711              	.LVL120:
+ 452:core/src/usart.c ****         return (int)USART1_Receive_Char();
+ 1712              		.loc 1 452 16 view .LVU354
+ 1713 0010 FBE7     		b	.L134
+ 1714              	.L140:
+ 1715 0012 00BF     		.align	2
+ 1716              	.L139:
+ 1717 0014 00000000 		.word	usart1_initialized
+ 1718              		.cfi_endproc
+ 1719              	.LFE149:
+ 1721              		.section	.bss.rx_count,"aw",%nobits
+ 1722              		.align	1
+ 1725              	rx_count:
+ 1726 0000 0000     		.space	2
+ 1727              		.section	.bss.rx_read_index,"aw",%nobits
+ 1728              		.align	1
+ 1731              	rx_read_index:
+ 1732 0000 0000     		.space	2
+ 1733              		.section	.bss.rx_write_index,"aw",%nobits
+ 1734              		.align	1
+ 1737              	rx_write_index:
+ 1738 0000 0000     		.space	2
+ 1739              		.section	.bss.rx_buffer,"aw",%nobits
+ 1740              		.align	2
+ 1743              	rx_buffer:
+ 1744 0000 00000000 		.space	256
+ 1744      00000000 
+ 1744      00000000 
+ 1744      00000000 
+ 1744      00000000 
+ 1745              		.section	.bss.tx_buffer,"aw",%nobits
+ 1746              		.align	2
+ 1749              	tx_buffer:
+ 1750 0000 00000000 		.space	256
+ 1750      00000000 
+ 1750      00000000 
+ 1750      00000000 
+ 1750      00000000 
+ 1751              		.section	.bss.usart1_initialized,"aw",%nobits
+ 1754              	usart1_initialized:
+ 1755 0000 00       		.space	1
+ 1756              		.text
+ 1757              	.Letext0:
+ 1758              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 1759              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 1760              		.file 4 "CMSIS/device/n32g430.h"
+ 1761              		.file 5 "n32g430_std_periph_driver/inc/n32g430_gpio.h"
+ 1762              		.file 6 "n32g430_std_periph_driver/inc/n32g430_rcc.h"
+ 1763              		.file 7 "n32g430_std_periph_driver/inc/n32g430_usart.h"
+ 1764              		.file 8 "n32g430_std_periph_driver/inc/misc.h"
+ 1765              		.file 9 "D:/Tools/arm-gnu-toolchain/lib/gcc/arm-none-eabi/14.2.1/include/stdarg.h"
+ 1766              		.file 10 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/stdio.h"
+ 1767              		.file 11 "core/inc/timer.h"
+ 1768              		.file 12 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/string.h"
+ 1769              		.file 13 "<built-in>"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 42
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 usart.c
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:19     .text.USART1_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:25     .text.USART1_Init:00000000 USART1_Init
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:193    .text.USART1_Init:000000bc $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1743   .bss.rx_buffer:00000000 rx_buffer
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1737   .bss.rx_write_index:00000000 rx_write_index
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1731   .bss.rx_read_index:00000000 rx_read_index
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1725   .bss.rx_count:00000000 rx_count
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1754   .bss.usart1_initialized:00000000 usart1_initialized
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:204    .text.USART1_DeInit:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:210    .text.USART1_DeInit:00000000 USART1_DeInit
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:235    .text.USART1_DeInit:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:241    .text.USART1_Send_Char:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:247    .text.USART1_Send_Char:00000000 USART1_Send_Char
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:302    .text.USART1_Send_Char:0000002c $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:308    .text.USART1_Send_String:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:314    .text.USART1_Send_String:00000000 USART1_Send_String
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:354    .text.USART1_Send_Data:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:360    .text.USART1_Send_Data:00000000 USART1_Send_Data
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:422    .text.USART1_Receive_Char:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:428    .text.USART1_Receive_Char:00000000 USART1_Receive_Char
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:468    .text.USART1_Receive_Char:00000020 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:474    .text.USART1_Receive_String:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:480    .text.USART1_Receive_String:00000000 USART1_Receive_String
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:617    .text.USART1_Receive_String:0000007c $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:622    .text.USART1_Printf:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:628    .text.USART1_Printf:00000000 USART1_Printf
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:705    .text.USART1_Printf:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1749   .bss.tx_buffer:00000000 tx_buffer
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:710    .rodata.USART1_Send_Hex.str1.4:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:714    .text.USART1_Send_Hex:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:720    .text.USART1_Send_Hex:00000000 USART1_Send_Hex
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:745    .text.USART1_Send_Hex:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:750    .rodata.USART1_Send_Dec.str1.4:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:754    .text.USART1_Send_Dec:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:760    .text.USART1_Send_Dec:00000000 USART1_Send_Dec
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:785    .text.USART1_Send_Dec:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:790    .rodata.USART1_Send_Float.str1.4:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:794    .text.USART1_Send_Float:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:800    .text.USART1_Send_Float:00000000 USART1_Send_Float
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:848    .text.USART1_Send_Float:00000028 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:853    .text.USART1_Is_TX_Ready:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:859    .text.USART1_Is_TX_Ready:00000000 USART1_Is_TX_Ready
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:895    .text.USART1_Is_TX_Ready:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:901    .text.USART1_Is_RX_Ready:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:907    .text.USART1_Is_RX_Ready:00000000 USART1_Is_RX_Ready
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:943    .text.USART1_Is_RX_Ready:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:949    .text.USART1_Is_Initialized:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:955    .text.USART1_Is_Initialized:00000000 USART1_Is_Initialized
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:970    .text.USART1_Is_Initialized:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:975    .text.USART1_IT_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:981    .text.USART1_IT_Enable:00000000 USART1_IT_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1002   .text.USART1_IT_Enable:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1007   .text.USART1_IT_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1013   .text.USART1_IT_Disable:00000000 USART1_IT_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1034   .text.USART1_IT_Disable:00000010 $d
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 43
+
+
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1039   .text.USART1_Get_RX_Buffer_Count:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1045   .text.USART1_Get_RX_Buffer_Count:00000000 USART1_Get_RX_Buffer_Count
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1062   .text.USART1_Get_RX_Buffer_Count:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1067   .text.USART1_Read_RX_Buffer:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1073   .text.USART1_Read_RX_Buffer:00000000 USART1_Read_RX_Buffer
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1173   .text.USART1_Read_RX_Buffer:0000005c $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1180   .text.USART1_IRQHandler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1186   .text.USART1_IRQHandler:00000000 USART1_IRQHandler
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1270   .text.USART1_IRQHandler:00000058 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1278   .rodata.USART1_Test_Communication.str1.4:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1294   .text.USART1_Test_Communication:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1300   .text.USART1_Test_Communication:00000000 USART1_Test_Communication
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1344   .text.USART1_Test_Communication:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1353   .rodata.USART1_Test_Echo.str1.4:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1369   .text.USART1_Test_Echo:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1375   .text.USART1_Test_Echo:00000000 USART1_Test_Echo
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1443   .text.USART1_Test_Echo:00000040 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1452   .rodata.USART1_Test_Send_Info.str1.4:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1489   .text.USART1_Test_Send_Info:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1495   .text.USART1_Test_Send_Info:00000000 USART1_Test_Send_Info
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1612   .text.USART1_Test_Send_Info:00000084 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1630   .text.__io_putchar:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1636   .text.__io_putchar:00000000 __io_putchar
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1674   .text.__io_putchar:00000018 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1679   .text.__io_getchar:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1685   .text.__io_getchar:00000000 __io_getchar
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1717   .text.__io_getchar:00000014 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1722   .bss.rx_count:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1728   .bss.rx_read_index:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1734   .bss.rx_write_index:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1740   .bss.rx_buffer:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1746   .bss.tx_buffer:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s:1755   .bss.usart1_initialized:00000000 $d
+
+UNDEFINED SYMBOLS
+RCC_AHB_Peripheral_Clock_Enable
+RCC_APB2_Peripheral_Clock_Enable
+GPIO_Peripheral_Initialize
+USART_Initializes
+NVIC_Initializes
+USART_Interrput_Enable
+USART_Enable
+memset
+USART_Disable
+USART_Flag_Status_Get
+USART_Data_Send
+USART_Data_Receive
+Get_Tick_Count
+Delay_us
+vsnprintf
+snprintf
+__aeabi_f2d
+USART_Interrput_Disable
+USART_Interrupt_Status_Get
+USART_Interrupt_Status_Clear
+Timer_Get_System_Clock_Hz
+strcmp
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKmQvS9.s 			page 44
+
+
+RCC_Clocks_Frequencies_Value_Get
+Timer_Is_Initialized
