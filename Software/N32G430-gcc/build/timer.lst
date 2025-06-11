@@ -1,0 +1,882 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 23, 1
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"timer.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.file 1 "core/src/timer.c"
+  16              		.section	.text.Timer_Init,"ax",%progbits
+  17              		.align	1
+  18              		.global	Timer_Init
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  23              	Timer_Init:
+  24              	.LFB123:
+   1:core/src/timer.c **** /**
+   2:core/src/timer.c ****  * @file timer.c
+   3:core/src/timer.c ****  * @brief SysTick Hardware Timer Delay Implementation
+   4:core/src/timer.c ****  * @version v1.0.0
+   5:core/src/timer.c ****  * @author N32G430 Project
+   6:core/src/timer.c ****  */
+   7:core/src/timer.c **** 
+   8:core/src/timer.c **** #include "timer.h"
+   9:core/src/timer.c **** 
+  10:core/src/timer.c **** /* Private Variables */
+  11:core/src/timer.c **** static volatile uint32_t tick_counter = 0;
+  12:core/src/timer.c **** static volatile uint32_t timer_start_tick = 0;
+  13:core/src/timer.c **** static uint32_t systick_reload_value = 0;
+  14:core/src/timer.c **** 
+  15:core/src/timer.c **** /**
+  16:core/src/timer.c ****  * @brief Initialize SysTick Timer for precise delay functions
+  17:core/src/timer.c ****  * @param None
+  18:core/src/timer.c ****  * @retval None
+  19:core/src/timer.c ****  * @note System clock is assumed to be 128MHz
+  20:core/src/timer.c ****  */
+  21:core/src/timer.c **** void Timer_Init(void)
+  22:core/src/timer.c **** {
+  25              		.loc 1 22 1 view -0
+  26              		.cfi_startproc
+  27              		@ args = 0, pretend = 0, frame = 24
+  28              		@ frame_needed = 0, uses_anonymous_args = 0
+  29 0000 00B5     		push	{lr}
+  30              	.LCFI0:
+  31              		.cfi_def_cfa_offset 4
+  32              		.cfi_offset 14, -4
+  33 0002 87B0     		sub	sp, sp, #28
+  34              	.LCFI1:
+  35              		.cfi_def_cfa_offset 32
+  23:core/src/timer.c ****     uint32_t system_clock_hz;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s 			page 2
+
+
+  36              		.loc 1 23 5 view .LVU1
+  24:core/src/timer.c ****     
+  25:core/src/timer.c ****     /* Get system clock frequency */
+  26:core/src/timer.c ****     RCC_ClocksType clocks;
+  37              		.loc 1 26 5 view .LVU2
+  27:core/src/timer.c ****     RCC_Clocks_Frequencies_Value_Get(&clocks);
+  38              		.loc 1 27 5 view .LVU3
+  39 0004 6846     		mov	r0, sp
+  40 0006 FFF7FEFF 		bl	RCC_Clocks_Frequencies_Value_Get
+  41              	.LVL0:
+  28:core/src/timer.c ****     system_clock_hz = clocks.SysclkFreq;
+  42              		.loc 1 28 5 view .LVU4
+  29:core/src/timer.c ****     
+  30:core/src/timer.c ****     /* Calculate reload value for 1MHz (1μs resolution) */
+  31:core/src/timer.c ****     systick_reload_value = system_clock_hz / SYSTICK_FREQUENCY_HZ - 1;
+  43              		.loc 1 31 5 view .LVU5
+  44              		.loc 1 31 44 is_stmt 0 view .LVU6
+  45 000a 009B     		ldr	r3, [sp]
+  46 000c 094A     		ldr	r2, .L3
+  47 000e A2FB0323 		umull	r2, r3, r2, r3
+  48 0012 9B0C     		lsrs	r3, r3, #18
+  49              		.loc 1 31 67 view .LVU7
+  50 0014 013B     		subs	r3, r3, #1
+  51              		.loc 1 31 26 view .LVU8
+  52 0016 084A     		ldr	r2, .L3+4
+  53 0018 1360     		str	r3, [r2]
+  32:core/src/timer.c ****     
+  33:core/src/timer.c ****     /* Configure SysTick */
+  34:core/src/timer.c ****     SysTick->LOAD = systick_reload_value;           /* Set reload value */
+  54              		.loc 1 34 5 is_stmt 1 view .LVU9
+  55              		.loc 1 34 19 is_stmt 0 view .LVU10
+  56 001a 4FF0E022 		mov	r2, #-536813568
+  57 001e 5361     		str	r3, [r2, #20]
+  58              	.LVL1:
+  35:core/src/timer.c ****     SysTick->VAL = 0;                               /* Clear current value */
+  59              		.loc 1 35 5 is_stmt 1 view .LVU11
+  60              		.loc 1 35 18 is_stmt 0 view .LVU12
+  61 0020 0023     		movs	r3, #0
+  62 0022 9361     		str	r3, [r2, #24]
+  36:core/src/timer.c ****     SysTick->CTRL = SysTick_CTRL_CLKSOURCE |        /* Use processor clock */
+  63              		.loc 1 36 5 is_stmt 1 view .LVU13
+  64              		.loc 1 36 19 is_stmt 0 view .LVU14
+  65 0024 0721     		movs	r1, #7
+  66 0026 1161     		str	r1, [r2, #16]
+  37:core/src/timer.c ****                     SysTick_CTRL_TICKINT |          /* Enable interrupt */
+  38:core/src/timer.c ****                     SysTick_CTRL_ENABLE;            /* Enable SysTick */
+  39:core/src/timer.c ****     
+  40:core/src/timer.c ****     /* Reset tick counter */
+  41:core/src/timer.c ****     tick_counter = 0;
+  67              		.loc 1 41 5 is_stmt 1 view .LVU15
+  68              		.loc 1 41 18 is_stmt 0 view .LVU16
+  69 0028 044A     		ldr	r2, .L3+8
+  70 002a 1360     		str	r3, [r2]
+  42:core/src/timer.c **** }
+  71              		.loc 1 42 1 view .LVU17
+  72 002c 07B0     		add	sp, sp, #28
+  73              	.LCFI2:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s 			page 3
+
+
+  74              		.cfi_def_cfa_offset 4
+  75              		@ sp needed
+  76 002e 5DF804FB 		ldr	pc, [sp], #4
+  77              	.L4:
+  78 0032 00BF     		.align	2
+  79              	.L3:
+  80 0034 83DE1B43 		.word	1125899907
+  81 0038 00000000 		.word	systick_reload_value
+  82 003c 00000000 		.word	tick_counter
+  83              		.cfi_endproc
+  84              	.LFE123:
+  86              		.section	.text.SysTick_Handler,"ax",%progbits
+  87              		.align	1
+  88              		.global	SysTick_Handler
+  89              		.syntax unified
+  90              		.thumb
+  91              		.thumb_func
+  93              	SysTick_Handler:
+  94              	.LFB124:
+  43:core/src/timer.c **** 
+  44:core/src/timer.c **** /**
+  45:core/src/timer.c ****  * @brief SysTick interrupt handler
+  46:core/src/timer.c ****  * @param None
+  47:core/src/timer.c ****  * @retval None
+  48:core/src/timer.c ****  */
+  49:core/src/timer.c **** void SysTick_Handler(void)
+  50:core/src/timer.c **** {
+  95              		.loc 1 50 1 is_stmt 1 view -0
+  96              		.cfi_startproc
+  97              		@ args = 0, pretend = 0, frame = 0
+  98              		@ frame_needed = 0, uses_anonymous_args = 0
+  99              		@ link register save eliminated.
+  51:core/src/timer.c ****     tick_counter++;
+ 100              		.loc 1 51 5 view .LVU19
+ 101              		.loc 1 51 17 is_stmt 0 view .LVU20
+ 102 0000 024A     		ldr	r2, .L6
+ 103 0002 1368     		ldr	r3, [r2]
+ 104 0004 0133     		adds	r3, r3, #1
+ 105 0006 1360     		str	r3, [r2]
+  52:core/src/timer.c **** }
+ 106              		.loc 1 52 1 view .LVU21
+ 107 0008 7047     		bx	lr
+ 108              	.L7:
+ 109 000a 00BF     		.align	2
+ 110              	.L6:
+ 111 000c 00000000 		.word	tick_counter
+ 112              		.cfi_endproc
+ 113              	.LFE124:
+ 115              		.section	.text.Delay_us,"ax",%progbits
+ 116              		.align	1
+ 117              		.global	Delay_us
+ 118              		.syntax unified
+ 119              		.thumb
+ 120              		.thumb_func
+ 122              	Delay_us:
+ 123              	.LVL2:
+ 124              	.LFB126:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s 			page 4
+
+
+  53:core/src/timer.c **** 
+  54:core/src/timer.c **** /**
+  55:core/src/timer.c ****  * @brief Delay function in milliseconds
+  56:core/src/timer.c ****  * @param ms: delay time in milliseconds
+  57:core/src/timer.c ****  * @retval None
+  58:core/src/timer.c ****  */
+  59:core/src/timer.c **** void Delay_ms(uint32_t ms)
+  60:core/src/timer.c **** {
+  61:core/src/timer.c ****     if (ms == 0) return;
+  62:core/src/timer.c ****     
+  63:core/src/timer.c ****     Delay_us(ms * 1000U);
+  64:core/src/timer.c **** }
+  65:core/src/timer.c **** 
+  66:core/src/timer.c **** /**
+  67:core/src/timer.c ****  * @brief Delay function in microseconds
+  68:core/src/timer.c ****  * @param us: delay time in microseconds
+  69:core/src/timer.c ****  * @retval None
+  70:core/src/timer.c ****  */
+  71:core/src/timer.c **** void Delay_us(uint32_t us)
+  72:core/src/timer.c **** {
+ 125              		.loc 1 72 1 is_stmt 1 view -0
+ 126              		.cfi_startproc
+ 127              		@ args = 0, pretend = 0, frame = 0
+ 128              		@ frame_needed = 0, uses_anonymous_args = 0
+ 129              		@ link register save eliminated.
+  73:core/src/timer.c ****     if (us == 0) return;
+ 130              		.loc 1 73 5 view .LVU23
+ 131              		.loc 1 73 8 is_stmt 0 view .LVU24
+ 132 0000 0146     		mov	r1, r0
+ 133 0002 70B1     		cbz	r0, .L8
+  74:core/src/timer.c ****     
+  75:core/src/timer.c ****     uint32_t start_tick = tick_counter;
+ 134              		.loc 1 75 5 is_stmt 1 view .LVU25
+ 135              		.loc 1 75 14 is_stmt 0 view .LVU26
+ 136 0004 074B     		ldr	r3, .L13
+ 137 0006 1A68     		ldr	r2, [r3]
+ 138              	.LVL3:
+  76:core/src/timer.c ****     uint32_t target_ticks = us;
+ 139              		.loc 1 76 5 is_stmt 1 view .LVU27
+  77:core/src/timer.c ****     
+  78:core/src/timer.c ****     /* Handle tick counter overflow */
+  79:core/src/timer.c ****     if (start_tick > (UINT32_MAX - target_ticks)) {
+ 140              		.loc 1 79 5 view .LVU28
+ 141              		.loc 1 79 34 is_stmt 0 view .LVU29
+ 142 0008 C343     		mvns	r3, r0
+ 143              		.loc 1 79 8 view .LVU30
+ 144 000a 9342     		cmp	r3, r2
+ 145 000c 04D2     		bcs	.L12
+ 146              	.L11:
+  80:core/src/timer.c ****         /* Wait for overflow */
+  81:core/src/timer.c ****         while (tick_counter >= start_tick);
+ 147              		.loc 1 81 29 is_stmt 1 discriminator 1 view .LVU31
+ 148 000e 054B     		ldr	r3, .L13
+ 149 0010 1B68     		ldr	r3, [r3]
+ 150 0012 9342     		cmp	r3, r2
+ 151 0014 FBD2     		bcs	.L11
+  82:core/src/timer.c ****         start_tick = 0;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s 			page 5
+
+
+ 152              		.loc 1 82 20 is_stmt 0 view .LVU32
+ 153 0016 0022     		movs	r2, #0
+ 154              	.LVL4:
+ 155              	.L12:
+  83:core/src/timer.c ****     }
+  84:core/src/timer.c ****     
+  85:core/src/timer.c ****     /* Wait for target ticks */
+  86:core/src/timer.c ****     while ((tick_counter - start_tick) < target_ticks);
+ 156              		.loc 1 86 40 is_stmt 1 discriminator 1 view .LVU33
+ 157              		.loc 1 86 26 is_stmt 0 discriminator 1 view .LVU34
+ 158 0018 024B     		ldr	r3, .L13
+ 159 001a 1B68     		ldr	r3, [r3]
+ 160 001c 9B1A     		subs	r3, r3, r2
+ 161              		.loc 1 86 40 discriminator 1 view .LVU35
+ 162 001e 8B42     		cmp	r3, r1
+ 163 0020 FAD3     		bcc	.L12
+ 164              	.LVL5:
+ 165              	.L8:
+  87:core/src/timer.c **** }
+ 166              		.loc 1 87 1 view .LVU36
+ 167 0022 7047     		bx	lr
+ 168              	.L14:
+ 169              		.align	2
+ 170              	.L13:
+ 171 0024 00000000 		.word	tick_counter
+ 172              		.cfi_endproc
+ 173              	.LFE126:
+ 175              		.section	.text.Delay_ms,"ax",%progbits
+ 176              		.align	1
+ 177              		.global	Delay_ms
+ 178              		.syntax unified
+ 179              		.thumb
+ 180              		.thumb_func
+ 182              	Delay_ms:
+ 183              	.LVL6:
+ 184              	.LFB125:
+  60:core/src/timer.c ****     if (ms == 0) return;
+ 185              		.loc 1 60 1 is_stmt 1 view -0
+ 186              		.cfi_startproc
+ 187              		@ args = 0, pretend = 0, frame = 0
+ 188              		@ frame_needed = 0, uses_anonymous_args = 0
+  61:core/src/timer.c ****     
+ 189              		.loc 1 61 5 view .LVU38
+  61:core/src/timer.c ****     
+ 190              		.loc 1 61 8 is_stmt 0 view .LVU39
+ 191 0000 00B9     		cbnz	r0, .L21
+ 192 0002 7047     		bx	lr
+ 193              	.L21:
+  60:core/src/timer.c ****     if (ms == 0) return;
+ 194              		.loc 1 60 1 view .LVU40
+ 195 0004 08B5     		push	{r3, lr}
+ 196              	.LCFI3:
+ 197              		.cfi_def_cfa_offset 8
+ 198              		.cfi_offset 3, -8
+ 199              		.cfi_offset 14, -4
+ 200 0006 0346     		mov	r3, r0
+  63:core/src/timer.c **** }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s 			page 6
+
+
+ 201              		.loc 1 63 5 is_stmt 1 view .LVU41
+ 202 0008 4FF47A70 		mov	r0, #1000
+ 203              	.LVL7:
+  63:core/src/timer.c **** }
+ 204              		.loc 1 63 5 is_stmt 0 view .LVU42
+ 205 000c 03FB00F0 		mul	r0, r3, r0
+ 206 0010 FFF7FEFF 		bl	Delay_us
+ 207              	.LVL8:
+  64:core/src/timer.c **** 
+ 208              		.loc 1 64 1 view .LVU43
+ 209 0014 08BD     		pop	{r3, pc}
+ 210              		.cfi_endproc
+ 211              	.LFE125:
+ 213              		.section	.text.Get_Tick_Count,"ax",%progbits
+ 214              		.align	1
+ 215              		.global	Get_Tick_Count
+ 216              		.syntax unified
+ 217              		.thumb
+ 218              		.thumb_func
+ 220              	Get_Tick_Count:
+ 221              	.LFB127:
+  88:core/src/timer.c **** 
+  89:core/src/timer.c **** /**
+  90:core/src/timer.c ****  * @brief Get current tick count in microseconds
+  91:core/src/timer.c ****  * @param None
+  92:core/src/timer.c ****  * @retval Current tick count
+  93:core/src/timer.c ****  */
+  94:core/src/timer.c **** uint32_t Get_Tick_Count(void)
+  95:core/src/timer.c **** {
+ 222              		.loc 1 95 1 is_stmt 1 view -0
+ 223              		.cfi_startproc
+ 224              		@ args = 0, pretend = 0, frame = 0
+ 225              		@ frame_needed = 0, uses_anonymous_args = 0
+ 226              		@ link register save eliminated.
+  96:core/src/timer.c ****     return tick_counter;
+ 227              		.loc 1 96 5 view .LVU45
+ 228              		.loc 1 96 12 is_stmt 0 view .LVU46
+ 229 0000 014B     		ldr	r3, .L23
+ 230 0002 1868     		ldr	r0, [r3]
+  97:core/src/timer.c **** }
+ 231              		.loc 1 97 1 view .LVU47
+ 232 0004 7047     		bx	lr
+ 233              	.L24:
+ 234 0006 00BF     		.align	2
+ 235              	.L23:
+ 236 0008 00000000 		.word	tick_counter
+ 237              		.cfi_endproc
+ 238              	.LFE127:
+ 240              		.section	.text.Timer_Reset,"ax",%progbits
+ 241              		.align	1
+ 242              		.global	Timer_Reset
+ 243              		.syntax unified
+ 244              		.thumb
+ 245              		.thumb_func
+ 247              	Timer_Reset:
+ 248              	.LFB128:
+  98:core/src/timer.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s 			page 7
+
+
+  99:core/src/timer.c **** /**
+ 100:core/src/timer.c ****  * @brief Reset tick counter
+ 101:core/src/timer.c ****  * @param None
+ 102:core/src/timer.c ****  * @retval None
+ 103:core/src/timer.c ****  */
+ 104:core/src/timer.c **** void Timer_Reset(void)
+ 105:core/src/timer.c **** {
+ 249              		.loc 1 105 1 is_stmt 1 view -0
+ 250              		.cfi_startproc
+ 251              		@ args = 0, pretend = 0, frame = 0
+ 252              		@ frame_needed = 0, uses_anonymous_args = 0
+ 253              		@ link register save eliminated.
+ 106:core/src/timer.c ****     tick_counter = 0;
+ 254              		.loc 1 106 5 view .LVU49
+ 255              		.loc 1 106 18 is_stmt 0 view .LVU50
+ 256 0000 014B     		ldr	r3, .L26
+ 257 0002 0022     		movs	r2, #0
+ 258 0004 1A60     		str	r2, [r3]
+ 107:core/src/timer.c **** }
+ 259              		.loc 1 107 1 view .LVU51
+ 260 0006 7047     		bx	lr
+ 261              	.L27:
+ 262              		.align	2
+ 263              	.L26:
+ 264 0008 00000000 		.word	tick_counter
+ 265              		.cfi_endproc
+ 266              	.LFE128:
+ 268              		.section	.text.Timer_Start,"ax",%progbits
+ 269              		.align	1
+ 270              		.global	Timer_Start
+ 271              		.syntax unified
+ 272              		.thumb
+ 273              		.thumb_func
+ 275              	Timer_Start:
+ 276              	.LFB129:
+ 108:core/src/timer.c **** 
+ 109:core/src/timer.c **** /**
+ 110:core/src/timer.c ****  * @brief Start timer for elapsed time measurement
+ 111:core/src/timer.c ****  * @param None
+ 112:core/src/timer.c ****  * @retval None
+ 113:core/src/timer.c ****  */
+ 114:core/src/timer.c **** void Timer_Start(void)
+ 115:core/src/timer.c **** {
+ 277              		.loc 1 115 1 is_stmt 1 view -0
+ 278              		.cfi_startproc
+ 279              		@ args = 0, pretend = 0, frame = 0
+ 280              		@ frame_needed = 0, uses_anonymous_args = 0
+ 281              		@ link register save eliminated.
+ 116:core/src/timer.c ****     timer_start_tick = tick_counter;
+ 282              		.loc 1 116 5 view .LVU53
+ 283              		.loc 1 116 22 is_stmt 0 view .LVU54
+ 284 0000 024B     		ldr	r3, .L29
+ 285 0002 1A68     		ldr	r2, [r3]
+ 286 0004 024B     		ldr	r3, .L29+4
+ 287 0006 1A60     		str	r2, [r3]
+ 117:core/src/timer.c **** }
+ 288              		.loc 1 117 1 view .LVU55
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s 			page 8
+
+
+ 289 0008 7047     		bx	lr
+ 290              	.L30:
+ 291 000a 00BF     		.align	2
+ 292              	.L29:
+ 293 000c 00000000 		.word	tick_counter
+ 294 0010 00000000 		.word	timer_start_tick
+ 295              		.cfi_endproc
+ 296              	.LFE129:
+ 298              		.section	.text.Timer_Stop,"ax",%progbits
+ 299              		.align	1
+ 300              		.global	Timer_Stop
+ 301              		.syntax unified
+ 302              		.thumb
+ 303              		.thumb_func
+ 305              	Timer_Stop:
+ 306              	.LFB130:
+ 118:core/src/timer.c **** 
+ 119:core/src/timer.c **** /**
+ 120:core/src/timer.c ****  * @brief Stop timer (actually just record current tick)
+ 121:core/src/timer.c ****  * @param None
+ 122:core/src/timer.c ****  * @retval None
+ 123:core/src/timer.c ****  */
+ 124:core/src/timer.c **** void Timer_Stop(void)
+ 125:core/src/timer.c **** {
+ 307              		.loc 1 125 1 is_stmt 1 view -0
+ 308              		.cfi_startproc
+ 309              		@ args = 0, pretend = 0, frame = 0
+ 310              		@ frame_needed = 0, uses_anonymous_args = 0
+ 311              		@ link register save eliminated.
+ 126:core/src/timer.c ****     /* Timer continues running, this is just for API completeness */
+ 127:core/src/timer.c **** }
+ 312              		.loc 1 127 1 view .LVU57
+ 313 0000 7047     		bx	lr
+ 314              		.cfi_endproc
+ 315              	.LFE130:
+ 317              		.section	.text.Timer_Get_Elapsed_us,"ax",%progbits
+ 318              		.align	1
+ 319              		.global	Timer_Get_Elapsed_us
+ 320              		.syntax unified
+ 321              		.thumb
+ 322              		.thumb_func
+ 324              	Timer_Get_Elapsed_us:
+ 325              	.LFB131:
+ 128:core/src/timer.c **** 
+ 129:core/src/timer.c **** /**
+ 130:core/src/timer.c ****  * @brief Get elapsed time in microseconds since Timer_Start()
+ 131:core/src/timer.c ****  * @param None
+ 132:core/src/timer.c ****  * @retval Elapsed time in microseconds
+ 133:core/src/timer.c ****  */
+ 134:core/src/timer.c **** uint32_t Timer_Get_Elapsed_us(void)
+ 135:core/src/timer.c **** {
+ 326              		.loc 1 135 1 view -0
+ 327              		.cfi_startproc
+ 328              		@ args = 0, pretend = 0, frame = 0
+ 329              		@ frame_needed = 0, uses_anonymous_args = 0
+ 330              		@ link register save eliminated.
+ 136:core/src/timer.c ****     uint32_t current_tick = tick_counter;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s 			page 9
+
+
+ 331              		.loc 1 136 5 view .LVU59
+ 332              		.loc 1 136 14 is_stmt 0 view .LVU60
+ 333 0000 064B     		ldr	r3, .L35
+ 334 0002 1868     		ldr	r0, [r3]
+ 335              	.LVL9:
+ 137:core/src/timer.c ****     
+ 138:core/src/timer.c ****     /* Handle overflow */
+ 139:core/src/timer.c ****     if (current_tick >= timer_start_tick) {
+ 336              		.loc 1 139 5 is_stmt 1 view .LVU61
+ 337              		.loc 1 139 22 is_stmt 0 view .LVU62
+ 338 0004 064B     		ldr	r3, .L35+4
+ 339 0006 1B68     		ldr	r3, [r3]
+ 340              		.loc 1 139 8 view .LVU63
+ 341 0008 8342     		cmp	r3, r0
+ 342 000a 03D8     		bhi	.L33
+ 140:core/src/timer.c ****         return (current_tick - timer_start_tick);
+ 343              		.loc 1 140 9 is_stmt 1 view .LVU64
+ 344              		.loc 1 140 30 is_stmt 0 view .LVU65
+ 345 000c 044B     		ldr	r3, .L35+4
+ 346 000e 1B68     		ldr	r3, [r3]
+ 347 0010 C01A     		subs	r0, r0, r3
+ 348              	.LVL10:
+ 349              		.loc 1 140 30 view .LVU66
+ 350 0012 7047     		bx	lr
+ 351              	.LVL11:
+ 352              	.L33:
+ 141:core/src/timer.c ****     } else {
+ 142:core/src/timer.c ****         return (UINT32_MAX - timer_start_tick + current_tick + 1);
+ 353              		.loc 1 142 9 is_stmt 1 view .LVU67
+ 354              		.loc 1 142 62 is_stmt 0 view .LVU68
+ 355 0014 024B     		ldr	r3, .L35+4
+ 356 0016 1B68     		ldr	r3, [r3]
+ 357 0018 C01A     		subs	r0, r0, r3
+ 358              	.LVL12:
+ 143:core/src/timer.c ****     }
+ 144:core/src/timer.c **** }
+ 359              		.loc 1 144 1 view .LVU69
+ 360 001a 7047     		bx	lr
+ 361              	.L36:
+ 362              		.align	2
+ 363              	.L35:
+ 364 001c 00000000 		.word	tick_counter
+ 365 0020 00000000 		.word	timer_start_tick
+ 366              		.cfi_endproc
+ 367              	.LFE131:
+ 369              		.section	.text.Timer_Get_Elapsed_ms,"ax",%progbits
+ 370              		.align	1
+ 371              		.global	Timer_Get_Elapsed_ms
+ 372              		.syntax unified
+ 373              		.thumb
+ 374              		.thumb_func
+ 376              	Timer_Get_Elapsed_ms:
+ 377              	.LFB132:
+ 145:core/src/timer.c **** 
+ 146:core/src/timer.c **** /**
+ 147:core/src/timer.c ****  * @brief Get elapsed time in milliseconds since Timer_Start()
+ 148:core/src/timer.c ****  * @param None
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s 			page 10
+
+
+ 149:core/src/timer.c ****  * @retval Elapsed time in milliseconds
+ 150:core/src/timer.c ****  */
+ 151:core/src/timer.c **** uint32_t Timer_Get_Elapsed_ms(void)
+ 152:core/src/timer.c **** {
+ 378              		.loc 1 152 1 is_stmt 1 view -0
+ 379              		.cfi_startproc
+ 380              		@ args = 0, pretend = 0, frame = 0
+ 381              		@ frame_needed = 0, uses_anonymous_args = 0
+ 382 0000 08B5     		push	{r3, lr}
+ 383              	.LCFI4:
+ 384              		.cfi_def_cfa_offset 8
+ 385              		.cfi_offset 3, -8
+ 386              		.cfi_offset 14, -4
+ 153:core/src/timer.c ****     return Timer_Get_Elapsed_us() / 1000U;
+ 387              		.loc 1 153 5 view .LVU71
+ 388              		.loc 1 153 12 is_stmt 0 view .LVU72
+ 389 0002 FFF7FEFF 		bl	Timer_Get_Elapsed_us
+ 390              	.LVL13:
+ 391              		.loc 1 153 35 discriminator 1 view .LVU73
+ 392 0006 024B     		ldr	r3, .L39
+ 393 0008 A3FB0030 		umull	r3, r0, r3, r0
+ 154:core/src/timer.c **** }
+ 394              		.loc 1 154 1 view .LVU74
+ 395 000c 8009     		lsrs	r0, r0, #6
+ 396 000e 08BD     		pop	{r3, pc}
+ 397              	.L40:
+ 398              		.align	2
+ 399              	.L39:
+ 400 0010 D34D6210 		.word	274877907
+ 401              		.cfi_endproc
+ 402              	.LFE132:
+ 404              		.section	.text.Delay_us_Precise,"ax",%progbits
+ 405              		.align	1
+ 406              		.global	Delay_us_Precise
+ 407              		.syntax unified
+ 408              		.thumb
+ 409              		.thumb_func
+ 411              	Delay_us_Precise:
+ 412              	.LVL14:
+ 413              	.LFB133:
+ 155:core/src/timer.c **** 
+ 156:core/src/timer.c **** /**
+ 157:core/src/timer.c ****  * @brief High precision delay using polling method (for very short delays)
+ 158:core/src/timer.c ****  * @param us: delay time in microseconds (max 65535)
+ 159:core/src/timer.c ****  * @retval None
+ 160:core/src/timer.c ****  * @note This function uses polling and is more precise for short delays < 100us
+ 161:core/src/timer.c ****  */
+ 162:core/src/timer.c **** void Delay_us_Precise(uint32_t us)
+ 163:core/src/timer.c **** {
+ 414              		.loc 1 163 1 is_stmt 1 view -0
+ 415              		.cfi_startproc
+ 416              		@ args = 0, pretend = 0, frame = 32
+ 417              		@ frame_needed = 0, uses_anonymous_args = 0
+ 164:core/src/timer.c ****     if (us == 0) return;
+ 418              		.loc 1 164 5 view .LVU76
+ 419              		.loc 1 164 8 is_stmt 0 view .LVU77
+ 420 0000 F0B1     		cbz	r0, .L47
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s 			page 11
+
+
+ 163:core/src/timer.c ****     if (us == 0) return;
+ 421              		.loc 1 163 1 view .LVU78
+ 422 0002 10B5     		push	{r4, lr}
+ 423              	.LCFI5:
+ 424              		.cfi_def_cfa_offset 8
+ 425              		.cfi_offset 4, -8
+ 426              		.cfi_offset 14, -4
+ 427 0004 88B0     		sub	sp, sp, #32
+ 428              	.LCFI6:
+ 429              		.cfi_def_cfa_offset 40
+ 430 0006 0446     		mov	r4, r0
+ 165:core/src/timer.c ****     
+ 166:core/src/timer.c ****     /* For very short delays, use direct register polling */
+ 167:core/src/timer.c ****     if (us < 100) {
+ 431              		.loc 1 167 5 is_stmt 1 view .LVU79
+ 432              		.loc 1 167 8 is_stmt 0 view .LVU80
+ 433 0008 6328     		cmp	r0, #99
+ 434 000a 16D8     		bhi	.L43
+ 435              	.LBB2:
+ 168:core/src/timer.c ****         uint32_t system_clock_hz;
+ 436              		.loc 1 168 9 is_stmt 1 view .LVU81
+ 169:core/src/timer.c ****         RCC_ClocksType clocks;
+ 437              		.loc 1 169 9 view .LVU82
+ 170:core/src/timer.c ****         RCC_Clocks_Frequencies_Value_Get(&clocks);
+ 438              		.loc 1 170 9 view .LVU83
+ 439 000c 02A8     		add	r0, sp, #8
+ 440              	.LVL15:
+ 441              		.loc 1 170 9 is_stmt 0 view .LVU84
+ 442 000e FFF7FEFF 		bl	RCC_Clocks_Frequencies_Value_Get
+ 443              	.LVL16:
+ 171:core/src/timer.c ****         system_clock_hz = clocks.SysclkFreq;
+ 444              		.loc 1 171 9 is_stmt 1 view .LVU85
+ 172:core/src/timer.c ****         
+ 173:core/src/timer.c ****         /* Calculate cycles needed */
+ 174:core/src/timer.c ****         uint32_t cycles = (system_clock_hz / 1000000U) * us;
+ 445              		.loc 1 174 9 view .LVU86
+ 446              		.loc 1 174 44 is_stmt 0 view .LVU87
+ 447 0012 029B     		ldr	r3, [sp, #8]
+ 448 0014 0B4A     		ldr	r2, .L50
+ 449 0016 A2FB0332 		umull	r3, r2, r2, r3
+ 450 001a 920C     		lsrs	r2, r2, #18
+ 451              		.loc 1 174 18 view .LVU88
+ 452 001c 04FB02F2 		mul	r2, r4, r2
+ 453              	.LVL17:
+ 175:core/src/timer.c ****         cycles = cycles / 4; /* Approximate cycles per loop iteration */
+ 454              		.loc 1 175 9 is_stmt 1 view .LVU89
+ 455              		.loc 1 175 16 is_stmt 0 view .LVU90
+ 456 0020 9208     		lsrs	r2, r2, #2
+ 457              	.LVL18:
+ 176:core/src/timer.c ****         
+ 177:core/src/timer.c ****         /* Simple delay loop */
+ 178:core/src/timer.c ****         for (volatile uint32_t i = 0; i < cycles; i++) {
+ 458              		.loc 1 178 9 is_stmt 1 view .LVU91
+ 459              	.LBB3:
+ 460              		.loc 1 178 14 view .LVU92
+ 461              		.loc 1 178 32 is_stmt 0 view .LVU93
+ 462 0022 0023     		movs	r3, #0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s 			page 12
+
+
+ 463 0024 0193     		str	r3, [sp, #4]
+ 464              		.loc 1 178 9 view .LVU94
+ 465 0026 03E0     		b	.L44
+ 466              	.L45:
+ 179:core/src/timer.c ****             __NOP(); /* No operation */
+ 467              		.loc 1 179 13 is_stmt 1 view .LVU95
+ 468              		.syntax unified
+ 469              	@ 179 "core/src/timer.c" 1
+ 470 0028 00BF     		nop
+ 471              	@ 0 "" 2
+ 178:core/src/timer.c ****             __NOP(); /* No operation */
+ 472              		.loc 1 178 52 discriminator 3 view .LVU96
+ 473              		.thumb
+ 474              		.syntax unified
+ 475 002a 019B     		ldr	r3, [sp, #4]
+ 476 002c 0133     		adds	r3, r3, #1
+ 477 002e 0193     		str	r3, [sp, #4]
+ 478              	.L44:
+ 178:core/src/timer.c ****             __NOP(); /* No operation */
+ 479              		.loc 1 178 41 discriminator 1 view .LVU97
+ 480 0030 019B     		ldr	r3, [sp, #4]
+ 481 0032 9342     		cmp	r3, r2
+ 482 0034 F8D3     		bcc	.L45
+ 483              	.LVL19:
+ 484              	.L41:
+ 178:core/src/timer.c ****             __NOP(); /* No operation */
+ 485              		.loc 1 178 41 is_stmt 0 discriminator 1 view .LVU98
+ 486              	.LBE3:
+ 487              	.LBE2:
+ 180:core/src/timer.c ****         }
+ 181:core/src/timer.c ****     } else {
+ 182:core/src/timer.c ****         /* Use SysTick for longer delays */
+ 183:core/src/timer.c ****         Delay_us(us);
+ 184:core/src/timer.c ****     }
+ 185:core/src/timer.c **** }
+ 488              		.loc 1 185 1 view .LVU99
+ 489 0036 08B0     		add	sp, sp, #32
+ 490              	.LCFI7:
+ 491              		.cfi_remember_state
+ 492              		.cfi_def_cfa_offset 8
+ 493              		@ sp needed
+ 494 0038 10BD     		pop	{r4, pc}
+ 495              	.LVL20:
+ 496              	.L43:
+ 497              	.LCFI8:
+ 498              		.cfi_restore_state
+ 183:core/src/timer.c ****     }
+ 499              		.loc 1 183 9 is_stmt 1 view .LVU100
+ 500 003a FFF7FEFF 		bl	Delay_us
+ 501              	.LVL21:
+ 183:core/src/timer.c ****     }
+ 502              		.loc 1 183 9 is_stmt 0 view .LVU101
+ 503 003e FAE7     		b	.L41
+ 504              	.LVL22:
+ 505              	.L47:
+ 506              	.LCFI9:
+ 507              		.cfi_def_cfa_offset 0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s 			page 13
+
+
+ 508              		.cfi_restore 4
+ 509              		.cfi_restore 14
+ 183:core/src/timer.c ****     }
+ 510              		.loc 1 183 9 view .LVU102
+ 511 0040 7047     		bx	lr
+ 512              	.L51:
+ 513 0042 00BF     		.align	2
+ 514              	.L50:
+ 515 0044 83DE1B43 		.word	1125899907
+ 516              		.cfi_endproc
+ 517              	.LFE133:
+ 519              		.section	.text.Timer_Get_System_Clock_Hz,"ax",%progbits
+ 520              		.align	1
+ 521              		.global	Timer_Get_System_Clock_Hz
+ 522              		.syntax unified
+ 523              		.thumb
+ 524              		.thumb_func
+ 526              	Timer_Get_System_Clock_Hz:
+ 527              	.LFB134:
+ 186:core/src/timer.c **** 
+ 187:core/src/timer.c **** /**
+ 188:core/src/timer.c ****  * @brief Get system clock frequency
+ 189:core/src/timer.c ****  * @param None
+ 190:core/src/timer.c ****  * @retval System clock frequency in Hz
+ 191:core/src/timer.c ****  */
+ 192:core/src/timer.c **** uint32_t Timer_Get_System_Clock_Hz(void)
+ 193:core/src/timer.c **** {
+ 528              		.loc 1 193 1 is_stmt 1 view -0
+ 529              		.cfi_startproc
+ 530              		@ args = 0, pretend = 0, frame = 24
+ 531              		@ frame_needed = 0, uses_anonymous_args = 0
+ 532 0000 00B5     		push	{lr}
+ 533              	.LCFI10:
+ 534              		.cfi_def_cfa_offset 4
+ 535              		.cfi_offset 14, -4
+ 536 0002 87B0     		sub	sp, sp, #28
+ 537              	.LCFI11:
+ 538              		.cfi_def_cfa_offset 32
+ 194:core/src/timer.c ****     RCC_ClocksType clocks;
+ 539              		.loc 1 194 5 view .LVU104
+ 195:core/src/timer.c ****     RCC_Clocks_Frequencies_Value_Get(&clocks);
+ 540              		.loc 1 195 5 view .LVU105
+ 541 0004 6846     		mov	r0, sp
+ 542 0006 FFF7FEFF 		bl	RCC_Clocks_Frequencies_Value_Get
+ 543              	.LVL23:
+ 196:core/src/timer.c ****     return clocks.SysclkFreq;
+ 544              		.loc 1 196 5 view .LVU106
+ 197:core/src/timer.c **** }
+ 545              		.loc 1 197 1 is_stmt 0 view .LVU107
+ 546 000a 0098     		ldr	r0, [sp]
+ 547 000c 07B0     		add	sp, sp, #28
+ 548              	.LCFI12:
+ 549              		.cfi_def_cfa_offset 4
+ 550              		@ sp needed
+ 551 000e 5DF804FB 		ldr	pc, [sp], #4
+ 552              		.cfi_endproc
+ 553              	.LFE134:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s 			page 14
+
+
+ 555              		.section	.text.Timer_Is_Initialized,"ax",%progbits
+ 556              		.align	1
+ 557              		.global	Timer_Is_Initialized
+ 558              		.syntax unified
+ 559              		.thumb
+ 560              		.thumb_func
+ 562              	Timer_Is_Initialized:
+ 563              	.LFB135:
+ 198:core/src/timer.c **** 
+ 199:core/src/timer.c **** /**
+ 200:core/src/timer.c ****  * @brief Check if timer is initialized
+ 201:core/src/timer.c ****  * @param None
+ 202:core/src/timer.c ****  * @retval 1 if initialized, 0 if not
+ 203:core/src/timer.c ****  */
+ 204:core/src/timer.c **** uint8_t Timer_Is_Initialized(void)
+ 205:core/src/timer.c **** {
+ 564              		.loc 1 205 1 is_stmt 1 view -0
+ 565              		.cfi_startproc
+ 566              		@ args = 0, pretend = 0, frame = 0
+ 567              		@ frame_needed = 0, uses_anonymous_args = 0
+ 568              		@ link register save eliminated.
+ 206:core/src/timer.c ****     return (SysTick->CTRL & SysTick_CTRL_ENABLE) ? 1 : 0;
+ 569              		.loc 1 206 5 view .LVU109
+ 570              		.loc 1 206 20 is_stmt 0 view .LVU110
+ 571 0000 4FF0E023 		mov	r3, #-536813568
+ 572 0004 1869     		ldr	r0, [r3, #16]
+ 207:core/src/timer.c **** } ...
+ 573              		.loc 1 207 1 view .LVU111
+ 574 0006 00F00100 		and	r0, r0, #1
+ 575 000a 7047     		bx	lr
+ 576              		.cfi_endproc
+ 577              	.LFE135:
+ 579              		.section	.bss.systick_reload_value,"aw",%nobits
+ 580              		.align	2
+ 583              	systick_reload_value:
+ 584 0000 00000000 		.space	4
+ 585              		.section	.bss.timer_start_tick,"aw",%nobits
+ 586              		.align	2
+ 589              	timer_start_tick:
+ 590 0000 00000000 		.space	4
+ 591              		.section	.bss.tick_counter,"aw",%nobits
+ 592              		.align	2
+ 595              	tick_counter:
+ 596 0000 00000000 		.space	4
+ 597              		.text
+ 598              	.Letext0:
+ 599              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 600              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 601              		.file 4 "CMSIS/core/core_cm4.h"
+ 602              		.file 5 "n32g430_std_periph_driver/inc/n32g430_rcc.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 timer.c
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:17     .text.Timer_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:23     .text.Timer_Init:00000000 Timer_Init
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:80     .text.Timer_Init:00000034 $d
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:583    .bss.systick_reload_value:00000000 systick_reload_value
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:595    .bss.tick_counter:00000000 tick_counter
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:87     .text.SysTick_Handler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:93     .text.SysTick_Handler:00000000 SysTick_Handler
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:111    .text.SysTick_Handler:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:116    .text.Delay_us:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:122    .text.Delay_us:00000000 Delay_us
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:171    .text.Delay_us:00000024 $d
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:176    .text.Delay_ms:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:182    .text.Delay_ms:00000000 Delay_ms
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:214    .text.Get_Tick_Count:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:220    .text.Get_Tick_Count:00000000 Get_Tick_Count
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:236    .text.Get_Tick_Count:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:241    .text.Timer_Reset:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:247    .text.Timer_Reset:00000000 Timer_Reset
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:264    .text.Timer_Reset:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:269    .text.Timer_Start:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:275    .text.Timer_Start:00000000 Timer_Start
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:293    .text.Timer_Start:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:589    .bss.timer_start_tick:00000000 timer_start_tick
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:299    .text.Timer_Stop:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:305    .text.Timer_Stop:00000000 Timer_Stop
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:318    .text.Timer_Get_Elapsed_us:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:324    .text.Timer_Get_Elapsed_us:00000000 Timer_Get_Elapsed_us
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:364    .text.Timer_Get_Elapsed_us:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:370    .text.Timer_Get_Elapsed_ms:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:376    .text.Timer_Get_Elapsed_ms:00000000 Timer_Get_Elapsed_ms
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:400    .text.Timer_Get_Elapsed_ms:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:405    .text.Delay_us_Precise:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:411    .text.Delay_us_Precise:00000000 Delay_us_Precise
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:515    .text.Delay_us_Precise:00000044 $d
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:520    .text.Timer_Get_System_Clock_Hz:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:526    .text.Timer_Get_System_Clock_Hz:00000000 Timer_Get_System_Clock_Hz
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:556    .text.Timer_Is_Initialized:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:562    .text.Timer_Is_Initialized:00000000 Timer_Is_Initialized
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:580    .bss.systick_reload_value:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:586    .bss.timer_start_tick:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccb545Lb.s:592    .bss.tick_counter:00000000 $d
+
+UNDEFINED SYMBOLS
+RCC_Clocks_Frequencies_Value_Get

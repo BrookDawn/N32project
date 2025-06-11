@@ -1,0 +1,1027 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 23, 1
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"syscalls.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.file 1 "core/src/syscalls.c"
+  16              		.section	.text.initialise_monitor_handles,"ax",%progbits
+  17              		.align	1
+  18              		.global	initialise_monitor_handles
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  23              	initialise_monitor_handles:
+  24              	.LFB25:
+   1:core/src/syscalls.c **** /**
+   2:core/src/syscalls.c ****  * @file syscalls.c
+   3:core/src/syscalls.c ****  * @brief System calls implementation for GCC newlib
+   4:core/src/syscalls.c ****  * @version v1.0.0
+   5:core/src/syscalls.c ****  * @author N32G430 Project
+   6:core/src/syscalls.c ****  */
+   7:core/src/syscalls.c **** 
+   8:core/src/syscalls.c **** #include <sys/stat.h>
+   9:core/src/syscalls.c **** #include <stdlib.h>
+  10:core/src/syscalls.c **** #include <errno.h>
+  11:core/src/syscalls.c **** #include <stdio.h>
+  12:core/src/syscalls.c **** #include <signal.h>
+  13:core/src/syscalls.c **** #include <time.h>
+  14:core/src/syscalls.c **** #include <sys/time.h>
+  15:core/src/syscalls.c **** #include <sys/times.h>
+  16:core/src/syscalls.c **** 
+  17:core/src/syscalls.c **** /* Variables */
+  18:core/src/syscalls.c **** extern int __io_putchar(int ch) __attribute__((weak));
+  19:core/src/syscalls.c **** extern int __io_getchar(void) __attribute__((weak));
+  20:core/src/syscalls.c **** 
+  21:core/src/syscalls.c **** register char * stack_ptr asm("sp");
+  22:core/src/syscalls.c **** 
+  23:core/src/syscalls.c **** char *__env[1] = { 0 };
+  24:core/src/syscalls.c **** char **environ = __env;
+  25:core/src/syscalls.c **** 
+  26:core/src/syscalls.c **** /* Functions */
+  27:core/src/syscalls.c **** void initialise_monitor_handles()
+  28:core/src/syscalls.c **** {
+  25              		.loc 1 28 1 view -0
+  26              		.cfi_startproc
+  27              		@ args = 0, pretend = 0, frame = 0
+  28              		@ frame_needed = 0, uses_anonymous_args = 0
+  29              		@ link register save eliminated.
+  29:core/src/syscalls.c **** }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 2
+
+
+  30              		.loc 1 29 1 view .LVU1
+  31 0000 7047     		bx	lr
+  32              		.cfi_endproc
+  33              	.LFE25:
+  35              		.section	.text._getpid,"ax",%progbits
+  36              		.align	1
+  37              		.global	_getpid
+  38              		.syntax unified
+  39              		.thumb
+  40              		.thumb_func
+  42              	_getpid:
+  43              	.LFB26:
+  30:core/src/syscalls.c **** 
+  31:core/src/syscalls.c **** int _getpid(void)
+  32:core/src/syscalls.c **** {
+  44              		.loc 1 32 1 view -0
+  45              		.cfi_startproc
+  46              		@ args = 0, pretend = 0, frame = 0
+  47              		@ frame_needed = 0, uses_anonymous_args = 0
+  48              		@ link register save eliminated.
+  33:core/src/syscalls.c ****     return 1;
+  49              		.loc 1 33 5 view .LVU3
+  34:core/src/syscalls.c **** }
+  50              		.loc 1 34 1 is_stmt 0 view .LVU4
+  51 0000 0120     		movs	r0, #1
+  52 0002 7047     		bx	lr
+  53              		.cfi_endproc
+  54              	.LFE26:
+  56              		.section	.text._kill,"ax",%progbits
+  57              		.align	1
+  58              		.global	_kill
+  59              		.syntax unified
+  60              		.thumb
+  61              		.thumb_func
+  63              	_kill:
+  64              	.LVL0:
+  65              	.LFB27:
+  35:core/src/syscalls.c **** 
+  36:core/src/syscalls.c **** int _kill(int pid, int sig)
+  37:core/src/syscalls.c **** {
+  66              		.loc 1 37 1 is_stmt 1 view -0
+  67              		.cfi_startproc
+  68              		@ args = 0, pretend = 0, frame = 0
+  69              		@ frame_needed = 0, uses_anonymous_args = 0
+  70              		.loc 1 37 1 is_stmt 0 view .LVU6
+  71 0000 08B5     		push	{r3, lr}
+  72              	.LCFI0:
+  73              		.cfi_def_cfa_offset 8
+  74              		.cfi_offset 3, -8
+  75              		.cfi_offset 14, -4
+  38:core/src/syscalls.c ****     (void)pid;
+  76              		.loc 1 38 5 is_stmt 1 view .LVU7
+  39:core/src/syscalls.c ****     (void)sig;
+  77              		.loc 1 39 5 view .LVU8
+  40:core/src/syscalls.c ****     errno = EINVAL;
+  78              		.loc 1 40 5 view .LVU9
+  79 0002 FFF7FEFF 		bl	__errno
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 3
+
+
+  80              	.LVL1:
+  81              		.loc 1 40 11 is_stmt 0 discriminator 1 view .LVU10
+  82 0006 1623     		movs	r3, #22
+  83 0008 0360     		str	r3, [r0]
+  41:core/src/syscalls.c ****     return -1;
+  84              		.loc 1 41 5 is_stmt 1 view .LVU11
+  42:core/src/syscalls.c **** }
+  85              		.loc 1 42 1 is_stmt 0 view .LVU12
+  86 000a 4FF0FF30 		mov	r0, #-1
+  87 000e 08BD     		pop	{r3, pc}
+  88              		.cfi_endproc
+  89              	.LFE27:
+  91              		.section	.text._exit,"ax",%progbits
+  92              		.align	1
+  93              		.global	_exit
+  94              		.syntax unified
+  95              		.thumb
+  96              		.thumb_func
+  98              	_exit:
+  99              	.LVL2:
+ 100              	.LFB28:
+  43:core/src/syscalls.c **** 
+  44:core/src/syscalls.c **** void _exit (int status)
+  45:core/src/syscalls.c **** {
+ 101              		.loc 1 45 1 is_stmt 1 view -0
+ 102              		.cfi_startproc
+ 103              		@ Volatile: function does not return.
+ 104              		@ args = 0, pretend = 0, frame = 0
+ 105              		@ frame_needed = 0, uses_anonymous_args = 0
+ 106              		.loc 1 45 1 is_stmt 0 view .LVU14
+ 107 0000 08B5     		push	{r3, lr}
+ 108              	.LCFI1:
+ 109              		.cfi_def_cfa_offset 8
+ 110              		.cfi_offset 3, -8
+ 111              		.cfi_offset 14, -4
+  46:core/src/syscalls.c ****     _kill(status, -1);
+ 112              		.loc 1 46 5 is_stmt 1 view .LVU15
+ 113 0002 4FF0FF31 		mov	r1, #-1
+ 114 0006 FFF7FEFF 		bl	_kill
+ 115              	.LVL3:
+ 116              	.L6:
+  47:core/src/syscalls.c ****     while (1) {}
+ 117              		.loc 1 47 5 view .LVU16
+ 118              		.loc 1 47 16 view .LVU17
+ 119              		.loc 1 47 11 view .LVU18
+ 120 000a FEE7     		b	.L6
+ 121              		.cfi_endproc
+ 122              	.LFE28:
+ 124              		.section	.text._read,"ax",%progbits
+ 125              		.align	1
+ 126              		.weak	_read
+ 127              		.syntax unified
+ 128              		.thumb
+ 129              		.thumb_func
+ 131              	_read:
+ 132              	.LVL4:
+ 133              	.LFB29:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 4
+
+
+  48:core/src/syscalls.c **** }
+  49:core/src/syscalls.c **** 
+  50:core/src/syscalls.c **** __attribute__((weak)) int _read(int file, char *ptr, int len)
+  51:core/src/syscalls.c **** {
+ 134              		.loc 1 51 1 view -0
+ 135              		.cfi_startproc
+ 136              		@ args = 0, pretend = 0, frame = 0
+ 137              		@ frame_needed = 0, uses_anonymous_args = 0
+ 138              		.loc 1 51 1 is_stmt 0 view .LVU20
+ 139 0000 70B5     		push	{r4, r5, r6, lr}
+ 140              	.LCFI2:
+ 141              		.cfi_def_cfa_offset 16
+ 142              		.cfi_offset 4, -16
+ 143              		.cfi_offset 5, -12
+ 144              		.cfi_offset 6, -8
+ 145              		.cfi_offset 14, -4
+ 146 0002 0C46     		mov	r4, r1
+ 147 0004 1646     		mov	r6, r2
+  52:core/src/syscalls.c ****     (void)file;
+ 148              		.loc 1 52 5 is_stmt 1 view .LVU21
+  53:core/src/syscalls.c ****     int DataIdx;
+ 149              		.loc 1 53 5 view .LVU22
+  54:core/src/syscalls.c **** 
+  55:core/src/syscalls.c ****     for (DataIdx = 0; DataIdx < len; DataIdx++)
+ 150              		.loc 1 55 5 view .LVU23
+ 151              	.LVL5:
+ 152              		.loc 1 55 18 is_stmt 0 view .LVU24
+ 153 0006 0025     		movs	r5, #0
+ 154              		.loc 1 55 5 view .LVU25
+ 155 0008 05E0     		b	.L9
+ 156              	.LVL6:
+ 157              	.L10:
+  56:core/src/syscalls.c ****     {
+  57:core/src/syscalls.c ****         if (__io_getchar)
+  58:core/src/syscalls.c ****         {
+  59:core/src/syscalls.c ****             *ptr++ = __io_getchar();
+  60:core/src/syscalls.c ****         }
+  61:core/src/syscalls.c ****         else
+  62:core/src/syscalls.c ****         {
+  63:core/src/syscalls.c ****             *ptr++ = 0;
+ 158              		.loc 1 63 13 is_stmt 1 view .LVU26
+ 159              		.loc 1 63 17 is_stmt 0 view .LVU27
+ 160 000a 2146     		mov	r1, r4
+ 161              	.LVL7:
+ 162              		.loc 1 63 20 view .LVU28
+ 163 000c 0023     		movs	r3, #0
+ 164 000e 01F8013B 		strb	r3, [r1], #1
+ 165              	.LVL8:
+ 166              		.loc 1 63 17 view .LVU29
+ 167 0012 0C46     		mov	r4, r1
+ 168              	.L11:
+  55:core/src/syscalls.c ****     {
+ 169              		.loc 1 55 45 is_stmt 1 discriminator 2 view .LVU30
+ 170 0014 0135     		adds	r5, r5, #1
+ 171              	.LVL9:
+ 172              	.L9:
+  55:core/src/syscalls.c ****     {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 5
+
+
+ 173              		.loc 1 55 31 discriminator 1 view .LVU31
+ 174 0016 B542     		cmp	r5, r6
+ 175 0018 09DA     		bge	.L14
+  57:core/src/syscalls.c ****         {
+ 176              		.loc 1 57 9 view .LVU32
+  57:core/src/syscalls.c ****         {
+ 177              		.loc 1 57 12 is_stmt 0 view .LVU33
+ 178 001a 064B     		ldr	r3, .L15
+ 179 001c 002B     		cmp	r3, #0
+ 180 001e F4D0     		beq	.L10
+  59:core/src/syscalls.c ****         }
+ 181              		.loc 1 59 13 is_stmt 1 view .LVU34
+  59:core/src/syscalls.c ****         }
+ 182              		.loc 1 59 22 is_stmt 0 view .LVU35
+ 183 0020 FFF7FEFF 		bl	__io_getchar
+ 184              	.LVL10:
+  59:core/src/syscalls.c ****         }
+ 185              		.loc 1 59 17 discriminator 1 view .LVU36
+ 186 0024 2146     		mov	r1, r4
+ 187              	.LVL11:
+  59:core/src/syscalls.c ****         }
+ 188              		.loc 1 59 20 discriminator 1 view .LVU37
+ 189 0026 01F8010B 		strb	r0, [r1], #1
+ 190              	.LVL12:
+  59:core/src/syscalls.c ****         }
+ 191              		.loc 1 59 17 discriminator 1 view .LVU38
+ 192 002a 0C46     		mov	r4, r1
+ 193 002c F2E7     		b	.L11
+ 194              	.L14:
+  64:core/src/syscalls.c ****         }
+  65:core/src/syscalls.c ****     }
+  66:core/src/syscalls.c **** 
+  67:core/src/syscalls.c ****     return len;
+ 195              		.loc 1 67 5 is_stmt 1 view .LVU39
+  68:core/src/syscalls.c **** }
+ 196              		.loc 1 68 1 is_stmt 0 view .LVU40
+ 197 002e 3046     		mov	r0, r6
+ 198 0030 70BD     		pop	{r4, r5, r6, pc}
+ 199              	.LVL13:
+ 200              	.L16:
+ 201              		.loc 1 68 1 view .LVU41
+ 202 0032 00BF     		.align	2
+ 203              	.L15:
+ 204 0034 00000000 		.word	__io_getchar
+ 205              		.cfi_endproc
+ 206              	.LFE29:
+ 208              		.section	.text._write,"ax",%progbits
+ 209              		.align	1
+ 210              		.weak	_write
+ 211              		.syntax unified
+ 212              		.thumb
+ 213              		.thumb_func
+ 215              	_write:
+ 216              	.LVL14:
+ 217              	.LFB30:
+  69:core/src/syscalls.c **** 
+  70:core/src/syscalls.c **** __attribute__((weak)) int _write(int file, char *ptr, int len)
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 6
+
+
+  71:core/src/syscalls.c **** {
+ 218              		.loc 1 71 1 is_stmt 1 view -0
+ 219              		.cfi_startproc
+ 220              		@ args = 0, pretend = 0, frame = 0
+ 221              		@ frame_needed = 0, uses_anonymous_args = 0
+ 222              		.loc 1 71 1 is_stmt 0 view .LVU43
+ 223 0000 70B5     		push	{r4, r5, r6, lr}
+ 224              	.LCFI3:
+ 225              		.cfi_def_cfa_offset 16
+ 226              		.cfi_offset 4, -16
+ 227              		.cfi_offset 5, -12
+ 228              		.cfi_offset 6, -8
+ 229              		.cfi_offset 14, -4
+ 230 0002 0C46     		mov	r4, r1
+ 231 0004 1646     		mov	r6, r2
+  72:core/src/syscalls.c ****     (void)file;
+ 232              		.loc 1 72 5 is_stmt 1 view .LVU44
+  73:core/src/syscalls.c ****     int DataIdx;
+ 233              		.loc 1 73 5 view .LVU45
+  74:core/src/syscalls.c **** 
+  75:core/src/syscalls.c ****     for (DataIdx = 0; DataIdx < len; DataIdx++)
+ 234              		.loc 1 75 5 view .LVU46
+ 235              	.LVL15:
+ 236              		.loc 1 75 18 is_stmt 0 view .LVU47
+ 237 0006 0025     		movs	r5, #0
+ 238              		.loc 1 75 5 view .LVU48
+ 239 0008 00E0     		b	.L18
+ 240              	.LVL16:
+ 241              	.L19:
+ 242              		.loc 1 75 45 is_stmt 1 discriminator 2 view .LVU49
+ 243 000a 0135     		adds	r5, r5, #1
+ 244              	.LVL17:
+ 245              	.L18:
+ 246              		.loc 1 75 31 discriminator 1 view .LVU50
+ 247 000c B542     		cmp	r5, r6
+ 248 000e 07DA     		bge	.L22
+  76:core/src/syscalls.c ****     {
+  77:core/src/syscalls.c ****         if (__io_putchar)
+ 249              		.loc 1 77 9 view .LVU51
+ 250              		.loc 1 77 12 is_stmt 0 view .LVU52
+ 251 0010 044B     		ldr	r3, .L23
+ 252 0012 002B     		cmp	r3, #0
+ 253 0014 F9D0     		beq	.L19
+  78:core/src/syscalls.c ****         {
+  79:core/src/syscalls.c ****             __io_putchar(*ptr++);
+ 254              		.loc 1 79 13 is_stmt 1 view .LVU53
+ 255              	.LVL18:
+ 256              		.loc 1 79 13 is_stmt 0 view .LVU54
+ 257 0016 14F8010B 		ldrb	r0, [r4], #1	@ zero_extendqisi2
+ 258              	.LVL19:
+ 259              		.loc 1 79 13 view .LVU55
+ 260 001a FFF7FEFF 		bl	__io_putchar
+ 261              	.LVL20:
+ 262 001e F4E7     		b	.L19
+ 263              	.L22:
+  80:core/src/syscalls.c ****         }
+  81:core/src/syscalls.c ****     }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 7
+
+
+  82:core/src/syscalls.c ****     return len;
+ 264              		.loc 1 82 5 is_stmt 1 view .LVU56
+  83:core/src/syscalls.c **** }
+ 265              		.loc 1 83 1 is_stmt 0 view .LVU57
+ 266 0020 3046     		mov	r0, r6
+ 267 0022 70BD     		pop	{r4, r5, r6, pc}
+ 268              	.LVL21:
+ 269              	.L24:
+ 270              		.loc 1 83 1 view .LVU58
+ 271              		.align	2
+ 272              	.L23:
+ 273 0024 00000000 		.word	__io_putchar
+ 274              		.cfi_endproc
+ 275              	.LFE30:
+ 277              		.section	.text._close,"ax",%progbits
+ 278              		.align	1
+ 279              		.global	_close
+ 280              		.syntax unified
+ 281              		.thumb
+ 282              		.thumb_func
+ 284              	_close:
+ 285              	.LVL22:
+ 286              	.LFB31:
+  84:core/src/syscalls.c **** 
+  85:core/src/syscalls.c **** int _close(int file)
+  86:core/src/syscalls.c **** {
+ 287              		.loc 1 86 1 is_stmt 1 view -0
+ 288              		.cfi_startproc
+ 289              		@ args = 0, pretend = 0, frame = 0
+ 290              		@ frame_needed = 0, uses_anonymous_args = 0
+ 291              		@ link register save eliminated.
+  87:core/src/syscalls.c ****     (void)file;
+ 292              		.loc 1 87 5 view .LVU60
+  88:core/src/syscalls.c ****     return -1;
+ 293              		.loc 1 88 5 view .LVU61
+  89:core/src/syscalls.c **** }
+ 294              		.loc 1 89 1 is_stmt 0 view .LVU62
+ 295 0000 4FF0FF30 		mov	r0, #-1
+ 296              	.LVL23:
+ 297              		.loc 1 89 1 view .LVU63
+ 298 0004 7047     		bx	lr
+ 299              		.cfi_endproc
+ 300              	.LFE31:
+ 302              		.section	.text._fstat,"ax",%progbits
+ 303              		.align	1
+ 304              		.global	_fstat
+ 305              		.syntax unified
+ 306              		.thumb
+ 307              		.thumb_func
+ 309              	_fstat:
+ 310              	.LVL24:
+ 311              	.LFB32:
+  90:core/src/syscalls.c **** 
+  91:core/src/syscalls.c **** int _fstat(int file, struct stat *st)
+  92:core/src/syscalls.c **** {
+ 312              		.loc 1 92 1 is_stmt 1 view -0
+ 313              		.cfi_startproc
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 8
+
+
+ 314              		@ args = 0, pretend = 0, frame = 0
+ 315              		@ frame_needed = 0, uses_anonymous_args = 0
+ 316              		@ link register save eliminated.
+  93:core/src/syscalls.c ****     (void)file;
+ 317              		.loc 1 93 5 view .LVU65
+  94:core/src/syscalls.c ****     st->st_mode = S_IFCHR;
+ 318              		.loc 1 94 5 view .LVU66
+ 319              		.loc 1 94 17 is_stmt 0 view .LVU67
+ 320 0000 4FF40053 		mov	r3, #8192
+ 321 0004 4B60     		str	r3, [r1, #4]
+  95:core/src/syscalls.c ****     return 0;
+ 322              		.loc 1 95 5 is_stmt 1 view .LVU68
+  96:core/src/syscalls.c **** }
+ 323              		.loc 1 96 1 is_stmt 0 view .LVU69
+ 324 0006 0020     		movs	r0, #0
+ 325              	.LVL25:
+ 326              		.loc 1 96 1 view .LVU70
+ 327 0008 7047     		bx	lr
+ 328              		.cfi_endproc
+ 329              	.LFE32:
+ 331              		.section	.text._isatty,"ax",%progbits
+ 332              		.align	1
+ 333              		.global	_isatty
+ 334              		.syntax unified
+ 335              		.thumb
+ 336              		.thumb_func
+ 338              	_isatty:
+ 339              	.LVL26:
+ 340              	.LFB33:
+  97:core/src/syscalls.c **** 
+  98:core/src/syscalls.c **** int _isatty(int file)
+  99:core/src/syscalls.c **** {
+ 341              		.loc 1 99 1 is_stmt 1 view -0
+ 342              		.cfi_startproc
+ 343              		@ args = 0, pretend = 0, frame = 0
+ 344              		@ frame_needed = 0, uses_anonymous_args = 0
+ 345              		@ link register save eliminated.
+ 100:core/src/syscalls.c ****     (void)file;
+ 346              		.loc 1 100 5 view .LVU72
+ 101:core/src/syscalls.c ****     return 1;
+ 347              		.loc 1 101 5 view .LVU73
+ 102:core/src/syscalls.c **** }
+ 348              		.loc 1 102 1 is_stmt 0 view .LVU74
+ 349 0000 0120     		movs	r0, #1
+ 350              	.LVL27:
+ 351              		.loc 1 102 1 view .LVU75
+ 352 0002 7047     		bx	lr
+ 353              		.cfi_endproc
+ 354              	.LFE33:
+ 356              		.section	.text._lseek,"ax",%progbits
+ 357              		.align	1
+ 358              		.global	_lseek
+ 359              		.syntax unified
+ 360              		.thumb
+ 361              		.thumb_func
+ 363              	_lseek:
+ 364              	.LVL28:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 9
+
+
+ 365              	.LFB34:
+ 103:core/src/syscalls.c **** 
+ 104:core/src/syscalls.c **** int _lseek(int file, int ptr, int dir)
+ 105:core/src/syscalls.c **** {
+ 366              		.loc 1 105 1 is_stmt 1 view -0
+ 367              		.cfi_startproc
+ 368              		@ args = 0, pretend = 0, frame = 0
+ 369              		@ frame_needed = 0, uses_anonymous_args = 0
+ 370              		@ link register save eliminated.
+ 106:core/src/syscalls.c ****     (void)file;
+ 371              		.loc 1 106 5 view .LVU77
+ 107:core/src/syscalls.c ****     (void)ptr;
+ 372              		.loc 1 107 5 view .LVU78
+ 108:core/src/syscalls.c ****     (void)dir;
+ 373              		.loc 1 108 5 view .LVU79
+ 109:core/src/syscalls.c ****     return 0;
+ 374              		.loc 1 109 5 view .LVU80
+ 110:core/src/syscalls.c **** }
+ 375              		.loc 1 110 1 is_stmt 0 view .LVU81
+ 376 0000 0020     		movs	r0, #0
+ 377              	.LVL29:
+ 378              		.loc 1 110 1 view .LVU82
+ 379 0002 7047     		bx	lr
+ 380              		.cfi_endproc
+ 381              	.LFE34:
+ 383              		.section	.text._open,"ax",%progbits
+ 384              		.align	1
+ 385              		.global	_open
+ 386              		.syntax unified
+ 387              		.thumb
+ 388              		.thumb_func
+ 390              	_open:
+ 391              	.LVL30:
+ 392              	.LFB35:
+ 111:core/src/syscalls.c **** 
+ 112:core/src/syscalls.c **** int _open(char *path, int flags, ...)
+ 113:core/src/syscalls.c **** {
+ 393              		.loc 1 113 1 is_stmt 1 view -0
+ 394              		.cfi_startproc
+ 395              		@ args = 4, pretend = 12, frame = 0
+ 396              		@ frame_needed = 0, uses_anonymous_args = 1
+ 397              		@ link register save eliminated.
+ 398              		.loc 1 113 1 is_stmt 0 view .LVU84
+ 399 0000 0EB4     		push	{r1, r2, r3}
+ 400              	.LCFI4:
+ 401              		.cfi_def_cfa_offset 12
+ 402              		.cfi_offset 1, -12
+ 403              		.cfi_offset 2, -8
+ 404              		.cfi_offset 3, -4
+ 114:core/src/syscalls.c ****     (void)path;
+ 405              		.loc 1 114 5 is_stmt 1 view .LVU85
+ 115:core/src/syscalls.c ****     (void)flags;
+ 406              		.loc 1 115 5 view .LVU86
+ 116:core/src/syscalls.c ****     /* Pretend like we always fail */
+ 117:core/src/syscalls.c ****     return -1;
+ 407              		.loc 1 117 5 view .LVU87
+ 118:core/src/syscalls.c **** }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 10
+
+
+ 408              		.loc 1 118 1 is_stmt 0 view .LVU88
+ 409 0002 4FF0FF30 		mov	r0, #-1
+ 410              	.LVL31:
+ 411              		.loc 1 118 1 view .LVU89
+ 412 0006 03B0     		add	sp, sp, #12
+ 413              	.LCFI5:
+ 414              		.cfi_restore 3
+ 415              		.cfi_restore 2
+ 416              		.cfi_restore 1
+ 417              		.cfi_def_cfa_offset 0
+ 418 0008 7047     		bx	lr
+ 419              		.cfi_endproc
+ 420              	.LFE35:
+ 422              		.section	.text._wait,"ax",%progbits
+ 423              		.align	1
+ 424              		.global	_wait
+ 425              		.syntax unified
+ 426              		.thumb
+ 427              		.thumb_func
+ 429              	_wait:
+ 430              	.LVL32:
+ 431              	.LFB36:
+ 119:core/src/syscalls.c **** 
+ 120:core/src/syscalls.c **** int _wait(int *status)
+ 121:core/src/syscalls.c **** {
+ 432              		.loc 1 121 1 is_stmt 1 view -0
+ 433              		.cfi_startproc
+ 434              		@ args = 0, pretend = 0, frame = 0
+ 435              		@ frame_needed = 0, uses_anonymous_args = 0
+ 436              		.loc 1 121 1 is_stmt 0 view .LVU91
+ 437 0000 08B5     		push	{r3, lr}
+ 438              	.LCFI6:
+ 439              		.cfi_def_cfa_offset 8
+ 440              		.cfi_offset 3, -8
+ 441              		.cfi_offset 14, -4
+ 122:core/src/syscalls.c ****     (void)status;
+ 442              		.loc 1 122 5 is_stmt 1 view .LVU92
+ 123:core/src/syscalls.c ****     errno = ECHILD;
+ 443              		.loc 1 123 5 view .LVU93
+ 444 0002 FFF7FEFF 		bl	__errno
+ 445              	.LVL33:
+ 446              		.loc 1 123 11 is_stmt 0 discriminator 1 view .LVU94
+ 447 0006 0A23     		movs	r3, #10
+ 448 0008 0360     		str	r3, [r0]
+ 124:core/src/syscalls.c ****     return -1;
+ 449              		.loc 1 124 5 is_stmt 1 view .LVU95
+ 125:core/src/syscalls.c **** }
+ 450              		.loc 1 125 1 is_stmt 0 view .LVU96
+ 451 000a 4FF0FF30 		mov	r0, #-1
+ 452 000e 08BD     		pop	{r3, pc}
+ 453              		.cfi_endproc
+ 454              	.LFE36:
+ 456              		.section	.text._unlink,"ax",%progbits
+ 457              		.align	1
+ 458              		.global	_unlink
+ 459              		.syntax unified
+ 460              		.thumb
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 11
+
+
+ 461              		.thumb_func
+ 463              	_unlink:
+ 464              	.LVL34:
+ 465              	.LFB37:
+ 126:core/src/syscalls.c **** 
+ 127:core/src/syscalls.c **** int _unlink(char *name)
+ 128:core/src/syscalls.c **** {
+ 466              		.loc 1 128 1 is_stmt 1 view -0
+ 467              		.cfi_startproc
+ 468              		@ args = 0, pretend = 0, frame = 0
+ 469              		@ frame_needed = 0, uses_anonymous_args = 0
+ 470              		.loc 1 128 1 is_stmt 0 view .LVU98
+ 471 0000 08B5     		push	{r3, lr}
+ 472              	.LCFI7:
+ 473              		.cfi_def_cfa_offset 8
+ 474              		.cfi_offset 3, -8
+ 475              		.cfi_offset 14, -4
+ 129:core/src/syscalls.c ****     (void)name;
+ 476              		.loc 1 129 5 is_stmt 1 view .LVU99
+ 130:core/src/syscalls.c ****     errno = ENOENT;
+ 477              		.loc 1 130 5 view .LVU100
+ 478 0002 FFF7FEFF 		bl	__errno
+ 479              	.LVL35:
+ 480              		.loc 1 130 11 is_stmt 0 discriminator 1 view .LVU101
+ 481 0006 0223     		movs	r3, #2
+ 482 0008 0360     		str	r3, [r0]
+ 131:core/src/syscalls.c ****     return -1;
+ 483              		.loc 1 131 5 is_stmt 1 view .LVU102
+ 132:core/src/syscalls.c **** }
+ 484              		.loc 1 132 1 is_stmt 0 view .LVU103
+ 485 000a 4FF0FF30 		mov	r0, #-1
+ 486 000e 08BD     		pop	{r3, pc}
+ 487              		.cfi_endproc
+ 488              	.LFE37:
+ 490              		.section	.text._times,"ax",%progbits
+ 491              		.align	1
+ 492              		.global	_times
+ 493              		.syntax unified
+ 494              		.thumb
+ 495              		.thumb_func
+ 497              	_times:
+ 498              	.LVL36:
+ 499              	.LFB38:
+ 133:core/src/syscalls.c **** 
+ 134:core/src/syscalls.c **** int _times(struct tms *buf)
+ 135:core/src/syscalls.c **** {
+ 500              		.loc 1 135 1 is_stmt 1 view -0
+ 501              		.cfi_startproc
+ 502              		@ args = 0, pretend = 0, frame = 0
+ 503              		@ frame_needed = 0, uses_anonymous_args = 0
+ 504              		@ link register save eliminated.
+ 136:core/src/syscalls.c ****     (void)buf;
+ 505              		.loc 1 136 5 view .LVU105
+ 137:core/src/syscalls.c ****     return -1;
+ 506              		.loc 1 137 5 view .LVU106
+ 138:core/src/syscalls.c **** }
+ 507              		.loc 1 138 1 is_stmt 0 view .LVU107
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 12
+
+
+ 508 0000 4FF0FF30 		mov	r0, #-1
+ 509              	.LVL37:
+ 510              		.loc 1 138 1 view .LVU108
+ 511 0004 7047     		bx	lr
+ 512              		.cfi_endproc
+ 513              	.LFE38:
+ 515              		.section	.text._stat,"ax",%progbits
+ 516              		.align	1
+ 517              		.global	_stat
+ 518              		.syntax unified
+ 519              		.thumb
+ 520              		.thumb_func
+ 522              	_stat:
+ 523              	.LVL38:
+ 524              	.LFB39:
+ 139:core/src/syscalls.c **** 
+ 140:core/src/syscalls.c **** int _stat(char *file, struct stat *st)
+ 141:core/src/syscalls.c **** {
+ 525              		.loc 1 141 1 is_stmt 1 view -0
+ 526              		.cfi_startproc
+ 527              		@ args = 0, pretend = 0, frame = 0
+ 528              		@ frame_needed = 0, uses_anonymous_args = 0
+ 529              		@ link register save eliminated.
+ 142:core/src/syscalls.c ****     (void)file;
+ 530              		.loc 1 142 5 view .LVU110
+ 143:core/src/syscalls.c ****     st->st_mode = S_IFCHR;
+ 531              		.loc 1 143 5 view .LVU111
+ 532              		.loc 1 143 17 is_stmt 0 view .LVU112
+ 533 0000 4FF40053 		mov	r3, #8192
+ 534 0004 4B60     		str	r3, [r1, #4]
+ 144:core/src/syscalls.c ****     return 0;
+ 535              		.loc 1 144 5 is_stmt 1 view .LVU113
+ 145:core/src/syscalls.c **** }
+ 536              		.loc 1 145 1 is_stmt 0 view .LVU114
+ 537 0006 0020     		movs	r0, #0
+ 538              	.LVL39:
+ 539              		.loc 1 145 1 view .LVU115
+ 540 0008 7047     		bx	lr
+ 541              		.cfi_endproc
+ 542              	.LFE39:
+ 544              		.section	.text._link,"ax",%progbits
+ 545              		.align	1
+ 546              		.global	_link
+ 547              		.syntax unified
+ 548              		.thumb
+ 549              		.thumb_func
+ 551              	_link:
+ 552              	.LVL40:
+ 553              	.LFB40:
+ 146:core/src/syscalls.c **** 
+ 147:core/src/syscalls.c **** int _link(char *old, char *new)
+ 148:core/src/syscalls.c **** {
+ 554              		.loc 1 148 1 is_stmt 1 view -0
+ 555              		.cfi_startproc
+ 556              		@ args = 0, pretend = 0, frame = 0
+ 557              		@ frame_needed = 0, uses_anonymous_args = 0
+ 558              		.loc 1 148 1 is_stmt 0 view .LVU117
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 13
+
+
+ 559 0000 08B5     		push	{r3, lr}
+ 560              	.LCFI8:
+ 561              		.cfi_def_cfa_offset 8
+ 562              		.cfi_offset 3, -8
+ 563              		.cfi_offset 14, -4
+ 149:core/src/syscalls.c ****     (void)old;
+ 564              		.loc 1 149 5 is_stmt 1 view .LVU118
+ 150:core/src/syscalls.c ****     (void)new;
+ 565              		.loc 1 150 5 view .LVU119
+ 151:core/src/syscalls.c ****     errno = EMLINK;
+ 566              		.loc 1 151 5 view .LVU120
+ 567 0002 FFF7FEFF 		bl	__errno
+ 568              	.LVL41:
+ 569              		.loc 1 151 11 is_stmt 0 discriminator 1 view .LVU121
+ 570 0006 1F23     		movs	r3, #31
+ 571 0008 0360     		str	r3, [r0]
+ 152:core/src/syscalls.c ****     return -1;
+ 572              		.loc 1 152 5 is_stmt 1 view .LVU122
+ 153:core/src/syscalls.c **** }
+ 573              		.loc 1 153 1 is_stmt 0 view .LVU123
+ 574 000a 4FF0FF30 		mov	r0, #-1
+ 575 000e 08BD     		pop	{r3, pc}
+ 576              		.cfi_endproc
+ 577              	.LFE40:
+ 579              		.section	.text._fork,"ax",%progbits
+ 580              		.align	1
+ 581              		.global	_fork
+ 582              		.syntax unified
+ 583              		.thumb
+ 584              		.thumb_func
+ 586              	_fork:
+ 587              	.LFB41:
+ 154:core/src/syscalls.c **** 
+ 155:core/src/syscalls.c **** int _fork(void)
+ 156:core/src/syscalls.c **** {
+ 588              		.loc 1 156 1 is_stmt 1 view -0
+ 589              		.cfi_startproc
+ 590              		@ args = 0, pretend = 0, frame = 0
+ 591              		@ frame_needed = 0, uses_anonymous_args = 0
+ 592 0000 08B5     		push	{r3, lr}
+ 593              	.LCFI9:
+ 594              		.cfi_def_cfa_offset 8
+ 595              		.cfi_offset 3, -8
+ 596              		.cfi_offset 14, -4
+ 157:core/src/syscalls.c ****     errno = EAGAIN;
+ 597              		.loc 1 157 5 view .LVU125
+ 598 0002 FFF7FEFF 		bl	__errno
+ 599              	.LVL42:
+ 600              		.loc 1 157 11 is_stmt 0 discriminator 1 view .LVU126
+ 601 0006 0B23     		movs	r3, #11
+ 602 0008 0360     		str	r3, [r0]
+ 158:core/src/syscalls.c ****     return -1;
+ 603              		.loc 1 158 5 is_stmt 1 view .LVU127
+ 159:core/src/syscalls.c **** }
+ 604              		.loc 1 159 1 is_stmt 0 view .LVU128
+ 605 000a 4FF0FF30 		mov	r0, #-1
+ 606 000e 08BD     		pop	{r3, pc}
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 14
+
+
+ 607              		.cfi_endproc
+ 608              	.LFE41:
+ 610              		.section	.text._execve,"ax",%progbits
+ 611              		.align	1
+ 612              		.global	_execve
+ 613              		.syntax unified
+ 614              		.thumb
+ 615              		.thumb_func
+ 617              	_execve:
+ 618              	.LVL43:
+ 619              	.LFB42:
+ 160:core/src/syscalls.c **** 
+ 161:core/src/syscalls.c **** int _execve(char *name, char **argv, char **env)
+ 162:core/src/syscalls.c **** {
+ 620              		.loc 1 162 1 is_stmt 1 view -0
+ 621              		.cfi_startproc
+ 622              		@ args = 0, pretend = 0, frame = 0
+ 623              		@ frame_needed = 0, uses_anonymous_args = 0
+ 624              		.loc 1 162 1 is_stmt 0 view .LVU130
+ 625 0000 08B5     		push	{r3, lr}
+ 626              	.LCFI10:
+ 627              		.cfi_def_cfa_offset 8
+ 628              		.cfi_offset 3, -8
+ 629              		.cfi_offset 14, -4
+ 163:core/src/syscalls.c ****     (void)name;
+ 630              		.loc 1 163 5 is_stmt 1 view .LVU131
+ 164:core/src/syscalls.c ****     (void)argv;
+ 631              		.loc 1 164 5 view .LVU132
+ 165:core/src/syscalls.c ****     (void)env;
+ 632              		.loc 1 165 5 view .LVU133
+ 166:core/src/syscalls.c ****     errno = ENOMEM;
+ 633              		.loc 1 166 5 view .LVU134
+ 634 0002 FFF7FEFF 		bl	__errno
+ 635              	.LVL44:
+ 636              		.loc 1 166 11 is_stmt 0 discriminator 1 view .LVU135
+ 637 0006 0C23     		movs	r3, #12
+ 638 0008 0360     		str	r3, [r0]
+ 167:core/src/syscalls.c ****     return -1;
+ 639              		.loc 1 167 5 is_stmt 1 view .LVU136
+ 168:core/src/syscalls.c **** }
+ 640              		.loc 1 168 1 is_stmt 0 view .LVU137
+ 641 000a 4FF0FF30 		mov	r0, #-1
+ 642 000e 08BD     		pop	{r3, pc}
+ 643              		.cfi_endproc
+ 644              	.LFE42:
+ 646              		.section	.text._sbrk,"ax",%progbits
+ 647              		.align	1
+ 648              		.global	_sbrk
+ 649              		.syntax unified
+ 650              		.thumb
+ 651              		.thumb_func
+ 653              	_sbrk:
+ 654              	.LVL45:
+ 655              	.LFB43:
+ 169:core/src/syscalls.c **** 
+ 170:core/src/syscalls.c **** caddr_t _sbrk(int incr)
+ 171:core/src/syscalls.c **** {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 15
+
+
+ 656              		.loc 1 171 1 is_stmt 1 view -0
+ 657              		.cfi_startproc
+ 658              		@ args = 0, pretend = 0, frame = 0
+ 659              		@ frame_needed = 0, uses_anonymous_args = 0
+ 660              		.loc 1 171 1 is_stmt 0 view .LVU139
+ 661 0000 08B5     		push	{r3, lr}
+ 662              	.LCFI11:
+ 663              		.cfi_def_cfa_offset 8
+ 664              		.cfi_offset 3, -8
+ 665              		.cfi_offset 14, -4
+ 666 0002 0346     		mov	r3, r0
+ 172:core/src/syscalls.c ****     extern char end asm("end");
+ 667              		.loc 1 172 5 is_stmt 1 view .LVU140
+ 173:core/src/syscalls.c ****     static char *heap_end;
+ 668              		.loc 1 173 5 view .LVU141
+ 174:core/src/syscalls.c ****     char *prev_heap_end;
+ 669              		.loc 1 174 5 view .LVU142
+ 175:core/src/syscalls.c **** 
+ 176:core/src/syscalls.c ****     if (heap_end == 0)
+ 670              		.loc 1 176 5 view .LVU143
+ 671              		.loc 1 176 18 is_stmt 0 view .LVU144
+ 672 0004 0B4A     		ldr	r2, .L50
+ 673 0006 1268     		ldr	r2, [r2]
+ 674              		.loc 1 176 8 view .LVU145
+ 675 0008 42B1     		cbz	r2, .L48
+ 676              	.L44:
+ 177:core/src/syscalls.c ****         heap_end = &end;
+ 178:core/src/syscalls.c **** 
+ 179:core/src/syscalls.c ****     prev_heap_end = heap_end;
+ 677              		.loc 1 179 5 is_stmt 1 view .LVU146
+ 678              		.loc 1 179 19 is_stmt 0 view .LVU147
+ 679 000a 0A4A     		ldr	r2, .L50
+ 680 000c 1068     		ldr	r0, [r2]
+ 681              	.LVL46:
+ 180:core/src/syscalls.c ****     if (heap_end + incr > stack_ptr)
+ 682              		.loc 1 180 5 is_stmt 1 view .LVU148
+ 683              		.loc 1 180 18 is_stmt 0 view .LVU149
+ 684 000e 0344     		add	r3, r3, r0
+ 685              	.LVL47:
+ 686              		.loc 1 180 8 view .LVU150
+ 687 0010 6A46     		mov	r2, sp
+ 688 0012 9342     		cmp	r3, r2
+ 689 0014 06D8     		bhi	.L49
+ 181:core/src/syscalls.c ****     {
+ 182:core/src/syscalls.c ****         errno = ENOMEM;
+ 183:core/src/syscalls.c ****         return (caddr_t) -1;
+ 184:core/src/syscalls.c ****     }
+ 185:core/src/syscalls.c **** 
+ 186:core/src/syscalls.c ****     heap_end += incr;
+ 690              		.loc 1 186 5 is_stmt 1 view .LVU151
+ 691              		.loc 1 186 14 is_stmt 0 view .LVU152
+ 692 0016 074A     		ldr	r2, .L50
+ 693 0018 1360     		str	r3, [r2]
+ 187:core/src/syscalls.c **** 
+ 188:core/src/syscalls.c ****     return (caddr_t) prev_heap_end;
+ 694              		.loc 1 188 5 is_stmt 1 view .LVU153
+ 695              	.LVL48:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 16
+
+
+ 696              	.L43:
+ 189:core/src/syscalls.c **** } ...
+ 697              		.loc 1 189 1 is_stmt 0 view .LVU154
+ 698 001a 08BD     		pop	{r3, pc}
+ 699              	.LVL49:
+ 700              	.L48:
+ 177:core/src/syscalls.c ****         heap_end = &end;
+ 701              		.loc 1 177 9 is_stmt 1 view .LVU155
+ 177:core/src/syscalls.c ****         heap_end = &end;
+ 702              		.loc 1 177 18 is_stmt 0 view .LVU156
+ 703 001c 054A     		ldr	r2, .L50
+ 704 001e 0649     		ldr	r1, .L50+4
+ 705 0020 1160     		str	r1, [r2]
+ 706 0022 F2E7     		b	.L44
+ 707              	.LVL50:
+ 708              	.L49:
+ 182:core/src/syscalls.c ****         errno = ENOMEM;
+ 709              		.loc 1 182 9 is_stmt 1 view .LVU157
+ 710 0024 FFF7FEFF 		bl	__errno
+ 711              	.LVL51:
+ 182:core/src/syscalls.c ****         errno = ENOMEM;
+ 712              		.loc 1 182 15 is_stmt 0 discriminator 1 view .LVU158
+ 713 0028 0C23     		movs	r3, #12
+ 714 002a 0360     		str	r3, [r0]
+ 183:core/src/syscalls.c ****         return (caddr_t) -1;
+ 715              		.loc 1 183 9 is_stmt 1 view .LVU159
+ 183:core/src/syscalls.c ****         return (caddr_t) -1;
+ 716              		.loc 1 183 16 is_stmt 0 view .LVU160
+ 717 002c 4FF0FF30 		mov	r0, #-1
+ 718 0030 F3E7     		b	.L43
+ 719              	.L51:
+ 720 0032 00BF     		.align	2
+ 721              	.L50:
+ 722 0034 00000000 		.word	heap_end.0
+ 723 0038 00000000 		.word	end
+ 724              		.cfi_endproc
+ 725              	.LFE43:
+ 727              		.section	.bss.heap_end.0,"aw",%nobits
+ 728              		.align	2
+ 731              	heap_end.0:
+ 732 0000 00000000 		.space	4
+ 733              		.global	environ
+ 734              		.section	.data.environ,"aw"
+ 735              		.align	2
+ 738              	environ:
+ 739 0000 00000000 		.word	__env
+ 740              		.global	__env
+ 741              		.section	.bss.__env,"aw",%nobits
+ 742              		.align	2
+ 745              	__env:
+ 746 0000 00000000 		.space	4
+ 747              		.weak	__io_putchar
+ 748              		.weak	__io_getchar
+ 749              		.text
+ 750              	.Letext0:
+ 751              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 752              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_types.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 17
+
+
+ 753              		.file 4 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_timeval.h"
+ 754              		.file 5 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_timespec.h"
+ 755              		.file 6 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/types.h"
+ 756              		.file 7 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/stat.h"
+ 757              		.file 8 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/times.h"
+ 758              		.file 9 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/errno.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s 			page 18
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 syscalls.c
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:17     .text.initialise_monitor_handles:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:23     .text.initialise_monitor_handles:00000000 initialise_monitor_handles
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:36     .text._getpid:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:42     .text._getpid:00000000 _getpid
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:57     .text._kill:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:63     .text._kill:00000000 _kill
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:92     .text._exit:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:98     .text._exit:00000000 _exit
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:125    .text._read:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:131    .text._read:00000000 _read
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:204    .text._read:00000034 $d
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:209    .text._write:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:215    .text._write:00000000 _write
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:273    .text._write:00000024 $d
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:278    .text._close:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:284    .text._close:00000000 _close
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:303    .text._fstat:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:309    .text._fstat:00000000 _fstat
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:332    .text._isatty:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:338    .text._isatty:00000000 _isatty
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:357    .text._lseek:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:363    .text._lseek:00000000 _lseek
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:384    .text._open:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:390    .text._open:00000000 _open
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:423    .text._wait:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:429    .text._wait:00000000 _wait
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:457    .text._unlink:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:463    .text._unlink:00000000 _unlink
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:491    .text._times:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:497    .text._times:00000000 _times
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:516    .text._stat:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:522    .text._stat:00000000 _stat
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:545    .text._link:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:551    .text._link:00000000 _link
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:580    .text._fork:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:586    .text._fork:00000000 _fork
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:611    .text._execve:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:617    .text._execve:00000000 _execve
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:647    .text._sbrk:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:653    .text._sbrk:00000000 _sbrk
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:722    .text._sbrk:00000034 $d
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:731    .bss.heap_end.0:00000000 heap_end.0
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:728    .bss.heap_end.0:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:738    .data.environ:00000000 environ
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:735    .data.environ:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:745    .bss.__env:00000000 __env
+C:\Users\Dawn\AppData\Local\Temp\ccxcONZb.s:742    .bss.__env:00000000 $d
+
+UNDEFINED SYMBOLS
+__errno
+__io_getchar
+__io_putchar
+end

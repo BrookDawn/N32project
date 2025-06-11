@@ -1,0 +1,3204 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 23, 1
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"n32g430_spi.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.file 1 "n32g430_std_periph_driver/src/n32g430_spi.c"
+  16              		.section	.text.SPI_I2S_Reset,"ax",%progbits
+  17              		.align	1
+  18              		.global	SPI_I2S_Reset
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  23              	SPI_I2S_Reset:
+  24              	.LVL0:
+  25              	.LFB123:
+   1:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+   2:n32g430_std_periph_driver/src/n32g430_spi.c **** *     Copyright (c) 2022, Nations Technologies Inc.
+   3:n32g430_std_periph_driver/src/n32g430_spi.c **** * 
+   4:n32g430_std_periph_driver/src/n32g430_spi.c **** *     All rights reserved.
+   5:n32g430_std_periph_driver/src/n32g430_spi.c **** *
+   6:n32g430_std_periph_driver/src/n32g430_spi.c **** *     This software is the exclusive property of Nations Technologies Inc. (Hereinafter 
+   7:n32g430_std_periph_driver/src/n32g430_spi.c **** * referred to as NATIONS). This software, and the product of NATIONS described herein 
+   8:n32g430_std_periph_driver/src/n32g430_spi.c **** * (Hereinafter referred to as the Product) are owned by NATIONS under the laws and treaties
+   9:n32g430_std_periph_driver/src/n32g430_spi.c **** * of the People's Republic of China and other applicable jurisdictions worldwide.
+  10:n32g430_std_periph_driver/src/n32g430_spi.c **** *
+  11:n32g430_std_periph_driver/src/n32g430_spi.c **** *     NATIONS does not grant any license under its patents, copyrights, trademarks, or other 
+  12:n32g430_std_periph_driver/src/n32g430_spi.c **** * intellectual property rights. Names and brands of third party may be mentioned or referred 
+  13:n32g430_std_periph_driver/src/n32g430_spi.c **** * thereto (if any) for identification purposes only.
+  14:n32g430_std_periph_driver/src/n32g430_spi.c **** *
+  15:n32g430_std_periph_driver/src/n32g430_spi.c **** *     NATIONS reserves the right to make changes, corrections, enhancements, modifications, and 
+  16:n32g430_std_periph_driver/src/n32g430_spi.c **** * improvements to this software at any time without notice. Please contact NATIONS and obtain 
+  17:n32g430_std_periph_driver/src/n32g430_spi.c **** * the latest version of this software before placing orders.
+  18:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+  19:n32g430_std_periph_driver/src/n32g430_spi.c **** *     Although NATIONS has attempted to provide accurate and reliable information, NATIONS assumes 
+  20:n32g430_std_periph_driver/src/n32g430_spi.c **** * no responsibility for the accuracy and reliability of this software.
+  21:n32g430_std_periph_driver/src/n32g430_spi.c **** * 
+  22:n32g430_std_periph_driver/src/n32g430_spi.c **** *     It is the responsibility of the user of this software to properly design, program, and test 
+  23:n32g430_std_periph_driver/src/n32g430_spi.c **** * the functionality and safety of any application made of this information and any resulting produc
+  24:n32g430_std_periph_driver/src/n32g430_spi.c **** * In no event shall NATIONS be liable for any direct, indirect, incidental, special,exemplary, or 
+  25:n32g430_std_periph_driver/src/n32g430_spi.c **** * consequential damages arising in any way out of the use of this software or the Product.
+  26:n32g430_std_periph_driver/src/n32g430_spi.c **** *
+  27:n32g430_std_periph_driver/src/n32g430_spi.c **** *     NATIONS Products are neither intended nor warranted for usage in systems or equipment, any
+  28:n32g430_std_periph_driver/src/n32g430_spi.c **** * malfunction or failure of which may cause loss of human life, bodily injury or severe property 
+  29:n32g430_std_periph_driver/src/n32g430_spi.c **** * damage. Such applications are deemed, "Insecure Usage".
+  30:n32g430_std_periph_driver/src/n32g430_spi.c **** *
+  31:n32g430_std_periph_driver/src/n32g430_spi.c **** *     All Insecure Usage shall be made at user's risk. User shall indemnify NATIONS and hold NATION
+  32:n32g430_std_periph_driver/src/n32g430_spi.c **** * harmless from and against all claims, costs, damages, and other liabilities, arising from or rela
+  33:n32g430_std_periph_driver/src/n32g430_spi.c **** * to any customer's Insecure Usage.
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 2
+
+
+  34:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+  35:n32g430_std_periph_driver/src/n32g430_spi.c **** *     Any express or implied warranty with regard to this software or the Product, including,but no
+  36:n32g430_std_periph_driver/src/n32g430_spi.c **** * limited to, the warranties of merchantability, fitness for a particular purpose and non-infringem
+  37:n32g430_std_periph_driver/src/n32g430_spi.c **** * are disclaimed to the fullest extent permitted by law.
+  38:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+  39:n32g430_std_periph_driver/src/n32g430_spi.c **** *     Unless otherwise explicitly permitted by NATIONS, anyone may not duplicate, modify, transcrib
+  40:n32g430_std_periph_driver/src/n32g430_spi.c **** * or otherwise distribute this software for any purposes, in whole or in part.
+  41:n32g430_std_periph_driver/src/n32g430_spi.c **** *
+  42:n32g430_std_periph_driver/src/n32g430_spi.c **** *     NATIONS products and technologies shall not be used for or incorporated into any products or 
+  43:n32g430_std_periph_driver/src/n32g430_spi.c **** * whose manufacture, use, or sale is prohibited under any applicable domestic or foreign laws or re
+  44:n32g430_std_periph_driver/src/n32g430_spi.c **** * User shall comply with any applicable export control laws and regulations promulgated and adminis
+  45:n32g430_std_periph_driver/src/n32g430_spi.c **** * the governments of any countries asserting jurisdiction over the parties or transactions.
+  46:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+  47:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+  48:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+  49:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\file      n32g430_spi.c
+  50:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\author    Nations
+  51:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\version   v1.0.2
+  52:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\copyright Copyright (c) 2022, Nations Technologies Inc. All rights reserved. 
+  53:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+  54:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+  55:n32g430_std_periph_driver/src/n32g430_spi.c **** #include "n32g430_spi.h"
+  56:n32g430_std_periph_driver/src/n32g430_spi.c **** #include "n32g430_rcc.h"
+  57:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+  58:n32g430_std_periph_driver/src/n32g430_spi.c **** /* SPI Driving Functions Declaration */
+  59:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+  60:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+  61:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_I2S_Reset.
+  62:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Reset the SPIx registers.
+  63:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+  64:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+  65:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+  66:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+  67:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+  68:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_I2S_Reset(SPI_Module* SPIx)
+  69:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+  26              		.loc 1 69 1 view -0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		.loc 1 69 1 is_stmt 0 view .LVU1
+  31 0000 08B5     		push	{r3, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+  70:n32g430_std_periph_driver/src/n32g430_spi.c ****     if (SPIx == SPI1)
+  36              		.loc 1 70 5 is_stmt 1 view .LVU2
+  37              		.loc 1 70 8 is_stmt 0 view .LVU3
+  38 0002 084B     		ldr	r3, .L7
+  39 0004 9842     		cmp	r0, r3
+  40 0006 03D0     		beq	.L5
+  71:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+  72:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* SPI1 Reset */
+  73:n32g430_std_periph_driver/src/n32g430_spi.c ****         RCC_APB2_Peripheral_Reset(RCC_APB2_PERIPH_SPI1);
+  74:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+  75:n32g430_std_periph_driver/src/n32g430_spi.c ****     else if (SPIx == SPI2)
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 3
+
+
+  41              		.loc 1 75 10 is_stmt 1 view .LVU4
+  42              		.loc 1 75 13 is_stmt 0 view .LVU5
+  43 0008 074B     		ldr	r3, .L7+4
+  44 000a 9842     		cmp	r0, r3
+  45 000c 05D0     		beq	.L6
+  46              	.LVL1:
+  47              	.L1:
+  76:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+  77:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* SPI2 Reset */
+  78:n32g430_std_periph_driver/src/n32g430_spi.c ****         RCC_APB2_Peripheral_Reset(RCC_APB2_PERIPH_SPI2);
+  79:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+  80:n32g430_std_periph_driver/src/n32g430_spi.c ****     else
+  81:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+  82:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* none */
+  83:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+  84:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+  48              		.loc 1 84 1 view .LVU6
+  49 000e 08BD     		pop	{r3, pc}
+  50              	.LVL2:
+  51              	.L5:
+  73:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+  52              		.loc 1 73 9 is_stmt 1 view .LVU7
+  53 0010 4FF48050 		mov	r0, #4096
+  54              	.LVL3:
+  73:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+  55              		.loc 1 73 9 is_stmt 0 view .LVU8
+  56 0014 FFF7FEFF 		bl	RCC_APB2_Peripheral_Reset
+  57              	.LVL4:
+  58 0018 F9E7     		b	.L1
+  59              	.LVL5:
+  60              	.L6:
+  78:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+  61              		.loc 1 78 9 is_stmt 1 view .LVU9
+  62 001a 4FF40020 		mov	r0, #524288
+  63              	.LVL6:
+  78:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+  64              		.loc 1 78 9 is_stmt 0 view .LVU10
+  65 001e FFF7FEFF 		bl	RCC_APB2_Peripheral_Reset
+  66              	.LVL7:
+  83:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+  67              		.loc 1 83 5 is_stmt 1 view .LVU11
+  68              		.loc 1 84 1 is_stmt 0 view .LVU12
+  69 0022 F4E7     		b	.L1
+  70              	.L8:
+  71              		.align	2
+  72              	.L7:
+  73 0024 00300140 		.word	1073819648
+  74 0028 003C0140 		.word	1073822720
+  75              		.cfi_endproc
+  76              	.LFE123:
+  78              		.section	.text.SPI_ON,"ax",%progbits
+  79              		.align	1
+  80              		.global	SPI_ON
+  81              		.syntax unified
+  82              		.thumb
+  83              		.thumb_func
+  85              	SPI_ON:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 4
+
+
+  86              	.LVL8:
+  87              	.LFB124:
+  85:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+  86:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+  87:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+  88:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_ON.
+  89:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     SPIx turn ON.
+  90:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+  91:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+  92:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+  93:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+  94:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+  95:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_ON(SPI_Module* SPIx)
+  96:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+  88              		.loc 1 96 1 is_stmt 1 view -0
+  89              		.cfi_startproc
+  90              		@ args = 0, pretend = 0, frame = 0
+  91              		@ frame_needed = 0, uses_anonymous_args = 0
+  92              		@ link register save eliminated.
+  97:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set the SPI_CTRL1 ON bit to wake up the SPI from power down mode */
+  98:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 |= SPI_TURN_ON;
+  93              		.loc 1 98 5 view .LVU14
+  94              		.loc 1 98 9 is_stmt 0 view .LVU15
+  95 0000 0388     		ldrh	r3, [r0]
+  96 0002 9BB2     		uxth	r3, r3
+  97              		.loc 1 98 17 view .LVU16
+  98 0004 43F04003 		orr	r3, r3, #64
+  99 0008 0380     		strh	r3, [r0]	@ movhi
+  99:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 100              		.loc 1 99 1 view .LVU17
+ 101 000a 7047     		bx	lr
+ 102              		.cfi_endproc
+ 103              	.LFE124:
+ 105              		.section	.text.SPI_OFF,"ax",%progbits
+ 106              		.align	1
+ 107              		.global	SPI_OFF
+ 108              		.syntax unified
+ 109              		.thumb
+ 110              		.thumb_func
+ 112              	SPI_OFF:
+ 113              	.LVL9:
+ 114              	.LFB125:
+ 100:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 101:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 102:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 103:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_OFF.
+ 104:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     SPIx turn OFF.
+ 105:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 106:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 107:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 108:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 109:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 110:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_OFF(SPI_Module* SPIx)
+ 111:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 115              		.loc 1 111 1 is_stmt 1 view -0
+ 116              		.cfi_startproc
+ 117              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 5
+
+
+ 118              		@ frame_needed = 0, uses_anonymous_args = 0
+ 119              		@ link register save eliminated.
+ 112:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear the SPI_CTRL1 ON bit, The SPI go to power down mode */
+ 113:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 &= SPI_TURN_OFF;
+ 120              		.loc 1 113 5 view .LVU19
+ 121              		.loc 1 113 9 is_stmt 0 view .LVU20
+ 122 0000 0388     		ldrh	r3, [r0]
+ 123 0002 9BB2     		uxth	r3, r3
+ 124              		.loc 1 113 17 view .LVU21
+ 125 0004 23F04003 		bic	r3, r3, #64
+ 126 0008 9BB2     		uxth	r3, r3
+ 127 000a 0380     		strh	r3, [r0]	@ movhi
+ 114:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 128              		.loc 1 114 1 view .LVU22
+ 129 000c 7047     		bx	lr
+ 130              		.cfi_endproc
+ 131              	.LFE125:
+ 133              		.section	.text.SPI_Initializes_Structure,"ax",%progbits
+ 134              		.align	1
+ 135              		.global	SPI_Initializes_Structure
+ 136              		.syntax unified
+ 137              		.thumb
+ 138              		.thumb_func
+ 140              	SPI_Initializes_Structure:
+ 141              	.LVL10:
+ 142              	.LFB126:
+ 115:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 116:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 117:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 118:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_Initializes_Structure.
+ 119:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Fills each SPI_InitStruct member with its default value.
+ 120:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPI_InitStruct :
+ 121:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - DataDirection
+ 122:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SpiMode
+ 123:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - DataLen
+ 124:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - CLKPOL
+ 125:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - CLKPHA
+ 126:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - NSS
+ 127:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - BaudRatePres
+ 128:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - FirstBit
+ 129:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - CRCPoly
+ 130:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 131:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 132:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_Initializes_Structure(SPI_InitType* SPI_InitStruct)
+ 133:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 143              		.loc 1 133 1 is_stmt 1 view -0
+ 144              		.cfi_startproc
+ 145              		@ args = 0, pretend = 0, frame = 0
+ 146              		@ frame_needed = 0, uses_anonymous_args = 0
+ 147              		@ link register save eliminated.
+ 134:n32g430_std_periph_driver/src/n32g430_spi.c ****     /*--------------- Reset SPI init structure parameters values -----------------*/
+ 135:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Initialize the DataDirection member */
+ 136:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_InitStruct->DataDirection = SPI_DIR_DOUBLELINE_FULLDUPLEX;
+ 148              		.loc 1 136 5 view .LVU24
+ 149              		.loc 1 136 35 is_stmt 0 view .LVU25
+ 150 0000 0023     		movs	r3, #0
+ 151 0002 0380     		strh	r3, [r0]	@ movhi
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 6
+
+
+ 137:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* initialize the SpiMode member */
+ 138:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_InitStruct->SpiMode = SPI_MODE_SLAVE;
+ 152              		.loc 1 138 5 is_stmt 1 view .LVU26
+ 153              		.loc 1 138 29 is_stmt 0 view .LVU27
+ 154 0004 4380     		strh	r3, [r0, #2]	@ movhi
+ 139:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* initialize the DataLen member */
+ 140:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_InitStruct->DataLen = SPI_DATA_SIZE_8BITS;
+ 155              		.loc 1 140 5 is_stmt 1 view .LVU28
+ 156              		.loc 1 140 29 is_stmt 0 view .LVU29
+ 157 0006 8380     		strh	r3, [r0, #4]	@ movhi
+ 141:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Initialize the CLKPOL member */
+ 142:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_InitStruct->CLKPOL = SPI_CLKPOL_LOW;
+ 158              		.loc 1 142 5 is_stmt 1 view .LVU30
+ 159              		.loc 1 142 28 is_stmt 0 view .LVU31
+ 160 0008 C380     		strh	r3, [r0, #6]	@ movhi
+ 143:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Initialize the CLKPHA member */
+ 144:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_InitStruct->CLKPHA = SPI_CLKPHA_FIRST_EDGE;
+ 161              		.loc 1 144 5 is_stmt 1 view .LVU32
+ 162              		.loc 1 144 28 is_stmt 0 view .LVU33
+ 163 000a 0381     		strh	r3, [r0, #8]	@ movhi
+ 145:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Initialize the NSS member */
+ 146:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_InitStruct->NSS = SPI_NSS_HARD;
+ 164              		.loc 1 146 5 is_stmt 1 view .LVU34
+ 165              		.loc 1 146 25 is_stmt 0 view .LVU35
+ 166 000c 4381     		strh	r3, [r0, #10]	@ movhi
+ 147:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Initialize the BaudRatePres member */
+ 148:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_InitStruct->BaudRatePres = SPI_BR_PRESCALER_2;
+ 167              		.loc 1 148 5 is_stmt 1 view .LVU36
+ 168              		.loc 1 148 34 is_stmt 0 view .LVU37
+ 169 000e 8381     		strh	r3, [r0, #12]	@ movhi
+ 149:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Initialize the FirstBit member */
+ 150:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_InitStruct->FirstBit = SPI_FB_MSB;
+ 170              		.loc 1 150 5 is_stmt 1 view .LVU38
+ 171              		.loc 1 150 30 is_stmt 0 view .LVU39
+ 172 0010 C381     		strh	r3, [r0, #14]	@ movhi
+ 151:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Initialize the CRCPoly member */
+ 152:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_InitStruct->CRCPoly = 7;
+ 173              		.loc 1 152 5 is_stmt 1 view .LVU40
+ 174              		.loc 1 152 29 is_stmt 0 view .LVU41
+ 175 0012 0723     		movs	r3, #7
+ 176 0014 0382     		strh	r3, [r0, #16]	@ movhi
+ 153:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 177              		.loc 1 153 1 view .LVU42
+ 178 0016 7047     		bx	lr
+ 179              		.cfi_endproc
+ 180              	.LFE126:
+ 182              		.section	.text.SPI_DataDirection_Config,"ax",%progbits
+ 183              		.align	1
+ 184              		.global	SPI_DataDirection_Config
+ 185              		.syntax unified
+ 186              		.thumb
+ 187              		.thumb_func
+ 189              	SPI_DataDirection_Config:
+ 190              	.LVL11:
+ 191              	.LFB128:
+ 154:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 155:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 7
+
+
+ 156:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 157:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_Initializes.
+ 158:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Initializes the SPIx according to SPI_InitStruct.
+ 159:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 160:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 161:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 162:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPI_InitStruct :
+ 163:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - DataDirection
+ 164:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_DIR_DOUBLELINE_FULLDUPLEX
+ 165:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_DIR_DOUBLELINE_RONLY
+ 166:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_DIR_SINGLELINE_RX
+ 167:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_DIR_SINGLELINE_TX
+ 168:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SpiMode
+ 169:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_MODE_MASTER
+ 170:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_MODE_SLAVE
+ 171:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - DataLen
+ 172:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_DATA_SIZE_16BITS
+ 173:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_DATA_SIZE_8BITS
+ 174:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - CLKPOL
+ 175:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_CLKPOL_LOW
+ 176:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_CLKPOL_HIGH
+ 177:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - CLKPHA
+ 178:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_CLKPHA_FIRST_EDGE
+ 179:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_CLKPHA_SECOND_EDGE
+ 180:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - NSS
+ 181:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_NSS_SOFT
+ 182:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_NSS_HARD
+ 183:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - BaudRatePres
+ 184:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_BR_PRESCALER_2
+ 185:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_BR_PRESCALER_4
+ 186:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_BR_PRESCALER_8
+ 187:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_BR_PRESCALER_16
+ 188:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_BR_PRESCALER_32
+ 189:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_BR_PRESCALER_64
+ 190:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_BR_PRESCALER_128
+ 191:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_BR_PRESCALER_256
+ 192:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - FirstBit
+ 193:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_FB_MSB
+ 194:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\            - SPI_FB_LSB
+ 195:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - CRCPoly      default 0x0007, max 0xffff
+ 196:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 197:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 198:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_Initializes(SPI_Module* SPIx, SPI_InitType* SPI_InitStruct)
+ 199:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 200:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_DataDirection_Config(SPIx, SPI_InitStruct->DataDirection);
+ 201:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_SpiMode_Config(SPIx, SPI_InitStruct->SpiMode);
+ 202:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_DataLen_Config(SPIx, SPI_InitStruct->DataLen);
+ 203:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_CLKPHA_Config(SPIx, SPI_InitStruct->CLKPHA);
+ 204:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_CLKPOL_Config(SPIx, SPI_InitStruct->CLKPOL);
+ 205:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_NSS_Config(SPIx, SPI_InitStruct->NSS);
+ 206:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_BaudRatePres_Config(SPIx, SPI_InitStruct->BaudRatePres);
+ 207:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_FirstBit_Config(SPIx, SPI_InitStruct->FirstBit);
+ 208:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_CRC_Polynomial_Set(SPIx, SPI_InitStruct->CRCPoly);
+ 209:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 210:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 211:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 212:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 8
+
+
+ 213:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_DataDirection_Config.
+ 214:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Configure SPIx data transfer direction.
+ 215:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 216:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 217:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 218:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   DataDirection :
+ 219:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_DIR_DOUBLELINE_FULLDUPLEX
+ 220:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_DIR_DOUBLELINE_RONLY
+ 221:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_DIR_SINGLELINE_RX
+ 222:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_DIR_SINGLELINE_TX
+ 223:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 224:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 225:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_DataDirection_Config(SPI_Module* SPIx, uint16_t DataDirection)
+ 226:n32g430_std_periph_driver/src/n32g430_spi.c **** {  
+ 192              		.loc 1 226 1 is_stmt 1 view -0
+ 193              		.cfi_startproc
+ 194              		@ args = 0, pretend = 0, frame = 0
+ 195              		@ frame_needed = 0, uses_anonymous_args = 0
+ 196              		@ link register save eliminated.
+ 227:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear SPI_CTRL1[15:14] and [10] bits */
+ 228:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 &= SPI_DATADIRECTION_MASK;
+ 197              		.loc 1 228 5 view .LVU44
+ 198              		.loc 1 228 9 is_stmt 0 view .LVU45
+ 199 0000 0388     		ldrh	r3, [r0]
+ 200              		.loc 1 228 17 view .LVU46
+ 201 0002 23F48063 		bic	r3, r3, #1024
+ 202 0006 9B04     		lsls	r3, r3, #18
+ 203 0008 9B0C     		lsrs	r3, r3, #18
+ 204 000a 0380     		strh	r3, [r0]	@ movhi
+ 229:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set SPI_CTRL1[15:14] and [10] bits */
+ 230:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 |= DataDirection;
+ 205              		.loc 1 230 5 is_stmt 1 view .LVU47
+ 206              		.loc 1 230 9 is_stmt 0 view .LVU48
+ 207 000c 0388     		ldrh	r3, [r0]
+ 208 000e 9BB2     		uxth	r3, r3
+ 209              		.loc 1 230 17 view .LVU49
+ 210 0010 0B43     		orrs	r3, r3, r1
+ 211 0012 0380     		strh	r3, [r0]	@ movhi
+ 231:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 212              		.loc 1 231 1 view .LVU50
+ 213 0014 7047     		bx	lr
+ 214              		.cfi_endproc
+ 215              	.LFE128:
+ 217              		.section	.text.SPI_SpiMode_Config,"ax",%progbits
+ 218              		.align	1
+ 219              		.global	SPI_SpiMode_Config
+ 220              		.syntax unified
+ 221              		.thumb
+ 222              		.thumb_func
+ 224              	SPI_SpiMode_Config:
+ 225              	.LVL12:
+ 226              	.LFB129:
+ 232:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 233:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 234:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 235:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_SpiMode_Config.
+ 236:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Configure SPIx to work in master or slave mode.
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 9
+
+
+ 237:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 238:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 239:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 240:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SpiMode :
+ 241:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_MODE_MASTER
+ 242:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_MODE_SLAVE
+ 243:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 244:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 245:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_SpiMode_Config(SPI_Module* SPIx, uint16_t SpiMode)
+ 246:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 227              		.loc 1 246 1 is_stmt 1 view -0
+ 228              		.cfi_startproc
+ 229              		@ args = 0, pretend = 0, frame = 0
+ 230              		@ frame_needed = 0, uses_anonymous_args = 0
+ 231              		@ link register save eliminated.
+ 247:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear SPI_CTRL1 MSEL bits */
+ 248:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 &= SPI_MODE_MASK;
+ 232              		.loc 1 248 5 view .LVU52
+ 233              		.loc 1 248 9 is_stmt 0 view .LVU53
+ 234 0000 0388     		ldrh	r3, [r0]
+ 235 0002 9BB2     		uxth	r3, r3
+ 236              		.loc 1 248 17 view .LVU54
+ 237 0004 23F00403 		bic	r3, r3, #4
+ 238 0008 9BB2     		uxth	r3, r3
+ 239 000a 0380     		strh	r3, [r0]	@ movhi
+ 249:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set SPI_CTRL1 MSEL bits */
+ 250:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 |= SpiMode;
+ 240              		.loc 1 250 5 is_stmt 1 view .LVU55
+ 241              		.loc 1 250 9 is_stmt 0 view .LVU56
+ 242 000c 0388     		ldrh	r3, [r0]
+ 243 000e 9BB2     		uxth	r3, r3
+ 244              		.loc 1 250 17 view .LVU57
+ 245 0010 0B43     		orrs	r3, r3, r1
+ 246 0012 0380     		strh	r3, [r0]	@ movhi
+ 251:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 247              		.loc 1 251 1 view .LVU58
+ 248 0014 7047     		bx	lr
+ 249              		.cfi_endproc
+ 250              	.LFE129:
+ 252              		.section	.text.SPI_DataLen_Config,"ax",%progbits
+ 253              		.align	1
+ 254              		.global	SPI_DataLen_Config
+ 255              		.syntax unified
+ 256              		.thumb
+ 257              		.thumb_func
+ 259              	SPI_DataLen_Config:
+ 260              	.LVL13:
+ 261              	.LFB130:
+ 252:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 253:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 254:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 255:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_DataLen_Config.
+ 256:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Configure SPIx data length.
+ 257:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 258:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 259:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 260:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   DataLen :
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 10
+
+
+ 261:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_DATA_SIZE_16BITS
+ 262:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_DATA_SIZE_8BITS
+ 263:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 264:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\note    Must be used with SPI OFF.
+ 265:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 266:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_DataLen_Config(SPI_Module* SPIx, uint16_t DataLen)
+ 267:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 262              		.loc 1 267 1 is_stmt 1 view -0
+ 263              		.cfi_startproc
+ 264              		@ args = 0, pretend = 0, frame = 0
+ 265              		@ frame_needed = 0, uses_anonymous_args = 0
+ 266              		@ link register save eliminated.
+ 268:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear SPI_CTRL1 DATFF bits */
+ 269:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 &= SPI_DATALEN_MASK;
+ 267              		.loc 1 269 5 view .LVU60
+ 268              		.loc 1 269 9 is_stmt 0 view .LVU61
+ 269 0000 0388     		ldrh	r3, [r0]
+ 270 0002 9BB2     		uxth	r3, r3
+ 271              		.loc 1 269 17 view .LVU62
+ 272 0004 23F40063 		bic	r3, r3, #2048
+ 273 0008 9BB2     		uxth	r3, r3
+ 274 000a 0380     		strh	r3, [r0]	@ movhi
+ 270:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set SPI_CTRL1 DATFF bits */
+ 271:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 |= DataLen;
+ 275              		.loc 1 271 5 is_stmt 1 view .LVU63
+ 276              		.loc 1 271 9 is_stmt 0 view .LVU64
+ 277 000c 0388     		ldrh	r3, [r0]
+ 278 000e 9BB2     		uxth	r3, r3
+ 279              		.loc 1 271 17 view .LVU65
+ 280 0010 0B43     		orrs	r3, r3, r1
+ 281 0012 0380     		strh	r3, [r0]	@ movhi
+ 272:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 282              		.loc 1 272 1 view .LVU66
+ 283 0014 7047     		bx	lr
+ 284              		.cfi_endproc
+ 285              	.LFE130:
+ 287              		.section	.text.SPI_CLKPOL_Config,"ax",%progbits
+ 288              		.align	1
+ 289              		.global	SPI_CLKPOL_Config
+ 290              		.syntax unified
+ 291              		.thumb
+ 292              		.thumb_func
+ 294              	SPI_CLKPOL_Config:
+ 295              	.LVL14:
+ 296              	.LFB131:
+ 273:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 274:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 275:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 276:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_CLKPOL_Config.
+ 277:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Configure the SPIx clock polarity.
+ 278:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 279:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 280:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 281:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   CLKPOL :
+ 282:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_CLKPOL_LOW
+ 283:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_CLKPOL_HIGH
+ 284:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 11
+
+
+ 285:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 286:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_CLKPOL_Config(SPI_Module* SPIx, uint16_t CLKPOL)
+ 287:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 297              		.loc 1 287 1 is_stmt 1 view -0
+ 298              		.cfi_startproc
+ 299              		@ args = 0, pretend = 0, frame = 0
+ 300              		@ frame_needed = 0, uses_anonymous_args = 0
+ 301              		@ link register save eliminated.
+ 288:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear SPI_CTRL1 CLKPOL bits */
+ 289:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 &= SPI_CLKPOL_MASK;
+ 302              		.loc 1 289 5 view .LVU68
+ 303              		.loc 1 289 9 is_stmt 0 view .LVU69
+ 304 0000 0388     		ldrh	r3, [r0]
+ 305 0002 9BB2     		uxth	r3, r3
+ 306              		.loc 1 289 17 view .LVU70
+ 307 0004 23F00203 		bic	r3, r3, #2
+ 308 0008 9BB2     		uxth	r3, r3
+ 309 000a 0380     		strh	r3, [r0]	@ movhi
+ 290:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set SPI_CTRL1 CLKPOL bits */
+ 291:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 |= CLKPOL;
+ 310              		.loc 1 291 5 is_stmt 1 view .LVU71
+ 311              		.loc 1 291 9 is_stmt 0 view .LVU72
+ 312 000c 0388     		ldrh	r3, [r0]
+ 313 000e 9BB2     		uxth	r3, r3
+ 314              		.loc 1 291 17 view .LVU73
+ 315 0010 0B43     		orrs	r3, r3, r1
+ 316 0012 0380     		strh	r3, [r0]	@ movhi
+ 292:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 317              		.loc 1 292 1 view .LVU74
+ 318 0014 7047     		bx	lr
+ 319              		.cfi_endproc
+ 320              	.LFE131:
+ 322              		.section	.text.SPI_CLKPHA_Config,"ax",%progbits
+ 323              		.align	1
+ 324              		.global	SPI_CLKPHA_Config
+ 325              		.syntax unified
+ 326              		.thumb
+ 327              		.thumb_func
+ 329              	SPI_CLKPHA_Config:
+ 330              	.LVL15:
+ 331              	.LFB132:
+ 293:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 294:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 295:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 296:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_CLKPHA_Config.
+ 297:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Configure the SPIx clock phase.
+ 298:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 299:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 300:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 301:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   CLKPHA :
+ 302:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_CLKPHA_FIRST_EDGE
+ 303:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_CLKPHA_SECOND_EDGE
+ 304:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 305:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 306:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_CLKPHA_Config(SPI_Module* SPIx, uint16_t CLKPHA)
+ 307:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 332              		.loc 1 307 1 is_stmt 1 view -0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 12
+
+
+ 333              		.cfi_startproc
+ 334              		@ args = 0, pretend = 0, frame = 0
+ 335              		@ frame_needed = 0, uses_anonymous_args = 0
+ 336              		@ link register save eliminated.
+ 308:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear SPI_CTRL1 CLKPHA bits */
+ 309:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 &= SPI_CLKPHA_MASK;
+ 337              		.loc 1 309 5 view .LVU76
+ 338              		.loc 1 309 9 is_stmt 0 view .LVU77
+ 339 0000 0388     		ldrh	r3, [r0]
+ 340 0002 9BB2     		uxth	r3, r3
+ 341              		.loc 1 309 17 view .LVU78
+ 342 0004 23F00103 		bic	r3, r3, #1
+ 343 0008 9BB2     		uxth	r3, r3
+ 344 000a 0380     		strh	r3, [r0]	@ movhi
+ 310:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set SPI_CTRL1 CLKPHA bits */
+ 311:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 |= CLKPHA;
+ 345              		.loc 1 311 5 is_stmt 1 view .LVU79
+ 346              		.loc 1 311 9 is_stmt 0 view .LVU80
+ 347 000c 0388     		ldrh	r3, [r0]
+ 348 000e 9BB2     		uxth	r3, r3
+ 349              		.loc 1 311 17 view .LVU81
+ 350 0010 0B43     		orrs	r3, r3, r1
+ 351 0012 0380     		strh	r3, [r0]	@ movhi
+ 312:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 352              		.loc 1 312 1 view .LVU82
+ 353 0014 7047     		bx	lr
+ 354              		.cfi_endproc
+ 355              	.LFE132:
+ 357              		.section	.text.SPI_BaudRatePres_Config,"ax",%progbits
+ 358              		.align	1
+ 359              		.global	SPI_BaudRatePres_Config
+ 360              		.syntax unified
+ 361              		.thumb
+ 362              		.thumb_func
+ 364              	SPI_BaudRatePres_Config:
+ 365              	.LVL16:
+ 366              	.LFB133:
+ 313:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 314:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 315:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_BaudRatePres_Config.
+ 316:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Configure the SPIx BaudRate prescaler.
+ 317:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 318:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 319:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 320:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   BaudRatePres :
+ 321:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_BR_PRESCALER_2
+ 322:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_BR_PRESCALER_4
+ 323:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_BR_PRESCALER_8
+ 324:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_BR_PRESCALER_16
+ 325:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_BR_PRESCALER_32
+ 326:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_BR_PRESCALER_64
+ 327:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_BR_PRESCALER_128
+ 328:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_BR_PRESCALER_256
+ 329:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 330:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 331:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_BaudRatePres_Config(SPI_Module* SPIx, uint16_t BaudRatePres)
+ 332:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 13
+
+
+ 367              		.loc 1 332 1 is_stmt 1 view -0
+ 368              		.cfi_startproc
+ 369              		@ args = 0, pretend = 0, frame = 0
+ 370              		@ frame_needed = 0, uses_anonymous_args = 0
+ 371              		@ link register save eliminated.
+ 333:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear SPI_CTRL1 BR[2:0] bits */
+ 334:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 &= SPI_BAUDRATEPRES_MASK;
+ 372              		.loc 1 334 5 view .LVU84
+ 373              		.loc 1 334 9 is_stmt 0 view .LVU85
+ 374 0000 0388     		ldrh	r3, [r0]
+ 375 0002 9BB2     		uxth	r3, r3
+ 376              		.loc 1 334 17 view .LVU86
+ 377 0004 23F03803 		bic	r3, r3, #56
+ 378 0008 9BB2     		uxth	r3, r3
+ 379 000a 0380     		strh	r3, [r0]	@ movhi
+ 335:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set SPI_CTRL1 BR[2:0] bits */
+ 336:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 |= BaudRatePres;
+ 380              		.loc 1 336 5 is_stmt 1 view .LVU87
+ 381              		.loc 1 336 9 is_stmt 0 view .LVU88
+ 382 000c 0388     		ldrh	r3, [r0]
+ 383 000e 9BB2     		uxth	r3, r3
+ 384              		.loc 1 336 17 view .LVU89
+ 385 0010 0B43     		orrs	r3, r3, r1
+ 386 0012 0380     		strh	r3, [r0]	@ movhi
+ 337:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 387              		.loc 1 337 1 view .LVU90
+ 388 0014 7047     		bx	lr
+ 389              		.cfi_endproc
+ 390              	.LFE133:
+ 392              		.section	.text.SPI_FirstBit_Config,"ax",%progbits
+ 393              		.align	1
+ 394              		.global	SPI_FirstBit_Config
+ 395              		.syntax unified
+ 396              		.thumb
+ 397              		.thumb_func
+ 399              	SPI_FirstBit_Config:
+ 400              	.LVL17:
+ 401              	.LFB134:
+ 338:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 339:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 340:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 341:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_FirstBit_Config.
+ 342:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Configure the SPIx data bit order.
+ 343:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 344:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 345:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 346:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   FirstBit :
+ 347:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_FB_MSB
+ 348:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_FB_LSB
+ 349:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 350:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 351:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_FirstBit_Config(SPI_Module* SPIx, uint16_t FirstBit)
+ 352:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 402              		.loc 1 352 1 is_stmt 1 view -0
+ 403              		.cfi_startproc
+ 404              		@ args = 0, pretend = 0, frame = 0
+ 405              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 14
+
+
+ 406              		@ link register save eliminated.
+ 353:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear SPI_CTRL1 LSBFF bits */
+ 354:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 &= SPI_FIRSTBIT_MASK;
+ 407              		.loc 1 354 5 view .LVU92
+ 408              		.loc 1 354 9 is_stmt 0 view .LVU93
+ 409 0000 0388     		ldrh	r3, [r0]
+ 410 0002 9BB2     		uxth	r3, r3
+ 411              		.loc 1 354 17 view .LVU94
+ 412 0004 23F08003 		bic	r3, r3, #128
+ 413 0008 9BB2     		uxth	r3, r3
+ 414 000a 0380     		strh	r3, [r0]	@ movhi
+ 355:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set SPI_CTRL1 LSBFF bits */
+ 356:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 |= FirstBit;
+ 415              		.loc 1 356 5 is_stmt 1 view .LVU95
+ 416              		.loc 1 356 9 is_stmt 0 view .LVU96
+ 417 000c 0388     		ldrh	r3, [r0]
+ 418 000e 9BB2     		uxth	r3, r3
+ 419              		.loc 1 356 17 view .LVU97
+ 420 0010 0B43     		orrs	r3, r3, r1
+ 421 0012 0380     		strh	r3, [r0]	@ movhi
+ 357:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 422              		.loc 1 357 1 view .LVU98
+ 423 0014 7047     		bx	lr
+ 424              		.cfi_endproc
+ 425              	.LFE134:
+ 427              		.section	.text.SPI_NSS_Config,"ax",%progbits
+ 428              		.align	1
+ 429              		.global	SPI_NSS_Config
+ 430              		.syntax unified
+ 431              		.thumb
+ 432              		.thumb_func
+ 434              	SPI_NSS_Config:
+ 435              	.LVL18:
+ 436              	.LFB135:
+ 358:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 359:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 360:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 361:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_NSS_Config.
+ 362:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Configure the SPIx NSS to work in 
+ 363:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\        software or hardware management mode.
+ 364:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 365:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 366:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 367:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   NSS :
+ 368:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_NSS_SOFT
+ 369:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_NSS_HARD
+ 370:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 371:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\note    If the host wants to use the hardware mode to control the slave NSS pin,
+ 372:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\        it must call the function SPI_SS_Output_Enable to set the SSOEN bit of the SPI_CTRL2 re
+ 373:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 374:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_NSS_Config(SPI_Module* SPIx, uint16_t NSS)
+ 375:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 437              		.loc 1 375 1 is_stmt 1 view -0
+ 438              		.cfi_startproc
+ 439              		@ args = 0, pretend = 0, frame = 0
+ 440              		@ frame_needed = 0, uses_anonymous_args = 0
+ 441              		@ link register save eliminated.
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 15
+
+
+ 376:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear SPI_CTRL1 SSMEN bits */
+ 377:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 &= SPI_NSS_MASK;
+ 442              		.loc 1 377 5 view .LVU100
+ 443              		.loc 1 377 9 is_stmt 0 view .LVU101
+ 444 0000 0388     		ldrh	r3, [r0]
+ 445 0002 9BB2     		uxth	r3, r3
+ 446              		.loc 1 377 17 view .LVU102
+ 447 0004 23F40073 		bic	r3, r3, #512
+ 448 0008 9BB2     		uxth	r3, r3
+ 449 000a 0380     		strh	r3, [r0]	@ movhi
+ 378:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set SPI_CTRL1 SSMEN bits */
+ 379:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 |= NSS;
+ 450              		.loc 1 379 5 is_stmt 1 view .LVU103
+ 451              		.loc 1 379 9 is_stmt 0 view .LVU104
+ 452 000c 0388     		ldrh	r3, [r0]
+ 453 000e 9BB2     		uxth	r3, r3
+ 454              		.loc 1 379 17 view .LVU105
+ 455 0010 0B43     		orrs	r3, r3, r1
+ 456 0012 0380     		strh	r3, [r0]	@ movhi
+ 380:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 457              		.loc 1 380 1 view .LVU106
+ 458 0014 7047     		bx	lr
+ 459              		.cfi_endproc
+ 460              	.LFE135:
+ 462              		.section	.text.SPI_Set_Nss_Level,"ax",%progbits
+ 463              		.align	1
+ 464              		.global	SPI_Set_Nss_Level
+ 465              		.syntax unified
+ 466              		.thumb
+ 467              		.thumb_func
+ 469              	SPI_Set_Nss_Level:
+ 470              	.LVL19:
+ 471              	.LFB136:
+ 381:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 382:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 383:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 384:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_Set_Nss_Level.
+ 385:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Configure the level of NSS inside the SPI module.
+ 386:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 387:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 388:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 389:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPI_NSS_Internal_Soft :
+ 390:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_NSS_HIGH
+ 391:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_NSS_LOW
+ 392:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 393:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\note    Only meaningful when SPIx NSS works in software management mode.
+ 394:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\        The configuration is the internal NSS level of the SPI module, not the NSS pin level.
+ 395:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 396:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_Set_Nss_Level(SPI_Module* SPIx, uint16_t SPI_NSS_Internal_Soft)
+ 397:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 472              		.loc 1 397 1 is_stmt 1 view -0
+ 473              		.cfi_startproc
+ 474              		@ args = 0, pretend = 0, frame = 0
+ 475              		@ frame_needed = 0, uses_anonymous_args = 0
+ 476              		@ link register save eliminated.
+ 398:n32g430_std_periph_driver/src/n32g430_spi.c ****     if(SPI_NSS_Internal_Soft == SPI_NSS_HIGH)
+ 477              		.loc 1 398 5 view .LVU108
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 16
+
+
+ 478              		.loc 1 398 7 is_stmt 0 view .LVU109
+ 479 0000 B1F5807F 		cmp	r1, #256
+ 480 0004 06D0     		beq	.L23
+ 399:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ 400:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* Set NSS pin internally by software */
+ 401:n32g430_std_periph_driver/src/n32g430_spi.c ****         SPIx->CTRL1 |= SPI_NSS_HIGH;
+ 402:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+ 403:n32g430_std_periph_driver/src/n32g430_spi.c ****     else
+ 404:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ 405:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* Reset NSS pin internally by software */
+ 406:n32g430_std_periph_driver/src/n32g430_spi.c ****         SPIx->CTRL1 &= SPI_NSS_LOW;
+ 481              		.loc 1 406 9 is_stmt 1 view .LVU110
+ 482              		.loc 1 406 13 is_stmt 0 view .LVU111
+ 483 0006 0388     		ldrh	r3, [r0]
+ 484 0008 9BB2     		uxth	r3, r3
+ 485              		.loc 1 406 21 view .LVU112
+ 486 000a 23F48073 		bic	r3, r3, #256
+ 487 000e 9BB2     		uxth	r3, r3
+ 488 0010 0380     		strh	r3, [r0]	@ movhi
+ 407:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+ 408:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 489              		.loc 1 408 1 view .LVU113
+ 490 0012 7047     		bx	lr
+ 491              	.L23:
+ 401:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+ 492              		.loc 1 401 9 is_stmt 1 view .LVU114
+ 401:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+ 493              		.loc 1 401 13 is_stmt 0 view .LVU115
+ 494 0014 0388     		ldrh	r3, [r0]
+ 495 0016 9BB2     		uxth	r3, r3
+ 401:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+ 496              		.loc 1 401 21 view .LVU116
+ 497 0018 43F48073 		orr	r3, r3, #256
+ 498 001c 0380     		strh	r3, [r0]	@ movhi
+ 499 001e 7047     		bx	lr
+ 500              		.cfi_endproc
+ 501              	.LFE136:
+ 503              		.section	.text.SPI_SS_Output_Enable,"ax",%progbits
+ 504              		.align	1
+ 505              		.global	SPI_SS_Output_Enable
+ 506              		.syntax unified
+ 507              		.thumb
+ 508              		.thumb_func
+ 510              	SPI_SS_Output_Enable:
+ 511              	.LVL20:
+ 512              	.LFB137:
+ 409:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 410:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 411:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_SS_Output_Enable.
+ 412:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Enables the SS output in master mode.
+ 413:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 414:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 415:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 416:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 417:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\note    The device cannot work in multi-master mode.
+ 418:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 419:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_SS_Output_Enable(SPI_Module* SPIx)
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 17
+
+
+ 420:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 513              		.loc 1 420 1 is_stmt 1 view -0
+ 514              		.cfi_startproc
+ 515              		@ args = 0, pretend = 0, frame = 0
+ 516              		@ frame_needed = 0, uses_anonymous_args = 0
+ 517              		@ link register save eliminated.
+ 421:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set the SPI_CTRL2 SSOEN bit to enable SS output */
+ 422:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL2 |= SPI_SS_OUTPUT_ENABLE;
+ 518              		.loc 1 422 5 view .LVU118
+ 519              		.loc 1 422 9 is_stmt 0 view .LVU119
+ 520 0000 8388     		ldrh	r3, [r0, #4]
+ 521 0002 9BB2     		uxth	r3, r3
+ 522              		.loc 1 422 17 view .LVU120
+ 523 0004 43F00403 		orr	r3, r3, #4
+ 524 0008 8380     		strh	r3, [r0, #4]	@ movhi
+ 423:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 525              		.loc 1 423 1 view .LVU121
+ 526 000a 7047     		bx	lr
+ 527              		.cfi_endproc
+ 528              	.LFE137:
+ 530              		.section	.text.SPI_SS_Output_Disable,"ax",%progbits
+ 531              		.align	1
+ 532              		.global	SPI_SS_Output_Disable
+ 533              		.syntax unified
+ 534              		.thumb
+ 535              		.thumb_func
+ 537              	SPI_SS_Output_Disable:
+ 538              	.LVL21:
+ 539              	.LFB138:
+ 424:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 425:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 426:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_SS_Output_Disable.
+ 427:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Disable SS output in master mode.
+ 428:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 429:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 430:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 431:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 432:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\note    The device can work in multi-master mode.
+ 433:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 434:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_SS_Output_Disable(SPI_Module* SPIx)
+ 435:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 540              		.loc 1 435 1 is_stmt 1 view -0
+ 541              		.cfi_startproc
+ 542              		@ args = 0, pretend = 0, frame = 0
+ 543              		@ frame_needed = 0, uses_anonymous_args = 0
+ 544              		@ link register save eliminated.
+ 436:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clean the SPI_CTRL2 SSOEN bit to disable SS output */
+ 437:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL2 &= SPI_SS_OUTPUT_DISABLE;
+ 545              		.loc 1 437 5 view .LVU123
+ 546              		.loc 1 437 9 is_stmt 0 view .LVU124
+ 547 0000 8388     		ldrh	r3, [r0, #4]
+ 548 0002 9BB2     		uxth	r3, r3
+ 549              		.loc 1 437 17 view .LVU125
+ 550 0004 23F00403 		bic	r3, r3, #4
+ 551 0008 9BB2     		uxth	r3, r3
+ 552 000a 8380     		strh	r3, [r0, #4]	@ movhi
+ 438:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 18
+
+
+ 553              		.loc 1 438 1 view .LVU126
+ 554 000c 7047     		bx	lr
+ 555              		.cfi_endproc
+ 556              	.LFE138:
+ 558              		.section	.text.SPI_Next_Transmit_CRC,"ax",%progbits
+ 559              		.align	1
+ 560              		.global	SPI_Next_Transmit_CRC
+ 561              		.syntax unified
+ 562              		.thumb
+ 563              		.thumb_func
+ 565              	SPI_Next_Transmit_CRC:
+ 566              	.LVL22:
+ 567              	.LFB139:
+ 439:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 440:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 441:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_Next_Transmit_CRC.
+ 442:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     The next data to be sent is the CRC value.
+ 443:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 444:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 445:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 446:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 447:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 448:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_Next_Transmit_CRC(SPI_Module* SPIx)
+ 449:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 568              		.loc 1 449 1 is_stmt 1 view -0
+ 569              		.cfi_startproc
+ 570              		@ args = 0, pretend = 0, frame = 0
+ 571              		@ frame_needed = 0, uses_anonymous_args = 0
+ 572              		@ link register save eliminated.
+ 450:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set the SPI_CTRL1 CRCNEXT bit */
+ 451:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 |= SPI_CRCNEXT_ENABLE;
+ 573              		.loc 1 451 5 view .LVU128
+ 574              		.loc 1 451 9 is_stmt 0 view .LVU129
+ 575 0000 0388     		ldrh	r3, [r0]
+ 576 0002 9BB2     		uxth	r3, r3
+ 577              		.loc 1 451 17 view .LVU130
+ 578 0004 43F48053 		orr	r3, r3, #4096
+ 579 0008 0380     		strh	r3, [r0]	@ movhi
+ 452:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 580              		.loc 1 452 1 view .LVU131
+ 581 000a 7047     		bx	lr
+ 582              		.cfi_endproc
+ 583              	.LFE139:
+ 585              		.section	.text.SPI_CRC_Enable,"ax",%progbits
+ 586              		.align	1
+ 587              		.global	SPI_CRC_Enable
+ 588              		.syntax unified
+ 589              		.thumb
+ 590              		.thumb_func
+ 592              	SPI_CRC_Enable:
+ 593              	.LVL23:
+ 594              	.LFB140:
+ 453:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 454:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 455:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_CRC_Enable.
+ 456:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Enables the CRC value calculation of the transferred bytes.
+ 457:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 19
+
+
+ 458:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 459:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 460:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 461:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\note    Must be used with SPI OFF.
+ 462:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 463:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_CRC_Enable(SPI_Module* SPIx)
+ 464:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 595              		.loc 1 464 1 is_stmt 1 view -0
+ 596              		.cfi_startproc
+ 597              		@ args = 0, pretend = 0, frame = 0
+ 598              		@ frame_needed = 0, uses_anonymous_args = 0
+ 599              		@ link register save eliminated.
+ 465:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set the SPI_CTRL1 CRCEN bit to enable CRC calculation */
+ 466:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 |= CTRL1_CRCEN_ENABLE;
+ 600              		.loc 1 466 5 view .LVU133
+ 601              		.loc 1 466 9 is_stmt 0 view .LVU134
+ 602 0000 0388     		ldrh	r3, [r0]
+ 603 0002 9BB2     		uxth	r3, r3
+ 604              		.loc 1 466 17 view .LVU135
+ 605 0004 43F40053 		orr	r3, r3, #8192
+ 606 0008 0380     		strh	r3, [r0]	@ movhi
+ 467:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 607              		.loc 1 467 1 view .LVU136
+ 608 000a 7047     		bx	lr
+ 609              		.cfi_endproc
+ 610              	.LFE140:
+ 612              		.section	.text.SPI_CRC_Disable,"ax",%progbits
+ 613              		.align	1
+ 614              		.global	SPI_CRC_Disable
+ 615              		.syntax unified
+ 616              		.thumb
+ 617              		.thumb_func
+ 619              	SPI_CRC_Disable:
+ 620              	.LVL24:
+ 621              	.LFB141:
+ 468:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 469:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 470:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_CRC_Disable.
+ 471:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Disable the CRC value calculation of the transferred bytes.
+ 472:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 473:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 474:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 475:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 476:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 477:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_CRC_Disable(SPI_Module* SPIx)
+ 478:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 622              		.loc 1 478 1 is_stmt 1 view -0
+ 623              		.cfi_startproc
+ 624              		@ args = 0, pretend = 0, frame = 0
+ 625              		@ frame_needed = 0, uses_anonymous_args = 0
+ 626              		@ link register save eliminated.
+ 479:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clean the SPI_CTRL1 CRCEN bit to Disable CRC calculation */
+ 480:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL1 &= CTRL1_CRCEN_DISABLE; 
+ 627              		.loc 1 480 5 view .LVU138
+ 628              		.loc 1 480 9 is_stmt 0 view .LVU139
+ 629 0000 0388     		ldrh	r3, [r0]
+ 630 0002 9BB2     		uxth	r3, r3
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 20
+
+
+ 631              		.loc 1 480 17 view .LVU140
+ 632 0004 23F40053 		bic	r3, r3, #8192
+ 633 0008 9BB2     		uxth	r3, r3
+ 634 000a 0380     		strh	r3, [r0]	@ movhi
+ 481:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 635              		.loc 1 481 1 view .LVU141
+ 636 000c 7047     		bx	lr
+ 637              		.cfi_endproc
+ 638              	.LFE141:
+ 640              		.section	.text.SPI_CRC_Data_Get,"ax",%progbits
+ 641              		.align	1
+ 642              		.global	SPI_CRC_Data_Get
+ 643              		.syntax unified
+ 644              		.thumb
+ 645              		.thumb_func
+ 647              	SPI_CRC_Data_Get:
+ 648              	.LVL25:
+ 649              	.LFB142:
+ 482:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 483:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 484:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_CRC_Data_Get.
+ 485:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Get SPI CRC data from SPI_CRCTDAT/SPI_CRCRDAT register.
+ 486:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 487:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 488:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 489:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPI_CRC :
+ 490:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_CRC_TX
+ 491:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_CRC_RX
+ 492:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  Tx/Rx CRC register value.
+ 493:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 494:n32g430_std_periph_driver/src/n32g430_spi.c **** uint16_t SPI_CRC_Data_Get(SPI_Module* SPIx, uint8_t SPI_CRC)
+ 495:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 650              		.loc 1 495 1 is_stmt 1 view -0
+ 651              		.cfi_startproc
+ 652              		@ args = 0, pretend = 0, frame = 0
+ 653              		@ frame_needed = 0, uses_anonymous_args = 0
+ 654              		@ link register save eliminated.
+ 496:n32g430_std_periph_driver/src/n32g430_spi.c ****     if (SPI_CRC != SPI_CRC_RX)
+ 655              		.loc 1 496 5 view .LVU143
+ 656              		.loc 1 496 8 is_stmt 0 view .LVU144
+ 657 0000 0129     		cmp	r1, #1
+ 658 0002 02D0     		beq	.L30
+ 497:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ 498:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* return Tx CRC register value */
+ 499:n32g430_std_periph_driver/src/n32g430_spi.c ****         return SPIx->CRCTDAT;
+ 659              		.loc 1 499 9 is_stmt 1 view .LVU145
+ 660              		.loc 1 499 20 is_stmt 0 view .LVU146
+ 661 0004 008B     		ldrh	r0, [r0, #24]
+ 662              	.LVL26:
+ 663              		.loc 1 499 20 view .LVU147
+ 664 0006 80B2     		uxth	r0, r0
+ 665 0008 7047     		bx	lr
+ 666              	.LVL27:
+ 667              	.L30:
+ 500:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+ 501:n32g430_std_periph_driver/src/n32g430_spi.c ****     else
+ 502:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 21
+
+
+ 503:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* return Rx CRC register value */
+ 504:n32g430_std_periph_driver/src/n32g430_spi.c ****         return SPIx->CRCRDAT;
+ 668              		.loc 1 504 9 is_stmt 1 view .LVU148
+ 669              		.loc 1 504 20 is_stmt 0 view .LVU149
+ 670 000a 808A     		ldrh	r0, [r0, #20]
+ 671              	.LVL28:
+ 672              		.loc 1 504 20 view .LVU150
+ 673 000c 80B2     		uxth	r0, r0
+ 505:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+ 506:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 674              		.loc 1 506 1 view .LVU151
+ 675 000e 7047     		bx	lr
+ 676              		.cfi_endproc
+ 677              	.LFE142:
+ 679              		.section	.text.SPI_CRC_Polynomial_Set,"ax",%progbits
+ 680              		.align	1
+ 681              		.global	SPI_CRC_Polynomial_Set
+ 682              		.syntax unified
+ 683              		.thumb
+ 684              		.thumb_func
+ 686              	SPI_CRC_Polynomial_Set:
+ 687              	.LVL29:
+ 688              	.LFB143:
+ 507:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 508:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 509:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 510:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_CRC_Polynomial_Set.
+ 511:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Set CRC Polynomial to SPI_CRC_POLY register.
+ 512:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 513:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 514:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 515:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   polynomial      max 0xffff
+ 516:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none.
+ 517:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 518:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_CRC_Polynomial_Set(SPI_Module* SPIx, uint16_t polynomial)
+ 519:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 689              		.loc 1 519 1 is_stmt 1 view -0
+ 690              		.cfi_startproc
+ 691              		@ args = 0, pretend = 0, frame = 0
+ 692              		@ frame_needed = 0, uses_anonymous_args = 0
+ 693              		@ link register save eliminated.
+ 520:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Return the CRC polynomial register value */
+ 521:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CRCPOLY = polynomial;
+ 694              		.loc 1 521 5 view .LVU153
+ 695              		.loc 1 521 19 is_stmt 0 view .LVU154
+ 696 0000 0182     		strh	r1, [r0, #16]	@ movhi
+ 522:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 697              		.loc 1 522 1 view .LVU155
+ 698 0002 7047     		bx	lr
+ 699              		.cfi_endproc
+ 700              	.LFE143:
+ 702              		.section	.text.SPI_Initializes,"ax",%progbits
+ 703              		.align	1
+ 704              		.global	SPI_Initializes
+ 705              		.syntax unified
+ 706              		.thumb
+ 707              		.thumb_func
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 22
+
+
+ 709              	SPI_Initializes:
+ 710              	.LVL30:
+ 711              	.LFB127:
+ 199:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_DataDirection_Config(SPIx, SPI_InitStruct->DataDirection);
+ 712              		.loc 1 199 1 is_stmt 1 view -0
+ 713              		.cfi_startproc
+ 714              		@ args = 0, pretend = 0, frame = 0
+ 715              		@ frame_needed = 0, uses_anonymous_args = 0
+ 199:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_DataDirection_Config(SPIx, SPI_InitStruct->DataDirection);
+ 716              		.loc 1 199 1 is_stmt 0 view .LVU157
+ 717 0000 38B5     		push	{r3, r4, r5, lr}
+ 718              	.LCFI1:
+ 719              		.cfi_def_cfa_offset 16
+ 720              		.cfi_offset 3, -16
+ 721              		.cfi_offset 4, -12
+ 722              		.cfi_offset 5, -8
+ 723              		.cfi_offset 14, -4
+ 724 0002 0546     		mov	r5, r0
+ 725 0004 0C46     		mov	r4, r1
+ 200:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_SpiMode_Config(SPIx, SPI_InitStruct->SpiMode);
+ 726              		.loc 1 200 5 is_stmt 1 view .LVU158
+ 727 0006 0988     		ldrh	r1, [r1]
+ 728              	.LVL31:
+ 200:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_SpiMode_Config(SPIx, SPI_InitStruct->SpiMode);
+ 729              		.loc 1 200 5 is_stmt 0 view .LVU159
+ 730 0008 FFF7FEFF 		bl	SPI_DataDirection_Config
+ 731              	.LVL32:
+ 201:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_DataLen_Config(SPIx, SPI_InitStruct->DataLen);
+ 732              		.loc 1 201 5 is_stmt 1 view .LVU160
+ 733 000c 6188     		ldrh	r1, [r4, #2]
+ 734 000e 2846     		mov	r0, r5
+ 735 0010 FFF7FEFF 		bl	SPI_SpiMode_Config
+ 736              	.LVL33:
+ 202:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_CLKPHA_Config(SPIx, SPI_InitStruct->CLKPHA);
+ 737              		.loc 1 202 5 view .LVU161
+ 738 0014 A188     		ldrh	r1, [r4, #4]
+ 739 0016 2846     		mov	r0, r5
+ 740 0018 FFF7FEFF 		bl	SPI_DataLen_Config
+ 741              	.LVL34:
+ 203:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_CLKPOL_Config(SPIx, SPI_InitStruct->CLKPOL);
+ 742              		.loc 1 203 5 view .LVU162
+ 743 001c 2189     		ldrh	r1, [r4, #8]
+ 744 001e 2846     		mov	r0, r5
+ 745 0020 FFF7FEFF 		bl	SPI_CLKPHA_Config
+ 746              	.LVL35:
+ 204:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_NSS_Config(SPIx, SPI_InitStruct->NSS);
+ 747              		.loc 1 204 5 view .LVU163
+ 748 0024 E188     		ldrh	r1, [r4, #6]
+ 749 0026 2846     		mov	r0, r5
+ 750 0028 FFF7FEFF 		bl	SPI_CLKPOL_Config
+ 751              	.LVL36:
+ 205:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_BaudRatePres_Config(SPIx, SPI_InitStruct->BaudRatePres);
+ 752              		.loc 1 205 5 view .LVU164
+ 753 002c 6189     		ldrh	r1, [r4, #10]
+ 754 002e 2846     		mov	r0, r5
+ 755 0030 FFF7FEFF 		bl	SPI_NSS_Config
+ 756              	.LVL37:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 23
+
+
+ 206:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_FirstBit_Config(SPIx, SPI_InitStruct->FirstBit);
+ 757              		.loc 1 206 5 view .LVU165
+ 758 0034 A189     		ldrh	r1, [r4, #12]
+ 759 0036 2846     		mov	r0, r5
+ 760 0038 FFF7FEFF 		bl	SPI_BaudRatePres_Config
+ 761              	.LVL38:
+ 207:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPI_CRC_Polynomial_Set(SPIx, SPI_InitStruct->CRCPoly);
+ 762              		.loc 1 207 5 view .LVU166
+ 763 003c E189     		ldrh	r1, [r4, #14]
+ 764 003e 2846     		mov	r0, r5
+ 765 0040 FFF7FEFF 		bl	SPI_FirstBit_Config
+ 766              	.LVL39:
+ 208:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 767              		.loc 1 208 5 view .LVU167
+ 768 0044 218A     		ldrh	r1, [r4, #16]
+ 769 0046 2846     		mov	r0, r5
+ 770 0048 FFF7FEFF 		bl	SPI_CRC_Polynomial_Set
+ 771              	.LVL40:
+ 209:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 772              		.loc 1 209 1 is_stmt 0 view .LVU168
+ 773 004c 38BD     		pop	{r3, r4, r5, pc}
+ 209:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 774              		.loc 1 209 1 view .LVU169
+ 775              		.cfi_endproc
+ 776              	.LFE127:
+ 778              		.section	.text.SPI_CRC_Polynomial_Get,"ax",%progbits
+ 779              		.align	1
+ 780              		.global	SPI_CRC_Polynomial_Get
+ 781              		.syntax unified
+ 782              		.thumb
+ 783              		.thumb_func
+ 785              	SPI_CRC_Polynomial_Get:
+ 786              	.LVL41:
+ 787              	.LFB144:
+ 523:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 524:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 525:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 526:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_CRC_Polynomial_Get.
+ 527:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Get CRC Polynomial from SPI_CRC_POLY register.
+ 528:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 529:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 530:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 531:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  The CRC Polynomial register value.
+ 532:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 533:n32g430_std_periph_driver/src/n32g430_spi.c **** uint16_t SPI_CRC_Polynomial_Get(SPI_Module* SPIx)
+ 534:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 788              		.loc 1 534 1 is_stmt 1 view -0
+ 789              		.cfi_startproc
+ 790              		@ args = 0, pretend = 0, frame = 0
+ 791              		@ frame_needed = 0, uses_anonymous_args = 0
+ 792              		@ link register save eliminated.
+ 535:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Return the CRC polynomial register value */
+ 536:n32g430_std_periph_driver/src/n32g430_spi.c ****     return SPIx->CRCPOLY;
+ 793              		.loc 1 536 5 view .LVU171
+ 794              		.loc 1 536 16 is_stmt 0 view .LVU172
+ 795 0000 008A     		ldrh	r0, [r0, #16]
+ 796              	.LVL42:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 24
+
+
+ 537:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 797              		.loc 1 537 1 view .LVU173
+ 798 0002 80B2     		uxth	r0, r0
+ 799 0004 7047     		bx	lr
+ 800              		.cfi_endproc
+ 801              	.LFE144:
+ 803              		.section	.text.SPI_I2S_Mode_Select,"ax",%progbits
+ 804              		.align	1
+ 805              		.global	SPI_I2S_Mode_Select
+ 806              		.syntax unified
+ 807              		.thumb
+ 808              		.thumb_func
+ 810              	SPI_I2S_Mode_Select:
+ 811              	.LVL43:
+ 812              	.LFB145:
+ 538:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 539:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 540:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 541:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_I2S_Mode_Select.
+ 542:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Select working on SPI or I2S mode.
+ 543:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 544:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 545:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 546:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   Mode :
+ 547:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SEL_SPI_Mode
+ 548:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SEL_I2S_Mode
+ 549:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 550:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\note    Can only be used when SPI or I2S is turned off.
+ 551:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 552:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_I2S_Mode_Select(SPI_Module* SPIx, uint16_t Mode)
+ 553:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 813              		.loc 1 553 1 is_stmt 1 view -0
+ 814              		.cfi_startproc
+ 815              		@ args = 0, pretend = 0, frame = 0
+ 816              		@ frame_needed = 0, uses_anonymous_args = 0
+ 817              		@ link register save eliminated.
+ 554:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear MODSEL bit */
+ 555:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->I2SCFG &= I2S_MODE_MASK;
+ 818              		.loc 1 555 5 view .LVU175
+ 819              		.loc 1 555 9 is_stmt 0 view .LVU176
+ 820 0000 838B     		ldrh	r3, [r0, #28]
+ 821 0002 9BB2     		uxth	r3, r3
+ 822              		.loc 1 555 18 view .LVU177
+ 823 0004 23F44073 		bic	r3, r3, #768
+ 824 0008 9BB2     		uxth	r3, r3
+ 825 000a 8383     		strh	r3, [r0, #28]	@ movhi
+ 556:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Select the mode */
+ 557:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->I2SCFG |= Mode;  
+ 826              		.loc 1 557 5 is_stmt 1 view .LVU178
+ 827              		.loc 1 557 9 is_stmt 0 view .LVU179
+ 828 000c 838B     		ldrh	r3, [r0, #28]
+ 829 000e 9BB2     		uxth	r3, r3
+ 830              		.loc 1 557 18 view .LVU180
+ 831 0010 0B43     		orrs	r3, r3, r1
+ 832 0012 8383     		strh	r3, [r0, #28]	@ movhi
+ 558:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 833              		.loc 1 558 1 view .LVU181
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 25
+
+
+ 834 0014 7047     		bx	lr
+ 835              		.cfi_endproc
+ 836              	.LFE145:
+ 838              		.section	.text.I2S_ON,"ax",%progbits
+ 839              		.align	1
+ 840              		.global	I2S_ON
+ 841              		.syntax unified
+ 842              		.thumb
+ 843              		.thumb_func
+ 845              	I2S_ON:
+ 846              	.LVL44:
+ 847              	.LFB146:
+ 559:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 560:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 561:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 562:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    I2S_ON.
+ 563:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     I2S turn ON.
+ 564:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 565:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 566:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 567:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 568:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 569:n32g430_std_periph_driver/src/n32g430_spi.c **** void I2S_ON(SPI_Module* SPIx)
+ 570:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 848              		.loc 1 570 1 is_stmt 1 view -0
+ 849              		.cfi_startproc
+ 850              		@ args = 0, pretend = 0, frame = 0
+ 851              		@ frame_needed = 0, uses_anonymous_args = 0
+ 852              		@ link register save eliminated.
+ 571:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set the SPI_I2SCFG ON bit to wake up the I2S from power down mode */
+ 572:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->I2SCFG |= I2S_TURN_ON;
+ 853              		.loc 1 572 5 view .LVU183
+ 854              		.loc 1 572 9 is_stmt 0 view .LVU184
+ 855 0000 838B     		ldrh	r3, [r0, #28]
+ 856 0002 9BB2     		uxth	r3, r3
+ 857              		.loc 1 572 18 view .LVU185
+ 858 0004 43F44063 		orr	r3, r3, #3072
+ 859 0008 8383     		strh	r3, [r0, #28]	@ movhi
+ 573:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 860              		.loc 1 573 1 view .LVU186
+ 861 000a 7047     		bx	lr
+ 862              		.cfi_endproc
+ 863              	.LFE146:
+ 865              		.section	.text.I2S_OFF,"ax",%progbits
+ 866              		.align	1
+ 867              		.global	I2S_OFF
+ 868              		.syntax unified
+ 869              		.thumb
+ 870              		.thumb_func
+ 872              	I2S_OFF:
+ 873              	.LVL45:
+ 874              	.LFB147:
+ 574:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 575:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 576:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 577:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    I2S_OFF.
+ 578:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     I2S turn OFF.
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 26
+
+
+ 579:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 580:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 581:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 582:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 583:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 584:n32g430_std_periph_driver/src/n32g430_spi.c **** void I2S_OFF(SPI_Module* SPIx)
+ 585:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 875              		.loc 1 585 1 is_stmt 1 view -0
+ 876              		.cfi_startproc
+ 877              		@ args = 0, pretend = 0, frame = 0
+ 878              		@ frame_needed = 0, uses_anonymous_args = 0
+ 879              		@ link register save eliminated.
+ 586:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear the SPI_I2SCFG ON bit, The I2S go to power down mode */
+ 587:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->I2SCFG &= I2S_TURN_OFF;
+ 880              		.loc 1 587 5 view .LVU188
+ 881              		.loc 1 587 9 is_stmt 0 view .LVU189
+ 882 0000 838B     		ldrh	r3, [r0, #28]
+ 883 0002 9BB2     		uxth	r3, r3
+ 884              		.loc 1 587 18 view .LVU190
+ 885 0004 23F44063 		bic	r3, r3, #3072
+ 886 0008 9BB2     		uxth	r3, r3
+ 887 000a 8383     		strh	r3, [r0, #28]	@ movhi
+ 588:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 888              		.loc 1 588 1 view .LVU191
+ 889 000c 7047     		bx	lr
+ 890              		.cfi_endproc
+ 891              	.LFE147:
+ 893              		.section	.text.I2S_Initializes_Structure,"ax",%progbits
+ 894              		.align	1
+ 895              		.global	I2S_Initializes_Structure
+ 896              		.syntax unified
+ 897              		.thumb
+ 898              		.thumb_func
+ 900              	I2S_Initializes_Structure:
+ 901              	.LVL46:
+ 902              	.LFB148:
+ 589:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 590:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 591:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 592:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    I2S_Initializes_Structure.
+ 593:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Fills each I2S_InitStruct member with its default value.
+ 594:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   I2S_InitStruct :
+ 595:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2sMode
+ 596:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - Standard
+ 597:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - DataFormat
+ 598:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - MCLKEnable
+ 599:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - AudioFrequency
+ 600:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - CLKPOL
+ 601:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 602:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 603:n32g430_std_periph_driver/src/n32g430_spi.c **** void I2S_Initializes_Structure(I2S_InitType* I2S_InitStruct)
+ 604:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 903              		.loc 1 604 1 is_stmt 1 view -0
+ 904              		.cfi_startproc
+ 905              		@ args = 0, pretend = 0, frame = 0
+ 906              		@ frame_needed = 0, uses_anonymous_args = 0
+ 907              		@ link register save eliminated.
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 27
+
+
+ 605:n32g430_std_periph_driver/src/n32g430_spi.c ****     /*--------------- Reset I2S init structure parameters values -----------------*/
+ 606:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Initialize the I2sMode member */
+ 607:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_InitStruct->I2sMode = I2S_MODE_SlAVE_TX;
+ 908              		.loc 1 607 5 view .LVU193
+ 909              		.loc 1 607 29 is_stmt 0 view .LVU194
+ 910 0000 0023     		movs	r3, #0
+ 911 0002 0380     		strh	r3, [r0]	@ movhi
+ 608:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 609:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Initialize the Standard member */
+ 610:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_InitStruct->Standard = I2S_STD_PHILLIPS;
+ 912              		.loc 1 610 5 is_stmt 1 view .LVU195
+ 913              		.loc 1 610 30 is_stmt 0 view .LVU196
+ 914 0004 4380     		strh	r3, [r0, #2]	@ movhi
+ 611:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 612:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Initialize the DataFormat member */
+ 613:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_InitStruct->DataFormat = I2S_DATA_FMT_16BITS;
+ 915              		.loc 1 613 5 is_stmt 1 view .LVU197
+ 916              		.loc 1 613 32 is_stmt 0 view .LVU198
+ 917 0006 8380     		strh	r3, [r0, #4]	@ movhi
+ 614:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 615:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Initialize the MCLKEnable member */
+ 616:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_InitStruct->MCLKEnable = DISABLE;
+ 918              		.loc 1 616 5 is_stmt 1 view .LVU199
+ 919              		.loc 1 616 32 is_stmt 0 view .LVU200
+ 920 0008 C380     		strh	r3, [r0, #6]	@ movhi
+ 617:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 618:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Initialize the AudioFrequency member */
+ 619:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_InitStruct->AudioFrequency = I2S_AUDIO_FREQ_DEFAULT;
+ 921              		.loc 1 619 5 is_stmt 1 view .LVU201
+ 922              		.loc 1 619 36 is_stmt 0 view .LVU202
+ 923 000a 0222     		movs	r2, #2
+ 924 000c 8260     		str	r2, [r0, #8]
+ 620:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 621:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Initialize the CLKPOL member */
+ 622:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_InitStruct->CLKPOL = I2S_CLKPOL_LOW;
+ 925              		.loc 1 622 5 is_stmt 1 view .LVU203
+ 926              		.loc 1 622 28 is_stmt 0 view .LVU204
+ 927 000e 8381     		strh	r3, [r0, #12]	@ movhi
+ 623:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 928              		.loc 1 623 1 view .LVU205
+ 929 0010 7047     		bx	lr
+ 930              		.cfi_endproc
+ 931              	.LFE148:
+ 933              		.section	.text.I2S_Mode_Config,"ax",%progbits
+ 934              		.align	1
+ 935              		.global	I2S_Mode_Config
+ 936              		.syntax unified
+ 937              		.thumb
+ 938              		.thumb_func
+ 940              	I2S_Mode_Config:
+ 941              	.LVL47:
+ 942              	.LFB150:
+ 624:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 625:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 626:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 627:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    I2S_Initializes.
+ 628:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Initializes the SPIx according to I2S_InitStruct.
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 28
+
+
+ 629:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 630:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 631:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 632:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   I2S_InitType :
+ 633:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2sMode
+ 634:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_MODE_SlAVE_TX
+ 635:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_MODE_SlAVE_RX
+ 636:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_MODE_MASTER_TX
+ 637:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_MODE_MASTER_RX
+ 638:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - Standard
+ 639:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_STD_PHILLIPS
+ 640:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_STD_MSB_ALIGN
+ 641:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_STD_LSB_ALIGN
+ 642:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_STD_PCM_SHORTFRAME
+ 643:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_STD_PCM_LONGFRAME 
+ 644:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - DataFormat
+ 645:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_DATA_FMT_16BITS
+ 646:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_DATA_FMT_16BITS_EXTENDED
+ 647:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_DATA_FMT_24BITS
+ 648:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_DATA_FMT_32BITS
+ 649:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - MCLKEnable
+ 650:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_MCLK_ENABLE
+ 651:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_MCLK_DISABLE
+ 652:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - AudioFrequency
+ 653:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_AUDIO_FREQ_192K
+ 654:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_AUDIO_FREQ_96K
+ 655:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_AUDIO_FREQ_48K
+ 656:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_AUDIO_FREQ_44K
+ 657:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_AUDIO_FREQ_32K
+ 658:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_AUDIO_FREQ_22K
+ 659:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_AUDIO_FREQ_16K
+ 660:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_AUDIO_FREQ_11K
+ 661:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_AUDIO_FREQ_8K
+ 662:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_AUDIO_FREQ_DEFAULT
+ 663:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - CLKPOL
+ 664:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_CLKPOL_LOW
+ 665:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\           - I2S_CLKPOL_HIGH
+ 666:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 667:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 668:n32g430_std_periph_driver/src/n32g430_spi.c **** void I2S_Initializes(SPI_Module* SPIx, I2S_InitType* I2S_InitStruct)
+ 669:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 670:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_Mode_Config(SPIx, I2S_InitStruct->I2sMode);
+ 671:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_Standard_Config(SPIx, I2S_InitStruct->Standard);
+ 672:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_DataFormat_Config(SPIx, I2S_InitStruct->DataFormat);
+ 673:n32g430_std_periph_driver/src/n32g430_spi.c ****     if(I2S_InitStruct->MCLKEnable == I2S_MCLK_ENABLE)
+ 674:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ 675:n32g430_std_periph_driver/src/n32g430_spi.c ****         I2S_MCLK_Enable(SPIx);
+ 676:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+ 677:n32g430_std_periph_driver/src/n32g430_spi.c ****     else
+ 678:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ 679:n32g430_std_periph_driver/src/n32g430_spi.c ****         I2S_MCLK_Disable(SPIx);
+ 680:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+ 681:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_AudioFrequency_Config(SPIx,I2S_InitStruct->AudioFrequency);
+ 682:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_CLKPOL_Config(SPIx, I2S_InitStruct->CLKPOL);
+ 683:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 684:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 685:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 29
+
+
+ 686:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 687:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    I2S_Mode_Config.
+ 688:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Configure I2S working mode.
+ 689:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 690:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 691:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 692:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   I2sMode :
+ 693:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_MODE_SlAVE_TX
+ 694:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_MODE_SlAVE_RX
+ 695:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_MODE_MASTER_TX
+ 696:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_MODE_MASTER_RX
+ 697:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 698:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\note    Must be used when I2S OFF.
+ 699:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 700:n32g430_std_periph_driver/src/n32g430_spi.c **** void I2S_Mode_Config(SPI_Module* SPIx, uint16_t I2sMode)
+ 701:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 943              		.loc 1 701 1 is_stmt 1 view -0
+ 944              		.cfi_startproc
+ 945              		@ args = 0, pretend = 0, frame = 0
+ 946              		@ frame_needed = 0, uses_anonymous_args = 0
+ 947              		@ link register save eliminated.
+ 702:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear SPI_I2SCFG MODCFG bits */
+ 703:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->I2SCFG &= I2S_MODE_MASK;
+ 948              		.loc 1 703 5 view .LVU207
+ 949              		.loc 1 703 9 is_stmt 0 view .LVU208
+ 950 0000 838B     		ldrh	r3, [r0, #28]
+ 951 0002 9BB2     		uxth	r3, r3
+ 952              		.loc 1 703 18 view .LVU209
+ 953 0004 23F44073 		bic	r3, r3, #768
+ 954 0008 9BB2     		uxth	r3, r3
+ 955 000a 8383     		strh	r3, [r0, #28]	@ movhi
+ 704:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set SPI_I2SCFG MODCFG bits */
+ 705:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->I2SCFG |= I2sMode;
+ 956              		.loc 1 705 5 is_stmt 1 view .LVU210
+ 957              		.loc 1 705 9 is_stmt 0 view .LVU211
+ 958 000c 838B     		ldrh	r3, [r0, #28]
+ 959 000e 9BB2     		uxth	r3, r3
+ 960              		.loc 1 705 18 view .LVU212
+ 961 0010 0B43     		orrs	r3, r3, r1
+ 962 0012 8383     		strh	r3, [r0, #28]	@ movhi
+ 706:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 963              		.loc 1 706 1 view .LVU213
+ 964 0014 7047     		bx	lr
+ 965              		.cfi_endproc
+ 966              	.LFE150:
+ 968              		.section	.text.I2S_Standard_Config,"ax",%progbits
+ 969              		.align	1
+ 970              		.global	I2S_Standard_Config
+ 971              		.syntax unified
+ 972              		.thumb
+ 973              		.thumb_func
+ 975              	I2S_Standard_Config:
+ 976              	.LVL48:
+ 977              	.LFB151:
+ 707:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 708:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 709:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 30
+
+
+ 710:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    I2S_Standard_Config.
+ 711:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Config the I2S Standard.
+ 712:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 713:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 714:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 715:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   I2sMode :
+ 716:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_STD_PHILLIPS
+ 717:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_STD_MSB_ALIGN
+ 718:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_STD_LSB_ALIGN
+ 719:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_STD_PCM_SHORTFRAME
+ 720:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_STD_PCM_LONGFRAME
+ 721:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 722:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 723:n32g430_std_periph_driver/src/n32g430_spi.c **** void I2S_Standard_Config(SPI_Module* SPIx, uint16_t Standard)
+ 724:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 978              		.loc 1 724 1 is_stmt 1 view -0
+ 979              		.cfi_startproc
+ 980              		@ args = 0, pretend = 0, frame = 0
+ 981              		@ frame_needed = 0, uses_anonymous_args = 0
+ 982              		@ link register save eliminated.
+ 725:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear SPI_I2SCFG STDSEL and PCMFSYNC bit */
+ 726:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->I2SCFG &= I2S_STANDARD_MASK;
+ 983              		.loc 1 726 5 view .LVU215
+ 984              		.loc 1 726 9 is_stmt 0 view .LVU216
+ 985 0000 838B     		ldrh	r3, [r0, #28]
+ 986 0002 9BB2     		uxth	r3, r3
+ 987              		.loc 1 726 18 view .LVU217
+ 988 0004 23F0B003 		bic	r3, r3, #176
+ 989 0008 9BB2     		uxth	r3, r3
+ 990 000a 8383     		strh	r3, [r0, #28]	@ movhi
+ 727:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set SPI_I2SCFG STDSEL and PCMFSYNC bit */
+ 728:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->I2SCFG |= Standard;
+ 991              		.loc 1 728 5 is_stmt 1 view .LVU218
+ 992              		.loc 1 728 9 is_stmt 0 view .LVU219
+ 993 000c 838B     		ldrh	r3, [r0, #28]
+ 994 000e 9BB2     		uxth	r3, r3
+ 995              		.loc 1 728 18 view .LVU220
+ 996 0010 0B43     		orrs	r3, r3, r1
+ 997 0012 8383     		strh	r3, [r0, #28]	@ movhi
+ 729:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 998              		.loc 1 729 1 view .LVU221
+ 999 0014 7047     		bx	lr
+ 1000              		.cfi_endproc
+ 1001              	.LFE151:
+ 1003              		.section	.text.I2S_DataFormat_Config,"ax",%progbits
+ 1004              		.align	1
+ 1005              		.global	I2S_DataFormat_Config
+ 1006              		.syntax unified
+ 1007              		.thumb
+ 1008              		.thumb_func
+ 1010              	I2S_DataFormat_Config:
+ 1011              	.LVL49:
+ 1012              	.LFB152:
+ 730:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 731:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 732:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 733:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    I2S_DataFormat_Config.
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 31
+
+
+ 734:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun    Config the I2s data format.
+ 735:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 736:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 737:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 738:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   DataFormat :
+ 739:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_DATA_FMT_16BITS
+ 740:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_DATA_FMT_16BITS_EXTENDED
+ 741:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_DATA_FMT_24BITS
+ 742:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_DATA_FMT_32BITS
+ 743:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 744:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 745:n32g430_std_periph_driver/src/n32g430_spi.c **** void I2S_DataFormat_Config(SPI_Module* SPIx, uint16_t DataFormat)
+ 746:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 1013              		.loc 1 746 1 is_stmt 1 view -0
+ 1014              		.cfi_startproc
+ 1015              		@ args = 0, pretend = 0, frame = 0
+ 1016              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1017              		@ link register save eliminated.
+ 747:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear SPI_I2SCFG CHBITS and TDATLEN bit */
+ 748:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->I2SCFG &= I2S_DATA_FORMAT_MASK;
+ 1018              		.loc 1 748 5 view .LVU223
+ 1019              		.loc 1 748 9 is_stmt 0 view .LVU224
+ 1020 0000 838B     		ldrh	r3, [r0, #28]
+ 1021 0002 9BB2     		uxth	r3, r3
+ 1022              		.loc 1 748 18 view .LVU225
+ 1023 0004 23F00703 		bic	r3, r3, #7
+ 1024 0008 9BB2     		uxth	r3, r3
+ 1025 000a 8383     		strh	r3, [r0, #28]	@ movhi
+ 749:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set SPI_I2SCFG CHBITS and TDATLEN bit */
+ 750:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->I2SCFG |= DataFormat;
+ 1026              		.loc 1 750 5 is_stmt 1 view .LVU226
+ 1027              		.loc 1 750 9 is_stmt 0 view .LVU227
+ 1028 000c 838B     		ldrh	r3, [r0, #28]
+ 1029 000e 9BB2     		uxth	r3, r3
+ 1030              		.loc 1 750 18 view .LVU228
+ 1031 0010 0B43     		orrs	r3, r3, r1
+ 1032 0012 8383     		strh	r3, [r0, #28]	@ movhi
+ 751:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 1033              		.loc 1 751 1 view .LVU229
+ 1034 0014 7047     		bx	lr
+ 1035              		.cfi_endproc
+ 1036              	.LFE152:
+ 1038              		.section	.text.I2S_MCLK_Enable,"ax",%progbits
+ 1039              		.align	1
+ 1040              		.global	I2S_MCLK_Enable
+ 1041              		.syntax unified
+ 1042              		.thumb
+ 1043              		.thumb_func
+ 1045              	I2S_MCLK_Enable:
+ 1046              	.LVL50:
+ 1047              	.LFB153:
+ 752:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 753:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 754:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 755:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    I2S_MCLK_Enable.
+ 756:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Enable the Master clock output.
+ 757:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 32
+
+
+ 758:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 759:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 760:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 761:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\note    Can only be used when I2S is turned off and working in master mode.
+ 762:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 763:n32g430_std_periph_driver/src/n32g430_spi.c **** void I2S_MCLK_Enable(SPI_Module* SPIx)
+ 764:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 1048              		.loc 1 764 1 is_stmt 1 view -0
+ 1049              		.cfi_startproc
+ 1050              		@ args = 0, pretend = 0, frame = 0
+ 1051              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1052              		@ link register save eliminated.
+ 765:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set SPI_I2SPREDIV MCLKOEN bit */
+ 766:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->I2SPREDIV |= I2S_MCLK_ENABLE;
+ 1053              		.loc 1 766 5 view .LVU231
+ 1054              		.loc 1 766 9 is_stmt 0 view .LVU232
+ 1055 0000 038C     		ldrh	r3, [r0, #32]
+ 1056 0002 9BB2     		uxth	r3, r3
+ 1057              		.loc 1 766 21 view .LVU233
+ 1058 0004 43F40073 		orr	r3, r3, #512
+ 1059 0008 0384     		strh	r3, [r0, #32]	@ movhi
+ 767:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 1060              		.loc 1 767 1 view .LVU234
+ 1061 000a 7047     		bx	lr
+ 1062              		.cfi_endproc
+ 1063              	.LFE153:
+ 1065              		.section	.text.I2S_MCLK_Disable,"ax",%progbits
+ 1066              		.align	1
+ 1067              		.global	I2S_MCLK_Disable
+ 1068              		.syntax unified
+ 1069              		.thumb
+ 1070              		.thumb_func
+ 1072              	I2S_MCLK_Disable:
+ 1073              	.LVL51:
+ 1074              	.LFB154:
+ 768:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 769:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 770:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 771:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    I2S_MCLK_Disable.
+ 772:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Disable the Master clock output.
+ 773:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 774:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 775:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 776:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 777:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 778:n32g430_std_periph_driver/src/n32g430_spi.c **** void I2S_MCLK_Disable(SPI_Module* SPIx)
+ 779:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 1075              		.loc 1 779 1 is_stmt 1 view -0
+ 1076              		.cfi_startproc
+ 1077              		@ args = 0, pretend = 0, frame = 0
+ 1078              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1079              		@ link register save eliminated.
+ 780:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear SPI_I2SPREDIV MCLKOEN bit */
+ 781:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->I2SPREDIV &= I2S_MCLK_DISABLE;
+ 1080              		.loc 1 781 5 view .LVU236
+ 1081              		.loc 1 781 9 is_stmt 0 view .LVU237
+ 1082 0000 038C     		ldrh	r3, [r0, #32]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 33
+
+
+ 1083 0002 9BB2     		uxth	r3, r3
+ 1084              		.loc 1 781 21 view .LVU238
+ 1085 0004 23F40073 		bic	r3, r3, #512
+ 1086 0008 9BB2     		uxth	r3, r3
+ 1087 000a 0384     		strh	r3, [r0, #32]	@ movhi
+ 782:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 1088              		.loc 1 782 1 view .LVU239
+ 1089 000c 7047     		bx	lr
+ 1090              		.cfi_endproc
+ 1091              	.LFE154:
+ 1093              		.section	.text.I2S_AudioFrequency_Config,"ax",%progbits
+ 1094              		.align	1
+ 1095              		.global	I2S_AudioFrequency_Config
+ 1096              		.syntax unified
+ 1097              		.thumb
+ 1098              		.thumb_func
+ 1100              	I2S_AudioFrequency_Config:
+ 1101              	.LVL52:
+ 1102              	.LFB155:
+ 783:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 784:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 785:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 786:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    I2S_AudioFrequency_Config.
+ 787:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Configure I2S Audio Frequency.
+ 788:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 789:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 790:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 791:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   AudioFrequency :
+ 792:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_AUDIO_FREQ_192K
+ 793:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_AUDIO_FREQ_96K
+ 794:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_AUDIO_FREQ_48K
+ 795:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_AUDIO_FREQ_44K
+ 796:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_AUDIO_FREQ_32K
+ 797:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_AUDIO_FREQ_22K
+ 798:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_AUDIO_FREQ_16K
+ 799:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_AUDIO_FREQ_11K
+ 800:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_AUDIO_FREQ_8K
+ 801:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_AUDIO_FREQ_DEFAULT
+ 802:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 803:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\note    MCLK and data format must be configured before calling this function.
+ 804:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 805:n32g430_std_periph_driver/src/n32g430_spi.c **** void I2S_AudioFrequency_Config(SPI_Module* SPIx, uint32_t AudioFrequency)
+ 806:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 1103              		.loc 1 806 1 is_stmt 1 view -0
+ 1104              		.cfi_startproc
+ 1105              		@ args = 0, pretend = 0, frame = 24
+ 1106              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1107              		.loc 1 806 1 is_stmt 0 view .LVU241
+ 1108 0000 70B5     		push	{r4, r5, r6, lr}
+ 1109              	.LCFI2:
+ 1110              		.cfi_def_cfa_offset 16
+ 1111              		.cfi_offset 4, -16
+ 1112              		.cfi_offset 5, -12
+ 1113              		.cfi_offset 6, -8
+ 1114              		.cfi_offset 14, -4
+ 1115 0002 86B0     		sub	sp, sp, #24
+ 1116              	.LCFI3:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 34
+
+
+ 1117              		.cfi_def_cfa_offset 40
+ 1118 0004 0446     		mov	r4, r0
+ 807:n32g430_std_periph_driver/src/n32g430_spi.c ****     uint16_t i2sdiv = 2, i2sodd = 0, packetlength = 1;
+ 1119              		.loc 1 807 5 is_stmt 1 view .LVU242
+ 1120              	.LVL53:
+ 808:n32g430_std_periph_driver/src/n32g430_spi.c ****     uint32_t tmp = 0;
+ 1121              		.loc 1 808 5 view .LVU243
+ 809:n32g430_std_periph_driver/src/n32g430_spi.c ****     RCC_ClocksType RCC_Clocks;
+ 1122              		.loc 1 809 5 view .LVU244
+ 810:n32g430_std_periph_driver/src/n32g430_spi.c ****     uint32_t sourceclock = 0;
+ 1123              		.loc 1 810 5 view .LVU245
+ 811:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 812:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* If the default value has to be written, reinitialize i2sdiv and i2sodd*/
+ 813:n32g430_std_periph_driver/src/n32g430_spi.c ****     if (AudioFrequency == I2S_AUDIO_FREQ_DEFAULT)
+ 1124              		.loc 1 813 5 view .LVU246
+ 1125              		.loc 1 813 8 is_stmt 0 view .LVU247
+ 1126 0006 0229     		cmp	r1, #2
+ 1127 0008 33D0     		beq	.L50
+ 1128 000a 0D46     		mov	r5, r1
+ 814:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ 815:n32g430_std_periph_driver/src/n32g430_spi.c ****         i2sodd = (uint16_t)0;
+ 816:n32g430_std_periph_driver/src/n32g430_spi.c ****         i2sdiv = (uint16_t)2;
+ 817:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+ 818:n32g430_std_periph_driver/src/n32g430_spi.c ****     else
+ 819:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ 820:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* Check the frame length (For the SPI_I2SCFG CHBITSbit) */
+ 821:n32g430_std_periph_driver/src/n32g430_spi.c ****         if (SPIx->I2SCFG & SPI_I2SCFG_CHBITS)
+ 1129              		.loc 1 821 9 is_stmt 1 view .LVU248
+ 1130              		.loc 1 821 17 is_stmt 0 view .LVU249
+ 1131 000c 838B     		ldrh	r3, [r0, #28]
+ 1132              		.loc 1 821 12 view .LVU250
+ 1133 000e 13F0010F 		tst	r3, #1
+ 1134 0012 21D0     		beq	.L51
+ 822:n32g430_std_periph_driver/src/n32g430_spi.c ****         {
+ 823:n32g430_std_periph_driver/src/n32g430_spi.c ****             /* Packet length is 32 bits */
+ 824:n32g430_std_periph_driver/src/n32g430_spi.c ****             packetlength = 2;
+ 1135              		.loc 1 824 26 view .LVU251
+ 1136 0014 0226     		movs	r6, #2
+ 1137              	.L47:
+ 1138              	.LVL54:
+ 825:n32g430_std_periph_driver/src/n32g430_spi.c ****         }
+ 826:n32g430_std_periph_driver/src/n32g430_spi.c ****         else
+ 827:n32g430_std_periph_driver/src/n32g430_spi.c ****         {
+ 828:n32g430_std_periph_driver/src/n32g430_spi.c ****             /* Packet length is 16 bits */
+ 829:n32g430_std_periph_driver/src/n32g430_spi.c ****             packetlength = 1;
+ 830:n32g430_std_periph_driver/src/n32g430_spi.c ****         }
+ 831:n32g430_std_periph_driver/src/n32g430_spi.c ****         
+ 832:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* I2S Clock source is System clock: Get System Clock frequency */
+ 833:n32g430_std_periph_driver/src/n32g430_spi.c ****         RCC_Clocks_Frequencies_Value_Get(&RCC_Clocks); 
+ 1139              		.loc 1 833 9 is_stmt 1 view .LVU252
+ 1140 0016 6846     		mov	r0, sp
+ 1141              	.LVL55:
+ 1142              		.loc 1 833 9 is_stmt 0 view .LVU253
+ 1143 0018 FFF7FEFF 		bl	RCC_Clocks_Frequencies_Value_Get
+ 1144              	.LVL56:
+ 834:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 835:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* Get the source clock value: based on System Clock value */
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 35
+
+
+ 836:n32g430_std_periph_driver/src/n32g430_spi.c ****         sourceclock = RCC_Clocks.SysclkFreq;
+ 1145              		.loc 1 836 9 is_stmt 1 view .LVU254
+ 1146              		.loc 1 836 21 is_stmt 0 view .LVU255
+ 1147 001c 009B     		ldr	r3, [sp]
+ 1148              	.LVL57:
+ 837:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 838:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* Compute the Real divider depending on the MCLK output state with a floating point */
+ 839:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* Get the SPIx->I2SPREDIV MCLKOEN bit state */
+ 840:n32g430_std_periph_driver/src/n32g430_spi.c ****         if ( SPIx->I2SPREDIV & I2S_MCLK_ENABLE)
+ 1149              		.loc 1 840 9 is_stmt 1 view .LVU256
+ 1150              		.loc 1 840 18 is_stmt 0 view .LVU257
+ 1151 001e 228C     		ldrh	r2, [r4, #32]
+ 1152              		.loc 1 840 12 view .LVU258
+ 1153 0020 12F4007F 		tst	r2, #512
+ 1154 0024 1AD0     		beq	.L48
+ 841:n32g430_std_periph_driver/src/n32g430_spi.c ****         {
+ 842:n32g430_std_periph_driver/src/n32g430_spi.c ****             /* MCLK output is enabled */
+ 843:n32g430_std_periph_driver/src/n32g430_spi.c ****             tmp = (uint16_t)(((((sourceclock / 256) * 10) / AudioFrequency)) + 5);
+ 1155              		.loc 1 843 13 is_stmt 1 view .LVU259
+ 1156              		.loc 1 843 46 is_stmt 0 view .LVU260
+ 1157 0026 1B0A     		lsrs	r3, r3, #8
+ 1158              	.LVL58:
+ 1159              		.loc 1 843 53 view .LVU261
+ 1160 0028 03EB8303 		add	r3, r3, r3, lsl #2
+ 1161 002c 5B00     		lsls	r3, r3, #1
+ 1162              		.loc 1 843 59 view .LVU262
+ 1163 002e B3FBF5F3 		udiv	r3, r3, r5
+ 1164              		.loc 1 843 19 view .LVU263
+ 1165 0032 0533     		adds	r3, r3, #5
+ 1166 0034 9BB2     		uxth	r3, r3
+ 1167              	.LVL59:
+ 1168              	.L49:
+ 844:n32g430_std_periph_driver/src/n32g430_spi.c ****         }
+ 845:n32g430_std_periph_driver/src/n32g430_spi.c ****         else
+ 846:n32g430_std_periph_driver/src/n32g430_spi.c ****         {
+ 847:n32g430_std_periph_driver/src/n32g430_spi.c ****             /* MCLK output is disabled */
+ 848:n32g430_std_periph_driver/src/n32g430_spi.c ****             tmp = (uint16_t)(((((sourceclock / (32 * packetlength)) * 10) / AudioFrequency)) + 5);
+ 849:n32g430_std_periph_driver/src/n32g430_spi.c ****         }
+ 850:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 851:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* Remove the floating point */
+ 852:n32g430_std_periph_driver/src/n32g430_spi.c ****         tmp = tmp / 10;
+ 1169              		.loc 1 852 9 is_stmt 1 view .LVU264
+ 1170              		.loc 1 852 13 is_stmt 0 view .LVU265
+ 1171 0036 144A     		ldr	r2, .L54
+ 1172 0038 A2FB0323 		umull	r2, r3, r2, r3
+ 1173              	.LVL60:
+ 853:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 854:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* Check the parity of the divider */
+ 855:n32g430_std_periph_driver/src/n32g430_spi.c ****         i2sodd = (uint16_t)(tmp & (uint16_t)0x0001);
+ 1174              		.loc 1 855 9 is_stmt 1 view .LVU266
+ 1175              		.loc 1 855 16 is_stmt 0 view .LVU267
+ 1176 003c C3F3C002 		ubfx	r2, r3, #3, #1
+ 1177              	.LVL61:
+ 856:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 857:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* Compute the i2sdiv prescaler */
+ 858:n32g430_std_periph_driver/src/n32g430_spi.c ****         i2sdiv = (uint16_t)((tmp - i2sodd) / 2);
+ 1178              		.loc 1 858 9 is_stmt 1 view .LVU268
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 36
+
+
+ 1179              		.loc 1 858 34 is_stmt 0 view .LVU269
+ 1180 0040 C2EBD303 		rsb	r3, r2, r3, lsr #3
+ 1181              	.LVL62:
+ 1182              		.loc 1 858 16 view .LVU270
+ 1183 0044 C3F34F03 		ubfx	r3, r3, #1, #16
+ 1184              	.LVL63:
+ 859:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 860:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* Get the Mask for the Odd bit (SPI_I2SPREDIV[8]) register */
+ 861:n32g430_std_periph_driver/src/n32g430_spi.c ****         i2sodd = (uint16_t)(i2sodd << 8);
+ 1185              		.loc 1 861 9 is_stmt 1 view .LVU271
+ 1186              		.loc 1 861 16 is_stmt 0 view .LVU272
+ 1187 0048 1202     		lsls	r2, r2, #8
+ 1188              	.LVL64:
+ 862:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+ 863:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* Test if the divider is 1 or 0 or greater than 0xFF */
+ 864:n32g430_std_periph_driver/src/n32g430_spi.c ****     if ((i2sdiv < 2) || (i2sdiv > 0xFF))
+ 1189              		.loc 1 864 5 is_stmt 1 view .LVU273
+ 1190              		.loc 1 864 22 is_stmt 0 view .LVU274
+ 1191 004a 991E     		subs	r1, r3, #2
+ 1192 004c 89B2     		uxth	r1, r1
+ 1193              		.loc 1 864 8 view .LVU275
+ 1194 004e FD29     		cmp	r1, #253
+ 1195 0050 11D9     		bls	.L46
+ 865:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ 866:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* Set the default values */
+ 867:n32g430_std_periph_driver/src/n32g430_spi.c ****         i2sdiv = 2;
+ 868:n32g430_std_periph_driver/src/n32g430_spi.c ****         i2sodd = 0;
+ 1196              		.loc 1 868 16 view .LVU276
+ 1197 0052 0022     		movs	r2, #0
+ 1198              	.LVL65:
+ 867:n32g430_std_periph_driver/src/n32g430_spi.c ****         i2sodd = 0;
+ 1199              		.loc 1 867 16 view .LVU277
+ 1200 0054 0223     		movs	r3, #2
+ 1201              	.LVL66:
+ 867:n32g430_std_periph_driver/src/n32g430_spi.c ****         i2sodd = 0;
+ 1202              		.loc 1 867 16 view .LVU278
+ 1203 0056 0EE0     		b	.L46
+ 1204              	.LVL67:
+ 1205              	.L51:
+ 829:n32g430_std_periph_driver/src/n32g430_spi.c ****         }
+ 1206              		.loc 1 829 26 view .LVU279
+ 1207 0058 0126     		movs	r6, #1
+ 1208 005a DCE7     		b	.L47
+ 1209              	.LVL68:
+ 1210              	.L48:
+ 848:n32g430_std_periph_driver/src/n32g430_spi.c ****         }
+ 1211              		.loc 1 848 13 is_stmt 1 view .LVU280
+ 848:n32g430_std_periph_driver/src/n32g430_spi.c ****         }
+ 1212              		.loc 1 848 52 is_stmt 0 view .LVU281
+ 1213 005c 7601     		lsls	r6, r6, #5
+ 1214              	.LVL69:
+ 848:n32g430_std_periph_driver/src/n32g430_spi.c ****         }
+ 1215              		.loc 1 848 46 view .LVU282
+ 1216 005e B3FBF6F3 		udiv	r3, r3, r6
+ 1217              	.LVL70:
+ 848:n32g430_std_periph_driver/src/n32g430_spi.c ****         }
+ 1218              		.loc 1 848 69 view .LVU283
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 37
+
+
+ 1219 0062 03EB8303 		add	r3, r3, r3, lsl #2
+ 1220 0066 5B00     		lsls	r3, r3, #1
+ 848:n32g430_std_periph_driver/src/n32g430_spi.c ****         }
+ 1221              		.loc 1 848 75 view .LVU284
+ 1222 0068 B3FBF5F3 		udiv	r3, r3, r5
+ 848:n32g430_std_periph_driver/src/n32g430_spi.c ****         }
+ 1223              		.loc 1 848 19 view .LVU285
+ 1224 006c 0533     		adds	r3, r3, #5
+ 1225 006e 9BB2     		uxth	r3, r3
+ 1226 0070 E1E7     		b	.L49
+ 1227              	.LVL71:
+ 1228              	.L50:
+ 815:n32g430_std_periph_driver/src/n32g430_spi.c ****         i2sdiv = (uint16_t)2;
+ 1229              		.loc 1 815 16 view .LVU286
+ 1230 0072 0022     		movs	r2, #0
+ 816:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+ 1231              		.loc 1 816 16 view .LVU287
+ 1232 0074 0223     		movs	r3, #2
+ 1233              	.LVL72:
+ 1234              	.L46:
+ 869:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+ 870:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 871:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Write to SPIx I2SPREDIV register the computed value */
+ 872:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->I2SPREDIV = (uint16_t)(i2sdiv | (uint16_t)(i2sodd | (SPIx->I2SPREDIV & I2S_MCLK_ENABLE)))
+ 1235              		.loc 1 872 5 is_stmt 1 view .LVU288
+ 1236              		.loc 1 872 68 is_stmt 0 view .LVU289
+ 1237 0076 218C     		ldrh	r1, [r4, #32]
+ 1238              		.loc 1 872 23 view .LVU290
+ 1239 0078 01F40071 		and	r1, r1, #512
+ 1240 007c 0A43     		orrs	r2, r2, r1
+ 1241              	.LVL73:
+ 1242              		.loc 1 872 23 view .LVU291
+ 1243 007e 1343     		orrs	r3, r3, r2
+ 1244              	.LVL74:
+ 1245              		.loc 1 872 21 view .LVU292
+ 1246 0080 2384     		strh	r3, [r4, #32]	@ movhi
+ 873:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 1247              		.loc 1 873 1 view .LVU293
+ 1248 0082 06B0     		add	sp, sp, #24
+ 1249              	.LCFI4:
+ 1250              		.cfi_def_cfa_offset 16
+ 1251              		@ sp needed
+ 1252 0084 70BD     		pop	{r4, r5, r6, pc}
+ 1253              	.LVL75:
+ 1254              	.L55:
+ 1255              		.loc 1 873 1 view .LVU294
+ 1256 0086 00BF     		.align	2
+ 1257              	.L54:
+ 1258 0088 CDCCCCCC 		.word	-858993459
+ 1259              		.cfi_endproc
+ 1260              	.LFE155:
+ 1262              		.section	.text.I2S_CLKPOL_Config,"ax",%progbits
+ 1263              		.align	1
+ 1264              		.global	I2S_CLKPOL_Config
+ 1265              		.syntax unified
+ 1266              		.thumb
+ 1267              		.thumb_func
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 38
+
+
+ 1269              	I2S_CLKPOL_Config:
+ 1270              	.LVL76:
+ 1271              	.LFB156:
+ 874:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 875:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 876:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 877:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    I2S_CLKPOL_Config.
+ 878:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Config the I2S clock polarity.
+ 879:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 880:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 881:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 882:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   CLKPOL :
+ 883:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_CLKPOL_LOW 
+ 884:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_CLKPOL_HIGH
+ 885:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 886:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 887:n32g430_std_periph_driver/src/n32g430_spi.c **** void I2S_CLKPOL_Config(SPI_Module* SPIx, uint16_t CLKPOL)
+ 888:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 1272              		.loc 1 888 1 is_stmt 1 view -0
+ 1273              		.cfi_startproc
+ 1274              		@ args = 0, pretend = 0, frame = 0
+ 1275              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1276              		@ link register save eliminated.
+ 889:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clear SPI_I2SPREDIV CLKPOL bit */
+ 890:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->I2SCFG &= I2S_CLKPOL_MASK;
+ 1277              		.loc 1 890 5 view .LVU296
+ 1278              		.loc 1 890 9 is_stmt 0 view .LVU297
+ 1279 0000 838B     		ldrh	r3, [r0, #28]
+ 1280 0002 9BB2     		uxth	r3, r3
+ 1281              		.loc 1 890 18 view .LVU298
+ 1282 0004 23F00803 		bic	r3, r3, #8
+ 1283 0008 9BB2     		uxth	r3, r3
+ 1284 000a 8383     		strh	r3, [r0, #28]	@ movhi
+ 891:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set SPI_I2SPREDIV CLKPOL bit */
+ 892:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->I2SCFG |= CLKPOL;
+ 1285              		.loc 1 892 5 is_stmt 1 view .LVU299
+ 1286              		.loc 1 892 9 is_stmt 0 view .LVU300
+ 1287 000c 838B     		ldrh	r3, [r0, #28]
+ 1288 000e 9BB2     		uxth	r3, r3
+ 1289              		.loc 1 892 18 view .LVU301
+ 1290 0010 0B43     		orrs	r3, r3, r1
+ 1291 0012 8383     		strh	r3, [r0, #28]	@ movhi
+ 893:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 1292              		.loc 1 893 1 view .LVU302
+ 1293 0014 7047     		bx	lr
+ 1294              		.cfi_endproc
+ 1295              	.LFE156:
+ 1297              		.section	.text.I2S_Initializes,"ax",%progbits
+ 1298              		.align	1
+ 1299              		.global	I2S_Initializes
+ 1300              		.syntax unified
+ 1301              		.thumb
+ 1302              		.thumb_func
+ 1304              	I2S_Initializes:
+ 1305              	.LVL77:
+ 1306              	.LFB149:
+ 669:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_Mode_Config(SPIx, I2S_InitStruct->I2sMode);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 39
+
+
+ 1307              		.loc 1 669 1 is_stmt 1 view -0
+ 1308              		.cfi_startproc
+ 1309              		@ args = 0, pretend = 0, frame = 0
+ 1310              		@ frame_needed = 0, uses_anonymous_args = 0
+ 669:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_Mode_Config(SPIx, I2S_InitStruct->I2sMode);
+ 1311              		.loc 1 669 1 is_stmt 0 view .LVU304
+ 1312 0000 38B5     		push	{r3, r4, r5, lr}
+ 1313              	.LCFI5:
+ 1314              		.cfi_def_cfa_offset 16
+ 1315              		.cfi_offset 3, -16
+ 1316              		.cfi_offset 4, -12
+ 1317              		.cfi_offset 5, -8
+ 1318              		.cfi_offset 14, -4
+ 1319 0002 0546     		mov	r5, r0
+ 1320 0004 0C46     		mov	r4, r1
+ 670:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_Standard_Config(SPIx, I2S_InitStruct->Standard);
+ 1321              		.loc 1 670 5 is_stmt 1 view .LVU305
+ 1322 0006 0988     		ldrh	r1, [r1]
+ 1323              	.LVL78:
+ 670:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_Standard_Config(SPIx, I2S_InitStruct->Standard);
+ 1324              		.loc 1 670 5 is_stmt 0 view .LVU306
+ 1325 0008 FFF7FEFF 		bl	I2S_Mode_Config
+ 1326              	.LVL79:
+ 671:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_DataFormat_Config(SPIx, I2S_InitStruct->DataFormat);
+ 1327              		.loc 1 671 5 is_stmt 1 view .LVU307
+ 1328 000c 6188     		ldrh	r1, [r4, #2]
+ 1329 000e 2846     		mov	r0, r5
+ 1330 0010 FFF7FEFF 		bl	I2S_Standard_Config
+ 1331              	.LVL80:
+ 672:n32g430_std_periph_driver/src/n32g430_spi.c ****     if(I2S_InitStruct->MCLKEnable == I2S_MCLK_ENABLE)
+ 1332              		.loc 1 672 5 view .LVU308
+ 1333 0014 A188     		ldrh	r1, [r4, #4]
+ 1334 0016 2846     		mov	r0, r5
+ 1335 0018 FFF7FEFF 		bl	I2S_DataFormat_Config
+ 1336              	.LVL81:
+ 673:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ 1337              		.loc 1 673 5 view .LVU309
+ 673:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ 1338              		.loc 1 673 22 is_stmt 0 view .LVU310
+ 1339 001c E388     		ldrh	r3, [r4, #6]
+ 673:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ 1340              		.loc 1 673 7 view .LVU311
+ 1341 001e B3F5007F 		cmp	r3, #512
+ 1342 0022 0BD0     		beq	.L61
+ 679:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+ 1343              		.loc 1 679 9 is_stmt 1 view .LVU312
+ 1344 0024 2846     		mov	r0, r5
+ 1345 0026 FFF7FEFF 		bl	I2S_MCLK_Disable
+ 1346              	.LVL82:
+ 1347              	.L59:
+ 681:n32g430_std_periph_driver/src/n32g430_spi.c ****     I2S_CLKPOL_Config(SPIx, I2S_InitStruct->CLKPOL);
+ 1348              		.loc 1 681 5 view .LVU313
+ 1349 002a A168     		ldr	r1, [r4, #8]
+ 1350 002c 2846     		mov	r0, r5
+ 1351 002e FFF7FEFF 		bl	I2S_AudioFrequency_Config
+ 1352              	.LVL83:
+ 682:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 40
+
+
+ 1353              		.loc 1 682 5 view .LVU314
+ 1354 0032 A189     		ldrh	r1, [r4, #12]
+ 1355 0034 2846     		mov	r0, r5
+ 1356 0036 FFF7FEFF 		bl	I2S_CLKPOL_Config
+ 1357              	.LVL84:
+ 683:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 1358              		.loc 1 683 1 is_stmt 0 view .LVU315
+ 1359 003a 38BD     		pop	{r3, r4, r5, pc}
+ 1360              	.LVL85:
+ 1361              	.L61:
+ 675:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+ 1362              		.loc 1 675 9 is_stmt 1 view .LVU316
+ 1363 003c 2846     		mov	r0, r5
+ 1364 003e FFF7FEFF 		bl	I2S_MCLK_Enable
+ 1365              	.LVL86:
+ 1366 0042 F2E7     		b	.L59
+ 1367              		.cfi_endproc
+ 1368              	.LFE149:
+ 1370              		.section	.text.SPI_I2S_Interrupts_Enable,"ax",%progbits
+ 1371              		.align	1
+ 1372              		.global	SPI_I2S_Interrupts_Enable
+ 1373              		.syntax unified
+ 1374              		.thumb
+ 1375              		.thumb_func
+ 1377              	SPI_I2S_Interrupts_Enable:
+ 1378              	.LVL87:
+ 1379              	.LFB157:
+ 894:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 895:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 896:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 897:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_I2S_Interrupts_Enable.
+ 898:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Enable SPI or I2S interrupts.
+ 899:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 900:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 901:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 902:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   spi_interrupt :
+ 903:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_INT_TE    SPI_CTRL2
+ 904:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_INT_RNE   SPI_CTRL2
+ 905:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_INT_ERR   SPI_CTRL2
+ 906:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 907:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 908:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_I2S_Interrupts_Enable(SPI_Module* SPIx, uint8_t spi_interrupt)
+ 909:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 1380              		.loc 1 909 1 view -0
+ 1381              		.cfi_startproc
+ 1382              		@ args = 0, pretend = 0, frame = 0
+ 1383              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1384              		@ link register save eliminated.
+ 910:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set the SPI_CTRL2 TEINTEN/RNEINTEN/ERRINTEN bit to enable SPI or I2S interrupts */
+ 911:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL2 |= spi_interrupt;
+ 1385              		.loc 1 911 5 view .LVU318
+ 1386              		.loc 1 911 9 is_stmt 0 view .LVU319
+ 1387 0000 8388     		ldrh	r3, [r0, #4]
+ 1388 0002 9BB2     		uxth	r3, r3
+ 1389              		.loc 1 911 17 view .LVU320
+ 1390 0004 1943     		orrs	r1, r1, r3
+ 1391              	.LVL88:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 41
+
+
+ 1392              		.loc 1 911 17 view .LVU321
+ 1393 0006 8180     		strh	r1, [r0, #4]	@ movhi
+ 912:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 1394              		.loc 1 912 1 view .LVU322
+ 1395 0008 7047     		bx	lr
+ 1396              		.cfi_endproc
+ 1397              	.LFE157:
+ 1399              		.section	.text.SPI_I2S_Interrupts_Disable,"ax",%progbits
+ 1400              		.align	1
+ 1401              		.global	SPI_I2S_Interrupts_Disable
+ 1402              		.syntax unified
+ 1403              		.thumb
+ 1404              		.thumb_func
+ 1406              	SPI_I2S_Interrupts_Disable:
+ 1407              	.LVL89:
+ 1408              	.LFB158:
+ 913:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 914:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 915:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_I2S_Interrupts_Disable.
+ 916:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Disable SPI or I2S interrupts.
+ 917:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 918:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 919:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 920:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   spi_interrupt :
+ 921:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_INT_TE    SPI_CTRL2
+ 922:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_INT_RNE   SPI_CTRL2
+ 923:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_INT_ERR   SPI_CTRL2
+ 924:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 925:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 926:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_I2S_Interrupts_Disable(SPI_Module* SPIx, uint8_t spi_interrupt)
+ 927:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 1409              		.loc 1 927 1 is_stmt 1 view -0
+ 1410              		.cfi_startproc
+ 1411              		@ args = 0, pretend = 0, frame = 0
+ 1412              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1413              		@ link register save eliminated.
+ 928:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clean the SPI_CTRL2 TEINTEN/RNEINTEN/ERRINTEN bit to disable SPI or I2S interrupts */
+ 929:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL2 &= (~spi_interrupt);
+ 1414              		.loc 1 929 5 view .LVU324
+ 1415              		.loc 1 929 9 is_stmt 0 view .LVU325
+ 1416 0000 8388     		ldrh	r3, [r0, #4]
+ 1417              		.loc 1 929 17 view .LVU326
+ 1418 0002 81F47F41 		eor	r1, r1, #65280
+ 1419              	.LVL90:
+ 1420              		.loc 1 929 17 view .LVU327
+ 1421 0006 81F0FF01 		eor	r1, r1, #255
+ 1422              	.LVL91:
+ 1423              		.loc 1 929 17 view .LVU328
+ 1424 000a 1940     		ands	r1, r1, r3
+ 1425              	.LVL92:
+ 1426              		.loc 1 929 17 view .LVU329
+ 1427 000c 8180     		strh	r1, [r0, #4]	@ movhi
+ 930:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 1428              		.loc 1 930 1 view .LVU330
+ 1429 000e 7047     		bx	lr
+ 1430              		.cfi_endproc
+ 1431              	.LFE158:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 42
+
+
+ 1433              		.section	.text.SPI_I2S_DMA_Transfer_Enable,"ax",%progbits
+ 1434              		.align	1
+ 1435              		.global	SPI_I2S_DMA_Transfer_Enable
+ 1436              		.syntax unified
+ 1437              		.thumb
+ 1438              		.thumb_func
+ 1440              	SPI_I2S_DMA_Transfer_Enable:
+ 1441              	.LVL93:
+ 1442              	.LFB159:
+ 931:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 932:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 933:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 934:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_I2S_DMA_Transfer_Enable.
+ 935:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Enable SPI or I2S DMA transfer.
+ 936:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 937:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 938:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 939:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPI_I2S_DMARequest :
+ 940:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_DMA_TX
+ 941:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_DMA_RX
+ 942:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 943:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 944:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_I2S_DMA_Transfer_Enable(SPI_Module* SPIx, uint16_t SPI_I2S_DMARequest)
+ 945:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 1443              		.loc 1 945 1 is_stmt 1 view -0
+ 1444              		.cfi_startproc
+ 1445              		@ args = 0, pretend = 0, frame = 0
+ 1446              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1447              		@ link register save eliminated.
+ 946:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Set the SPI_CTRL2 TDMAEN/RDMAEN bit to enable TX/RX DMA transfer */
+ 947:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL2 |= SPI_I2S_DMARequest;
+ 1448              		.loc 1 947 5 view .LVU332
+ 1449              		.loc 1 947 9 is_stmt 0 view .LVU333
+ 1450 0000 8388     		ldrh	r3, [r0, #4]
+ 1451 0002 9BB2     		uxth	r3, r3
+ 1452              		.loc 1 947 17 view .LVU334
+ 1453 0004 0B43     		orrs	r3, r3, r1
+ 1454 0006 8380     		strh	r3, [r0, #4]	@ movhi
+ 948:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 1455              		.loc 1 948 1 view .LVU335
+ 1456 0008 7047     		bx	lr
+ 1457              		.cfi_endproc
+ 1458              	.LFE159:
+ 1460              		.section	.text.SPI_I2S_DMA_Transfer_Disable,"ax",%progbits
+ 1461              		.align	1
+ 1462              		.global	SPI_I2S_DMA_Transfer_Disable
+ 1463              		.syntax unified
+ 1464              		.thumb
+ 1465              		.thumb_func
+ 1467              	SPI_I2S_DMA_Transfer_Disable:
+ 1468              	.LVL94:
+ 1469              	.LFB160:
+ 949:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 950:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 951:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 952:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_I2S_DMA_Transfer_Disable.
+ 953:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Disable SPI or I2S DMA transfer.
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 43
+
+
+ 954:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 955:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 956:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 957:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPI_I2S_DMARequest :
+ 958:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_DMA_TX
+ 959:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_DMA_RX
+ 960:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 961:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 962:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_I2S_DMA_Transfer_Disable(SPI_Module* SPIx, uint16_t SPI_I2S_DMARequest)
+ 963:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 1470              		.loc 1 963 1 is_stmt 1 view -0
+ 1471              		.cfi_startproc
+ 1472              		@ args = 0, pretend = 0, frame = 0
+ 1473              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1474              		@ link register save eliminated.
+ 964:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Clean the SPI_CTRL2 TDMAEN/RDMAEN bit to disable TX/RX DMA transfer */
+ 965:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->CTRL2 &= (uint16_t)~SPI_I2S_DMARequest;
+ 1475              		.loc 1 965 5 view .LVU337
+ 1476              		.loc 1 965 9 is_stmt 0 view .LVU338
+ 1477 0000 8388     		ldrh	r3, [r0, #4]
+ 1478              		.loc 1 965 20 view .LVU339
+ 1479 0002 C943     		mvns	r1, r1
+ 1480              	.LVL95:
+ 1481              		.loc 1 965 20 view .LVU340
+ 1482 0004 89B2     		uxth	r1, r1
+ 1483              	.LVL96:
+ 1484              		.loc 1 965 17 view .LVU341
+ 1485 0006 1940     		ands	r1, r1, r3
+ 1486 0008 8180     		strh	r1, [r0, #4]	@ movhi
+ 966:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 1487              		.loc 1 966 1 view .LVU342
+ 1488 000a 7047     		bx	lr
+ 1489              		.cfi_endproc
+ 1490              	.LFE160:
+ 1492              		.section	.text.SPI_I2S_Data_Transmit,"ax",%progbits
+ 1493              		.align	1
+ 1494              		.global	SPI_I2S_Data_Transmit
+ 1495              		.syntax unified
+ 1496              		.thumb
+ 1497              		.thumb_func
+ 1499              	SPI_I2S_Data_Transmit:
+ 1500              	.LVL97:
+ 1501              	.LFB161:
+ 967:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 968:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 969:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 970:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_I2S_Data_Transmit.
+ 971:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Transmits a Data through the SPIx/I2Sx peripheral.
+ 972:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 973:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 974:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 975:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   Data           \* Data to be transmitted *\
+ 976:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+ 977:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 978:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_I2S_Data_Transmit(SPI_Module* SPIx, uint16_t Data)
+ 979:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 1502              		.loc 1 979 1 is_stmt 1 view -0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 44
+
+
+ 1503              		.cfi_startproc
+ 1504              		@ args = 0, pretend = 0, frame = 0
+ 1505              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1506              		@ link register save eliminated.
+ 980:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Write in the SPI_DAT register the data to be sent */
+ 981:n32g430_std_periph_driver/src/n32g430_spi.c ****     SPIx->DAT = Data;
+ 1507              		.loc 1 981 5 view .LVU344
+ 1508              		.loc 1 981 15 is_stmt 0 view .LVU345
+ 1509 0000 8181     		strh	r1, [r0, #12]	@ movhi
+ 982:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 1510              		.loc 1 982 1 view .LVU346
+ 1511 0002 7047     		bx	lr
+ 1512              		.cfi_endproc
+ 1513              	.LFE161:
+ 1515              		.section	.text.SPI_I2S_Data_Get,"ax",%progbits
+ 1516              		.align	1
+ 1517              		.global	SPI_I2S_Data_Get
+ 1518              		.syntax unified
+ 1519              		.thumb
+ 1520              		.thumb_func
+ 1522              	SPI_I2S_Data_Get:
+ 1523              	.LVL98:
+ 1524              	.LFB162:
+ 983:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 984:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 985:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+ 986:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_I2S_Data_Get.
+ 987:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Get SPI/I2S data from SPI_DAT register.
+ 988:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+ 989:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+ 990:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+ 991:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  The data in the SPI_DAT register
+ 992:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+ 993:n32g430_std_periph_driver/src/n32g430_spi.c **** uint16_t SPI_I2S_Data_Get(SPI_Module* SPIx)
+ 994:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 1525              		.loc 1 994 1 is_stmt 1 view -0
+ 1526              		.cfi_startproc
+ 1527              		@ args = 0, pretend = 0, frame = 0
+ 1528              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1529              		@ link register save eliminated.
+ 995:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Return the data in the SPI_DAT register */
+ 996:n32g430_std_periph_driver/src/n32g430_spi.c ****     return SPIx->DAT;
+ 1530              		.loc 1 996 5 view .LVU348
+ 1531              		.loc 1 996 16 is_stmt 0 view .LVU349
+ 1532 0000 8089     		ldrh	r0, [r0, #12]
+ 1533              	.LVL99:
+ 997:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 1534              		.loc 1 997 1 view .LVU350
+ 1535 0002 80B2     		uxth	r0, r0
+ 1536 0004 7047     		bx	lr
+ 1537              		.cfi_endproc
+ 1538              	.LFE162:
+ 1540              		.section	.text.SPI_I2S_Flag_Status_Get,"ax",%progbits
+ 1541              		.align	1
+ 1542              		.global	SPI_I2S_Flag_Status_Get
+ 1543              		.syntax unified
+ 1544              		.thumb
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 45
+
+
+ 1545              		.thumb_func
+ 1547              	SPI_I2S_Flag_Status_Get:
+ 1548              	.LVL100:
+ 1549              	.LFB163:
+ 998:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ 999:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+1000:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+1001:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_I2S_Flag_Status_Get.
+1002:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Get SPI/I2S flag status.
+1003:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+1004:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+1005:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+1006:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   spi_i2s_flag :
+1007:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_FLAG_TE
+1008:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_FLAG_RNE
+1009:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_FLAG_BUSY
+1010:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_FLAG_OVER
+1011:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_FLAG_MODERR
+1012:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_FLAG_CRCERR
+1013:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_FLAG_UNDER
+1014:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_FLAG_CHSIDE 
+1015:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  SET or RESET
+1016:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+1017:n32g430_std_periph_driver/src/n32g430_spi.c **** FlagStatus SPI_I2S_Flag_Status_Get(SPI_Module* SPIx, uint8_t spi_i2s_flag)
+1018:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 1550              		.loc 1 1018 1 is_stmt 1 view -0
+ 1551              		.cfi_startproc
+ 1552              		@ args = 0, pretend = 0, frame = 0
+ 1553              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1554              		@ link register save eliminated.
+1019:n32g430_std_periph_driver/src/n32g430_spi.c ****     return (((SPIx->STS & spi_i2s_flag) == spi_i2s_flag) ? SET : RESET);  
+ 1555              		.loc 1 1019 5 view .LVU352
+ 1556              		.loc 1 1019 19 is_stmt 0 view .LVU353
+ 1557 0000 0389     		ldrh	r3, [r0, #8]
+ 1558              		.loc 1 1019 64 view .LVU354
+ 1559 0002 9943     		bics	r1, r1, r3
+ 1560              	.LVL101:
+1020:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 1561              		.loc 1 1020 1 view .LVU355
+ 1562 0004 0CBF     		ite	eq
+ 1563 0006 0120     		moveq	r0, #1
+ 1564              	.LVL102:
+ 1565              		.loc 1 1020 1 view .LVU356
+ 1566 0008 0020     		movne	r0, #0
+ 1567 000a 7047     		bx	lr
+ 1568              		.cfi_endproc
+ 1569              	.LFE163:
+ 1571              		.section	.text.SPI_I2S_Interrupt_Flag_Status_Get,"ax",%progbits
+ 1572              		.align	1
+ 1573              		.global	SPI_I2S_Interrupt_Flag_Status_Get
+ 1574              		.syntax unified
+ 1575              		.thumb
+ 1576              		.thumb_func
+ 1578              	SPI_I2S_Interrupt_Flag_Status_Get:
+ 1579              	.LVL103:
+ 1580              	.LFB164:
+1021:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 46
+
+
+1022:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+1023:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_I2S_Interrupt_Flag_Status_Get.
+1024:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Get SPI/I2S Interrupt flag status.
+1025:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+1026:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+1027:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+1028:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   spi_i2s_flag :
+1029:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_INT_FLAG_RNE
+1030:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_INT_FLAG_TE
+1031:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_INT_FLAG_UNDER
+1032:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_INT_FLAG_CRCERR
+1033:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_INT_FLAG_MODERR
+1034:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_INT_FLAG_OVER
+1035:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_INT_FLAG_ERR
+1036:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  SET or RESET
+1037:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+1038:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+1039:n32g430_std_periph_driver/src/n32g430_spi.c **** FlagStatus SPI_I2S_Interrupt_Flag_Status_Get(SPI_Module* SPIx, uint16_t spi_i2s_flag)
+1040:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 1581              		.loc 1 1040 1 is_stmt 1 view -0
+ 1582              		.cfi_startproc
+ 1583              		@ args = 0, pretend = 0, frame = 0
+ 1584              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1585              		@ link register save eliminated.
+1041:n32g430_std_periph_driver/src/n32g430_spi.c ****     /* Interrupt flag */
+1042:n32g430_std_periph_driver/src/n32g430_spi.c ****     switch (spi_i2s_flag)
+ 1586              		.loc 1 1042 5 view .LVU358
+ 1587 0000 2029     		cmp	r1, #32
+ 1588 0002 17D8     		bhi	.L70
+ 1589 0004 0BB2     		sxth	r3, r1
+ 1590 0006 002B     		cmp	r3, #0
+ 1591 0008 37D0     		beq	.L76
+ 1592 000a 4B1E     		subs	r3, r1, #1
+ 1593 000c 1F2B     		cmp	r3, #31
+ 1594 000e 36D8     		bhi	.L77
+ 1595 0010 DFE803F0 		tbb	[pc, r3]
+ 1596              	.L73:
+ 1597 0014 20       		.byte	(.L75-.L73)/2
+ 1598 0015 16       		.byte	(.L74-.L73)/2
+ 1599 0016 35       		.byte	(.L77-.L73)/2
+ 1600 0017 35       		.byte	(.L77-.L73)/2
+ 1601 0018 35       		.byte	(.L77-.L73)/2
+ 1602 0019 35       		.byte	(.L77-.L73)/2
+ 1603 001a 35       		.byte	(.L77-.L73)/2
+ 1604 001b 2A       		.byte	(.L72-.L73)/2
+ 1605 001c 35       		.byte	(.L77-.L73)/2
+ 1606 001d 35       		.byte	(.L77-.L73)/2
+ 1607 001e 35       		.byte	(.L77-.L73)/2
+ 1608 001f 35       		.byte	(.L77-.L73)/2
+ 1609 0020 35       		.byte	(.L77-.L73)/2
+ 1610 0021 35       		.byte	(.L77-.L73)/2
+ 1611 0022 35       		.byte	(.L77-.L73)/2
+ 1612 0023 2A       		.byte	(.L72-.L73)/2
+ 1613 0024 35       		.byte	(.L77-.L73)/2
+ 1614 0025 35       		.byte	(.L77-.L73)/2
+ 1615 0026 35       		.byte	(.L77-.L73)/2
+ 1616 0027 35       		.byte	(.L77-.L73)/2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 47
+
+
+ 1617 0028 35       		.byte	(.L77-.L73)/2
+ 1618 0029 35       		.byte	(.L77-.L73)/2
+ 1619 002a 35       		.byte	(.L77-.L73)/2
+ 1620 002b 35       		.byte	(.L77-.L73)/2
+ 1621 002c 35       		.byte	(.L77-.L73)/2
+ 1622 002d 35       		.byte	(.L77-.L73)/2
+ 1623 002e 35       		.byte	(.L77-.L73)/2
+ 1624 002f 35       		.byte	(.L77-.L73)/2
+ 1625 0030 35       		.byte	(.L77-.L73)/2
+ 1626 0031 35       		.byte	(.L77-.L73)/2
+ 1627 0032 35       		.byte	(.L77-.L73)/2
+ 1628 0033 2A       		.byte	(.L72-.L73)/2
+ 1629              		.p2align 1
+ 1630              	.L70:
+ 1631 0034 4029     		cmp	r1, #64
+ 1632 0036 17D0     		beq	.L72
+ 1633 0038 7829     		cmp	r1, #120
+ 1634 003a 15D0     		beq	.L72
+ 1635 003c 0020     		movs	r0, #0
+ 1636              	.LVL104:
+ 1637              		.loc 1 1042 5 is_stmt 0 view .LVU359
+ 1638 003e 7047     		bx	lr
+ 1639              	.LVL105:
+ 1640              	.L74:
+1043:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+1044:n32g430_std_periph_driver/src/n32g430_spi.c ****         case SPI_I2S_INT_FLAG_TE:
+1045:n32g430_std_periph_driver/src/n32g430_spi.c ****             if((SPIx->CTRL2 & SPI_I2S_INT_TE) == SPI_I2S_INT_TE && (SPIx->STS & SPI_I2S_INT_FLAG_TE
+ 1641              		.loc 1 1045 13 is_stmt 1 view .LVU360
+ 1642              		.loc 1 1045 21 is_stmt 0 view .LVU361
+ 1643 0040 8388     		ldrh	r3, [r0, #4]
+ 1644              		.loc 1 1045 15 view .LVU362
+ 1645 0042 13F0800F 		tst	r3, #128
+ 1646 0046 1CD0     		beq	.L78
+ 1647              		.loc 1 1045 73 discriminator 1 view .LVU363
+ 1648 0048 0389     		ldrh	r3, [r0, #8]
+ 1649              		.loc 1 1045 65 discriminator 1 view .LVU364
+ 1650 004a 13F0020F 		tst	r3, #2
+ 1651 004e 1AD1     		bne	.L79
+1046:n32g430_std_periph_driver/src/n32g430_spi.c ****             {
+1047:n32g430_std_periph_driver/src/n32g430_spi.c ****                 return SET;
+1048:n32g430_std_periph_driver/src/n32g430_spi.c ****             }
+1049:n32g430_std_periph_driver/src/n32g430_spi.c ****             else
+1050:n32g430_std_periph_driver/src/n32g430_spi.c ****             {
+1051:n32g430_std_periph_driver/src/n32g430_spi.c ****                 return RESET;
+ 1652              		.loc 1 1051 24 view .LVU365
+ 1653 0050 0020     		movs	r0, #0
+ 1654              	.LVL106:
+ 1655              		.loc 1 1051 24 view .LVU366
+ 1656 0052 7047     		bx	lr
+ 1657              	.LVL107:
+ 1658              	.L75:
+1052:n32g430_std_periph_driver/src/n32g430_spi.c ****             }
+1053:n32g430_std_periph_driver/src/n32g430_spi.c ****         case SPI_I2S_INT_FLAG_RNE:
+1054:n32g430_std_periph_driver/src/n32g430_spi.c ****             if((SPIx->CTRL2 & SPI_I2S_INT_RNE) && (SPIx->STS & SPI_I2S_INT_FLAG_RNE))
+ 1659              		.loc 1 1054 13 is_stmt 1 view .LVU367
+ 1660              		.loc 1 1054 21 is_stmt 0 view .LVU368
+ 1661 0054 8388     		ldrh	r3, [r0, #4]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 48
+
+
+ 1662              		.loc 1 1054 15 view .LVU369
+ 1663 0056 13F0400F 		tst	r3, #64
+ 1664 005a 16D0     		beq	.L80
+ 1665              		.loc 1 1054 56 discriminator 1 view .LVU370
+ 1666 005c 0389     		ldrh	r3, [r0, #8]
+ 1667              		.loc 1 1054 48 discriminator 1 view .LVU371
+ 1668 005e 13F0010F 		tst	r3, #1
+ 1669 0062 14D1     		bne	.L81
+1055:n32g430_std_periph_driver/src/n32g430_spi.c ****             {
+1056:n32g430_std_periph_driver/src/n32g430_spi.c ****                 return SET;
+1057:n32g430_std_periph_driver/src/n32g430_spi.c ****             }
+1058:n32g430_std_periph_driver/src/n32g430_spi.c ****             else
+1059:n32g430_std_periph_driver/src/n32g430_spi.c ****             {
+1060:n32g430_std_periph_driver/src/n32g430_spi.c ****                 return RESET;
+ 1670              		.loc 1 1060 24 view .LVU372
+ 1671 0064 0020     		movs	r0, #0
+ 1672              	.LVL108:
+ 1673              		.loc 1 1060 24 view .LVU373
+ 1674 0066 7047     		bx	lr
+ 1675              	.LVL109:
+ 1676              	.L72:
+1061:n32g430_std_periph_driver/src/n32g430_spi.c ****             }
+1062:n32g430_std_periph_driver/src/n32g430_spi.c ****         case SPI_I2S_INT_FLAG_ERR:
+1063:n32g430_std_periph_driver/src/n32g430_spi.c ****         case I2S_INT_FLAG_UNDER:    
+1064:n32g430_std_periph_driver/src/n32g430_spi.c ****         case SPI_INT_FLAG_CRCERR:   
+1065:n32g430_std_periph_driver/src/n32g430_spi.c ****         case SPI_INT_FLAG_MODERR:   
+1066:n32g430_std_periph_driver/src/n32g430_spi.c ****         case SPI_I2S_INT_FLAG_OVER:
+1067:n32g430_std_periph_driver/src/n32g430_spi.c ****             if((SPIx->CTRL2 & SPI_I2S_INT_ERR) && (SPIx->STS & spi_i2s_flag))
+ 1677              		.loc 1 1067 13 is_stmt 1 view .LVU374
+ 1678              		.loc 1 1067 21 is_stmt 0 view .LVU375
+ 1679 0068 8388     		ldrh	r3, [r0, #4]
+ 1680              		.loc 1 1067 15 view .LVU376
+ 1681 006a 13F0200F 		tst	r3, #32
+ 1682 006e 10D0     		beq	.L82
+ 1683              		.loc 1 1067 56 discriminator 1 view .LVU377
+ 1684 0070 0389     		ldrh	r3, [r0, #8]
+ 1685              		.loc 1 1067 48 discriminator 1 view .LVU378
+ 1686 0072 1942     		tst	r1, r3
+ 1687 0074 0FD1     		bne	.L83
+1068:n32g430_std_periph_driver/src/n32g430_spi.c ****             {
+1069:n32g430_std_periph_driver/src/n32g430_spi.c ****                 return SET;
+1070:n32g430_std_periph_driver/src/n32g430_spi.c ****             }
+1071:n32g430_std_periph_driver/src/n32g430_spi.c ****             else
+1072:n32g430_std_periph_driver/src/n32g430_spi.c ****             {
+1073:n32g430_std_periph_driver/src/n32g430_spi.c ****                 return RESET;
+ 1688              		.loc 1 1073 24 view .LVU379
+ 1689 0076 0020     		movs	r0, #0
+ 1690              	.LVL110:
+ 1691              		.loc 1 1073 24 view .LVU380
+ 1692 0078 7047     		bx	lr
+ 1693              	.LVL111:
+ 1694              	.L76:
+1042:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ 1695              		.loc 1 1042 5 view .LVU381
+ 1696 007a 0020     		movs	r0, #0
+ 1697              	.LVL112:
+1042:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 49
+
+
+ 1698              		.loc 1 1042 5 view .LVU382
+ 1699 007c 7047     		bx	lr
+ 1700              	.LVL113:
+ 1701              	.L77:
+1042:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ 1702              		.loc 1 1042 5 view .LVU383
+ 1703 007e 0020     		movs	r0, #0
+ 1704              	.LVL114:
+1042:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+ 1705              		.loc 1 1042 5 view .LVU384
+ 1706 0080 7047     		bx	lr
+ 1707              	.LVL115:
+ 1708              	.L78:
+1051:n32g430_std_periph_driver/src/n32g430_spi.c ****             }
+ 1709              		.loc 1 1051 24 view .LVU385
+ 1710 0082 0020     		movs	r0, #0
+ 1711              	.LVL116:
+1051:n32g430_std_periph_driver/src/n32g430_spi.c ****             }
+ 1712              		.loc 1 1051 24 view .LVU386
+ 1713 0084 7047     		bx	lr
+ 1714              	.LVL117:
+ 1715              	.L79:
+1047:n32g430_std_periph_driver/src/n32g430_spi.c ****             }
+ 1716              		.loc 1 1047 24 view .LVU387
+ 1717 0086 0120     		movs	r0, #1
+ 1718              	.LVL118:
+1047:n32g430_std_periph_driver/src/n32g430_spi.c ****             }
+ 1719              		.loc 1 1047 24 view .LVU388
+ 1720 0088 7047     		bx	lr
+ 1721              	.LVL119:
+ 1722              	.L80:
+1060:n32g430_std_periph_driver/src/n32g430_spi.c ****             }
+ 1723              		.loc 1 1060 24 view .LVU389
+ 1724 008a 0020     		movs	r0, #0
+ 1725              	.LVL120:
+1060:n32g430_std_periph_driver/src/n32g430_spi.c ****             }
+ 1726              		.loc 1 1060 24 view .LVU390
+ 1727 008c 7047     		bx	lr
+ 1728              	.LVL121:
+ 1729              	.L81:
+1056:n32g430_std_periph_driver/src/n32g430_spi.c ****             }
+ 1730              		.loc 1 1056 24 view .LVU391
+ 1731 008e 0120     		movs	r0, #1
+ 1732              	.LVL122:
+1056:n32g430_std_periph_driver/src/n32g430_spi.c ****             }
+ 1733              		.loc 1 1056 24 view .LVU392
+ 1734 0090 7047     		bx	lr
+ 1735              	.LVL123:
+ 1736              	.L82:
+ 1737              		.loc 1 1073 24 view .LVU393
+ 1738 0092 0020     		movs	r0, #0
+ 1739              	.LVL124:
+ 1740              		.loc 1 1073 24 view .LVU394
+ 1741 0094 7047     		bx	lr
+ 1742              	.LVL125:
+ 1743              	.L83:
+1069:n32g430_std_periph_driver/src/n32g430_spi.c ****             }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 50
+
+
+ 1744              		.loc 1 1069 24 view .LVU395
+ 1745 0096 0120     		movs	r0, #1
+ 1746              	.LVL126:
+1074:n32g430_std_periph_driver/src/n32g430_spi.c ****             }
+1075:n32g430_std_periph_driver/src/n32g430_spi.c ****         default:
+1076:n32g430_std_periph_driver/src/n32g430_spi.c ****            return RESET;
+1077:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+1078:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 1747              		.loc 1 1078 1 view .LVU396
+ 1748 0098 7047     		bx	lr
+ 1749              		.cfi_endproc
+ 1750              	.LFE164:
+ 1752              		.section	.text.SPI_I2S_Clear_Flag_Status,"ax",%progbits
+ 1753              		.align	1
+ 1754              		.global	SPI_I2S_Clear_Flag_Status
+ 1755              		.syntax unified
+ 1756              		.thumb
+ 1757              		.thumb_func
+ 1759              	SPI_I2S_Clear_Flag_Status:
+ 1760              	.LVL127:
+ 1761              	.LFB165:
+1079:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+1080:n32g430_std_periph_driver/src/n32g430_spi.c **** 
+1081:n32g430_std_periph_driver/src/n32g430_spi.c **** /**
+1082:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\name    SPI_I2S_Clear_Flag_Status.
+1083:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\fun     Clear SPI/I2S flag status.
+1084:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   SPIx :
+1085:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI1
+1086:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI2
+1087:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\param   spi_i2s_flag :
+1088:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_I2S_FLAG_OVER
+1089:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - SPI_FLAG_CRCERR
+1090:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\          - I2S_FLAG_UNDER
+1091:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\return  none
+1092:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\note
+1093:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\ - OVER (OverRun error) flag is cleared by software sequence: a read
+1094:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\        operation to SPI_DAT register (SPI_I2S_Data_Get()) followed by a read
+1095:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\        operation to SPI_STS register (SPI_I2S_Flag_Status_Get()).
+1096:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\ - UNDER (UnderRun error) flag is cleared by a read operation to 
+1097:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\        SPI_STS register (SPI_I2S_Flag_Status_Get()).
+1098:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\ - MODERR (Mode error) flag is cleared by software sequence: a read/write
+1099:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\       operation to SPI_STS register (SPI_I2S_Flag_Status_Get()) followed by a
+1100:n32g430_std_periph_driver/src/n32g430_spi.c **** *\*\       write operation to SPI_CTRL1 register (SPI_ON() to enable the SPI).
+1101:n32g430_std_periph_driver/src/n32g430_spi.c **** **/
+1102:n32g430_std_periph_driver/src/n32g430_spi.c **** void SPI_I2S_Clear_Flag_Status(SPI_Module* SPIx, uint16_t spi_i2s_flag)
+1103:n32g430_std_periph_driver/src/n32g430_spi.c **** {
+ 1762              		.loc 1 1103 1 is_stmt 1 view -0
+ 1763              		.cfi_startproc
+ 1764              		@ args = 0, pretend = 0, frame = 8
+ 1765              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1766              		@ link register save eliminated.
+1104:n32g430_std_periph_driver/src/n32g430_spi.c ****     volatile u8 temp_vlue;
+ 1767              		.loc 1 1104 5 view .LVU398
+1105:n32g430_std_periph_driver/src/n32g430_spi.c ****     switch (spi_i2s_flag)
+ 1768              		.loc 1 1105 5 view .LVU399
+ 1769 0000 1029     		cmp	r1, #16
+ 1770 0002 0AD0     		beq	.L86
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 51
+
+
+1103:n32g430_std_periph_driver/src/n32g430_spi.c ****     volatile u8 temp_vlue;
+ 1771              		.loc 1 1103 1 is_stmt 0 view .LVU400
+ 1772 0004 82B0     		sub	sp, sp, #8
+ 1773              	.LCFI6:
+ 1774              		.cfi_def_cfa_offset 8
+ 1775              		.loc 1 1105 5 view .LVU401
+ 1776 0006 4029     		cmp	r1, #64
+ 1777 0008 0DD0     		beq	.L87
+ 1778 000a 0829     		cmp	r1, #8
+ 1779 000c 03D1     		bne	.L85
+1106:n32g430_std_periph_driver/src/n32g430_spi.c ****     {
+1107:n32g430_std_periph_driver/src/n32g430_spi.c ****       case SPI_FLAG_CRCERR:
+1108:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* Clear the selected SPI CRC Error (CRCERR) flag */
+1109:n32g430_std_periph_driver/src/n32g430_spi.c ****             SPIx->STS &= (uint16_t)(~spi_i2s_flag);
+1110:n32g430_std_periph_driver/src/n32g430_spi.c ****         break;
+1111:n32g430_std_periph_driver/src/n32g430_spi.c ****       case I2S_FLAG_UNDER:
+1112:n32g430_std_periph_driver/src/n32g430_spi.c ****            temp_vlue = SPIx->STS;
+ 1780              		.loc 1 1112 12 is_stmt 1 view .LVU402
+ 1781              		.loc 1 1112 28 is_stmt 0 view .LVU403
+ 1782 000e 0389     		ldrh	r3, [r0, #8]
+ 1783              		.loc 1 1112 22 view .LVU404
+ 1784 0010 DBB2     		uxtb	r3, r3
+ 1785 0012 8DF80730 		strb	r3, [sp, #7]
+1113:n32g430_std_periph_driver/src/n32g430_spi.c ****         break;
+ 1786              		.loc 1 1113 9 is_stmt 1 view .LVU405
+ 1787              	.L85:
+1114:n32g430_std_periph_driver/src/n32g430_spi.c ****       case SPI_I2S_FLAG_OVER:
+1115:n32g430_std_periph_driver/src/n32g430_spi.c ****         /* read SPI_DAT and SPI_STS to Clear the Flag */
+1116:n32g430_std_periph_driver/src/n32g430_spi.c ****            temp_vlue = SPIx->DAT;
+1117:n32g430_std_periph_driver/src/n32g430_spi.c ****            temp_vlue = SPIx->STS;
+1118:n32g430_std_periph_driver/src/n32g430_spi.c ****         break;  
+1119:n32g430_std_periph_driver/src/n32g430_spi.c ****       default:
+1120:n32g430_std_periph_driver/src/n32g430_spi.c ****         break;
+1121:n32g430_std_periph_driver/src/n32g430_spi.c ****     }
+1122:n32g430_std_periph_driver/src/n32g430_spi.c **** }
+ 1788              		.loc 1 1122 1 is_stmt 0 view .LVU406
+ 1789 0016 02B0     		add	sp, sp, #8
+ 1790              	.LCFI7:
+ 1791              		.cfi_def_cfa_offset 0
+ 1792              		@ sp needed
+ 1793 0018 7047     		bx	lr
+ 1794              	.L86:
+1109:n32g430_std_periph_driver/src/n32g430_spi.c ****         break;
+ 1795              		.loc 1 1109 13 is_stmt 1 view .LVU407
+1109:n32g430_std_periph_driver/src/n32g430_spi.c ****         break;
+ 1796              		.loc 1 1109 17 is_stmt 0 view .LVU408
+ 1797 001a 0389     		ldrh	r3, [r0, #8]
+1109:n32g430_std_periph_driver/src/n32g430_spi.c ****         break;
+ 1798              		.loc 1 1109 26 view .LVU409
+ 1799 001c C943     		mvns	r1, r1
+ 1800              	.LVL128:
+1109:n32g430_std_periph_driver/src/n32g430_spi.c ****         break;
+ 1801              		.loc 1 1109 26 view .LVU410
+ 1802 001e 89B2     		uxth	r1, r1
+1109:n32g430_std_periph_driver/src/n32g430_spi.c ****         break;
+ 1803              		.loc 1 1109 23 view .LVU411
+ 1804 0020 1940     		ands	r1, r1, r3
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 52
+
+
+ 1805 0022 0181     		strh	r1, [r0, #8]	@ movhi
+1110:n32g430_std_periph_driver/src/n32g430_spi.c ****       case I2S_FLAG_UNDER:
+ 1806              		.loc 1 1110 9 is_stmt 1 view .LVU412
+ 1807 0024 7047     		bx	lr
+ 1808              	.LVL129:
+ 1809              	.L87:
+ 1810              	.LCFI8:
+ 1811              		.cfi_def_cfa_offset 8
+1116:n32g430_std_periph_driver/src/n32g430_spi.c ****            temp_vlue = SPIx->STS;
+ 1812              		.loc 1 1116 12 view .LVU413
+1116:n32g430_std_periph_driver/src/n32g430_spi.c ****            temp_vlue = SPIx->STS;
+ 1813              		.loc 1 1116 28 is_stmt 0 view .LVU414
+ 1814 0026 8389     		ldrh	r3, [r0, #12]
+1116:n32g430_std_periph_driver/src/n32g430_spi.c ****            temp_vlue = SPIx->STS;
+ 1815              		.loc 1 1116 22 view .LVU415
+ 1816 0028 DBB2     		uxtb	r3, r3
+ 1817 002a 8DF80730 		strb	r3, [sp, #7]
+1117:n32g430_std_periph_driver/src/n32g430_spi.c ****         break;  
+ 1818              		.loc 1 1117 12 is_stmt 1 view .LVU416
+1117:n32g430_std_periph_driver/src/n32g430_spi.c ****         break;  
+ 1819              		.loc 1 1117 28 is_stmt 0 view .LVU417
+ 1820 002e 0389     		ldrh	r3, [r0, #8]
+1117:n32g430_std_periph_driver/src/n32g430_spi.c ****         break;  
+ 1821              		.loc 1 1117 22 view .LVU418
+ 1822 0030 DBB2     		uxtb	r3, r3
+ 1823 0032 8DF80730 		strb	r3, [sp, #7]
+1118:n32g430_std_periph_driver/src/n32g430_spi.c ****       default:
+ 1824              		.loc 1 1118 9 is_stmt 1 view .LVU419
+ 1825              		.loc 1 1122 1 is_stmt 0 view .LVU420
+ 1826 0036 EEE7     		b	.L85
+ 1827              		.cfi_endproc
+ 1828              	.LFE165:
+ 1830              		.text
+ 1831              	.Letext0:
+ 1832              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 1833              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 1834              		.file 4 "CMSIS/device/n32g430.h"
+ 1835              		.file 5 "n32g430_std_periph_driver/inc/n32g430_rcc.h"
+ 1836              		.file 6 "n32g430_std_periph_driver/inc/n32g430_spi.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 53
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 n32g430_spi.c
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:17     .text.SPI_I2S_Reset:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:23     .text.SPI_I2S_Reset:00000000 SPI_I2S_Reset
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:73     .text.SPI_I2S_Reset:00000024 $d
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:79     .text.SPI_ON:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:85     .text.SPI_ON:00000000 SPI_ON
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:106    .text.SPI_OFF:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:112    .text.SPI_OFF:00000000 SPI_OFF
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:134    .text.SPI_Initializes_Structure:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:140    .text.SPI_Initializes_Structure:00000000 SPI_Initializes_Structure
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:183    .text.SPI_DataDirection_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:189    .text.SPI_DataDirection_Config:00000000 SPI_DataDirection_Config
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:218    .text.SPI_SpiMode_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:224    .text.SPI_SpiMode_Config:00000000 SPI_SpiMode_Config
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:253    .text.SPI_DataLen_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:259    .text.SPI_DataLen_Config:00000000 SPI_DataLen_Config
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:288    .text.SPI_CLKPOL_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:294    .text.SPI_CLKPOL_Config:00000000 SPI_CLKPOL_Config
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:323    .text.SPI_CLKPHA_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:329    .text.SPI_CLKPHA_Config:00000000 SPI_CLKPHA_Config
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:358    .text.SPI_BaudRatePres_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:364    .text.SPI_BaudRatePres_Config:00000000 SPI_BaudRatePres_Config
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:393    .text.SPI_FirstBit_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:399    .text.SPI_FirstBit_Config:00000000 SPI_FirstBit_Config
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:428    .text.SPI_NSS_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:434    .text.SPI_NSS_Config:00000000 SPI_NSS_Config
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:463    .text.SPI_Set_Nss_Level:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:469    .text.SPI_Set_Nss_Level:00000000 SPI_Set_Nss_Level
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:504    .text.SPI_SS_Output_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:510    .text.SPI_SS_Output_Enable:00000000 SPI_SS_Output_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:531    .text.SPI_SS_Output_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:537    .text.SPI_SS_Output_Disable:00000000 SPI_SS_Output_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:559    .text.SPI_Next_Transmit_CRC:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:565    .text.SPI_Next_Transmit_CRC:00000000 SPI_Next_Transmit_CRC
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:586    .text.SPI_CRC_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:592    .text.SPI_CRC_Enable:00000000 SPI_CRC_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:613    .text.SPI_CRC_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:619    .text.SPI_CRC_Disable:00000000 SPI_CRC_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:641    .text.SPI_CRC_Data_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:647    .text.SPI_CRC_Data_Get:00000000 SPI_CRC_Data_Get
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:680    .text.SPI_CRC_Polynomial_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:686    .text.SPI_CRC_Polynomial_Set:00000000 SPI_CRC_Polynomial_Set
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:703    .text.SPI_Initializes:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:709    .text.SPI_Initializes:00000000 SPI_Initializes
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:779    .text.SPI_CRC_Polynomial_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:785    .text.SPI_CRC_Polynomial_Get:00000000 SPI_CRC_Polynomial_Get
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:804    .text.SPI_I2S_Mode_Select:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:810    .text.SPI_I2S_Mode_Select:00000000 SPI_I2S_Mode_Select
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:839    .text.I2S_ON:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:845    .text.I2S_ON:00000000 I2S_ON
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:866    .text.I2S_OFF:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:872    .text.I2S_OFF:00000000 I2S_OFF
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:894    .text.I2S_Initializes_Structure:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:900    .text.I2S_Initializes_Structure:00000000 I2S_Initializes_Structure
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:934    .text.I2S_Mode_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:940    .text.I2S_Mode_Config:00000000 I2S_Mode_Config
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s 			page 54
+
+
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:969    .text.I2S_Standard_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:975    .text.I2S_Standard_Config:00000000 I2S_Standard_Config
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1004   .text.I2S_DataFormat_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1010   .text.I2S_DataFormat_Config:00000000 I2S_DataFormat_Config
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1039   .text.I2S_MCLK_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1045   .text.I2S_MCLK_Enable:00000000 I2S_MCLK_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1066   .text.I2S_MCLK_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1072   .text.I2S_MCLK_Disable:00000000 I2S_MCLK_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1094   .text.I2S_AudioFrequency_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1100   .text.I2S_AudioFrequency_Config:00000000 I2S_AudioFrequency_Config
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1258   .text.I2S_AudioFrequency_Config:00000088 $d
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1263   .text.I2S_CLKPOL_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1269   .text.I2S_CLKPOL_Config:00000000 I2S_CLKPOL_Config
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1298   .text.I2S_Initializes:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1304   .text.I2S_Initializes:00000000 I2S_Initializes
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1371   .text.SPI_I2S_Interrupts_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1377   .text.SPI_I2S_Interrupts_Enable:00000000 SPI_I2S_Interrupts_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1400   .text.SPI_I2S_Interrupts_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1406   .text.SPI_I2S_Interrupts_Disable:00000000 SPI_I2S_Interrupts_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1434   .text.SPI_I2S_DMA_Transfer_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1440   .text.SPI_I2S_DMA_Transfer_Enable:00000000 SPI_I2S_DMA_Transfer_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1461   .text.SPI_I2S_DMA_Transfer_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1467   .text.SPI_I2S_DMA_Transfer_Disable:00000000 SPI_I2S_DMA_Transfer_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1493   .text.SPI_I2S_Data_Transmit:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1499   .text.SPI_I2S_Data_Transmit:00000000 SPI_I2S_Data_Transmit
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1516   .text.SPI_I2S_Data_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1522   .text.SPI_I2S_Data_Get:00000000 SPI_I2S_Data_Get
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1541   .text.SPI_I2S_Flag_Status_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1547   .text.SPI_I2S_Flag_Status_Get:00000000 SPI_I2S_Flag_Status_Get
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1572   .text.SPI_I2S_Interrupt_Flag_Status_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1578   .text.SPI_I2S_Interrupt_Flag_Status_Get:00000000 SPI_I2S_Interrupt_Flag_Status_Get
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1597   .text.SPI_I2S_Interrupt_Flag_Status_Get:00000014 $d
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1629   .text.SPI_I2S_Interrupt_Flag_Status_Get:00000034 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1753   .text.SPI_I2S_Clear_Flag_Status:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSA6Zgd.s:1759   .text.SPI_I2S_Clear_Flag_Status:00000000 SPI_I2S_Clear_Flag_Status
+
+UNDEFINED SYMBOLS
+RCC_APB2_Peripheral_Reset
+RCC_Clocks_Frequencies_Value_Get

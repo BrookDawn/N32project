@@ -1,0 +1,377 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2d1upA.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 23, 1
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"main.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.file 1 "core/src/main.c"
+  16              		.section	.text.SystemClock_Config,"ax",%progbits
+  17              		.align	1
+  18              		.global	SystemClock_Config
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  23              	SystemClock_Config:
+  24              	.LFB127:
+   1:core/src/main.c **** /**
+   2:core/src/main.c ****  * @file main.c
+   3:core/src/main.c ****  * @brief N32G430C8L7 Main Application
+   4:core/src/main.c ****  * @version v1.0.0
+   5:core/src/main.c ****  */
+   6:core/src/main.c **** 
+   7:core/src/main.c **** #include "n32g430.h"
+   8:core/src/main.c **** #include "n32g430_conf.h"
+   9:core/src/main.c **** #include "timer.h"
+  10:core/src/main.c **** #include "usart.h"
+  11:core/src/main.c **** #include "gpio.h"
+  12:core/src/main.c **** 
+  13:core/src/main.c **** /* Private function prototypes */
+  14:core/src/main.c **** void SystemClock_Config(void);
+  15:core/src/main.c **** 
+  16:core/src/main.c **** /**
+  17:core/src/main.c ****  * @brief  Main program
+  18:core/src/main.c ****  * @param  None
+  19:core/src/main.c ****  * @retval None
+  20:core/src/main.c ****  */
+  21:core/src/main.c **** int main(void)
+  22:core/src/main.c **** {
+  23:core/src/main.c ****     /* Configure the system clock */
+  24:core/src/main.c ****     SystemClock_Config();
+  25:core/src/main.c **** 
+  26:core/src/main.c ****     /* Initialize SysTick Timer */
+  27:core/src/main.c ****     Timer_Init();
+  28:core/src/main.c **** 
+  29:core/src/main.c ****     /* Configure GPIO for LED */
+  30:core/src/main.c ****     LED_GPIO_Config();
+  31:core/src/main.c **** 
+  32:core/src/main.c ****     /* Initialize USART1 */
+  33:core/src/main.c ****     USART1_Init(USART1_BAUDRATE);
+  34:core/src/main.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2d1upA.s 			page 2
+
+
+  35:core/src/main.c ****     /* Send startup message */
+  36:core/src/main.c ****     USART1_Test_Communication();
+  37:core/src/main.c **** 
+  38:core/src/main.c ****     /* Infinite loop */
+  39:core/src/main.c ****     while (1)
+  40:core/src/main.c ****     {
+  41:core/src/main.c ****         /* Toggle LED */
+  42:core/src/main.c ****         GPIO_Pin_Toggle(GPIOC, GPIO_PIN_13);
+  43:core/src/main.c **** 
+  44:core/src/main.c ****         /* Send status via USART */
+  45:core/src/main.c ****         USART1_Printf("LED Toggle - Tick: %u ms\r\n", Get_Tick_Count() / 1000);
+  46:core/src/main.c **** 
+  47:core/src/main.c ****         /* Delay */
+  48:core/src/main.c ****         Delay_ms(1000);
+  49:core/src/main.c ****     }
+  50:core/src/main.c **** }
+  51:core/src/main.c **** 
+  52:core/src/main.c **** /**
+  53:core/src/main.c ****  * @brief  System Clock Configuration
+  54:core/src/main.c ****  * @param  None
+  55:core/src/main.c ****  * @retval None
+  56:core/src/main.c ****  */
+  57:core/src/main.c **** void SystemClock_Config(void)
+  58:core/src/main.c **** {
+  25              		.loc 1 58 1 view -0
+  26              		.cfi_startproc
+  27              		@ args = 0, pretend = 0, frame = 0
+  28              		@ frame_needed = 0, uses_anonymous_args = 0
+  29 0000 08B5     		push	{r3, lr}
+  30              	.LCFI0:
+  31              		.cfi_def_cfa_offset 8
+  32              		.cfi_offset 3, -8
+  33              		.cfi_offset 14, -4
+  59:core/src/main.c ****     ErrorStatus HSEStartUpStatus;
+  34              		.loc 1 59 5 view .LVU1
+  60:core/src/main.c **** 
+  61:core/src/main.c ****     /* SYSCLK, HCLK, PCLK2 and PCLK1 configuration */
+  62:core/src/main.c ****     /* Enable HSE */
+  63:core/src/main.c ****     RCC_HSE_Config(RCC_HSE_ENABLE);
+  35              		.loc 1 63 5 view .LVU2
+  36 0002 4FF48030 		mov	r0, #65536
+  37 0006 FFF7FEFF 		bl	RCC_HSE_Config
+  38              	.LVL0:
+  64:core/src/main.c **** 
+  65:core/src/main.c ****     /* Wait till HSE is ready */
+  66:core/src/main.c ****     HSEStartUpStatus = RCC_HSE_Stable_Wait();
+  39              		.loc 1 66 5 view .LVU3
+  40              		.loc 1 66 24 is_stmt 0 view .LVU4
+  41 000a FFF7FEFF 		bl	RCC_HSE_Stable_Wait
+  42              	.LVL1:
+  67:core/src/main.c **** 
+  68:core/src/main.c ****     if (HSEStartUpStatus == SUCCESS)
+  43              		.loc 1 68 5 is_stmt 1 view .LVU5
+  44              		.loc 1 68 8 is_stmt 0 view .LVU6
+  45 000e 0128     		cmp	r0, #1
+  46 0010 00D0     		beq	.L6
+  47              	.LVL2:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2d1upA.s 			page 3
+
+
+  48              	.L1:
+  69:core/src/main.c ****     {
+  70:core/src/main.c ****         /* Enable Prefetch Buffer */
+  71:core/src/main.c ****         FLASH_Prefetch_Buffer_Enable();
+  72:core/src/main.c **** 
+  73:core/src/main.c ****         /* Flash 2 wait state */
+  74:core/src/main.c ****         FLASH_Latency_Set(FLASH_LATENCY_2);
+  75:core/src/main.c **** 
+  76:core/src/main.c ****         /* HCLK = SYSCLK */
+  77:core/src/main.c ****         RCC_Hclk_Config(RCC_SYSCLK_DIV1);
+  78:core/src/main.c **** 
+  79:core/src/main.c ****         /* PCLK2 = HCLK */
+  80:core/src/main.c ****         RCC_Pclk2_Config(RCC_HCLK_DIV1);
+  81:core/src/main.c **** 
+  82:core/src/main.c ****         /* PCLK1 = HCLK/2 */
+  83:core/src/main.c ****         RCC_Pclk1_Config(RCC_HCLK_DIV2);
+  84:core/src/main.c **** 
+  85:core/src/main.c ****         /* PLLCLK = 8MHz * 16 = 128 MHz */
+  86:core/src/main.c ****         RCC_PLL_Config(RCC_PLL_SRC_HSE_DIV1, RCC_PLL_MUL_16);
+  87:core/src/main.c **** 
+  88:core/src/main.c ****         /* Enable PLL */
+  89:core/src/main.c ****         RCC_PLL_Enable();
+  90:core/src/main.c **** 
+  91:core/src/main.c ****         /* Wait till PLL is ready */
+  92:core/src/main.c ****         while (RCC_Flag_Status_Get(RCC_FLAG_PLLRD) == RESET)
+  93:core/src/main.c ****         {
+  94:core/src/main.c ****         }
+  95:core/src/main.c **** 
+  96:core/src/main.c ****         /* Select PLL as system clock source */
+  97:core/src/main.c ****         RCC_Sysclk_Config(RCC_SYSCLK_SRC_PLLCLK);
+  98:core/src/main.c **** 
+  99:core/src/main.c ****         /* Wait till PLL is used as system clock source */
+ 100:core/src/main.c ****         while (RCC_Sysclk_Source_Get() != 0x08)
+ 101:core/src/main.c ****         {
+ 102:core/src/main.c ****         }
+ 103:core/src/main.c ****     }
+ 104:core/src/main.c **** }
+  49              		.loc 1 104 1 view .LVU7
+  50 0012 08BD     		pop	{r3, pc}
+  51              	.LVL3:
+  52              	.L6:
+  71:core/src/main.c **** 
+  53              		.loc 1 71 9 is_stmt 1 view .LVU8
+  54 0014 FFF7FEFF 		bl	FLASH_Prefetch_Buffer_Enable
+  55              	.LVL4:
+  74:core/src/main.c **** 
+  56              		.loc 1 74 9 view .LVU9
+  57 0018 0220     		movs	r0, #2
+  58 001a FFF7FEFF 		bl	FLASH_Latency_Set
+  59              	.LVL5:
+  77:core/src/main.c **** 
+  60              		.loc 1 77 9 view .LVU10
+  61 001e 0020     		movs	r0, #0
+  62 0020 FFF7FEFF 		bl	RCC_Hclk_Config
+  63              	.LVL6:
+  80:core/src/main.c **** 
+  64              		.loc 1 80 9 view .LVU11
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2d1upA.s 			page 4
+
+
+  65 0024 0020     		movs	r0, #0
+  66 0026 FFF7FEFF 		bl	RCC_Pclk2_Config
+  67              	.LVL7:
+  83:core/src/main.c **** 
+  68              		.loc 1 83 9 view .LVU12
+  69 002a 4FF48060 		mov	r0, #1024
+  70 002e FFF7FEFF 		bl	RCC_Pclk1_Config
+  71              	.LVL8:
+  86:core/src/main.c **** 
+  72              		.loc 1 86 9 view .LVU13
+  73 0032 4FF46011 		mov	r1, #3670016
+  74 0036 4FF48030 		mov	r0, #65536
+  75 003a FFF7FEFF 		bl	RCC_PLL_Config
+  76              	.LVL9:
+  89:core/src/main.c **** 
+  77              		.loc 1 89 9 view .LVU14
+  78 003e FFF7FEFF 		bl	RCC_PLL_Enable
+  79              	.LVL10:
+  92:core/src/main.c ****         {
+  80              		.loc 1 92 9 view .LVU15
+  81              	.L3:
+  94:core/src/main.c **** 
+  82              		.loc 1 94 9 view .LVU16
+  92:core/src/main.c ****         {
+  83              		.loc 1 92 52 discriminator 1 view .LVU17
+  92:core/src/main.c ****         {
+  84              		.loc 1 92 16 is_stmt 0 discriminator 1 view .LVU18
+  85 0042 3920     		movs	r0, #57
+  86 0044 FFF7FEFF 		bl	RCC_Flag_Status_Get
+  87              	.LVL11:
+  92:core/src/main.c ****         {
+  88              		.loc 1 92 52 discriminator 1 view .LVU19
+  89 0048 0028     		cmp	r0, #0
+  90 004a FAD0     		beq	.L3
+  97:core/src/main.c **** 
+  91              		.loc 1 97 9 is_stmt 1 view .LVU20
+  92 004c 0220     		movs	r0, #2
+  93 004e FFF7FEFF 		bl	RCC_Sysclk_Config
+  94              	.LVL12:
+ 100:core/src/main.c ****         {
+  95              		.loc 1 100 9 view .LVU21
+  96              	.L4:
+ 102:core/src/main.c ****     }
+  97              		.loc 1 102 9 view .LVU22
+ 100:core/src/main.c ****         {
+  98              		.loc 1 100 40 discriminator 1 view .LVU23
+ 100:core/src/main.c ****         {
+  99              		.loc 1 100 16 is_stmt 0 discriminator 1 view .LVU24
+ 100 0052 FFF7FEFF 		bl	RCC_Sysclk_Source_Get
+ 101              	.LVL13:
+ 100:core/src/main.c ****         {
+ 102              		.loc 1 100 40 discriminator 1 view .LVU25
+ 103 0056 0828     		cmp	r0, #8
+ 104 0058 FBD1     		bne	.L4
+ 105 005a DAE7     		b	.L1
+ 106              		.cfi_endproc
+ 107              	.LFE127:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2d1upA.s 			page 5
+
+
+ 109              		.section	.rodata.main.str1.4,"aMS",%progbits,1
+ 110              		.align	2
+ 111              	.LC0:
+ 112 0000 4C454420 		.ascii	"LED Toggle - Tick: %u ms\015\012\000"
+ 112      546F6767 
+ 112      6C65202D 
+ 112      20546963 
+ 112      6B3A2025 
+ 113              		.section	.text.main,"ax",%progbits
+ 114              		.align	1
+ 115              		.global	main
+ 116              		.syntax unified
+ 117              		.thumb
+ 118              		.thumb_func
+ 120              	main:
+ 121              	.LFB126:
+  22:core/src/main.c ****     /* Configure the system clock */
+ 122              		.loc 1 22 1 is_stmt 1 view -0
+ 123              		.cfi_startproc
+ 124              		@ Volatile: function does not return.
+ 125              		@ args = 0, pretend = 0, frame = 0
+ 126              		@ frame_needed = 0, uses_anonymous_args = 0
+ 127 0000 08B5     		push	{r3, lr}
+ 128              	.LCFI1:
+ 129              		.cfi_def_cfa_offset 8
+ 130              		.cfi_offset 3, -8
+ 131              		.cfi_offset 14, -4
+  24:core/src/main.c **** 
+ 132              		.loc 1 24 5 view .LVU27
+ 133 0002 FFF7FEFF 		bl	SystemClock_Config
+ 134              	.LVL14:
+  27:core/src/main.c **** 
+ 135              		.loc 1 27 5 view .LVU28
+ 136 0006 FFF7FEFF 		bl	Timer_Init
+ 137              	.LVL15:
+  30:core/src/main.c **** 
+ 138              		.loc 1 30 5 view .LVU29
+ 139 000a FFF7FEFF 		bl	LED_GPIO_Config
+ 140              	.LVL16:
+  33:core/src/main.c **** 
+ 141              		.loc 1 33 5 view .LVU30
+ 142 000e 4FF4E130 		mov	r0, #115200
+ 143 0012 FFF7FEFF 		bl	USART1_Init
+ 144              	.LVL17:
+  36:core/src/main.c **** 
+ 145              		.loc 1 36 5 view .LVU31
+ 146 0016 FFF7FEFF 		bl	USART1_Test_Communication
+ 147              	.LVL18:
+ 148              	.L8:
+  39:core/src/main.c ****     {
+ 149              		.loc 1 39 5 view .LVU32
+  42:core/src/main.c **** 
+ 150              		.loc 1 42 9 view .LVU33
+ 151 001a 4FF40051 		mov	r1, #8192
+ 152 001e 0848     		ldr	r0, .L10
+ 153 0020 FFF7FEFF 		bl	GPIO_Pin_Toggle
+ 154              	.LVL19:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2d1upA.s 			page 6
+
+
+  45:core/src/main.c **** 
+ 155              		.loc 1 45 9 view .LVU34
+  45:core/src/main.c **** 
+ 156              		.loc 1 45 55 is_stmt 0 view .LVU35
+ 157 0024 FFF7FEFF 		bl	Get_Tick_Count
+ 158              	.LVL20:
+  45:core/src/main.c **** 
+ 159              		.loc 1 45 9 discriminator 1 view .LVU36
+ 160 0028 064B     		ldr	r3, .L10+4
+ 161 002a A3FB0031 		umull	r3, r1, r3, r0
+ 162 002e 8909     		lsrs	r1, r1, #6
+ 163 0030 0548     		ldr	r0, .L10+8
+ 164 0032 FFF7FEFF 		bl	USART1_Printf
+ 165              	.LVL21:
+  48:core/src/main.c ****     }
+ 166              		.loc 1 48 9 is_stmt 1 discriminator 1 view .LVU37
+ 167 0036 4FF47A70 		mov	r0, #1000
+ 168 003a FFF7FEFF 		bl	Delay_ms
+ 169              	.LVL22:
+  39:core/src/main.c ****     {
+ 170              		.loc 1 39 11 view .LVU38
+ 171 003e ECE7     		b	.L8
+ 172              	.L11:
+ 173              		.align	2
+ 174              	.L10:
+ 175 0040 003C0240 		.word	1073888256
+ 176 0044 D34D6210 		.word	274877907
+ 177 0048 00000000 		.word	.LC0
+ 178              		.cfi_endproc
+ 179              	.LFE126:
+ 181              		.text
+ 182              	.Letext0:
+ 183              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 184              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 185              		.file 4 "CMSIS/device/n32g430.h"
+ 186              		.file 5 "n32g430_std_periph_driver/inc/n32g430_rcc.h"
+ 187              		.file 6 "n32g430_std_periph_driver/inc/n32g430_flash.h"
+ 188              		.file 7 "core/inc/timer.h"
+ 189              		.file 8 "core/inc/usart.h"
+ 190              		.file 9 "n32g430_std_periph_driver/inc/n32g430_gpio.h"
+ 191              		.file 10 "core/inc/gpio.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2d1upA.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\Dawn\AppData\Local\Temp\cc2d1upA.s:17     .text.SystemClock_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2d1upA.s:23     .text.SystemClock_Config:00000000 SystemClock_Config
+C:\Users\Dawn\AppData\Local\Temp\cc2d1upA.s:110    .rodata.main.str1.4:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2d1upA.s:114    .text.main:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2d1upA.s:120    .text.main:00000000 main
+C:\Users\Dawn\AppData\Local\Temp\cc2d1upA.s:175    .text.main:00000040 $d
+
+UNDEFINED SYMBOLS
+RCC_HSE_Config
+RCC_HSE_Stable_Wait
+FLASH_Prefetch_Buffer_Enable
+FLASH_Latency_Set
+RCC_Hclk_Config
+RCC_Pclk2_Config
+RCC_Pclk1_Config
+RCC_PLL_Config
+RCC_PLL_Enable
+RCC_Flag_Status_Get
+RCC_Sysclk_Config
+RCC_Sysclk_Source_Get
+Timer_Init
+LED_GPIO_Config
+USART1_Init
+USART1_Test_Communication
+GPIO_Pin_Toggle
+Get_Tick_Count
+USART1_Printf
+Delay_ms
