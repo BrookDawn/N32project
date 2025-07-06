@@ -1,0 +1,858 @@
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"n32g430_crc.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../firmware/n32g430_std_periph_driver/src/n32g430_crc.c"
+  20              		.section	.text.CRC32_Reset,"ax",%progbits
+  21              		.align	1
+  22              		.global	CRC32_Reset
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	CRC32_Reset:
+  28              	.LFB130:
+   1:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /*****************************************************************************
+   2:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * Copyright (c) 2019, Nations Technologies Inc.
+   3:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  *
+   4:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * All rights reserved.
+   5:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * ****************************************************************************
+   6:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  *
+   7:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * Redistribution and use in source and binary forms, with or without
+   8:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * modification, are permitted provided that the following conditions are met:
+   9:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  *
+  10:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * - Redistributions of source code must retain the above copyright notice,
+  11:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * this list of conditions and the disclaimer below.
+  12:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  *
+  13:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * Nations' name may not be used to endorse or promote products derived from
+  14:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * this software without specific prior written permission.
+  15:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  *
+  16:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY NATIONS "AS IS" AND ANY EXPRESS OR
+  17:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  18:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  19:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * DISCLAIMED. IN NO EVENT SHALL NATIONS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  20:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  21:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  22:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  23:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  24:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  25:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  26:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  * ****************************************************************************/
+  27:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+  28:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+  29:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\file n32g430_crc.c
+  30:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\author Nations
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s 			page 2
+
+
+  31:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\version v1.0.0
+  32:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
+  33:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****  */
+  34:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+  35:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** #include "n32g430_crc.h"
+  36:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+  37:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /** CRC Private Defines **/
+  38:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+  39:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+  40:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /** CRC Driving Functions Declaration **/
+  41:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+  42:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+  43:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC32_Reset.
+  44:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     Resets the CRC Data register (DAT).
+  45:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   none
+  46:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  none
+  47:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+  48:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** void CRC32_Reset(void)
+  49:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+  29              		.loc 1 49 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  50:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     /* Reset CRC generator */
+  51:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     CRC->CRC32CTRL = CRC_CRC32_RESET;
+  34              		.loc 1 51 5 view .LVU1
+  35              		.loc 1 51 20 is_stmt 0 view .LVU2
+  36 0000 014B     		ldr	r3, .L2
+  37 0002 0122     		movs	r2, #1
+  38 0004 9A60     		str	r2, [r3, #8]
+  52:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+  39              		.loc 1 52 1 view .LVU3
+  40 0006 7047     		bx	lr
+  41              	.L3:
+  42              		.align	2
+  43              	.L2:
+  44 0008 00300240 		.word	1073885184
+  45              		.cfi_endproc
+  46              	.LFE130:
+  48              		.section	.text.CRC32_Calculate,"ax",%progbits
+  49              		.align	1
+  50              		.global	CRC32_Calculate
+  51              		.syntax unified
+  52              		.thumb
+  53              		.thumb_func
+  55              	CRC32_Calculate:
+  56              	.LVL0:
+  57              	.LFB131:
+  53:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+  54:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+  55:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC32_Calculate.
+  56:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     Computes the 32-bit CRC of a given data word(32-bit).
+  57:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   data :
+  58:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\          - data word(32-bit) to compute its CRC
+  59:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  32-bit CRC
+  60:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s 			page 3
+
+
+  61:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** uint32_t CRC32_Calculate(uint32_t data)
+  62:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+  58              		.loc 1 62 1 is_stmt 1 view -0
+  59              		.cfi_startproc
+  60              		@ args = 0, pretend = 0, frame = 0
+  61              		@ frame_needed = 0, uses_anonymous_args = 0
+  62              		@ link register save eliminated.
+  63:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     /* Write data to the CRC32DAT register */
+  64:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     CRC->CRC32DAT = data;
+  63              		.loc 1 64 5 view .LVU5
+  64              		.loc 1 64 19 is_stmt 0 view .LVU6
+  65 0000 014B     		ldr	r3, .L5
+  66 0002 1860     		str	r0, [r3]
+  65:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     /* Returns the computed CRC result */
+  66:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     return (CRC->CRC32DAT);
+  67              		.loc 1 66 5 is_stmt 1 view .LVU7
+  68              		.loc 1 66 16 is_stmt 0 view .LVU8
+  69 0004 1868     		ldr	r0, [r3]
+  70              	.LVL1:
+  67:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+  71              		.loc 1 67 1 view .LVU9
+  72 0006 7047     		bx	lr
+  73              	.L6:
+  74              		.align	2
+  75              	.L5:
+  76 0008 00300240 		.word	1073885184
+  77              		.cfi_endproc
+  78              	.LFE131:
+  80              		.section	.text.CRC32_Buffer_Calculate,"ax",%progbits
+  81              		.align	1
+  82              		.global	CRC32_Buffer_Calculate
+  83              		.syntax unified
+  84              		.thumb
+  85              		.thumb_func
+  87              	CRC32_Buffer_Calculate:
+  88              	.LVL2:
+  89              	.LFB132:
+  68:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+  69:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+  70:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC32_Buffer_Calculate.
+  71:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     Computes the 32-bit CRC of a given buffer of data word(32-bit).
+  72:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   p_buf :
+  73:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\          - pointer to the buffer containing the data to be computed
+  74:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   buf_len :
+  75:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\          - length of the buffer to be computed
+  76:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  32-bit CRC
+  77:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+  78:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** uint32_t CRC32_Buffer_Calculate(uint32_t p_buf[], uint32_t buf_len)
+  79:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+  90              		.loc 1 79 1 is_stmt 1 view -0
+  91              		.cfi_startproc
+  92              		@ args = 0, pretend = 0, frame = 0
+  93              		@ frame_needed = 0, uses_anonymous_args = 0
+  94              		@ link register save eliminated.
+  80:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     uint32_t index = 0;
+  95              		.loc 1 80 5 view .LVU11
+  81:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s 			page 4
+
+
+  82:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     for (index = 0; index < buf_len; index++)
+  96              		.loc 1 82 5 view .LVU12
+  97              		.loc 1 82 5 is_stmt 0 view .LVU13
+  98 0000 054B     		ldr	r3, .L10
+  99 0002 00EB8101 		add	r1, r0, r1, lsl #2
+ 100              	.LVL3:
+ 101              	.L8:
+ 102              		.loc 1 82 27 is_stmt 1 discriminator 1 view .LVU14
+ 103 0006 8842     		cmp	r0, r1
+ 104 0008 01D1     		bne	.L9
+  83:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     {
+  84:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****         /* Write data to the CRC32DAT register */
+  85:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****         CRC->CRC32DAT = p_buf[index];
+  86:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     }
+  87:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     /* Returns the computed CRC result */
+  88:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     return (CRC->CRC32DAT);
+ 105              		.loc 1 88 5 view .LVU15
+ 106              		.loc 1 88 16 is_stmt 0 view .LVU16
+ 107 000a 1868     		ldr	r0, [r3]
+  89:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+ 108              		.loc 1 89 1 view .LVU17
+ 109 000c 7047     		bx	lr
+ 110              	.L9:
+  85:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     }
+ 111              		.loc 1 85 9 is_stmt 1 view .LVU18
+  85:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     }
+ 112              		.loc 1 85 30 is_stmt 0 view .LVU19
+ 113 000e 50F8042B 		ldr	r2, [r0], #4
+  85:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     }
+ 114              		.loc 1 85 23 view .LVU20
+ 115 0012 1A60     		str	r2, [r3]
+  82:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     {
+ 116              		.loc 1 82 43 is_stmt 1 discriminator 3 view .LVU21
+ 117 0014 F7E7     		b	.L8
+ 118              	.L11:
+ 119 0016 00BF     		.align	2
+ 120              	.L10:
+ 121 0018 00300240 		.word	1073885184
+ 122              		.cfi_endproc
+ 123              	.LFE132:
+ 125              		.section	.text.CRC32_Get,"ax",%progbits
+ 126              		.align	1
+ 127              		.global	CRC32_Get
+ 128              		.syntax unified
+ 129              		.thumb
+ 130              		.thumb_func
+ 132              	CRC32_Get:
+ 133              	.LFB133:
+  90:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+  91:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+  92:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC32_Get.
+  93:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     Returns the current CRC value.
+  94:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   none
+  95:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  32-bit CRC
+  96:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+  97:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** uint32_t CRC32_Get(void)
+  98:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s 			page 5
+
+
+ 134              		.loc 1 98 1 view -0
+ 135              		.cfi_startproc
+ 136              		@ args = 0, pretend = 0, frame = 0
+ 137              		@ frame_needed = 0, uses_anonymous_args = 0
+ 138              		@ link register save eliminated.
+  99:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     /* Returns the computed CRC result */
+ 100:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     return (CRC->CRC32DAT);
+ 139              		.loc 1 100 5 view .LVU23
+ 140              		.loc 1 100 16 is_stmt 0 view .LVU24
+ 141 0000 014B     		ldr	r3, .L13
+ 142 0002 1868     		ldr	r0, [r3]
+ 101:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+ 143              		.loc 1 101 1 view .LVU25
+ 144 0004 7047     		bx	lr
+ 145              	.L14:
+ 146 0006 00BF     		.align	2
+ 147              	.L13:
+ 148 0008 00300240 		.word	1073885184
+ 149              		.cfi_endproc
+ 150              	.LFE133:
+ 152              		.section	.text.CRC32_Independent_Data_Save,"ax",%progbits
+ 153              		.align	1
+ 154              		.global	CRC32_Independent_Data_Save
+ 155              		.syntax unified
+ 156              		.thumb
+ 157              		.thumb_func
+ 159              	CRC32_Independent_Data_Save:
+ 160              	.LVL4:
+ 161              	.LFB134:
+ 102:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+ 103:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+ 104:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC32_Independent_Data_Save.
+ 105:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     Stores a 8-bit data in the Independent Data(ID) register.
+ 106:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   value :
+ 107:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\          - 8-bit value to be stored in the ID register
+ 108:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  none
+ 109:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+ 110:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** void CRC32_Independent_Data_Save(uint8_t value)
+ 111:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+ 162              		.loc 1 111 1 is_stmt 1 view -0
+ 163              		.cfi_startproc
+ 164              		@ args = 0, pretend = 0, frame = 0
+ 165              		@ frame_needed = 0, uses_anonymous_args = 0
+ 166              		@ link register save eliminated.
+ 112:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     /* storage of 8-bit data */
+ 113:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     CRC->CRC32IDAT = value;
+ 167              		.loc 1 113 5 view .LVU27
+ 168              		.loc 1 113 20 is_stmt 0 view .LVU28
+ 169 0000 014B     		ldr	r3, .L16
+ 170 0002 1871     		strb	r0, [r3, #4]
+ 114:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+ 171              		.loc 1 114 1 view .LVU29
+ 172 0004 7047     		bx	lr
+ 173              	.L17:
+ 174 0006 00BF     		.align	2
+ 175              	.L16:
+ 176 0008 00300240 		.word	1073885184
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s 			page 6
+
+
+ 177              		.cfi_endproc
+ 178              	.LFE134:
+ 180              		.section	.text.CRC32_Independent_Data_Get,"ax",%progbits
+ 181              		.align	1
+ 182              		.global	CRC32_Independent_Data_Get
+ 183              		.syntax unified
+ 184              		.thumb
+ 185              		.thumb_func
+ 187              	CRC32_Independent_Data_Get:
+ 188              	.LFB135:
+ 115:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+ 116:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+ 117:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC32_Independent_Data_Get.
+ 118:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     Returns the 8-bit data stored in the Independent Data(ID) register.
+ 119:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   none
+ 120:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  8-bit value of the ID register
+ 121:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+ 122:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** uint8_t CRC32_Independent_Data_Get(void)
+ 123:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+ 189              		.loc 1 123 1 is_stmt 1 view -0
+ 190              		.cfi_startproc
+ 191              		@ args = 0, pretend = 0, frame = 0
+ 192              		@ frame_needed = 0, uses_anonymous_args = 0
+ 193              		@ link register save eliminated.
+ 124:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     /* Returns the 8-bit data */
+ 125:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     return (CRC->CRC32IDAT);
+ 194              		.loc 1 125 5 view .LVU31
+ 195              		.loc 1 125 16 is_stmt 0 view .LVU32
+ 196 0000 014B     		ldr	r3, .L19
+ 197 0002 1879     		ldrb	r0, [r3, #4]	@ zero_extendqisi2
+ 126:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+ 198              		.loc 1 126 1 view .LVU33
+ 199 0004 7047     		bx	lr
+ 200              	.L20:
+ 201 0006 00BF     		.align	2
+ 202              	.L19:
+ 203 0008 00300240 		.word	1073885184
+ 204              		.cfi_endproc
+ 205              	.LFE135:
+ 207              		.section	.text.CRC16_Calculate,"ax",%progbits
+ 208              		.align	1
+ 209              		.global	CRC16_Calculate
+ 210              		.syntax unified
+ 211              		.thumb
+ 212              		.thumb_func
+ 214              	CRC16_Calculate:
+ 215              	.LVL5:
+ 216              	.LFB136:
+ 127:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+ 128:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+ 129:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC16_Calculate.
+ 130:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     Computes the 16-bit CRC of a given data word(8-bit).
+ 131:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   data :
+ 132:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\          - data word(8-bit) to compute its CRC
+ 133:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  16-bit CRC
+ 134:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+ 135:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** uint16_t CRC16_Calculate(uint8_t data)
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s 			page 7
+
+
+ 136:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+ 217              		.loc 1 136 1 is_stmt 1 view -0
+ 218              		.cfi_startproc
+ 219              		@ args = 0, pretend = 0, frame = 0
+ 220              		@ frame_needed = 0, uses_anonymous_args = 0
+ 221              		@ link register save eliminated.
+ 137:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     /* Write data to the CRC16DAT register */
+ 138:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     CRC->CRC16DAT = data;
+ 222              		.loc 1 138 5 view .LVU35
+ 223              		.loc 1 138 19 is_stmt 0 view .LVU36
+ 224 0000 024B     		ldr	r3, .L22
+ 225 0002 1874     		strb	r0, [r3, #16]
+ 139:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     /* Returns the computed CRC16 result */
+ 140:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     return (CRC->CRC16D);
+ 226              		.loc 1 140 5 is_stmt 1 view .LVU37
+ 227              		.loc 1 140 16 is_stmt 0 view .LVU38
+ 228 0004 988A     		ldrh	r0, [r3, #20]
+ 229              	.LVL6:
+ 141:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+ 230              		.loc 1 141 1 view .LVU39
+ 231 0006 80B2     		uxth	r0, r0
+ 232 0008 7047     		bx	lr
+ 233              	.L23:
+ 234 000a 00BF     		.align	2
+ 235              	.L22:
+ 236 000c 00300240 		.word	1073885184
+ 237              		.cfi_endproc
+ 238              	.LFE136:
+ 240              		.section	.text.CRC16_Buffer_Calculate,"ax",%progbits
+ 241              		.align	1
+ 242              		.global	CRC16_Buffer_Calculate
+ 243              		.syntax unified
+ 244              		.thumb
+ 245              		.thumb_func
+ 247              	CRC16_Buffer_Calculate:
+ 248              	.LVL7:
+ 249              	.LFB137:
+ 142:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+ 143:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+ 144:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC16_Buffer_Calculate.
+ 145:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     Computes the 16-bit CRC of a given buffer of data word(8-bit).
+ 146:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   p_buf :
+ 147:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\          - pointer to the buffer containing the data to be computed
+ 148:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   buf_len :
+ 149:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\          - length of the buffer to be computed
+ 150:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  16-bit CRC
+ 151:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+ 152:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** uint16_t CRC16_Buffer_Calculate(uint8_t p_buf[], uint32_t buf_len)
+ 153:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+ 250              		.loc 1 153 1 is_stmt 1 view -0
+ 251              		.cfi_startproc
+ 252              		@ args = 0, pretend = 0, frame = 0
+ 253              		@ frame_needed = 0, uses_anonymous_args = 0
+ 254              		@ link register save eliminated.
+ 154:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     uint32_t index = 0;
+ 255              		.loc 1 154 5 view .LVU41
+ 155:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     CRC->CRC16D = 0x00;
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s 			page 8
+
+
+ 256              		.loc 1 155 5 view .LVU42
+ 257              		.loc 1 155 17 is_stmt 0 view .LVU43
+ 258 0000 064B     		ldr	r3, .L27
+ 259 0002 0022     		movs	r2, #0
+ 260 0004 9A82     		strh	r2, [r3, #20]	@ movhi
+ 156:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     for (index = 0; index < buf_len; index++)
+ 261              		.loc 1 156 5 is_stmt 1 view .LVU44
+ 262              		.loc 1 156 5 is_stmt 0 view .LVU45
+ 263 0006 0144     		add	r1, r1, r0
+ 264              	.LVL8:
+ 265              	.L25:
+ 266              		.loc 1 156 27 is_stmt 1 discriminator 1 view .LVU46
+ 267 0008 8842     		cmp	r0, r1
+ 268 000a 02D1     		bne	.L26
+ 157:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     {
+ 158:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****         /* Write data to the CRC16DAT register */
+ 159:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****         CRC->CRC16DAT = p_buf[index];
+ 160:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     }
+ 161:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     /* Returns the computed CRC16 result */
+ 162:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     return (CRC->CRC16D);
+ 269              		.loc 1 162 5 view .LVU47
+ 270              		.loc 1 162 16 is_stmt 0 view .LVU48
+ 271 000c 988A     		ldrh	r0, [r3, #20]
+ 272              	.LVL9:
+ 163:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+ 273              		.loc 1 163 1 view .LVU49
+ 274 000e 80B2     		uxth	r0, r0
+ 275 0010 7047     		bx	lr
+ 276              	.LVL10:
+ 277              	.L26:
+ 159:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     }
+ 278              		.loc 1 159 9 is_stmt 1 view .LVU50
+ 159:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     }
+ 279              		.loc 1 159 30 is_stmt 0 view .LVU51
+ 280 0012 10F8012B 		ldrb	r2, [r0], #1	@ zero_extendqisi2
+ 281              	.LVL11:
+ 159:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     }
+ 282              		.loc 1 159 23 view .LVU52
+ 283 0016 1A74     		strb	r2, [r3, #16]
+ 156:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     {
+ 284              		.loc 1 156 43 is_stmt 1 discriminator 3 view .LVU53
+ 285 0018 F6E7     		b	.L25
+ 286              	.L28:
+ 287 001a 00BF     		.align	2
+ 288              	.L27:
+ 289 001c 00300240 		.word	1073885184
+ 290              		.cfi_endproc
+ 291              	.LFE137:
+ 293              		.section	.text.CRC16_Set,"ax",%progbits
+ 294              		.align	1
+ 295              		.global	CRC16_Set
+ 296              		.syntax unified
+ 297              		.thumb
+ 298              		.thumb_func
+ 300              	CRC16_Set:
+ 301              	.LVL12:
+ 302              	.LFB138:
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s 			page 9
+
+
+ 164:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+ 165:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+ 166:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC16_Set.
+ 167:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     write a 8-bit data in the 16-bit CRC Data register.
+ 168:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   data :
+ 169:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\          - 8-bit data value to be writed in the 16-bit CRC Data register
+ 170:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  none
+ 171:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+ 172:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** void CRC16_Set(uint8_t data)
+ 173:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+ 303              		.loc 1 173 1 view -0
+ 304              		.cfi_startproc
+ 305              		@ args = 0, pretend = 0, frame = 0
+ 306              		@ frame_needed = 0, uses_anonymous_args = 0
+ 307              		@ link register save eliminated.
+ 174:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     /* Writes 8-bit data to the CRC16DAT register */
+ 175:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     CRC->CRC16DAT = data;
+ 308              		.loc 1 175 5 view .LVU55
+ 309              		.loc 1 175 19 is_stmt 0 view .LVU56
+ 310 0000 014B     		ldr	r3, .L30
+ 311 0002 1874     		strb	r0, [r3, #16]
+ 176:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+ 312              		.loc 1 176 1 view .LVU57
+ 313 0004 7047     		bx	lr
+ 314              	.L31:
+ 315 0006 00BF     		.align	2
+ 316              	.L30:
+ 317 0008 00300240 		.word	1073885184
+ 318              		.cfi_endproc
+ 319              	.LFE138:
+ 321              		.section	.text.CRC16_Get,"ax",%progbits
+ 322              		.align	1
+ 323              		.global	CRC16_Get
+ 324              		.syntax unified
+ 325              		.thumb
+ 326              		.thumb_func
+ 328              	CRC16_Get:
+ 329              	.LFB139:
+ 177:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+ 178:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+ 179:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC16_Get.
+ 180:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     Returns the current CRC value.
+ 181:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   none
+ 182:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  16-bit CRC
+ 183:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+ 184:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** uint16_t CRC16_Get(void)
+ 185:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+ 330              		.loc 1 185 1 is_stmt 1 view -0
+ 331              		.cfi_startproc
+ 332              		@ args = 0, pretend = 0, frame = 0
+ 333              		@ frame_needed = 0, uses_anonymous_args = 0
+ 334              		@ link register save eliminated.
+ 186:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     /* Returns the CRC16 calculation result */
+ 187:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     return (CRC->CRC16D);
+ 335              		.loc 1 187 5 view .LVU59
+ 336              		.loc 1 187 16 is_stmt 0 view .LVU60
+ 337 0000 014B     		ldr	r3, .L33
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s 			page 10
+
+
+ 338 0002 988A     		ldrh	r0, [r3, #20]
+ 188:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+ 339              		.loc 1 188 1 view .LVU61
+ 340 0004 80B2     		uxth	r0, r0
+ 341 0006 7047     		bx	lr
+ 342              	.L34:
+ 343              		.align	2
+ 344              	.L33:
+ 345 0008 00300240 		.word	1073885184
+ 346              		.cfi_endproc
+ 347              	.LFE139:
+ 349              		.section	.text.CRC16_Little_Endian_Format_Set,"ax",%progbits
+ 350              		.align	1
+ 351              		.global	CRC16_Little_Endian_Format_Set
+ 352              		.syntax unified
+ 353              		.thumb
+ 354              		.thumb_func
+ 356              	CRC16_Little_Endian_Format_Set:
+ 357              	.LFB140:
+ 189:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+ 190:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+ 191:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC16_Little_Endian_Format_Set.
+ 192:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     Set the calculate data to little endian format.
+ 193:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   none
+ 194:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  none
+ 195:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+ 196:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** void CRC16_Little_Endian_Format_Set(void)
+ 197:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+ 358              		.loc 1 197 1 is_stmt 1 view -0
+ 359              		.cfi_startproc
+ 360              		@ args = 0, pretend = 0, frame = 0
+ 361              		@ frame_needed = 0, uses_anonymous_args = 0
+ 362              		@ link register save eliminated.
+ 198:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     CRC->CRC16CTRL |= CRC_LITTLE_ENDIAN_ENABLE;
+ 363              		.loc 1 198 5 view .LVU63
+ 364              		.loc 1 198 8 is_stmt 0 view .LVU64
+ 365 0000 024A     		ldr	r2, .L36
+ 366 0002 D368     		ldr	r3, [r2, #12]
+ 367              		.loc 1 198 20 view .LVU65
+ 368 0004 43F00203 		orr	r3, r3, #2
+ 369 0008 D360     		str	r3, [r2, #12]
+ 199:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+ 370              		.loc 1 199 1 view .LVU66
+ 371 000a 7047     		bx	lr
+ 372              	.L37:
+ 373              		.align	2
+ 374              	.L36:
+ 375 000c 00300240 		.word	1073885184
+ 376              		.cfi_endproc
+ 377              	.LFE140:
+ 379              		.section	.text.CRC16_Big_Endian_Format_Set,"ax",%progbits
+ 380              		.align	1
+ 381              		.global	CRC16_Big_Endian_Format_Set
+ 382              		.syntax unified
+ 383              		.thumb
+ 384              		.thumb_func
+ 386              	CRC16_Big_Endian_Format_Set:
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s 			page 11
+
+
+ 387              	.LFB141:
+ 200:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+ 201:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+ 202:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC16_Big_Endian_Format_Set.
+ 203:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     Set the calculate data to big endian format.
+ 204:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   none
+ 205:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  none
+ 206:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+ 207:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** void CRC16_Big_Endian_Format_Set(void)
+ 208:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+ 388              		.loc 1 208 1 is_stmt 1 view -0
+ 389              		.cfi_startproc
+ 390              		@ args = 0, pretend = 0, frame = 0
+ 391              		@ frame_needed = 0, uses_anonymous_args = 0
+ 392              		@ link register save eliminated.
+ 209:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     CRC->CRC16CTRL &= CRC_BIG_ENDIAN_ENABLE;
+ 393              		.loc 1 209 5 view .LVU68
+ 394              		.loc 1 209 8 is_stmt 0 view .LVU69
+ 395 0000 024A     		ldr	r2, .L39
+ 396 0002 D368     		ldr	r3, [r2, #12]
+ 397              		.loc 1 209 20 view .LVU70
+ 398 0004 03F0FD03 		and	r3, r3, #253
+ 399 0008 D360     		str	r3, [r2, #12]
+ 210:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+ 400              		.loc 1 210 1 view .LVU71
+ 401 000a 7047     		bx	lr
+ 402              	.L40:
+ 403              		.align	2
+ 404              	.L39:
+ 405 000c 00300240 		.word	1073885184
+ 406              		.cfi_endproc
+ 407              	.LFE141:
+ 409              		.section	.text.CRC16_Value_Clean_Enable,"ax",%progbits
+ 410              		.align	1
+ 411              		.global	CRC16_Value_Clean_Enable
+ 412              		.syntax unified
+ 413              		.thumb
+ 414              		.thumb_func
+ 416              	CRC16_Value_Clean_Enable:
+ 417              	.LFB142:
+ 211:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+ 212:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+ 213:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC16_Value_Clean_Enable.
+ 214:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     Enable Clean CRC16 value.
+ 215:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   none
+ 216:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  none
+ 217:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+ 218:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** void CRC16_Value_Clean_Enable(void)
+ 219:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+ 418              		.loc 1 219 1 is_stmt 1 view -0
+ 419              		.cfi_startproc
+ 420              		@ args = 0, pretend = 0, frame = 0
+ 421              		@ frame_needed = 0, uses_anonymous_args = 0
+ 422              		@ link register save eliminated.
+ 220:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     CRC->CRC16CTRL |= CRC_CRC16_VALUE_CLEAR;
+ 423              		.loc 1 220 5 view .LVU73
+ 424              		.loc 1 220 8 is_stmt 0 view .LVU74
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s 			page 12
+
+
+ 425 0000 024A     		ldr	r2, .L42
+ 426 0002 D368     		ldr	r3, [r2, #12]
+ 427              		.loc 1 220 20 view .LVU75
+ 428 0004 43F00403 		orr	r3, r3, #4
+ 429 0008 D360     		str	r3, [r2, #12]
+ 221:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+ 430              		.loc 1 221 1 view .LVU76
+ 431 000a 7047     		bx	lr
+ 432              	.L43:
+ 433              		.align	2
+ 434              	.L42:
+ 435 000c 00300240 		.word	1073885184
+ 436              		.cfi_endproc
+ 437              	.LFE142:
+ 439              		.section	.text.CRC16_Value_Clean_Disable,"ax",%progbits
+ 440              		.align	1
+ 441              		.global	CRC16_Value_Clean_Disable
+ 442              		.syntax unified
+ 443              		.thumb
+ 444              		.thumb_func
+ 446              	CRC16_Value_Clean_Disable:
+ 447              	.LFB143:
+ 222:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+ 223:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+ 224:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC16_Value_Clean_Disable.
+ 225:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     Disable Clean CRC16 value.
+ 226:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   none
+ 227:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  none
+ 228:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+ 229:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** void CRC16_Value_Clean_Disable(void)
+ 230:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+ 448              		.loc 1 230 1 is_stmt 1 view -0
+ 449              		.cfi_startproc
+ 450              		@ args = 0, pretend = 0, frame = 0
+ 451              		@ frame_needed = 0, uses_anonymous_args = 0
+ 452              		@ link register save eliminated.
+ 231:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     CRC->CRC16CTRL &= CRC_CRC16_VALUE_NO_CLEAR;
+ 453              		.loc 1 231 5 view .LVU78
+ 454              		.loc 1 231 8 is_stmt 0 view .LVU79
+ 455 0000 024A     		ldr	r2, .L45
+ 456 0002 D368     		ldr	r3, [r2, #12]
+ 457              		.loc 1 231 20 view .LVU80
+ 458 0004 03F0FB03 		and	r3, r3, #251
+ 459 0008 D360     		str	r3, [r2, #12]
+ 232:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+ 460              		.loc 1 232 1 view .LVU81
+ 461 000a 7047     		bx	lr
+ 462              	.L46:
+ 463              		.align	2
+ 464              	.L45:
+ 465 000c 00300240 		.word	1073885184
+ 466              		.cfi_endproc
+ 467              	.LFE143:
+ 469              		.section	.text.CRC_LRC_Set,"ax",%progbits
+ 470              		.align	1
+ 471              		.global	CRC_LRC_Set
+ 472              		.syntax unified
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s 			page 13
+
+
+ 473              		.thumb
+ 474              		.thumb_func
+ 476              	CRC_LRC_Set:
+ 477              	.LVL13:
+ 478              	.LFB144:
+ 233:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+ 234:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+ 235:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC_LRC_Set.
+ 236:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     Write LRC initial value.
+ 237:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   data :
+ 238:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\          - 8-bit data
+ 239:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  none
+ 240:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+ 241:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** void CRC_LRC_Set(uint8_t data)
+ 242:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+ 479              		.loc 1 242 1 is_stmt 1 view -0
+ 480              		.cfi_startproc
+ 481              		@ args = 0, pretend = 0, frame = 0
+ 482              		@ frame_needed = 0, uses_anonymous_args = 0
+ 483              		@ link register save eliminated.
+ 243:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     /* Write LRC to verify the initial value */
+ 244:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     CRC->LRC = data;
+ 484              		.loc 1 244 5 view .LVU83
+ 485              		.loc 1 244 14 is_stmt 0 view .LVU84
+ 486 0000 014B     		ldr	r3, .L48
+ 487 0002 1876     		strb	r0, [r3, #24]
+ 245:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+ 488              		.loc 1 245 1 view .LVU85
+ 489 0004 7047     		bx	lr
+ 490              	.L49:
+ 491 0006 00BF     		.align	2
+ 492              	.L48:
+ 493 0008 00300240 		.word	1073885184
+ 494              		.cfi_endproc
+ 495              	.LFE144:
+ 497              		.section	.text.CRC_LRC_Get,"ax",%progbits
+ 498              		.align	1
+ 499              		.global	CRC_LRC_Get
+ 500              		.syntax unified
+ 501              		.thumb
+ 502              		.thumb_func
+ 504              	CRC_LRC_Get:
+ 505              	.LFB145:
+ 246:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
+ 247:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
+ 248:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\name    CRC_LRC_Get.
+ 249:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\fun     Returns the current LRC value.
+ 250:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\param   none
+ 251:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  8-bit LRC
+ 252:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
+ 253:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** uint8_t CRC_LRC_Get(void)
+ 254:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
+ 506              		.loc 1 254 1 is_stmt 1 view -0
+ 507              		.cfi_startproc
+ 508              		@ args = 0, pretend = 0, frame = 0
+ 509              		@ frame_needed = 0, uses_anonymous_args = 0
+ 510              		@ link register save eliminated.
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s 			page 14
+
+
+ 255:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     /* Returns the LRC check value */
+ 256:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     return (CRC->LRC);
+ 511              		.loc 1 256 5 view .LVU87
+ 512              		.loc 1 256 16 is_stmt 0 view .LVU88
+ 513 0000 014B     		ldr	r3, .L51
+ 514 0002 187E     		ldrb	r0, [r3, #24]	@ zero_extendqisi2
+ 257:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** }
+ 515              		.loc 1 257 1 view .LVU89
+ 516 0004 7047     		bx	lr
+ 517              	.L52:
+ 518 0006 00BF     		.align	2
+ 519              	.L51:
+ 520 0008 00300240 		.word	1073885184
+ 521              		.cfi_endproc
+ 522              	.LFE145:
+ 524              		.text
+ 525              	.Letext0:
+ 526              		.file 2 "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/arm-none-eabi/include/ma
+ 527              		.file 3 "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/arm-none-eabi/include/sy
+ 528              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 n32g430_crc.c
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:21     .text.CRC32_Reset:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:27     .text.CRC32_Reset:00000000 CRC32_Reset
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:44     .text.CRC32_Reset:00000008 $d
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:49     .text.CRC32_Calculate:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:55     .text.CRC32_Calculate:00000000 CRC32_Calculate
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:76     .text.CRC32_Calculate:00000008 $d
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:81     .text.CRC32_Buffer_Calculate:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:87     .text.CRC32_Buffer_Calculate:00000000 CRC32_Buffer_Calculate
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:121    .text.CRC32_Buffer_Calculate:00000018 $d
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:126    .text.CRC32_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:132    .text.CRC32_Get:00000000 CRC32_Get
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:148    .text.CRC32_Get:00000008 $d
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:153    .text.CRC32_Independent_Data_Save:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:159    .text.CRC32_Independent_Data_Save:00000000 CRC32_Independent_Data_Save
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:176    .text.CRC32_Independent_Data_Save:00000008 $d
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:181    .text.CRC32_Independent_Data_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:187    .text.CRC32_Independent_Data_Get:00000000 CRC32_Independent_Data_Get
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:203    .text.CRC32_Independent_Data_Get:00000008 $d
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:208    .text.CRC16_Calculate:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:214    .text.CRC16_Calculate:00000000 CRC16_Calculate
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:236    .text.CRC16_Calculate:0000000c $d
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:241    .text.CRC16_Buffer_Calculate:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:247    .text.CRC16_Buffer_Calculate:00000000 CRC16_Buffer_Calculate
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:289    .text.CRC16_Buffer_Calculate:0000001c $d
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:294    .text.CRC16_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:300    .text.CRC16_Set:00000000 CRC16_Set
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:317    .text.CRC16_Set:00000008 $d
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:322    .text.CRC16_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:328    .text.CRC16_Get:00000000 CRC16_Get
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:345    .text.CRC16_Get:00000008 $d
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:350    .text.CRC16_Little_Endian_Format_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:356    .text.CRC16_Little_Endian_Format_Set:00000000 CRC16_Little_Endian_Format_Set
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:375    .text.CRC16_Little_Endian_Format_Set:0000000c $d
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:380    .text.CRC16_Big_Endian_Format_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:386    .text.CRC16_Big_Endian_Format_Set:00000000 CRC16_Big_Endian_Format_Set
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:405    .text.CRC16_Big_Endian_Format_Set:0000000c $d
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:410    .text.CRC16_Value_Clean_Enable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:416    .text.CRC16_Value_Clean_Enable:00000000 CRC16_Value_Clean_Enable
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:435    .text.CRC16_Value_Clean_Enable:0000000c $d
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:440    .text.CRC16_Value_Clean_Disable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:446    .text.CRC16_Value_Clean_Disable:00000000 CRC16_Value_Clean_Disable
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:465    .text.CRC16_Value_Clean_Disable:0000000c $d
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:470    .text.CRC_LRC_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:476    .text.CRC_LRC_Set:00000000 CRC_LRC_Set
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:493    .text.CRC_LRC_Set:00000008 $d
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:498    .text.CRC_LRC_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:504    .text.CRC_LRC_Get:00000000 CRC_LRC_Get
+C:\Users\24319\AppData\Local\Temp\cc7v3vRf.s:520    .text.CRC_LRC_Get:00000008 $d
+
+NO UNDEFINED SYMBOLS
