@@ -1,0 +1,480 @@
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"n32g430_iwdg.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c"
+  20              		.section	.text.IWDG_Write_Protection_Disable,"ax",%progbits
+  21              		.align	1
+  22              		.global	IWDG_Write_Protection_Disable
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	IWDG_Write_Protection_Disable:
+  28              	.LFB130:
+   1:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** /*****************************************************************************
+   2:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * Copyright (c) 2019, Nations Technologies Inc.
+   3:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  *
+   4:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * All rights reserved.
+   5:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * ****************************************************************************
+   6:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  *
+   7:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * Redistribution and use in source and binary forms, with or without
+   8:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * modification, are permitted provided that the following conditions are met:
+   9:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  *
+  10:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * - Redistributions of source code must retain the above copyright notice,
+  11:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * this list of conditions and the disclaimer below.
+  12:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  *
+  13:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * Nations' name may not be used to endorse or promote products derived from
+  14:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * this software without specific prior written permission.
+  15:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  *
+  16:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY NATIONS "AS IS" AND ANY EXPRESS OR
+  17:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  18:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  19:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * DISCLAIMED. IN NO EVENT SHALL NATIONS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  20:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  21:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  22:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  23:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  24:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  25:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  26:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  * ****************************************************************************/
+  27:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****  
+  28:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** /**
+  29:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\file n32g430_iwdg.c
+  30:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\author Nations
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s 			page 2
+
+
+  31:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\version v1.0.0
+  32:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
+  33:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** **/
+  34:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+  35:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** #include "n32g430_iwdg.h"
+  36:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+  37:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+  38:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** /**
+  39:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\name    IWDG_Write_Protection_Disable.
+  40:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\fun     Disable write protection to IWDG_PREDIV and IWDG_RELV registers.
+  41:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\param   none
+  42:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\return  none
+  43:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** **/
+  44:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** void IWDG_Write_Protection_Disable(void)
+  45:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** {
+  29              		.loc 1 45 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  46:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****     IWDG->KEY = IWDG_WRITE_CONFIG_ENABLE;
+  34              		.loc 1 46 5 view .LVU1
+  35              		.loc 1 46 15 is_stmt 0 view .LVU2
+  36 0000 024B     		ldr	r3, .L2
+  37 0002 45F25552 		movw	r2, #21845
+  38 0006 1A60     		str	r2, [r3]
+  47:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** }
+  39              		.loc 1 47 1 view .LVU3
+  40 0008 7047     		bx	lr
+  41              	.L3:
+  42 000a 00BF     		.align	2
+  43              	.L2:
+  44 000c 00300040 		.word	1073754112
+  45              		.cfi_endproc
+  46              	.LFE130:
+  48              		.section	.text.IWDG_Write_Protection_Enable,"ax",%progbits
+  49              		.align	1
+  50              		.global	IWDG_Write_Protection_Enable
+  51              		.syntax unified
+  52              		.thumb
+  53              		.thumb_func
+  55              	IWDG_Write_Protection_Enable:
+  56              	.LFB131:
+  48:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+  49:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+  50:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** /**
+  51:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\name    IWDG_Write_Protection_Enable.
+  52:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\fun     Enable write protection to IWDG_PREDIV and IWDG_RELV registers.
+  53:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\param   none
+  54:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\return  none
+  55:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** **/
+  56:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** void IWDG_Write_Protection_Enable(void)
+  57:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** {
+  57              		.loc 1 57 1 is_stmt 1 view -0
+  58              		.cfi_startproc
+  59              		@ args = 0, pretend = 0, frame = 0
+  60              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s 			page 3
+
+
+  61              		@ link register save eliminated.
+  58:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****     IWDG->KEY = IWDG_WRITE_CONFIG_DISABLE;
+  62              		.loc 1 58 5 view .LVU5
+  63              		.loc 1 58 15 is_stmt 0 view .LVU6
+  64 0000 014B     		ldr	r3, .L5
+  65 0002 0022     		movs	r2, #0
+  66 0004 1A60     		str	r2, [r3]
+  59:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** }
+  67              		.loc 1 59 1 view .LVU7
+  68 0006 7047     		bx	lr
+  69              	.L6:
+  70              		.align	2
+  71              	.L5:
+  72 0008 00300040 		.word	1073754112
+  73              		.cfi_endproc
+  74              	.LFE131:
+  76              		.section	.text.IWDG_Prescaler_Division_Set,"ax",%progbits
+  77              		.align	1
+  78              		.global	IWDG_Prescaler_Division_Set
+  79              		.syntax unified
+  80              		.thumb
+  81              		.thumb_func
+  83              	IWDG_Prescaler_Division_Set:
+  84              	.LVL0:
+  85              	.LFB132:
+  60:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+  61:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+  62:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** /**
+  63:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\name    IWDG_Prescaler_Division_Set.
+  64:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\fun     IWDG_Prescaler specifies the IWDG prescaler value.
+  65:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\param   IWDG_prescaler :
+  66:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\          - IWDG_CONFIG_PRESCALER_DIV4 
+  67:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\          - IWDG_CONFIG_PRESCALER_DIV8
+  68:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\          - IWDG_CONFIG_PRESCALER_DIV16
+  69:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\          - IWDG_CONFIG_PRESCALER_DIV32
+  70:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\          - IWDG_CONFIG_PRESCALER_DIV64
+  71:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\          - IWDG_CONFIG_PRESCALER_DIV128
+  72:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\          - IWDG_CONFIG_PRESCALER_DIV256
+  73:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\return  none
+  74:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** **/
+  75:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** void IWDG_Prescaler_Division_Set(IWDG_CONFIG_PRESCALER IWDG_prescaler)
+  76:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** {
+  86              		.loc 1 76 1 is_stmt 1 view -0
+  87              		.cfi_startproc
+  88              		@ args = 0, pretend = 0, frame = 0
+  89              		@ frame_needed = 0, uses_anonymous_args = 0
+  90              		@ link register save eliminated.
+  77:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****     IWDG->PREDIV = IWDG_prescaler;
+  91              		.loc 1 77 5 view .LVU9
+  92              		.loc 1 77 18 is_stmt 0 view .LVU10
+  93 0000 014B     		ldr	r3, .L8
+  94 0002 5860     		str	r0, [r3, #4]
+  78:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** }
+  95              		.loc 1 78 1 view .LVU11
+  96 0004 7047     		bx	lr
+  97              	.L9:
+  98 0006 00BF     		.align	2
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s 			page 4
+
+
+  99              	.L8:
+ 100 0008 00300040 		.word	1073754112
+ 101              		.cfi_endproc
+ 102              	.LFE132:
+ 104              		.section	.text.IWDG_Counter_Reload,"ax",%progbits
+ 105              		.align	1
+ 106              		.global	IWDG_Counter_Reload
+ 107              		.syntax unified
+ 108              		.thumb
+ 109              		.thumb_func
+ 111              	IWDG_Counter_Reload:
+ 112              	.LVL1:
+ 113              	.LFB133:
+  79:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+  80:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+  81:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** /**
+  82:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\name    IWDG_Counter_Reload.
+  83:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\fun     Sets IWDG reload value.
+  84:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\param   reload_value :
+  85:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\          -0x000 ~ 0xFFF
+  86:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\return  none
+  87:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** **/
+  88:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** void IWDG_Counter_Reload(uint16_t reload_value)
+  89:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** {
+ 114              		.loc 1 89 1 is_stmt 1 view -0
+ 115              		.cfi_startproc
+ 116              		@ args = 0, pretend = 0, frame = 0
+ 117              		@ frame_needed = 0, uses_anonymous_args = 0
+ 118              		@ link register save eliminated.
+  90:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****     IWDG->RELV = reload_value;
+ 119              		.loc 1 90 5 view .LVU13
+ 120              		.loc 1 90 16 is_stmt 0 view .LVU14
+ 121 0000 014B     		ldr	r3, .L11
+ 122 0002 9860     		str	r0, [r3, #8]
+  91:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** }
+ 123              		.loc 1 91 1 view .LVU15
+ 124 0004 7047     		bx	lr
+ 125              	.L12:
+ 126 0006 00BF     		.align	2
+ 127              	.L11:
+ 128 0008 00300040 		.word	1073754112
+ 129              		.cfi_endproc
+ 130              	.LFE133:
+ 132              		.section	.text.IWDG_Key_Reload,"ax",%progbits
+ 133              		.align	1
+ 134              		.global	IWDG_Key_Reload
+ 135              		.syntax unified
+ 136              		.thumb
+ 137              		.thumb_func
+ 139              	IWDG_Key_Reload:
+ 140              	.LFB134:
+  92:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+  93:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+  94:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** /**
+  95:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\name    IWDG_Key_Reload.
+  96:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\fun     Reload IWDG counter with value defined in IWDG_RELV register.
+  97:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\return  none
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s 			page 5
+
+
+  98:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** **/
+  99:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** void IWDG_Key_Reload(void)
+ 100:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** {
+ 141              		.loc 1 100 1 is_stmt 1 view -0
+ 142              		.cfi_startproc
+ 143              		@ args = 0, pretend = 0, frame = 0
+ 144              		@ frame_needed = 0, uses_anonymous_args = 0
+ 145              		@ link register save eliminated.
+ 101:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****     IWDG->KEY = KEY_RELOAD_COUNTER;
+ 146              		.loc 1 101 5 view .LVU17
+ 147              		.loc 1 101 15 is_stmt 0 view .LVU18
+ 148 0000 024B     		ldr	r3, .L14
+ 149 0002 4AF6AA22 		movw	r2, #43690
+ 150 0006 1A60     		str	r2, [r3]
+ 102:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** }
+ 151              		.loc 1 102 1 view .LVU19
+ 152 0008 7047     		bx	lr
+ 153              	.L15:
+ 154 000a 00BF     		.align	2
+ 155              	.L14:
+ 156 000c 00300040 		.word	1073754112
+ 157              		.cfi_endproc
+ 158              	.LFE134:
+ 160              		.section	.text.IWDG_Enable,"ax",%progbits
+ 161              		.align	1
+ 162              		.global	IWDG_Enable
+ 163              		.syntax unified
+ 164              		.thumb
+ 165              		.thumb_func
+ 167              	IWDG_Enable:
+ 168              	.LFB135:
+ 103:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+ 104:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+ 105:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** /**
+ 106:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\name    IWDG_Enable.
+ 107:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\fun     Start watch dog counter.
+ 108:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\return  none
+ 109:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** **/
+ 110:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** void IWDG_Enable(void)
+ 111:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** {
+ 169              		.loc 1 111 1 is_stmt 1 view -0
+ 170              		.cfi_startproc
+ 171              		@ args = 0, pretend = 0, frame = 0
+ 172              		@ frame_needed = 0, uses_anonymous_args = 0
+ 173              		@ link register save eliminated.
+ 112:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****     IWDG->KEY = KEY_ENABLE_COUNTER;
+ 174              		.loc 1 112 5 view .LVU21
+ 175              		.loc 1 112 15 is_stmt 0 view .LVU22
+ 176 0000 024B     		ldr	r3, .L17
+ 177 0002 4CF6CC42 		movw	r2, #52428
+ 178 0006 1A60     		str	r2, [r3]
+ 113:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** }
+ 179              		.loc 1 113 1 view .LVU23
+ 180 0008 7047     		bx	lr
+ 181              	.L18:
+ 182 000a 00BF     		.align	2
+ 183              	.L17:
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s 			page 6
+
+
+ 184 000c 00300040 		.word	1073754112
+ 185              		.cfi_endproc
+ 186              	.LFE135:
+ 188              		.section	.text.IWDG_Freeze_Enable,"ax",%progbits
+ 189              		.align	1
+ 190              		.global	IWDG_Freeze_Enable
+ 191              		.syntax unified
+ 192              		.thumb
+ 193              		.thumb_func
+ 195              	IWDG_Freeze_Enable:
+ 196              	.LFB136:
+ 114:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+ 115:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** /**
+ 116:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\name    IWDG_Freeze_Enable.
+ 117:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\fun     Freeze and stop IWDG while IWDG is running.
+ 118:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\return  none
+ 119:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** **/
+ 120:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** void IWDG_Freeze_Enable(void)
+ 121:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** {
+ 197              		.loc 1 121 1 is_stmt 1 view -0
+ 198              		.cfi_startproc
+ 199              		@ args = 0, pretend = 0, frame = 0
+ 200              		@ frame_needed = 0, uses_anonymous_args = 0
+ 201              		@ link register save eliminated.
+ 122:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****     IWDG->KEY = IWDG_FREEZE;
+ 202              		.loc 1 122 5 view .LVU25
+ 203              		.loc 1 122 15 is_stmt 0 view .LVU26
+ 204 0000 024B     		ldr	r3, .L20
+ 205 0002 44F26752 		movw	r2, #17767
+ 206 0006 1A60     		str	r2, [r3]
+ 123:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** }
+ 207              		.loc 1 123 1 view .LVU27
+ 208 0008 7047     		bx	lr
+ 209              	.L21:
+ 210 000a 00BF     		.align	2
+ 211              	.L20:
+ 212 000c 00300040 		.word	1073754112
+ 213              		.cfi_endproc
+ 214              	.LFE136:
+ 216              		.section	.text.IWDG_Restore_From_Freeze,"ax",%progbits
+ 217              		.align	1
+ 218              		.global	IWDG_Restore_From_Freeze
+ 219              		.syntax unified
+ 220              		.thumb
+ 221              		.thumb_func
+ 223              	IWDG_Restore_From_Freeze:
+ 224              	.LFB137:
+ 124:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+ 125:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+ 126:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** /**
+ 127:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\name    IWDG_Restore_From_Freeze.
+ 128:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\fun     Restore from run time feeze.
+ 129:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\return  none
+ 130:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** **/
+ 131:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** void IWDG_Restore_From_Freeze(void)
+ 132:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** {
+ 225              		.loc 1 132 1 is_stmt 1 view -0
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s 			page 7
+
+
+ 226              		.cfi_startproc
+ 227              		@ args = 0, pretend = 0, frame = 0
+ 228              		@ frame_needed = 0, uses_anonymous_args = 0
+ 229              		@ link register save eliminated.
+ 133:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****     IWDG->KEY = IWDG_UNFREEZE;
+ 230              		.loc 1 133 5 view .LVU29
+ 231              		.loc 1 133 15 is_stmt 0 view .LVU30
+ 232 0000 024B     		ldr	r3, .L23
+ 233 0002 48F6AB12 		movw	r2, #35243
+ 234 0006 1A60     		str	r2, [r3]
+ 134:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** }
+ 235              		.loc 1 134 1 view .LVU31
+ 236 0008 7047     		bx	lr
+ 237              	.L24:
+ 238 000a 00BF     		.align	2
+ 239              	.L23:
+ 240 000c 00300040 		.word	1073754112
+ 241              		.cfi_endproc
+ 242              	.LFE137:
+ 244              		.section	.text.IWDG_Status_Get,"ax",%progbits
+ 245              		.align	1
+ 246              		.global	IWDG_Status_Get
+ 247              		.syntax unified
+ 248              		.thumb
+ 249              		.thumb_func
+ 251              	IWDG_Status_Get:
+ 252              	.LVL2:
+ 253              	.LFB138:
+ 135:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+ 136:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** 
+ 137:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** /**
+ 138:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\name    IWDG_Status_Get.
+ 139:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\fun     Checks whether the specified IWDG flag is set or not.
+ 140:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\param   IWDG_flag :
+ 141:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\          - IWDG_PVU_FLAG
+ 142:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\          - IWDG_CRVU_FLAG
+ 143:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\return  FlagStatus :
+ 144:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\          - RESET
+ 145:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** *\*\          - SET
+ 146:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** **/
+ 147:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** FlagStatus IWDG_Status_Get(IWDG_STATUS_FLAG IWDG_flag)
+ 148:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** {
+ 254              		.loc 1 148 1 is_stmt 1 view -0
+ 255              		.cfi_startproc
+ 256              		@ args = 0, pretend = 0, frame = 0
+ 257              		@ frame_needed = 0, uses_anonymous_args = 0
+ 258              		@ link register save eliminated.
+ 149:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****     if((IWDG->STS & IWDG_flag) != (uint32_t)RESET)
+ 259              		.loc 1 149 5 view .LVU33
+ 260              		.loc 1 149 13 is_stmt 0 view .LVU34
+ 261 0000 034B     		ldr	r3, .L26
+ 262 0002 DB68     		ldr	r3, [r3, #12]
+ 263              		.loc 1 149 19 view .LVU35
+ 264 0004 1840     		ands	r0, r0, r3
+ 265              	.LVL3:
+ 150:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****     {
+ 151:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****         return SET;
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s 			page 8
+
+
+ 152:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****     }
+ 153:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****     else
+ 154:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****     {
+ 155:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****         return RESET;
+ 156:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c ****     }
+ 157:../firmware/n32g430_std_periph_driver/src/n32g430_iwdg.c **** }
+ 266              		.loc 1 157 1 view .LVU36
+ 267 0006 0038     		subs	r0, r0, #0
+ 268 0008 18BF     		it	ne
+ 269 000a 0120     		movne	r0, #1
+ 270 000c 7047     		bx	lr
+ 271              	.L27:
+ 272 000e 00BF     		.align	2
+ 273              	.L26:
+ 274 0010 00300040 		.word	1073754112
+ 275              		.cfi_endproc
+ 276              	.LFE138:
+ 278              		.text
+ 279              	.Letext0:
+ 280              		.file 2 "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/arm-none-eabi/include/ma
+ 281              		.file 3 "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/arm-none-eabi/include/sy
+ 282              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 283              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_iwdg.h"
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 n32g430_iwdg.c
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:21     .text.IWDG_Write_Protection_Disable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:27     .text.IWDG_Write_Protection_Disable:00000000 IWDG_Write_Protection_Disable
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:44     .text.IWDG_Write_Protection_Disable:0000000c $d
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:49     .text.IWDG_Write_Protection_Enable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:55     .text.IWDG_Write_Protection_Enable:00000000 IWDG_Write_Protection_Enable
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:72     .text.IWDG_Write_Protection_Enable:00000008 $d
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:77     .text.IWDG_Prescaler_Division_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:83     .text.IWDG_Prescaler_Division_Set:00000000 IWDG_Prescaler_Division_Set
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:100    .text.IWDG_Prescaler_Division_Set:00000008 $d
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:105    .text.IWDG_Counter_Reload:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:111    .text.IWDG_Counter_Reload:00000000 IWDG_Counter_Reload
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:128    .text.IWDG_Counter_Reload:00000008 $d
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:133    .text.IWDG_Key_Reload:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:139    .text.IWDG_Key_Reload:00000000 IWDG_Key_Reload
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:156    .text.IWDG_Key_Reload:0000000c $d
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:161    .text.IWDG_Enable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:167    .text.IWDG_Enable:00000000 IWDG_Enable
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:184    .text.IWDG_Enable:0000000c $d
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:189    .text.IWDG_Freeze_Enable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:195    .text.IWDG_Freeze_Enable:00000000 IWDG_Freeze_Enable
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:212    .text.IWDG_Freeze_Enable:0000000c $d
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:217    .text.IWDG_Restore_From_Freeze:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:223    .text.IWDG_Restore_From_Freeze:00000000 IWDG_Restore_From_Freeze
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:240    .text.IWDG_Restore_From_Freeze:0000000c $d
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:245    .text.IWDG_Status_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:251    .text.IWDG_Status_Get:00000000 IWDG_Status_Get
+C:\Users\24319\AppData\Local\Temp\ccgYOaGd.s:274    .text.IWDG_Status_Get:00000010 $d
+
+NO UNDEFINED SYMBOLS

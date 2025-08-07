@@ -1,0 +1,2498 @@
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"n32g430_lptim.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c"
+  20              		.section	.text.LPTIM_Reset,"ax",%progbits
+  21              		.align	1
+  22              		.global	LPTIM_Reset
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	LPTIM_Reset:
+  28              	.LVL0:
+  29              	.LFB130:
+   1:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /*****************************************************************************
+   2:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * Copyright (c) 2019, Nations Technologies Inc.
+   3:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  *
+   4:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * All rights reserved.
+   5:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * ****************************************************************************
+   6:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  *
+   7:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * Redistribution and use in source and binary forms, with or without
+   8:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * modification, are permitted provided that the following conditions are met:
+   9:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  *
+  10:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * - Redistributions of source code must retain the above copyright notice,
+  11:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * this list of conditions and the disclaimer below.
+  12:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  *
+  13:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * Nations' name may not be used to endorse or promote products derived from
+  14:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * this software without specific prior written permission.
+  15:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  *
+  16:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY NATIONS "AS IS" AND ANY EXPRESS OR
+  17:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  18:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  19:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * DISCLAIMED. IN NO EVENT SHALL NATIONS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  20:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  21:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  22:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  23:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  24:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  25:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  26:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  * ****************************************************************************/
+  27:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+  28:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+  29:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\file      n32g430_lptim.c
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 2
+
+
+  30:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\author    Nations
+  31:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\version   v1.0.0
+  32:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved. 
+  33:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  */
+  34:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+  35:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** #include "n32g430_lptim.h"
+  36:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** #include "n32g430_rcc.h"
+  37:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****  
+  38:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /* LPTIM Driving Functions Declaration */
+  39:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+  40:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+  41:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Reset.
+  42:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Reset the LPTIME.
+  43:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+  44:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+  45:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+  46:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+  47:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Reset(LPTIM_Module *LPTIMx)
+  48:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+  30              		.loc 1 48 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  49:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* LPTIME Reset */
+  50:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     RCC_LPTIM_Reset();
+  35              		.loc 1 50 5 view .LVU1
+  36 0000 FFF7FEBF 		b	RCC_LPTIM_Reset
+  37              	.LVL1:
+  38              		.loc 1 50 5 is_stmt 0 view .LVU2
+  39              		.cfi_endproc
+  40              	.LFE130:
+  42              		.section	.text.LPTIM_OFF,"ax",%progbits
+  43              		.align	1
+  44              		.global	LPTIM_OFF
+  45              		.syntax unified
+  46              		.thumb
+  47              		.thumb_func
+  49              	LPTIM_OFF:
+  50              	.LVL2:
+  51              	.LFB131:
+  51:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+  52:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+  53:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+  54:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+  55:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_OFF.
+  56:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     OFF the LPTIME instance.
+  57:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+  58:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+  59:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+  60:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+  61:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_OFF(LPTIM_Module *LPTIMx)
+  62:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+  52              		.loc 1 62 1 is_stmt 1 view -0
+  53              		.cfi_startproc
+  54              		@ args = 0, pretend = 0, frame = 0
+  55              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 3
+
+
+  56              		@ link register save eliminated.
+  63:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->CTRL &= (~LPTIM_CTRL_LPTIMEN);
+  57              		.loc 1 63 3 view .LVU4
+  58              		.loc 1 63 9 is_stmt 0 view .LVU5
+  59 0000 0369     		ldr	r3, [r0, #16]
+  60              		.loc 1 63 16 view .LVU6
+  61 0002 23F00103 		bic	r3, r3, #1
+  62 0006 0361     		str	r3, [r0, #16]
+  64:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+  63              		.loc 1 64 1 view .LVU7
+  64 0008 7047     		bx	lr
+  65              		.cfi_endproc
+  66              	.LFE131:
+  68              		.section	.text.LPTIM_ON,"ax",%progbits
+  69              		.align	1
+  70              		.global	LPTIM_ON
+  71              		.syntax unified
+  72              		.thumb
+  73              		.thumb_func
+  75              	LPTIM_ON:
+  76              	.LVL3:
+  77              	.LFB132:
+  65:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+  66:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+  67:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+  68:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_ON.
+  69:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     ON the LPTIME instance.
+  70:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+  71:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+  72:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+  73:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+  74:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_ON(LPTIM_Module *LPTIMx)
+  75:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+  78              		.loc 1 75 1 is_stmt 1 view -0
+  79              		.cfi_startproc
+  80              		@ args = 0, pretend = 0, frame = 0
+  81              		@ frame_needed = 0, uses_anonymous_args = 0
+  82              		@ link register save eliminated.
+  76:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->CTRL |= LPTIM_CTRL_LPTIMEN;
+  83              		.loc 1 76 3 view .LVU9
+  84              		.loc 1 76 9 is_stmt 0 view .LVU10
+  85 0000 0369     		ldr	r3, [r0, #16]
+  86              		.loc 1 76 16 view .LVU11
+  87 0002 43F00103 		orr	r3, r3, #1
+  88 0006 0361     		str	r3, [r0, #16]
+  77:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+  89              		.loc 1 77 1 view .LVU12
+  90 0008 7047     		bx	lr
+  91              		.cfi_endproc
+  92              	.LFE132:
+  94              		.section	.text.LPTIM_Initializes_Structure,"ax",%progbits
+  95              		.align	1
+  96              		.global	LPTIM_Initializes_Structure
+  97              		.syntax unified
+  98              		.thumb
+  99              		.thumb_func
+ 101              	LPTIM_Initializes_Structure:
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 4
+
+
+ 102              	.LVL4:
+ 103              	.LFB133:
+  78:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+  79:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+  80:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+  81:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Initializes_Structure.
+  82:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Set each fields of the LPTIM_InitStruct structure to its default value.
+  83:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIM_InitStruct
+  84:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+  85:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+  86:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Initializes_Structure(LPTIM_InitType* LPTIM_InitStruct)
+  87:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 104              		.loc 1 87 1 is_stmt 1 view -0
+ 105              		.cfi_startproc
+ 106              		@ args = 0, pretend = 0, frame = 0
+ 107              		@ frame_needed = 0, uses_anonymous_args = 0
+ 108              		@ link register save eliminated.
+  88:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   /* Set the default configuration */
+  89:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIM_InitStruct->ClockSource = LPTIM_CLK_SOURCE_INTERNAL;
+ 109              		.loc 1 89 3 view .LVU14
+ 110              		.loc 1 89 33 is_stmt 0 view .LVU15
+ 111 0000 0023     		movs	r3, #0
+  90:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIM_InitStruct->Prescaler   = LPTIM_PRESCALER_DIV1;
+ 112              		.loc 1 90 33 view .LVU16
+ 113 0002 C0E90033 		strd	r3, r3, [r0]
+  91:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIM_InitStruct->Waveform    = LPTIM_OUTPUT_WAVEFORM_PWM;
+ 114              		.loc 1 91 3 is_stmt 1 view .LVU17
+  92:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIM_InitStruct->Polarity    = LPTIM_OUTPUT_POLARITY_REGULAR;
+ 115              		.loc 1 92 33 is_stmt 0 view .LVU18
+ 116 0006 C0E90233 		strd	r3, r3, [r0, #8]
+  93:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 117              		.loc 1 93 1 view .LVU19
+ 118 000a 7047     		bx	lr
+ 119              		.cfi_endproc
+ 120              	.LFE133:
+ 122              		.section	.text.LPTIM_Counter_Start,"ax",%progbits
+ 123              		.align	1
+ 124              		.global	LPTIM_Counter_Start
+ 125              		.syntax unified
+ 126              		.thumb
+ 127              		.thumb_func
+ 129              	LPTIM_Counter_Start:
+ 130              	.LVL5:
+ 131              	.LFB135:
+  94:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+  95:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+  96:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+  97:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Initializes.
+  98:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Configure the LPTIMx peripheral according to the specified parameters.
+  99:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 100:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 101:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIM_InitStruct :
+ 102:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -ClockSource
+ 103:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_CLK_SOURCE_INTERNAL
+ 104:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_CLK_SOURCE_EXTERNAL
+ 105:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Prescaler
+ 106:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_PRESCALER_DIV1
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 5
+
+
+ 107:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_PRESCALER_DIV2 
+ 108:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_PRESCALER_DIV4 
+ 109:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_PRESCALER_DIV8 
+ 110:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_PRESCALER_DIV16
+ 111:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_PRESCALER_DIV32
+ 112:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_PRESCALER_DIV64
+ 113:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_PRESCALER_DIV128
+ 114:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Waveform
+ 115:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_OUTPUT_WAVEFORM_PWM
+ 116:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_OUTPUT_WAVEFORM_SETONCE
+ 117:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Polarity
+ 118:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_OUTPUT_POLARITY_REGULAR
+ 119:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_OUTPUT_POLARITY_INVERSE
+ 120:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  - SUCCESS: LPTIMx instance has been initialized
+ 121:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        - ERROR: LPTIMx instance hasn't been initialized
+ 122:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 123:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** ErrorStatus LPTIM_Initializes(LPTIM_Module *LPTIMx, LPTIM_InitType* LPTIM_InitStruct)
+ 124:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 125:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   ErrorStatus result = SUCCESS;
+ 126:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 127:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   /* The LPTIMx_CFG register must only be modified when the LPTIM is disabled 
+ 128:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****      (ENABLE bit is reset to 0).
+ 129:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   */
+ 130:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   if (LPTIMx->CTRL & LPTIM_CTRL_LPTIMEN)
+ 131:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   {
+ 132:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     result = ERROR;
+ 133:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   }
+ 134:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   else
+ 135:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   {
+ 136:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set CKSEL bitfield according to ClockSource value */
+ 137:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIM_Clock_Source_Set(LPTIMx, LPTIM_InitStruct->ClockSource);
+ 138:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set PRESC bitfield according to Prescaler value */
+ 139:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIM_Prescaler_Set(LPTIMx, LPTIM_InitStruct->Prescaler);
+ 140:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set WAVE  bitfield according to Waveform value */
+ 141:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIM_Waveform_Set(LPTIMx, LPTIM_InitStruct->Waveform);
+ 142:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set WAVEPOL bitfield according to Polarity value */
+ 143:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIM_Polarity_Set(LPTIMx, LPTIM_InitStruct->Polarity);
+ 144:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   }
+ 145:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   return result;
+ 146:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 147:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 148:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 149:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 150:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Counter_Start.
+ 151:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Starts the LPTIM counter in the desired mode.
+ 152:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 153:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 154:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   OperatingMode
+ 155:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_OPERATING_MODE_CONTINUOUS
+ 156:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_OPERATING_MODE_ONESHOT
+ 157:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 158:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 159:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Counter_Start(LPTIM_Module *LPTIMx, uint32_t OperatingMode)
+ 160:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 132              		.loc 1 160 1 is_stmt 1 view -0
+ 133              		.cfi_startproc
+ 134              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 6
+
+
+ 135              		@ frame_needed = 0, uses_anonymous_args = 0
+ 136              		@ link register save eliminated.
+ 161:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Clear LPTIM_CTRL SNGMST and TSTCM bits */
+ 162:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CTRL &= ~(LPTIM_CTRL_TSTCM | LPTIM_CTRL_SNGMST);
+ 137              		.loc 1 162 5 view .LVU21
+ 138              		.loc 1 162 11 is_stmt 0 view .LVU22
+ 139 0000 0369     		ldr	r3, [r0, #16]
+ 140              		.loc 1 162 18 view .LVU23
+ 141 0002 23F00603 		bic	r3, r3, #6
+ 142 0006 0361     		str	r3, [r0, #16]
+ 163:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set LPTIM_CTRL SNGMST and TSTCM bits */
+ 164:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CTRL |= OperatingMode;
+ 143              		.loc 1 164 5 is_stmt 1 view .LVU24
+ 144              		.loc 1 164 11 is_stmt 0 view .LVU25
+ 145 0008 0369     		ldr	r3, [r0, #16]
+ 146              		.loc 1 164 18 view .LVU26
+ 147 000a 0B43     		orrs	r3, r3, r1
+ 148 000c 0361     		str	r3, [r0, #16]
+ 165:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 149              		.loc 1 165 1 view .LVU27
+ 150 000e 7047     		bx	lr
+ 151              		.cfi_endproc
+ 152              	.LFE135:
+ 154              		.section	.text.LPTIM_Update_Mode_Set,"ax",%progbits
+ 155              		.align	1
+ 156              		.global	LPTIM_Update_Mode_Set
+ 157              		.syntax unified
+ 158              		.thumb
+ 159              		.thumb_func
+ 161              	LPTIM_Update_Mode_Set:
+ 162              	.LVL6:
+ 163              	.LFB136:
+ 166:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 167:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 168:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 169:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Update_Mode_Set.
+ 170:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Set the LPTIM registers update mode (enable/disable register preload).
+ 171:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 172:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 173:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   UpdateMode
+ 174:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_UPDATE_MODE_IMMEDIATE
+ 175:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_UPDATE_MODE_ENDOFPERIOD
+ 176:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 177:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 178:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Update_Mode_Set(LPTIM_Module *LPTIMx, uint32_t UpdateMode)
+ 179:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 164              		.loc 1 179 1 is_stmt 1 view -0
+ 165              		.cfi_startproc
+ 166              		@ args = 0, pretend = 0, frame = 0
+ 167              		@ frame_needed = 0, uses_anonymous_args = 0
+ 168              		@ link register save eliminated.
+ 180:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Clear LPTIM_CFG RELOAD bits */
+ 181:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CFG &= ~LPTIM_CFG_RELOAD;
+ 169              		.loc 1 181 5 view .LVU29
+ 170              		.loc 1 181 11 is_stmt 0 view .LVU30
+ 171 0000 C368     		ldr	r3, [r0, #12]
+ 172              		.loc 1 181 17 view .LVU31
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 7
+
+
+ 173 0002 23F48003 		bic	r3, r3, #4194304
+ 174 0006 C360     		str	r3, [r0, #12]
+ 182:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set LPTIM_CFG RELOAD bits */
+ 183:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CFG |= UpdateMode;
+ 175              		.loc 1 183 5 is_stmt 1 view .LVU32
+ 176              		.loc 1 183 11 is_stmt 0 view .LVU33
+ 177 0008 C368     		ldr	r3, [r0, #12]
+ 178              		.loc 1 183 17 view .LVU34
+ 179 000a 0B43     		orrs	r3, r3, r1
+ 180 000c C360     		str	r3, [r0, #12]
+ 184:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 181              		.loc 1 184 1 view .LVU35
+ 182 000e 7047     		bx	lr
+ 183              		.cfi_endproc
+ 184              	.LFE136:
+ 186              		.section	.text.LPTIM_Update_Mode_Get,"ax",%progbits
+ 187              		.align	1
+ 188              		.global	LPTIM_Update_Mode_Get
+ 189              		.syntax unified
+ 190              		.thumb
+ 191              		.thumb_func
+ 193              	LPTIM_Update_Mode_Get:
+ 194              	.LVL7:
+ 195              	.LFB137:
+ 185:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 186:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 187:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 188:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Update_Mode_Get.
+ 189:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Get the LPTIM registers update mode.
+ 190:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 191:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 192:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  
+ 193:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_UPDATE_MODE_IMMEDIATE
+ 194:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_UPDATE_MODE_ENDOFPERIOD
+ 195:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 196:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** uint32_t LPTIM_Update_Mode_Get(LPTIM_Module *LPTIMx)
+ 197:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 196              		.loc 1 197 1 is_stmt 1 view -0
+ 197              		.cfi_startproc
+ 198              		@ args = 0, pretend = 0, frame = 0
+ 199              		@ frame_needed = 0, uses_anonymous_args = 0
+ 200              		@ link register save eliminated.
+ 198:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Return LPTIM_CFG RELOAD bits */
+ 199:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     return (uint32_t)(LPTIMx->CFG & LPTIM_CFG_RELOAD);
+ 201              		.loc 1 199 5 view .LVU37
+ 202              		.loc 1 199 29 is_stmt 0 view .LVU38
+ 203 0000 C068     		ldr	r0, [r0, #12]
+ 204              	.LVL8:
+ 200:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 205              		.loc 1 200 1 view .LVU39
+ 206 0002 00F48000 		and	r0, r0, #4194304
+ 207 0006 7047     		bx	lr
+ 208              		.cfi_endproc
+ 209              	.LFE137:
+ 211              		.section	.text.LPTIM_Auto_Reload_Set,"ax",%progbits
+ 212              		.align	1
+ 213              		.global	LPTIM_Auto_Reload_Set
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 8
+
+
+ 214              		.syntax unified
+ 215              		.thumb
+ 216              		.thumb_func
+ 218              	LPTIM_Auto_Reload_Set:
+ 219              	.LVL9:
+ 220              	.LFB138:
+ 201:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 202:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 203:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 204:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Auto_Reload_Set.
+ 205:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Set the auto reload value.
+ 206:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 207:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 208:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   AutoReload
+ 209:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Value between Min_Data=0x00 and Max_Data=0xFFFF
+ 210:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 211:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 212:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Auto_Reload_Set(LPTIM_Module *LPTIMx, uint16_t AutoReload)
+ 213:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 221              		.loc 1 213 1 is_stmt 1 view -0
+ 222              		.cfi_startproc
+ 223              		@ args = 0, pretend = 0, frame = 0
+ 224              		@ frame_needed = 0, uses_anonymous_args = 0
+ 225              		@ link register save eliminated.
+ 214:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set the AutoReload to LPTIM_ARR registers */
+ 215:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->ARR = AutoReload;
+ 226              		.loc 1 215 5 view .LVU41
+ 227              		.loc 1 215 17 is_stmt 0 view .LVU42
+ 228 0000 8161     		str	r1, [r0, #24]
+ 216:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 229              		.loc 1 216 1 view .LVU43
+ 230 0002 7047     		bx	lr
+ 231              		.cfi_endproc
+ 232              	.LFE138:
+ 234              		.section	.text.LPTIM_Auto_Reload_Get,"ax",%progbits
+ 235              		.align	1
+ 236              		.global	LPTIM_Auto_Reload_Get
+ 237              		.syntax unified
+ 238              		.thumb
+ 239              		.thumb_func
+ 241              	LPTIM_Auto_Reload_Get:
+ 242              	.LVL10:
+ 243              	.LFB139:
+ 217:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 218:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 219:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 220:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Auto_Reload_Get.
+ 221:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Get actual auto reload value.
+ 222:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 223:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 224:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  -Value between Min_Data=0x00 and Max_Data=0xFFFF   
+ 225:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 226:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** uint16_t LPTIM_Auto_Reload_Get(LPTIM_Module *LPTIMx)
+ 227:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 244              		.loc 1 227 1 is_stmt 1 view -0
+ 245              		.cfi_startproc
+ 246              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 9
+
+
+ 247              		@ frame_needed = 0, uses_anonymous_args = 0
+ 248              		@ link register save eliminated.
+ 228:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Return the value of LPTIM_ARR registers */
+ 229:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     return (uint16_t)LPTIMx->ARR;
+ 249              		.loc 1 229 5 view .LVU45
+ 250              		.loc 1 229 28 is_stmt 0 view .LVU46
+ 251 0000 8069     		ldr	r0, [r0, #24]
+ 252              	.LVL11:
+ 230:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 253              		.loc 1 230 1 view .LVU47
+ 254 0002 80B2     		uxth	r0, r0
+ 255 0004 7047     		bx	lr
+ 256              		.cfi_endproc
+ 257              	.LFE139:
+ 259              		.section	.text.LPTIM_Compare_Set,"ax",%progbits
+ 260              		.align	1
+ 261              		.global	LPTIM_Compare_Set
+ 262              		.syntax unified
+ 263              		.thumb
+ 264              		.thumb_func
+ 266              	LPTIM_Compare_Set:
+ 267              	.LVL12:
+ 268              	.LFB140:
+ 231:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 232:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 233:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 234:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Compare_Set.
+ 235:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Set the compare value.
+ 236:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 237:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 238:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   AutoReload
+ 239:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Value between Min_Data=0x00 and Max_Data=0xFFFF
+ 240:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 241:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 242:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Compare_Set(LPTIM_Module *LPTIMx, uint16_t CompareValue)
+ 243:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 269              		.loc 1 243 1 is_stmt 1 view -0
+ 270              		.cfi_startproc
+ 271              		@ args = 0, pretend = 0, frame = 0
+ 272              		@ frame_needed = 0, uses_anonymous_args = 0
+ 273              		@ link register save eliminated.
+ 244:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set the CompareValue to LPTIM_COMP registers */
+ 245:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->COMPx = CompareValue;
+ 274              		.loc 1 245 5 view .LVU49
+ 275              		.loc 1 245 19 is_stmt 0 view .LVU50
+ 276 0000 4161     		str	r1, [r0, #20]
+ 246:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 277              		.loc 1 246 1 view .LVU51
+ 278 0002 7047     		bx	lr
+ 279              		.cfi_endproc
+ 280              	.LFE140:
+ 282              		.section	.text.LPTIM_Compare_Get,"ax",%progbits
+ 283              		.align	1
+ 284              		.global	LPTIM_Compare_Get
+ 285              		.syntax unified
+ 286              		.thumb
+ 287              		.thumb_func
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 10
+
+
+ 289              	LPTIM_Compare_Get:
+ 290              	.LVL13:
+ 291              	.LFB141:
+ 247:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 248:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 249:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 250:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Compare_Get.
+ 251:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Get actual compare value.
+ 252:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 253:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 254:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  -Value between Min_Data=0x00 and Max_Data=0xFFFF
+ 255:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 256:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** uint16_t LPTIM_Compare_Get(LPTIM_Module *LPTIMx)
+ 257:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 292              		.loc 1 257 1 is_stmt 1 view -0
+ 293              		.cfi_startproc
+ 294              		@ args = 0, pretend = 0, frame = 0
+ 295              		@ frame_needed = 0, uses_anonymous_args = 0
+ 296              		@ link register save eliminated.
+ 258:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Return the value of LPTIM_COMP registers */
+ 259:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     return (uint16_t)LPTIMx->COMPx;
+ 297              		.loc 1 259 5 view .LVU53
+ 298              		.loc 1 259 28 is_stmt 0 view .LVU54
+ 299 0000 4069     		ldr	r0, [r0, #20]
+ 300              	.LVL14:
+ 260:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 301              		.loc 1 260 1 view .LVU55
+ 302 0002 80B2     		uxth	r0, r0
+ 303 0004 7047     		bx	lr
+ 304              		.cfi_endproc
+ 305              	.LFE141:
+ 307              		.section	.text.LPTIM_Counter_Get,"ax",%progbits
+ 308              		.align	1
+ 309              		.global	LPTIM_Counter_Get
+ 310              		.syntax unified
+ 311              		.thumb
+ 312              		.thumb_func
+ 314              	LPTIM_Counter_Get:
+ 315              	.LVL15:
+ 316              	.LFB142:
+ 261:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 262:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 263:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 264:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Counter_Get.
+ 265:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Get actual counter value.
+ 266:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 267:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 268:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  -Counter value
+ 269:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 270:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** uint16_t LPTIM_Counter_Get(LPTIM_Module *LPTIMx)
+ 271:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 317              		.loc 1 271 1 is_stmt 1 view -0
+ 318              		.cfi_startproc
+ 319              		@ args = 0, pretend = 0, frame = 0
+ 320              		@ frame_needed = 0, uses_anonymous_args = 0
+ 321              		@ link register save eliminated.
+ 272:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Return the value of LPTIM_CNT registers */
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 11
+
+
+ 273:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     return (uint16_t)LPTIMx->CNT;
+ 322              		.loc 1 273 5 view .LVU57
+ 323              		.loc 1 273 28 is_stmt 0 view .LVU58
+ 324 0000 C069     		ldr	r0, [r0, #28]
+ 325              	.LVL16:
+ 274:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 326              		.loc 1 274 1 view .LVU59
+ 327 0002 80B2     		uxth	r0, r0
+ 328 0004 7047     		bx	lr
+ 329              		.cfi_endproc
+ 330              	.LFE142:
+ 332              		.section	.text.LPTIM_Counter_Mode_Set,"ax",%progbits
+ 333              		.align	1
+ 334              		.global	LPTIM_Counter_Mode_Set
+ 335              		.syntax unified
+ 336              		.thumb
+ 337              		.thumb_func
+ 339              	LPTIM_Counter_Mode_Set:
+ 340              	.LVL17:
+ 341              	.LFB143:
+ 275:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 276:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 277:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 278:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Counter_Mode_Set.
+ 279:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Set the counter mode (selection of the LPTIM counter clock source).
+ 280:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 281:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 282:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   CounterMode
+ 283:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_COUNTER_MODE_INTERNAL
+ 284:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_COUNTER_MODE_EXTERNAL
+ 285:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 286:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 287:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Counter_Mode_Set(LPTIM_Module *LPTIMx, uint32_t CounterMode)
+ 288:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 342              		.loc 1 288 1 is_stmt 1 view -0
+ 343              		.cfi_startproc
+ 344              		@ args = 0, pretend = 0, frame = 0
+ 345              		@ frame_needed = 0, uses_anonymous_args = 0
+ 346              		@ link register save eliminated.
+ 289:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Clear LPTIM_CFG CNTMEN bits */
+ 290:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CFG &= ~LPTIM_CFG_CNTMEN;
+ 347              		.loc 1 290 5 view .LVU61
+ 348              		.loc 1 290 11 is_stmt 0 view .LVU62
+ 349 0000 C368     		ldr	r3, [r0, #12]
+ 350              		.loc 1 290 17 view .LVU63
+ 351 0002 23F40003 		bic	r3, r3, #8388608
+ 352 0006 C360     		str	r3, [r0, #12]
+ 291:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set LPTIM_CFG CNTMEN bits */
+ 292:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CFG |= CounterMode;
+ 353              		.loc 1 292 5 is_stmt 1 view .LVU64
+ 354              		.loc 1 292 11 is_stmt 0 view .LVU65
+ 355 0008 C368     		ldr	r3, [r0, #12]
+ 356              		.loc 1 292 17 view .LVU66
+ 357 000a 0B43     		orrs	r3, r3, r1
+ 358 000c C360     		str	r3, [r0, #12]
+ 293:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 359              		.loc 1 293 1 view .LVU67
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 12
+
+
+ 360 000e 7047     		bx	lr
+ 361              		.cfi_endproc
+ 362              	.LFE143:
+ 364              		.section	.text.LPTIM_Counter_Mode_Get,"ax",%progbits
+ 365              		.align	1
+ 366              		.global	LPTIM_Counter_Mode_Get
+ 367              		.syntax unified
+ 368              		.thumb
+ 369              		.thumb_func
+ 371              	LPTIM_Counter_Mode_Get:
+ 372              	.LVL18:
+ 373              	.LFB144:
+ 294:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 295:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 296:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 297:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Counter_Mode_Get.
+ 298:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Get the counter mode.
+ 299:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 300:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 301:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  
+ 302:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_COUNTER_MODE_INTERNAL
+ 303:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_COUNTER_MODE_EXTERNAL
+ 304:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 305:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** uint32_t LPTIM_Counter_Mode_Get(LPTIM_Module *LPTIMx)
+ 306:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 374              		.loc 1 306 1 is_stmt 1 view -0
+ 375              		.cfi_startproc
+ 376              		@ args = 0, pretend = 0, frame = 0
+ 377              		@ frame_needed = 0, uses_anonymous_args = 0
+ 378              		@ link register save eliminated.
+ 307:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Return LPTIM_CFG CNTMEN bits */
+ 308:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     return (uint32_t)(LPTIMx->CFG & LPTIM_CFG_CNTMEN);
+ 379              		.loc 1 308 5 view .LVU69
+ 380              		.loc 1 308 29 is_stmt 0 view .LVU70
+ 381 0000 C068     		ldr	r0, [r0, #12]
+ 382              	.LVL19:
+ 309:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 383              		.loc 1 309 1 view .LVU71
+ 384 0002 00F40000 		and	r0, r0, #8388608
+ 385 0006 7047     		bx	lr
+ 386              		.cfi_endproc
+ 387              	.LFE144:
+ 389              		.section	.text.LPTIM_Output_Config,"ax",%progbits
+ 390              		.align	1
+ 391              		.global	LPTIM_Output_Config
+ 392              		.syntax unified
+ 393              		.thumb
+ 394              		.thumb_func
+ 396              	LPTIM_Output_Config:
+ 397              	.LVL20:
+ 398              	.LFB145:
+ 310:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 311:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 312:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 313:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Output_Config.
+ 314:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Configure the LPTIM instance output (LPTIMx_OUT).
+ 315:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 13
+
+
+ 316:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 317:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   Waveform
+ 318:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_OUTPUT_WAVEFORM_PWM
+ 319:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_OUTPUT_WAVEFORM_SETONCE
+ 320:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   Polarity
+ 321:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_OUTPUT_POLARITY_REGULAR
+ 322:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_OUTPUT_POLARITY_INVERSE
+ 323:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 324:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 325:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Output_Config(LPTIM_Module *LPTIMx, uint32_t Waveform, uint32_t Polarity)
+ 326:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 399              		.loc 1 326 1 is_stmt 1 view -0
+ 400              		.cfi_startproc
+ 401              		@ args = 0, pretend = 0, frame = 0
+ 402              		@ frame_needed = 0, uses_anonymous_args = 0
+ 403              		@ link register save eliminated.
+ 327:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Clear LPTIM_CFG WAVE and WAVEPOL bits */
+ 328:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CFG &= ~(LPTIM_CFG_WAVE | LPTIM_CFG_WAVEPOL);
+ 404              		.loc 1 328 5 view .LVU73
+ 405              		.loc 1 328 11 is_stmt 0 view .LVU74
+ 406 0000 C368     		ldr	r3, [r0, #12]
+ 407              		.loc 1 328 17 view .LVU75
+ 408 0002 23F44013 		bic	r3, r3, #3145728
+ 409 0006 C360     		str	r3, [r0, #12]
+ 329:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set LPTIM_CTRL WAVE and WAVEPOL bits */
+ 330:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CFG |= Waveform | Polarity;
+ 410              		.loc 1 330 5 is_stmt 1 view .LVU76
+ 411              		.loc 1 330 11 is_stmt 0 view .LVU77
+ 412 0008 C368     		ldr	r3, [r0, #12]
+ 413              		.loc 1 330 29 view .LVU78
+ 414 000a 1143     		orrs	r1, r1, r2
+ 415              	.LVL21:
+ 416              		.loc 1 330 17 view .LVU79
+ 417 000c 1943     		orrs	r1, r1, r3
+ 418 000e C160     		str	r1, [r0, #12]
+ 331:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 419              		.loc 1 331 1 view .LVU80
+ 420 0010 7047     		bx	lr
+ 421              		.cfi_endproc
+ 422              	.LFE145:
+ 424              		.section	.text.LPTIM_Waveform_Set,"ax",%progbits
+ 425              		.align	1
+ 426              		.global	LPTIM_Waveform_Set
+ 427              		.syntax unified
+ 428              		.thumb
+ 429              		.thumb_func
+ 431              	LPTIM_Waveform_Set:
+ 432              	.LVL22:
+ 433              	.LFB146:
+ 332:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 333:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 334:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 335:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Waveform_Set.
+ 336:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Set  waveform shape.
+ 337:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 338:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 339:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   Waveform
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 14
+
+
+ 340:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_OUTPUT_WAVEFORM_PWM
+ 341:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_OUTPUT_WAVEFORM_SETONCE
+ 342:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 343:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 344:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Waveform_Set(LPTIM_Module *LPTIMx, uint32_t Waveform)
+ 345:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 434              		.loc 1 345 1 is_stmt 1 view -0
+ 435              		.cfi_startproc
+ 436              		@ args = 0, pretend = 0, frame = 0
+ 437              		@ frame_needed = 0, uses_anonymous_args = 0
+ 438              		@ link register save eliminated.
+ 346:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Clear LPTIM_CFG WAVE bits */
+ 347:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CFG &= ~LPTIM_CFG_WAVE;
+ 439              		.loc 1 347 5 view .LVU82
+ 440              		.loc 1 347 11 is_stmt 0 view .LVU83
+ 441 0000 C368     		ldr	r3, [r0, #12]
+ 442              		.loc 1 347 17 view .LVU84
+ 443 0002 23F48013 		bic	r3, r3, #1048576
+ 444 0006 C360     		str	r3, [r0, #12]
+ 348:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set LPTIM_CFG WAVE bits */
+ 349:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CFG |= Waveform;
+ 445              		.loc 1 349 5 is_stmt 1 view .LVU85
+ 446              		.loc 1 349 11 is_stmt 0 view .LVU86
+ 447 0008 C368     		ldr	r3, [r0, #12]
+ 448              		.loc 1 349 17 view .LVU87
+ 449 000a 0B43     		orrs	r3, r3, r1
+ 450 000c C360     		str	r3, [r0, #12]
+ 350:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 451              		.loc 1 350 1 view .LVU88
+ 452 000e 7047     		bx	lr
+ 453              		.cfi_endproc
+ 454              	.LFE146:
+ 456              		.section	.text.LPTIM_Waveform_Get,"ax",%progbits
+ 457              		.align	1
+ 458              		.global	LPTIM_Waveform_Get
+ 459              		.syntax unified
+ 460              		.thumb
+ 461              		.thumb_func
+ 463              	LPTIM_Waveform_Get:
+ 464              	.LVL23:
+ 465              	.LFB147:
+ 351:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 352:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 353:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 354:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Waveform_Get.
+ 355:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun      Get actual waveform shape.
+ 356:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 357:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 358:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  
+ 359:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_OUTPUT_WAVEFORM_PWM
+ 360:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_OUTPUT_WAVEFORM_SETONCE
+ 361:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 362:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** uint32_t LPTIM_Waveform_Get(LPTIM_Module *LPTIMx)
+ 363:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 466              		.loc 1 363 1 is_stmt 1 view -0
+ 467              		.cfi_startproc
+ 468              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 15
+
+
+ 469              		@ frame_needed = 0, uses_anonymous_args = 0
+ 470              		@ link register save eliminated.
+ 364:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Return LPTIM_CFG WAVE bits */
+ 365:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     return (uint32_t)(LPTIMx->CFG & LPTIM_CFG_WAVE);
+ 471              		.loc 1 365 5 view .LVU90
+ 472              		.loc 1 365 29 is_stmt 0 view .LVU91
+ 473 0000 C068     		ldr	r0, [r0, #12]
+ 474              	.LVL24:
+ 366:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 475              		.loc 1 366 1 view .LVU92
+ 476 0002 00F48010 		and	r0, r0, #1048576
+ 477 0006 7047     		bx	lr
+ 478              		.cfi_endproc
+ 479              	.LFE147:
+ 481              		.section	.text.LPTIM_Polarity_Set,"ax",%progbits
+ 482              		.align	1
+ 483              		.global	LPTIM_Polarity_Set
+ 484              		.syntax unified
+ 485              		.thumb
+ 486              		.thumb_func
+ 488              	LPTIM_Polarity_Set:
+ 489              	.LVL25:
+ 490              	.LFB148:
+ 367:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 368:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 369:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 370:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Polarity_Set.
+ 371:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Set  output polarity.
+ 372:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 373:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 374:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   Polarity
+ 375:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_OUTPUT_POLARITY_REGULAR
+ 376:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_OUTPUT_POLARITY_INVERSE
+ 377:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 378:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 379:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Polarity_Set(LPTIM_Module *LPTIMx, uint32_t Polarity)
+ 380:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 491              		.loc 1 380 1 is_stmt 1 view -0
+ 492              		.cfi_startproc
+ 493              		@ args = 0, pretend = 0, frame = 0
+ 494              		@ frame_needed = 0, uses_anonymous_args = 0
+ 495              		@ link register save eliminated.
+ 381:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Clear LPTIM_CFG WAVEPOL bits */
+ 382:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CFG &= ~LPTIM_CFG_WAVEPOL;
+ 496              		.loc 1 382 5 view .LVU94
+ 497              		.loc 1 382 11 is_stmt 0 view .LVU95
+ 498 0000 C368     		ldr	r3, [r0, #12]
+ 499              		.loc 1 382 17 view .LVU96
+ 500 0002 23F40013 		bic	r3, r3, #2097152
+ 501 0006 C360     		str	r3, [r0, #12]
+ 383:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set LPTIM_CFG WAVEPOL bits */
+ 384:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CFG |= Polarity;
+ 502              		.loc 1 384 5 is_stmt 1 view .LVU97
+ 503              		.loc 1 384 11 is_stmt 0 view .LVU98
+ 504 0008 C368     		ldr	r3, [r0, #12]
+ 505              		.loc 1 384 17 view .LVU99
+ 506 000a 0B43     		orrs	r3, r3, r1
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 16
+
+
+ 507 000c C360     		str	r3, [r0, #12]
+ 385:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 508              		.loc 1 385 1 view .LVU100
+ 509 000e 7047     		bx	lr
+ 510              		.cfi_endproc
+ 511              	.LFE148:
+ 513              		.section	.text.LPTIM_Polarity_Get,"ax",%progbits
+ 514              		.align	1
+ 515              		.global	LPTIM_Polarity_Get
+ 516              		.syntax unified
+ 517              		.thumb
+ 518              		.thumb_func
+ 520              	LPTIM_Polarity_Get:
+ 521              	.LVL26:
+ 522              	.LFB149:
+ 386:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 387:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 388:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Polarity_Get.
+ 389:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Get actual output polarity.
+ 390:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 391:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 392:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  
+ 393:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_OUTPUT_POLARITY_REGULAR
+ 394:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_OUTPUT_POLARITY_INVERSE
+ 395:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 396:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** uint32_t LPTIM_Polarity_Get(LPTIM_Module *LPTIMx)
+ 397:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 523              		.loc 1 397 1 is_stmt 1 view -0
+ 524              		.cfi_startproc
+ 525              		@ args = 0, pretend = 0, frame = 0
+ 526              		@ frame_needed = 0, uses_anonymous_args = 0
+ 527              		@ link register save eliminated.
+ 398:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Return LPTIM_CFG WAVEPOL bits */
+ 399:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     return (uint32_t)(LPTIMx->CFG & LPTIM_CFG_WAVEPOL);
+ 528              		.loc 1 399 5 view .LVU102
+ 529              		.loc 1 399 29 is_stmt 0 view .LVU103
+ 530 0000 C068     		ldr	r0, [r0, #12]
+ 531              	.LVL27:
+ 400:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 532              		.loc 1 400 1 view .LVU104
+ 533 0002 00F40010 		and	r0, r0, #2097152
+ 534 0006 7047     		bx	lr
+ 535              		.cfi_endproc
+ 536              	.LFE149:
+ 538              		.section	.text.LPTIM_Prescaler_Set,"ax",%progbits
+ 539              		.align	1
+ 540              		.global	LPTIM_Prescaler_Set
+ 541              		.syntax unified
+ 542              		.thumb
+ 543              		.thumb_func
+ 545              	LPTIM_Prescaler_Set:
+ 546              	.LVL28:
+ 547              	.LFB150:
+ 401:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 402:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 403:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 404:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Prescaler_Set.
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 17
+
+
+ 405:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Set actual prescaler division ratio.
+ 406:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 407:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 408:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   Prescaler
+ 409:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_PRESCALER_DIV1
+ 410:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_PRESCALER_DIV2
+ 411:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_PRESCALER_DIV4
+ 412:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_PRESCALER_DIV8
+ 413:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_PRESCALER_DIV16
+ 414:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_PRESCALER_DIV32
+ 415:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_PRESCALER_DIV64
+ 416:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_PRESCALER_DIV128
+ 417:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 418:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 419:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Prescaler_Set(LPTIM_Module *LPTIMx, uint32_t Prescaler)
+ 420:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 548              		.loc 1 420 1 is_stmt 1 view -0
+ 549              		.cfi_startproc
+ 550              		@ args = 0, pretend = 0, frame = 0
+ 551              		@ frame_needed = 0, uses_anonymous_args = 0
+ 552              		@ link register save eliminated.
+ 421:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Clear LPTIM_CFG CLKPRE bits */
+ 422:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CFG &= ~LPTIM_CFG_CLKPRE;
+ 553              		.loc 1 422 5 view .LVU106
+ 554              		.loc 1 422 11 is_stmt 0 view .LVU107
+ 555 0000 C368     		ldr	r3, [r0, #12]
+ 556              		.loc 1 422 17 view .LVU108
+ 557 0002 23F46063 		bic	r3, r3, #3584
+ 558 0006 C360     		str	r3, [r0, #12]
+ 423:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set LPTIM_CFG CLKPRE bits */
+ 424:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CFG |= Prescaler;
+ 559              		.loc 1 424 5 is_stmt 1 view .LVU109
+ 560              		.loc 1 424 11 is_stmt 0 view .LVU110
+ 561 0008 C368     		ldr	r3, [r0, #12]
+ 562              		.loc 1 424 17 view .LVU111
+ 563 000a 0B43     		orrs	r3, r3, r1
+ 564 000c C360     		str	r3, [r0, #12]
+ 425:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 565              		.loc 1 425 1 view .LVU112
+ 566 000e 7047     		bx	lr
+ 567              		.cfi_endproc
+ 568              	.LFE150:
+ 570              		.section	.text.LPTIM_Prescaler_Get,"ax",%progbits
+ 571              		.align	1
+ 572              		.global	LPTIM_Prescaler_Get
+ 573              		.syntax unified
+ 574              		.thumb
+ 575              		.thumb_func
+ 577              	LPTIM_Prescaler_Get:
+ 578              	.LVL29:
+ 579              	.LFB151:
+ 426:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 427:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 428:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 429:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Prescaler_Get.
+ 430:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Get actual prescaler division ratio.
+ 431:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 18
+
+
+ 432:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 433:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  
+ 434:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_PRESCALER_DIV1
+ 435:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_PRESCALER_DIV2
+ 436:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_PRESCALER_DIV4
+ 437:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_PRESCALER_DIV8
+ 438:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_PRESCALER_DIV16
+ 439:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_PRESCALER_DIV32
+ 440:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_PRESCALER_DIV64
+ 441:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_PRESCALER_DIV128
+ 442:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 443:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** uint32_t LPTIM_Prescaler_Get(LPTIM_Module *LPTIMx)
+ 444:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 580              		.loc 1 444 1 is_stmt 1 view -0
+ 581              		.cfi_startproc
+ 582              		@ args = 0, pretend = 0, frame = 0
+ 583              		@ frame_needed = 0, uses_anonymous_args = 0
+ 584              		@ link register save eliminated.
+ 445:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Return LPTIM_CFG CLKPRE bits */
+ 446:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     return (uint32_t)(LPTIMx->CFG & LPTIM_CFG_CLKPRE);
+ 585              		.loc 1 446 5 view .LVU114
+ 586              		.loc 1 446 29 is_stmt 0 view .LVU115
+ 587 0000 C068     		ldr	r0, [r0, #12]
+ 588              	.LVL30:
+ 447:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 589              		.loc 1 447 1 view .LVU116
+ 590 0002 00F46060 		and	r0, r0, #3584
+ 591 0006 7047     		bx	lr
+ 592              		.cfi_endproc
+ 593              	.LFE151:
+ 595              		.section	.text.LPTIM_Timeout_Enable,"ax",%progbits
+ 596              		.align	1
+ 597              		.global	LPTIM_Timeout_Enable
+ 598              		.syntax unified
+ 599              		.thumb
+ 600              		.thumb_func
+ 602              	LPTIM_Timeout_Enable:
+ 603              	.LVL31:
+ 604              	.LFB152:
+ 448:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 449:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 450:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /** LPTIM_EF_Trigger_Configuration Trigger Configuration **/
+ 451:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 452:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 453:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 454:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Timeout_Enable.
+ 455:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Enable the timeout function.
+ 456:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 457:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 458:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 459:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 460:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Timeout_Enable(LPTIM_Module *LPTIMx)
+ 461:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 605              		.loc 1 461 1 is_stmt 1 view -0
+ 606              		.cfi_startproc
+ 607              		@ args = 0, pretend = 0, frame = 0
+ 608              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 19
+
+
+ 609              		@ link register save eliminated.
+ 462:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set LPTIM_CFG TIMOUTEN bits */
+ 463:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CFG |= LPTIM_CFG_TIMOUTEN;
+ 610              		.loc 1 463 5 view .LVU118
+ 611              		.loc 1 463 11 is_stmt 0 view .LVU119
+ 612 0000 C368     		ldr	r3, [r0, #12]
+ 613              		.loc 1 463 17 view .LVU120
+ 614 0002 43F40023 		orr	r3, r3, #524288
+ 615 0006 C360     		str	r3, [r0, #12]
+ 464:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 616              		.loc 1 464 1 view .LVU121
+ 617 0008 7047     		bx	lr
+ 618              		.cfi_endproc
+ 619              	.LFE152:
+ 621              		.section	.text.LPTIM_Timeout_Disable,"ax",%progbits
+ 622              		.align	1
+ 623              		.global	LPTIM_Timeout_Disable
+ 624              		.syntax unified
+ 625              		.thumb
+ 626              		.thumb_func
+ 628              	LPTIM_Timeout_Disable:
+ 629              	.LVL32:
+ 630              	.LFB153:
+ 465:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 466:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 467:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 468:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Timeout_Disable.
+ 469:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Disable the timeout function.
+ 470:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 471:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 472:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 473:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 474:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Timeout_Disable(LPTIM_Module *LPTIMx)
+ 475:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 631              		.loc 1 475 1 is_stmt 1 view -0
+ 632              		.cfi_startproc
+ 633              		@ args = 0, pretend = 0, frame = 0
+ 634              		@ frame_needed = 0, uses_anonymous_args = 0
+ 635              		@ link register save eliminated.
+ 476:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Clear LPTIM_CFG TIMOUTEN bits */
+ 477:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CFG &= ~LPTIM_CFG_TIMOUTEN;
+ 636              		.loc 1 477 5 view .LVU123
+ 637              		.loc 1 477 11 is_stmt 0 view .LVU124
+ 638 0000 C368     		ldr	r3, [r0, #12]
+ 639              		.loc 1 477 17 view .LVU125
+ 640 0002 23F40023 		bic	r3, r3, #524288
+ 641 0006 C360     		str	r3, [r0, #12]
+ 478:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 642              		.loc 1 478 1 view .LVU126
+ 643 0008 7047     		bx	lr
+ 644              		.cfi_endproc
+ 645              	.LFE153:
+ 647              		.section	.text.LPTIM_Timeout_Get,"ax",%progbits
+ 648              		.align	1
+ 649              		.global	LPTIM_Timeout_Get
+ 650              		.syntax unified
+ 651              		.thumb
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 20
+
+
+ 652              		.thumb_func
+ 654              	LPTIM_Timeout_Get:
+ 655              	.LVL33:
+ 656              	.LFB154:
+ 479:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 480:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 481:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 482:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name   LPTIM_Timeout_Get.
+ 483:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun    Indicate whether the timeout function is enabled.
+ 484:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param  LPTIMx 
+ 485:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -Low-Power Timer instance
+ 486:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return 
+ 487:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -ENABLE
+ 488:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -DISABLE      
+ 489:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 490:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** FunctionalState LPTIM_Timeout_Get(LPTIM_Module *LPTIMx)
+ 491:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 657              		.loc 1 491 1 is_stmt 1 view -0
+ 658              		.cfi_startproc
+ 659              		@ args = 0, pretend = 0, frame = 0
+ 660              		@ frame_needed = 0, uses_anonymous_args = 0
+ 661              		@ link register save eliminated.
+ 492:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Return LPTIM_CFG TIMOUTEN bits */
+ 493:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     return (((LPTIMx->CFG & LPTIM_CFG_TIMOUTEN) == LPTIM_CFG_TIMOUTEN) ? ENABLE : DISABLE);
+ 662              		.loc 1 493 5 view .LVU128
+ 663              		.loc 1 493 21 is_stmt 0 view .LVU129
+ 664 0000 C068     		ldr	r0, [r0, #12]
+ 665              	.LVL34:
+ 494:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 666              		.loc 1 494 1 view .LVU130
+ 667 0002 C0F3C040 		ubfx	r0, r0, #19, #1
+ 668 0006 7047     		bx	lr
+ 669              		.cfi_endproc
+ 670              	.LFE154:
+ 672              		.section	.text.LPTIM_Software_Trigger,"ax",%progbits
+ 673              		.align	1
+ 674              		.global	LPTIM_Software_Trigger
+ 675              		.syntax unified
+ 676              		.thumb
+ 677              		.thumb_func
+ 679              	LPTIM_Software_Trigger:
+ 680              	.LVL35:
+ 681              	.LFB155:
+ 495:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 496:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 497:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 498:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Software_Trigger.
+ 499:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Start the LPTIM counter on software trig.
+ 500:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 501:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 502:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 503:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 504:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Software_Trigger(LPTIM_Module *LPTIMx)
+ 505:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 682              		.loc 1 505 1 is_stmt 1 view -0
+ 683              		.cfi_startproc
+ 684              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 21
+
+
+ 685              		@ frame_needed = 0, uses_anonymous_args = 0
+ 686              		@ link register save eliminated.
+ 506:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     LPTIMx->CFG &= ~LPTIM_CFG_TRGEN;
+ 687              		.loc 1 506 5 view .LVU132
+ 688              		.loc 1 506 11 is_stmt 0 view .LVU133
+ 689 0000 C368     		ldr	r3, [r0, #12]
+ 690              		.loc 1 506 17 view .LVU134
+ 691 0002 23F4C023 		bic	r3, r3, #393216
+ 692 0006 C360     		str	r3, [r0, #12]
+ 507:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 693              		.loc 1 507 1 view .LVU135
+ 694 0008 7047     		bx	lr
+ 695              		.cfi_endproc
+ 696              	.LFE155:
+ 698              		.section	.text.LPTIM_Trigger_Config,"ax",%progbits
+ 699              		.align	1
+ 700              		.global	LPTIM_Trigger_Config
+ 701              		.syntax unified
+ 702              		.thumb
+ 703              		.thumb_func
+ 705              	LPTIM_Trigger_Config:
+ 706              	.LVL36:
+ 707              	.LFB156:
+ 508:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 509:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 510:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 511:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Trigger_Config.
+ 512:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Configure the external trigger used as a trigger event for the LPTIM.
+ 513:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 514:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 515:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   Source
+ 516:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_SOURCE_GPIO
+ 517:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_SOURCE_RTCALARMA
+ 518:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_SOURCE_RTCALARMB
+ 519:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_SOURCE_RTCTAMP1
+ 520:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_SOURCE_RTCTAMP2
+ 521:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_SOURCE_RTCTAMP3
+ 522:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_SOURCE_COMP1
+ 523:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_SOURCE_COMP2
+ 524:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_SOURCE_COMP3
+ 525:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   Filter 
+ 526:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_FILTER_NONE
+ 527:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_FILTER_2
+ 528:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_FILTER_4
+ 529:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_FILTER_8
+ 530:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   Polarity 
+ 531:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_POLARITY_RISING
+ 532:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_POLARITY_FALLING
+ 533:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_TRIG_POLARITY_RISING_FALLING
+ 534:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 535:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 536:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 537:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Trigger_Config(LPTIM_Module *LPTIMx, uint32_t Source, uint32_t Filter, uint32_t Polarity
+ 538:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 708              		.loc 1 538 1 is_stmt 1 view -0
+ 709              		.cfi_startproc
+ 710              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 22
+
+
+ 711              		@ frame_needed = 0, uses_anonymous_args = 0
+ 539:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->CFG &= ~(LPTIM_CFG_TRGSEL | LPTIM_CFG_TRIGFLT | LPTIM_CFG_TRGEN);
+ 712              		.loc 1 539 3 view .LVU137
+ 538:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->CFG &= ~(LPTIM_CFG_TRGSEL | LPTIM_CFG_TRIGFLT | LPTIM_CFG_TRGEN);
+ 713              		.loc 1 538 1 is_stmt 0 view .LVU138
+ 714 0000 10B5     		push	{r4, lr}
+ 715              	.LCFI0:
+ 716              		.cfi_def_cfa_offset 8
+ 717              		.cfi_offset 4, -8
+ 718              		.cfi_offset 14, -4
+ 719              		.loc 1 539 9 view .LVU139
+ 720 0002 C468     		ldr	r4, [r0, #12]
+ 721              		.loc 1 539 15 view .LVU140
+ 722 0004 24F4FC24 		bic	r4, r4, #516096
+ 723 0008 24F0C004 		bic	r4, r4, #192
+ 724 000c C460     		str	r4, [r0, #12]
+ 540:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->CFG |= (Source | Filter | Polarity);
+ 725              		.loc 1 540 3 is_stmt 1 view .LVU141
+ 726              		.loc 1 540 9 is_stmt 0 view .LVU142
+ 727 000e C468     		ldr	r4, [r0, #12]
+ 728              		.loc 1 540 35 view .LVU143
+ 729 0010 1A43     		orrs	r2, r2, r3
+ 730              	.LVL37:
+ 731              		.loc 1 540 35 view .LVU144
+ 732 0012 0A43     		orrs	r2, r2, r1
+ 733              		.loc 1 540 15 view .LVU145
+ 734 0014 2243     		orrs	r2, r2, r4
+ 735 0016 C260     		str	r2, [r0, #12]
+ 541:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 736              		.loc 1 541 1 view .LVU146
+ 737 0018 10BD     		pop	{r4, pc}
+ 738              		.cfi_endproc
+ 739              	.LFE156:
+ 741              		.section	.text.LPTIM_Trigger_Source_Get,"ax",%progbits
+ 742              		.align	1
+ 743              		.global	LPTIM_Trigger_Source_Get
+ 744              		.syntax unified
+ 745              		.thumb
+ 746              		.thumb_func
+ 748              	LPTIM_Trigger_Source_Get:
+ 749              	.LVL38:
+ 750              	.LFB157:
+ 542:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 543:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 544:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name   LPTIM_Trigger_Source_Get.
+ 545:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun    Get actual external trigger source.
+ 546:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param  LPTIMx 
+ 547:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -Low-Power Timer instance
+ 548:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return 
+ 549:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_SOURCE_GPIO
+ 550:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_SOURCE_RTCALARMA
+ 551:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_SOURCE_RTCALARMB
+ 552:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_SOURCE_RTCTAMP1
+ 553:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_SOURCE_RTCTAMP2
+ 554:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_SOURCE_RTCTAMP3
+ 555:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_SOURCE_COMP1
+ 556:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_SOURCE_COMP2
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 23
+
+
+ 557:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_SOURCE_COMP3
+ 558:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        
+ 559:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 560:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** uint32_t LPTIM_Trigger_Source_Get(LPTIM_Module *LPTIMx)
+ 561:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 751              		.loc 1 561 1 is_stmt 1 view -0
+ 752              		.cfi_startproc
+ 753              		@ args = 0, pretend = 0, frame = 0
+ 754              		@ frame_needed = 0, uses_anonymous_args = 0
+ 755              		@ link register save eliminated.
+ 562:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   return (uint32_t)(LPTIMx->CFG & LPTIM_CFG_TRGSEL);
+ 756              		.loc 1 562 3 view .LVU148
+ 757              		.loc 1 562 27 is_stmt 0 view .LVU149
+ 758 0000 C068     		ldr	r0, [r0, #12]
+ 759              	.LVL39:
+ 563:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 760              		.loc 1 563 1 view .LVU150
+ 761 0002 00F4F030 		and	r0, r0, #122880
+ 762 0006 7047     		bx	lr
+ 763              		.cfi_endproc
+ 764              	.LFE157:
+ 766              		.section	.text.LPTIM_Trigger_Filter_Get,"ax",%progbits
+ 767              		.align	1
+ 768              		.global	LPTIM_Trigger_Filter_Get
+ 769              		.syntax unified
+ 770              		.thumb
+ 771              		.thumb_func
+ 773              	LPTIM_Trigger_Filter_Get:
+ 774              	.LVL40:
+ 775              	.LFB158:
+ 564:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 565:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 566:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name   LPTIM_Trigger_Filter_Get.
+ 567:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun    Get actual external trigger filter.
+ 568:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param  LPTIMx 
+ 569:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -Low-Power Timer instance
+ 570:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return 
+ 571:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_FILTER_NONE
+ 572:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_FILTER_2
+ 573:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_FILTER_4
+ 574:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_FILTER_8
+ 575:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        
+ 576:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 577:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** uint32_t LPTIM_Trigger_Filter_Get(LPTIM_Module *LPTIMx)
+ 578:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 776              		.loc 1 578 1 is_stmt 1 view -0
+ 777              		.cfi_startproc
+ 778              		@ args = 0, pretend = 0, frame = 0
+ 779              		@ frame_needed = 0, uses_anonymous_args = 0
+ 780              		@ link register save eliminated.
+ 579:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   return (uint32_t)(LPTIMx->CFG & LPTIM_CFG_TRIGFLT);
+ 781              		.loc 1 579 3 view .LVU152
+ 782              		.loc 1 579 27 is_stmt 0 view .LVU153
+ 783 0000 C068     		ldr	r0, [r0, #12]
+ 784              	.LVL41:
+ 580:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 785              		.loc 1 580 1 view .LVU154
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 24
+
+
+ 786 0002 00F0C000 		and	r0, r0, #192
+ 787 0006 7047     		bx	lr
+ 788              		.cfi_endproc
+ 789              	.LFE158:
+ 791              		.section	.text.LPTIM_Trigger_Polarity_Get,"ax",%progbits
+ 792              		.align	1
+ 793              		.global	LPTIM_Trigger_Polarity_Get
+ 794              		.syntax unified
+ 795              		.thumb
+ 796              		.thumb_func
+ 798              	LPTIM_Trigger_Polarity_Get:
+ 799              	.LVL42:
+ 800              	.LFB159:
+ 581:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 582:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 583:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name   LPTIM_Trigger_Polarity_Get.
+ 584:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun    Get actual external trigger polarity.
+ 585:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param  LPTIMx 
+ 586:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -Low-Power Timer instance
+ 587:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return 
+ 588:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_POLARITY_RISING
+ 589:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_POLARITY_FALLING
+ 590:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_POLARITY_RISING_FALLING       
+ 591:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 592:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** uint32_t LPTIM_Trigger_Polarity_Get(LPTIM_Module *LPTIMx)
+ 593:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 801              		.loc 1 593 1 is_stmt 1 view -0
+ 802              		.cfi_startproc
+ 803              		@ args = 0, pretend = 0, frame = 0
+ 804              		@ frame_needed = 0, uses_anonymous_args = 0
+ 805              		@ link register save eliminated.
+ 594:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   return (uint32_t)(LPTIMx->CFG & LPTIM_CFG_TRGEN);
+ 806              		.loc 1 594 3 view .LVU156
+ 807              		.loc 1 594 27 is_stmt 0 view .LVU157
+ 808 0000 C068     		ldr	r0, [r0, #12]
+ 809              	.LVL43:
+ 595:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 810              		.loc 1 595 1 view .LVU158
+ 811 0002 00F4C020 		and	r0, r0, #393216
+ 812 0006 7047     		bx	lr
+ 813              		.cfi_endproc
+ 814              	.LFE159:
+ 816              		.section	.text.LPTIM_Clock_Source_Set,"ax",%progbits
+ 817              		.align	1
+ 818              		.global	LPTIM_Clock_Source_Set
+ 819              		.syntax unified
+ 820              		.thumb
+ 821              		.thumb_func
+ 823              	LPTIM_Clock_Source_Set:
+ 824              	.LVL44:
+ 825              	.LFB160:
+ 596:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 597:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 598:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 599:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /** LPTIM_EF_Clock_Configuration Clock Configuration **/
+ 600:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   
+ 601:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 25
+
+
+ 602:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 603:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 604:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Clock_Source_Set.
+ 605:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Set the source of the clock used by the LPTIM instance.
+ 606:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 607:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 608:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   ClockSource
+ 609:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLK_SOURCE_INTERNAL
+ 610:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLK_SOURCE_EXTERNAL
+ 611:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 612:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 613:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Clock_Source_Set(LPTIM_Module *LPTIMx, uint32_t ClockSource)
+ 614:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 826              		.loc 1 614 1 is_stmt 1 view -0
+ 827              		.cfi_startproc
+ 828              		@ args = 0, pretend = 0, frame = 0
+ 829              		@ frame_needed = 0, uses_anonymous_args = 0
+ 830              		@ link register save eliminated.
+ 615:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->CFG &= ~LPTIM_CFG_CLKSEL;
+ 831              		.loc 1 615 3 view .LVU160
+ 832              		.loc 1 615 9 is_stmt 0 view .LVU161
+ 833 0000 C368     		ldr	r3, [r0, #12]
+ 834              		.loc 1 615 15 view .LVU162
+ 835 0002 23F00103 		bic	r3, r3, #1
+ 836 0006 C360     		str	r3, [r0, #12]
+ 616:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->CFG |= ClockSource;
+ 837              		.loc 1 616 3 is_stmt 1 view .LVU163
+ 838              		.loc 1 616 9 is_stmt 0 view .LVU164
+ 839 0008 C368     		ldr	r3, [r0, #12]
+ 840              		.loc 1 616 15 view .LVU165
+ 841 000a 0B43     		orrs	r3, r3, r1
+ 842 000c C360     		str	r3, [r0, #12]
+ 617:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 843              		.loc 1 617 1 view .LVU166
+ 844 000e 7047     		bx	lr
+ 845              		.cfi_endproc
+ 846              	.LFE160:
+ 848              		.section	.text.LPTIM_Initializes,"ax",%progbits
+ 849              		.align	1
+ 850              		.global	LPTIM_Initializes
+ 851              		.syntax unified
+ 852              		.thumb
+ 853              		.thumb_func
+ 855              	LPTIM_Initializes:
+ 856              	.LVL45:
+ 857              	.LFB134:
+ 124:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   ErrorStatus result = SUCCESS;
+ 858              		.loc 1 124 1 is_stmt 1 view -0
+ 859              		.cfi_startproc
+ 860              		@ args = 0, pretend = 0, frame = 0
+ 861              		@ frame_needed = 0, uses_anonymous_args = 0
+ 125:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 862              		.loc 1 125 3 view .LVU168
+ 130:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   {
+ 863              		.loc 1 130 3 view .LVU169
+ 124:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   ErrorStatus result = SUCCESS;
+ 864              		.loc 1 124 1 is_stmt 0 view .LVU170
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 26
+
+
+ 865 0000 08B5     		push	{r3, lr}
+ 866              	.LCFI1:
+ 867              		.cfi_def_cfa_offset 8
+ 868              		.cfi_offset 3, -8
+ 869              		.cfi_offset 14, -4
+ 130:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   {
+ 870              		.loc 1 130 13 view .LVU171
+ 871 0002 0369     		ldr	r3, [r0, #16]
+ 130:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   {
+ 872              		.loc 1 130 6 view .LVU172
+ 873 0004 DB07     		lsls	r3, r3, #31
+ 124:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   ErrorStatus result = SUCCESS;
+ 874              		.loc 1 124 1 view .LVU173
+ 875 0006 0A46     		mov	r2, r1
+ 130:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   {
+ 876              		.loc 1 130 6 view .LVU174
+ 877 0008 0DD4     		bmi	.L33
+ 137:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set PRESC bitfield according to Prescaler value */
+ 878              		.loc 1 137 5 is_stmt 1 view .LVU175
+ 879 000a 0968     		ldr	r1, [r1]
+ 880              	.LVL46:
+ 137:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set PRESC bitfield according to Prescaler value */
+ 881              		.loc 1 137 5 is_stmt 0 view .LVU176
+ 882 000c FFF7FEFF 		bl	LPTIM_Clock_Source_Set
+ 883              	.LVL47:
+ 139:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set WAVE  bitfield according to Waveform value */
+ 884              		.loc 1 139 5 is_stmt 1 view .LVU177
+ 885 0010 5168     		ldr	r1, [r2, #4]
+ 886 0012 FFF7FEFF 		bl	LPTIM_Prescaler_Set
+ 887              	.LVL48:
+ 141:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Set WAVEPOL bitfield according to Polarity value */
+ 888              		.loc 1 141 5 view .LVU178
+ 889 0016 9168     		ldr	r1, [r2, #8]
+ 890 0018 FFF7FEFF 		bl	LPTIM_Waveform_Set
+ 891              	.LVL49:
+ 143:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   }
+ 892              		.loc 1 143 5 view .LVU179
+ 893 001c D168     		ldr	r1, [r2, #12]
+ 894 001e FFF7FEFF 		bl	LPTIM_Polarity_Set
+ 895              	.LVL50:
+ 125:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 896              		.loc 1 125 15 is_stmt 0 view .LVU180
+ 897 0022 0120     		movs	r0, #1
+ 898              	.LVL51:
+ 899              	.L32:
+ 145:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 900              		.loc 1 145 3 is_stmt 1 view .LVU181
+ 146:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 901              		.loc 1 146 1 is_stmt 0 view .LVU182
+ 902 0024 08BD     		pop	{r3, pc}
+ 903              	.LVL52:
+ 904              	.L33:
+ 132:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   }
+ 905              		.loc 1 132 12 view .LVU183
+ 906 0026 0020     		movs	r0, #0
+ 907              	.LVL53:
+ 132:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   }
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 27
+
+
+ 908              		.loc 1 132 12 view .LVU184
+ 909 0028 FCE7     		b	.L32
+ 910              		.cfi_endproc
+ 911              	.LFE134:
+ 913              		.section	.text.LPTIM_Clock_Source_Get,"ax",%progbits
+ 914              		.align	1
+ 915              		.global	LPTIM_Clock_Source_Get
+ 916              		.syntax unified
+ 917              		.thumb
+ 918              		.thumb_func
+ 920              	LPTIM_Clock_Source_Get:
+ 921              	.LVL54:
+ 922              	.LFB161:
+ 618:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 619:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 620:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name   LPTIM_Clock_Source_Get.
+ 621:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun    Get actual LPTIM instance clock source.
+ 622:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param  LPTIMx 
+ 623:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -Low-Power Timer instance
+ 624:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return 
+ 625:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_CLK_SOURCE_INTERNAL
+ 626:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_CLK_SOURCE_EXTERNAL     
+ 627:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 628:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** uint32_t LPTIM_Clock_Source_Get(LPTIM_Module *LPTIMx)
+ 629:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 923              		.loc 1 629 1 is_stmt 1 view -0
+ 924              		.cfi_startproc
+ 925              		@ args = 0, pretend = 0, frame = 0
+ 926              		@ frame_needed = 0, uses_anonymous_args = 0
+ 927              		@ link register save eliminated.
+ 630:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   return (uint32_t)(LPTIMx->CFG & LPTIM_CFG_CLKSEL);
+ 928              		.loc 1 630 3 view .LVU186
+ 929              		.loc 1 630 27 is_stmt 0 view .LVU187
+ 930 0000 C068     		ldr	r0, [r0, #12]
+ 931              	.LVL55:
+ 631:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 932              		.loc 1 631 1 view .LVU188
+ 933 0002 00F00100 		and	r0, r0, #1
+ 934 0006 7047     		bx	lr
+ 935              		.cfi_endproc
+ 936              	.LFE161:
+ 938              		.section	.text.LPTIM_Clock_Config,"ax",%progbits
+ 939              		.align	1
+ 940              		.global	LPTIM_Clock_Config
+ 941              		.syntax unified
+ 942              		.thumb
+ 943              		.thumb_func
+ 945              	LPTIM_Clock_Config:
+ 946              	.LVL56:
+ 947              	.LFB162:
+ 632:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 633:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 634:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Clock_Config.
+ 635:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Configure the active edge or edges used by the counter when the LPTIM is clocked by an 
+ 636:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 637:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 638:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   ClockFilter
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 28
+
+
+ 639:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLK_FILTER_NONE
+ 640:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLK_FILTER_2
+ 641:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLK_FILTER_4
+ 642:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLK_FILTER_8
+ 643:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   ClockPolarity 
+ 644:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLK_POLARITY_RISING
+ 645:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLK_POLARITY_FALLING
+ 646:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLK_POLARITY_RISING_FALLING
+ 647:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 648:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 649:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Clock_Config(LPTIM_Module *LPTIMx, uint32_t ClockFilter, uint32_t ClockPolarity)
+ 650:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 948              		.loc 1 650 1 is_stmt 1 view -0
+ 949              		.cfi_startproc
+ 950              		@ args = 0, pretend = 0, frame = 0
+ 951              		@ frame_needed = 0, uses_anonymous_args = 0
+ 952              		@ link register save eliminated.
+ 651:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->CFG &= ~(LPTIM_CFG_CLKFLT | LPTIM_CFG_CLKPOL);
+ 953              		.loc 1 651 3 view .LVU190
+ 954              		.loc 1 651 9 is_stmt 0 view .LVU191
+ 955 0000 C368     		ldr	r3, [r0, #12]
+ 956              		.loc 1 651 15 view .LVU192
+ 957 0002 23F01E03 		bic	r3, r3, #30
+ 958 0006 C360     		str	r3, [r0, #12]
+ 652:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->CFG |= (ClockFilter | ClockPolarity);
+ 959              		.loc 1 652 3 is_stmt 1 view .LVU193
+ 960              		.loc 1 652 9 is_stmt 0 view .LVU194
+ 961 0008 C368     		ldr	r3, [r0, #12]
+ 962              		.loc 1 652 31 view .LVU195
+ 963 000a 1143     		orrs	r1, r1, r2
+ 964              	.LVL57:
+ 965              		.loc 1 652 15 view .LVU196
+ 966 000c 1943     		orrs	r1, r1, r3
+ 967 000e C160     		str	r1, [r0, #12]
+ 653:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 968              		.loc 1 653 1 view .LVU197
+ 969 0010 7047     		bx	lr
+ 970              		.cfi_endproc
+ 971              	.LFE162:
+ 973              		.section	.text.LPTIM_Clock_Polarity_Get,"ax",%progbits
+ 974              		.align	1
+ 975              		.global	LPTIM_Clock_Polarity_Get
+ 976              		.syntax unified
+ 977              		.thumb
+ 978              		.thumb_func
+ 980              	LPTIM_Clock_Polarity_Get:
+ 981              	.LVL58:
+ 982              	.LFB163:
+ 654:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 655:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 656:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name   LPTIM_Clock_Polarity_Get.
+ 657:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun    Get actual clock polarity.
+ 658:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param  LPTIMx 
+ 659:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -Low-Power Timer instance
+ 660:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return 
+ 661:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_CLK_POLARITY_RISING
+ 662:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_CLK_POLARITY_FALLING
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 29
+
+
+ 663:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_CLK_POLARITY_RISING_FALLING    
+ 664:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 665:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** uint32_t LPTIM_Clock_Polarity_Get(LPTIM_Module *LPTIMx)
+ 666:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 983              		.loc 1 666 1 is_stmt 1 view -0
+ 984              		.cfi_startproc
+ 985              		@ args = 0, pretend = 0, frame = 0
+ 986              		@ frame_needed = 0, uses_anonymous_args = 0
+ 987              		@ link register save eliminated.
+ 667:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   return (uint32_t)(LPTIMx->CFG & LPTIM_CFG_CLKPOL);
+ 988              		.loc 1 667 3 view .LVU199
+ 989              		.loc 1 667 27 is_stmt 0 view .LVU200
+ 990 0000 C068     		ldr	r0, [r0, #12]
+ 991              	.LVL59:
+ 668:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 992              		.loc 1 668 1 view .LVU201
+ 993 0002 00F00600 		and	r0, r0, #6
+ 994 0006 7047     		bx	lr
+ 995              		.cfi_endproc
+ 996              	.LFE163:
+ 998              		.section	.text.LPTIM_Clock_Filter_Get,"ax",%progbits
+ 999              		.align	1
+ 1000              		.global	LPTIM_Clock_Filter_Get
+ 1001              		.syntax unified
+ 1002              		.thumb
+ 1003              		.thumb_func
+ 1005              	LPTIM_Clock_Filter_Get:
+ 1006              	.LVL60:
+ 1007              	.LFB164:
+ 669:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 670:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 671:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name   LPTIM_Clock_Filter_Get.
+ 672:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun    Get actual clock digital filter.
+ 673:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param  LPTIMx 
+ 674:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -Low-Power Timer instance
+ 675:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return 
+ 676:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_CLK_FILTER_NONE
+ 677:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_CLK_FILTER_2
+ 678:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_CLK_FILTER_4
+ 679:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_CLK_FILTER_8
+ 680:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 681:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** uint32_t LPTIM_Clock_Filter_Get(LPTIM_Module *LPTIMx)
+ 682:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 1008              		.loc 1 682 1 is_stmt 1 view -0
+ 1009              		.cfi_startproc
+ 1010              		@ args = 0, pretend = 0, frame = 0
+ 1011              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1012              		@ link register save eliminated.
+ 683:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   return (uint32_t)(LPTIMx->CFG & LPTIM_CFG_CLKFLT);
+ 1013              		.loc 1 683 3 view .LVU203
+ 1014              		.loc 1 683 27 is_stmt 0 view .LVU204
+ 1015 0000 C068     		ldr	r0, [r0, #12]
+ 1016              	.LVL61:
+ 684:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 1017              		.loc 1 684 1 view .LVU205
+ 1018 0002 00F01800 		and	r0, r0, #24
+ 1019 0006 7047     		bx	lr
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 30
+
+
+ 1020              		.cfi_endproc
+ 1021              	.LFE164:
+ 1023              		.section	.text.LPTIM_Encoder_Mode_Set,"ax",%progbits
+ 1024              		.align	1
+ 1025              		.global	LPTIM_Encoder_Mode_Set
+ 1026              		.syntax unified
+ 1027              		.thumb
+ 1028              		.thumb_func
+ 1030              	LPTIM_Encoder_Mode_Set:
+ 1031              	.LVL62:
+ 1032              	.LFB165:
+ 685:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 686:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 687:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /** LPTIM_EF_Encoder_Mode Encoder Mode **/
+ 688:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 689:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 690:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 691:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Encoder_Mode_Set.
+ 692:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Configure the encoder mode.
+ 693:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 694:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 695:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   ClockPolarity 
+ 696:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_ENCODER_MODE_RISING
+ 697:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_ENCODER_MODE_FALLING
+ 698:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_ENCODER_MODE_RISING_FALLING
+ 699:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 700:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 701:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Encoder_Mode_Set(LPTIM_Module *LPTIMx, uint32_t EncoderMode)
+ 702:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 1033              		.loc 1 702 1 is_stmt 1 view -0
+ 1034              		.cfi_startproc
+ 1035              		@ args = 0, pretend = 0, frame = 0
+ 1036              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1037              		@ link register save eliminated.
+ 703:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->CFG &= ~LPTIM_CFG_CLKPOL;
+ 1038              		.loc 1 703 3 view .LVU207
+ 1039              		.loc 1 703 9 is_stmt 0 view .LVU208
+ 1040 0000 C368     		ldr	r3, [r0, #12]
+ 1041              		.loc 1 703 15 view .LVU209
+ 1042 0002 23F00603 		bic	r3, r3, #6
+ 1043 0006 C360     		str	r3, [r0, #12]
+ 704:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->CFG |= EncoderMode;
+ 1044              		.loc 1 704 3 is_stmt 1 view .LVU210
+ 1045              		.loc 1 704 9 is_stmt 0 view .LVU211
+ 1046 0008 C368     		ldr	r3, [r0, #12]
+ 1047              		.loc 1 704 15 view .LVU212
+ 1048 000a 0B43     		orrs	r3, r3, r1
+ 1049 000c C360     		str	r3, [r0, #12]
+ 705:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 1050              		.loc 1 705 1 view .LVU213
+ 1051 000e 7047     		bx	lr
+ 1052              		.cfi_endproc
+ 1053              	.LFE165:
+ 1055              		.section	.text.LPTIM_Encoder_Mode_Get,"ax",%progbits
+ 1056              		.align	1
+ 1057              		.global	LPTIM_Encoder_Mode_Get
+ 1058              		.syntax unified
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 31
+
+
+ 1059              		.thumb
+ 1060              		.thumb_func
+ 1062              	LPTIM_Encoder_Mode_Get:
+ 1063              	.LFB180:
+ 1064              		.cfi_startproc
+ 706:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 707:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 708:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name   LPTIM_Encoder_Mode_Get.
+ 709:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun    Get actual encoder mode.
+ 710:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param  LPTIMx 
+ 711:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -Low-Power Timer instance
+ 712:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return 
+ 713:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_ENCODER_MODE_RISING
+ 714:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_ENCODER_MODE_FALLING
+ 715:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_ENCODER_MODE_RISING_FALLING
+ 716:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 717:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** uint32_t LPTIM_Encoder_Mode_Get(LPTIM_Module *LPTIMx)
+ 1065              		.loc 1 717 10 is_stmt 1 view -0
+ 1066              		@ args = 0, pretend = 0, frame = 0
+ 1067              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1068              		@ link register save eliminated.
+ 1069 0000 C068     		ldr	r0, [r0, #12]
+ 1070 0002 00F00600 		and	r0, r0, #6
+ 1071 0006 7047     		bx	lr
+ 1072              		.cfi_endproc
+ 1073              	.LFE180:
+ 1075              		.section	.text.LPTIM_Encoder_Mode_Enable,"ax",%progbits
+ 1076              		.align	1
+ 1077              		.global	LPTIM_Encoder_Mode_Enable
+ 1078              		.syntax unified
+ 1079              		.thumb
+ 1080              		.thumb_func
+ 1082              	LPTIM_Encoder_Mode_Enable:
+ 1083              	.LVL63:
+ 1084              	.LFB167:
+ 718:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 719:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   return (uint32_t)(LPTIMx->CFG & LPTIM_CFG_CLKPOL);
+ 720:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 721:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 722:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 723:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Encoder_Mode_Enable.
+ 724:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Enable the encoder mode.
+ 725:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 726:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 727:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 728:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 729:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Encoder_Mode_Enable(LPTIM_Module *LPTIMx)
+ 730:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 1085              		.loc 1 730 1 view -0
+ 1086              		.cfi_startproc
+ 1087              		@ args = 0, pretend = 0, frame = 0
+ 1088              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1089              		@ link register save eliminated.
+ 731:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->CFG |= LPTIM_CFG_ENC;
+ 1090              		.loc 1 731 3 view .LVU216
+ 1091              		.loc 1 731 9 is_stmt 0 view .LVU217
+ 1092 0000 C368     		ldr	r3, [r0, #12]
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 32
+
+
+ 1093              		.loc 1 731 15 view .LVU218
+ 1094 0002 43F08073 		orr	r3, r3, #16777216
+ 1095 0006 C360     		str	r3, [r0, #12]
+ 732:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 1096              		.loc 1 732 1 view .LVU219
+ 1097 0008 7047     		bx	lr
+ 1098              		.cfi_endproc
+ 1099              	.LFE167:
+ 1101              		.section	.text.LPTIM_Encoder_Mode_Disable,"ax",%progbits
+ 1102              		.align	1
+ 1103              		.global	LPTIM_Encoder_Mode_Disable
+ 1104              		.syntax unified
+ 1105              		.thumb
+ 1106              		.thumb_func
+ 1108              	LPTIM_Encoder_Mode_Disable:
+ 1109              	.LVL64:
+ 1110              	.LFB168:
+ 733:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 734:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 735:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Encoder_Mode_Disable.
+ 736:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Disable the encoder mode.
+ 737:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 738:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 739:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 740:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 741:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Encoder_Mode_Disable(LPTIM_Module *LPTIMx)
+ 742:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 1111              		.loc 1 742 1 is_stmt 1 view -0
+ 1112              		.cfi_startproc
+ 1113              		@ args = 0, pretend = 0, frame = 0
+ 1114              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1115              		@ link register save eliminated.
+ 743:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->CFG &= ~LPTIM_CFG_ENC;
+ 1116              		.loc 1 743 3 view .LVU221
+ 1117              		.loc 1 743 9 is_stmt 0 view .LVU222
+ 1118 0000 C368     		ldr	r3, [r0, #12]
+ 1119              		.loc 1 743 15 view .LVU223
+ 1120 0002 23F08073 		bic	r3, r3, #16777216
+ 1121 0006 C360     		str	r3, [r0, #12]
+ 744:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 1122              		.loc 1 744 1 view .LVU224
+ 1123 0008 7047     		bx	lr
+ 1124              		.cfi_endproc
+ 1125              	.LFE168:
+ 1127              		.section	.text.LPTIM_NoEncoder_Mode_Enable,"ax",%progbits
+ 1128              		.align	1
+ 1129              		.global	LPTIM_NoEncoder_Mode_Enable
+ 1130              		.syntax unified
+ 1131              		.thumb
+ 1132              		.thumb_func
+ 1134              	LPTIM_NoEncoder_Mode_Enable:
+ 1135              	.LVL65:
+ 1136              	.LFB169:
+ 745:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 746:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 747:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_NoEncoder_Mode_Enable.
+ 748:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Enable the non-orthogonal encoder mode.
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 33
+
+
+ 749:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 750:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 751:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 752:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 753:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_NoEncoder_Mode_Enable(LPTIM_Module *LPTIMx)
+ 754:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 1137              		.loc 1 754 1 is_stmt 1 view -0
+ 1138              		.cfi_startproc
+ 1139              		@ args = 0, pretend = 0, frame = 0
+ 1140              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1141              		@ link register save eliminated.
+ 755:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->CFG |= LPTIM_CFG_NENC;
+ 1142              		.loc 1 755 3 view .LVU226
+ 1143              		.loc 1 755 9 is_stmt 0 view .LVU227
+ 1144 0000 C368     		ldr	r3, [r0, #12]
+ 1145              		.loc 1 755 15 view .LVU228
+ 1146 0002 43F00073 		orr	r3, r3, #33554432
+ 1147 0006 C360     		str	r3, [r0, #12]
+ 756:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 1148              		.loc 1 756 1 view .LVU229
+ 1149 0008 7047     		bx	lr
+ 1150              		.cfi_endproc
+ 1151              	.LFE169:
+ 1153              		.section	.text.LPTIM_NoEncoder_Mode_Disable,"ax",%progbits
+ 1154              		.align	1
+ 1155              		.global	LPTIM_NoEncoder_Mode_Disable
+ 1156              		.syntax unified
+ 1157              		.thumb
+ 1158              		.thumb_func
+ 1160              	LPTIM_NoEncoder_Mode_Disable:
+ 1161              	.LVL66:
+ 1162              	.LFB170:
+ 757:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 758:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 759:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_NoEncoder_Mode_Disable.
+ 760:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Disable the non-orthogonal encoder mode.
+ 761:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 762:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 763:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 764:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 765:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_NoEncoder_Mode_Disable(LPTIM_Module *LPTIMx)
+ 766:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 1163              		.loc 1 766 1 is_stmt 1 view -0
+ 1164              		.cfi_startproc
+ 1165              		@ args = 0, pretend = 0, frame = 0
+ 1166              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1167              		@ link register save eliminated.
+ 767:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->CFG &= ~LPTIM_CFG_NENC;
+ 1168              		.loc 1 767 3 view .LVU231
+ 1169              		.loc 1 767 9 is_stmt 0 view .LVU232
+ 1170 0000 C368     		ldr	r3, [r0, #12]
+ 1171              		.loc 1 767 15 view .LVU233
+ 1172 0002 23F00073 		bic	r3, r3, #33554432
+ 1173 0006 C360     		str	r3, [r0, #12]
+ 768:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 1174              		.loc 1 768 1 view .LVU234
+ 1175 0008 7047     		bx	lr
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 34
+
+
+ 1176              		.cfi_endproc
+ 1177              	.LFE170:
+ 1179              		.section	.text.LPTIM_Encoder_Mode_Check,"ax",%progbits
+ 1180              		.align	1
+ 1181              		.global	LPTIM_Encoder_Mode_Check
+ 1182              		.syntax unified
+ 1183              		.thumb
+ 1184              		.thumb_func
+ 1186              	LPTIM_Encoder_Mode_Check:
+ 1187              	.LVL67:
+ 1188              	.LFB171:
+ 769:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 770:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 771:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 772:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Encoder_Mode_Check.
+ 773:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Check the encoder mode is enable or disable.
+ 774:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 775:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 776:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  
+ 777:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -ENABLE
+ 778:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -DISABLE
+ 779:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 780:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 781:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** FunctionalState LPTIM_Encoder_Mode_Check(LPTIM_Module *LPTIMx)
+ 782:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 1189              		.loc 1 782 1 is_stmt 1 view -0
+ 1190              		.cfi_startproc
+ 1191              		@ args = 0, pretend = 0, frame = 0
+ 1192              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1193              		@ link register save eliminated.
+ 783:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   return (((LPTIMx->CFG & LPTIM_CFG_ENC) == LPTIM_CFG_ENC) ? ENABLE : DISABLE);
+ 1194              		.loc 1 783 3 view .LVU236
+ 1195              		.loc 1 783 19 is_stmt 0 view .LVU237
+ 1196 0000 C068     		ldr	r0, [r0, #12]
+ 1197              	.LVL68:
+ 784:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 1198              		.loc 1 784 1 view .LVU238
+ 1199 0002 C0F30060 		ubfx	r0, r0, #24, #1
+ 1200 0006 7047     		bx	lr
+ 1201              		.cfi_endproc
+ 1202              	.LFE171:
+ 1204              		.section	.text.LPTIM_Input1_Option,"ax",%progbits
+ 1205              		.align	1
+ 1206              		.global	LPTIM_Input1_Option
+ 1207              		.syntax unified
+ 1208              		.thumb
+ 1209              		.thumb_func
+ 1211              	LPTIM_Input1_Option:
+ 1212              	.LVL69:
+ 1213              	.LFB172:
+ 785:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 786:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 787:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Input1_Option.
+ 788:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Option LPTIN input1 connected.
+ 789:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 790:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 791:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   option 
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 35
+
+
+ 792:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_INTPUT1_CONNECT_TO_GPIO
+ 793:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_INTPUT1_CONNECT_TO_COMP1_OUT
+ 794:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_INTPUT1_CONNECT_TO_COMP2_OUT
+ 795:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_INTPUT1_CONNECT_TO_COMP3_OUT
+ 796:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 797:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 798:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 799:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Input1_Option(LPTIM_Module *LPTIMx, uint32_t option)
+ 800:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 1214              		.loc 1 800 1 is_stmt 1 view -0
+ 1215              		.cfi_startproc
+ 1216              		@ args = 0, pretend = 0, frame = 0
+ 1217              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1218              		@ link register save eliminated.
+ 801:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->OPT &= LPTIM_INTPUT1_MASK;
+ 1219              		.loc 1 801 3 view .LVU240
+ 1220              		.loc 1 801 9 is_stmt 0 view .LVU241
+ 1221 0000 036A     		ldr	r3, [r0, #32]
+ 1222              		.loc 1 801 15 view .LVU242
+ 1223 0002 23F00303 		bic	r3, r3, #3
+ 1224 0006 0362     		str	r3, [r0, #32]
+ 802:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->OPT |= option;
+ 1225              		.loc 1 802 3 is_stmt 1 view .LVU243
+ 1226              		.loc 1 802 9 is_stmt 0 view .LVU244
+ 1227 0008 036A     		ldr	r3, [r0, #32]
+ 1228              		.loc 1 802 15 view .LVU245
+ 1229 000a 0B43     		orrs	r3, r3, r1
+ 1230 000c 0362     		str	r3, [r0, #32]
+ 803:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 1231              		.loc 1 803 1 view .LVU246
+ 1232 000e 7047     		bx	lr
+ 1233              		.cfi_endproc
+ 1234              	.LFE172:
+ 1236              		.section	.text.LPTIM_Input2_Option,"ax",%progbits
+ 1237              		.align	1
+ 1238              		.global	LPTIM_Input2_Option
+ 1239              		.syntax unified
+ 1240              		.thumb
+ 1241              		.thumb_func
+ 1243              	LPTIM_Input2_Option:
+ 1244              	.LVL70:
+ 1245              	.LFB173:
+ 804:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 805:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 806:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 807:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Input2_Option.
+ 808:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Option LPTIN input2 connected.
+ 809:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 810:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 811:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   option 
+ 812:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_INTPUT2_CONNECT_TO_GPIO
+ 813:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_INTPUT2_CONNECT_TO_COMP1_OUT
+ 814:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_INTPUT2_CONNECT_TO_COMP2_OUT
+ 815:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_INTPUT2_CONNECT_TO_COMP3_OUT
+ 816:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 817:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 818:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 36
+
+
+ 819:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Input2_Option(LPTIM_Module *LPTIMx, uint32_t option)
+ 820:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 1246              		.loc 1 820 1 is_stmt 1 view -0
+ 1247              		.cfi_startproc
+ 1248              		@ args = 0, pretend = 0, frame = 0
+ 1249              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1250              		@ link register save eliminated.
+ 821:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->OPT &= LPTIM_INTPUT2_MASK;
+ 1251              		.loc 1 821 3 view .LVU248
+ 1252              		.loc 1 821 9 is_stmt 0 view .LVU249
+ 1253 0000 036A     		ldr	r3, [r0, #32]
+ 1254              		.loc 1 821 15 view .LVU250
+ 1255 0002 23F00C03 		bic	r3, r3, #12
+ 1256 0006 0362     		str	r3, [r0, #32]
+ 822:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->OPT |= option;
+ 1257              		.loc 1 822 3 is_stmt 1 view .LVU251
+ 1258              		.loc 1 822 9 is_stmt 0 view .LVU252
+ 1259 0008 036A     		ldr	r3, [r0, #32]
+ 1260              		.loc 1 822 15 view .LVU253
+ 1261 000a 0B43     		orrs	r3, r3, r1
+ 1262 000c 0362     		str	r3, [r0, #32]
+ 823:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 1263              		.loc 1 823 1 view .LVU254
+ 1264 000e 7047     		bx	lr
+ 1265              		.cfi_endproc
+ 1266              	.LFE173:
+ 1268              		.section	.text.LPTIM_FLAG_Clear,"ax",%progbits
+ 1269              		.align	1
+ 1270              		.global	LPTIM_FLAG_Clear
+ 1271              		.syntax unified
+ 1272              		.thumb
+ 1273              		.thumb_func
+ 1275              	LPTIM_FLAG_Clear:
+ 1276              	.LVL71:
+ 1277              	.LFB174:
+ 824:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 825:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /** LPTIM_EF_FLAG_Management FLAG Management **/
+ 826:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 827:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 828:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_FLAG_Clear.
+ 829:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Clear the low power timer flag.
+ 830:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 831:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 832:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIM_flag_clear 
+ 833:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLEAR_FLAG_CMPM      the compare match flag
+ 834:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLEAR_FLAG_ARRM      the autoreload match flag
+ 835:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLEAR_FLAG_EXTRIG    the external trigger valid edge flag
+ 836:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLEAR_FLAG_CMPUPD    the compare register update interrupt flag
+ 837:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLEAR_FLAG_ARRUPD    the autoreload register update interrupt flag
+ 838:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLEAR_FLAG_UP        the counter direction change to up interrupt flag
+ 839:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLEAR_FLAG_DOWN      the counter direction change to down interrupt flag
+ 840:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 841:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 842:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_FLAG_Clear(LPTIM_Module *LPTIMx, uint32_t LPTIM_flag_clear)
+ 843:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 1278              		.loc 1 843 1 is_stmt 1 view -0
+ 1279              		.cfi_startproc
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 37
+
+
+ 1280              		@ args = 0, pretend = 0, frame = 0
+ 1281              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1282              		@ link register save eliminated.
+ 844:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->INTCLR |= LPTIM_flag_clear;
+ 1283              		.loc 1 844 3 view .LVU256
+ 1284              		.loc 1 844 9 is_stmt 0 view .LVU257
+ 1285 0000 4368     		ldr	r3, [r0, #4]
+ 1286              		.loc 1 844 18 view .LVU258
+ 1287 0002 0B43     		orrs	r3, r3, r1
+ 1288 0004 4360     		str	r3, [r0, #4]
+ 845:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 1289              		.loc 1 845 1 view .LVU259
+ 1290 0006 7047     		bx	lr
+ 1291              		.cfi_endproc
+ 1292              	.LFE174:
+ 1294              		.section	.text.LPTIM_Flag_Get,"ax",%progbits
+ 1295              		.align	1
+ 1296              		.global	LPTIM_Flag_Get
+ 1297              		.syntax unified
+ 1298              		.thumb
+ 1299              		.thumb_func
+ 1301              	LPTIM_Flag_Get:
+ 1302              	.LVL72:
+ 1303              	.LFB175:
+ 846:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 847:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 848:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 849:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_FLAG_Clear.
+ 850:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Check the low power timer flag.
+ 851:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 852:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 853:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIM_flag_check 
+ 854:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INTSTS_FLAG_CMPM     compare match interrupt 
+ 855:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INTSTS_FLAG_ARRM     a autoreload match interrupt
+ 856:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INTSTS_FLAG_EXTRIG   a valid edge on the selected external trigger input
+ 857:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INTSTS_FLAG_CMPUPD   the APB bus write operation to the LPTIMx_CMP register has
+ 858:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INTSTS_FLAG_ARRUPD   the APB bus write operation to the LPTIMx_ARR register has
+ 859:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INTSTS_FLAG_UP       the counter direction has changed from down to up (when th
+ 860:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INTSTS_FLAG_DOWN     the counter direction has changed from up to down (when th
+ 861:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 862:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 863:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** FlagStatus LPTIM_Flag_Get(LPTIM_Module *LPTIMx, uint32_t LPTIM_flag)
+ 864:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 1304              		.loc 1 864 1 is_stmt 1 view -0
+ 1305              		.cfi_startproc
+ 1306              		@ args = 0, pretend = 0, frame = 0
+ 1307              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1308              		@ link register save eliminated.
+ 865:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   return (((LPTIMx->INTSTS & LPTIM_flag) == LPTIM_flag) ? SET : RESET);
+ 1309              		.loc 1 865 3 view .LVU261
+ 1310              		.loc 1 865 19 is_stmt 0 view .LVU262
+ 1311 0000 0368     		ldr	r3, [r0]
+ 1312              		.loc 1 865 63 view .LVU263
+ 1313 0002 9943     		bics	r1, r1, r3
+ 1314              	.LVL73:
+ 866:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 1315              		.loc 1 866 1 view .LVU264
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 38
+
+
+ 1316 0004 0CBF     		ite	eq
+ 1317 0006 0120     		moveq	r0, #1
+ 1318              	.LVL74:
+ 1319              		.loc 1 866 1 view .LVU265
+ 1320 0008 0020     		movne	r0, #0
+ 1321 000a 7047     		bx	lr
+ 1322              		.cfi_endproc
+ 1323              	.LFE175:
+ 1325              		.section	.text.LPTIM_Interrupt_Enable,"ax",%progbits
+ 1326              		.align	1
+ 1327              		.global	LPTIM_Interrupt_Enable
+ 1328              		.syntax unified
+ 1329              		.thumb
+ 1330              		.thumb_func
+ 1332              	LPTIM_Interrupt_Enable:
+ 1333              	.LVL75:
+ 1334              	.LFB176:
+ 867:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 868:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 869:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /** LPTIM_EF_IT_Management Interrupt Management **/
+ 870:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 871:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 872:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 873:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Interrupt_Enable.
+ 874:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Enable the low-power Timer interrupt.
+ 875:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 876:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 877:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIM_interrupt_flag
+ 878:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_CMPMIE     compare match interrupt
+ 879:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_ARRMIE     autoreload match interrupt
+ 880:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_EXTRIGIE   external trigger valid edge interrupt
+ 881:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_CMPUPDIE   compare register write completed interrupt
+ 882:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_ARRUPDIE   autoreload register write completed interrupt
+ 883:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_UPIE       direction change to up interrupt
+ 884:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_DOWNIE     direction change to down interrupt
+ 885:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 886:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 887:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Interrupt_Enable(LPTIM_Module *LPTIMx, uint32_t LPTIM_interrupt_flag)
+ 888:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 1335              		.loc 1 888 1 is_stmt 1 view -0
+ 1336              		.cfi_startproc
+ 1337              		@ args = 0, pretend = 0, frame = 0
+ 1338              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1339              		@ link register save eliminated.
+ 889:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->INTEN |= LPTIM_interrupt_flag;
+ 1340              		.loc 1 889 3 view .LVU267
+ 1341              		.loc 1 889 9 is_stmt 0 view .LVU268
+ 1342 0000 8368     		ldr	r3, [r0, #8]
+ 1343              		.loc 1 889 17 view .LVU269
+ 1344 0002 0B43     		orrs	r3, r3, r1
+ 1345 0004 8360     		str	r3, [r0, #8]
+ 890:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 1346              		.loc 1 890 1 view .LVU270
+ 1347 0006 7047     		bx	lr
+ 1348              		.cfi_endproc
+ 1349              	.LFE176:
+ 1351              		.section	.text.LPTIM_Interrupt_Disable,"ax",%progbits
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 39
+
+
+ 1352              		.align	1
+ 1353              		.global	LPTIM_Interrupt_Disable
+ 1354              		.syntax unified
+ 1355              		.thumb
+ 1356              		.thumb_func
+ 1358              	LPTIM_Interrupt_Disable:
+ 1359              	.LVL76:
+ 1360              	.LFB177:
+ 891:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 892:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 893:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 894:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ 895:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Interrupt_Disable.
+ 896:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Disable the low-power Timer interrupt.
+ 897:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 898:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
+ 899:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIM_interrupt_flag
+ 900:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_CMPMIE    compare match interrupt
+ 901:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_ARRMIE    autoreload match interrupt
+ 902:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_EXTRIGIE  external trigger valid edge interrupt
+ 903:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_CMPUPDIE  compare register write completed interrupt
+ 904:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_ARRUPDIE  autoreload register write completed interrupt
+ 905:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_UPIE      direction change to up interrupt
+ 906:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_DOWNIE    direction change to down interrupt
+ 907:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 908:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 909:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Interrupt_Disable(LPTIM_Module *LPTIMx, uint32_t LPTIM_interrupt_flag)
+ 910:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 1361              		.loc 1 910 1 is_stmt 1 view -0
+ 1362              		.cfi_startproc
+ 1363              		@ args = 0, pretend = 0, frame = 0
+ 1364              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1365              		@ link register save eliminated.
+ 911:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   LPTIMx->INTEN &= ~LPTIM_interrupt_flag;
+ 1366              		.loc 1 911 3 view .LVU272
+ 1367              		.loc 1 911 9 is_stmt 0 view .LVU273
+ 1368 0000 8368     		ldr	r3, [r0, #8]
+ 1369              		.loc 1 911 17 view .LVU274
+ 1370 0002 23EA0103 		bic	r3, r3, r1
+ 1371 0006 8360     		str	r3, [r0, #8]
+ 912:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 1372              		.loc 1 912 1 view .LVU275
+ 1373 0008 7047     		bx	lr
+ 1374              		.cfi_endproc
+ 1375              	.LFE177:
+ 1377              		.section	.text.LPTIM_Interrupt_Check,"ax",%progbits
+ 1378              		.align	1
+ 1379              		.global	LPTIM_Interrupt_Check
+ 1380              		.syntax unified
+ 1381              		.thumb
+ 1382              		.thumb_func
+ 1384              	LPTIM_Interrupt_Check:
+ 1385              	.LVL77:
+ 1386              	.LFB178:
+ 913:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 914:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 915:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 40
+
+
+ 916:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Interrupt_Check.
+ 917:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Check the low-power Timer interrupt.
+ 918:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
+ 919:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -Low-Power Timer instance
+ 920:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIM_interrupt
+ 921:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_CMPMIE    compare match interrupt
+ 922:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_ARRMIE    the autoreload match interrupt
+ 923:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_EXTRIGIE  external trigger valid edge interrupt
+ 924:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_CMPUPDIE  compare register write completed interrupt
+ 925:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_ARRUPDIE  autoreload register write completed interrupt
+ 926:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_UPIE      direction change to up interrupt
+ 927:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_INT_DOWNIE    direction change to down interrupt
+ 928:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
+ 929:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
+ 930:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
+ 931:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** INTStatus LPTIM_Interrupt_Check(LPTIM_Module *LPTIMx, uint32_t LPTIM_interrupt)
+ 932:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
+ 1387              		.loc 1 932 1 is_stmt 1 view -0
+ 1388              		.cfi_startproc
+ 1389              		@ args = 0, pretend = 0, frame = 0
+ 1390              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1391              		@ link register save eliminated.
+ 933:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   return (((LPTIMx->INTEN & LPTIM_interrupt) == LPTIM_interrupt) ? SET : RESET);
+ 1392              		.loc 1 933 3 view .LVU277
+ 1393              		.loc 1 933 19 is_stmt 0 view .LVU278
+ 1394 0000 8368     		ldr	r3, [r0, #8]
+ 1395              		.loc 1 933 72 view .LVU279
+ 1396 0002 9943     		bics	r1, r1, r3
+ 1397              	.LVL78:
+ 934:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
+ 1398              		.loc 1 934 1 view .LVU280
+ 1399 0004 0CBF     		ite	eq
+ 1400 0006 0120     		moveq	r0, #1
+ 1401              	.LVL79:
+ 1402              		.loc 1 934 1 view .LVU281
+ 1403 0008 0020     		movne	r0, #0
+ 1404 000a 7047     		bx	lr
+ 1405              		.cfi_endproc
+ 1406              	.LFE178:
+ 1408              		.text
+ 1409              	.Letext0:
+ 1410              		.file 2 "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/arm-none-eabi/include/ma
+ 1411              		.file 3 "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/arm-none-eabi/include/sy
+ 1412              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 1413              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_lptim.h"
+ 1414              		.file 6 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 41
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 n32g430_lptim.c
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:21     .text.LPTIM_Reset:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:27     .text.LPTIM_Reset:00000000 LPTIM_Reset
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:43     .text.LPTIM_OFF:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:49     .text.LPTIM_OFF:00000000 LPTIM_OFF
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:69     .text.LPTIM_ON:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:75     .text.LPTIM_ON:00000000 LPTIM_ON
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:95     .text.LPTIM_Initializes_Structure:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:101    .text.LPTIM_Initializes_Structure:00000000 LPTIM_Initializes_Structure
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:123    .text.LPTIM_Counter_Start:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:129    .text.LPTIM_Counter_Start:00000000 LPTIM_Counter_Start
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:155    .text.LPTIM_Update_Mode_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:161    .text.LPTIM_Update_Mode_Set:00000000 LPTIM_Update_Mode_Set
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:187    .text.LPTIM_Update_Mode_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:193    .text.LPTIM_Update_Mode_Get:00000000 LPTIM_Update_Mode_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:212    .text.LPTIM_Auto_Reload_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:218    .text.LPTIM_Auto_Reload_Set:00000000 LPTIM_Auto_Reload_Set
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:235    .text.LPTIM_Auto_Reload_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:241    .text.LPTIM_Auto_Reload_Get:00000000 LPTIM_Auto_Reload_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:260    .text.LPTIM_Compare_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:266    .text.LPTIM_Compare_Set:00000000 LPTIM_Compare_Set
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:283    .text.LPTIM_Compare_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:289    .text.LPTIM_Compare_Get:00000000 LPTIM_Compare_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:308    .text.LPTIM_Counter_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:314    .text.LPTIM_Counter_Get:00000000 LPTIM_Counter_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:333    .text.LPTIM_Counter_Mode_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:339    .text.LPTIM_Counter_Mode_Set:00000000 LPTIM_Counter_Mode_Set
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:365    .text.LPTIM_Counter_Mode_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:371    .text.LPTIM_Counter_Mode_Get:00000000 LPTIM_Counter_Mode_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:390    .text.LPTIM_Output_Config:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:396    .text.LPTIM_Output_Config:00000000 LPTIM_Output_Config
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:425    .text.LPTIM_Waveform_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:431    .text.LPTIM_Waveform_Set:00000000 LPTIM_Waveform_Set
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:457    .text.LPTIM_Waveform_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:463    .text.LPTIM_Waveform_Get:00000000 LPTIM_Waveform_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:482    .text.LPTIM_Polarity_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:488    .text.LPTIM_Polarity_Set:00000000 LPTIM_Polarity_Set
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:514    .text.LPTIM_Polarity_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:520    .text.LPTIM_Polarity_Get:00000000 LPTIM_Polarity_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:539    .text.LPTIM_Prescaler_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:545    .text.LPTIM_Prescaler_Set:00000000 LPTIM_Prescaler_Set
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:571    .text.LPTIM_Prescaler_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:577    .text.LPTIM_Prescaler_Get:00000000 LPTIM_Prescaler_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:596    .text.LPTIM_Timeout_Enable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:602    .text.LPTIM_Timeout_Enable:00000000 LPTIM_Timeout_Enable
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:622    .text.LPTIM_Timeout_Disable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:628    .text.LPTIM_Timeout_Disable:00000000 LPTIM_Timeout_Disable
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:648    .text.LPTIM_Timeout_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:654    .text.LPTIM_Timeout_Get:00000000 LPTIM_Timeout_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:673    .text.LPTIM_Software_Trigger:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:679    .text.LPTIM_Software_Trigger:00000000 LPTIM_Software_Trigger
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:699    .text.LPTIM_Trigger_Config:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:705    .text.LPTIM_Trigger_Config:00000000 LPTIM_Trigger_Config
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:742    .text.LPTIM_Trigger_Source_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:748    .text.LPTIM_Trigger_Source_Get:00000000 LPTIM_Trigger_Source_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:767    .text.LPTIM_Trigger_Filter_Get:00000000 $t
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s 			page 42
+
+
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:773    .text.LPTIM_Trigger_Filter_Get:00000000 LPTIM_Trigger_Filter_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:792    .text.LPTIM_Trigger_Polarity_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:798    .text.LPTIM_Trigger_Polarity_Get:00000000 LPTIM_Trigger_Polarity_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:817    .text.LPTIM_Clock_Source_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:823    .text.LPTIM_Clock_Source_Set:00000000 LPTIM_Clock_Source_Set
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:849    .text.LPTIM_Initializes:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:855    .text.LPTIM_Initializes:00000000 LPTIM_Initializes
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:914    .text.LPTIM_Clock_Source_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:920    .text.LPTIM_Clock_Source_Get:00000000 LPTIM_Clock_Source_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:939    .text.LPTIM_Clock_Config:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:945    .text.LPTIM_Clock_Config:00000000 LPTIM_Clock_Config
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:974    .text.LPTIM_Clock_Polarity_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:980    .text.LPTIM_Clock_Polarity_Get:00000000 LPTIM_Clock_Polarity_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:999    .text.LPTIM_Clock_Filter_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1005   .text.LPTIM_Clock_Filter_Get:00000000 LPTIM_Clock_Filter_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1024   .text.LPTIM_Encoder_Mode_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1030   .text.LPTIM_Encoder_Mode_Set:00000000 LPTIM_Encoder_Mode_Set
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1056   .text.LPTIM_Encoder_Mode_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1062   .text.LPTIM_Encoder_Mode_Get:00000000 LPTIM_Encoder_Mode_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1076   .text.LPTIM_Encoder_Mode_Enable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1082   .text.LPTIM_Encoder_Mode_Enable:00000000 LPTIM_Encoder_Mode_Enable
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1102   .text.LPTIM_Encoder_Mode_Disable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1108   .text.LPTIM_Encoder_Mode_Disable:00000000 LPTIM_Encoder_Mode_Disable
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1128   .text.LPTIM_NoEncoder_Mode_Enable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1134   .text.LPTIM_NoEncoder_Mode_Enable:00000000 LPTIM_NoEncoder_Mode_Enable
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1154   .text.LPTIM_NoEncoder_Mode_Disable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1160   .text.LPTIM_NoEncoder_Mode_Disable:00000000 LPTIM_NoEncoder_Mode_Disable
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1180   .text.LPTIM_Encoder_Mode_Check:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1186   .text.LPTIM_Encoder_Mode_Check:00000000 LPTIM_Encoder_Mode_Check
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1205   .text.LPTIM_Input1_Option:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1211   .text.LPTIM_Input1_Option:00000000 LPTIM_Input1_Option
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1237   .text.LPTIM_Input2_Option:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1243   .text.LPTIM_Input2_Option:00000000 LPTIM_Input2_Option
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1269   .text.LPTIM_FLAG_Clear:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1275   .text.LPTIM_FLAG_Clear:00000000 LPTIM_FLAG_Clear
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1295   .text.LPTIM_Flag_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1301   .text.LPTIM_Flag_Get:00000000 LPTIM_Flag_Get
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1326   .text.LPTIM_Interrupt_Enable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1332   .text.LPTIM_Interrupt_Enable:00000000 LPTIM_Interrupt_Enable
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1352   .text.LPTIM_Interrupt_Disable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1358   .text.LPTIM_Interrupt_Disable:00000000 LPTIM_Interrupt_Disable
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1378   .text.LPTIM_Interrupt_Check:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccOnaO4d.s:1384   .text.LPTIM_Interrupt_Check:00000000 LPTIM_Interrupt_Check
+
+UNDEFINED SYMBOLS
+RCC_LPTIM_Reset

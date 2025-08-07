@@ -1,0 +1,359 @@
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"n32g430_it.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../core/src/n32g430_it.c"
+  20              		.section	.text.NMI_Handler,"ax",%progbits
+  21              		.align	1
+  22              		.global	NMI_Handler
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	NMI_Handler:
+  28              	.LFB130:
+   1:../core/src/n32g430_it.c **** /*****************************************************************************
+   2:../core/src/n32g430_it.c ****  * Copyright (c) 2019, Nations Technologies Inc.
+   3:../core/src/n32g430_it.c ****  *
+   4:../core/src/n32g430_it.c ****  * All rights reserved.
+   5:../core/src/n32g430_it.c ****  * ****************************************************************************
+   6:../core/src/n32g430_it.c ****  *
+   7:../core/src/n32g430_it.c ****  * Redistribution and use in source and binary forms, with or without
+   8:../core/src/n32g430_it.c ****  * modification, are permitted provided that the following conditions are met:
+   9:../core/src/n32g430_it.c ****  *
+  10:../core/src/n32g430_it.c ****  * - Redistributions of source code must retain the above copyright notice,
+  11:../core/src/n32g430_it.c ****  * this list of conditions and the disclaimer below.
+  12:../core/src/n32g430_it.c ****  *
+  13:../core/src/n32g430_it.c ****  * Nations' name may not be used to endorse or promote products derived from
+  14:../core/src/n32g430_it.c ****  * this software without specific prior written permission.
+  15:../core/src/n32g430_it.c ****  *
+  16:../core/src/n32g430_it.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY NATIONS "AS IS" AND ANY EXPRESS OR
+  17:../core/src/n32g430_it.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  18:../core/src/n32g430_it.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  19:../core/src/n32g430_it.c ****  * DISCLAIMED. IN NO EVENT SHALL NATIONS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  20:../core/src/n32g430_it.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  21:../core/src/n32g430_it.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  22:../core/src/n32g430_it.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  23:../core/src/n32g430_it.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  24:../core/src/n32g430_it.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  25:../core/src/n32g430_it.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  26:../core/src/n32g430_it.c ****  * ****************************************************************************/
+  27:../core/src/n32g430_it.c **** 
+  28:../core/src/n32g430_it.c **** /**
+  29:../core/src/n32g430_it.c **** *\*\file n32g430_it.c
+  30:../core/src/n32g430_it.c **** *\*\author Nations
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s 			page 2
+
+
+  31:../core/src/n32g430_it.c **** *\*\version v1.0.0
+  32:../core/src/n32g430_it.c **** *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
+  33:../core/src/n32g430_it.c **** **/
+  34:../core/src/n32g430_it.c **** 
+  35:../core/src/n32g430_it.c **** #include "n32g430_it.h"
+  36:../core/src/n32g430_it.c **** #include "n32g430.h"
+  37:../core/src/n32g430_it.c **** #include "main.h"
+  38:../core/src/n32g430_it.c **** 
+  39:../core/src/n32g430_it.c **** 
+  40:../core/src/n32g430_it.c **** /******************************************************************************/
+  41:../core/src/n32g430_it.c **** /*            Cortex-M4 Processor Exceptions Handlers                         */
+  42:../core/src/n32g430_it.c **** /******************************************************************************/
+  43:../core/src/n32g430_it.c **** 
+  44:../core/src/n32g430_it.c **** 
+  45:../core/src/n32g430_it.c **** /**
+  46:../core/src/n32g430_it.c ****  *\*\name   NMI_Handler.
+  47:../core/src/n32g430_it.c ****  *\*\fun    This function handles NMI exception.
+  48:../core/src/n32g430_it.c ****  *\*\param  none.
+  49:../core/src/n32g430_it.c ****  *\*\return none.
+  50:../core/src/n32g430_it.c ****  */
+  51:../core/src/n32g430_it.c **** void NMI_Handler(void)
+  52:../core/src/n32g430_it.c **** {
+  29              		.loc 1 52 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  53:../core/src/n32g430_it.c **** }
+  34              		.loc 1 53 1 view .LVU1
+  35 0000 7047     		bx	lr
+  36              		.cfi_endproc
+  37              	.LFE130:
+  39              		.section	.text.HardFault_Handler,"ax",%progbits
+  40              		.align	1
+  41              		.global	HardFault_Handler
+  42              		.syntax unified
+  43              		.thumb
+  44              		.thumb_func
+  46              	HardFault_Handler:
+  47              	.LFB131:
+  54:../core/src/n32g430_it.c **** 
+  55:../core/src/n32g430_it.c **** 
+  56:../core/src/n32g430_it.c **** /**
+  57:../core/src/n32g430_it.c ****  *\*\name   HardFault_Handler.
+  58:../core/src/n32g430_it.c ****  *\*\fun    This function handles Hard Fault exception.
+  59:../core/src/n32g430_it.c ****  *\*\param  none.
+  60:../core/src/n32g430_it.c ****  *\*\return none.
+  61:../core/src/n32g430_it.c ****  */
+  62:../core/src/n32g430_it.c **** void HardFault_Handler(void)
+  63:../core/src/n32g430_it.c **** {
+  48              		.loc 1 63 1 view -0
+  49              		.cfi_startproc
+  50              		@ Volatile: function does not return.
+  51              		@ args = 0, pretend = 0, frame = 0
+  52              		@ frame_needed = 0, uses_anonymous_args = 0
+  53              		@ link register save eliminated.
+  54              	.L3:
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s 			page 3
+
+
+  64:../core/src/n32g430_it.c ****     /* Go to infinite loop when Hard Fault exception occurs */
+  65:../core/src/n32g430_it.c ****     while (1)
+  55              		.loc 1 65 5 view .LVU3
+  66:../core/src/n32g430_it.c ****     {
+  67:../core/src/n32g430_it.c ****     }
+  56              		.loc 1 67 5 view .LVU4
+  65:../core/src/n32g430_it.c ****     {
+  57              		.loc 1 65 11 view .LVU5
+  58 0000 FEE7     		b	.L3
+  59              		.cfi_endproc
+  60              	.LFE131:
+  62              		.section	.text.MemManage_Handler,"ax",%progbits
+  63              		.align	1
+  64              		.global	MemManage_Handler
+  65              		.syntax unified
+  66              		.thumb
+  67              		.thumb_func
+  69              	MemManage_Handler:
+  70              	.LFB132:
+  68:../core/src/n32g430_it.c **** }
+  69:../core/src/n32g430_it.c **** 
+  70:../core/src/n32g430_it.c **** 
+  71:../core/src/n32g430_it.c **** /**
+  72:../core/src/n32g430_it.c ****  *\*\name   MemManage_Handler.
+  73:../core/src/n32g430_it.c ****  *\*\fun    This function handles Memory Manage exception.
+  74:../core/src/n32g430_it.c ****  *\*\param  none.
+  75:../core/src/n32g430_it.c ****  *\*\return none.
+  76:../core/src/n32g430_it.c ****  */
+  77:../core/src/n32g430_it.c **** void MemManage_Handler(void)
+  78:../core/src/n32g430_it.c **** {
+  71              		.loc 1 78 1 view -0
+  72              		.cfi_startproc
+  73              		@ Volatile: function does not return.
+  74              		@ args = 0, pretend = 0, frame = 0
+  75              		@ frame_needed = 0, uses_anonymous_args = 0
+  76              		@ link register save eliminated.
+  77              	.L5:
+  79:../core/src/n32g430_it.c ****     /* Go to infinite loop when Memory Manage exception occurs */
+  80:../core/src/n32g430_it.c ****     while (1)
+  78              		.loc 1 80 5 view .LVU7
+  81:../core/src/n32g430_it.c ****     {
+  82:../core/src/n32g430_it.c ****     }
+  79              		.loc 1 82 5 view .LVU8
+  80:../core/src/n32g430_it.c ****     {
+  80              		.loc 1 80 11 view .LVU9
+  81 0000 FEE7     		b	.L5
+  82              		.cfi_endproc
+  83              	.LFE132:
+  85              		.section	.text.BusFault_Handler,"ax",%progbits
+  86              		.align	1
+  87              		.global	BusFault_Handler
+  88              		.syntax unified
+  89              		.thumb
+  90              		.thumb_func
+  92              	BusFault_Handler:
+  93              	.LFB133:
+  83:../core/src/n32g430_it.c **** }
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s 			page 4
+
+
+  84:../core/src/n32g430_it.c **** 
+  85:../core/src/n32g430_it.c **** 
+  86:../core/src/n32g430_it.c **** /**
+  87:../core/src/n32g430_it.c ****  *\*\name   BusFault_Handler.
+  88:../core/src/n32g430_it.c ****  *\*\fun    This function handles Bus Fault exception.
+  89:../core/src/n32g430_it.c ****  *\*\param  none.
+  90:../core/src/n32g430_it.c ****  *\*\return none.
+  91:../core/src/n32g430_it.c ****  */
+  92:../core/src/n32g430_it.c **** void BusFault_Handler(void)
+  93:../core/src/n32g430_it.c **** {
+  94              		.loc 1 93 1 view -0
+  95              		.cfi_startproc
+  96              		@ Volatile: function does not return.
+  97              		@ args = 0, pretend = 0, frame = 0
+  98              		@ frame_needed = 0, uses_anonymous_args = 0
+  99              		@ link register save eliminated.
+ 100              	.L7:
+  94:../core/src/n32g430_it.c ****     /* Go to infinite loop when Bus Fault exception occurs */
+  95:../core/src/n32g430_it.c ****     while (1)
+ 101              		.loc 1 95 5 view .LVU11
+  96:../core/src/n32g430_it.c ****     {
+  97:../core/src/n32g430_it.c ****     }
+ 102              		.loc 1 97 5 view .LVU12
+  95:../core/src/n32g430_it.c ****     {
+ 103              		.loc 1 95 11 view .LVU13
+ 104 0000 FEE7     		b	.L7
+ 105              		.cfi_endproc
+ 106              	.LFE133:
+ 108              		.section	.text.UsageFault_Handler,"ax",%progbits
+ 109              		.align	1
+ 110              		.global	UsageFault_Handler
+ 111              		.syntax unified
+ 112              		.thumb
+ 113              		.thumb_func
+ 115              	UsageFault_Handler:
+ 116              	.LFB134:
+  98:../core/src/n32g430_it.c **** }
+  99:../core/src/n32g430_it.c **** 
+ 100:../core/src/n32g430_it.c **** 
+ 101:../core/src/n32g430_it.c **** /**
+ 102:../core/src/n32g430_it.c ****  *\*\name   UsageFault_Handler.
+ 103:../core/src/n32g430_it.c ****  *\*\fun    This function handles Usage Fault exception.
+ 104:../core/src/n32g430_it.c ****  *\*\param  none.
+ 105:../core/src/n32g430_it.c ****  *\*\return none.
+ 106:../core/src/n32g430_it.c ****  */
+ 107:../core/src/n32g430_it.c **** void UsageFault_Handler(void)
+ 108:../core/src/n32g430_it.c **** {
+ 117              		.loc 1 108 1 view -0
+ 118              		.cfi_startproc
+ 119              		@ Volatile: function does not return.
+ 120              		@ args = 0, pretend = 0, frame = 0
+ 121              		@ frame_needed = 0, uses_anonymous_args = 0
+ 122              		@ link register save eliminated.
+ 123              	.L9:
+ 109:../core/src/n32g430_it.c ****     /* Go to infinite loop when Usage Fault exception occurs */
+ 110:../core/src/n32g430_it.c ****     while (1)
+ 124              		.loc 1 110 5 view .LVU15
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s 			page 5
+
+
+ 111:../core/src/n32g430_it.c ****     {
+ 112:../core/src/n32g430_it.c ****     }
+ 125              		.loc 1 112 5 view .LVU16
+ 110:../core/src/n32g430_it.c ****     {
+ 126              		.loc 1 110 11 view .LVU17
+ 127 0000 FEE7     		b	.L9
+ 128              		.cfi_endproc
+ 129              	.LFE134:
+ 131              		.section	.text.SVC_Handler,"ax",%progbits
+ 132              		.align	1
+ 133              		.global	SVC_Handler
+ 134              		.syntax unified
+ 135              		.thumb
+ 136              		.thumb_func
+ 138              	SVC_Handler:
+ 139              	.LFB139:
+ 140              		.cfi_startproc
+ 113:../core/src/n32g430_it.c **** }
+ 114:../core/src/n32g430_it.c **** 
+ 115:../core/src/n32g430_it.c **** 
+ 116:../core/src/n32g430_it.c **** /**
+ 117:../core/src/n32g430_it.c ****  *\*\name   SVC_Handler.
+ 118:../core/src/n32g430_it.c ****  *\*\fun    This function handles SVCall exception.
+ 119:../core/src/n32g430_it.c ****  *\*\param  none.
+ 120:../core/src/n32g430_it.c ****  *\*\return none.
+ 121:../core/src/n32g430_it.c ****  */
+ 122:../core/src/n32g430_it.c **** void SVC_Handler(void)
+ 141              		.loc 1 122 6 view -0
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144              		@ link register save eliminated.
+ 145 0000 7047     		bx	lr
+ 146              		.cfi_endproc
+ 147              	.LFE139:
+ 149              		.section	.text.DebugMon_Handler,"ax",%progbits
+ 150              		.align	1
+ 151              		.global	DebugMon_Handler
+ 152              		.syntax unified
+ 153              		.thumb
+ 154              		.thumb_func
+ 156              	DebugMon_Handler:
+ 157              	.LFB141:
+ 158              		.cfi_startproc
+ 123:../core/src/n32g430_it.c **** {
+ 124:../core/src/n32g430_it.c **** }
+ 125:../core/src/n32g430_it.c **** 
+ 126:../core/src/n32g430_it.c **** 
+ 127:../core/src/n32g430_it.c **** /**
+ 128:../core/src/n32g430_it.c ****  *\*\name   DebugMon_Handler.
+ 129:../core/src/n32g430_it.c ****  *\*\fun    This function handles Debug Monitor exception.
+ 130:../core/src/n32g430_it.c ****  *\*\param  none.
+ 131:../core/src/n32g430_it.c ****  *\*\return none.
+ 132:../core/src/n32g430_it.c ****  */
+ 133:../core/src/n32g430_it.c **** void DebugMon_Handler(void)
+ 159              		.loc 1 133 6 view -0
+ 160              		@ args = 0, pretend = 0, frame = 0
+ 161              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s 			page 6
+
+
+ 162              		@ link register save eliminated.
+ 163 0000 7047     		bx	lr
+ 164              		.cfi_endproc
+ 165              	.LFE141:
+ 167              		.section	.text.SysTick_Handler,"ax",%progbits
+ 168              		.align	1
+ 169              		.global	SysTick_Handler
+ 170              		.syntax unified
+ 171              		.thumb
+ 172              		.thumb_func
+ 174              	SysTick_Handler:
+ 175              	.LFB143:
+ 176              		.cfi_startproc
+ 134:../core/src/n32g430_it.c **** {
+ 135:../core/src/n32g430_it.c **** }
+ 136:../core/src/n32g430_it.c **** 
+ 137:../core/src/n32g430_it.c **** 
+ 138:../core/src/n32g430_it.c **** /**
+ 139:../core/src/n32g430_it.c ****  *\*\name   SysTick_Handler.
+ 140:../core/src/n32g430_it.c ****  *\*\fun    This function handles SysTick Handler.
+ 141:../core/src/n32g430_it.c ****  *\*\param  none.
+ 142:../core/src/n32g430_it.c ****  *\*\return none.
+ 143:../core/src/n32g430_it.c ****  */
+ 144:../core/src/n32g430_it.c **** void SysTick_Handler(void)
+ 177              		.loc 1 144 6 view -0
+ 178              		@ args = 0, pretend = 0, frame = 0
+ 179              		@ frame_needed = 0, uses_anonymous_args = 0
+ 180              		@ link register save eliminated.
+ 181 0000 7047     		bx	lr
+ 182              		.cfi_endproc
+ 183              	.LFE143:
+ 185              		.text
+ 186              	.Letext0:
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 n32g430_it.c
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:21     .text.NMI_Handler:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:27     .text.NMI_Handler:00000000 NMI_Handler
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:40     .text.HardFault_Handler:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:46     .text.HardFault_Handler:00000000 HardFault_Handler
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:63     .text.MemManage_Handler:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:69     .text.MemManage_Handler:00000000 MemManage_Handler
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:86     .text.BusFault_Handler:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:92     .text.BusFault_Handler:00000000 BusFault_Handler
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:109    .text.UsageFault_Handler:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:115    .text.UsageFault_Handler:00000000 UsageFault_Handler
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:132    .text.SVC_Handler:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:138    .text.SVC_Handler:00000000 SVC_Handler
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:150    .text.DebugMon_Handler:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:156    .text.DebugMon_Handler:00000000 DebugMon_Handler
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:168    .text.SysTick_Handler:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccm2KxqP.s:174    .text.SysTick_Handler:00000000 SysTick_Handler
+
+NO UNDEFINED SYMBOLS

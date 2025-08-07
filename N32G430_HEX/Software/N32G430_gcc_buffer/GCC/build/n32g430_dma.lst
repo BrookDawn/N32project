@@ -1,0 +1,1990 @@
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"n32g430_dma.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../firmware/n32g430_std_periph_driver/src/n32g430_dma.c"
+  20              		.section	.text.DMA_Reset,"ax",%progbits
+  21              		.align	1
+  22              		.global	DMA_Reset
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	DMA_Reset:
+  28              	.LVL0:
+  29              	.LFB130:
+   1:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /*****************************************************************************
+   2:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * Copyright (c) 2019, Nations Technologies Inc.
+   3:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  *
+   4:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * All rights reserved.
+   5:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * ****************************************************************************
+   6:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  *
+   7:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * Redistribution and use in source and binary forms, with or without
+   8:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * modification, are permitted provided that the following conditions are met:
+   9:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  *
+  10:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * - Redistributions of source code must retain the above copyright notice,
+  11:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * this list of conditions and the disclaimer below.
+  12:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  *
+  13:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * Nations' name may not be used to endorse or promote products derived from
+  14:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * this software without specific prior written permission.
+  15:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  *
+  16:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY NATIONS "AS IS" AND ANY EXPRESS OR
+  17:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  18:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  19:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * DISCLAIMED. IN NO EVENT SHALL NATIONS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  20:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  21:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  22:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  23:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  24:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  25:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  26:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  * ****************************************************************************/
+  27:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+  28:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+  29:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\file n32g430_dma.c
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 2
+
+
+  30:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\author Nations
+  31:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\version v1.0.0
+  32:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
+  33:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****  */
+  34:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+  35:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** #include "n32g430_dma.h"
+  36:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** #include "n32g430_rcc.h"
+  37:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+  38:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /** DMA Private Defines **/
+  39:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+  40:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+  41:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /** DMA Driving Functions Declaration **/
+  42:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+  43:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+  44:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Deinitializes.
+  45:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Reset DMA Channelx registers.
+  46:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+  47:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+  48:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+  49:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+  50:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+  51:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+  52:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+  53:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+  54:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+  55:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+  56:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+  57:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Reset(DMA_ChannelType* DMAChx)
+  58:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+  30              		.loc 1 58 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  59:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Disable the selected DMA Channelx */
+  60:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG &= ~DMA_CHANNEL_ENABLE;
+  35              		.loc 1 60 5 view .LVU1
+  36              		.loc 1 60 11 is_stmt 0 view .LVU2
+  37 0000 0368     		ldr	r3, [r0]
+  38              		.loc 1 60 19 view .LVU3
+  39 0002 23F00103 		bic	r3, r3, #1
+  40 0006 0360     		str	r3, [r0]
+  61:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+  62:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Reset DMA Channelx control register */
+  63:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG = 0;
+  41              		.loc 1 63 5 is_stmt 1 view .LVU4
+  42              		.loc 1 63 19 is_stmt 0 view .LVU5
+  43 0008 0023     		movs	r3, #0
+  44 000a 0360     		str	r3, [r0]
+  64:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+  65:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Reset DMA Channelx remaining bytes register */
+  66:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->TXNUM = 0;
+  45              		.loc 1 66 5 is_stmt 1 view .LVU6
+  46              		.loc 1 66 19 is_stmt 0 view .LVU7
+  47 000c 4360     		str	r3, [r0, #4]
+  67:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+  68:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Reset DMA Channelx peripheral address register */
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 3
+
+
+  69:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->PADDR = 0;
+  48              		.loc 1 69 5 is_stmt 1 view .LVU8
+  49              		.loc 1 69 19 is_stmt 0 view .LVU9
+  50 000e 8360     		str	r3, [r0, #8]
+  70:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+  71:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Reset DMA Channelx memory address register */
+  72:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->MADDR = 0;
+  51              		.loc 1 72 5 is_stmt 1 view .LVU10
+  52              		.loc 1 72 19 is_stmt 0 view .LVU11
+  53 0010 C360     		str	r3, [r0, #12]
+  73:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     
+  74:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     if (DMAChx == DMA_CH1)
+  54              		.loc 1 74 5 is_stmt 1 view .LVU12
+  55              		.loc 1 74 8 is_stmt 0 view .LVU13
+  56 0012 204B     		ldr	r3, .L11
+  57 0014 9842     		cmp	r0, r3
+  58 0016 05D1     		bne	.L2
+  75:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+  76:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         /* Reset interrupt pending bits for DMA Channel1 */
+  77:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         DMA->INTCLR |= DMA_CH1_INT_MASK;
+  59              		.loc 1 77 9 is_stmt 1 view .LVU14
+  60              		.loc 1 77 12 is_stmt 0 view .LVU15
+  61 0018 1F4A     		ldr	r2, .L11+4
+  62 001a 5368     		ldr	r3, [r2, #4]
+  63              		.loc 1 77 21 view .LVU16
+  64 001c 43F00F03 		orr	r3, r3, #15
+  65              	.L10:
+  78:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+  79:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     else if (DMAChx == DMA_CH2)
+  80:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+  81:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         /* Reset interrupt pending bits for DMA Channel2 */
+  82:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         DMA->INTCLR |= DMA_CH2_INT_MASK;
+  83:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+  84:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     else if (DMAChx == DMA_CH3)
+  85:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+  86:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         /* Reset interrupt pending bits for DMA Channel3 */
+  87:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         DMA->INTCLR |= DMA_CH3_INT_MASK;
+  88:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+  89:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     else if (DMAChx == DMA_CH4)
+  90:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+  91:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         /* Reset interrupt pending bits for DMA Channel4 */
+  92:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         DMA->INTCLR |= DMA_CH4_INT_MASK;
+  93:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+  94:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     else if (DMAChx == DMA_CH5)
+  95:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+  96:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         /* Reset interrupt pending bits for DMA Channel5 */
+  97:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         DMA->INTCLR |= DMA_CH5_INT_MASK;
+  98:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+  99:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     else if (DMAChx == DMA_CH6)
+ 100:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+ 101:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         /* Reset interrupt pending bits for DMA Channel6 */
+ 102:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         DMA->INTCLR |= DMA_CH6_INT_MASK;
+ 103:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 104:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     else if (DMAChx == DMA_CH7)
+ 105:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+ 106:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         /* Reset interrupt pending bits for DMA Channel7 */
+ 107:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         DMA->INTCLR |= DMA_CH7_INT_MASK;
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 4
+
+
+ 108:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 109:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     else if (DMAChx == DMA_CH8)
+ 110:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+ 111:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         /* Reset interrupt pending bits for DMA Channel8 */
+ 112:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         DMA->INTCLR |= DMA_CH8_INT_MASK;
+  66              		.loc 1 112 21 view .LVU17
+  67 0020 5360     		str	r3, [r2, #4]
+  68              	.L1:
+ 113:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 114:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+  69              		.loc 1 114 1 view .LVU18
+  70 0022 7047     		bx	lr
+  71              	.L2:
+  79:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+  72              		.loc 1 79 10 is_stmt 1 view .LVU19
+  79:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+  73              		.loc 1 79 13 is_stmt 0 view .LVU20
+  74 0024 1D4B     		ldr	r3, .L11+8
+  75 0026 9842     		cmp	r0, r3
+  76 0028 04D1     		bne	.L4
+  82:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+  77              		.loc 1 82 9 is_stmt 1 view .LVU21
+  82:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+  78              		.loc 1 82 12 is_stmt 0 view .LVU22
+  79 002a 1B4A     		ldr	r2, .L11+4
+  80 002c 5368     		ldr	r3, [r2, #4]
+  82:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+  81              		.loc 1 82 21 view .LVU23
+  82 002e 43F0F003 		orr	r3, r3, #240
+  83 0032 F5E7     		b	.L10
+  84              	.L4:
+  84:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+  85              		.loc 1 84 10 is_stmt 1 view .LVU24
+  84:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+  86              		.loc 1 84 13 is_stmt 0 view .LVU25
+  87 0034 1A4B     		ldr	r3, .L11+12
+  88 0036 9842     		cmp	r0, r3
+  89 0038 04D1     		bne	.L5
+  87:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+  90              		.loc 1 87 9 is_stmt 1 view .LVU26
+  87:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+  91              		.loc 1 87 12 is_stmt 0 view .LVU27
+  92 003a 174A     		ldr	r2, .L11+4
+  93 003c 5368     		ldr	r3, [r2, #4]
+  87:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+  94              		.loc 1 87 21 view .LVU28
+  95 003e 43F47063 		orr	r3, r3, #3840
+  96 0042 EDE7     		b	.L10
+  97              	.L5:
+  89:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+  98              		.loc 1 89 10 is_stmt 1 view .LVU29
+  89:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+  99              		.loc 1 89 13 is_stmt 0 view .LVU30
+ 100 0044 174B     		ldr	r3, .L11+16
+ 101 0046 9842     		cmp	r0, r3
+ 102 0048 04D1     		bne	.L6
+  92:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 5
+
+
+ 103              		.loc 1 92 9 is_stmt 1 view .LVU31
+  92:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 104              		.loc 1 92 12 is_stmt 0 view .LVU32
+ 105 004a 134A     		ldr	r2, .L11+4
+ 106 004c 5368     		ldr	r3, [r2, #4]
+  92:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 107              		.loc 1 92 21 view .LVU33
+ 108 004e 43F47043 		orr	r3, r3, #61440
+ 109 0052 E5E7     		b	.L10
+ 110              	.L6:
+  94:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+ 111              		.loc 1 94 10 is_stmt 1 view .LVU34
+  94:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+ 112              		.loc 1 94 13 is_stmt 0 view .LVU35
+ 113 0054 144B     		ldr	r3, .L11+20
+ 114 0056 9842     		cmp	r0, r3
+ 115 0058 04D1     		bne	.L7
+  97:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 116              		.loc 1 97 9 is_stmt 1 view .LVU36
+  97:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 117              		.loc 1 97 12 is_stmt 0 view .LVU37
+ 118 005a 0F4A     		ldr	r2, .L11+4
+ 119 005c 5368     		ldr	r3, [r2, #4]
+  97:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 120              		.loc 1 97 21 view .LVU38
+ 121 005e 43F47023 		orr	r3, r3, #983040
+ 122 0062 DDE7     		b	.L10
+ 123              	.L7:
+  99:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+ 124              		.loc 1 99 10 is_stmt 1 view .LVU39
+  99:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+ 125              		.loc 1 99 13 is_stmt 0 view .LVU40
+ 126 0064 114B     		ldr	r3, .L11+24
+ 127 0066 9842     		cmp	r0, r3
+ 128 0068 04D1     		bne	.L8
+ 102:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 129              		.loc 1 102 9 is_stmt 1 view .LVU41
+ 102:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 130              		.loc 1 102 12 is_stmt 0 view .LVU42
+ 131 006a 0B4A     		ldr	r2, .L11+4
+ 132 006c 5368     		ldr	r3, [r2, #4]
+ 102:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 133              		.loc 1 102 21 view .LVU43
+ 134 006e 43F47003 		orr	r3, r3, #15728640
+ 135 0072 D5E7     		b	.L10
+ 136              	.L8:
+ 104:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+ 137              		.loc 1 104 10 is_stmt 1 view .LVU44
+ 104:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+ 138              		.loc 1 104 13 is_stmt 0 view .LVU45
+ 139 0074 0E4B     		ldr	r3, .L11+28
+ 140 0076 9842     		cmp	r0, r3
+ 141 0078 04D1     		bne	.L9
+ 107:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 142              		.loc 1 107 9 is_stmt 1 view .LVU46
+ 107:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 143              		.loc 1 107 12 is_stmt 0 view .LVU47
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 6
+
+
+ 144 007a 074A     		ldr	r2, .L11+4
+ 145 007c 5368     		ldr	r3, [r2, #4]
+ 107:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 146              		.loc 1 107 21 view .LVU48
+ 147 007e 43F07063 		orr	r3, r3, #251658240
+ 148 0082 CDE7     		b	.L10
+ 149              	.L9:
+ 109:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+ 150              		.loc 1 109 10 is_stmt 1 view .LVU49
+ 109:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+ 151              		.loc 1 109 13 is_stmt 0 view .LVU50
+ 152 0084 0B4B     		ldr	r3, .L11+32
+ 153 0086 9842     		cmp	r0, r3
+ 154 0088 CBD1     		bne	.L1
+ 112:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 155              		.loc 1 112 9 is_stmt 1 view .LVU51
+ 112:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 156              		.loc 1 112 12 is_stmt 0 view .LVU52
+ 157 008a 034A     		ldr	r2, .L11+4
+ 158 008c 5368     		ldr	r3, [r2, #4]
+ 112:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 159              		.loc 1 112 21 view .LVU53
+ 160 008e 43F07043 		orr	r3, r3, #-268435456
+ 161 0092 C5E7     		b	.L10
+ 162              	.L12:
+ 163              		.align	2
+ 164              	.L11:
+ 165 0094 08000240 		.word	1073872904
+ 166 0098 00000240 		.word	1073872896
+ 167 009c 1C000240 		.word	1073872924
+ 168 00a0 30000240 		.word	1073872944
+ 169 00a4 44000240 		.word	1073872964
+ 170 00a8 58000240 		.word	1073872984
+ 171 00ac 6C000240 		.word	1073873004
+ 172 00b0 80000240 		.word	1073873024
+ 173 00b4 94000240 		.word	1073873044
+ 174              		.cfi_endproc
+ 175              	.LFE130:
+ 177              		.section	.text.DMA_Peripheral_Address_Config,"ax",%progbits
+ 178              		.align	1
+ 179              		.global	DMA_Peripheral_Address_Config
+ 180              		.syntax unified
+ 181              		.thumb
+ 182              		.thumb_func
+ 184              	DMA_Peripheral_Address_Config:
+ 185              	.LVL1:
+ 186              	.LFB132:
+ 115:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 116:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 117:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Initializes.
+ 118:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Initializes the DMA Channelx according to DMA_InitParam.
+ 119:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 120:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 121:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 122:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 123:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 124:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 7
+
+
+ 125:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 126:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 127:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 128:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMA_InitParam :
+ 129:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - PeriphAddr
+ 130:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - MemAddr
+ 131:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - Direction
+ 132:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_DIR_PERIPH_DST
+ 133:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_DIR_PERIPH_SRC
+ 134:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - BufSize
+ 135:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - PeriphInc
+ 136:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_PERIPH_INC_MODE_ENABLE
+ 137:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_PERIPH_INC_MODE_DISABLE
+ 138:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - MemoryInc
+ 139:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_MEM_INC_MODE_ENABLE
+ 140:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_MEM_INC_MODE_DISABLE
+ 141:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - PeriphDataSize
+ 142:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_PERIPH_DATA_WIDTH_BYTE
+ 143:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_PERIPH_DATA_WIDTH_HALFWORD
+ 144:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_PERIPH_DATA_WIDTH_WORD
+ 145:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - MemDataSize
+ 146:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_MEM_DATA_WIDTH_BYTE
+ 147:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_MEM_DATA_WIDTH_HALFWORD
+ 148:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_MEM_DATA_WIDTH_WORD
+ 149:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - CircularMode
+ 150:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_CIRCULAR_MODE_ENABLE
+ 151:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_CIRCULAR_MODE_DISABLE
+ 152:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - Priority
+ 153:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_CH_PRIORITY_HIGHEST
+ 154:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_CH_PRIORITY_HIGH
+ 155:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_CH_PRIORITY_MEDIUM
+ 156:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_CH_PRIORITY_LOW
+ 157:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - Mem2Mem
+ 158:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_MEM2MEM_ENABLE
+ 159:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\            - DMA_MEM2MEM_DISABLE
+ 160:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 161:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 162:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Initializes(DMA_ChannelType* DMAChx, DMA_InitType* DMA_InitParam)
+ 163:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 164:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Peripheral_Address_Config(DMAChx, DMA_InitParam->PeriphAddr);
+ 165:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Memory_Address_Config(DMAChx, DMA_InitParam->MemAddr);
+ 166:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Destination_Config(DMAChx, DMA_InitParam->Direction);
+ 167:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Buffer_Size_Config(DMAChx, DMA_InitParam->BufSize);
+ 168:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Peripheral_Addr_Increment_Config(DMAChx, DMA_InitParam->PeriphInc);
+ 169:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Memory_Addr_Increment_Config(DMAChx, DMA_InitParam->MemoryInc);
+ 170:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Peripheral_Data_Width_Config(DMAChx, DMA_InitParam->PeriphDataSize);
+ 171:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Memory_Data_Width_Config(DMAChx, DMA_InitParam->MemDataSize);
+ 172:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Circular_Mode_Config(DMAChx, DMA_InitParam->CircularMode);
+ 173:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Priority_Config(DMAChx, DMA_InitParam->Priority);
+ 174:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Memory_2_Memory_Config(DMAChx, DMA_InitParam->Mem2Mem);
+ 175:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 176:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 177:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 178:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Peripheral_Address_Config.
+ 179:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Initializes the DMA Channelx peripheral address.
+ 180:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 181:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 8
+
+
+ 182:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 183:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 184:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 185:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 186:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 187:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 188:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 189:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   addr :
+ 190:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 191:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 192:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Peripheral_Address_Config(DMA_ChannelType* DMAChx, uint32_t addr)
+ 193:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 187              		.loc 1 193 1 is_stmt 1 view -0
+ 188              		.cfi_startproc
+ 189              		@ args = 0, pretend = 0, frame = 0
+ 190              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191              		@ link register save eliminated.
+ 194:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Write to DMA Channelx PADDR */
+ 195:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->PADDR = addr;
+ 192              		.loc 1 195 5 view .LVU55
+ 193              		.loc 1 195 19 is_stmt 0 view .LVU56
+ 194 0000 8160     		str	r1, [r0, #8]
+ 196:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 195              		.loc 1 196 1 view .LVU57
+ 196 0002 7047     		bx	lr
+ 197              		.cfi_endproc
+ 198              	.LFE132:
+ 200              		.section	.text.DMA_Memory_Address_Config,"ax",%progbits
+ 201              		.align	1
+ 202              		.global	DMA_Memory_Address_Config
+ 203              		.syntax unified
+ 204              		.thumb
+ 205              		.thumb_func
+ 207              	DMA_Memory_Address_Config:
+ 208              	.LVL2:
+ 209              	.LFB133:
+ 197:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 198:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 199:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Memory_Address_Config.
+ 200:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Initializes the DMA Channelx memory address.
+ 201:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 202:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 203:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 204:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 205:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 206:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 207:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 208:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 209:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 210:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   addr :
+ 211:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 212:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 213:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Memory_Address_Config(DMA_ChannelType* DMAChx, uint32_t addr)
+ 214:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 210              		.loc 1 214 1 is_stmt 1 view -0
+ 211              		.cfi_startproc
+ 212              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 9
+
+
+ 213              		@ frame_needed = 0, uses_anonymous_args = 0
+ 214              		@ link register save eliminated.
+ 215:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Write to DMA Channelx MADDR */
+ 216:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->MADDR = addr;
+ 215              		.loc 1 216 5 view .LVU59
+ 216              		.loc 1 216 19 is_stmt 0 view .LVU60
+ 217 0000 C160     		str	r1, [r0, #12]
+ 217:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 218              		.loc 1 217 1 view .LVU61
+ 219 0002 7047     		bx	lr
+ 220              		.cfi_endproc
+ 221              	.LFE133:
+ 223              		.section	.text.DMA_Destination_Config,"ax",%progbits
+ 224              		.align	1
+ 225              		.global	DMA_Destination_Config
+ 226              		.syntax unified
+ 227              		.thumb
+ 228              		.thumb_func
+ 230              	DMA_Destination_Config:
+ 231              	.LVL3:
+ 232              	.LFB134:
+ 218:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 219:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 220:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Destination_Config.
+ 221:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Initializes the DMA Channelx Direction value.
+ 222:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 223:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 224:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 225:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 226:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 227:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 228:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 229:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 230:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 231:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   direction :
+ 232:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_DIR_PERIPH_DST
+ 233:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_DIR_PERIPH_SRC
+ 234:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 235:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 236:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Destination_Config(DMA_ChannelType* DMAChx, uint32_t direction)
+ 237:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 233              		.loc 1 237 1 is_stmt 1 view -0
+ 234              		.cfi_startproc
+ 235              		@ args = 0, pretend = 0, frame = 0
+ 236              		@ frame_needed = 0, uses_anonymous_args = 0
+ 237              		@ link register save eliminated.
+ 238:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Clear DMAChx_CHCFG DIR bits */
+ 239:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG &= DMA_DIR_PERIPH_MASK;
+ 238              		.loc 1 239 5 view .LVU63
+ 239              		.loc 1 239 11 is_stmt 0 view .LVU64
+ 240 0000 0368     		ldr	r3, [r0]
+ 241              		.loc 1 239 19 view .LVU65
+ 242 0002 23F01003 		bic	r3, r3, #16
+ 243 0006 0360     		str	r3, [r0]
+ 240:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Set DMAChx_CHCFG DIR bits */
+ 241:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG |= direction;
+ 244              		.loc 1 241 5 is_stmt 1 view .LVU66
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 10
+
+
+ 245              		.loc 1 241 11 is_stmt 0 view .LVU67
+ 246 0008 0368     		ldr	r3, [r0]
+ 247              		.loc 1 241 19 view .LVU68
+ 248 000a 0B43     		orrs	r3, r3, r1
+ 249 000c 0360     		str	r3, [r0]
+ 242:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 250              		.loc 1 242 1 view .LVU69
+ 251 000e 7047     		bx	lr
+ 252              		.cfi_endproc
+ 253              	.LFE134:
+ 255              		.section	.text.DMA_Buffer_Size_Config,"ax",%progbits
+ 256              		.align	1
+ 257              		.global	DMA_Buffer_Size_Config
+ 258              		.syntax unified
+ 259              		.thumb
+ 260              		.thumb_func
+ 262              	DMA_Buffer_Size_Config:
+ 263              	.LVL4:
+ 264              	.LFB135:
+ 243:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 244:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 245:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Buffer_Size_Config.
+ 246:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Initializes the DMA Channelx buffer size.
+ 247:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 248:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 249:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 250:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 251:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 252:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 253:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 254:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 255:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 256:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   buf_size :
+ 257:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 258:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 259:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Buffer_Size_Config(DMA_ChannelType* DMAChx, uint32_t buf_size)
+ 260:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 265              		.loc 1 260 1 is_stmt 1 view -0
+ 266              		.cfi_startproc
+ 267              		@ args = 0, pretend = 0, frame = 0
+ 268              		@ frame_needed = 0, uses_anonymous_args = 0
+ 269              		@ link register save eliminated.
+ 261:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Write to DMA Channelx TXNUM */
+ 262:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->TXNUM = buf_size;
+ 270              		.loc 1 262 5 view .LVU71
+ 271              		.loc 1 262 19 is_stmt 0 view .LVU72
+ 272 0000 4160     		str	r1, [r0, #4]
+ 263:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 273              		.loc 1 263 1 view .LVU73
+ 274 0002 7047     		bx	lr
+ 275              		.cfi_endproc
+ 276              	.LFE135:
+ 278              		.section	.text.DMA_Peripheral_Addr_Increment_Config,"ax",%progbits
+ 279              		.align	1
+ 280              		.global	DMA_Peripheral_Addr_Increment_Config
+ 281              		.syntax unified
+ 282              		.thumb
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 11
+
+
+ 283              		.thumb_func
+ 285              	DMA_Peripheral_Addr_Increment_Config:
+ 286              	.LVL5:
+ 287              	.LFB136:
+ 264:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 265:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 266:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Peripheral_Addr_Increment_Config.
+ 267:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Initializes the DMA Channelx PeriphInc value.
+ 268:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 269:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 270:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 271:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 272:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 273:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 274:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 275:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 276:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 277:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   periph_inc :
+ 278:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_PERIPH_INC_MODE_ENABLE
+ 279:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_PERIPH_INC_MODE_DISABLE
+ 280:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 281:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 282:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Peripheral_Addr_Increment_Config(DMA_ChannelType* DMAChx, uint32_t periph_inc)
+ 283:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 288              		.loc 1 283 1 is_stmt 1 view -0
+ 289              		.cfi_startproc
+ 290              		@ args = 0, pretend = 0, frame = 0
+ 291              		@ frame_needed = 0, uses_anonymous_args = 0
+ 292              		@ link register save eliminated.
+ 284:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Clear DMAChx_CHCFG PINC bits */
+ 285:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG &= DMA_PERIPH_INC_MODE_MASK;
+ 293              		.loc 1 285 5 view .LVU75
+ 294              		.loc 1 285 11 is_stmt 0 view .LVU76
+ 295 0000 0368     		ldr	r3, [r0]
+ 296              		.loc 1 285 19 view .LVU77
+ 297 0002 23F04003 		bic	r3, r3, #64
+ 298 0006 0360     		str	r3, [r0]
+ 286:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Set DMAChx_CHCFG PINC bits */
+ 287:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG |= periph_inc;
+ 299              		.loc 1 287 5 is_stmt 1 view .LVU78
+ 300              		.loc 1 287 11 is_stmt 0 view .LVU79
+ 301 0008 0368     		ldr	r3, [r0]
+ 302              		.loc 1 287 19 view .LVU80
+ 303 000a 0B43     		orrs	r3, r3, r1
+ 304 000c 0360     		str	r3, [r0]
+ 288:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 305              		.loc 1 288 1 view .LVU81
+ 306 000e 7047     		bx	lr
+ 307              		.cfi_endproc
+ 308              	.LFE136:
+ 310              		.section	.text.DMA_Memory_Addr_Increment_Config,"ax",%progbits
+ 311              		.align	1
+ 312              		.global	DMA_Memory_Addr_Increment_Config
+ 313              		.syntax unified
+ 314              		.thumb
+ 315              		.thumb_func
+ 317              	DMA_Memory_Addr_Increment_Config:
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 12
+
+
+ 318              	.LVL6:
+ 319              	.LFB137:
+ 289:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 290:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 291:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Memory_Addr_Increment_Config.
+ 292:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Initializes the DMA Channelx DMA_MemoryInc value.
+ 293:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 294:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 295:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 296:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 297:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 298:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 299:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 300:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 301:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 302:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   memory_inc :
+ 303:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_MEM_INC_MODE_ENABLE
+ 304:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_MEM_INC_MODE_DISABLE
+ 305:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 306:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 307:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Memory_Addr_Increment_Config(DMA_ChannelType* DMAChx, uint32_t memory_inc)
+ 308:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 320              		.loc 1 308 1 is_stmt 1 view -0
+ 321              		.cfi_startproc
+ 322              		@ args = 0, pretend = 0, frame = 0
+ 323              		@ frame_needed = 0, uses_anonymous_args = 0
+ 324              		@ link register save eliminated.
+ 309:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Clear DMAChx_CHCFG MINC bits */
+ 310:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG &= DMA_MEM_INC_MODE_MASK;
+ 325              		.loc 1 310 5 view .LVU83
+ 326              		.loc 1 310 11 is_stmt 0 view .LVU84
+ 327 0000 0368     		ldr	r3, [r0]
+ 328              		.loc 1 310 19 view .LVU85
+ 329 0002 23F08003 		bic	r3, r3, #128
+ 330 0006 0360     		str	r3, [r0]
+ 311:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Set DMAChx_CHCFG MINC bits */
+ 312:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG |= memory_inc;
+ 331              		.loc 1 312 5 is_stmt 1 view .LVU86
+ 332              		.loc 1 312 11 is_stmt 0 view .LVU87
+ 333 0008 0368     		ldr	r3, [r0]
+ 334              		.loc 1 312 19 view .LVU88
+ 335 000a 0B43     		orrs	r3, r3, r1
+ 336 000c 0360     		str	r3, [r0]
+ 313:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 337              		.loc 1 313 1 view .LVU89
+ 338 000e 7047     		bx	lr
+ 339              		.cfi_endproc
+ 340              	.LFE137:
+ 342              		.section	.text.DMA_Peripheral_Data_Width_Config,"ax",%progbits
+ 343              		.align	1
+ 344              		.global	DMA_Peripheral_Data_Width_Config
+ 345              		.syntax unified
+ 346              		.thumb
+ 347              		.thumb_func
+ 349              	DMA_Peripheral_Data_Width_Config:
+ 350              	.LVL7:
+ 351              	.LFB138:
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 13
+
+
+ 314:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 315:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 316:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Peripheral_Data_Width_Config.
+ 317:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Initializes the DMA Channelx PeriphDataSize value.
+ 318:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 319:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 320:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 321:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 322:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 323:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 324:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 325:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 326:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 327:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   width :
+ 328:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_PERIPH_DATA_WIDTH_BYTE
+ 329:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_PERIPH_DATA_WIDTH_HALFWORD
+ 330:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_PERIPH_DATA_WIDTH_WORD
+ 331:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 332:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 333:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Peripheral_Data_Width_Config(DMA_ChannelType* DMAChx, uint32_t width)
+ 334:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 352              		.loc 1 334 1 is_stmt 1 view -0
+ 353              		.cfi_startproc
+ 354              		@ args = 0, pretend = 0, frame = 0
+ 355              		@ frame_needed = 0, uses_anonymous_args = 0
+ 356              		@ link register save eliminated.
+ 335:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Clear DMAChx_CHCFG PSIZE[1:0] bits */
+ 336:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG &= DMA_PERIPH_DATA_WIDTH_MASK;
+ 357              		.loc 1 336 5 view .LVU91
+ 358              		.loc 1 336 11 is_stmt 0 view .LVU92
+ 359 0000 0368     		ldr	r3, [r0]
+ 360              		.loc 1 336 19 view .LVU93
+ 361 0002 23F44073 		bic	r3, r3, #768
+ 362 0006 0360     		str	r3, [r0]
+ 337:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Set DMAChx_CHCFG PSIZE[1:0] bits */
+ 338:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG |= width;
+ 363              		.loc 1 338 5 is_stmt 1 view .LVU94
+ 364              		.loc 1 338 11 is_stmt 0 view .LVU95
+ 365 0008 0368     		ldr	r3, [r0]
+ 366              		.loc 1 338 19 view .LVU96
+ 367 000a 0B43     		orrs	r3, r3, r1
+ 368 000c 0360     		str	r3, [r0]
+ 339:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 369              		.loc 1 339 1 view .LVU97
+ 370 000e 7047     		bx	lr
+ 371              		.cfi_endproc
+ 372              	.LFE138:
+ 374              		.section	.text.DMA_Memory_Data_Width_Config,"ax",%progbits
+ 375              		.align	1
+ 376              		.global	DMA_Memory_Data_Width_Config
+ 377              		.syntax unified
+ 378              		.thumb
+ 379              		.thumb_func
+ 381              	DMA_Memory_Data_Width_Config:
+ 382              	.LVL8:
+ 383              	.LFB139:
+ 340:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 14
+
+
+ 341:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 342:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Memory_Data_Width_Config.
+ 343:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Initializes the DMA Channelx MemDataSize value.
+ 344:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 345:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 346:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 347:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 348:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 349:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 350:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 351:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 352:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 353:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   width :
+ 354:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_MEM_DATA_WIDTH_BYTE
+ 355:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_MEM_DATA_WIDTH_HALFWORD
+ 356:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_MEM_DATA_WIDTH_WORD
+ 357:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 358:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 359:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Memory_Data_Width_Config(DMA_ChannelType* DMAChx, uint32_t width)
+ 360:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 384              		.loc 1 360 1 is_stmt 1 view -0
+ 385              		.cfi_startproc
+ 386              		@ args = 0, pretend = 0, frame = 0
+ 387              		@ frame_needed = 0, uses_anonymous_args = 0
+ 388              		@ link register save eliminated.
+ 361:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Clear DMAChx_CHCFG MSIZE[1:0] bits */
+ 362:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG &= DMA_MEM_DATA_WIDTH_MASK;
+ 389              		.loc 1 362 5 view .LVU99
+ 390              		.loc 1 362 11 is_stmt 0 view .LVU100
+ 391 0000 0368     		ldr	r3, [r0]
+ 392              		.loc 1 362 19 view .LVU101
+ 393 0002 23F44063 		bic	r3, r3, #3072
+ 394 0006 0360     		str	r3, [r0]
+ 363:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Set DMAChx_CHCFG MSIZE[1:0] bits */
+ 364:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG |= width;
+ 395              		.loc 1 364 5 is_stmt 1 view .LVU102
+ 396              		.loc 1 364 11 is_stmt 0 view .LVU103
+ 397 0008 0368     		ldr	r3, [r0]
+ 398              		.loc 1 364 19 view .LVU104
+ 399 000a 0B43     		orrs	r3, r3, r1
+ 400 000c 0360     		str	r3, [r0]
+ 365:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 401              		.loc 1 365 1 view .LVU105
+ 402 000e 7047     		bx	lr
+ 403              		.cfi_endproc
+ 404              	.LFE139:
+ 406              		.section	.text.DMA_Circular_Mode_Config,"ax",%progbits
+ 407              		.align	1
+ 408              		.global	DMA_Circular_Mode_Config
+ 409              		.syntax unified
+ 410              		.thumb
+ 411              		.thumb_func
+ 413              	DMA_Circular_Mode_Config:
+ 414              	.LVL9:
+ 415              	.LFB140:
+ 366:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 367:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 15
+
+
+ 368:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Circular_Mode_Config.
+ 369:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Initializes the DMA Channelx CircularMode value.
+ 370:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 371:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 372:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 373:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 374:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 375:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 376:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 377:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 378:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 379:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   cmd :
+ 380:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CIRCULAR_MODE_ENABLE
+ 381:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CIRCULAR_MODE_DISABLE
+ 382:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 383:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 384:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Circular_Mode_Config(DMA_ChannelType* DMAChx, uint32_t cmd)
+ 385:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 416              		.loc 1 385 1 is_stmt 1 view -0
+ 417              		.cfi_startproc
+ 418              		@ args = 0, pretend = 0, frame = 0
+ 419              		@ frame_needed = 0, uses_anonymous_args = 0
+ 420              		@ link register save eliminated.
+ 386:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****    /* Clear DMAChx_CHCFG CIRC bits */
+ 387:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG &= DMA_CIRCULAR_MODE_MASK;
+ 421              		.loc 1 387 5 view .LVU107
+ 422              		.loc 1 387 11 is_stmt 0 view .LVU108
+ 423 0000 0368     		ldr	r3, [r0]
+ 424              		.loc 1 387 19 view .LVU109
+ 425 0002 23F02003 		bic	r3, r3, #32
+ 426 0006 0360     		str	r3, [r0]
+ 388:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Set DMAChx_CHCFG CIRC bits */
+ 389:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG |= cmd;
+ 427              		.loc 1 389 5 is_stmt 1 view .LVU110
+ 428              		.loc 1 389 11 is_stmt 0 view .LVU111
+ 429 0008 0368     		ldr	r3, [r0]
+ 430              		.loc 1 389 19 view .LVU112
+ 431 000a 0B43     		orrs	r3, r3, r1
+ 432 000c 0360     		str	r3, [r0]
+ 390:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 433              		.loc 1 390 1 view .LVU113
+ 434 000e 7047     		bx	lr
+ 435              		.cfi_endproc
+ 436              	.LFE140:
+ 438              		.section	.text.DMA_Priority_Config,"ax",%progbits
+ 439              		.align	1
+ 440              		.global	DMA_Priority_Config
+ 441              		.syntax unified
+ 442              		.thumb
+ 443              		.thumb_func
+ 445              	DMA_Priority_Config:
+ 446              	.LVL10:
+ 447              	.LFB141:
+ 391:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 392:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 393:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Priority_Config.
+ 394:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Initializes the DMA Channelx Priority value.
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 16
+
+
+ 395:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 396:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 397:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 398:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 399:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 400:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 401:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 402:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 403:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 404:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   priority :
+ 405:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH_PRIORITY_HIGHEST
+ 406:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH_PRIORITY_HIGH
+ 407:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH_PRIORITY_MEDIUM
+ 408:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH_PRIORITY_LOW
+ 409:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 410:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 411:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Priority_Config(DMA_ChannelType* DMAChx, uint32_t priority)
+ 412:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 448              		.loc 1 412 1 is_stmt 1 view -0
+ 449              		.cfi_startproc
+ 450              		@ args = 0, pretend = 0, frame = 0
+ 451              		@ frame_needed = 0, uses_anonymous_args = 0
+ 452              		@ link register save eliminated.
+ 413:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Clear DMAChx_CHCFG PRIOLVL[1:0] bits */
+ 414:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG &= DMA_CH_PRIORITY_MASK;
+ 453              		.loc 1 414 5 view .LVU115
+ 454              		.loc 1 414 11 is_stmt 0 view .LVU116
+ 455 0000 0368     		ldr	r3, [r0]
+ 456              		.loc 1 414 19 view .LVU117
+ 457 0002 23F44053 		bic	r3, r3, #12288
+ 458 0006 0360     		str	r3, [r0]
+ 415:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Set DMAChx_CHCFG PRIOLVL[1:0] bits */
+ 416:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG |= priority;
+ 459              		.loc 1 416 5 is_stmt 1 view .LVU118
+ 460              		.loc 1 416 11 is_stmt 0 view .LVU119
+ 461 0008 0368     		ldr	r3, [r0]
+ 462              		.loc 1 416 19 view .LVU120
+ 463 000a 0B43     		orrs	r3, r3, r1
+ 464 000c 0360     		str	r3, [r0]
+ 417:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 465              		.loc 1 417 1 view .LVU121
+ 466 000e 7047     		bx	lr
+ 467              		.cfi_endproc
+ 468              	.LFE141:
+ 470              		.section	.text.DMA_Memory_2_Memory_Config,"ax",%progbits
+ 471              		.align	1
+ 472              		.global	DMA_Memory_2_Memory_Config
+ 473              		.syntax unified
+ 474              		.thumb
+ 475              		.thumb_func
+ 477              	DMA_Memory_2_Memory_Config:
+ 478              	.LVL11:
+ 479              	.LFB142:
+ 418:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 419:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 420:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Memory_2_Memory_Config.
+ 421:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Initializes the DMA Channelx Mem2Mem value.
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 17
+
+
+ 422:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 423:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 424:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 425:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 426:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 427:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 428:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 429:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 430:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 431:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   cmd :
+ 432:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_MEM2MEM_ENABLE
+ 433:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_MEM2MEM_DISABLE
+ 434:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 435:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 436:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Memory_2_Memory_Config(DMA_ChannelType* DMAChx, uint32_t cmd)
+ 437:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 480              		.loc 1 437 1 is_stmt 1 view -0
+ 481              		.cfi_startproc
+ 482              		@ args = 0, pretend = 0, frame = 0
+ 483              		@ frame_needed = 0, uses_anonymous_args = 0
+ 484              		@ link register save eliminated.
+ 438:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Clear DMAChx_CHCFG MEM2MEM bits */
+ 439:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG &= DMA_MEM2MEM_MASK;
+ 485              		.loc 1 439 5 view .LVU123
+ 486              		.loc 1 439 11 is_stmt 0 view .LVU124
+ 487 0000 0368     		ldr	r3, [r0]
+ 488              		.loc 1 439 19 view .LVU125
+ 489 0002 23F48043 		bic	r3, r3, #16384
+ 490 0006 0360     		str	r3, [r0]
+ 440:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Set DMAChx_CHCFG MEM2MEM bits */
+ 441:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG |= cmd;
+ 491              		.loc 1 441 5 is_stmt 1 view .LVU126
+ 492              		.loc 1 441 11 is_stmt 0 view .LVU127
+ 493 0008 0368     		ldr	r3, [r0]
+ 494              		.loc 1 441 19 view .LVU128
+ 495 000a 0B43     		orrs	r3, r3, r1
+ 496 000c 0360     		str	r3, [r0]
+ 442:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 497              		.loc 1 442 1 view .LVU129
+ 498 000e 7047     		bx	lr
+ 499              		.cfi_endproc
+ 500              	.LFE142:
+ 502              		.section	.text.DMA_Initializes,"ax",%progbits
+ 503              		.align	1
+ 504              		.global	DMA_Initializes
+ 505              		.syntax unified
+ 506              		.thumb
+ 507              		.thumb_func
+ 509              	DMA_Initializes:
+ 510              	.LVL12:
+ 511              	.LFB131:
+ 163:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Peripheral_Address_Config(DMAChx, DMA_InitParam->PeriphAddr);
+ 512              		.loc 1 163 1 is_stmt 1 view -0
+ 513              		.cfi_startproc
+ 514              		@ args = 0, pretend = 0, frame = 0
+ 515              		@ frame_needed = 0, uses_anonymous_args = 0
+ 164:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Memory_Address_Config(DMAChx, DMA_InitParam->MemAddr);
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 18
+
+
+ 516              		.loc 1 164 5 view .LVU131
+ 517 0000 0B68     		ldr	r3, [r1]
+ 518              	.LVL13:
+ 519              	.LBB8:
+ 520              	.LBI8:
+ 192:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 521              		.loc 1 192 6 view .LVU132
+ 522              	.LBB9:
+ 195:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 523              		.loc 1 195 5 view .LVU133
+ 524              	.LBE9:
+ 525              	.LBE8:
+ 163:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Peripheral_Address_Config(DMAChx, DMA_InitParam->PeriphAddr);
+ 526              		.loc 1 163 1 is_stmt 0 view .LVU134
+ 527 0002 10B5     		push	{r4, lr}
+ 528              	.LCFI0:
+ 529              		.cfi_def_cfa_offset 8
+ 530              		.cfi_offset 4, -8
+ 531              		.cfi_offset 14, -4
+ 163:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Peripheral_Address_Config(DMAChx, DMA_InitParam->PeriphAddr);
+ 532              		.loc 1 163 1 view .LVU135
+ 533 0004 0A46     		mov	r2, r1
+ 534              	.LBB11:
+ 535              	.LBB10:
+ 195:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 536              		.loc 1 195 19 view .LVU136
+ 537 0006 8360     		str	r3, [r0, #8]
+ 538              	.LVL14:
+ 195:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 539              		.loc 1 195 19 view .LVU137
+ 540              	.LBE10:
+ 541              	.LBE11:
+ 165:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Destination_Config(DMAChx, DMA_InitParam->Direction);
+ 542              		.loc 1 165 5 is_stmt 1 view .LVU138
+ 543 0008 4B68     		ldr	r3, [r1, #4]
+ 544              	.LVL15:
+ 545              	.LBB12:
+ 546              	.LBI12:
+ 213:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 547              		.loc 1 213 6 view .LVU139
+ 548              	.LBB13:
+ 216:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 549              		.loc 1 216 5 view .LVU140
+ 216:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 550              		.loc 1 216 19 is_stmt 0 view .LVU141
+ 551 000a C360     		str	r3, [r0, #12]
+ 552              	.LVL16:
+ 216:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 553              		.loc 1 216 19 view .LVU142
+ 554              	.LBE13:
+ 555              	.LBE12:
+ 166:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Buffer_Size_Config(DMAChx, DMA_InitParam->BufSize);
+ 556              		.loc 1 166 5 is_stmt 1 view .LVU143
+ 557 000c 8968     		ldr	r1, [r1, #8]
+ 558              	.LVL17:
+ 166:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Buffer_Size_Config(DMAChx, DMA_InitParam->BufSize);
+ 559              		.loc 1 166 5 is_stmt 0 view .LVU144
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 19
+
+
+ 560 000e FFF7FEFF 		bl	DMA_Destination_Config
+ 561              	.LVL18:
+ 167:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Peripheral_Addr_Increment_Config(DMAChx, DMA_InitParam->PeriphInc);
+ 562              		.loc 1 167 5 is_stmt 1 view .LVU145
+ 563 0012 D368     		ldr	r3, [r2, #12]
+ 564              	.LVL19:
+ 565              	.LBB14:
+ 566              	.LBI14:
+ 259:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 567              		.loc 1 259 6 view .LVU146
+ 568              	.LBB15:
+ 262:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 569              		.loc 1 262 5 view .LVU147
+ 262:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 570              		.loc 1 262 19 is_stmt 0 view .LVU148
+ 571 0014 4360     		str	r3, [r0, #4]
+ 572              	.LVL20:
+ 262:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 573              		.loc 1 262 19 view .LVU149
+ 574              	.LBE15:
+ 575              	.LBE14:
+ 168:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Memory_Addr_Increment_Config(DMAChx, DMA_InitParam->MemoryInc);
+ 576              		.loc 1 168 5 is_stmt 1 view .LVU150
+ 577 0016 1169     		ldr	r1, [r2, #16]
+ 578 0018 FFF7FEFF 		bl	DMA_Peripheral_Addr_Increment_Config
+ 579              	.LVL21:
+ 169:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Peripheral_Data_Width_Config(DMAChx, DMA_InitParam->PeriphDataSize);
+ 580              		.loc 1 169 5 view .LVU151
+ 581 001c 5169     		ldr	r1, [r2, #20]
+ 582 001e FFF7FEFF 		bl	DMA_Memory_Addr_Increment_Config
+ 583              	.LVL22:
+ 170:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Memory_Data_Width_Config(DMAChx, DMA_InitParam->MemDataSize);
+ 584              		.loc 1 170 5 view .LVU152
+ 585 0022 9169     		ldr	r1, [r2, #24]
+ 586 0024 FFF7FEFF 		bl	DMA_Peripheral_Data_Width_Config
+ 587              	.LVL23:
+ 171:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Circular_Mode_Config(DMAChx, DMA_InitParam->CircularMode);
+ 588              		.loc 1 171 5 view .LVU153
+ 589 0028 D169     		ldr	r1, [r2, #28]
+ 590 002a FFF7FEFF 		bl	DMA_Memory_Data_Width_Config
+ 591              	.LVL24:
+ 172:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Priority_Config(DMAChx, DMA_InitParam->Priority);
+ 592              		.loc 1 172 5 view .LVU154
+ 593 002e 116A     		ldr	r1, [r2, #32]
+ 594 0030 FFF7FEFF 		bl	DMA_Circular_Mode_Config
+ 595              	.LVL25:
+ 173:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_Memory_2_Memory_Config(DMAChx, DMA_InitParam->Mem2Mem);
+ 596              		.loc 1 173 5 view .LVU155
+ 597 0034 516A     		ldr	r1, [r2, #36]
+ 598 0036 FFF7FEFF 		bl	DMA_Priority_Config
+ 599              	.LVL26:
+ 174:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 600              		.loc 1 174 5 view .LVU156
+ 175:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 601              		.loc 1 175 1 is_stmt 0 view .LVU157
+ 602 003a BDE81040 		pop	{r4, lr}
+ 603              	.LCFI1:
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 20
+
+
+ 604              		.cfi_restore 14
+ 605              		.cfi_restore 4
+ 606              		.cfi_def_cfa_offset 0
+ 174:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 607              		.loc 1 174 5 view .LVU158
+ 608 003e 916A     		ldr	r1, [r2, #40]
+ 609 0040 FFF7FEBF 		b	DMA_Memory_2_Memory_Config
+ 610              	.LVL27:
+ 611              		.cfi_endproc
+ 612              	.LFE131:
+ 614              		.section	.text.DMA_Structure_Initializes,"ax",%progbits
+ 615              		.align	1
+ 616              		.global	DMA_Structure_Initializes
+ 617              		.syntax unified
+ 618              		.thumb
+ 619              		.thumb_func
+ 621              	DMA_Structure_Initializes:
+ 622              	.LVL28:
+ 623              	.LFB143:
+ 443:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 444:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 445:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Structure_Initializes.
+ 446:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Fills each DMA_InitParam member with its default value.
+ 447:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMA_InitParam :
+ 448:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - PeriphAddr
+ 449:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - MemAddr
+ 450:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - Direction
+ 451:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - BufSize
+ 452:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - PeriphInc
+ 453:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_MemoryInc
+ 454:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - PeriphDataSize
+ 455:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - MemDataSize
+ 456:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - CircularMode
+ 457:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - Priority
+ 458:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - Mem2Mem
+ 459:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 460:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 461:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Structure_Initializes(DMA_InitType* DMA_InitParam)
+ 462:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 624              		.loc 1 462 1 is_stmt 1 view -0
+ 625              		.cfi_startproc
+ 626              		@ args = 0, pretend = 0, frame = 0
+ 627              		@ frame_needed = 0, uses_anonymous_args = 0
+ 628              		@ link register save eliminated.
+ 463:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Reset DMA init structure parameters values */
+ 464:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Initialize the PeriphAddr member */
+ 465:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_InitParam->PeriphAddr = 0;
+ 629              		.loc 1 465 5 view .LVU160
+ 630              		.loc 1 465 31 is_stmt 0 view .LVU161
+ 631 0000 0023     		movs	r3, #0
+ 466:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Initialize the MemAddr member */
+ 467:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_InitParam->MemAddr = 0;
+ 632              		.loc 1 467 28 view .LVU162
+ 633 0002 C0E90033 		strd	r3, r3, [r0]
+ 468:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Initialize the Direction member */
+ 469:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_InitParam->Direction = DMA_DIR_PERIPH_SRC;
+ 634              		.loc 1 469 5 is_stmt 1 view .LVU163
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 21
+
+
+ 470:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Initialize the BufSize member */
+ 471:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_InitParam->BufSize = 0;
+ 635              		.loc 1 471 28 is_stmt 0 view .LVU164
+ 636 0006 C0E90233 		strd	r3, r3, [r0, #8]
+ 472:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Initialize the PeriphInc member */
+ 473:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_InitParam->PeriphInc = DMA_PERIPH_INC_MODE_DISABLE;
+ 637              		.loc 1 473 5 is_stmt 1 view .LVU165
+ 474:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Initialize the MemoryInc member */
+ 475:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_InitParam->MemoryInc = DMA_MEM_INC_MODE_DISABLE;
+ 638              		.loc 1 475 30 is_stmt 0 view .LVU166
+ 639 000a C0E90433 		strd	r3, r3, [r0, #16]
+ 476:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Initialize the PeriphDataSize member */
+ 477:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_InitParam->PeriphDataSize = DMA_PERIPH_DATA_WIDTH_BYTE;
+ 640              		.loc 1 477 5 is_stmt 1 view .LVU167
+ 478:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Initialize the MemDataSize member */
+ 479:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_InitParam->MemDataSize = DMA_MEM_DATA_WIDTH_BYTE;
+ 641              		.loc 1 479 32 is_stmt 0 view .LVU168
+ 642 000e C0E90633 		strd	r3, r3, [r0, #24]
+ 480:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Initialize the CircularMode member */
+ 481:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_InitParam->CircularMode = DMA_CIRCULAR_MODE_DISABLE;
+ 643              		.loc 1 481 5 is_stmt 1 view .LVU169
+ 482:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Initialize the Priority member */
+ 483:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_InitParam->Priority = DMA_CH_PRIORITY_LOW;
+ 644              		.loc 1 483 29 is_stmt 0 view .LVU170
+ 645 0012 C0E90833 		strd	r3, r3, [r0, #32]
+ 484:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Initialize the Mem2Mem member */
+ 485:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMA_InitParam->Mem2Mem = DMA_MEM2MEM_DISABLE;
+ 646              		.loc 1 485 5 is_stmt 1 view .LVU171
+ 647              		.loc 1 485 28 is_stmt 0 view .LVU172
+ 648 0016 8362     		str	r3, [r0, #40]
+ 486:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 649              		.loc 1 486 1 view .LVU173
+ 650 0018 7047     		bx	lr
+ 651              		.cfi_endproc
+ 652              	.LFE143:
+ 654              		.section	.text.DMA_Channel_Enable,"ax",%progbits
+ 655              		.align	1
+ 656              		.global	DMA_Channel_Enable
+ 657              		.syntax unified
+ 658              		.thumb
+ 659              		.thumb_func
+ 661              	DMA_Channel_Enable:
+ 662              	.LVL29:
+ 663              	.LFB144:
+ 487:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 488:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 489:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Channel_Enable.
+ 490:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     DMA Channelx Channel enable.
+ 491:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 492:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 493:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 494:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 495:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 496:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 497:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 498:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 499:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 22
+
+
+ 500:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 501:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 502:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Channel_Enable(DMA_ChannelType* DMAChx)
+ 503:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 664              		.loc 1 503 1 is_stmt 1 view -0
+ 665              		.cfi_startproc
+ 666              		@ args = 0, pretend = 0, frame = 0
+ 667              		@ frame_needed = 0, uses_anonymous_args = 0
+ 668              		@ link register save eliminated.
+ 504:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Enable the selected DMA Channelx */
+ 505:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG |= DMA_CHANNEL_ENABLE;
+ 669              		.loc 1 505 5 view .LVU175
+ 670              		.loc 1 505 11 is_stmt 0 view .LVU176
+ 671 0000 0368     		ldr	r3, [r0]
+ 672              		.loc 1 505 19 view .LVU177
+ 673 0002 43F00103 		orr	r3, r3, #1
+ 674 0006 0360     		str	r3, [r0]
+ 506:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 675              		.loc 1 506 1 view .LVU178
+ 676 0008 7047     		bx	lr
+ 677              		.cfi_endproc
+ 678              	.LFE144:
+ 680              		.section	.text.DMA_Channel_Disable,"ax",%progbits
+ 681              		.align	1
+ 682              		.global	DMA_Channel_Disable
+ 683              		.syntax unified
+ 684              		.thumb
+ 685              		.thumb_func
+ 687              	DMA_Channel_Disable:
+ 688              	.LVL30:
+ 689              	.LFB145:
+ 507:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 508:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 509:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Channel_Disable.
+ 510:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     DMA Channelx Channel disable.
+ 511:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 512:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 513:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 514:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 515:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 516:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 517:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 518:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 519:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 520:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 521:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 522:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Channel_Disable(DMA_ChannelType* DMAChx)
+ 523:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 690              		.loc 1 523 1 is_stmt 1 view -0
+ 691              		.cfi_startproc
+ 692              		@ args = 0, pretend = 0, frame = 0
+ 693              		@ frame_needed = 0, uses_anonymous_args = 0
+ 694              		@ link register save eliminated.
+ 524:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Disable the selected DMA Channelx */
+ 525:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG &= DMA_CHANNEL_DISABLE;
+ 695              		.loc 1 525 5 view .LVU180
+ 696              		.loc 1 525 11 is_stmt 0 view .LVU181
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 23
+
+
+ 697 0000 0368     		ldr	r3, [r0]
+ 698              		.loc 1 525 19 view .LVU182
+ 699 0002 23F00103 		bic	r3, r3, #1
+ 700 0006 0360     		str	r3, [r0]
+ 526:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 701              		.loc 1 526 1 view .LVU183
+ 702 0008 7047     		bx	lr
+ 703              		.cfi_endproc
+ 704              	.LFE145:
+ 706              		.section	.text.DMA_Interrupts_Enable,"ax",%progbits
+ 707              		.align	1
+ 708              		.global	DMA_Interrupts_Enable
+ 709              		.syntax unified
+ 710              		.thumb
+ 711              		.thumb_func
+ 713              	DMA_Interrupts_Enable:
+ 714              	.LVL31:
+ 715              	.LFB146:
+ 527:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 528:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 529:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Interrupts_Enable.
+ 530:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     DMA Channelx interrupts disable.
+ 531:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 532:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 533:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 534:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 535:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 536:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 537:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 538:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 539:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 540:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   interrupt :
+ 541:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_INT_TXC
+ 542:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_INT_HTX
+ 543:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_INT_ERR
+ 544:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 545:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 546:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Interrupts_Enable(DMA_ChannelType* DMAChx, uint32_t interrupt)
+ 547:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 716              		.loc 1 547 1 is_stmt 1 view -0
+ 717              		.cfi_startproc
+ 718              		@ args = 0, pretend = 0, frame = 0
+ 719              		@ frame_needed = 0, uses_anonymous_args = 0
+ 720              		@ link register save eliminated.
+ 548:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Enable the selected DMA Channelx interrupts */
+ 549:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG |= interrupt;
+ 721              		.loc 1 549 5 view .LVU185
+ 722              		.loc 1 549 11 is_stmt 0 view .LVU186
+ 723 0000 0368     		ldr	r3, [r0]
+ 724              		.loc 1 549 19 view .LVU187
+ 725 0002 0B43     		orrs	r3, r3, r1
+ 726 0004 0360     		str	r3, [r0]
+ 550:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 727              		.loc 1 550 1 view .LVU188
+ 728 0006 7047     		bx	lr
+ 729              		.cfi_endproc
+ 730              	.LFE146:
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 24
+
+
+ 732              		.section	.text.DMA_Interrupts_Disable,"ax",%progbits
+ 733              		.align	1
+ 734              		.global	DMA_Interrupts_Disable
+ 735              		.syntax unified
+ 736              		.thumb
+ 737              		.thumb_func
+ 739              	DMA_Interrupts_Disable:
+ 740              	.LVL32:
+ 741              	.LFB147:
+ 551:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 552:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 553:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Interrupts_Disable.
+ 554:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     DMA Channelx interrupts disable.
+ 555:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 556:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 557:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 558:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 559:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 560:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 561:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 562:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 563:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 564:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   interrupt :
+ 565:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_INT_TXC
+ 566:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_INT_HTX
+ 567:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_INT_ERR
+ 568:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 569:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 570:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Interrupts_Disable(DMA_ChannelType* DMAChx, uint32_t interrupt)
+ 571:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 742              		.loc 1 571 1 is_stmt 1 view -0
+ 743              		.cfi_startproc
+ 744              		@ args = 0, pretend = 0, frame = 0
+ 745              		@ frame_needed = 0, uses_anonymous_args = 0
+ 746              		@ link register save eliminated.
+ 572:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Disable the selected DMA Channelx interrupts */
+ 573:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHCFG &= (~interrupt);
+ 747              		.loc 1 573 5 view .LVU190
+ 748              		.loc 1 573 11 is_stmt 0 view .LVU191
+ 749 0000 0368     		ldr	r3, [r0]
+ 750              		.loc 1 573 19 view .LVU192
+ 751 0002 23EA0103 		bic	r3, r3, r1
+ 752 0006 0360     		str	r3, [r0]
+ 574:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 753              		.loc 1 574 1 view .LVU193
+ 754 0008 7047     		bx	lr
+ 755              		.cfi_endproc
+ 756              	.LFE147:
+ 758              		.section	.text.DMA_Current_Data_Transfer_Number_Set,"ax",%progbits
+ 759              		.align	1
+ 760              		.global	DMA_Current_Data_Transfer_Number_Set
+ 761              		.syntax unified
+ 762              		.thumb
+ 763              		.thumb_func
+ 765              	DMA_Current_Data_Transfer_Number_Set:
+ 766              	.LVL33:
+ 767              	.LFB148:
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 25
+
+
+ 575:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 576:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 577:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Current_Data_Transfer_Number_Set.
+ 578:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     DMA Channelx Set the current number of data transfers.
+ 579:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 580:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 581:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 582:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 583:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 584:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 585:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 586:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 587:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 588:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   num :
+ 589:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\note    This function can only be used when the DMAChx is disabled.
+ 590:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none
+ 591:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 592:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Current_Data_Transfer_Number_Set(DMA_ChannelType* DMAChx, uint16_t num)
+ 593:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 768              		.loc 1 593 1 is_stmt 1 view -0
+ 769              		.cfi_startproc
+ 770              		@ args = 0, pretend = 0, frame = 0
+ 771              		@ frame_needed = 0, uses_anonymous_args = 0
+ 772              		@ link register save eliminated.
+ 594:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Write to DMA Channelx TXNUM */
+ 595:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->TXNUM = num;
+ 773              		.loc 1 595 5 view .LVU195
+ 774              		.loc 1 595 19 is_stmt 0 view .LVU196
+ 775 0000 4160     		str	r1, [r0, #4]
+ 596:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 776              		.loc 1 596 1 view .LVU197
+ 777 0002 7047     		bx	lr
+ 778              		.cfi_endproc
+ 779              	.LFE148:
+ 781              		.section	.text.DMA_Current_Data_Transfer_Number_Get,"ax",%progbits
+ 782              		.align	1
+ 783              		.global	DMA_Current_Data_Transfer_Number_Get
+ 784              		.syntax unified
+ 785              		.thumb
+ 786              		.thumb_func
+ 788              	DMA_Current_Data_Transfer_Number_Get:
+ 789              	.LVL34:
+ 790              	.LFB149:
+ 597:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 598:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 599:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Current_Data_Transfer_Number_Get.
+ 600:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     DMA Channelx Gets the current number of data transfers.
+ 601:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 602:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 603:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 604:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 605:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 606:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 607:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 608:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 609:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 610:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  Returns the number of bytes remaining to be transferred.
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 26
+
+
+ 611:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 612:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** uint16_t DMA_Current_Data_Transfer_Number_Get(DMA_ChannelType* DMAChx)
+ 613:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 791              		.loc 1 613 1 is_stmt 1 view -0
+ 792              		.cfi_startproc
+ 793              		@ args = 0, pretend = 0, frame = 0
+ 794              		@ frame_needed = 0, uses_anonymous_args = 0
+ 795              		@ link register save eliminated.
+ 614:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Returns the number of bytes remaining to be transferred for DMA Channelx */
+ 615:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     return ((uint16_t)(DMAChx->TXNUM));
+ 796              		.loc 1 615 5 view .LVU199
+ 797              		.loc 1 615 30 is_stmt 0 view .LVU200
+ 798 0000 4068     		ldr	r0, [r0, #4]
+ 799              	.LVL35:
+ 616:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 800              		.loc 1 616 1 view .LVU201
+ 801 0002 80B2     		uxth	r0, r0
+ 802 0004 7047     		bx	lr
+ 803              		.cfi_endproc
+ 804              	.LFE149:
+ 806              		.section	.text.DMA_Flag_Status_Get,"ax",%progbits
+ 807              		.align	1
+ 808              		.global	DMA_Flag_Status_Get
+ 809              		.syntax unified
+ 810              		.thumb
+ 811              		.thumb_func
+ 813              	DMA_Flag_Status_Get:
+ 814              	.LVL36:
+ 815              	.LFB150:
+ 617:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 618:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 619:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Flag_Status_Get.
+ 620:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Get DMA Channelx flag status.
+ 621:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAx :
+ 622:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA
+ 623:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   flag :
+ 624:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_GLBF
+ 625:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_TXCF
+ 626:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_HTXF
+ 627:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_ERRF
+ 628:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_GLBF
+ 629:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_TXCF
+ 630:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_HTXF
+ 631:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_ERRF
+ 632:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_GLBF
+ 633:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_TXCF
+ 634:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_HTXF
+ 635:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_ERRF
+ 636:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_GLBF
+ 637:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_TXCF
+ 638:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_HTXF
+ 639:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_ERRF
+ 640:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_GLBF
+ 641:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_TXCF
+ 642:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_HTXF
+ 643:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_ERRF
+ 644:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_GLBF
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 27
+
+
+ 645:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_TXCF
+ 646:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_HTXF
+ 647:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_ERRF
+ 648:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_GLBF
+ 649:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_TXCF
+ 650:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_HTXF
+ 651:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_ERRF
+ 652:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_GLBF
+ 653:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_TXCF
+ 654:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_HTXF
+ 655:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_ERRF
+ 656:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  SET or RESET.
+ 657:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 658:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** FlagStatus DMA_Flag_Status_Get(DMA_Module* DMAx, uint32_t flag)
+ 659:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 816              		.loc 1 659 1 is_stmt 1 view -0
+ 817              		.cfi_startproc
+ 818              		@ args = 0, pretend = 0, frame = 0
+ 819              		@ frame_needed = 0, uses_anonymous_args = 0
+ 820              		@ link register save eliminated.
+ 660:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Check the status of the DMA flag */
+ 661:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     if ((DMAx->INTSTS & flag) == (uint32_t)RESET)
+ 821              		.loc 1 661 5 view .LVU203
+ 822              		.loc 1 661 14 is_stmt 0 view .LVU204
+ 823 0000 0068     		ldr	r0, [r0]
+ 824              	.LVL37:
+ 825              		.loc 1 661 23 view .LVU205
+ 826 0002 0840     		ands	r0, r0, r1
+ 662:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+ 663:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         /* DMA_CHx_Flag is reset */
+ 664:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         return RESET;
+ 665:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 666:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     else
+ 667:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+ 668:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         /* DMA_CHx_Flag is set */
+ 669:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         return SET;
+ 670:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 671:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 827              		.loc 1 671 1 view .LVU206
+ 828 0004 0038     		subs	r0, r0, #0
+ 829 0006 18BF     		it	ne
+ 830 0008 0120     		movne	r0, #1
+ 831 000a 7047     		bx	lr
+ 832              		.cfi_endproc
+ 833              	.LFE150:
+ 835              		.section	.text.DMA_Flag_Status_Clear,"ax",%progbits
+ 836              		.align	1
+ 837              		.global	DMA_Flag_Status_Clear
+ 838              		.syntax unified
+ 839              		.thumb
+ 840              		.thumb_func
+ 842              	DMA_Flag_Status_Clear:
+ 843              	.LVL38:
+ 844              	.LFB151:
+ 672:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 673:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 674:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Flag_Status_Clear.
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 28
+
+
+ 675:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Clear DMA Channelx flag status.
+ 676:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAx :
+ 677:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA
+ 678:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   flag :
+ 679:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_GLBF
+ 680:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_TXCF
+ 681:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_HTXF
+ 682:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_ERRF
+ 683:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_GLBF
+ 684:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_TXCF
+ 685:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_HTXF
+ 686:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_ERRF
+ 687:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_GLBF
+ 688:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_TXCF
+ 689:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_HTXF
+ 690:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_ERRF
+ 691:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_GLBF
+ 692:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_TXCF
+ 693:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_HTXF
+ 694:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_ERRF
+ 695:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_GLBF
+ 696:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_TXCF
+ 697:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_HTXF
+ 698:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_ERRF
+ 699:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_GLBF
+ 700:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_TXCF
+ 701:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_HTXF
+ 702:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_ERRF
+ 703:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_GLBF
+ 704:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_TXCF
+ 705:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_HTXF
+ 706:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_ERRF
+ 707:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_GLBF
+ 708:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_TXCF
+ 709:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_HTXF
+ 710:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_ERRF
+ 711:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none.
+ 712:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 713:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Flag_Status_Clear(DMA_Module* DMAx, uint32_t flag)
+ 714:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 845              		.loc 1 714 1 is_stmt 1 view -0
+ 846              		.cfi_startproc
+ 847              		@ args = 0, pretend = 0, frame = 0
+ 848              		@ frame_needed = 0, uses_anonymous_args = 0
+ 849              		@ link register save eliminated.
+ 715:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Clear DMA flags */
+ 716:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAx->INTCLR = flag;
+ 850              		.loc 1 716 5 view .LVU208
+ 851              		.loc 1 716 18 is_stmt 0 view .LVU209
+ 852 0000 4160     		str	r1, [r0, #4]
+ 717:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 853              		.loc 1 717 1 view .LVU210
+ 854 0002 7047     		bx	lr
+ 855              		.cfi_endproc
+ 856              	.LFE151:
+ 858              		.section	.text.DMA_Interrupt_Status_Get,"ax",%progbits
+ 859              		.align	1
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 29
+
+
+ 860              		.global	DMA_Interrupt_Status_Get
+ 861              		.syntax unified
+ 862              		.thumb
+ 863              		.thumb_func
+ 865              	DMA_Interrupt_Status_Get:
+ 866              	.LFB156:
+ 867              		.cfi_startproc
+ 718:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 719:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 720:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Interrupt_Status_Get.
+ 721:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Get DMA Channelx interrupt status.
+ 722:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMA :
+ 723:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA
+ 724:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   interrupt :
+ 725:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_INT_GLB
+ 726:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_INT_TXC
+ 727:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_INT_HTX
+ 728:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_INT_ERR
+ 729:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_INT_GLB
+ 730:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_INT_TXC
+ 731:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_INT_HTX
+ 732:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_INT_ERR
+ 733:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_INT_GLB
+ 734:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_INT_TXC
+ 735:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_INT_HTX
+ 736:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_INT_ERR
+ 737:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_INT_GLB
+ 738:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_INT_TXC
+ 739:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_INT_HTX
+ 740:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_INT_ERR
+ 741:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_INT_GLB
+ 742:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_INT_TXC
+ 743:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_INT_HTX
+ 744:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_INT_ERR
+ 745:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_INT_GLB
+ 746:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_INT_TXC
+ 747:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_INT_HTX
+ 748:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_INT_ERR
+ 749:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_INT_GLB
+ 750:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_INT_TXC
+ 751:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_INT_HTX
+ 752:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_INT_ERR
+ 753:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_INT_GLB
+ 754:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_INT_TXC
+ 755:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_INT_HTX
+ 756:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_INT_ERR
+ 757:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  SET or RESET.
+ 758:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 759:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** INTStatus DMA_Interrupt_Status_Get(DMA_Module* DMAx, uint32_t interrupt)
+ 868              		.loc 1 759 11 is_stmt 1 view -0
+ 869              		@ args = 0, pretend = 0, frame = 0
+ 870              		@ frame_needed = 0, uses_anonymous_args = 0
+ 871              		@ link register save eliminated.
+ 872 0000 0068     		ldr	r0, [r0]
+ 873 0002 0840     		ands	r0, r0, r1
+ 874 0004 0038     		subs	r0, r0, #0
+ 875 0006 18BF     		it	ne
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 30
+
+
+ 876 0008 0120     		movne	r0, #1
+ 877 000a 7047     		bx	lr
+ 878              		.cfi_endproc
+ 879              	.LFE156:
+ 881              		.section	.text.DMA_Interrupt_Status_Clear,"ax",%progbits
+ 882              		.align	1
+ 883              		.global	DMA_Interrupt_Status_Clear
+ 884              		.syntax unified
+ 885              		.thumb
+ 886              		.thumb_func
+ 888              	DMA_Interrupt_Status_Clear:
+ 889              	.LFB158:
+ 890              		.cfi_startproc
+ 760:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 761:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Check the status of the specified DMA interrupt */
+ 762:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     if ((DMAx->INTSTS & interrupt) == (uint32_t)RESET)
+ 763:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+ 764:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         /* DMA_CHx_IT is reset */
+ 765:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         return RESET;
+ 766:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 767:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     else
+ 768:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     {
+ 769:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         /* DMA_CHx_IT is set */
+ 770:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****         return SET;
+ 771:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     }
+ 772:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 773:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 774:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 775:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Interrupt_Status_Clear.
+ 776:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Clear DMA Channelx interrupt status bits.
+ 777:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAx :
+ 778:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA
+ 779:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   interrupt :
+ 780:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_INT_GLB
+ 781:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_INT_TXC
+ 782:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_INT_HTX
+ 783:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1_INT_ERR
+ 784:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_INT_GLB
+ 785:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_INT_TXC
+ 786:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_INT_HTX
+ 787:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2_INT_ERR
+ 788:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_INT_GLB
+ 789:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_INT_TXC
+ 790:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_INT_HTX
+ 791:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3_INT_ERR
+ 792:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_INT_GLB
+ 793:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_INT_TXC
+ 794:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_INT_HTX
+ 795:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4_INT_ERR
+ 796:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_INT_GLB
+ 797:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_INT_TXC
+ 798:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_INT_HTX
+ 799:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5_INT_ERR
+ 800:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_INT_GLB
+ 801:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_INT_TXC
+ 802:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_INT_HTX
+ 803:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6_INT_ERR
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 31
+
+
+ 804:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_INT_GLB
+ 805:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_INT_TXC
+ 806:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_INT_HTX
+ 807:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7_INT_ERR
+ 808:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_INT_GLB
+ 809:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_INT_TXC
+ 810:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_INT_HTX
+ 811:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8_INT_ERR
+ 812:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none.
+ 813:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 814:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Interrupt_Status_Clear(DMA_Module* DMAx, uint32_t interrupt)
+ 891              		.loc 1 814 6 view -0
+ 892              		@ args = 0, pretend = 0, frame = 0
+ 893              		@ frame_needed = 0, uses_anonymous_args = 0
+ 894              		@ link register save eliminated.
+ 895 0000 4160     		str	r1, [r0, #4]
+ 896 0002 7047     		bx	lr
+ 897              		.cfi_endproc
+ 898              	.LFE158:
+ 900              		.section	.text.DMA_Channel_Request_Remap,"ax",%progbits
+ 901              		.align	1
+ 902              		.global	DMA_Channel_Request_Remap
+ 903              		.syntax unified
+ 904              		.thumb
+ 905              		.thumb_func
+ 907              	DMA_Channel_Request_Remap:
+ 908              	.LVL39:
+ 909              	.LFB154:
+ 815:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 816:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Clear the selected DMA interrupt status bits */
+ 817:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAx->INTCLR = interrupt;
+ 818:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 819:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** 
+ 820:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** /**
+ 821:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\name    DMA_Channel_Request_Remap.
+ 822:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\fun     Set DMA Channelx's remap request.
+ 823:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   DMAChx :
+ 824:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH1
+ 825:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH2
+ 826:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH3
+ 827:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH4
+ 828:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH5
+ 829:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH6
+ 830:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH7
+ 831:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_CH8
+ 832:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\param   req_remap :
+ 833:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_ADC
+ 834:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_USART1_TX
+ 835:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_USART1_RX
+ 836:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_USART2_TX
+ 837:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_USART2_RX
+ 838:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_UART3_TX
+ 839:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_UART3_RX
+ 840:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_UART4_TX
+ 841:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_UART4_RX
+ 842:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_SPI1_TX
+ 843:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_SPI1_RX
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 32
+
+
+ 844:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_SPI2_TX
+ 845:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_SPI2_RX
+ 846:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_I2C1_TX
+ 847:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_I2C1_RX
+ 848:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_I2C2_TX
+ 849:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_I2C2_RX
+ 850:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM1_CH1
+ 851:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM1_CH2
+ 852:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM1_CH3
+ 853:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM1_CH4
+ 854:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM1_COM
+ 855:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM1_UP
+ 856:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM1_TRIG
+ 857:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM2_CH1
+ 858:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM2_CH2
+ 859:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM2_CH3
+ 860:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM2_CH4
+ 861:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM2_UP
+ 862:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM3_CH1
+ 863:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM3_CH3
+ 864:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM3_CH4
+ 865:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM3_UP
+ 866:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM3_TRIG
+ 867:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM4_CH1
+ 868:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM4_CH2
+ 869:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM4_CH3
+ 870:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM4_UP
+ 871:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM5_CH1
+ 872:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM5_CH2
+ 873:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM5_CH3
+ 874:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM5_CH4
+ 875:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM5_UP
+ 876:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM5_TRIG
+ 877:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM6_UP
+ 878:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM8_CH1
+ 879:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM8_CH2
+ 880:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM8_CH3
+ 881:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM8_CH4
+ 882:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM8_COM
+ 883:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM8_UP
+ 884:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\          - DMA_REMAP_TIM8_TRIG
+ 885:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** *\*\return  none.
+ 886:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** **/
+ 887:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** void DMA_Channel_Request_Remap(DMA_ChannelType* DMAChx, uint32_t req_remap)
+ 888:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** {
+ 910              		.loc 1 888 1 view -0
+ 911              		.cfi_startproc
+ 912              		@ args = 0, pretend = 0, frame = 0
+ 913              		@ frame_needed = 0, uses_anonymous_args = 0
+ 914              		@ link register save eliminated.
+ 889:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     /* Set the selected DMA request remap */
+ 890:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c ****     DMAChx->CHSEL = req_remap;
+ 915              		.loc 1 890 5 view .LVU214
+ 916              		.loc 1 890 19 is_stmt 0 view .LVU215
+ 917 0000 0161     		str	r1, [r0, #16]
+ 891:../firmware/n32g430_std_periph_driver/src/n32g430_dma.c **** }
+ 918              		.loc 1 891 1 view .LVU216
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 33
+
+
+ 919 0002 7047     		bx	lr
+ 920              		.cfi_endproc
+ 921              	.LFE154:
+ 923              		.text
+ 924              	.Letext0:
+ 925              		.file 2 "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/arm-none-eabi/include/ma
+ 926              		.file 3 "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/arm-none-eabi/include/sy
+ 927              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 928              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_dma.h"
+ARM GAS  C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s 			page 34
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 n32g430_dma.c
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:21     .text.DMA_Reset:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:27     .text.DMA_Reset:00000000 DMA_Reset
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:165    .text.DMA_Reset:00000094 $d
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:178    .text.DMA_Peripheral_Address_Config:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:184    .text.DMA_Peripheral_Address_Config:00000000 DMA_Peripheral_Address_Config
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:201    .text.DMA_Memory_Address_Config:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:207    .text.DMA_Memory_Address_Config:00000000 DMA_Memory_Address_Config
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:224    .text.DMA_Destination_Config:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:230    .text.DMA_Destination_Config:00000000 DMA_Destination_Config
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:256    .text.DMA_Buffer_Size_Config:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:262    .text.DMA_Buffer_Size_Config:00000000 DMA_Buffer_Size_Config
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:279    .text.DMA_Peripheral_Addr_Increment_Config:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:285    .text.DMA_Peripheral_Addr_Increment_Config:00000000 DMA_Peripheral_Addr_Increment_Config
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:311    .text.DMA_Memory_Addr_Increment_Config:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:317    .text.DMA_Memory_Addr_Increment_Config:00000000 DMA_Memory_Addr_Increment_Config
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:343    .text.DMA_Peripheral_Data_Width_Config:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:349    .text.DMA_Peripheral_Data_Width_Config:00000000 DMA_Peripheral_Data_Width_Config
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:375    .text.DMA_Memory_Data_Width_Config:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:381    .text.DMA_Memory_Data_Width_Config:00000000 DMA_Memory_Data_Width_Config
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:407    .text.DMA_Circular_Mode_Config:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:413    .text.DMA_Circular_Mode_Config:00000000 DMA_Circular_Mode_Config
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:439    .text.DMA_Priority_Config:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:445    .text.DMA_Priority_Config:00000000 DMA_Priority_Config
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:471    .text.DMA_Memory_2_Memory_Config:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:477    .text.DMA_Memory_2_Memory_Config:00000000 DMA_Memory_2_Memory_Config
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:503    .text.DMA_Initializes:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:509    .text.DMA_Initializes:00000000 DMA_Initializes
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:615    .text.DMA_Structure_Initializes:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:621    .text.DMA_Structure_Initializes:00000000 DMA_Structure_Initializes
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:655    .text.DMA_Channel_Enable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:661    .text.DMA_Channel_Enable:00000000 DMA_Channel_Enable
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:681    .text.DMA_Channel_Disable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:687    .text.DMA_Channel_Disable:00000000 DMA_Channel_Disable
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:707    .text.DMA_Interrupts_Enable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:713    .text.DMA_Interrupts_Enable:00000000 DMA_Interrupts_Enable
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:733    .text.DMA_Interrupts_Disable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:739    .text.DMA_Interrupts_Disable:00000000 DMA_Interrupts_Disable
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:759    .text.DMA_Current_Data_Transfer_Number_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:765    .text.DMA_Current_Data_Transfer_Number_Set:00000000 DMA_Current_Data_Transfer_Number_Set
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:782    .text.DMA_Current_Data_Transfer_Number_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:788    .text.DMA_Current_Data_Transfer_Number_Get:00000000 DMA_Current_Data_Transfer_Number_Get
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:807    .text.DMA_Flag_Status_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:813    .text.DMA_Flag_Status_Get:00000000 DMA_Flag_Status_Get
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:836    .text.DMA_Flag_Status_Clear:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:842    .text.DMA_Flag_Status_Clear:00000000 DMA_Flag_Status_Clear
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:859    .text.DMA_Interrupt_Status_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:865    .text.DMA_Interrupt_Status_Get:00000000 DMA_Interrupt_Status_Get
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:882    .text.DMA_Interrupt_Status_Clear:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:888    .text.DMA_Interrupt_Status_Clear:00000000 DMA_Interrupt_Status_Clear
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:901    .text.DMA_Channel_Request_Remap:00000000 $t
+C:\Users\24319\AppData\Local\Temp\cc9wpgpf.s:907    .text.DMA_Channel_Request_Remap:00000000 DMA_Channel_Request_Remap
+
+NO UNDEFINED SYMBOLS

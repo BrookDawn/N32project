@@ -1,0 +1,495 @@
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"n32g430_wwdg.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c"
+  20              		.section	.text.WWDG_Reset,"ax",%progbits
+  21              		.align	1
+  22              		.global	WWDG_Reset
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	WWDG_Reset:
+  28              	.LFB130:
+   1:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** /*****************************************************************************
+   2:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * Copyright (c) 2019, Nations Technologies Inc.
+   3:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  *
+   4:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * All rights reserved.
+   5:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * ****************************************************************************
+   6:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  *
+   7:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * Redistribution and use in source and binary forms, with or without
+   8:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * modification, are permitted provided that the following conditions are met:
+   9:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  *
+  10:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * - Redistributions of source code must retain the above copyright notice,
+  11:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * this list of conditions and the disclaimer below.
+  12:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  *
+  13:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * Nations' name may not be used to endorse or promote products derived from
+  14:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * this software without specific prior written permission.
+  15:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  *
+  16:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY NATIONS "AS IS" AND ANY EXPRESS OR
+  17:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  18:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  19:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * DISCLAIMED. IN NO EVENT SHALL NATIONS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  20:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  21:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  22:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  23:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  24:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  25:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  26:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  * ****************************************************************************/
+  27:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****  
+  28:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** /**
+  29:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\file n32g430_wwdg.c
+  30:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\author Nations
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s 			page 2
+
+
+  31:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\version v1.0.0
+  32:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
+  33:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** **/
+  34:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+  35:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** #include "n32g430_wwdg.h"
+  36:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** #include "n32g430_rcc.h"
+  37:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+  38:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+  39:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** /**
+  40:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\name    WWDG_Reset.
+  41:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\fun     Resets the WWDG peripheral registers to their default reset values.
+  42:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\return  none
+  43:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** **/
+  44:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** void WWDG_Reset(void)
+  45:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** {
+  29              		.loc 1 45 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  46:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     RCC_APB1_Peripheral_Reset(RCC_APB1_PERIPH_WWDG);
+  34              		.loc 1 46 5 view .LVU1
+  35 0000 4FF40060 		mov	r0, #2048
+  36 0004 FFF7FEBF 		b	RCC_APB1_Peripheral_Reset
+  37              	.LVL0:
+  38              		.cfi_endproc
+  39              	.LFE130:
+  41              		.section	.text.WWDG_Prescaler_Division_Set,"ax",%progbits
+  42              		.align	1
+  43              		.global	WWDG_Prescaler_Division_Set
+  44              		.syntax unified
+  45              		.thumb
+  46              		.thumb_func
+  48              	WWDG_Prescaler_Division_Set:
+  49              	.LVL1:
+  50              	.LFB131:
+  47:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** }
+  48:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+  49:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+  50:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** /**
+  51:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\name    WWDG_Prescaler_Division_Set.
+  52:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\fun     Set the WWDOG Prescaler Division Value.
+  53:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\param   prescaler_division : 
+  54:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\          - WWDG_PRESCALER_DIV1   WWDG Counter Clock (PCLK1 / 4096) / 1
+  55:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\          - WWDG_PRESCALER_DIV2   WWDG Counter Clock (PCLK1 / 4096) / 2
+  56:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\          - WWDG_PRESCALER_DIV4   WWDG Counter Clock (PCLK1 / 4096) / 4
+  57:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\          - WWDG_PRESCALER_DIV8   WWDG Counter Clock (PCLK1 / 4096) / 8
+  58:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\return  none
+  59:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** **/
+  60:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** void WWDG_Prescaler_Division_Set(uint32_t prescaler_division)
+  61:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** {
+  51              		.loc 1 61 1 view -0
+  52              		.cfi_startproc
+  53              		@ args = 0, pretend = 0, frame = 0
+  54              		@ frame_needed = 0, uses_anonymous_args = 0
+  55              		@ link register save eliminated.
+  62:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     uint32_t temp_value = 0;
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s 			page 3
+
+
+  56              		.loc 1 62 5 view .LVU3
+  63:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+  64:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     /* Clear TIMERB[1:0] bits */
+  65:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     temp_value = WWDG->CFG & CFG_TIMERB_MASK;
+  57              		.loc 1 65 5 view .LVU4
+  58              		.loc 1 65 22 is_stmt 0 view .LVU5
+  59 0000 034A     		ldr	r2, .L3
+  60 0002 5368     		ldr	r3, [r2, #4]
+  61              		.loc 1 65 16 view .LVU6
+  62 0004 23F44043 		bic	r3, r3, #49152
+  63              	.LVL2:
+  66:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+  67:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     /* Set TIMERB[1:0] bits according to prescaler_division value */
+  68:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     temp_value |= prescaler_division;
+  64              		.loc 1 68 5 is_stmt 1 view .LVU7
+  65              		.loc 1 68 16 is_stmt 0 view .LVU8
+  66 0008 0343     		orrs	r3, r3, r0
+  67              	.LVL3:
+  69:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+  70:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     /* Store the new value */
+  71:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     WWDG->CFG = temp_value;
+  68              		.loc 1 71 5 is_stmt 1 view .LVU9
+  69              		.loc 1 71 15 is_stmt 0 view .LVU10
+  70 000a 5360     		str	r3, [r2, #4]
+  72:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** }
+  71              		.loc 1 72 1 view .LVU11
+  72 000c 7047     		bx	lr
+  73              	.L4:
+  74 000e 00BF     		.align	2
+  75              	.L3:
+  76 0010 002C0040 		.word	1073753088
+  77              		.cfi_endproc
+  78              	.LFE131:
+  80              		.section	.text.WWDG_Window_Value_Set,"ax",%progbits
+  81              		.align	1
+  82              		.global	WWDG_Window_Value_Set
+  83              		.syntax unified
+  84              		.thumb
+  85              		.thumb_func
+  87              	WWDG_Window_Value_Set:
+  88              	.LVL4:
+  89              	.LFB132:
+  73:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+  74:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+  75:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** /**
+  76:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\name    WWDG_Window_Value_Set.
+  77:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\fun     Set the WWDOG Window Value.
+  78:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\param   window_value : WWDOG Window Value
+  79:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\          The value range of this parameter :
+  80:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\          - 0x0040 ~ 0x3FFF
+  81:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\return  none
+  82:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** **/
+  83:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** void WWDG_Window_Value_Set(uint16_t window_value)
+  84:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** {
+  90              		.loc 1 84 1 is_stmt 1 view -0
+  91              		.cfi_startproc
+  92              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s 			page 4
+
+
+  93              		@ frame_needed = 0, uses_anonymous_args = 0
+  94              		@ link register save eliminated.
+  85:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     __IO uint32_t temp_value = 0;
+  95              		.loc 1 85 5 view .LVU13
+  84:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     __IO uint32_t temp_value = 0;
+  96              		.loc 1 84 1 is_stmt 0 view .LVU14
+  97 0000 82B0     		sub	sp, sp, #8
+  98              	.LCFI0:
+  99              		.cfi_def_cfa_offset 8
+  86:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+  87:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     /* Clear W[13:0] bits */
+  88:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     temp_value = WWDG->CFG & CFG_W_MASK;
+ 100              		.loc 1 88 22 view .LVU15
+ 101 0002 084A     		ldr	r2, .L6
+  85:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+ 102              		.loc 1 85 19 view .LVU16
+ 103 0004 0023     		movs	r3, #0
+ 104 0006 0193     		str	r3, [sp, #4]
+ 105              		.loc 1 88 5 is_stmt 1 view .LVU17
+ 106              		.loc 1 88 22 is_stmt 0 view .LVU18
+ 107 0008 5368     		ldr	r3, [r2, #4]
+ 108              		.loc 1 88 28 view .LVU19
+ 109 000a 6FF30D03 		bfc	r3, #0, #14
+ 110              		.loc 1 88 16 view .LVU20
+ 111 000e 0193     		str	r3, [sp, #4]
+  89:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+  90:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     /* Set W[13:0] bits according to window_value value */
+  91:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     temp_value |= window_value & (uint32_t)BIT_MASK;
+ 112              		.loc 1 91 5 is_stmt 1 view .LVU21
+ 113              		.loc 1 91 16 is_stmt 0 view .LVU22
+ 114 0010 019B     		ldr	r3, [sp, #4]
+ 115              		.loc 1 91 32 view .LVU23
+ 116 0012 C0F30D00 		ubfx	r0, r0, #0, #14
+ 117              	.LVL5:
+ 118              		.loc 1 91 16 view .LVU24
+ 119 0016 1843     		orrs	r0, r0, r3
+ 120 0018 0190     		str	r0, [sp, #4]
+  92:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+  93:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     /* Store the new value */
+  94:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     WWDG->CFG = temp_value;
+ 121              		.loc 1 94 5 is_stmt 1 view .LVU25
+ 122              		.loc 1 94 15 is_stmt 0 view .LVU26
+ 123 001a 019B     		ldr	r3, [sp, #4]
+ 124 001c 5360     		str	r3, [r2, #4]
+  95:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** }
+ 125              		.loc 1 95 1 view .LVU27
+ 126 001e 02B0     		add	sp, sp, #8
+ 127              	.LCFI1:
+ 128              		.cfi_def_cfa_offset 0
+ 129              		@ sp needed
+ 130 0020 7047     		bx	lr
+ 131              	.L7:
+ 132 0022 00BF     		.align	2
+ 133              	.L6:
+ 134 0024 002C0040 		.word	1073753088
+ 135              		.cfi_endproc
+ 136              	.LFE132:
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s 			page 5
+
+
+ 138              		.section	.text.WWDG_Interrupt_Enable,"ax",%progbits
+ 139              		.align	1
+ 140              		.global	WWDG_Interrupt_Enable
+ 141              		.syntax unified
+ 142              		.thumb
+ 143              		.thumb_func
+ 145              	WWDG_Interrupt_Enable:
+ 146              	.LFB133:
+  96:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+  97:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+  98:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** /**
+  99:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\name    WWDG_Interrupt_Enable.
+ 100:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\fun     Enable WWDG Early Wakeup interrupt(EWINT).
+ 101:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\return  none
+ 102:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** **/
+ 103:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** void WWDG_Interrupt_Enable(void)
+ 104:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** {
+ 147              		.loc 1 104 1 is_stmt 1 view -0
+ 148              		.cfi_startproc
+ 149              		@ args = 0, pretend = 0, frame = 0
+ 150              		@ frame_needed = 0, uses_anonymous_args = 0
+ 151              		@ link register save eliminated.
+ 105:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     *(__IO uint32_t*)CFG_EWINT_BB = (uint32_t)ENABLE;
+ 152              		.loc 1 105 5 view .LVU29
+ 153              		.loc 1 105 35 is_stmt 0 view .LVU30
+ 154 0000 024B     		ldr	r3, .L9
+ 155 0002 0122     		movs	r2, #1
+ 156 0004 C3F8C020 		str	r2, [r3, #192]
+ 106:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** }
+ 157              		.loc 1 106 1 view .LVU31
+ 158 0008 7047     		bx	lr
+ 159              	.L10:
+ 160 000a 00BF     		.align	2
+ 161              	.L9:
+ 162 000c 00800542 		.word	1107656704
+ 163              		.cfi_endproc
+ 164              	.LFE133:
+ 166              		.section	.text.WWDG_Counter_Value_Set,"ax",%progbits
+ 167              		.align	1
+ 168              		.global	WWDG_Counter_Value_Set
+ 169              		.syntax unified
+ 170              		.thumb
+ 171              		.thumb_func
+ 173              	WWDG_Counter_Value_Set:
+ 174              	.LVL6:
+ 175              	.LFB134:
+ 107:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+ 108:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+ 109:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** /**
+ 110:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\name    WWDG_Counter_Value_Set.
+ 111:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\fun     Set the WWDOG Counter Value.
+ 112:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\param   counter_value : WWDOG Counter value
+ 113:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\          The value range of this parameter :
+ 114:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\          - 0x40 ~ 0x3FFF
+ 115:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\return  none 
+ 116:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** **/
+ 117:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** void WWDG_Counter_Value_Set(uint16_t counter_value)
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s 			page 6
+
+
+ 118:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** {
+ 176              		.loc 1 118 1 is_stmt 1 view -0
+ 177              		.cfi_startproc
+ 178              		@ args = 0, pretend = 0, frame = 0
+ 179              		@ frame_needed = 0, uses_anonymous_args = 0
+ 180              		@ link register save eliminated.
+ 119:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 	uint32_t temp_value = 0x00U;
+ 181              		.loc 1 119 2 view .LVU33
+ 120:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 	temp_value = (counter_value & BIT_MASK);
+ 182              		.loc 1 120 2 view .LVU34
+ 121:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     /* Write the T[13:0] bits to configure the counter value, which can be written directly 
+ 122:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****        without read-modify-write; only write 1 to the ACTB bit to activate the window watchdog */
+ 123:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     WWDG->CTRL = temp_value;
+ 183              		.loc 1 123 16 is_stmt 0 view .LVU35
+ 184 0000 024B     		ldr	r3, .L12
+ 120:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 	temp_value = (counter_value & BIT_MASK);
+ 185              		.loc 1 120 13 view .LVU36
+ 186 0002 C0F30D00 		ubfx	r0, r0, #0, #14
+ 187              	.LVL7:
+ 188              		.loc 1 123 5 is_stmt 1 view .LVU37
+ 189              		.loc 1 123 16 is_stmt 0 view .LVU38
+ 190 0006 1860     		str	r0, [r3]
+ 124:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** }
+ 191              		.loc 1 124 1 view .LVU39
+ 192 0008 7047     		bx	lr
+ 193              	.L13:
+ 194 000a 00BF     		.align	2
+ 195              	.L12:
+ 196 000c 002C0040 		.word	1073753088
+ 197              		.cfi_endproc
+ 198              	.LFE134:
+ 200              		.section	.text.WWDG_Enable,"ax",%progbits
+ 201              		.align	1
+ 202              		.global	WWDG_Enable
+ 203              		.syntax unified
+ 204              		.thumb
+ 205              		.thumb_func
+ 207              	WWDG_Enable:
+ 208              	.LVL8:
+ 209              	.LFB135:
+ 125:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+ 126:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+ 127:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** /**
+ 128:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\name    WWDG_Enable.
+ 129:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\fun     Set the WWDOG Counter Value and Enable WWDOG .
+ 130:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\param   counter_value : WWDOG Counter value
+ 131:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\          The value range of this parameter :
+ 132:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\          - 0x40 ~ 0x3FFF
+ 133:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\return  none
+ 134:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** **/
+ 135:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** void WWDG_Enable(uint16_t counter_value)
+ 136:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** {
+ 210              		.loc 1 136 1 is_stmt 1 view -0
+ 211              		.cfi_startproc
+ 212              		@ args = 0, pretend = 0, frame = 0
+ 213              		@ frame_needed = 0, uses_anonymous_args = 0
+ 214              		@ link register save eliminated.
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s 			page 7
+
+
+ 137:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     WWDG->CTRL = CTRL_ACTB_SET | counter_value;
+ 215              		.loc 1 137 5 view .LVU41
+ 216              		.loc 1 137 16 is_stmt 0 view .LVU42
+ 217 0000 024B     		ldr	r3, .L15
+ 218              		.loc 1 137 32 view .LVU43
+ 219 0002 40F48040 		orr	r0, r0, #16384
+ 220              	.LVL9:
+ 221              		.loc 1 137 16 view .LVU44
+ 222 0006 1860     		str	r0, [r3]
+ 138:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** }
+ 223              		.loc 1 138 1 view .LVU45
+ 224 0008 7047     		bx	lr
+ 225              	.L16:
+ 226 000a 00BF     		.align	2
+ 227              	.L15:
+ 228 000c 002C0040 		.word	1073753088
+ 229              		.cfi_endproc
+ 230              	.LFE135:
+ 232              		.section	.text.WWDG_EWINTF_Flag_Get,"ax",%progbits
+ 233              		.align	1
+ 234              		.global	WWDG_EWINTF_Flag_Get
+ 235              		.syntax unified
+ 236              		.thumb
+ 237              		.thumb_func
+ 239              	WWDG_EWINTF_Flag_Get:
+ 240              	.LFB136:
+ 139:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+ 140:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+ 141:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+ 142:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** /**
+ 143:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\name    WWDG_EWINTF_Flag_Get.
+ 144:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\fun     Get WWDOG Early Wake-up Interrupt Flag.
+ 145:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\return  SET or RESET
+ 146:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** **/
+ 147:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** FlagStatus WWDG_EWINTF_Flag_Get(void)
+ 148:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** {
+ 241              		.loc 1 148 1 is_stmt 1 view -0
+ 242              		.cfi_startproc
+ 243              		@ args = 0, pretend = 0, frame = 0
+ 244              		@ frame_needed = 0, uses_anonymous_args = 0
+ 245              		@ link register save eliminated.
+ 149:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     return (FlagStatus)(WWDG->STS);
+ 246              		.loc 1 149 5 view .LVU47
+ 247              		.loc 1 149 29 is_stmt 0 view .LVU48
+ 248 0000 014B     		ldr	r3, .L18
+ 249 0002 9868     		ldr	r0, [r3, #8]
+ 150:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** }
+ 250              		.loc 1 150 1 view .LVU49
+ 251 0004 C0B2     		uxtb	r0, r0
+ 252 0006 7047     		bx	lr
+ 253              	.L19:
+ 254              		.align	2
+ 255              	.L18:
+ 256 0008 002C0040 		.word	1073753088
+ 257              		.cfi_endproc
+ 258              	.LFE136:
+ 260              		.section	.text.WWDG_EWINTF_Flag_Clear,"ax",%progbits
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s 			page 8
+
+
+ 261              		.align	1
+ 262              		.global	WWDG_EWINTF_Flag_Clear
+ 263              		.syntax unified
+ 264              		.thumb
+ 265              		.thumb_func
+ 267              	WWDG_EWINTF_Flag_Clear:
+ 268              	.LFB137:
+ 151:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** 
+ 152:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** /**
+ 153:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\name    WWDG_EWINTF_Flag_Clear.
+ 154:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\fun     Clear WWDOG Early Wake-up Interrupt Flag.
+ 155:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** *\*\return  none
+ 156:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** **/
+ 157:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** void WWDG_EWINTF_Flag_Clear(void)
+ 158:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** {
+ 269              		.loc 1 158 1 is_stmt 1 view -0
+ 270              		.cfi_startproc
+ 271              		@ args = 0, pretend = 0, frame = 0
+ 272              		@ frame_needed = 0, uses_anonymous_args = 0
+ 273              		@ link register save eliminated.
+ 159:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c ****     WWDG->STS = (uint32_t)RESET;
+ 274              		.loc 1 159 5 view .LVU51
+ 275              		.loc 1 159 15 is_stmt 0 view .LVU52
+ 276 0000 014B     		ldr	r3, .L21
+ 277 0002 0022     		movs	r2, #0
+ 278 0004 9A60     		str	r2, [r3, #8]
+ 160:../firmware/n32g430_std_periph_driver/src/n32g430_wwdg.c **** }
+ 279              		.loc 1 160 1 view .LVU53
+ 280 0006 7047     		bx	lr
+ 281              	.L22:
+ 282              		.align	2
+ 283              	.L21:
+ 284 0008 002C0040 		.word	1073753088
+ 285              		.cfi_endproc
+ 286              	.LFE137:
+ 288              		.text
+ 289              	.Letext0:
+ 290              		.file 2 "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/arm-none-eabi/include/ma
+ 291              		.file 3 "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/arm-none-eabi/include/sy
+ 292              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 293              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
+ARM GAS  C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 n32g430_wwdg.c
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:21     .text.WWDG_Reset:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:27     .text.WWDG_Reset:00000000 WWDG_Reset
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:42     .text.WWDG_Prescaler_Division_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:48     .text.WWDG_Prescaler_Division_Set:00000000 WWDG_Prescaler_Division_Set
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:76     .text.WWDG_Prescaler_Division_Set:00000010 $d
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:81     .text.WWDG_Window_Value_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:87     .text.WWDG_Window_Value_Set:00000000 WWDG_Window_Value_Set
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:134    .text.WWDG_Window_Value_Set:00000024 $d
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:139    .text.WWDG_Interrupt_Enable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:145    .text.WWDG_Interrupt_Enable:00000000 WWDG_Interrupt_Enable
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:162    .text.WWDG_Interrupt_Enable:0000000c $d
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:167    .text.WWDG_Counter_Value_Set:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:173    .text.WWDG_Counter_Value_Set:00000000 WWDG_Counter_Value_Set
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:196    .text.WWDG_Counter_Value_Set:0000000c $d
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:201    .text.WWDG_Enable:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:207    .text.WWDG_Enable:00000000 WWDG_Enable
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:228    .text.WWDG_Enable:0000000c $d
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:233    .text.WWDG_EWINTF_Flag_Get:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:239    .text.WWDG_EWINTF_Flag_Get:00000000 WWDG_EWINTF_Flag_Get
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:256    .text.WWDG_EWINTF_Flag_Get:00000008 $d
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:261    .text.WWDG_EWINTF_Flag_Clear:00000000 $t
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:267    .text.WWDG_EWINTF_Flag_Clear:00000000 WWDG_EWINTF_Flag_Clear
+C:\Users\24319\AppData\Local\Temp\ccuxvs2m.s:284    .text.WWDG_EWINTF_Flag_Clear:00000008 $d
+
+UNDEFINED SYMBOLS
+RCC_APB1_Peripheral_Reset
