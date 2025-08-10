@@ -32,10 +32,17 @@
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 
+/*BSP include*/
 #include "main.h"
 #include "bsp_led.h"
 #include "bsp_delay.h"
 #include "bsp_usart.h"
+
+/*APP include*/
+#include "Buffer.h"
+
+/*RTT include*/
+#include "SEGGER_RTT.h"
 
 /**
  *\*\name   main.
@@ -45,98 +52,28 @@
 **/
 int main(void)
 {
-	char rx_buffer[128];
-	uint16_t rx_length;
 	uint32_t led_counter = 0;
+
+	/*RTT初始化*/
+	SEGGER_RTT_Init();
+	SEGGER_RTT_printf(0, "N32G430 USART1 Test Started!\r\n");
+	SEGGER_RTT_printf(0, "Baudrate: 115200\r\n");
+	SEGGER_RTT_printf(0, "Send any character to echo back...\r\n");
 
 	/* 初始化USART1 */
 	USART1_Init();
 
-	/* 发送启动信息 */
-	USART1_SendString("N32G430 USART1 Test Started!\r\n");
-	USART1_SendString("Baudrate: 115200\r\n");
-	USART1_SendString("Send any character to echo back...\r\n");
-
-	/* Initialize Led1~Led3 as output push-pull mode */
-	LED_Initialize(LED1_GPIO_PORT, LED1_GPIO_PIN, LED1_GPIO_CLK);
-	LED_Initialize(LED2_GPIO_PORT, LED2_GPIO_PIN | LED3_GPIO_PIN, LED2_GPIO_CLK);
-
-	/* Turn off Led1~Led3 */
-	LED_Off(LED2_GPIO_PORT, LED1_GPIO_PIN | LED2_GPIO_PIN | LED3_GPIO_PIN);
-
-	/* Turn on Led2~Led3 */
-	LED_On(LED2_GPIO_PORT, LED2_GPIO_PIN | LED3_GPIO_PIN);
-
-	/* Delay 1s */
-	SysTick_Delay_Ms(1000);
 
 	while(1)
 	{
-		/* 检查是否有串口数据 */
-		rx_length = USART1_ReceiveString(rx_buffer, sizeof(rx_buffer));
-		if(rx_length > 0)
-		{
-			/* 回显接收到的数据 */
-			USART1_SendString("Received: ");
-			USART1_SendArray((uint8_t*)rx_buffer, rx_length);
-			USART1_SendString("\r\n");
+		
 
-			/* 发送LED状态信息 */
-			USART1_SendString("LED Status: ");
-			if(GPIO_Output_Pin_Data_Get(LED1_GPIO_PORT, LED1_GPIO_PIN))
-			{
-				USART1_SendString("LED1=ON ");
-			}
-			else
-			{
-				USART1_SendString("LED1=OFF ");
-			}
-
-			if(GPIO_Output_Pin_Data_Get(LED2_GPIO_PORT, LED2_GPIO_PIN))
-			{
-				USART1_SendString("LED2=ON ");
-			}
-			else
-			{
-				USART1_SendString("LED2=OFF ");
-			}
-
-			if(GPIO_Output_Pin_Data_Get(LED3_GPIO_PORT, LED3_GPIO_PIN))
-			{
-				USART1_SendString("LED3=ON\r\n");
-			}
-			else
-			{
-				USART1_SendString("LED3=OFF\r\n");
-			}
-		}
-
-		/* Turn on Led1 */
-		LED1_ON;
-
-		/* Toggle LED2 */
-		LED_Toggle(LED2_GPIO_PORT, LED2_GPIO_PIN);
-
-		/* Delay 1s */
-		SysTick_Delay_Ms(1000);
-
-		/* Toggle LED3 */
-		LED_Toggle(LED3_GPIO_PORT, LED3_GPIO_PIN);
-
-		/* Delay 1s */
-		SysTick_Delay_Ms(1000);
-
-		/* Turn off LED1 */
-		LED1_OFF;
-
-		/* Delay 1s */
-		SysTick_Delay_Ms(1000);
-
-		/* 每10秒发送一次状态信息 */
+		/* 每2秒发送一次状态信息 */
 		led_counter++;
-		if(led_counter >= 10)
+		if(led_counter >= 2)
 		{
 			USART1_SendString("System running... LED blinking...\r\n");
+			SEGGER_RTT_printf(0,"System running... LED blinking...\r\n");
 			led_counter = 0;
 		}
 	}

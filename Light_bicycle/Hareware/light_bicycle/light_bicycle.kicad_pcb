@@ -771,7 +771,7 @@
 	(footprint "SparkFun-Capacitor:C_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "114dc256-78e6-485a-80b9-f31e9c190ad3")
-		(at 177.435736 25.395736)
+		(at 163.585736 25.079736)
 		(tags "SparkFun capacitor")
 		(property "Reference" "C34"
 			(at 0 -1.43 0)
@@ -3740,7 +3740,7 @@
 	(footprint "SparkFun-Capacitor:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "3c24ad5e-698c-4939-a954-9019a6b8b721")
-		(at 173.205736 25.645736)
+		(at 159.355736 25.329736)
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "SparkFun capacitor")
 		(property "Reference" "C32"
@@ -3971,7 +3971,7 @@
 	(footprint "BrookDawn_Library:MPU6500"
 		(layer "F.Cu")
 		(uuid "468e001e-15c8-4474-84ab-7cb5087adb12")
-		(at 161.54 20.148)
+		(at 147.69 19.832)
 		(property "Reference" "U5"
 			(at 0 -0.5 0)
 			(unlocked yes)
@@ -16935,7 +16935,7 @@
 	(footprint "SparkFun-Capacitor:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "e72d1bd5-0289-44a6-b913-c2f4cb0470a1")
-		(at 173.205736 28.655736)
+		(at 159.355736 28.339736)
 		(descr "Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "SparkFun capacitor")
 		(property "Reference" "C33"
