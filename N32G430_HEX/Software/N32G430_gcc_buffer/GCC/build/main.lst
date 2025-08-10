@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\24319\AppData\Local\Temp\cceakU8G.s 			page 1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccNP6j6X.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -40,62 +40,27 @@ ARM GAS  C:\Users\24319\AppData\Local\Temp\cceakU8G.s 			page 1
   26      72616374 
   26      65722074 
   27              	.LC3:
-  28 0057 52656365 		.ascii	"Received: \000"
-  28      69766564 
-  28      3A2000
-  29              	.LC4:
-  30 0062 0D0A00   		.ascii	"\015\012\000"
-  31              	.LC5:
-  32 0065 4C454420 		.ascii	"LED Status: \000"
-  32      53746174 
-  32      75733A20 
-  32      00
-  33              	.LC6:
-  34 0072 4C454431 		.ascii	"LED1=ON \000"
-  34      3D4F4E20 
-  34      00
-  35              	.LC7:
-  36 007b 4C454431 		.ascii	"LED1=OFF \000"
-  36      3D4F4646 
-  36      2000
-ARM GAS  C:\Users\24319\AppData\Local\Temp\cceakU8G.s 			page 2
-
-
-  37              	.LC8:
-  38 0085 4C454432 		.ascii	"LED2=ON \000"
-  38      3D4F4E20 
-  38      00
-  39              	.LC9:
-  40 008e 4C454432 		.ascii	"LED2=OFF \000"
-  40      3D4F4646 
-  40      2000
-  41              	.LC10:
-  42 0098 4C454433 		.ascii	"LED3=ON\015\012\000"
-  42      3D4F4E0D 
-  42      0A00
-  43              	.LC11:
-  44 00a2 4C454433 		.ascii	"LED3=OFF\015\012\000"
-  44      3D4F4646 
-  44      0D0A00
-  45              	.LC12:
-  46 00ad 53797374 		.ascii	"System running... LED blinking...\015\012\000"
-  46      656D2072 
-  46      756E6E69 
-  46      6E672E2E 
-  46      2E204C45 
-  47              		.section	.text.startup.main,"ax",%progbits
-  48              		.align	1
-  49              		.global	main
-  50              		.syntax unified
-  51              		.thumb
-  52              		.thumb_func
-  54              	main:
-  55              	.LFB130:
+  28 0057 53797374 		.ascii	"System running... LED blinking...\015\012\000"
+  28      656D2072 
+  28      756E6E69 
+  28      6E672E2E 
+  28      2E204C45 
+  29              		.section	.text.startup.main,"ax",%progbits
+  30              		.align	1
+  31              		.global	main
+  32              		.syntax unified
+  33              		.thumb
+  34              		.thumb_func
+  36              	main:
+  37              	.LFB130:
    1:../core/src/main.c **** /*****************************************************************************
    2:../core/src/main.c ****  * Copyright (c) 2019, Nations Technologies Inc.
    3:../core/src/main.c ****  *
    4:../core/src/main.c ****  * All rights reserved.
    5:../core/src/main.c ****  * ****************************************************************************
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccNP6j6X.s 			page 2
+
+
    6:../core/src/main.c ****  *
    7:../core/src/main.c ****  * Redistribution and use in source and binary forms, with or without
    8:../core/src/main.c ****  * modification, are permitted provided that the following conditions are met:
@@ -118,9 +83,6 @@ ARM GAS  C:\Users\24319\AppData\Local\Temp\cceakU8G.s 			page 1
   25:../core/src/main.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   26:../core/src/main.c ****  * ****************************************************************************/
   27:../core/src/main.c **** 
-ARM GAS  C:\Users\24319\AppData\Local\Temp\cceakU8G.s 			page 3
-
-
   28:../core/src/main.c **** /**
   29:../core/src/main.c **** *\*\file main.c
   30:../core/src/main.c **** *\*\author Nations
@@ -128,385 +90,137 @@ ARM GAS  C:\Users\24319\AppData\Local\Temp\cceakU8G.s 			page 1
   32:../core/src/main.c **** *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
   33:../core/src/main.c **** **/
   34:../core/src/main.c **** 
-  35:../core/src/main.c **** #include "main.h"
-  36:../core/src/main.c **** #include "bsp_led.h"
-  37:../core/src/main.c **** #include "bsp_delay.h"
-  38:../core/src/main.c **** #include "bsp_usart.h"
-  39:../core/src/main.c **** 
-  40:../core/src/main.c **** /**
-  41:../core/src/main.c ****  *\*\name   main.
-  42:../core/src/main.c ****  *\*\fun    main function.
-  43:../core/src/main.c ****  *\*\param  none.
-  44:../core/src/main.c ****  *\*\return none.
-  45:../core/src/main.c **** **/
-  46:../core/src/main.c **** int main(void)
-  47:../core/src/main.c **** {
-  56              		.loc 1 47 1 view -0
-  57              		.cfi_startproc
-  58              		@ args = 0, pretend = 0, frame = 128
-  59              		@ frame_needed = 0, uses_anonymous_args = 0
-  48:../core/src/main.c **** 	char rx_buffer[128];
-  60              		.loc 1 48 2 view .LVU1
-  49:../core/src/main.c **** 	uint16_t rx_length;
-  61              		.loc 1 49 2 view .LVU2
-  50:../core/src/main.c **** 	uint32_t led_counter = 0;
-  62              		.loc 1 50 2 view .LVU3
-  63              	.LVL0:
-  51:../core/src/main.c **** 
-  52:../core/src/main.c **** 	/* 初始化USART1 */
-  53:../core/src/main.c **** 	USART1_Init();
-  64              		.loc 1 53 2 view .LVU4
-  47:../core/src/main.c **** 	char rx_buffer[128];
-  65              		.loc 1 47 1 is_stmt 0 view .LVU5
-  66 0000 70B5     		push	{r4, r5, r6, lr}
-  67              	.LCFI0:
-  68              		.cfi_def_cfa_offset 16
-  69              		.cfi_offset 4, -16
-  70              		.cfi_offset 5, -12
-  71              		.cfi_offset 6, -8
-  72              		.cfi_offset 14, -4
-  73 0002 A0B0     		sub	sp, sp, #128
-  74              	.LCFI1:
-  75              		.cfi_def_cfa_offset 144
-  76              		.loc 1 53 2 view .LVU6
-  77 0004 FFF7FEFF 		bl	USART1_Init
-  78              	.LVL1:
-  54:../core/src/main.c **** 
-  55:../core/src/main.c **** 	/* 发送启动信息 */
-  56:../core/src/main.c **** 	USART1_SendString("N32G430 USART1 Test Started!\r\n");
-  79              		.loc 1 56 2 is_stmt 1 view .LVU7
-  80 0008 3748     		ldr	r0, .L17
-  81 000a FFF7FEFF 		bl	USART1_SendString
-  82              	.LVL2:
-ARM GAS  C:\Users\24319\AppData\Local\Temp\cceakU8G.s 			page 4
+  35:../core/src/main.c **** /*BSP include*/
+  36:../core/src/main.c **** #include "main.h"
+  37:../core/src/main.c **** #include "bsp_led.h"
+  38:../core/src/main.c **** #include "bsp_delay.h"
+  39:../core/src/main.c **** #include "bsp_usart.h"
+  40:../core/src/main.c **** 
+  41:../core/src/main.c **** /*APP include*/
+  42:../core/src/main.c **** #include "Buffer.h"
+  43:../core/src/main.c **** 
+  44:../core/src/main.c **** /*RTT include*/
+  45:../core/src/main.c **** #include "SEGGER_RTT.h"
+  46:../core/src/main.c **** 
+  47:../core/src/main.c **** /**
+  48:../core/src/main.c ****  *\*\name   main.
+  49:../core/src/main.c ****  *\*\fun    main function.
+  50:../core/src/main.c ****  *\*\param  none.
+  51:../core/src/main.c ****  *\*\return none.
+  52:../core/src/main.c **** **/
+  53:../core/src/main.c **** int main(void)
+  54:../core/src/main.c **** {
+  38              		.loc 1 54 1 view -0
+  39              		.cfi_startproc
+  40              		@ args = 0, pretend = 0, frame = 0
+  41              		@ frame_needed = 0, uses_anonymous_args = 0
+  55:../core/src/main.c **** 	uint32_t led_counter = 0;
+  42              		.loc 1 55 2 view .LVU1
+  43              	.LVL0:
+  56:../core/src/main.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccNP6j6X.s 			page 3
 
 
-  57:../core/src/main.c **** 	USART1_SendString("Baudrate: 115200\r\n");
-  83              		.loc 1 57 2 view .LVU8
-  84 000e 3748     		ldr	r0, .L17+4
-  85 0010 FFF7FEFF 		bl	USART1_SendString
-  86              	.LVL3:
-  58:../core/src/main.c **** 	USART1_SendString("Send any character to echo back...\r\n");
-  87              		.loc 1 58 2 view .LVU9
-  88 0014 3648     		ldr	r0, .L17+8
-  89 0016 FFF7FEFF 		bl	USART1_SendString
-  90              	.LVL4:
-  59:../core/src/main.c **** 
-  60:../core/src/main.c **** 	/* Initialize Led1~Led3 as output push-pull mode */
-  61:../core/src/main.c **** 	LED_Initialize(LED1_GPIO_PORT, LED1_GPIO_PIN, LED1_GPIO_CLK);
-  91              		.loc 1 61 2 view .LVU10
-  92 001a 3648     		ldr	r0, .L17+12
-  93 001c 8022     		movs	r2, #128
-  94 001e 0221     		movs	r1, #2
-  95 0020 FFF7FEFF 		bl	LED_Initialize
-  96              	.LVL5:
-  62:../core/src/main.c **** 	LED_Initialize(LED2_GPIO_PORT, LED2_GPIO_PIN | LED3_GPIO_PIN, LED2_GPIO_CLK);
-  97              		.loc 1 62 2 view .LVU11
-  98 0024 8022     		movs	r2, #128
-  99 0026 3348     		ldr	r0, .L17+12
- 100 0028 0C21     		movs	r1, #12
- 101 002a FFF7FEFF 		bl	LED_Initialize
- 102              	.LVL6:
-  63:../core/src/main.c **** 
-  64:../core/src/main.c **** 	/* Turn off Led1~Led3 */
-  65:../core/src/main.c **** 	LED_Off(LED2_GPIO_PORT, LED1_GPIO_PIN | LED2_GPIO_PIN | LED3_GPIO_PIN);
- 103              		.loc 1 65 2 view .LVU12
- 104 002e 3148     		ldr	r0, .L17+12
- 105 0030 0E21     		movs	r1, #14
- 106 0032 FFF7FEFF 		bl	LED_Off
- 107              	.LVL7:
+  57:../core/src/main.c **** 	/*RTT初始化*/
+  58:../core/src/main.c **** 	SEGGER_RTT_Init();
+  44              		.loc 1 58 2 view .LVU2
+  54:../core/src/main.c **** 	uint32_t led_counter = 0;
+  45              		.loc 1 54 1 is_stmt 0 view .LVU3
+  46 0000 08B5     		push	{r3, lr}
+  47              	.LCFI0:
+  48              		.cfi_def_cfa_offset 8
+  49              		.cfi_offset 3, -8
+  50              		.cfi_offset 14, -4
+  51              		.loc 1 58 2 view .LVU4
+  52 0002 FFF7FEFF 		bl	SEGGER_RTT_Init
+  53              	.LVL1:
+  59:../core/src/main.c **** 	SEGGER_RTT_printf(0, "N32G430 USART1 Test Started!\r\n");
+  54              		.loc 1 59 2 is_stmt 1 view .LVU5
+  55 0006 0B49     		ldr	r1, .L3
+  56 0008 0020     		movs	r0, #0
+  57 000a FFF7FEFF 		bl	SEGGER_RTT_printf
+  58              	.LVL2:
+  60:../core/src/main.c **** 	SEGGER_RTT_printf(0, "Baudrate: 115200\r\n");
+  59              		.loc 1 60 2 view .LVU6
+  60 000e 0A49     		ldr	r1, .L3+4
+  61 0010 0020     		movs	r0, #0
+  62 0012 FFF7FEFF 		bl	SEGGER_RTT_printf
+  63              	.LVL3:
+  61:../core/src/main.c **** 	SEGGER_RTT_printf(0, "Send any character to echo back...\r\n");
+  64              		.loc 1 61 2 view .LVU7
+  65 0016 0949     		ldr	r1, .L3+8
+  66 0018 0020     		movs	r0, #0
+  67 001a FFF7FEFF 		bl	SEGGER_RTT_printf
+  68              	.LVL4:
+  62:../core/src/main.c **** 
+  63:../core/src/main.c **** 	/* 初始化USART1 */
+  64:../core/src/main.c **** 	USART1_Init();
+  69              		.loc 1 64 2 view .LVU8
+  70 001e FFF7FEFF 		bl	USART1_Init
+  71              	.LVL5:
+  72              	.L2:
+  65:../core/src/main.c **** 
   66:../core/src/main.c **** 
-  67:../core/src/main.c **** 	/* Turn on Led2~Led3 */
-  68:../core/src/main.c **** 	LED_On(LED2_GPIO_PORT, LED2_GPIO_PIN | LED3_GPIO_PIN);
- 108              		.loc 1 68 2 view .LVU13
- 109 0036 2F48     		ldr	r0, .L17+12
- 110 0038 0C21     		movs	r1, #12
- 111 003a FFF7FEFF 		bl	LED_On
- 112              	.LVL8:
-  69:../core/src/main.c **** 
-  70:../core/src/main.c **** 	/* Delay 1s */
-  71:../core/src/main.c **** 	SysTick_Delay_Ms(1000);
- 113              		.loc 1 71 2 view .LVU14
- 114 003e 4FF47A70 		mov	r0, #1000
- 115 0042 FFF7FEFF 		bl	SysTick_Delay_Ms
- 116              	.LVL9:
- 117              	.L9:
-  47:../core/src/main.c **** 	char rx_buffer[128];
- 118              		.loc 1 47 1 is_stmt 0 view .LVU15
- 119 0046 0A25     		movs	r5, #10
- 120              	.LVL10:
- 121              	.L8:
-  72:../core/src/main.c **** 
-  73:../core/src/main.c **** 	while(1)
-ARM GAS  C:\Users\24319\AppData\Local\Temp\cceakU8G.s 			page 5
+  67:../core/src/main.c **** 	while(1)
+  73              		.loc 1 67 2 view .LVU9
+  68:../core/src/main.c **** 	{
+  69:../core/src/main.c **** 		
+  70:../core/src/main.c **** 
+  71:../core/src/main.c **** 		/* 每2秒发送一次状态信息 */
+  72:../core/src/main.c **** 		led_counter++;
+  74              		.loc 1 72 3 view .LVU10
+  73:../core/src/main.c **** 		if(led_counter >= 2)
+  75              		.loc 1 73 3 view .LVU11
+  67:../core/src/main.c **** 	{
+  76              		.loc 1 67 2 view .LVU12
+  72:../core/src/main.c **** 		if(led_counter >= 2)
+  77              		.loc 1 72 3 view .LVU13
+  78              		.loc 1 73 3 view .LVU14
+  74:../core/src/main.c **** 		{
+  75:../core/src/main.c **** 			USART1_SendString("System running... LED blinking...\r\n");
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccNP6j6X.s 			page 4
 
 
- 122              		.loc 1 73 2 is_stmt 1 view .LVU16
-  74:../core/src/main.c **** 	{
-  75:../core/src/main.c **** 		/* 检查是否有串口数据 */
-  76:../core/src/main.c **** 		rx_length = USART1_ReceiveString(rx_buffer, sizeof(rx_buffer));
- 123              		.loc 1 76 3 view .LVU17
- 124              		.loc 1 76 15 is_stmt 0 view .LVU18
- 125 0048 8021     		movs	r1, #128
- 126 004a 6846     		mov	r0, sp
- 127 004c FFF7FEFF 		bl	USART1_ReceiveString
- 128              	.LVL11:
-  77:../core/src/main.c **** 		if(rx_length > 0)
- 129              		.loc 1 77 3 is_stmt 1 view .LVU19
- 130              		.loc 1 77 5 is_stmt 0 view .LVU20
- 131 0050 0446     		mov	r4, r0
- 132 0052 20B3     		cbz	r0, .L2
-  78:../core/src/main.c **** 		{
-  79:../core/src/main.c **** 			/* 回显接收到的数据 */
-  80:../core/src/main.c **** 			USART1_SendString("Received: ");
- 133              		.loc 1 80 4 is_stmt 1 view .LVU21
- 134 0054 2848     		ldr	r0, .L17+16
- 135              	.LVL12:
- 136              		.loc 1 80 4 is_stmt 0 view .LVU22
- 137 0056 FFF7FEFF 		bl	USART1_SendString
- 138              	.LVL13:
-  81:../core/src/main.c **** 			USART1_SendArray((uint8_t*)rx_buffer, rx_length);
- 139              		.loc 1 81 4 is_stmt 1 view .LVU23
- 140 005a 2146     		mov	r1, r4
- 141 005c 6846     		mov	r0, sp
- 142 005e FFF7FEFF 		bl	USART1_SendArray
- 143              	.LVL14:
-  82:../core/src/main.c **** 			USART1_SendString("\r\n");
- 144              		.loc 1 82 4 view .LVU24
- 145 0062 2648     		ldr	r0, .L17+20
- 146 0064 FFF7FEFF 		bl	USART1_SendString
- 147              	.LVL15:
-  83:../core/src/main.c **** 
-  84:../core/src/main.c **** 			/* 发送LED状态信息 */
-  85:../core/src/main.c **** 			USART1_SendString("LED Status: ");
- 148              		.loc 1 85 4 view .LVU25
- 149 0068 2548     		ldr	r0, .L17+24
- 150 006a FFF7FEFF 		bl	USART1_SendString
- 151              	.LVL16:
-  86:../core/src/main.c **** 			if(GPIO_Output_Pin_Data_Get(LED1_GPIO_PORT, LED1_GPIO_PIN))
- 152              		.loc 1 86 4 view .LVU26
- 153              		.loc 1 86 7 is_stmt 0 view .LVU27
- 154 006e 2148     		ldr	r0, .L17+12
- 155 0070 0221     		movs	r1, #2
- 156 0072 FFF7FEFF 		bl	GPIO_Output_Pin_Data_Get
- 157              	.LVL17:
- 158              		.loc 1 86 6 discriminator 1 view .LVU28
- 159 0076 88B3     		cbz	r0, .L3
-  87:../core/src/main.c **** 			{
-  88:../core/src/main.c **** 				USART1_SendString("LED1=ON ");
- 160              		.loc 1 88 5 is_stmt 1 view .LVU29
- 161 0078 2248     		ldr	r0, .L17+28
- 162              	.L14:
-  89:../core/src/main.c **** 			}
-ARM GAS  C:\Users\24319\AppData\Local\Temp\cceakU8G.s 			page 6
-
-
-  90:../core/src/main.c **** 			else
-  91:../core/src/main.c **** 			{
-  92:../core/src/main.c **** 				USART1_SendString("LED1=OFF ");
- 163              		.loc 1 92 5 is_stmt 0 view .LVU30
- 164 007a FFF7FEFF 		bl	USART1_SendString
- 165              	.LVL18:
-  93:../core/src/main.c **** 			}
-  94:../core/src/main.c **** 
-  95:../core/src/main.c **** 			if(GPIO_Output_Pin_Data_Get(LED2_GPIO_PORT, LED2_GPIO_PIN))
- 166              		.loc 1 95 4 is_stmt 1 view .LVU31
- 167              		.loc 1 95 7 is_stmt 0 view .LVU32
- 168 007e 1D48     		ldr	r0, .L17+12
- 169 0080 0421     		movs	r1, #4
- 170 0082 FFF7FEFF 		bl	GPIO_Output_Pin_Data_Get
- 171              	.LVL19:
- 172              		.loc 1 95 6 discriminator 1 view .LVU33
- 173 0086 58B3     		cbz	r0, .L5
-  96:../core/src/main.c **** 			{
-  97:../core/src/main.c **** 				USART1_SendString("LED2=ON ");
- 174              		.loc 1 97 5 is_stmt 1 view .LVU34
- 175 0088 1F48     		ldr	r0, .L17+32
- 176              	.L15:
-  98:../core/src/main.c **** 			}
-  99:../core/src/main.c **** 			else
- 100:../core/src/main.c **** 			{
- 101:../core/src/main.c **** 				USART1_SendString("LED2=OFF ");
- 177              		.loc 1 101 5 is_stmt 0 view .LVU35
- 178 008a FFF7FEFF 		bl	USART1_SendString
- 179              	.LVL20:
- 102:../core/src/main.c **** 			}
- 103:../core/src/main.c **** 
- 104:../core/src/main.c **** 			if(GPIO_Output_Pin_Data_Get(LED3_GPIO_PORT, LED3_GPIO_PIN))
- 180              		.loc 1 104 4 is_stmt 1 view .LVU36
- 181              		.loc 1 104 7 is_stmt 0 view .LVU37
- 182 008e 1948     		ldr	r0, .L17+12
- 183 0090 0821     		movs	r1, #8
- 184 0092 FFF7FEFF 		bl	GPIO_Output_Pin_Data_Get
- 185              	.LVL21:
- 186              		.loc 1 104 6 discriminator 1 view .LVU38
- 187 0096 28B3     		cbz	r0, .L7
- 105:../core/src/main.c **** 			{
- 106:../core/src/main.c **** 				USART1_SendString("LED3=ON\r\n");
- 188              		.loc 1 106 5 is_stmt 1 view .LVU39
- 189 0098 1C48     		ldr	r0, .L17+36
- 190              	.L16:
- 107:../core/src/main.c **** 			}
- 108:../core/src/main.c **** 			else
- 109:../core/src/main.c **** 			{
- 110:../core/src/main.c **** 				USART1_SendString("LED3=OFF\r\n");
- 191              		.loc 1 110 5 is_stmt 0 view .LVU40
- 192 009a FFF7FEFF 		bl	USART1_SendString
- 193              	.LVL22:
- 194              	.L2:
- 111:../core/src/main.c **** 			}
- 112:../core/src/main.c **** 		}
- 113:../core/src/main.c **** 
- 114:../core/src/main.c **** 		/* Turn on Led1 */
-ARM GAS  C:\Users\24319\AppData\Local\Temp\cceakU8G.s 			page 7
-
-
- 115:../core/src/main.c **** 		LED1_ON;
- 195              		.loc 1 115 3 is_stmt 1 view .LVU41
- 196 009e 154B     		ldr	r3, .L17+12
- 197 00a0 0224     		movs	r4, #2
- 198              	.LVL23:
- 116:../core/src/main.c **** 
- 117:../core/src/main.c **** 		/* Toggle LED2 */
- 118:../core/src/main.c **** 		LED_Toggle(LED2_GPIO_PORT, LED2_GPIO_PIN);
- 199              		.loc 1 118 3 is_stmt 0 view .LVU42
- 200 00a2 1846     		mov	r0, r3
- 115:../core/src/main.c **** 
- 201              		.loc 1 115 3 view .LVU43
- 202 00a4 9C61     		str	r4, [r3, #24]
- 115:../core/src/main.c **** 
- 203              		.loc 1 115 10 is_stmt 1 view .LVU44
- 204              		.loc 1 118 3 view .LVU45
- 205 00a6 0421     		movs	r1, #4
- 115:../core/src/main.c **** 
- 206              		.loc 1 115 3 is_stmt 0 view .LVU46
- 207 00a8 1E46     		mov	r6, r3
- 208              		.loc 1 118 3 view .LVU47
- 209 00aa FFF7FEFF 		bl	LED_Toggle
- 210              	.LVL24:
- 119:../core/src/main.c **** 
- 120:../core/src/main.c **** 		/* Delay 1s */
- 121:../core/src/main.c **** 		SysTick_Delay_Ms(1000);
- 211              		.loc 1 121 3 is_stmt 1 view .LVU48
- 212 00ae 4FF47A70 		mov	r0, #1000
- 213 00b2 FFF7FEFF 		bl	SysTick_Delay_Ms
- 214              	.LVL25:
- 122:../core/src/main.c **** 
- 123:../core/src/main.c **** 		/* Toggle LED3 */
- 124:../core/src/main.c **** 		LED_Toggle(LED3_GPIO_PORT, LED3_GPIO_PIN);
- 215              		.loc 1 124 3 view .LVU49
- 216 00b6 0821     		movs	r1, #8
- 217 00b8 3046     		mov	r0, r6
- 218 00ba FFF7FEFF 		bl	LED_Toggle
- 219              	.LVL26:
- 125:../core/src/main.c **** 
- 126:../core/src/main.c **** 		/* Delay 1s */
- 127:../core/src/main.c **** 		SysTick_Delay_Ms(1000);
- 220              		.loc 1 127 3 view .LVU50
- 221 00be 4FF47A70 		mov	r0, #1000
- 222 00c2 FFF7FEFF 		bl	SysTick_Delay_Ms
- 223              	.LVL27:
- 128:../core/src/main.c **** 
- 129:../core/src/main.c **** 		/* Turn off LED1 */
- 130:../core/src/main.c **** 		LED1_OFF;
- 224              		.loc 1 130 3 view .LVU51
- 225 00c6 B462     		str	r4, [r6, #40]
- 226              		.loc 1 130 11 view .LVU52
- 131:../core/src/main.c **** 
- 132:../core/src/main.c **** 		/* Delay 1s */
- 133:../core/src/main.c **** 		SysTick_Delay_Ms(1000);
- 227              		.loc 1 133 3 view .LVU53
- 228 00c8 4FF47A70 		mov	r0, #1000
- 229 00cc FFF7FEFF 		bl	SysTick_Delay_Ms
-ARM GAS  C:\Users\24319\AppData\Local\Temp\cceakU8G.s 			page 8
-
-
- 230              	.LVL28:
- 134:../core/src/main.c **** 
- 135:../core/src/main.c **** 		/* 每10秒发送一次状态信息 */
- 136:../core/src/main.c **** 		led_counter++;
- 231              		.loc 1 136 3 view .LVU54
- 137:../core/src/main.c **** 		if(led_counter >= 10)
- 232              		.loc 1 137 3 view .LVU55
- 233              		.loc 1 137 5 is_stmt 0 view .LVU56
- 234 00d0 013D     		subs	r5, r5, #1
- 235              	.LVL29:
- 236              		.loc 1 137 5 view .LVU57
- 237 00d2 B9D1     		bne	.L8
- 138:../core/src/main.c **** 		{
- 139:../core/src/main.c **** 			USART1_SendString("System running... LED blinking...\r\n");
- 238              		.loc 1 139 4 is_stmt 1 view .LVU58
- 239 00d4 0E48     		ldr	r0, .L17+40
- 240 00d6 FFF7FEFF 		bl	USART1_SendString
- 241              	.LVL30:
- 140:../core/src/main.c **** 			led_counter = 0;
- 242              		.loc 1 140 4 view .LVU59
- 243              		.loc 1 140 4 is_stmt 0 view .LVU60
- 244 00da B4E7     		b	.L9
- 245              	.LVL31:
- 246              	.L3:
-  92:../core/src/main.c **** 			}
- 247              		.loc 1 92 5 is_stmt 1 view .LVU61
- 248 00dc 0D48     		ldr	r0, .L17+44
- 249 00de CCE7     		b	.L14
- 250              	.L5:
- 101:../core/src/main.c **** 			}
- 251              		.loc 1 101 5 view .LVU62
- 252 00e0 0D48     		ldr	r0, .L17+48
- 253 00e2 D2E7     		b	.L15
- 254              	.L7:
- 110:../core/src/main.c **** 			}
- 255              		.loc 1 110 5 view .LVU63
- 256 00e4 0D48     		ldr	r0, .L17+52
- 257 00e6 D8E7     		b	.L16
- 258              	.L18:
- 259              		.align	2
- 260              	.L17:
- 261 00e8 00000000 		.word	.LC0
- 262 00ec 1F000000 		.word	.LC1
- 263 00f0 32000000 		.word	.LC2
- 264 00f4 00340240 		.word	1073886208
- 265 00f8 57000000 		.word	.LC3
- 266 00fc 62000000 		.word	.LC4
- 267 0100 65000000 		.word	.LC5
- 268 0104 72000000 		.word	.LC6
- 269 0108 85000000 		.word	.LC8
- 270 010c 98000000 		.word	.LC10
- 271 0110 AD000000 		.word	.LC12
- 272 0114 7B000000 		.word	.LC7
- 273 0118 8E000000 		.word	.LC9
- 274 011c A2000000 		.word	.LC11
- 275              		.cfi_endproc
- 276              	.LFE130:
-ARM GAS  C:\Users\24319\AppData\Local\Temp\cceakU8G.s 			page 9
-
-
- 278              		.text
- 279              	.Letext0:
- 280              		.file 2 "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/arm-none-eabi/include/ma
- 281              		.file 3 "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/arm-none-eabi/include/sy
- 282              		.file 4 "../firmware/CMSIS/device/n32g430.h"
- 283              		.file 5 "../core/inc/bsp_led.h"
- 284              		.file 6 "../core/inc/bsp_usart.h"
- 285              		.file 7 "../firmware/n32g430_std_periph_driver/inc/n32g430_gpio.h"
- 286              		.file 8 "../core/inc/bsp_delay.h"
-ARM GAS  C:\Users\24319\AppData\Local\Temp\cceakU8G.s 			page 10
+  79              		.loc 1 75 4 view .LVU15
+  80 0022 0748     		ldr	r0, .L3+12
+  81 0024 FFF7FEFF 		bl	USART1_SendString
+  82              	.LVL6:
+  76:../core/src/main.c **** 			SEGGER_RTT_printf(0,"System running... LED blinking...\r\n");
+  83              		.loc 1 76 4 view .LVU16
+  84 0028 0549     		ldr	r1, .L3+12
+  85 002a 0020     		movs	r0, #0
+  86 002c FFF7FEFF 		bl	SEGGER_RTT_printf
+  87              	.LVL7:
+  77:../core/src/main.c **** 			led_counter = 0;
+  88              		.loc 1 77 4 view .LVU17
+  89              		.loc 1 77 4 is_stmt 0 view .LVU18
+  90 0030 F7E7     		b	.L2
+  91              	.L4:
+  92 0032 00BF     		.align	2
+  93              	.L3:
+  94 0034 00000000 		.word	.LC0
+  95 0038 1F000000 		.word	.LC1
+  96 003c 32000000 		.word	.LC2
+  97 0040 57000000 		.word	.LC3
+  98              		.cfi_endproc
+  99              	.LFE130:
+ 101              		.text
+ 102              	.Letext0:
+ 103              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 104              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 105              		.file 4 "../core/inc/bsp_usart.h"
+ 106              		.file 5 "../RTT/Ins/SEGGER_RTT.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccNP6j6X.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\24319\AppData\Local\Temp\cceakU8G.s:48     .text.startup.main:00000000 $t
-C:\Users\24319\AppData\Local\Temp\cceakU8G.s:54     .text.startup.main:00000000 main
-C:\Users\24319\AppData\Local\Temp\cceakU8G.s:261    .text.startup.main:000000e8 $d
+C:\Users\Dawn\AppData\Local\Temp\ccNP6j6X.s:30     .text.startup.main:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccNP6j6X.s:36     .text.startup.main:00000000 main
+C:\Users\Dawn\AppData\Local\Temp\ccNP6j6X.s:94     .text.startup.main:00000034 $d
 
 UNDEFINED SYMBOLS
+SEGGER_RTT_Init
+SEGGER_RTT_printf
 USART1_Init
 USART1_SendString
-LED_Initialize
-LED_Off
-LED_On
-SysTick_Delay_Ms
-USART1_ReceiveString
-USART1_SendArray
-GPIO_Output_Pin_Data_Get
-LED_Toggle
