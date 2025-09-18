@@ -66,13 +66,11 @@ int main(void)
 
 	while(1)
 	{
-		
 
 		/* 每2秒发送一次状态信息 */
 		led_counter++;
 		if(led_counter >= 2)
 		{
-			USART1_SendString("System running... LED blinking...\r\n");
 			SEGGER_RTT_printf(0,"System running... LED blinking...\r\n");
 			led_counter = 0;
 		}
