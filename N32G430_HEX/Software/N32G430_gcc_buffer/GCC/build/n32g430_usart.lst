@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
   27:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** 
   28:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** /**
   29:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\file n32g430_usart.c
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 2
 
 
   30:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\author Nations
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
   70:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****         /* UART4 Reset */
   71:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****         RCC_APB2_Peripheral_Reset(RCC_APB2_PERIPH_UART4);
   44              		.loc 1 71 9 is_stmt 0 view .LVU4
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 3
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 3
 
 
   45 000a FFF7FEBF 		b	RCC_APB2_Peripheral_Reset
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
   87 0036 00BF     		.align	2
   88              	.L7:
   89 0038 00380140 		.word	1073821696
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 4
 
 
   90 003c 00440040 		.word	1073759232
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  114:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     USART_Parity_Config(USARTx,USART_InitStruct->Parity);
  115:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     USART_Mode_Config(USARTx,USART_InitStruct->Mode);  
  116:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     USART_Hardware_Flow_Control_Config(USARTx,USART_InitStruct->HardwareFlowControl);  
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 5
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 5
 
 
  117:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** }
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  135:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     uint32_t temp_value = 0x00, apb_clock_value = 0x00;
  132              		.loc 1 135 1 is_stmt 0 view .LVU28
  133 0008 0D46     		mov	r5, r1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 6
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 6
 
 
  134              		.loc 1 142 5 view .LVU29
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  156:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     /* Determine the fractional part */
  157:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     fractional_divider_value = integer_divider_value - (100 * (temp_value >> USART_BUAD_FRACTIONAL_
  173              		.loc 1 157 5 is_stmt 1 view .LVU43
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 7
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 7
 
 
  158:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** 
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  212              		.cfi_endproc
  213              	.LFE132:
  215              		.section	.text.USART_Initializes,"ax",%progbits
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 8
 
 
  216              		.align	1
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  180:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** void USART_Word_Length_Config(USART_Module* USARTx,uint16_t word_length)
  250              		.loc 1 180 6 view .LVU64
  251              	.LBB21:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 9
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 9
 
 
  181:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** {
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  204:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\            - USART_STPB_1_5
  205:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\return  none
  206:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** **/
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 10
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 10
 
 
  207:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** void USART_Stop_Bits_Config(USART_Module* USARTx,uint16_t stop_bits)
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  228:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\            - USART_PE_EVEN
  229:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\            - USART_PE_ODD
  230:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\return  none
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 11
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 11
 
 
  231:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** **/
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  252:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\            - USART_MODE_RX
  253:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\            - USART_MODE_TX
  254:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\return  none
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 12
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 12
 
 
  255:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** **/
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  276:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\            - USART_HFCTRL_NONE
  277:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\            - USART_HFCTRL_RTS
  278:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\            - USART_HFCTRL_CTS
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 13
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 13
 
 
  279:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\            - USART_HFCTRL_RTS_CTS
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  405              	USART_Word_Length_Config:
  406              	.LVL43:
  407              	.LFB133:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 14
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 14
 
 
  181:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     uint32_t temp_value   = 0x00; 
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  210:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     /* Clear STOP[13:12] bits */
  451              		.loc 1 210 5 view .LVU148
  210:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     /* Clear STOP[13:12] bits */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 15
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 15
 
 
  452              		.loc 1 210 24 is_stmt 0 view .LVU149
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  495 0004 23F4C063 		bic	r3, r3, #1536
  496              	.LVL53:
  239:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     USARTx->CTRL1 = (uint16_t)temp_value;   
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 16
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 16
 
 
  497              		.loc 1 239 5 is_stmt 1 view .LVU163
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  539              		.loc 1 264 19 view .LVU177
  540 000a 8181     		strh	r1, [r0, #12]	@ movhi
  265:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 17
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 17
 
 
  541              		.loc 1 265 1 view .LVU178
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  591              	.LVL63:
  592              	.LFB138:
  292:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 18
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 18
 
 
  293:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** /**
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  623              		.thumb_func
  625              	USART_Clock_Initializes:
  626              	.LVL64:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 19
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 19
 
 
  627              	.LFB139:
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  361:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** void USART_Clock_Config(USART_Module* USARTx,uint16_t clock)
  636              		.loc 1 361 6 view .LVU203
  637              	.LBB31:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 20
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 20
 
 
  362:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** {
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  665              		.loc 1 384 6 view .LVU217
  666              	.LBB33:
  385:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** {
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 21
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 21
 
 
  386:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     uint32_t temp_value = 0x00;
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  695              	.LBB35:
  408:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** {
  409:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     uint32_t temp_value = 0x00;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 22
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 22
 
 
  696              		.loc 1 409 5 view .LVU232
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  431:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** {
  432:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     uint32_t temp_value = 0x00;
  725              		.loc 1 432 5 view .LVU246
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 23
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 23
 
 
  433:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     temp_value = USARTx->CTRL2; 
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  364:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     /* Clear CLKEN bit */  
  770              		.loc 1 364 5 view .LVU261
  364:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     /* Clear CLKEN bit */  
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 24
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 24
 
 
  771              		.loc 1 364 24 is_stmt 0 view .LVU262
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  814 0004 23F48063 		bic	r3, r3, #1024
  815              	.LVL87:
  391:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     USARTx->CTRL2 = (uint16_t)temp_value; 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 25
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 25
 
 
  816              		.loc 1 391 5 is_stmt 1 view .LVU276
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  858              		.loc 1 415 19 view .LVU290
  859 000a 0182     		strh	r1, [r0, #16]	@ movhi
  416:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 26
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 26
 
 
  860              		.loc 1 416 1 view .LVU291
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  910              	.LVL97:
  911              	.LFB144:
  440:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 27
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 27
 
 
  441:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** 
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  464:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\name    USART_Enable.
  465:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\fun     Enables the specified USART peripheral.
  466:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\param   USARTx :
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 28
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 28
 
 
  467:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\          - USART1
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  491:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     /* Disable the selected USART by clearing the UE bit in the CTRL1 register */
  492:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     USARTx->CTRL1 &= CTRL1_UEN_RESET;
  977              		.loc 1 492 5 view .LVU319
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 29
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 29
 
 
  978              		.loc 1 492 11 is_stmt 0 view .LVU320
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  520:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     base_value = (uint32_t)USARTx;
  1007              		.loc 1 520 5 view .LVU326
  521:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 30
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 30
 
 
  522:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     /* Get the USART register index */
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  544:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** }
  1038              		.loc 1 544 1 view .LVU341
  1039 001a 7047     		bx	lr
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 31
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 31
 
 
  1040              	.LVL106:
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  565:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** 
  566:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** void USART_Interrput_Disable(USART_Module* USARTx, uint16_t USART_interrupt)
  567:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** {
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 32
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 32
 
 
  1069              		.loc 1 567 1 is_stmt 1 view -0
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  588:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     {
  589:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****         base_value += 0x14;
  590:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 33
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 33
 
 
  591:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** 
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  603:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\          - UART4
  604:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\param   USART_DMA_request :
  605:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\          - USART_DMAREQ_TX
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 34
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 34
 
 
  606:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\          - USART_DMAREQ_RX
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1165              		.loc 1 634 1 is_stmt 1 view -0
  1166              		.cfi_startproc
  1167              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 35
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 35
 
 
  1168              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1199 0000 038A     		ldrh	r3, [r0, #16]
  1200              		.loc 1 659 19 view .LVU388
  1201 0002 23F00F03 		bic	r3, r3, #15
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 36
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 36
 
 
  1202 0006 1B04     		lsls	r3, r3, #16
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1236 0000 8389     		ldrh	r3, [r0, #12]
  1237              		.loc 1 681 19 view .LVU397
  1238 0002 23F40063 		bic	r3, r3, #2048
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 37
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 37
 
 
  1239 0006 1B04     		lsls	r3, r3, #16
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1277 000a 7047     		bx	lr
  1278              		.cfi_endproc
  1279              	.LFE153:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 38
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 38
 
 
  1281              		.section	.text.USART_Receiver_Wakeup_Disable,"ax",%progbits
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  719:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\name    USART_LIN_Break_Detect_Length_Set.
  720:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\fun     Sets the USART LIN Break detection length.
  721:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\param   USARTx :
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 39
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 39
 
 
  722:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\          - USART1
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  743:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\          - UART3
  744:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\          - UART4
  745:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\return  none
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 40
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 40
 
 
  746:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** **/
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1387              		.loc 1 768 11 is_stmt 0 view .LVU427
  1388 0000 038A     		ldrh	r3, [r0, #16]
  1389              		.loc 1 768 19 view .LVU428
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 41
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 41
 
 
  1390 0002 23F48043 		bic	r3, r3, #16384
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1428              		.syntax unified
  1429              		.thumb
  1430              		.thumb_func
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 42
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 42
 
 
  1432              	USART_Data_Receive:
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  816:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** {
  1460              		.loc 1 816 1 is_stmt 1 view -0
  1461              		.cfi_startproc
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 43
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 43
 
 
  1462              		@ args = 0, pretend = 0, frame = 0
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1498              		.loc 1 836 5 is_stmt 1 view .LVU448
  1499              		.loc 1 836 11 is_stmt 0 view .LVU449
  1500 0006 038B     		ldrh	r3, [r0, #24]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 44
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 44
 
 
  1501 0008 9BB2     		uxth	r3, r3
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1537              	.LVL135:
  1538              		.loc 1 856 17 view .LVU459
  1539 000e 0183     		strh	r1, [r0, #24]	@ movhi
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 45
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 45
 
 
  857:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** }
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1579              	USART_Smart_Card_Disable:
  1580              	.LVL137:
  1581              	.LFB164:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 46
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 46
 
 
  876:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** 
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1612              		@ args = 0, pretend = 0, frame = 0
  1613              		@ frame_needed = 0, uses_anonymous_args = 0
  1614              		@ link register save eliminated.
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 47
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 47
 
 
  902:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** 
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1650              		.loc 1 922 1 view .LVU480
  1651 000c 7047     		bx	lr
  1652              		.cfi_endproc
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 48
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 48
 
 
  1653              	.LFE166:
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  942:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** 
  943:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** /**
  944:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\name    USART_Half_Duplex_Disable.
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 49
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 49
 
 
  945:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\fun     Disables the USART's Half Duplex communication.
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  973:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** *\*\return  none
  974:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** **/
  975:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 50
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 50
 
 
  976:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** void USART_IrDA_Mode_Set(USART_Module* USARTx, uint16_t USART_IrDA_mode)
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1756              		.cfi_startproc
  1757              		@ args = 0, pretend = 0, frame = 0
  1758              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 51
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 51
 
 
  1759              		@ link register save eliminated.
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1793 0008 1B0C     		lsrs	r3, r3, #16
  1794 000a 8382     		strh	r3, [r0, #20]	@ movhi
 1018:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 52
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 52
 
 
 1019:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** }
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
 1049:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     }
 1050:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     else
 1051:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     {
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 53
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 53
 
 
 1052:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****         return RESET;
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1852 0004 0180     		strh	r1, [r0]	@ movhi
 1077:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c **** }
  1853              		.loc 1 1077 1 view .LVU519
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 54
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 54
 
 
  1854 0006 7047     		bx	lr
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1877              		.loc 1 1110 5 is_stmt 1 view .LVU524
 1102:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     uint32_t bit_position = 0x00, temp_value = 0x00, register_value = 0x00;
  1878              		.loc 1 1102 1 is_stmt 0 view .LVU525
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 55
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 55
 
 
  1879 0004 10B5     		push	{r4, lr}
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1911              		.loc 1 1123 20 view .LVU538
  1912 001c 1040     		ands	r0, r0, r2
  1913              	.LVL157:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 56
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 56
 
 
 1126:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     bit_position = (uint32_t)0x01 << bit_position;
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1948 0034 0CBF     		ite	eq
  1949 0036 1A8A     		ldrheq	r2, [r3, #16]
  1950              	.LVL163:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 57
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 57
 
 
 1123:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     }
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
 1162:../firmware/n32g430_std_periph_driver/src/n32g430_usart.c ****     temp_value    = ((uint16_t)0x01 << (uint16_t)bit_position);
  1980              		.loc 1 1162 37 view .LVU563
  1981 0002 0123     		movs	r3, #1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 58
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 58
 
 
  1982 0004 8B40     		lsls	r3, r3, r1
@@ -3434,113 +3434,113 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 1
  1991              	.LFE175:
  1993              		.text
  1994              	.Letext0:
- 1995              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
- 1996              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 1995              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 1996              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
  1997              		.file 4 "../firmware/CMSIS/device/n32g430.h"
  1998              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
  1999              		.file 6 "../firmware/n32g430_std_periph_driver/inc/n32g430_usart.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 59
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 59
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 n32g430_usart.c
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:21     .text.USART_Reset:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:27     .text.USART_Reset:00000000 USART_Reset
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:89     .text.USART_Reset:00000038 $d
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:97     .text.USART_Baud_Rate_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:103    .text.USART_Baud_Rate_Config:00000000 USART_Baud_Rate_Config
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:211    .text.USART_Baud_Rate_Config:00000058 $d
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:216    .text.USART_Initializes:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:222    .text.USART_Initializes:00000000 USART_Initializes
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:399    .text.USART_Word_Length_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:405    .text.USART_Word_Length_Config:00000000 USART_Word_Length_Config
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:436    .text.USART_Stop_Bits_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:442    .text.USART_Stop_Bits_Config:00000000 USART_Stop_Bits_Config
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:473    .text.USART_Parity_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:479    .text.USART_Parity_Config:00000000 USART_Parity_Config
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:510    .text.USART_Mode_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:516    .text.USART_Mode_Config:00000000 USART_Mode_Config
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:547    .text.USART_Hardware_Flow_Control_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:553    .text.USART_Hardware_Flow_Control_Config:00000000 USART_Hardware_Flow_Control_Config
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:584    .text.USART_Structure_Initializes:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:590    .text.USART_Structure_Initializes:00000000 USART_Structure_Initializes
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:619    .text.USART_Clock_Initializes:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:625    .text.USART_Clock_Initializes:00000000 USART_Clock_Initializes
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:755    .text.USART_Clock_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:761    .text.USART_Clock_Config:00000000 USART_Clock_Config
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:792    .text.USART_Polarity_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:798    .text.USART_Polarity_Config:00000000 USART_Polarity_Config
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:829    .text.USART_Phase_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:835    .text.USART_Phase_Config:00000000 USART_Phase_Config
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:866    .text.USART_Last_Bit_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:872    .text.USART_Last_Bit_Config:00000000 USART_Last_Bit_Config
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:903    .text.USART_Clock_Structure_Initializes:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:909    .text.USART_Clock_Structure_Initializes:00000000 USART_Clock_Structure_Initializes
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:936    .text.USART_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:942    .text.USART_Enable:00000000 USART_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:963    .text.USART_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:969    .text.USART_Disable:00000000 USART_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:991    .text.USART_Interrput_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:997    .text.USART_Interrput_Enable:00000000 USART_Interrput_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1060   .text.USART_Interrput_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1066   .text.USART_Interrput_Disable:00000000 USART_Interrput_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1129   .text.USART_DMA_Transfer_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1135   .text.USART_DMA_Transfer_Enable:00000000 USART_DMA_Transfer_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1156   .text.USART_DMA_Transfer_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1162   .text.USART_DMA_Transfer_Disable:00000000 USART_DMA_Transfer_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1183   .text.USART_Address_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1189   .text.USART_Address_Set:00000000 USART_Address_Set
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1220   .text.USART_WakeUp_Mode_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1226   .text.USART_WakeUp_Mode_Set:00000000 USART_WakeUp_Mode_Set
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1255   .text.USART_Receiver_Wakeup_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1261   .text.USART_Receiver_Wakeup_Enable:00000000 USART_Receiver_Wakeup_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1282   .text.USART_Receiver_Wakeup_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1288   .text.USART_Receiver_Wakeup_Disable:00000000 USART_Receiver_Wakeup_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1310   .text.USART_LIN_Break_Detect_Length_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1316   .text.USART_LIN_Break_Detect_Length_Set:00000000 USART_LIN_Break_Detect_Length_Set
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1345   .text.USART_LIN_Enable:00000000 $t
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s 			page 60
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:21     .text.USART_Reset:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:27     .text.USART_Reset:00000000 USART_Reset
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:89     .text.USART_Reset:00000038 $d
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:97     .text.USART_Baud_Rate_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:103    .text.USART_Baud_Rate_Config:00000000 USART_Baud_Rate_Config
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:211    .text.USART_Baud_Rate_Config:00000058 $d
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:216    .text.USART_Initializes:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:222    .text.USART_Initializes:00000000 USART_Initializes
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:399    .text.USART_Word_Length_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:405    .text.USART_Word_Length_Config:00000000 USART_Word_Length_Config
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:436    .text.USART_Stop_Bits_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:442    .text.USART_Stop_Bits_Config:00000000 USART_Stop_Bits_Config
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:473    .text.USART_Parity_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:479    .text.USART_Parity_Config:00000000 USART_Parity_Config
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:510    .text.USART_Mode_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:516    .text.USART_Mode_Config:00000000 USART_Mode_Config
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:547    .text.USART_Hardware_Flow_Control_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:553    .text.USART_Hardware_Flow_Control_Config:00000000 USART_Hardware_Flow_Control_Config
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:584    .text.USART_Structure_Initializes:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:590    .text.USART_Structure_Initializes:00000000 USART_Structure_Initializes
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:619    .text.USART_Clock_Initializes:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:625    .text.USART_Clock_Initializes:00000000 USART_Clock_Initializes
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:755    .text.USART_Clock_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:761    .text.USART_Clock_Config:00000000 USART_Clock_Config
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:792    .text.USART_Polarity_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:798    .text.USART_Polarity_Config:00000000 USART_Polarity_Config
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:829    .text.USART_Phase_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:835    .text.USART_Phase_Config:00000000 USART_Phase_Config
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:866    .text.USART_Last_Bit_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:872    .text.USART_Last_Bit_Config:00000000 USART_Last_Bit_Config
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:903    .text.USART_Clock_Structure_Initializes:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:909    .text.USART_Clock_Structure_Initializes:00000000 USART_Clock_Structure_Initializes
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:936    .text.USART_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:942    .text.USART_Enable:00000000 USART_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:963    .text.USART_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:969    .text.USART_Disable:00000000 USART_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:991    .text.USART_Interrput_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:997    .text.USART_Interrput_Enable:00000000 USART_Interrput_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1060   .text.USART_Interrput_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1066   .text.USART_Interrput_Disable:00000000 USART_Interrput_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1129   .text.USART_DMA_Transfer_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1135   .text.USART_DMA_Transfer_Enable:00000000 USART_DMA_Transfer_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1156   .text.USART_DMA_Transfer_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1162   .text.USART_DMA_Transfer_Disable:00000000 USART_DMA_Transfer_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1183   .text.USART_Address_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1189   .text.USART_Address_Set:00000000 USART_Address_Set
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1220   .text.USART_WakeUp_Mode_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1226   .text.USART_WakeUp_Mode_Set:00000000 USART_WakeUp_Mode_Set
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1255   .text.USART_Receiver_Wakeup_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1261   .text.USART_Receiver_Wakeup_Enable:00000000 USART_Receiver_Wakeup_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1282   .text.USART_Receiver_Wakeup_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1288   .text.USART_Receiver_Wakeup_Disable:00000000 USART_Receiver_Wakeup_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1310   .text.USART_LIN_Break_Detect_Length_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1316   .text.USART_LIN_Break_Detect_Length_Set:00000000 USART_LIN_Break_Detect_Length_Set
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1345   .text.USART_LIN_Enable:00000000 $t
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s 			page 60
 
 
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1351   .text.USART_LIN_Enable:00000000 USART_LIN_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1372   .text.USART_LIN_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1378   .text.USART_LIN_Disable:00000000 USART_LIN_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1400   .text.USART_Data_Send:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1406   .text.USART_Data_Send:00000000 USART_Data_Send
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1426   .text.USART_Data_Receive:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1432   .text.USART_Data_Receive:00000000 USART_Data_Receive
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1451   .text.USART_Break_Frame_Send:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1457   .text.USART_Break_Frame_Send:00000000 USART_Break_Frame_Send
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1478   .text.USART_Guard_Time_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1484   .text.USART_Guard_Time_Set:00000000 USART_Guard_Time_Set
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1511   .text.USART_Prescaler_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1517   .text.USART_Prescaler_Set:00000000 USART_Prescaler_Set
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1546   .text.USART_Smart_Card_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1552   .text.USART_Smart_Card_Enable:00000000 USART_Smart_Card_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1573   .text.USART_Smart_Card_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1579   .text.USART_Smart_Card_Disable:00000000 USART_Smart_Card_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1601   .text.USART_Smart_Card_NACK_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1607   .text.USART_Smart_Card_NACK_Enable:00000000 USART_Smart_Card_NACK_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1628   .text.USART_Smart_Card_NACK_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1634   .text.USART_Smart_Card_NACK_Disable:00000000 USART_Smart_Card_NACK_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1656   .text.USART_Half_Duplex_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1662   .text.USART_Half_Duplex_Enable:00000000 USART_Half_Duplex_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1683   .text.USART_Half_Duplex_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1689   .text.USART_Half_Duplex_Disable:00000000 USART_Half_Duplex_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1711   .text.USART_IrDA_Mode_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1717   .text.USART_IrDA_Mode_Set:00000000 USART_IrDA_Mode_Set
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1746   .text.USART_IrDA_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1752   .text.USART_IrDA_Enable:00000000 USART_IrDA_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1773   .text.USART_IrDA_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1779   .text.USART_IrDA_Disable:00000000 USART_IrDA_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1801   .text.USART_Flag_Status_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1807   .text.USART_Flag_Status_Get:00000000 USART_Flag_Status_Get
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1830   .text.USART_Flag_Clear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1836   .text.USART_Flag_Clear:00000000 USART_Flag_Clear
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1859   .text.USART_Interrupt_Status_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1865   .text.USART_Interrupt_Status_Get:00000000 USART_Interrupt_Status_Get
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1959   .text.USART_Interrupt_Status_Clear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccq5vW6d.s:1965   .text.USART_Interrupt_Status_Clear:00000000 USART_Interrupt_Status_Clear
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1351   .text.USART_LIN_Enable:00000000 USART_LIN_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1372   .text.USART_LIN_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1378   .text.USART_LIN_Disable:00000000 USART_LIN_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1400   .text.USART_Data_Send:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1406   .text.USART_Data_Send:00000000 USART_Data_Send
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1426   .text.USART_Data_Receive:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1432   .text.USART_Data_Receive:00000000 USART_Data_Receive
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1451   .text.USART_Break_Frame_Send:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1457   .text.USART_Break_Frame_Send:00000000 USART_Break_Frame_Send
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1478   .text.USART_Guard_Time_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1484   .text.USART_Guard_Time_Set:00000000 USART_Guard_Time_Set
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1511   .text.USART_Prescaler_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1517   .text.USART_Prescaler_Set:00000000 USART_Prescaler_Set
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1546   .text.USART_Smart_Card_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1552   .text.USART_Smart_Card_Enable:00000000 USART_Smart_Card_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1573   .text.USART_Smart_Card_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1579   .text.USART_Smart_Card_Disable:00000000 USART_Smart_Card_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1601   .text.USART_Smart_Card_NACK_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1607   .text.USART_Smart_Card_NACK_Enable:00000000 USART_Smart_Card_NACK_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1628   .text.USART_Smart_Card_NACK_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1634   .text.USART_Smart_Card_NACK_Disable:00000000 USART_Smart_Card_NACK_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1656   .text.USART_Half_Duplex_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1662   .text.USART_Half_Duplex_Enable:00000000 USART_Half_Duplex_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1683   .text.USART_Half_Duplex_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1689   .text.USART_Half_Duplex_Disable:00000000 USART_Half_Duplex_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1711   .text.USART_IrDA_Mode_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1717   .text.USART_IrDA_Mode_Set:00000000 USART_IrDA_Mode_Set
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1746   .text.USART_IrDA_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1752   .text.USART_IrDA_Enable:00000000 USART_IrDA_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1773   .text.USART_IrDA_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1779   .text.USART_IrDA_Disable:00000000 USART_IrDA_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1801   .text.USART_Flag_Status_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1807   .text.USART_Flag_Status_Get:00000000 USART_Flag_Status_Get
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1830   .text.USART_Flag_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1836   .text.USART_Flag_Clear:00000000 USART_Flag_Clear
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1859   .text.USART_Interrupt_Status_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1865   .text.USART_Interrupt_Status_Get:00000000 USART_Interrupt_Status_Get
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1959   .text.USART_Interrupt_Status_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMhFbs6.s:1965   .text.USART_Interrupt_Status_Clear:00000000 USART_Interrupt_Status_Clear
 
 UNDEFINED SYMBOLS
 RCC_APB2_Peripheral_Reset

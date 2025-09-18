@@ -1,0 +1,1100 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"system_n32g430.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../firmware/CMSIS/device/system_n32g430.c"
+  20              		.section	.text.System_Initializes,"ax",%progbits
+  21              		.align	1
+  22              		.global	System_Initializes
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	System_Initializes:
+  28              	.LFB130:
+   1:../firmware/CMSIS/device/system_n32g430.c **** /*****************************************************************************
+   2:../firmware/CMSIS/device/system_n32g430.c ****  * Copyright (c) 2019, Nations Technologies Inc.
+   3:../firmware/CMSIS/device/system_n32g430.c ****  *
+   4:../firmware/CMSIS/device/system_n32g430.c ****  * All rights reserved.
+   5:../firmware/CMSIS/device/system_n32g430.c ****  * ****************************************************************************
+   6:../firmware/CMSIS/device/system_n32g430.c ****  *
+   7:../firmware/CMSIS/device/system_n32g430.c ****  * Redistribution and use in source and binary forms, with or without
+   8:../firmware/CMSIS/device/system_n32g430.c ****  * modification, are permitted provided that the following conditions are met:
+   9:../firmware/CMSIS/device/system_n32g430.c ****  *
+  10:../firmware/CMSIS/device/system_n32g430.c ****  * - Redistributions of source code must retain the above copyright notice,
+  11:../firmware/CMSIS/device/system_n32g430.c ****  * this list of conditions and the disclaimer below.
+  12:../firmware/CMSIS/device/system_n32g430.c ****  *
+  13:../firmware/CMSIS/device/system_n32g430.c ****  * Nations' name may not be used to endorse or promote products derived from
+  14:../firmware/CMSIS/device/system_n32g430.c ****  * this software without specific prior written permission.
+  15:../firmware/CMSIS/device/system_n32g430.c ****  *
+  16:../firmware/CMSIS/device/system_n32g430.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY NATIONS "AS IS" AND ANY EXPRESS OR
+  17:../firmware/CMSIS/device/system_n32g430.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  18:../firmware/CMSIS/device/system_n32g430.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  19:../firmware/CMSIS/device/system_n32g430.c ****  * DISCLAIMED. IN NO EVENT SHALL NATIONS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  20:../firmware/CMSIS/device/system_n32g430.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  21:../firmware/CMSIS/device/system_n32g430.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  22:../firmware/CMSIS/device/system_n32g430.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  23:../firmware/CMSIS/device/system_n32g430.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  24:../firmware/CMSIS/device/system_n32g430.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  25:../firmware/CMSIS/device/system_n32g430.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  26:../firmware/CMSIS/device/system_n32g430.c ****  * ****************************************************************************/
+  27:../firmware/CMSIS/device/system_n32g430.c **** 
+  28:../firmware/CMSIS/device/system_n32g430.c **** /**
+  29:../firmware/CMSIS/device/system_n32g430.c **** *\*\file system_n32g430.c
+  30:../firmware/CMSIS/device/system_n32g430.c **** *\*\author Nations
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 2
+
+
+  31:../firmware/CMSIS/device/system_n32g430.c **** *\*\version v1.0.0
+  32:../firmware/CMSIS/device/system_n32g430.c **** *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
+  33:../firmware/CMSIS/device/system_n32g430.c ****  */
+  34:../firmware/CMSIS/device/system_n32g430.c **** #include "n32g430.h"
+  35:../firmware/CMSIS/device/system_n32g430.c **** 
+  36:../firmware/CMSIS/device/system_n32g430.c **** /* Uncomment the line corresponding to the desired System clock (SYSCLK)
+  37:../firmware/CMSIS/device/system_n32g430.c ****    frequency (after reset the HSI is used as SYSCLK source)
+  38:../firmware/CMSIS/device/system_n32g430.c **** 
+  39:../firmware/CMSIS/device/system_n32g430.c ****    IMPORTANT NOTE:
+  40:../firmware/CMSIS/device/system_n32g430.c ****    ==============
+  41:../firmware/CMSIS/device/system_n32g430.c ****    1. After each device reset the HSI is used as System clock source.
+  42:../firmware/CMSIS/device/system_n32g430.c **** 
+  43:../firmware/CMSIS/device/system_n32g430.c ****    2. Please make sure that the selected System clock doesn't exceed your
+  44:../firmware/CMSIS/device/system_n32g430.c ****    device's maximum frequency.
+  45:../firmware/CMSIS/device/system_n32g430.c **** 
+  46:../firmware/CMSIS/device/system_n32g430.c ****    3. If none of the define below is enabled, the HSI is used as System clock
+  47:../firmware/CMSIS/device/system_n32g430.c ****     source.
+  48:../firmware/CMSIS/device/system_n32g430.c **** 
+  49:../firmware/CMSIS/device/system_n32g430.c ****    4. The System clock configuration functions provided within this file assume
+  50:../firmware/CMSIS/device/system_n32g430.c ****    that:
+  51:../firmware/CMSIS/device/system_n32g430.c ****         - For Low, Medium and High density Value line devices an external 8MHz
+  52:../firmware/CMSIS/device/system_n32g430.c ****           crystal is used to drive the System clock.
+  53:../firmware/CMSIS/device/system_n32g430.c ****         - For Low, Medium and High density devices an external 8MHz crystal is
+  54:../firmware/CMSIS/device/system_n32g430.c ****           used to drive the System clock.
+  55:../firmware/CMSIS/device/system_n32g430.c ****         - For Connectivity line devices an external 25MHz crystal is used to
+  56:../firmware/CMSIS/device/system_n32g430.c ****    drive the System clock. If you are using different crystal you have to adapt
+  57:../firmware/CMSIS/device/system_n32g430.c ****    those functions accordingly.
+  58:../firmware/CMSIS/device/system_n32g430.c ****     */
+  59:../firmware/CMSIS/device/system_n32g430.c **** 
+  60:../firmware/CMSIS/device/system_n32g430.c **** #define SYSCLK_USE_HSI     0
+  61:../firmware/CMSIS/device/system_n32g430.c **** #define SYSCLK_USE_HSE     1
+  62:../firmware/CMSIS/device/system_n32g430.c **** #define SYSCLK_USE_HSI_PLL 2
+  63:../firmware/CMSIS/device/system_n32g430.c **** #define SYSCLK_USE_HSE_PLL 3
+  64:../firmware/CMSIS/device/system_n32g430.c **** 
+  65:../firmware/CMSIS/device/system_n32g430.c **** #ifndef SYSCLK_FREQ
+  66:../firmware/CMSIS/device/system_n32g430.c **** #define SYSCLK_FREQ 128000000
+  67:../firmware/CMSIS/device/system_n32g430.c **** #endif
+  68:../firmware/CMSIS/device/system_n32g430.c **** 
+  69:../firmware/CMSIS/device/system_n32g430.c **** #ifndef SYSCLK_SRC
+  70:../firmware/CMSIS/device/system_n32g430.c **** #define SYSCLK_SRC SYSCLK_USE_HSE_PLL
+  71:../firmware/CMSIS/device/system_n32g430.c **** #endif
+  72:../firmware/CMSIS/device/system_n32g430.c **** 
+  73:../firmware/CMSIS/device/system_n32g430.c **** #if SYSCLK_SRC == SYSCLK_USE_HSI
+  74:../firmware/CMSIS/device/system_n32g430.c **** 
+  75:../firmware/CMSIS/device/system_n32g430.c ****     #if SYSCLK_FREQ != HSI_VALUE
+  76:../firmware/CMSIS/device/system_n32g430.c ****     #error SYSCL_FREQ must be set to HSI_VALUE
+  77:../firmware/CMSIS/device/system_n32g430.c ****     #endif
+  78:../firmware/CMSIS/device/system_n32g430.c **** 
+  79:../firmware/CMSIS/device/system_n32g430.c **** #elif SYSCLK_SRC == SYSCLK_USE_HSE
+  80:../firmware/CMSIS/device/system_n32g430.c **** 
+  81:../firmware/CMSIS/device/system_n32g430.c ****     #ifndef HSE_VALUE
+  82:../firmware/CMSIS/device/system_n32g430.c ****     #error HSE_VALUE must be defined!
+  83:../firmware/CMSIS/device/system_n32g430.c ****     #endif
+  84:../firmware/CMSIS/device/system_n32g430.c **** 
+  85:../firmware/CMSIS/device/system_n32g430.c ****     #if SYSCLK_FREQ != HSE_VALUE
+  86:../firmware/CMSIS/device/system_n32g430.c ****     #error SYSCL_FREQ must be set to HSE_VALUE
+  87:../firmware/CMSIS/device/system_n32g430.c ****     #endif
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 3
+
+
+  88:../firmware/CMSIS/device/system_n32g430.c **** 
+  89:../firmware/CMSIS/device/system_n32g430.c **** #elif SYSCLK_SRC == SYSCLK_USE_HSI_PLL
+  90:../firmware/CMSIS/device/system_n32g430.c **** 
+  91:../firmware/CMSIS/device/system_n32g430.c ****     #if (SYSCLK_FREQ % (HSI_VALUE / 2) == 0) && (SYSCLK_FREQ / (HSI_VALUE / 2) >= 2)               
+  92:../firmware/CMSIS/device/system_n32g430.c ****         && (SYSCLK_FREQ / (HSI_VALUE / 2) <= 32)
+  93:../firmware/CMSIS/device/system_n32g430.c **** 
+  94:../firmware/CMSIS/device/system_n32g430.c ****         #define PLLSRC_DIV 2
+  95:../firmware/CMSIS/device/system_n32g430.c ****         #define PLL_MUL    (SYSCLK_FREQ / (HSI_VALUE / 2))
+  96:../firmware/CMSIS/device/system_n32g430.c **** 
+  97:../firmware/CMSIS/device/system_n32g430.c ****     #elif (SYSCLK_FREQ % HSI_VALUE == 0) && (SYSCLK_FREQ / HSI_VALUE >= 2) 
+  98:../firmware/CMSIS/device/system_n32g430.c ****         && (SYSCLK_FREQ / HSI_VALUE <= 32)
+  99:../firmware/CMSIS/device/system_n32g430.c **** 
+ 100:../firmware/CMSIS/device/system_n32g430.c ****         #define PLLSRC_DIV 1
+ 101:../firmware/CMSIS/device/system_n32g430.c ****         #define PLL_MUL    (SYSCLK_FREQ / HSI_VALUE)
+ 102:../firmware/CMSIS/device/system_n32g430.c ****             
+ 103:../firmware/CMSIS/device/system_n32g430.c ****     #else
+ 104:../firmware/CMSIS/device/system_n32g430.c ****         #error Cannot make a PLL multiply factor to SYSCLK_FREQ.
+ 105:../firmware/CMSIS/device/system_n32g430.c ****     #endif
+ 106:../firmware/CMSIS/device/system_n32g430.c **** 
+ 107:../firmware/CMSIS/device/system_n32g430.c **** #elif SYSCLK_SRC == SYSCLK_USE_HSE_PLL
+ 108:../firmware/CMSIS/device/system_n32g430.c **** 
+ 109:../firmware/CMSIS/device/system_n32g430.c ****     #ifndef HSE_VALUE
+ 110:../firmware/CMSIS/device/system_n32g430.c ****     #error HSE_VALUE must be defined!
+ 111:../firmware/CMSIS/device/system_n32g430.c ****     #endif
+ 112:../firmware/CMSIS/device/system_n32g430.c **** 
+ 113:../firmware/CMSIS/device/system_n32g430.c ****     #if ((SYSCLK_FREQ % (HSE_VALUE / 2)) == 0) && (SYSCLK_FREQ / (HSE_VALUE / 2) >= 2)             
+ 114:../firmware/CMSIS/device/system_n32g430.c ****         && (SYSCLK_FREQ / (HSE_VALUE / 2) <= 32)
+ 115:../firmware/CMSIS/device/system_n32g430.c **** 
+ 116:../firmware/CMSIS/device/system_n32g430.c ****         #define PLLSRC_DIV 2
+ 117:../firmware/CMSIS/device/system_n32g430.c ****         #define PLL_MUL    (SYSCLK_FREQ / (HSE_VALUE / 2))
+ 118:../firmware/CMSIS/device/system_n32g430.c **** 
+ 119:../firmware/CMSIS/device/system_n32g430.c ****     #elif (SYSCLK_FREQ % HSE_VALUE == 0) && (SYSCLK_FREQ / HSE_VALUE >= 2) 
+ 120:../firmware/CMSIS/device/system_n32g430.c ****         && (SYSCLK_FREQ / HSE_VALUE <= 32)
+ 121:../firmware/CMSIS/device/system_n32g430.c **** 
+ 122:../firmware/CMSIS/device/system_n32g430.c ****         #define PLLSRC_DIV 1
+ 123:../firmware/CMSIS/device/system_n32g430.c ****         #define PLL_MUL    (SYSCLK_FREQ / HSE_VALUE)
+ 124:../firmware/CMSIS/device/system_n32g430.c **** 
+ 125:../firmware/CMSIS/device/system_n32g430.c ****     #else
+ 126:../firmware/CMSIS/device/system_n32g430.c ****         #error Cannot make a PLL multiply factor to SYSCLK_FREQ.
+ 127:../firmware/CMSIS/device/system_n32g430.c ****     #endif
+ 128:../firmware/CMSIS/device/system_n32g430.c **** 
+ 129:../firmware/CMSIS/device/system_n32g430.c **** #else
+ 130:../firmware/CMSIS/device/system_n32g430.c **** #error wrong value for SYSCLK_SRC
+ 131:../firmware/CMSIS/device/system_n32g430.c **** #endif
+ 132:../firmware/CMSIS/device/system_n32g430.c **** 
+ 133:../firmware/CMSIS/device/system_n32g430.c **** /* If you want to use VECT_TAB_SRAM, release the comment*/
+ 134:../firmware/CMSIS/device/system_n32g430.c **** /* #define VECT_TAB_SRAM  */
+ 135:../firmware/CMSIS/device/system_n32g430.c **** 
+ 136:../firmware/CMSIS/device/system_n32g430.c **** /* Vector Table base offset field. This value must be a multiple of 0x200. */
+ 137:../firmware/CMSIS/device/system_n32g430.c **** #define VECT_TAB_OFFSET 0x0 
+ 138:../firmware/CMSIS/device/system_n32g430.c **** 
+ 139:../firmware/CMSIS/device/system_n32g430.c **** /** Clock Definitions **/
+ 140:../firmware/CMSIS/device/system_n32g430.c **** 
+ 141:../firmware/CMSIS/device/system_n32g430.c **** /* System Clock Frequency (Core Clock) */
+ 142:../firmware/CMSIS/device/system_n32g430.c **** uint32_t SystemClockFrequency = SYSCLK_FREQ; 
+ 143:../firmware/CMSIS/device/system_n32g430.c **** 
+ 144:../firmware/CMSIS/device/system_n32g430.c **** const uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 4
+
+
+ 145:../firmware/CMSIS/device/system_n32g430.c **** 
+ 146:../firmware/CMSIS/device/system_n32g430.c **** static void System_Clock_Set(void);
+ 147:../firmware/CMSIS/device/system_n32g430.c **** 
+ 148:../firmware/CMSIS/device/system_n32g430.c **** #ifdef DATA_IN_ExtSRAM
+ 149:../firmware/CMSIS/device/system_n32g430.c **** static void SystemInit_ExtMemCtl(void);
+ 150:../firmware/CMSIS/device/system_n32g430.c **** #endif /* DATA_IN_ExtSRAM */
+ 151:../firmware/CMSIS/device/system_n32g430.c **** 
+ 152:../firmware/CMSIS/device/system_n32g430.c **** 
+ 153:../firmware/CMSIS/device/system_n32g430.c **** /**
+ 154:../firmware/CMSIS/device/system_n32g430.c **** *\*\name    System_Initializes.
+ 155:../firmware/CMSIS/device/system_n32g430.c **** *\*\fun     Setup the microcontroller system
+ 156:../firmware/CMSIS/device/system_n32g430.c **** *\*\        Initialize the Embedded Flash Interface, the PLL and update the
+ 157:../firmware/CMSIS/device/system_n32g430.c **** *\*\        SystemClockFrequency variable.
+ 158:../firmware/CMSIS/device/system_n32g430.c **** *\*\param   none.
+ 159:../firmware/CMSIS/device/system_n32g430.c **** *\*\return  none
+ 160:../firmware/CMSIS/device/system_n32g430.c **** *\*\note    This function should be used only after reset.
+ 161:../firmware/CMSIS/device/system_n32g430.c **** **/
+ 162:../firmware/CMSIS/device/system_n32g430.c **** void System_Initializes(void)
+ 163:../firmware/CMSIS/device/system_n32g430.c **** {
+  29              		.loc 1 163 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 16
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+ 164:../firmware/CMSIS/device/system_n32g430.c ****     /* FPU settings */
+ 165:../firmware/CMSIS/device/system_n32g430.c **** #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)
+ 166:../firmware/CMSIS/device/system_n32g430.c ****     /* set CP10 and CP11 Full Access */
+ 167:../firmware/CMSIS/device/system_n32g430.c ****     SCB->CPACR |= ((3UL << 10 * 2) | (3UL << 11 * 2)); 
+  34              		.loc 1 167 5 view .LVU1
+  35              		.loc 1 167 8 is_stmt 0 view .LVU2
+  36 0000 534A     		ldr	r2, .L12
+  37 0002 D2F88830 		ldr	r3, [r2, #136]
+  38              		.loc 1 167 16 view .LVU3
+  39 0006 43F47003 		orr	r3, r3, #15728640
+ 163:../firmware/CMSIS/device/system_n32g430.c ****     /* FPU settings */
+  40              		.loc 1 163 1 view .LVU4
+  41 000a 84B0     		sub	sp, sp, #16
+  42              	.LCFI0:
+  43              		.cfi_def_cfa_offset 16
+  44              		.loc 1 167 16 view .LVU5
+  45 000c C2F88830 		str	r3, [r2, #136]
+ 168:../firmware/CMSIS/device/system_n32g430.c **** #endif
+ 169:../firmware/CMSIS/device/system_n32g430.c **** 
+ 170:../firmware/CMSIS/device/system_n32g430.c ****     /* Reset the RCC clock configuration to the default reset state(for debug purpose) */
+ 171:../firmware/CMSIS/device/system_n32g430.c ****    /* Set HSIEN bit */
+ 172:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CTRL |= RCC_CTRL_HSIEN;            
+  46              		.loc 1 172 5 is_stmt 1 view .LVU6
+  47              		.loc 1 172 8 is_stmt 0 view .LVU7
+  48 0010 504B     		ldr	r3, .L12+4
+  49 0012 1A68     		ldr	r2, [r3]
+  50              		.loc 1 172 15 view .LVU8
+  51 0014 42F00102 		orr	r2, r2, #1
+  52 0018 1A60     		str	r2, [r3]
+ 173:../firmware/CMSIS/device/system_n32g430.c **** 
+ 174:../firmware/CMSIS/device/system_n32g430.c ****     /* Reset SCLKSW, AHBPRES, APB1PRES, APB2PRES and MCO bits */   
+ 175:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CFG &= ~(RCC_CFG_SCLKSW|RCC_CFG_AHBPRES|RCC_CFG_APB1PRES|RCC_CFG_APB2PRES|RCC_CFG_MCO);
+  53              		.loc 1 175 5 is_stmt 1 view .LVU9
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 5
+
+
+  54              		.loc 1 175 8 is_stmt 0 view .LVU10
+  55 001a 5968     		ldr	r1, [r3, #4]
+  56              		.loc 1 175 14 view .LVU11
+  57 001c 4E4A     		ldr	r2, .L12+8
+  58 001e 0A40     		ands	r2, r2, r1
+  59 0020 5A60     		str	r2, [r3, #4]
+ 176:../firmware/CMSIS/device/system_n32g430.c **** 
+ 177:../firmware/CMSIS/device/system_n32g430.c ****     /* Reset HSEEN, CLKSSEN and PLLEN bits */
+ 178:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CTRL &= ~(RCC_CTRL_HSEEN|RCC_CTRL_CLKSSEN|RCC_CTRL_PLLEN);
+  60              		.loc 1 178 5 is_stmt 1 view .LVU12
+  61              		.loc 1 178 8 is_stmt 0 view .LVU13
+  62 0022 1A68     		ldr	r2, [r3]
+ 179:../firmware/CMSIS/device/system_n32g430.c **** 
+ 180:../firmware/CMSIS/device/system_n32g430.c ****     /* Reset HSEBP bit */
+ 181:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CTRL &= ~RCC_CTRL_HSEBP;
+ 182:../firmware/CMSIS/device/system_n32g430.c **** 
+ 183:../firmware/CMSIS/device/system_n32g430.c ****     /* Reset PLLSRC, PLLHSEPRES, PLLMULFCT bits */
+ 184:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CFG &= ~(RCC_CFG_PLLSRC|RCC_CFG_PLLHSEPRES|RCC_CFG_PLLMULFCT);
+ 185:../firmware/CMSIS/device/system_n32g430.c **** 
+ 186:../firmware/CMSIS/device/system_n32g430.c ****     /* Reset CFG2 register */
+ 187:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CFG2 = RCC_CFG2_ADC1MPRES_DIV8;
+ 188:../firmware/CMSIS/device/system_n32g430.c **** 
+ 189:../firmware/CMSIS/device/system_n32g430.c ****     /* Reset CFG3 register */
+ 190:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CFG3 = REG_BIT_MASK;
+ 191:../firmware/CMSIS/device/system_n32g430.c **** 
+ 192:../firmware/CMSIS/device/system_n32g430.c ****     /* Reset PLLHSIPRE register */
+ 193:../firmware/CMSIS/device/system_n32g430.c ****     RCC->PLLHSIPRE = REG_BIT_MASK;
+ 194:../firmware/CMSIS/device/system_n32g430.c **** 
+ 195:../firmware/CMSIS/device/system_n32g430.c ****     /* Disable all interrupts and clear pending bits  */
+ 196:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CLKINT = (RCC_CLKINT_LSIRDICLR|RCC_CLKINT_LSERDICLR|RCC_CLKINT_HSIRDICLR
+  63              		.loc 1 196 17 view .LVU14
+  64 0024 4D49     		ldr	r1, .L12+12
+ 178:../firmware/CMSIS/device/system_n32g430.c **** 
+  65              		.loc 1 178 15 view .LVU15
+  66 0026 22F08472 		bic	r2, r2, #17301504
+  67 002a 22F48032 		bic	r2, r2, #65536
+  68 002e 1A60     		str	r2, [r3]
+ 181:../firmware/CMSIS/device/system_n32g430.c **** 
+  69              		.loc 1 181 5 is_stmt 1 view .LVU16
+ 181:../firmware/CMSIS/device/system_n32g430.c **** 
+  70              		.loc 1 181 8 is_stmt 0 view .LVU17
+  71 0030 1A68     		ldr	r2, [r3]
+ 181:../firmware/CMSIS/device/system_n32g430.c **** 
+  72              		.loc 1 181 15 view .LVU18
+  73 0032 22F48022 		bic	r2, r2, #262144
+  74 0036 1A60     		str	r2, [r3]
+ 184:../firmware/CMSIS/device/system_n32g430.c **** 
+  75              		.loc 1 184 5 is_stmt 1 view .LVU19
+ 184:../firmware/CMSIS/device/system_n32g430.c **** 
+  76              		.loc 1 184 8 is_stmt 0 view .LVU20
+  77 0038 5A68     		ldr	r2, [r3, #4]
+ 184:../firmware/CMSIS/device/system_n32g430.c **** 
+  78              		.loc 1 184 14 view .LVU21
+  79 003a 22F00362 		bic	r2, r2, #137363456
+  80 003e 22F47022 		bic	r2, r2, #983040
+  81 0042 5A60     		str	r2, [r3, #4]
+ 187:../firmware/CMSIS/device/system_n32g430.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 6
+
+
+  82              		.loc 1 187 5 is_stmt 1 view .LVU22
+ 187:../firmware/CMSIS/device/system_n32g430.c **** 
+  83              		.loc 1 187 15 is_stmt 0 view .LVU23
+  84 0044 4FF46052 		mov	r2, #14336
+  85 0048 DA62     		str	r2, [r3, #44]
+ 190:../firmware/CMSIS/device/system_n32g430.c **** 
+  86              		.loc 1 190 5 is_stmt 1 view .LVU24
+ 190:../firmware/CMSIS/device/system_n32g430.c **** 
+  87              		.loc 1 190 15 is_stmt 0 view .LVU25
+  88 004a 0022     		movs	r2, #0
+  89 004c 1A63     		str	r2, [r3, #48]
+ 193:../firmware/CMSIS/device/system_n32g430.c **** 
+  90              		.loc 1 193 5 is_stmt 1 view .LVU26
+ 193:../firmware/CMSIS/device/system_n32g430.c **** 
+  91              		.loc 1 193 20 is_stmt 0 view .LVU27
+  92 004e 1A64     		str	r2, [r3, #64]
+  93              		.loc 1 196 5 is_stmt 1 view .LVU28
+  94              		.loc 1 196 17 is_stmt 0 view .LVU29
+  95 0050 9960     		str	r1, [r3, #8]
+ 197:../firmware/CMSIS/device/system_n32g430.c ****                   |RCC_CLKINT_HSERDICLR|RCC_CLKINT_PLLRDICLR|RCC_CLKINT_BORICLR
+ 198:../firmware/CMSIS/device/system_n32g430.c ****                   |RCC_CLKINT_CLKSSICLR|RCC_CLKINT_LSESSICLR);
+ 199:../firmware/CMSIS/device/system_n32g430.c **** 
+ 200:../firmware/CMSIS/device/system_n32g430.c ****     RCC->APB1PCLKEN |= RCC_APB1PCLKEN_PWREN;
+  96              		.loc 1 200 5 is_stmt 1 view .LVU30
+  97              		.loc 1 200 8 is_stmt 0 view .LVU31
+  98 0052 D969     		ldr	r1, [r3, #28]
+  99              		.loc 1 200 21 view .LVU32
+ 100 0054 41F08051 		orr	r1, r1, #268435456
+ 101 0058 D961     		str	r1, [r3, #28]
+ 201:../firmware/CMSIS/device/system_n32g430.c ****     RCC->APB1PCLKEN &= (uint32_t)(~RCC_APB1PCLKEN_PWREN);
+ 102              		.loc 1 201 5 is_stmt 1 view .LVU33
+ 103              		.loc 1 201 8 is_stmt 0 view .LVU34
+ 104 005a D969     		ldr	r1, [r3, #28]
+ 105              		.loc 1 201 21 view .LVU35
+ 106 005c 21F08051 		bic	r1, r1, #268435456
+ 107 0060 D961     		str	r1, [r3, #28]
+ 202:../firmware/CMSIS/device/system_n32g430.c **** 
+ 203:../firmware/CMSIS/device/system_n32g430.c ****     /* Enable ICACHE and Disable Prefetch Buffer */
+ 204:../firmware/CMSIS/device/system_n32g430.c ****      FLASH->AC |= (uint32_t)(FLASH_AC_ICAHEN);
+ 108              		.loc 1 204 6 is_stmt 1 view .LVU36
+ 109              		.loc 1 204 11 is_stmt 0 view .LVU37
+ 110 0062 3F49     		ldr	r1, .L12+16
+ 111 0064 0868     		ldr	r0, [r1]
+ 112              		.loc 1 204 16 view .LVU38
+ 113 0066 40F08000 		orr	r0, r0, #128
+ 114 006a 0860     		str	r0, [r1]
+ 205:../firmware/CMSIS/device/system_n32g430.c ****      FLASH->AC &= (~((uint32_t)FLASH_AC_PRFTBFEN));
+ 115              		.loc 1 205 6 is_stmt 1 view .LVU39
+ 116              		.loc 1 205 11 is_stmt 0 view .LVU40
+ 117 006c 0868     		ldr	r0, [r1]
+ 118              		.loc 1 205 16 view .LVU41
+ 119 006e 20F01000 		bic	r0, r0, #16
+ 120 0072 0860     		str	r0, [r1]
+ 206:../firmware/CMSIS/device/system_n32g430.c **** 
+ 207:../firmware/CMSIS/device/system_n32g430.c **** #ifdef DATA_IN_ExtSRAM
+ 208:../firmware/CMSIS/device/system_n32g430.c ****     SystemInit_ExtMemCtl();
+ 209:../firmware/CMSIS/device/system_n32g430.c **** #endif /* DATA_IN_ExtSRAM */
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 7
+
+
+ 210:../firmware/CMSIS/device/system_n32g430.c **** 
+ 211:../firmware/CMSIS/device/system_n32g430.c ****     /* Configure the System clock frequency, HCLK, PCLK2 and PCLK1 prescalers */
+ 212:../firmware/CMSIS/device/system_n32g430.c ****     /* Configure the Flash Latency cycles and enable prefetch buffer */
+ 213:../firmware/CMSIS/device/system_n32g430.c ****     System_Clock_Set();
+ 121              		.loc 1 213 5 is_stmt 1 view .LVU42
+ 122              	.LBB4:
+ 123              	.LBI4:
+ 214:../firmware/CMSIS/device/system_n32g430.c **** 
+ 215:../firmware/CMSIS/device/system_n32g430.c **** #ifdef VECT_TAB_SRAM
+ 216:../firmware/CMSIS/device/system_n32g430.c ****     SCB->VTOR = SRAM_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM. */
+ 217:../firmware/CMSIS/device/system_n32g430.c **** #else
+ 218:../firmware/CMSIS/device/system_n32g430.c ****     SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH. */
+ 219:../firmware/CMSIS/device/system_n32g430.c **** #endif
+ 220:../firmware/CMSIS/device/system_n32g430.c **** }
+ 221:../firmware/CMSIS/device/system_n32g430.c **** 
+ 222:../firmware/CMSIS/device/system_n32g430.c **** /**
+ 223:../firmware/CMSIS/device/system_n32g430.c **** *\*\name    System_Clock_Frequency_Update.
+ 224:../firmware/CMSIS/device/system_n32g430.c **** *\*\fun     Update SystemClockFrequency variable according to Clock Register Values.
+ 225:../firmware/CMSIS/device/system_n32g430.c **** *\*\         The SystemClockFrequency variable contains the core clock (HCLK), it can
+ 226:../firmware/CMSIS/device/system_n32g430.c **** *\*\         be used by the user application to setup the SysTick timer or
+ 227:../firmware/CMSIS/device/system_n32g430.c **** *\*\         configure other parameters.
+ 228:../firmware/CMSIS/device/system_n32g430.c **** *\*\param   none.
+ 229:../firmware/CMSIS/device/system_n32g430.c **** *\*\return  none
+ 230:../firmware/CMSIS/device/system_n32g430.c **** *\*\note    Each time the core clock (HCLK) changes, this function must be called
+ 231:../firmware/CMSIS/device/system_n32g430.c **** *\*\         to update SystemClockFrequency variable value. Otherwise, any
+ 232:../firmware/CMSIS/device/system_n32g430.c **** *\*\         configuration based on this variable will be incorrect.
+ 233:../firmware/CMSIS/device/system_n32g430.c **** *\*\
+ 234:../firmware/CMSIS/device/system_n32g430.c **** *\*\note    The system frequency computed by this function is not the real
+ 235:../firmware/CMSIS/device/system_n32g430.c **** *\*\         frequency in the chip. It is calculated based on the predefined
+ 236:../firmware/CMSIS/device/system_n32g430.c **** *\*\         constant and the selected clock source:
+ 237:../firmware/CMSIS/device/system_n32g430.c **** *\*\
+ 238:../firmware/CMSIS/device/system_n32g430.c **** *\*\           - If SYSCLK source is HSI, SystemClockFrequency will contain the HSI_VALUE
+ 239:../firmware/CMSIS/device/system_n32g430.c **** *\*\
+ 240:../firmware/CMSIS/device/system_n32g430.c **** *\*\           - If SYSCLK source is HSE, SystemClockFrequency will contain the HSE_VALUE
+ 241:../firmware/CMSIS/device/system_n32g430.c **** *\*\
+ 242:../firmware/CMSIS/device/system_n32g430.c **** *\*\           - If SYSCLK source is PLL, SystemClockFrequency will contain the
+ 243:../firmware/CMSIS/device/system_n32g430.c **** *\*\             HSE_VALUE or HSI_VALUE multiplied by the PLL factors.
+ 244:../firmware/CMSIS/device/system_n32g430.c **** *\*\
+ 245:../firmware/CMSIS/device/system_n32g430.c **** *\*\          HSI_VALUE is a constant defined in n32g430.h file (default value
+ 246:../firmware/CMSIS/device/system_n32g430.c **** *\*\             8 MHz) but the real value may vary depending on the variations
+ 247:../firmware/CMSIS/device/system_n32g430.c **** *\*\             in voltage and temperature.
+ 248:../firmware/CMSIS/device/system_n32g430.c **** *\*\
+ 249:../firmware/CMSIS/device/system_n32g430.c **** *\*\          HSE_VALUE is a constant defined in N32G430.h file (default value
+ 250:../firmware/CMSIS/device/system_n32g430.c **** *\*\              8 MHz, depedning on the product used), user has to ensure
+ 251:../firmware/CMSIS/device/system_n32g430.c **** *\*\              that HSE_VALUE is same as the real frequency of the crystal used.
+ 252:../firmware/CMSIS/device/system_n32g430.c **** *\*\              Otherwise, this function may have wrong result.
+ 253:../firmware/CMSIS/device/system_n32g430.c **** *\*\
+ 254:../firmware/CMSIS/device/system_n32g430.c **** *\*\         - The result of this function could be not correct when using
+ 255:../firmware/CMSIS/device/system_n32g430.c **** *\*\ fractional value for HSE crystal.
+ 256:../firmware/CMSIS/device/system_n32g430.c **** **/
+ 257:../firmware/CMSIS/device/system_n32g430.c **** void System_Clock_Frequency_Update(void)
+ 258:../firmware/CMSIS/device/system_n32g430.c **** {
+ 259:../firmware/CMSIS/device/system_n32g430.c ****     uint32_t temp_value = SYSCLOCK_SRC_HSI;
+ 260:../firmware/CMSIS/device/system_n32g430.c ****     uint32_t pllmull_value = 0, pllsource_value = 0;
+ 261:../firmware/CMSIS/device/system_n32g430.c **** 
+ 262:../firmware/CMSIS/device/system_n32g430.c ****     /* Get SYSCLK source
+ 263:../firmware/CMSIS/device/system_n32g430.c ****      * -------------------------------------------------------*/
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 8
+
+
+ 264:../firmware/CMSIS/device/system_n32g430.c ****     temp_value = RCC->CFG & RCC_CFG_SCLKSTS;
+ 265:../firmware/CMSIS/device/system_n32g430.c **** 
+ 266:../firmware/CMSIS/device/system_n32g430.c ****     switch (temp_value)
+ 267:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 268:../firmware/CMSIS/device/system_n32g430.c ****         case SYSCLOCK_SRC_HSI: /* HSI used as system clock */
+ 269:../firmware/CMSIS/device/system_n32g430.c ****             SystemClockFrequency = HSI_VALUE;
+ 270:../firmware/CMSIS/device/system_n32g430.c ****             break;
+ 271:../firmware/CMSIS/device/system_n32g430.c ****         case SYSCLOCK_SRC_HSE: /* HSE used as system clock */
+ 272:../firmware/CMSIS/device/system_n32g430.c ****             SystemClockFrequency = HSE_VALUE;
+ 273:../firmware/CMSIS/device/system_n32g430.c ****             break;
+ 274:../firmware/CMSIS/device/system_n32g430.c ****         case SYSCLOCK_SRC_PLL: /* PLL used as system clock */
+ 275:../firmware/CMSIS/device/system_n32g430.c **** 
+ 276:../firmware/CMSIS/device/system_n32g430.c ****             /* Get PLL clock source and multiplication factor
+ 277:../firmware/CMSIS/device/system_n32g430.c ****              * ----------------------*/
+ 278:../firmware/CMSIS/device/system_n32g430.c ****             pllmull_value   = RCC->CFG & RCC_CFG_PLLMULFCT;
+ 279:../firmware/CMSIS/device/system_n32g430.c ****             pllsource_value = RCC->CFG & RCC_CFG_PLLSRC;
+ 280:../firmware/CMSIS/device/system_n32g430.c **** 
+ 281:../firmware/CMSIS/device/system_n32g430.c ****             if ((pllmull_value & RCC_CFG_PLLMULFCT_4) == 0)
+ 282:../firmware/CMSIS/device/system_n32g430.c ****             {
+ 283:../firmware/CMSIS/device/system_n32g430.c ****                 // PLLMULFCT[4] = 0
+ 284:../firmware/CMSIS/device/system_n32g430.c ****                 pllmull_value = (pllmull_value >> 18) + 2; 
+ 285:../firmware/CMSIS/device/system_n32g430.c ****             }
+ 286:../firmware/CMSIS/device/system_n32g430.c ****             else
+ 287:../firmware/CMSIS/device/system_n32g430.c ****             {
+ 288:../firmware/CMSIS/device/system_n32g430.c ****                 // PLLMULFCT[4] = 1
+ 289:../firmware/CMSIS/device/system_n32g430.c ****                 pllmull_value = ((pllmull_value >> 18) - 496) + 1; 
+ 290:../firmware/CMSIS/device/system_n32g430.c ****             }
+ 291:../firmware/CMSIS/device/system_n32g430.c **** 
+ 292:../firmware/CMSIS/device/system_n32g430.c ****             if (pllsource_value == 0x00)
+ 293:../firmware/CMSIS/device/system_n32g430.c ****             {
+ 294:../firmware/CMSIS/device/system_n32g430.c ****                  /* HSI selected as PLL clock entry */
+ 295:../firmware/CMSIS/device/system_n32g430.c ****                 if ((RCC->PLLHSIPRE & RCC_PLLHSIPRE_PLLHSIPRE) != (uint32_t)RESET)
+ 296:../firmware/CMSIS/device/system_n32g430.c ****                 { /* HSI oscillator clock divided by 2 */
+ 297:../firmware/CMSIS/device/system_n32g430.c ****                     SystemClockFrequency = (HSI_VALUE >> 1) * pllmull_value;
+ 298:../firmware/CMSIS/device/system_n32g430.c ****                 }
+ 299:../firmware/CMSIS/device/system_n32g430.c ****                 else
+ 300:../firmware/CMSIS/device/system_n32g430.c ****                 {
+ 301:../firmware/CMSIS/device/system_n32g430.c ****                     SystemClockFrequency = HSI_VALUE * pllmull_value;
+ 302:../firmware/CMSIS/device/system_n32g430.c ****                 }
+ 303:../firmware/CMSIS/device/system_n32g430.c ****             }
+ 304:../firmware/CMSIS/device/system_n32g430.c ****             else
+ 305:../firmware/CMSIS/device/system_n32g430.c ****             {
+ 306:../firmware/CMSIS/device/system_n32g430.c ****                 /* HSE selected as PLL clock entry */
+ 307:../firmware/CMSIS/device/system_n32g430.c ****                 if ((RCC->CFG & RCC_CFG_PLLHSEPRES) != (uint32_t)RESET)
+ 308:../firmware/CMSIS/device/system_n32g430.c ****                 { /* HSE oscillator clock divided by 2 */
+ 309:../firmware/CMSIS/device/system_n32g430.c ****                     SystemClockFrequency = (HSE_VALUE >> 1) * pllmull_value;
+ 310:../firmware/CMSIS/device/system_n32g430.c ****                 }
+ 311:../firmware/CMSIS/device/system_n32g430.c ****                 else
+ 312:../firmware/CMSIS/device/system_n32g430.c ****                 {
+ 313:../firmware/CMSIS/device/system_n32g430.c ****                     SystemClockFrequency = HSE_VALUE * pllmull_value;
+ 314:../firmware/CMSIS/device/system_n32g430.c ****                 }
+ 315:../firmware/CMSIS/device/system_n32g430.c ****             }
+ 316:../firmware/CMSIS/device/system_n32g430.c **** 
+ 317:../firmware/CMSIS/device/system_n32g430.c ****             break;
+ 318:../firmware/CMSIS/device/system_n32g430.c **** 
+ 319:../firmware/CMSIS/device/system_n32g430.c ****         default:
+ 320:../firmware/CMSIS/device/system_n32g430.c ****             SystemClockFrequency = HSI_VALUE;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 9
+
+
+ 321:../firmware/CMSIS/device/system_n32g430.c ****         break;
+ 322:../firmware/CMSIS/device/system_n32g430.c ****     }
+ 323:../firmware/CMSIS/device/system_n32g430.c **** 
+ 324:../firmware/CMSIS/device/system_n32g430.c ****     /* Compute HCLK clock frequency ----------------*/
+ 325:../firmware/CMSIS/device/system_n32g430.c ****     /* Get HCLK prescaler */
+ 326:../firmware/CMSIS/device/system_n32g430.c ****     temp_value = AHBPrescTable[((RCC->CFG & RCC_CFG_AHBPRES) >> 4)];
+ 327:../firmware/CMSIS/device/system_n32g430.c ****     /* HCLK clock frequency */
+ 328:../firmware/CMSIS/device/system_n32g430.c ****     SystemClockFrequency >>= temp_value;
+ 329:../firmware/CMSIS/device/system_n32g430.c **** }
+ 330:../firmware/CMSIS/device/system_n32g430.c **** 
+ 331:../firmware/CMSIS/device/system_n32g430.c **** /**
+ 332:../firmware/CMSIS/device/system_n32g430.c **** *\*\name    System_Clock_Set.
+ 333:../firmware/CMSIS/device/system_n32g430.c **** *\*\fun     Configures the System clock frequency, HCLK, PCLK2 and PCLK1 prescalers.
+ 334:../firmware/CMSIS/device/system_n32g430.c **** *\*\param   none.
+ 335:../firmware/CMSIS/device/system_n32g430.c **** *\*\return  none
+ 336:../firmware/CMSIS/device/system_n32g430.c **** **/
+ 337:../firmware/CMSIS/device/system_n32g430.c **** static void System_Clock_Set(void)
+ 124              		.loc 1 337 13 view .LVU43
+ 125              	.LBB5:
+ 338:../firmware/CMSIS/device/system_n32g430.c **** {
+ 339:../firmware/CMSIS/device/system_n32g430.c ****     volatile uint32_t temp_value,temp_value1 = 0;
+ 126              		.loc 1 339 5 view .LVU44
+ 127              		.loc 1 339 34 is_stmt 0 view .LVU45
+ 128 0074 0292     		str	r2, [sp, #8]
+ 340:../firmware/CMSIS/device/system_n32g430.c ****     volatile bool status_value      = 0;
+ 129              		.loc 1 340 5 is_stmt 1 view .LVU46
+ 130              		.loc 1 340 19 is_stmt 0 view .LVU47
+ 131 0076 8DF80320 		strb	r2, [sp, #3]
+ 341:../firmware/CMSIS/device/system_n32g430.c ****     volatile uint32_t counter_value = 0;
+ 132              		.loc 1 341 5 is_stmt 1 view .LVU48
+ 133              		.loc 1 341 23 is_stmt 0 view .LVU49
+ 134 007a 0392     		str	r2, [sp, #12]
+ 342:../firmware/CMSIS/device/system_n32g430.c **** 
+ 343:../firmware/CMSIS/device/system_n32g430.c **** #if ((SYSCLK_SRC == SYSCLK_USE_HSI) || (SYSCLK_SRC == SYSCLK_USE_HSI_PLL))
+ 344:../firmware/CMSIS/device/system_n32g430.c **** 
+ 345:../firmware/CMSIS/device/system_n32g430.c ****     /* Enable HSI */
+ 346:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CTRL |= ((uint32_t)RCC_CTRL_HSIEN);
+ 347:../firmware/CMSIS/device/system_n32g430.c **** 
+ 348:../firmware/CMSIS/device/system_n32g430.c ****     /* Wait till HSI is ready and if Time out is reached exit */
+ 349:../firmware/CMSIS/device/system_n32g430.c ****     do
+ 350:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 351:../firmware/CMSIS/device/system_n32g430.c ****         status_value = RCC->CTRL & RCC_CTRL_HSIRDF;
+ 352:../firmware/CMSIS/device/system_n32g430.c ****         counter_value++;
+ 353:../firmware/CMSIS/device/system_n32g430.c ****     } while ((status_value == 0) && (counter_value != HSI_STARTUP_TIMEOUT));
+ 354:../firmware/CMSIS/device/system_n32g430.c **** 
+ 355:../firmware/CMSIS/device/system_n32g430.c ****     status_value = ((RCC->CTRL & RCC_CTRL_HSIRDF) != RESET);
+ 356:../firmware/CMSIS/device/system_n32g430.c ****     if (!status_value)
+ 357:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 358:../firmware/CMSIS/device/system_n32g430.c ****         /* If HSI fails to start-up, the application will have wrong clock
+ 359:../firmware/CMSIS/device/system_n32g430.c ****          * configuration. User can add here some code to deal with this error */
+ 360:../firmware/CMSIS/device/system_n32g430.c ****         SystemClockFrequency = HSI_VALUE;
+ 361:../firmware/CMSIS/device/system_n32g430.c ****         return;
+ 362:../firmware/CMSIS/device/system_n32g430.c ****     }
+ 363:../firmware/CMSIS/device/system_n32g430.c **** 
+ 364:../firmware/CMSIS/device/system_n32g430.c **** #elif SYSCLK_SRC == SYSCLK_USE_HSE || SYSCLK_SRC == SYSCLK_USE_HSE_PLL
+ 365:../firmware/CMSIS/device/system_n32g430.c **** 
+ 366:../firmware/CMSIS/device/system_n32g430.c ****     /* Enable HSE */
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 10
+
+
+ 367:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CTRL |= ((uint32_t)RCC_CTRL_HSEEN);
+ 135              		.loc 1 367 5 is_stmt 1 view .LVU50
+ 136              		.loc 1 367 8 is_stmt 0 view .LVU51
+ 137 007c 1A68     		ldr	r2, [r3]
+ 138              		.loc 1 367 15 view .LVU52
+ 139 007e 42F48032 		orr	r2, r2, #65536
+ 140 0082 1A60     		str	r2, [r3]
+ 141              	.L3:
+ 368:../firmware/CMSIS/device/system_n32g430.c **** 
+ 369:../firmware/CMSIS/device/system_n32g430.c ****     /* Wait till HSE is ready and if Time out is reached exit */
+ 370:../firmware/CMSIS/device/system_n32g430.c ****     do
+ 142              		.loc 1 370 5 is_stmt 1 view .LVU53
+ 371:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 372:../firmware/CMSIS/device/system_n32g430.c ****         status_value = RCC->CTRL & RCC_CTRL_HSERDF;
+ 143              		.loc 1 372 9 view .LVU54
+ 144              		.loc 1 372 27 is_stmt 0 view .LVU55
+ 145 0084 1A68     		ldr	r2, [r3]
+ 146              		.loc 1 372 9 view .LVU56
+ 147 0086 C2F34042 		ubfx	r2, r2, #17, #1
+ 148              		.loc 1 372 22 view .LVU57
+ 149 008a 8DF80320 		strb	r2, [sp, #3]
+ 373:../firmware/CMSIS/device/system_n32g430.c ****         counter_value++;
+ 150              		.loc 1 373 9 is_stmt 1 view .LVU58
+ 151              		.loc 1 373 22 is_stmt 0 view .LVU59
+ 152 008e 039A     		ldr	r2, [sp, #12]
+ 153 0090 0132     		adds	r2, r2, #1
+ 154 0092 0392     		str	r2, [sp, #12]
+ 374:../firmware/CMSIS/device/system_n32g430.c ****     } while ((status_value == 0) && (counter_value != HSE_STARTUP_TIMEOUT));
+ 155              		.loc 1 374 34 is_stmt 1 discriminator 2 view .LVU60
+ 156              		.loc 1 374 28 is_stmt 0 discriminator 2 view .LVU61
+ 157 0094 9DF80320 		ldrb	r2, [sp, #3]	@ zero_extendqisi2
+ 158              		.loc 1 374 34 discriminator 2 view .LVU62
+ 159 0098 1AB9     		cbnz	r2, .L2
+ 160              		.loc 1 374 52 discriminator 1 view .LVU63
+ 161 009a 039A     		ldr	r2, [sp, #12]
+ 162              		.loc 1 374 34 discriminator 1 view .LVU64
+ 163 009c B2F5005F 		cmp	r2, #8192
+ 164 00a0 F0D1     		bne	.L3
+ 165              	.L2:
+ 375:../firmware/CMSIS/device/system_n32g430.c **** 
+ 376:../firmware/CMSIS/device/system_n32g430.c ****     status_value = ((RCC->CTRL & RCC_CTRL_HSERDF) != RESET);
+ 166              		.loc 1 376 5 is_stmt 1 view .LVU65
+ 167              		.loc 1 376 25 is_stmt 0 view .LVU66
+ 168 00a2 1A68     		ldr	r2, [r3]
+ 169              		.loc 1 376 5 view .LVU67
+ 170 00a4 C2F34042 		ubfx	r2, r2, #17, #1
+ 171              		.loc 1 376 18 view .LVU68
+ 172 00a8 8DF80320 		strb	r2, [sp, #3]
+ 377:../firmware/CMSIS/device/system_n32g430.c ****     if (!status_value)
+ 173              		.loc 1 377 5 is_stmt 1 view .LVU69
+ 174              		.loc 1 377 9 is_stmt 0 view .LVU70
+ 175 00ac 9DF80320 		ldrb	r2, [sp, #3]	@ zero_extendqisi2
+ 176              		.loc 1 377 8 view .LVU71
+ 177 00b0 42B9     		cbnz	r2, .L4
+ 378:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 379:../firmware/CMSIS/device/system_n32g430.c ****         /* If HSE fails to start-up, the application will have wrong clock
+ 380:../firmware/CMSIS/device/system_n32g430.c ****          * configuration. User can add here some code to deal with this error */
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 11
+
+
+ 381:../firmware/CMSIS/device/system_n32g430.c ****         SystemClockFrequency = HSI_VALUE;
+ 178              		.loc 1 381 9 is_stmt 1 view .LVU72
+ 179              		.loc 1 381 30 is_stmt 0 view .LVU73
+ 180 00b2 2C4B     		ldr	r3, .L12+20
+ 181 00b4 2C4A     		ldr	r2, .L12+24
+ 182 00b6 1A60     		str	r2, [r3]
+ 382:../firmware/CMSIS/device/system_n32g430.c ****         return;
+ 183              		.loc 1 382 9 is_stmt 1 view .LVU74
+ 184              	.L5:
+ 185              	.LBE5:
+ 186              	.LBE4:
+ 218:../firmware/CMSIS/device/system_n32g430.c **** #endif
+ 187              		.loc 1 218 5 view .LVU75
+ 218:../firmware/CMSIS/device/system_n32g430.c **** #endif
+ 188              		.loc 1 218 15 is_stmt 0 view .LVU76
+ 189 00b8 254B     		ldr	r3, .L12
+ 190 00ba 4FF00062 		mov	r2, #134217728
+ 191 00be 9A60     		str	r2, [r3, #8]
+ 220:../firmware/CMSIS/device/system_n32g430.c **** 
+ 192              		.loc 1 220 1 view .LVU77
+ 193 00c0 04B0     		add	sp, sp, #16
+ 194              	.LCFI1:
+ 195              		.cfi_remember_state
+ 196              		.cfi_def_cfa_offset 0
+ 197              		@ sp needed
+ 198 00c2 7047     		bx	lr
+ 199              	.L4:
+ 200              	.LCFI2:
+ 201              		.cfi_restore_state
+ 202              	.LBB7:
+ 203              	.LBB6:
+ 383:../firmware/CMSIS/device/system_n32g430.c ****     }
+ 384:../firmware/CMSIS/device/system_n32g430.c **** #endif
+ 385:../firmware/CMSIS/device/system_n32g430.c **** 
+ 386:../firmware/CMSIS/device/system_n32g430.c ****     /* Flash wait state
+ 387:../firmware/CMSIS/device/system_n32g430.c ****         0: HCLK < 50M
+ 388:../firmware/CMSIS/device/system_n32g430.c ****         1: HCLK < 100M
+ 389:../firmware/CMSIS/device/system_n32g430.c ****         2: HCLK <= 128M
+ 390:../firmware/CMSIS/device/system_n32g430.c ****      */
+ 391:../firmware/CMSIS/device/system_n32g430.c ****     FLASH->AC &= (uint32_t)((uint32_t)~FLASH_AC_LATENCY);
+ 204              		.loc 1 391 5 is_stmt 1 view .LVU78
+ 205              		.loc 1 391 10 is_stmt 0 view .LVU79
+ 206 00c4 264A     		ldr	r2, .L12+16
+ 207 00c6 1168     		ldr	r1, [r2]
+ 208              		.loc 1 391 15 view .LVU80
+ 209 00c8 21F00701 		bic	r1, r1, #7
+ 210 00cc 1160     		str	r1, [r2]
+ 392:../firmware/CMSIS/device/system_n32g430.c ****     FLASH->AC |= (uint32_t)(SYSCLK_FREQ / SYSCLK_FREQ_50M);
+ 211              		.loc 1 392 5 is_stmt 1 view .LVU81
+ 212              		.loc 1 392 10 is_stmt 0 view .LVU82
+ 213 00ce 1168     		ldr	r1, [r2]
+ 214              		.loc 1 392 15 view .LVU83
+ 215 00d0 41F00201 		orr	r1, r1, #2
+ 216 00d4 1160     		str	r1, [r2]
+ 393:../firmware/CMSIS/device/system_n32g430.c **** 
+ 394:../firmware/CMSIS/device/system_n32g430.c ****     /* HCLK = SYSCLK */
+ 395:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CFG |= (uint32_t)RCC_CFG_AHBPRES_DIV1;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 12
+
+
+ 217              		.loc 1 395 5 is_stmt 1 view .LVU84
+ 218              		.loc 1 395 8 is_stmt 0 view .LVU85
+ 219 00d6 5A68     		ldr	r2, [r3, #4]
+ 220              		.loc 1 395 14 view .LVU86
+ 221 00d8 5A60     		str	r2, [r3, #4]
+ 396:../firmware/CMSIS/device/system_n32g430.c **** 
+ 397:../firmware/CMSIS/device/system_n32g430.c ****     /* PCLK2 max 64M */
+ 398:../firmware/CMSIS/device/system_n32g430.c ****     if (SYSCLK_FREQ > SYSCLK_FREQ_64M) 
+ 222              		.loc 1 398 5 is_stmt 1 view .LVU87
+ 399:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 400:../firmware/CMSIS/device/system_n32g430.c ****         RCC->CFG |= (uint32_t)RCC_CFG_APB2PRES_DIV2;
+ 223              		.loc 1 400 9 view .LVU88
+ 224              		.loc 1 400 12 is_stmt 0 view .LVU89
+ 225 00da 5A68     		ldr	r2, [r3, #4]
+ 226              		.loc 1 400 18 view .LVU90
+ 227 00dc 42F40052 		orr	r2, r2, #8192
+ 228 00e0 5A60     		str	r2, [r3, #4]
+ 401:../firmware/CMSIS/device/system_n32g430.c ****     }
+ 402:../firmware/CMSIS/device/system_n32g430.c ****     else
+ 403:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 404:../firmware/CMSIS/device/system_n32g430.c ****         RCC->CFG |= (uint32_t)RCC_CFG_APB2PRES_DIV1;
+ 405:../firmware/CMSIS/device/system_n32g430.c ****     }
+ 406:../firmware/CMSIS/device/system_n32g430.c **** 
+ 407:../firmware/CMSIS/device/system_n32g430.c ****     /* PCLK1 max 32M */
+ 408:../firmware/CMSIS/device/system_n32g430.c ****     if (SYSCLK_FREQ > SYSCLK_FREQ_64M)
+ 229              		.loc 1 408 5 is_stmt 1 view .LVU91
+ 409:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 410:../firmware/CMSIS/device/system_n32g430.c ****         RCC->CFG |= (uint32_t)RCC_CFG_APB1PRES_DIV4;
+ 230              		.loc 1 410 9 view .LVU92
+ 231              		.loc 1 410 12 is_stmt 0 view .LVU93
+ 232 00e2 5A68     		ldr	r2, [r3, #4]
+ 233              		.loc 1 410 18 view .LVU94
+ 234 00e4 42F4A062 		orr	r2, r2, #1280
+ 235 00e8 5A60     		str	r2, [r3, #4]
+ 411:../firmware/CMSIS/device/system_n32g430.c ****     }
+ 412:../firmware/CMSIS/device/system_n32g430.c ****     else if (SYSCLK_FREQ > SYSCLK_FREQ_32M)
+ 413:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 414:../firmware/CMSIS/device/system_n32g430.c ****         RCC->CFG |= (uint32_t)RCC_CFG_APB1PRES_DIV2;
+ 415:../firmware/CMSIS/device/system_n32g430.c ****     }
+ 416:../firmware/CMSIS/device/system_n32g430.c ****     else
+ 417:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 418:../firmware/CMSIS/device/system_n32g430.c ****         RCC->CFG |= (uint32_t)RCC_CFG_APB1PRES_DIV1;
+ 419:../firmware/CMSIS/device/system_n32g430.c ****     }
+ 420:../firmware/CMSIS/device/system_n32g430.c **** 
+ 421:../firmware/CMSIS/device/system_n32g430.c **** #if SYSCLK_SRC == SYSCLK_USE_HSI
+ 422:../firmware/CMSIS/device/system_n32g430.c ****     /* Select HSI as system clock source */
+ 423:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CFG &= (uint32_t)((uint32_t) ~(RCC_CFG_SCLKSW));
+ 424:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CFG |= (uint32_t)RCC_CFG_SCLKSW_HSI;
+ 425:../firmware/CMSIS/device/system_n32g430.c **** 
+ 426:../firmware/CMSIS/device/system_n32g430.c ****     /* Wait till HSI is used as system clock source */
+ 427:../firmware/CMSIS/device/system_n32g430.c ****     while ((RCC->CFG & (uint32_t)RCC_CFG_SCLKSTS) != (uint32_t)SYSCLOCK_SRC_HSI)
+ 428:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 429:../firmware/CMSIS/device/system_n32g430.c ****     }
+ 430:../firmware/CMSIS/device/system_n32g430.c **** #elif SYSCLK_SRC == SYSCLK_USE_HSE
+ 431:../firmware/CMSIS/device/system_n32g430.c ****     /* Select HSE as system clock source */
+ 432:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CFG &= (uint32_t)((uint32_t) ~(RCC_CFG_SCLKSW));
+ 433:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CFG |= (uint32_t)RCC_CFG_SCLKSW_HSE;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 13
+
+
+ 434:../firmware/CMSIS/device/system_n32g430.c **** 
+ 435:../firmware/CMSIS/device/system_n32g430.c ****     /* Wait till HSE is used as system clock source */
+ 436:../firmware/CMSIS/device/system_n32g430.c ****     while ((RCC->CFG & (uint32_t)RCC_CFG_SCLKSTS) != (uint32_t)SYSCLOCK_SRC_HSE)
+ 437:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 438:../firmware/CMSIS/device/system_n32g430.c ****     }
+ 439:../firmware/CMSIS/device/system_n32g430.c **** #elif SYSCLK_SRC == SYSCLK_USE_HSI_PLL || SYSCLK_SRC == SYSCLK_USE_HSE_PLL
+ 440:../firmware/CMSIS/device/system_n32g430.c **** 
+ 441:../firmware/CMSIS/device/system_n32g430.c ****     /* clear bits */
+ 442:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CFG &= (uint32_t)((uint32_t) ~(RCC_CFG_PLLSRC | RCC_CFG_PLLHSEPRES | RCC_CFG_PLLMULFCT));
+ 236              		.loc 1 442 5 is_stmt 1 view .LVU95
+ 237              		.loc 1 442 8 is_stmt 0 view .LVU96
+ 238 00ea 5A68     		ldr	r2, [r3, #4]
+ 239              		.loc 1 442 14 view .LVU97
+ 240 00ec 22F00362 		bic	r2, r2, #137363456
+ 241 00f0 22F47022 		bic	r2, r2, #983040
+ 242 00f4 5A60     		str	r2, [r3, #4]
+ 443:../firmware/CMSIS/device/system_n32g430.c ****     RCC->PLLHSIPRE &= (uint32_t)((uint32_t) ~(RCC_PLLHSIPRE_PLLHSIPRE));
+ 243              		.loc 1 443 5 is_stmt 1 view .LVU98
+ 244              		.loc 1 443 8 is_stmt 0 view .LVU99
+ 245 00f6 1A6C     		ldr	r2, [r3, #64]
+ 246              		.loc 1 443 20 view .LVU100
+ 247 00f8 22F00102 		bic	r2, r2, #1
+ 248 00fc 1A64     		str	r2, [r3, #64]
+ 444:../firmware/CMSIS/device/system_n32g430.c **** 
+ 445:../firmware/CMSIS/device/system_n32g430.c ****     /* set PLL source */
+ 446:../firmware/CMSIS/device/system_n32g430.c ****     temp_value = RCC->CFG;
+ 249              		.loc 1 446 5 is_stmt 1 view .LVU101
+ 250              		.loc 1 446 21 is_stmt 0 view .LVU102
+ 251 00fe 5A68     		ldr	r2, [r3, #4]
+ 252              		.loc 1 446 16 view .LVU103
+ 253 0100 0192     		str	r2, [sp, #4]
+ 447:../firmware/CMSIS/device/system_n32g430.c ****     temp_value |= (SYSCLK_SRC == SYSCLK_USE_HSI_PLL ? RCC_CFG_PLLSRC_HSI : RCC_CFG_PLLSRC_HSE);
+ 254              		.loc 1 447 5 is_stmt 1 view .LVU104
+ 255              		.loc 1 447 16 is_stmt 0 view .LVU105
+ 256 0102 019A     		ldr	r2, [sp, #4]
+ 257 0104 42F48032 		orr	r2, r2, #65536
+ 258 0108 0192     		str	r2, [sp, #4]
+ 448:../firmware/CMSIS/device/system_n32g430.c **** 
+ 449:../firmware/CMSIS/device/system_n32g430.c ****     #if SYSCLK_SRC == SYSCLK_USE_HSI_PLL
+ 450:../firmware/CMSIS/device/system_n32g430.c ****         /* set PLLHSIPRES */
+ 451:../firmware/CMSIS/device/system_n32g430.c ****         temp_value1 |= (PLLSRC_DIV == 1 ? RCC_PLLHSIPRE_PLLHSIPRE_HSI : RCC_PLLHSIPRE_PLLHSIPRE_HSI
+ 452:../firmware/CMSIS/device/system_n32g430.c ****     #elif SYSCLK_SRC == SYSCLK_USE_HSE_PLL
+ 453:../firmware/CMSIS/device/system_n32g430.c ****         /* set PLLHSEPRES */
+ 454:../firmware/CMSIS/device/system_n32g430.c ****         temp_value |= (PLLSRC_DIV == 1 ? RCC_CFG_PLLHSEPRES_HSE : RCC_CFG_PLLHSEPRES_HSE_DIV2);
+ 259              		.loc 1 454 9 is_stmt 1 view .LVU106
+ 260              		.loc 1 454 20 is_stmt 0 view .LVU107
+ 261 010a 019A     		ldr	r2, [sp, #4]
+ 262 010c 42F40032 		orr	r2, r2, #131072
+ 263 0110 0192     		str	r2, [sp, #4]
+ 455:../firmware/CMSIS/device/system_n32g430.c ****     #endif
+ 456:../firmware/CMSIS/device/system_n32g430.c **** 
+ 457:../firmware/CMSIS/device/system_n32g430.c ****     /* set PLL multiply factor */
+ 458:../firmware/CMSIS/device/system_n32g430.c **** #if PLL_MUL <= PLL_MUL_FACTOR_16
+ 459:../firmware/CMSIS/device/system_n32g430.c ****     temp_value |= (PLL_MUL - 2) << RCC_PLLMULFCT_OFFSET; 
+ 460:../firmware/CMSIS/device/system_n32g430.c **** #else
+ 461:../firmware/CMSIS/device/system_n32g430.c ****     temp_value |= ((PLL_MUL - 17) << RCC_PLLMULFCT_OFFSET) | (1 << 27);
+ 264              		.loc 1 461 5 is_stmt 1 view .LVU108
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 14
+
+
+ 265              		.loc 1 461 16 is_stmt 0 view .LVU109
+ 266 0112 019A     		ldr	r2, [sp, #4]
+ 267 0114 42F00362 		orr	r2, r2, #137363456
+ 268 0118 42F44022 		orr	r2, r2, #786432
+ 269 011c 0192     		str	r2, [sp, #4]
+ 462:../firmware/CMSIS/device/system_n32g430.c **** #endif
+ 463:../firmware/CMSIS/device/system_n32g430.c **** 
+ 464:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CFG = temp_value;
+ 270              		.loc 1 464 5 is_stmt 1 view .LVU110
+ 271              		.loc 1 464 14 is_stmt 0 view .LVU111
+ 272 011e 019A     		ldr	r2, [sp, #4]
+ 273 0120 5A60     		str	r2, [r3, #4]
+ 465:../firmware/CMSIS/device/system_n32g430.c ****     RCC->PLLHSIPRE = temp_value1;
+ 274              		.loc 1 465 5 is_stmt 1 view .LVU112
+ 275              		.loc 1 465 20 is_stmt 0 view .LVU113
+ 276 0122 029A     		ldr	r2, [sp, #8]
+ 277 0124 1A64     		str	r2, [r3, #64]
+ 466:../firmware/CMSIS/device/system_n32g430.c **** 
+ 467:../firmware/CMSIS/device/system_n32g430.c ****     /* Enable PLL */
+ 468:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CTRL |= RCC_CTRL_PLLEN;
+ 278              		.loc 1 468 5 is_stmt 1 view .LVU114
+ 279              		.loc 1 468 8 is_stmt 0 view .LVU115
+ 280 0126 1A68     		ldr	r2, [r3]
+ 281              		.loc 1 468 15 view .LVU116
+ 282 0128 42F08072 		orr	r2, r2, #16777216
+ 283 012c 1A60     		str	r2, [r3]
+ 469:../firmware/CMSIS/device/system_n32g430.c **** 
+ 470:../firmware/CMSIS/device/system_n32g430.c ****     /* Wait till PLL is ready */
+ 471:../firmware/CMSIS/device/system_n32g430.c ****     while ((RCC->CTRL & RCC_CTRL_PLLRDF) == RESET) 
+ 284              		.loc 1 471 5 is_stmt 1 view .LVU117
+ 285              	.L6:
+ 472:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 473:../firmware/CMSIS/device/system_n32g430.c ****     }
+ 286              		.loc 1 473 5 view .LVU118
+ 471:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 287              		.loc 1 471 42 discriminator 1 view .LVU119
+ 471:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 288              		.loc 1 471 16 is_stmt 0 discriminator 1 view .LVU120
+ 289 012e 1A68     		ldr	r2, [r3]
+ 471:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 290              		.loc 1 471 42 discriminator 1 view .LVU121
+ 291 0130 9201     		lsls	r2, r2, #6
+ 292 0132 FCD5     		bpl	.L6
+ 474:../firmware/CMSIS/device/system_n32g430.c **** 
+ 475:../firmware/CMSIS/device/system_n32g430.c ****     /* Select PLL as system clock source */
+ 476:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CFG &= (uint32_t)((uint32_t) ~(RCC_CFG_SCLKSW));
+ 293              		.loc 1 476 5 is_stmt 1 view .LVU122
+ 294              		.loc 1 476 8 is_stmt 0 view .LVU123
+ 295 0134 5A68     		ldr	r2, [r3, #4]
+ 296              		.loc 1 476 14 view .LVU124
+ 297 0136 22F00302 		bic	r2, r2, #3
+ 298 013a 5A60     		str	r2, [r3, #4]
+ 477:../firmware/CMSIS/device/system_n32g430.c ****     RCC->CFG |= (uint32_t)RCC_CFG_SCLKSW_PLL;
+ 299              		.loc 1 477 5 is_stmt 1 view .LVU125
+ 300              		.loc 1 477 8 is_stmt 0 view .LVU126
+ 301 013c 5A68     		ldr	r2, [r3, #4]
+ 302              		.loc 1 477 14 view .LVU127
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 15
+
+
+ 303 013e 42F00202 		orr	r2, r2, #2
+ 304 0142 5A60     		str	r2, [r3, #4]
+ 478:../firmware/CMSIS/device/system_n32g430.c **** 
+ 479:../firmware/CMSIS/device/system_n32g430.c ****     /* Wait till PLL is used as system clock source */
+ 480:../firmware/CMSIS/device/system_n32g430.c ****     while ((RCC->CFG & (uint32_t)RCC_CFG_SCLKSTS) != (uint32_t)SYSCLOCK_SRC_PLL) 
+ 305              		.loc 1 480 5 is_stmt 1 view .LVU128
+ 306              	.L7:
+ 481:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 482:../firmware/CMSIS/device/system_n32g430.c ****     }
+ 307              		.loc 1 482 5 view .LVU129
+ 480:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 308              		.loc 1 480 51 discriminator 1 view .LVU130
+ 480:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 309              		.loc 1 480 16 is_stmt 0 discriminator 1 view .LVU131
+ 310 0144 5A68     		ldr	r2, [r3, #4]
+ 480:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 311              		.loc 1 480 22 discriminator 1 view .LVU132
+ 312 0146 02F00C02 		and	r2, r2, #12
+ 480:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 313              		.loc 1 480 51 discriminator 1 view .LVU133
+ 314 014a 082A     		cmp	r2, #8
+ 315 014c FAD1     		bne	.L7
+ 316 014e B3E7     		b	.L5
+ 317              	.L13:
+ 318              		.align	2
+ 319              	.L12:
+ 320 0150 00ED00E0 		.word	-536810240
+ 321 0154 00100240 		.word	1073876992
+ 322 0158 0CC07FF8 		.word	-125845492
+ 323 015c 0000BF04 		.word	79626240
+ 324 0160 00200240 		.word	1073881088
+ 325 0164 00000000 		.word	SystemClockFrequency
+ 326 0168 00127A00 		.word	8000000
+ 327              	.LBE6:
+ 328              	.LBE7:
+ 329              		.cfi_endproc
+ 330              	.LFE130:
+ 332              		.section	.text.System_Clock_Frequency_Update,"ax",%progbits
+ 333              		.align	1
+ 334              		.global	System_Clock_Frequency_Update
+ 335              		.syntax unified
+ 336              		.thumb
+ 337              		.thumb_func
+ 339              	System_Clock_Frequency_Update:
+ 340              	.LFB131:
+ 258:../firmware/CMSIS/device/system_n32g430.c ****     uint32_t temp_value = SYSCLOCK_SRC_HSI;
+ 341              		.loc 1 258 1 is_stmt 1 view -0
+ 342              		.cfi_startproc
+ 343              		@ args = 0, pretend = 0, frame = 0
+ 344              		@ frame_needed = 0, uses_anonymous_args = 0
+ 345              		@ link register save eliminated.
+ 259:../firmware/CMSIS/device/system_n32g430.c ****     uint32_t pllmull_value = 0, pllsource_value = 0;
+ 346              		.loc 1 259 5 view .LVU135
+ 347              	.LVL0:
+ 260:../firmware/CMSIS/device/system_n32g430.c **** 
+ 348              		.loc 1 260 5 view .LVU136
+ 264:../firmware/CMSIS/device/system_n32g430.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 16
+
+
+ 349              		.loc 1 264 5 view .LVU137
+ 264:../firmware/CMSIS/device/system_n32g430.c **** 
+ 350              		.loc 1 264 21 is_stmt 0 view .LVU138
+ 351 0000 164A     		ldr	r2, .L26
+ 352 0002 5368     		ldr	r3, [r2, #4]
+ 353              	.LVL1:
+ 266:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 354              		.loc 1 266 5 is_stmt 1 view .LVU139
+ 264:../firmware/CMSIS/device/system_n32g430.c **** 
+ 355              		.loc 1 264 16 is_stmt 0 view .LVU140
+ 356 0004 03F00C03 		and	r3, r3, #12
+ 357              	.LVL2:
+ 266:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 358              		.loc 1 266 5 view .LVU141
+ 359 0008 082B     		cmp	r3, #8
+ 360 000a 24D1     		bne	.L21
+ 278:../firmware/CMSIS/device/system_n32g430.c ****             pllsource_value = RCC->CFG & RCC_CFG_PLLSRC;
+ 361              		.loc 1 278 13 is_stmt 1 view .LVU142
+ 278:../firmware/CMSIS/device/system_n32g430.c ****             pllsource_value = RCC->CFG & RCC_CFG_PLLSRC;
+ 362              		.loc 1 278 34 is_stmt 0 view .LVU143
+ 363 000c 5068     		ldr	r0, [r2, #4]
+ 364              	.LVL3:
+ 279:../firmware/CMSIS/device/system_n32g430.c **** 
+ 365              		.loc 1 279 13 is_stmt 1 view .LVU144
+ 279:../firmware/CMSIS/device/system_n32g430.c **** 
+ 366              		.loc 1 279 34 is_stmt 0 view .LVU145
+ 367 000e 5168     		ldr	r1, [r2, #4]
+ 284:../firmware/CMSIS/device/system_n32g430.c ****             }
+ 368              		.loc 1 284 48 view .LVU146
+ 369 0010 40F20F23 		movw	r3, #527
+ 370              	.LVL4:
+ 284:../firmware/CMSIS/device/system_n32g430.c ****             }
+ 371              		.loc 1 284 48 view .LVU147
+ 372 0014 03EA9043 		and	r3, r3, r0, lsr #18
+ 281:../firmware/CMSIS/device/system_n32g430.c ****             {
+ 373              		.loc 1 281 16 view .LVU148
+ 374 0018 0001     		lsls	r0, r0, #4
+ 375              	.LVL5:
+ 289:../firmware/CMSIS/device/system_n32g430.c ****             }
+ 376              		.loc 1 289 31 view .LVU149
+ 377 001a 48BF     		it	mi
+ 378 001c 6FF4F770 		mvnmi	r0, #494
+ 279:../firmware/CMSIS/device/system_n32g430.c **** 
+ 379              		.loc 1 279 29 view .LVU150
+ 380 0020 01F48031 		and	r1, r1, #65536
+ 381              	.LVL6:
+ 281:../firmware/CMSIS/device/system_n32g430.c ****             {
+ 382              		.loc 1 281 13 is_stmt 1 view .LVU151
+ 284:../firmware/CMSIS/device/system_n32g430.c ****             }
+ 383              		.loc 1 284 17 view .LVU152
+ 284:../firmware/CMSIS/device/system_n32g430.c ****             }
+ 384              		.loc 1 284 31 is_stmt 0 view .LVU153
+ 385 0024 54BF     		ite	pl
+ 386 0026 0233     		addpl	r3, r3, #2
+ 387              	.LVL7:
+ 289:../firmware/CMSIS/device/system_n32g430.c ****             }
+ 388              		.loc 1 289 17 is_stmt 1 view .LVU154
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 17
+
+
+ 289:../firmware/CMSIS/device/system_n32g430.c ****             }
+ 389              		.loc 1 289 31 is_stmt 0 view .LVU155
+ 390 0028 1B18     		addmi	r3, r3, r0
+ 391              	.LVL8:
+ 292:../firmware/CMSIS/device/system_n32g430.c ****             {
+ 392              		.loc 1 292 13 is_stmt 1 view .LVU156
+ 292:../firmware/CMSIS/device/system_n32g430.c ****             {
+ 393              		.loc 1 292 16 is_stmt 0 view .LVU157
+ 394 002a 81B9     		cbnz	r1, .L18
+ 295:../firmware/CMSIS/device/system_n32g430.c ****                 { /* HSI oscillator clock divided by 2 */
+ 395              		.loc 1 295 17 is_stmt 1 view .LVU158
+ 295:../firmware/CMSIS/device/system_n32g430.c ****                 { /* HSI oscillator clock divided by 2 */
+ 396              		.loc 1 295 25 is_stmt 0 view .LVU159
+ 397 002c 116C     		ldr	r1, [r2, #64]
+ 398              	.LVL9:
+ 295:../firmware/CMSIS/device/system_n32g430.c ****                 { /* HSI oscillator clock divided by 2 */
+ 399              		.loc 1 295 20 view .LVU160
+ 400 002e 11F0010F 		tst	r1, #1
+ 401              	.L25:
+ 307:../firmware/CMSIS/device/system_n32g430.c ****                 { /* HSE oscillator clock divided by 2 */
+ 402              		.loc 1 307 20 view .LVU161
+ 403 0032 01D0     		beq	.L19
+ 309:../firmware/CMSIS/device/system_n32g430.c ****                 }
+ 404              		.loc 1 309 21 is_stmt 1 view .LVU162
+ 309:../firmware/CMSIS/device/system_n32g430.c ****                 }
+ 405              		.loc 1 309 61 is_stmt 0 view .LVU163
+ 406 0034 0A49     		ldr	r1, .L26+4
+ 407 0036 00E0     		b	.L22
+ 408              	.L19:
+ 301:../firmware/CMSIS/device/system_n32g430.c ****                 }
+ 409              		.loc 1 301 21 is_stmt 1 view .LVU164
+ 301:../firmware/CMSIS/device/system_n32g430.c ****                 }
+ 410              		.loc 1 301 54 is_stmt 0 view .LVU165
+ 411 0038 0A49     		ldr	r1, .L26+8
+ 412              	.L22:
+ 413 003a 4B43     		muls	r3, r1, r3
+ 414              	.LVL10:
+ 415              	.L15:
+ 326:../firmware/CMSIS/device/system_n32g430.c ****     /* HCLK clock frequency */
+ 416              		.loc 1 326 5 is_stmt 1 view .LVU166
+ 326:../firmware/CMSIS/device/system_n32g430.c ****     /* HCLK clock frequency */
+ 417              		.loc 1 326 37 is_stmt 0 view .LVU167
+ 418 003c 5268     		ldr	r2, [r2, #4]
+ 419              	.LVL11:
+ 328:../firmware/CMSIS/device/system_n32g430.c **** }
+ 420              		.loc 1 328 5 is_stmt 1 view .LVU168
+ 326:../firmware/CMSIS/device/system_n32g430.c ****     /* HCLK clock frequency */
+ 421              		.loc 1 326 16 is_stmt 0 view .LVU169
+ 422 003e 0A49     		ldr	r1, .L26+12
+ 326:../firmware/CMSIS/device/system_n32g430.c ****     /* HCLK clock frequency */
+ 423              		.loc 1 326 62 view .LVU170
+ 424 0040 C2F30312 		ubfx	r2, r2, #4, #4
+ 425              	.LVL12:
+ 326:../firmware/CMSIS/device/system_n32g430.c ****     /* HCLK clock frequency */
+ 426              		.loc 1 326 16 view .LVU171
+ 427 0044 8A5C     		ldrb	r2, [r1, r2]	@ zero_extendqisi2
+ 328:../firmware/CMSIS/device/system_n32g430.c **** }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 18
+
+
+ 428              		.loc 1 328 26 view .LVU172
+ 429 0046 D340     		lsrs	r3, r3, r2
+ 430 0048 084A     		ldr	r2, .L26+16
+ 431 004a 1360     		str	r3, [r2]
+ 329:../firmware/CMSIS/device/system_n32g430.c **** 
+ 432              		.loc 1 329 1 view .LVU173
+ 433 004c 7047     		bx	lr
+ 434              	.LVL13:
+ 435              	.L18:
+ 307:../firmware/CMSIS/device/system_n32g430.c ****                 { /* HSE oscillator clock divided by 2 */
+ 436              		.loc 1 307 17 is_stmt 1 view .LVU174
+ 307:../firmware/CMSIS/device/system_n32g430.c ****                 { /* HSE oscillator clock divided by 2 */
+ 437              		.loc 1 307 25 is_stmt 0 view .LVU175
+ 438 004e 5168     		ldr	r1, [r2, #4]
+ 439              	.LVL14:
+ 307:../firmware/CMSIS/device/system_n32g430.c ****                 { /* HSE oscillator clock divided by 2 */
+ 440              		.loc 1 307 20 view .LVU176
+ 441 0050 11F4003F 		tst	r1, #131072
+ 442 0054 EDE7     		b	.L25
+ 443              	.LVL15:
+ 444              	.L21:
+ 266:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 445              		.loc 1 266 5 view .LVU177
+ 446 0056 034B     		ldr	r3, .L26+8
+ 447              	.LVL16:
+ 266:../firmware/CMSIS/device/system_n32g430.c ****     {
+ 448              		.loc 1 266 5 view .LVU178
+ 449 0058 F0E7     		b	.L15
+ 450              	.L27:
+ 451 005a 00BF     		.align	2
+ 452              	.L26:
+ 453 005c 00100240 		.word	1073876992
+ 454 0060 00093D00 		.word	4000000
+ 455 0064 00127A00 		.word	8000000
+ 456 0068 00000000 		.word	AHBPrescTable
+ 457 006c 00000000 		.word	SystemClockFrequency
+ 458              		.cfi_endproc
+ 459              	.LFE131:
+ 461              		.global	AHBPrescTable
+ 462              		.section	.rodata.AHBPrescTable,"a"
+ 465              	AHBPrescTable:
+ 466 0000 00000000 		.ascii	"\000\000\000\000\000\000\000\000\001\002\003\004\006"
+ 466      00000000 
+ 466      01020304 
+ 466      06
+ 467 000d 070809   		.ascii	"\007\010\011"
+ 468              		.global	SystemClockFrequency
+ 469              		.section	.data.SystemClockFrequency,"aw"
+ 470              		.align	2
+ 473              	SystemClockFrequency:
+ 474 0000 0020A107 		.word	128000000
+ 475              		.text
+ 476              	.Letext0:
+ 477              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 478              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 479              		.file 4 "../firmware/CMSIS/core/core_cm4.h"
+ 480              		.file 5 "../firmware/CMSIS/device/system_n32g430.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 19
+
+
+ 481              		.file 6 "../firmware/CMSIS/device/n32g430.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s 			page 20
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 system_n32g430.c
+C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s:21     .text.System_Initializes:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s:27     .text.System_Initializes:00000000 System_Initializes
+C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s:320    .text.System_Initializes:00000150 $d
+C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s:473    .data.SystemClockFrequency:00000000 SystemClockFrequency
+C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s:333    .text.System_Clock_Frequency_Update:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s:339    .text.System_Clock_Frequency_Update:00000000 System_Clock_Frequency_Update
+C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s:453    .text.System_Clock_Frequency_Update:0000005c $d
+C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s:465    .rodata.AHBPrescTable:00000000 AHBPrescTable
+C:\Users\Dawn\AppData\Local\Temp\ccSb4IXQ.s:470    .data.SystemClockFrequency:00000000 $d
+
+NO UNDEFINED SYMBOLS

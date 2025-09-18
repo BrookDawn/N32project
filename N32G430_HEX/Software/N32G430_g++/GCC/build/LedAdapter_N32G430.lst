@@ -1,0 +1,991 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"LedAdapter_N32G430.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../APP/Src/LedAdapter_N32G430.cpp"
+  20              		.section	.text._ZL18is_valid_hw_led_idh,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	_ZL18is_valid_hw_led_idh:
+  27              	.LVL0:
+  28              	.LFB136:
+   1:../APP/Src/LedAdapter_N32G430.cpp **** /**
+   2:../APP/Src/LedAdapter_N32G430.cpp ****  * @file LedAdapter_N32G430.cpp
+   3:../APP/Src/LedAdapter_N32G430.cpp ****  * @brief N32G430平台LED硬件适配层实现
+   4:../APP/Src/LedAdapter_N32G430.cpp ****  * @author AI Assistant
+   5:../APP/Src/LedAdapter_N32G430.cpp ****  * @version v1.0.0
+   6:../APP/Src/LedAdapter_N32G430.cpp ****  * @date 2025-09-18
+   7:../APP/Src/LedAdapter_N32G430.cpp ****  */
+   8:../APP/Src/LedAdapter_N32G430.cpp **** 
+   9:../APP/Src/LedAdapter_N32G430.cpp **** #include "Led.h"
+  10:../APP/Src/LedAdapter_N32G430.cpp **** 
+  11:../APP/Src/LedAdapter_N32G430.cpp **** // 包含N32G430的BSP头文件
+  12:../APP/Src/LedAdapter_N32G430.cpp **** extern "C" {
+  13:../APP/Src/LedAdapter_N32G430.cpp **** #include "bsp_led.h"
+  14:../APP/Src/LedAdapter_N32G430.cpp **** #include "n32g430_gpio.h"
+  15:../APP/Src/LedAdapter_N32G430.cpp **** #include "n32g430_rcc.h"
+  16:../APP/Src/LedAdapter_N32G430.cpp **** }
+  17:../APP/Src/LedAdapter_N32G430.cpp **** 
+  18:../APP/Src/LedAdapter_N32G430.cpp **** /* ==================== 平台相关配置 ==================== */
+  19:../APP/Src/LedAdapter_N32G430.cpp **** 
+  20:../APP/Src/LedAdapter_N32G430.cpp **** /**
+  21:../APP/Src/LedAdapter_N32G430.cpp ****  * @brief N32G430 LED硬件配置结构体
+  22:../APP/Src/LedAdapter_N32G430.cpp ****  */
+  23:../APP/Src/LedAdapter_N32G430.cpp **** typedef struct {
+  24:../APP/Src/LedAdapter_N32G430.cpp ****     GPIO_Module* gpio_port;     /**< GPIO端口 */
+  25:../APP/Src/LedAdapter_N32G430.cpp ****     uint16_t gpio_pin;          /**< GPIO引脚 */
+  26:../APP/Src/LedAdapter_N32G430.cpp ****     uint32_t gpio_clk;          /**< GPIO时钟 */
+  27:../APP/Src/LedAdapter_N32G430.cpp ****     bool is_configured;         /**< 配置标志 */
+  28:../APP/Src/LedAdapter_N32G430.cpp **** } N32G430_LedHwConfig_t;
+  29:../APP/Src/LedAdapter_N32G430.cpp **** 
+  30:../APP/Src/LedAdapter_N32G430.cpp **** /**
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 2
+
+
+  31:../APP/Src/LedAdapter_N32G430.cpp ****  * @brief N32G430平台LED硬件配置表
+  32:../APP/Src/LedAdapter_N32G430.cpp ****  */
+  33:../APP/Src/LedAdapter_N32G430.cpp **** static N32G430_LedHwConfig_t led_hw_configs[MAX_LED_COUNT] = {
+  34:../APP/Src/LedAdapter_N32G430.cpp ****     // LED_ID_1 (PA1)
+  35:../APP/Src/LedAdapter_N32G430.cpp ****     {
+  36:../APP/Src/LedAdapter_N32G430.cpp ****         .gpio_port = LED1_GPIO_PORT,
+  37:../APP/Src/LedAdapter_N32G430.cpp ****         .gpio_pin = LED1_GPIO_PIN,
+  38:../APP/Src/LedAdapter_N32G430.cpp ****         .gpio_clk = LED1_GPIO_CLK,
+  39:../APP/Src/LedAdapter_N32G430.cpp ****         .is_configured = false
+  40:../APP/Src/LedAdapter_N32G430.cpp ****     },
+  41:../APP/Src/LedAdapter_N32G430.cpp ****     // LED_ID_2 (PA2)  
+  42:../APP/Src/LedAdapter_N32G430.cpp ****     {
+  43:../APP/Src/LedAdapter_N32G430.cpp ****         .gpio_port = LED2_GPIO_PORT,
+  44:../APP/Src/LedAdapter_N32G430.cpp ****         .gpio_pin = LED2_GPIO_PIN,
+  45:../APP/Src/LedAdapter_N32G430.cpp ****         .gpio_clk = LED2_GPIO_CLK,
+  46:../APP/Src/LedAdapter_N32G430.cpp ****         .is_configured = false
+  47:../APP/Src/LedAdapter_N32G430.cpp ****     },
+  48:../APP/Src/LedAdapter_N32G430.cpp ****     // LED_ID_3 (PA3) - 注意：这里修正了BSP中的错误配置
+  49:../APP/Src/LedAdapter_N32G430.cpp ****     {
+  50:../APP/Src/LedAdapter_N32G430.cpp ****         .gpio_port = GPIOA,
+  51:../APP/Src/LedAdapter_N32G430.cpp ****         .gpio_pin = LED3_GPIO_PIN,
+  52:../APP/Src/LedAdapter_N32G430.cpp ****         .gpio_clk = RCC_AHB_PERIPH_GPIOA,
+  53:../APP/Src/LedAdapter_N32G430.cpp ****         .is_configured = false
+  54:../APP/Src/LedAdapter_N32G430.cpp ****     },
+  55:../APP/Src/LedAdapter_N32G430.cpp ****     // 其他LED配置可以在这里添加
+  56:../APP/Src/LedAdapter_N32G430.cpp ****     {0}, {0}, {0}, {0}, {0}
+  57:../APP/Src/LedAdapter_N32G430.cpp **** };
+  58:../APP/Src/LedAdapter_N32G430.cpp **** 
+  59:../APP/Src/LedAdapter_N32G430.cpp **** /* ==================== 私有函数声明 ==================== */
+  60:../APP/Src/LedAdapter_N32G430.cpp **** 
+  61:../APP/Src/LedAdapter_N32G430.cpp **** static LedError_t n32g430_led_init(uint8_t led_id, const LedConfig_t* config);
+  62:../APP/Src/LedAdapter_N32G430.cpp **** static LedError_t n32g430_led_set_state(uint8_t led_id, LedState_t state);
+  63:../APP/Src/LedAdapter_N32G430.cpp **** static LedState_t n32g430_led_get_state(uint8_t led_id);
+  64:../APP/Src/LedAdapter_N32G430.cpp **** static LedError_t n32g430_led_deinit(uint8_t led_id);
+  65:../APP/Src/LedAdapter_N32G430.cpp **** static bool is_valid_hw_led_id(uint8_t led_id);
+  66:../APP/Src/LedAdapter_N32G430.cpp **** static void configure_gpio_for_led(const N32G430_LedHwConfig_t* hw_config, bool active_low);
+  67:../APP/Src/LedAdapter_N32G430.cpp **** 
+  68:../APP/Src/LedAdapter_N32G430.cpp **** /* ==================== 硬件接口定义 ==================== */
+  69:../APP/Src/LedAdapter_N32G430.cpp **** 
+  70:../APP/Src/LedAdapter_N32G430.cpp **** /**
+  71:../APP/Src/LedAdapter_N32G430.cpp ****  * @brief N32G430 LED硬件接口
+  72:../APP/Src/LedAdapter_N32G430.cpp ****  */
+  73:../APP/Src/LedAdapter_N32G430.cpp **** static const LedInterface_t n32g430_led_interface = {
+  74:../APP/Src/LedAdapter_N32G430.cpp ****     .init = n32g430_led_init,
+  75:../APP/Src/LedAdapter_N32G430.cpp ****     .set_state = n32g430_led_set_state,
+  76:../APP/Src/LedAdapter_N32G430.cpp ****     .get_state = n32g430_led_get_state,
+  77:../APP/Src/LedAdapter_N32G430.cpp ****     .deinit = n32g430_led_deinit
+  78:../APP/Src/LedAdapter_N32G430.cpp **** };
+  79:../APP/Src/LedAdapter_N32G430.cpp **** 
+  80:../APP/Src/LedAdapter_N32G430.cpp **** /* ==================== 公共API函数 ==================== */
+  81:../APP/Src/LedAdapter_N32G430.cpp **** 
+  82:../APP/Src/LedAdapter_N32G430.cpp **** extern "C" {
+  83:../APP/Src/LedAdapter_N32G430.cpp **** 
+  84:../APP/Src/LedAdapter_N32G430.cpp **** /**
+  85:../APP/Src/LedAdapter_N32G430.cpp ****  * @brief 初始化N32G430 LED适配器
+  86:../APP/Src/LedAdapter_N32G430.cpp ****  * @return 错误代码
+  87:../APP/Src/LedAdapter_N32G430.cpp ****  */
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 3
+
+
+  88:../APP/Src/LedAdapter_N32G430.cpp **** LedError_t LedAdapter_N32G430_Init(void)
+  89:../APP/Src/LedAdapter_N32G430.cpp **** {
+  90:../APP/Src/LedAdapter_N32G430.cpp ****     return Led_RegisterInterface(&n32g430_led_interface);
+  91:../APP/Src/LedAdapter_N32G430.cpp **** }
+  92:../APP/Src/LedAdapter_N32G430.cpp **** 
+  93:../APP/Src/LedAdapter_N32G430.cpp **** /**
+  94:../APP/Src/LedAdapter_N32G430.cpp ****  * @brief 快速初始化所有可用的LED
+  95:../APP/Src/LedAdapter_N32G430.cpp ****  * @return 错误代码
+  96:../APP/Src/LedAdapter_N32G430.cpp ****  */
+  97:../APP/Src/LedAdapter_N32G430.cpp **** LedError_t LedAdapter_N32G430_InitAllLeds(void)
+  98:../APP/Src/LedAdapter_N32G430.cpp **** {
+  99:../APP/Src/LedAdapter_N32G430.cpp ****     LedError_t result = LedAdapter_N32G430_Init();
+ 100:../APP/Src/LedAdapter_N32G430.cpp ****     if (result != LED_OK) {
+ 101:../APP/Src/LedAdapter_N32G430.cpp ****         return result;
+ 102:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 103:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 104:../APP/Src/LedAdapter_N32G430.cpp ****     // 初始化所有有效的LED
+ 105:../APP/Src/LedAdapter_N32G430.cpp ****     for (uint8_t i = 0; i < MAX_LED_COUNT; i++) {
+ 106:../APP/Src/LedAdapter_N32G430.cpp ****         if (led_hw_configs[i].gpio_port != nullptr) {
+ 107:../APP/Src/LedAdapter_N32G430.cpp ****             LedConfig_t config = {
+ 108:../APP/Src/LedAdapter_N32G430.cpp ****                 .led_id = i,
+ 109:../APP/Src/LedAdapter_N32G430.cpp ****                 .active_low = false,
+ 110:../APP/Src/LedAdapter_N32G430.cpp ****                 .blink_period = 0  // 默认不闪烁
+ 111:../APP/Src/LedAdapter_N32G430.cpp ****             };
+ 112:../APP/Src/LedAdapter_N32G430.cpp ****             
+ 113:../APP/Src/LedAdapter_N32G430.cpp ****             Led_Init(i, &config);
+ 114:../APP/Src/LedAdapter_N32G430.cpp ****         }
+ 115:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 116:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 117:../APP/Src/LedAdapter_N32G430.cpp ****     return LED_OK;
+ 118:../APP/Src/LedAdapter_N32G430.cpp **** }
+ 119:../APP/Src/LedAdapter_N32G430.cpp **** 
+ 120:../APP/Src/LedAdapter_N32G430.cpp **** } // extern "C"
+ 121:../APP/Src/LedAdapter_N32G430.cpp **** 
+ 122:../APP/Src/LedAdapter_N32G430.cpp **** /* ==================== 硬件接口实现 ==================== */
+ 123:../APP/Src/LedAdapter_N32G430.cpp **** 
+ 124:../APP/Src/LedAdapter_N32G430.cpp **** /**
+ 125:../APP/Src/LedAdapter_N32G430.cpp ****  * @brief N32G430 LED硬件初始化
+ 126:../APP/Src/LedAdapter_N32G430.cpp ****  */
+ 127:../APP/Src/LedAdapter_N32G430.cpp **** static LedError_t n32g430_led_init(uint8_t led_id, const LedConfig_t* config)
+ 128:../APP/Src/LedAdapter_N32G430.cpp **** {
+ 129:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id) || config == nullptr) {
+ 130:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+ 131:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 132:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 133:../APP/Src/LedAdapter_N32G430.cpp ****     N32G430_LedHwConfig_t* hw_config = &led_hw_configs[led_id];
+ 134:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 135:../APP/Src/LedAdapter_N32G430.cpp ****     if (hw_config->gpio_port == nullptr) {
+ 136:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+ 137:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 138:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 139:../APP/Src/LedAdapter_N32G430.cpp ****     // 使用BSP函数初始化LED GPIO
+ 140:../APP/Src/LedAdapter_N32G430.cpp ****     LED_Initialize(hw_config->gpio_port, hw_config->gpio_pin, hw_config->gpio_clk);
+ 141:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 142:../APP/Src/LedAdapter_N32G430.cpp ****     // 根据配置设置初始状态
+ 143:../APP/Src/LedAdapter_N32G430.cpp ****     configure_gpio_for_led(hw_config, config->active_low);
+ 144:../APP/Src/LedAdapter_N32G430.cpp ****     
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 4
+
+
+ 145:../APP/Src/LedAdapter_N32G430.cpp ****     hw_config->is_configured = true;
+ 146:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 147:../APP/Src/LedAdapter_N32G430.cpp ****     return LED_OK;
+ 148:../APP/Src/LedAdapter_N32G430.cpp **** }
+ 149:../APP/Src/LedAdapter_N32G430.cpp **** 
+ 150:../APP/Src/LedAdapter_N32G430.cpp **** /**
+ 151:../APP/Src/LedAdapter_N32G430.cpp ****  * @brief N32G430 LED状态设置
+ 152:../APP/Src/LedAdapter_N32G430.cpp ****  */
+ 153:../APP/Src/LedAdapter_N32G430.cpp **** static LedError_t n32g430_led_set_state(uint8_t led_id, LedState_t state)
+ 154:../APP/Src/LedAdapter_N32G430.cpp **** {
+ 155:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id)) {
+ 156:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+ 157:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 158:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 159:../APP/Src/LedAdapter_N32G430.cpp ****     N32G430_LedHwConfig_t* hw_config = &led_hw_configs[led_id];
+ 160:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 161:../APP/Src/LedAdapter_N32G430.cpp ****     if (!hw_config->is_configured) {
+ 162:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_NOT_INIT;
+ 163:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 164:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 165:../APP/Src/LedAdapter_N32G430.cpp ****     switch (state) {
+ 166:../APP/Src/LedAdapter_N32G430.cpp ****         case LED_STATE_ON:
+ 167:../APP/Src/LedAdapter_N32G430.cpp ****             LED_On(hw_config->gpio_port, hw_config->gpio_pin);
+ 168:../APP/Src/LedAdapter_N32G430.cpp ****             break;
+ 169:../APP/Src/LedAdapter_N32G430.cpp ****             
+ 170:../APP/Src/LedAdapter_N32G430.cpp ****         case LED_STATE_OFF:
+ 171:../APP/Src/LedAdapter_N32G430.cpp ****             LED_Off(hw_config->gpio_port, hw_config->gpio_pin);
+ 172:../APP/Src/LedAdapter_N32G430.cpp ****             break;
+ 173:../APP/Src/LedAdapter_N32G430.cpp ****             
+ 174:../APP/Src/LedAdapter_N32G430.cpp ****         case LED_STATE_TOGGLE:
+ 175:../APP/Src/LedAdapter_N32G430.cpp ****             LED_Toggle(hw_config->gpio_port, hw_config->gpio_pin);
+ 176:../APP/Src/LedAdapter_N32G430.cpp ****             break;
+ 177:../APP/Src/LedAdapter_N32G430.cpp ****             
+ 178:../APP/Src/LedAdapter_N32G430.cpp ****         default:
+ 179:../APP/Src/LedAdapter_N32G430.cpp ****             return LED_ERROR;
+ 180:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 181:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 182:../APP/Src/LedAdapter_N32G430.cpp ****     return LED_OK;
+ 183:../APP/Src/LedAdapter_N32G430.cpp **** }
+ 184:../APP/Src/LedAdapter_N32G430.cpp **** 
+ 185:../APP/Src/LedAdapter_N32G430.cpp **** /**
+ 186:../APP/Src/LedAdapter_N32G430.cpp ****  * @brief N32G430 LED状态获取
+ 187:../APP/Src/LedAdapter_N32G430.cpp ****  */
+ 188:../APP/Src/LedAdapter_N32G430.cpp **** static LedState_t n32g430_led_get_state(uint8_t led_id)
+ 189:../APP/Src/LedAdapter_N32G430.cpp **** {
+ 190:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id)) {
+ 191:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_STATE_OFF;
+ 192:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 193:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 194:../APP/Src/LedAdapter_N32G430.cpp ****     N32G430_LedHwConfig_t* hw_config = &led_hw_configs[led_id];
+ 195:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 196:../APP/Src/LedAdapter_N32G430.cpp ****     if (!hw_config->is_configured) {
+ 197:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_STATE_OFF;
+ 198:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 199:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 200:../APP/Src/LedAdapter_N32G430.cpp ****     // 读取GPIO输出状态
+ 201:../APP/Src/LedAdapter_N32G430.cpp ****     uint8_t pin_state = GPIO_Output_Pin_Data_Get(hw_config->gpio_port, hw_config->gpio_pin);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 5
+
+
+ 202:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 203:../APP/Src/LedAdapter_N32G430.cpp ****     return (pin_state != 0) ? LED_STATE_ON : LED_STATE_OFF;
+ 204:../APP/Src/LedAdapter_N32G430.cpp **** }
+ 205:../APP/Src/LedAdapter_N32G430.cpp **** 
+ 206:../APP/Src/LedAdapter_N32G430.cpp **** /**
+ 207:../APP/Src/LedAdapter_N32G430.cpp ****  * @brief N32G430 LED去初始化
+ 208:../APP/Src/LedAdapter_N32G430.cpp ****  */
+ 209:../APP/Src/LedAdapter_N32G430.cpp **** static LedError_t n32g430_led_deinit(uint8_t led_id)
+ 210:../APP/Src/LedAdapter_N32G430.cpp **** {
+ 211:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id)) {
+ 212:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+ 213:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 214:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 215:../APP/Src/LedAdapter_N32G430.cpp ****     N32G430_LedHwConfig_t* hw_config = &led_hw_configs[led_id];
+ 216:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 217:../APP/Src/LedAdapter_N32G430.cpp ****     if (hw_config->is_configured) {
+ 218:../APP/Src/LedAdapter_N32G430.cpp ****         // 关闭LED
+ 219:../APP/Src/LedAdapter_N32G430.cpp ****         LED_Off(hw_config->gpio_port, hw_config->gpio_pin);
+ 220:../APP/Src/LedAdapter_N32G430.cpp ****         hw_config->is_configured = false;
+ 221:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 222:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 223:../APP/Src/LedAdapter_N32G430.cpp ****     return LED_OK;
+ 224:../APP/Src/LedAdapter_N32G430.cpp **** }
+ 225:../APP/Src/LedAdapter_N32G430.cpp **** 
+ 226:../APP/Src/LedAdapter_N32G430.cpp **** /* ==================== 私有函数实现 ==================== */
+ 227:../APP/Src/LedAdapter_N32G430.cpp **** 
+ 228:../APP/Src/LedAdapter_N32G430.cpp **** /**
+ 229:../APP/Src/LedAdapter_N32G430.cpp ****  * @brief 检查硬件LED ID是否有效
+ 230:../APP/Src/LedAdapter_N32G430.cpp ****  */
+ 231:../APP/Src/LedAdapter_N32G430.cpp **** static bool is_valid_hw_led_id(uint8_t led_id)
+ 232:../APP/Src/LedAdapter_N32G430.cpp **** {
+  29              		.loc 1 232 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+ 233:../APP/Src/LedAdapter_N32G430.cpp ****     return (led_id < MAX_LED_COUNT && led_hw_configs[led_id].gpio_port != nullptr);
+  34              		.loc 1 233 5 view .LVU1
+  35              		.loc 1 233 36 is_stmt 0 view .LVU2
+  36 0000 0728     		cmp	r0, #7
+  37 0002 06D8     		bhi	.L3
+  38              		.loc 1 233 36 discriminator 1 view .LVU3
+  39 0004 044B     		ldr	r3, .L4
+  40              		.loc 1 233 62 discriminator 1 view .LVU4
+  41 0006 0001     		lsls	r0, r0, #4
+  42              	.LVL1:
+  43              		.loc 1 233 36 discriminator 1 view .LVU5
+  44 0008 1858     		ldr	r0, [r3, r0]
+  45 000a 0038     		subs	r0, r0, #0
+  46 000c 18BF     		it	ne
+  47 000e 0120     		movne	r0, #1
+  48 0010 7047     		bx	lr
+  49              	.LVL2:
+  50              	.L3:
+  51              		.loc 1 233 36 discriminator 4 view .LVU6
+  52 0012 0020     		movs	r0, #0
+  53              	.LVL3:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 6
+
+
+ 234:../APP/Src/LedAdapter_N32G430.cpp **** }
+  54              		.loc 1 234 1 view .LVU7
+  55 0014 7047     		bx	lr
+  56              	.L5:
+  57 0016 00BF     		.align	2
+  58              	.L4:
+  59 0018 00000000 		.word	_ZL14led_hw_configs
+  60              		.cfi_endproc
+  61              	.LFE136:
+  63              		.section	.text._ZL18n32g430_led_deinith,"ax",%progbits
+  64              		.align	1
+  65              		.syntax unified
+  66              		.thumb
+  67              		.thumb_func
+  69              	_ZL18n32g430_led_deinith:
+  70              	.LVL4:
+  71              	.LFB135:
+ 210:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id)) {
+  72              		.loc 1 210 1 is_stmt 1 view -0
+  73              		.cfi_startproc
+  74              		@ args = 0, pretend = 0, frame = 0
+  75              		@ frame_needed = 0, uses_anonymous_args = 0
+ 211:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+  76              		.loc 1 211 5 view .LVU9
+ 210:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id)) {
+  77              		.loc 1 210 1 is_stmt 0 view .LVU10
+  78 0000 10B5     		push	{r4, lr}
+  79              	.LCFI0:
+  80              		.cfi_def_cfa_offset 8
+  81              		.cfi_offset 4, -8
+  82              		.cfi_offset 14, -4
+ 210:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id)) {
+  83              		.loc 1 210 1 view .LVU11
+  84 0002 0446     		mov	r4, r0
+ 211:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+  85              		.loc 1 211 28 view .LVU12
+  86 0004 FFF7FEFF 		bl	_ZL18is_valid_hw_led_idh
+  87              	.LVL5:
+ 211:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+  88              		.loc 1 211 5 discriminator 1 view .LVU13
+  89 0008 70B1     		cbz	r0, .L10
+ 215:../APP/Src/LedAdapter_N32G430.cpp ****     
+  90              		.loc 1 215 5 is_stmt 1 view .LVU14
+  91              	.LVL6:
+ 217:../APP/Src/LedAdapter_N32G430.cpp ****         // 关闭LED
+  92              		.loc 1 217 5 view .LVU15
+ 217:../APP/Src/LedAdapter_N32G430.cpp ****         // 关闭LED
+  93              		.loc 1 217 20 is_stmt 0 view .LVU16
+  94 000a 094B     		ldr	r3, .L11
+  95 000c 2201     		lsls	r2, r4, #4
+  96 000e 03EB0414 		add	r4, r3, r4, lsl #4
+  97              	.LVL7:
+ 217:../APP/Src/LedAdapter_N32G430.cpp ****         // 关闭LED
+  98              		.loc 1 217 5 view .LVU17
+  99 0012 217B     		ldrb	r1, [r4, #12]	@ zero_extendqisi2
+ 100 0014 09B9     		cbnz	r1, .L8
+ 101              	.L9:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 7
+
+
+ 223:../APP/Src/LedAdapter_N32G430.cpp **** }
+ 102              		.loc 1 223 12 view .LVU18
+ 103 0016 0020     		movs	r0, #0
+ 104              	.LVL8:
+ 105              	.L7:
+ 224:../APP/Src/LedAdapter_N32G430.cpp **** 
+ 106              		.loc 1 224 1 view .LVU19
+ 107 0018 10BD     		pop	{r4, pc}
+ 108              	.LVL9:
+ 109              	.L8:
+ 219:../APP/Src/LedAdapter_N32G430.cpp ****         hw_config->is_configured = false;
+ 110              		.loc 1 219 9 is_stmt 1 view .LVU20
+ 219:../APP/Src/LedAdapter_N32G430.cpp ****         hw_config->is_configured = false;
+ 111              		.loc 1 219 16 is_stmt 0 view .LVU21
+ 112 001a 9858     		ldr	r0, [r3, r2]
+ 113 001c A188     		ldrh	r1, [r4, #4]
+ 114 001e FFF7FEFF 		bl	LED_Off
+ 115              	.LVL10:
+ 220:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 116              		.loc 1 220 9 is_stmt 1 view .LVU22
+ 220:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 117              		.loc 1 220 34 is_stmt 0 view .LVU23
+ 118 0022 0023     		movs	r3, #0
+ 119 0024 2373     		strb	r3, [r4, #12]
+ 120 0026 F6E7     		b	.L9
+ 121              	.LVL11:
+ 122              	.L10:
+ 212:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 123              		.loc 1 212 16 view .LVU24
+ 124 0028 6FF00100 		mvn	r0, #1
+ 125 002c F4E7     		b	.L7
+ 126              	.L12:
+ 127 002e 00BF     		.align	2
+ 128              	.L11:
+ 129 0030 00000000 		.word	_ZL14led_hw_configs
+ 130              		.cfi_endproc
+ 131              	.LFE135:
+ 133              		.section	.text._ZL21n32g430_led_get_stateh,"ax",%progbits
+ 134              		.align	1
+ 135              		.syntax unified
+ 136              		.thumb
+ 137              		.thumb_func
+ 139              	_ZL21n32g430_led_get_stateh:
+ 140              	.LVL12:
+ 141              	.LFB134:
+ 189:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id)) {
+ 142              		.loc 1 189 1 is_stmt 1 view -0
+ 143              		.cfi_startproc
+ 144              		@ args = 0, pretend = 0, frame = 0
+ 145              		@ frame_needed = 0, uses_anonymous_args = 0
+ 190:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_STATE_OFF;
+ 146              		.loc 1 190 5 view .LVU26
+ 189:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id)) {
+ 147              		.loc 1 189 1 is_stmt 0 view .LVU27
+ 148 0000 10B5     		push	{r4, lr}
+ 149              	.LCFI1:
+ 150              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 8
+
+
+ 151              		.cfi_offset 4, -8
+ 152              		.cfi_offset 14, -4
+ 189:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id)) {
+ 153              		.loc 1 189 1 view .LVU28
+ 154 0002 0246     		mov	r2, r0
+ 190:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_STATE_OFF;
+ 155              		.loc 1 190 28 view .LVU29
+ 156 0004 FFF7FEFF 		bl	_ZL18is_valid_hw_led_idh
+ 157              	.LVL13:
+ 190:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_STATE_OFF;
+ 158              		.loc 1 190 5 discriminator 1 view .LVU30
+ 159 0008 60B1     		cbz	r0, .L14
+ 194:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 160              		.loc 1 194 5 is_stmt 1 view .LVU31
+ 161              	.LVL14:
+ 196:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_STATE_OFF;
+ 162              		.loc 1 196 5 view .LVU32
+ 196:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_STATE_OFF;
+ 163              		.loc 1 196 21 is_stmt 0 view .LVU33
+ 164 000a 074B     		ldr	r3, .L17
+ 165 000c 1401     		lsls	r4, r2, #4
+ 166 000e 03EB0212 		add	r2, r3, r2, lsl #4
+ 167              	.LVL15:
+ 196:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_STATE_OFF;
+ 168              		.loc 1 196 5 view .LVU34
+ 169 0012 107B     		ldrb	r0, [r2, #12]	@ zero_extendqisi2
+ 170 0014 30B1     		cbz	r0, .L14
+ 201:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 171              		.loc 1 201 5 is_stmt 1 view .LVU35
+ 201:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 172              		.loc 1 201 49 is_stmt 0 view .LVU36
+ 173 0016 9188     		ldrh	r1, [r2, #4]
+ 174 0018 1859     		ldr	r0, [r3, r4]
+ 175 001a FFF7FEFF 		bl	GPIO_Output_Pin_Data_Get
+ 176              	.LVL16:
+ 203:../APP/Src/LedAdapter_N32G430.cpp **** }
+ 177              		.loc 1 203 5 is_stmt 1 view .LVU37
+ 203:../APP/Src/LedAdapter_N32G430.cpp **** }
+ 178              		.loc 1 203 29 is_stmt 0 view .LVU38
+ 179 001e 0038     		subs	r0, r0, #0
+ 203:../APP/Src/LedAdapter_N32G430.cpp **** }
+ 180              		.loc 1 203 29 view .LVU39
+ 181 0020 18BF     		it	ne
+ 182 0022 0120     		movne	r0, #1
+ 183              	.LVL17:
+ 184              	.L14:
+ 204:../APP/Src/LedAdapter_N32G430.cpp **** 
+ 185              		.loc 1 204 1 view .LVU40
+ 186 0024 10BD     		pop	{r4, pc}
+ 187              	.L18:
+ 188 0026 00BF     		.align	2
+ 189              	.L17:
+ 190 0028 00000000 		.word	_ZL14led_hw_configs
+ 191              		.cfi_endproc
+ 192              	.LFE134:
+ 194              		.section	.text._ZL21n32g430_led_set_stateh10LedState_t,"ax",%progbits
+ 195              		.align	1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 9
+
+
+ 196              		.syntax unified
+ 197              		.thumb
+ 198              		.thumb_func
+ 200              	_ZL21n32g430_led_set_stateh10LedState_t:
+ 201              	.LVL18:
+ 202              	.LFB133:
+ 154:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id)) {
+ 203              		.loc 1 154 1 is_stmt 1 view -0
+ 204              		.cfi_startproc
+ 205              		@ args = 0, pretend = 0, frame = 0
+ 206              		@ frame_needed = 0, uses_anonymous_args = 0
+ 155:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+ 207              		.loc 1 155 5 view .LVU42
+ 154:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id)) {
+ 208              		.loc 1 154 1 is_stmt 0 view .LVU43
+ 209 0000 10B5     		push	{r4, lr}
+ 210              	.LCFI2:
+ 211              		.cfi_def_cfa_offset 8
+ 212              		.cfi_offset 4, -8
+ 213              		.cfi_offset 14, -4
+ 154:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id)) {
+ 214              		.loc 1 154 1 view .LVU44
+ 215 0002 0246     		mov	r2, r0
+ 155:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+ 216              		.loc 1 155 28 view .LVU45
+ 217 0004 FFF7FEFF 		bl	_ZL18is_valid_hw_led_idh
+ 218              	.LVL19:
+ 155:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+ 219              		.loc 1 155 5 discriminator 1 view .LVU46
+ 220 0008 E8B1     		cbz	r0, .L25
+ 159:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 221              		.loc 1 159 5 is_stmt 1 view .LVU47
+ 222              	.LVL20:
+ 161:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_NOT_INIT;
+ 223              		.loc 1 161 5 view .LVU48
+ 161:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_NOT_INIT;
+ 224              		.loc 1 161 21 is_stmt 0 view .LVU49
+ 225 000a 124B     		ldr	r3, .L27
+ 226 000c 03EB0210 		add	r0, r3, r2, lsl #4
+ 227              	.LVL21:
+ 161:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_NOT_INIT;
+ 228              		.loc 1 161 21 view .LVU50
+ 229 0010 1401     		lsls	r4, r2, #4
+ 161:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_NOT_INIT;
+ 230              		.loc 1 161 5 view .LVU51
+ 231 0012 027B     		ldrb	r2, [r0, #12]	@ zero_extendqisi2
+ 232              	.LVL22:
+ 161:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_NOT_INIT;
+ 233              		.loc 1 161 5 view .LVU52
+ 234 0014 D2B1     		cbz	r2, .L26
+ 165:../APP/Src/LedAdapter_N32G430.cpp ****         case LED_STATE_ON:
+ 235              		.loc 1 165 5 is_stmt 1 view .LVU53
+ 236 0016 0129     		cmp	r1, #1
+ 237 0018 05D0     		beq	.L21
+ 238 001a 0229     		cmp	r1, #2
+ 239 001c 0ED0     		beq	.L22
+ 240 001e 41B1     		cbz	r1, .L23
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 10
+
+
+ 241 0020 4FF0FF30 		mov	r0, #-1
+ 242              	.LVL23:
+ 243              	.L20:
+ 183:../APP/Src/LedAdapter_N32G430.cpp **** 
+ 244              		.loc 1 183 1 is_stmt 0 view .LVU54
+ 245 0024 10BD     		pop	{r4, pc}
+ 246              	.LVL24:
+ 247              	.L21:
+ 166:../APP/Src/LedAdapter_N32G430.cpp ****             LED_On(hw_config->gpio_port, hw_config->gpio_pin);
+ 248              		.loc 1 166 9 is_stmt 1 view .LVU55
+ 167:../APP/Src/LedAdapter_N32G430.cpp ****             break;
+ 249              		.loc 1 167 13 view .LVU56
+ 167:../APP/Src/LedAdapter_N32G430.cpp ****             break;
+ 250              		.loc 1 167 19 is_stmt 0 view .LVU57
+ 251 0026 8188     		ldrh	r1, [r0, #4]
+ 252              	.LVL25:
+ 167:../APP/Src/LedAdapter_N32G430.cpp ****             break;
+ 253              		.loc 1 167 19 view .LVU58
+ 254 0028 1859     		ldr	r0, [r3, r4]
+ 255              	.LVL26:
+ 167:../APP/Src/LedAdapter_N32G430.cpp ****             break;
+ 256              		.loc 1 167 19 view .LVU59
+ 257 002a FFF7FEFF 		bl	LED_On
+ 258              	.LVL27:
+ 168:../APP/Src/LedAdapter_N32G430.cpp ****             
+ 259              		.loc 1 168 13 is_stmt 1 view .LVU60
+ 260              	.L24:
+ 182:../APP/Src/LedAdapter_N32G430.cpp **** }
+ 261              		.loc 1 182 12 is_stmt 0 view .LVU61
+ 262 002e 0020     		movs	r0, #0
+ 263 0030 F8E7     		b	.L20
+ 264              	.LVL28:
+ 265              	.L23:
+ 170:../APP/Src/LedAdapter_N32G430.cpp ****             LED_Off(hw_config->gpio_port, hw_config->gpio_pin);
+ 266              		.loc 1 170 9 is_stmt 1 view .LVU62
+ 171:../APP/Src/LedAdapter_N32G430.cpp ****             break;
+ 267              		.loc 1 171 13 view .LVU63
+ 171:../APP/Src/LedAdapter_N32G430.cpp ****             break;
+ 268              		.loc 1 171 20 is_stmt 0 view .LVU64
+ 269 0032 8188     		ldrh	r1, [r0, #4]
+ 270              	.LVL29:
+ 171:../APP/Src/LedAdapter_N32G430.cpp ****             break;
+ 271              		.loc 1 171 20 view .LVU65
+ 272 0034 1859     		ldr	r0, [r3, r4]
+ 273              	.LVL30:
+ 171:../APP/Src/LedAdapter_N32G430.cpp ****             break;
+ 274              		.loc 1 171 20 view .LVU66
+ 275 0036 FFF7FEFF 		bl	LED_Off
+ 276              	.LVL31:
+ 172:../APP/Src/LedAdapter_N32G430.cpp ****             
+ 277              		.loc 1 172 13 is_stmt 1 view .LVU67
+ 278 003a F8E7     		b	.L24
+ 279              	.LVL32:
+ 280              	.L22:
+ 174:../APP/Src/LedAdapter_N32G430.cpp ****             LED_Toggle(hw_config->gpio_port, hw_config->gpio_pin);
+ 281              		.loc 1 174 9 view .LVU68
+ 175:../APP/Src/LedAdapter_N32G430.cpp ****             break;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 11
+
+
+ 282              		.loc 1 175 13 view .LVU69
+ 175:../APP/Src/LedAdapter_N32G430.cpp ****             break;
+ 283              		.loc 1 175 23 is_stmt 0 view .LVU70
+ 284 003c 8188     		ldrh	r1, [r0, #4]
+ 285              	.LVL33:
+ 175:../APP/Src/LedAdapter_N32G430.cpp ****             break;
+ 286              		.loc 1 175 23 view .LVU71
+ 287 003e 1859     		ldr	r0, [r3, r4]
+ 288              	.LVL34:
+ 175:../APP/Src/LedAdapter_N32G430.cpp ****             break;
+ 289              		.loc 1 175 23 view .LVU72
+ 290 0040 FFF7FEFF 		bl	LED_Toggle
+ 291              	.LVL35:
+ 176:../APP/Src/LedAdapter_N32G430.cpp ****             
+ 292              		.loc 1 176 13 is_stmt 1 view .LVU73
+ 293 0044 F3E7     		b	.L24
+ 294              	.LVL36:
+ 295              	.L25:
+ 156:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 296              		.loc 1 156 16 is_stmt 0 view .LVU74
+ 297 0046 6FF00100 		mvn	r0, #1
+ 298 004a EBE7     		b	.L20
+ 299              	.LVL37:
+ 300              	.L26:
+ 162:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 301              		.loc 1 162 16 view .LVU75
+ 302 004c 6FF00200 		mvn	r0, #2
+ 303              	.LVL38:
+ 162:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 304              		.loc 1 162 16 view .LVU76
+ 305 0050 E8E7     		b	.L20
+ 306              	.L28:
+ 307 0052 00BF     		.align	2
+ 308              	.L27:
+ 309 0054 00000000 		.word	_ZL14led_hw_configs
+ 310              		.cfi_endproc
+ 311              	.LFE133:
+ 313              		.section	.text._ZL16n32g430_led_inithPK11LedConfig_t,"ax",%progbits
+ 314              		.align	1
+ 315              		.syntax unified
+ 316              		.thumb
+ 317              		.thumb_func
+ 319              	_ZL16n32g430_led_inithPK11LedConfig_t:
+ 320              	.LVL39:
+ 321              	.LFB132:
+ 128:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id) || config == nullptr) {
+ 322              		.loc 1 128 1 is_stmt 1 view -0
+ 323              		.cfi_startproc
+ 324              		@ args = 0, pretend = 0, frame = 0
+ 325              		@ frame_needed = 0, uses_anonymous_args = 0
+ 129:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+ 326              		.loc 1 129 5 view .LVU78
+ 128:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id) || config == nullptr) {
+ 327              		.loc 1 128 1 is_stmt 0 view .LVU79
+ 328 0000 10B5     		push	{r4, lr}
+ 329              	.LCFI3:
+ 330              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 12
+
+
+ 331              		.cfi_offset 4, -8
+ 332              		.cfi_offset 14, -4
+ 128:../APP/Src/LedAdapter_N32G430.cpp ****     if (!is_valid_hw_led_id(led_id) || config == nullptr) {
+ 333              		.loc 1 128 1 view .LVU80
+ 334 0002 0446     		mov	r4, r0
+ 129:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+ 335              		.loc 1 129 28 view .LVU81
+ 336 0004 FFF7FEFF 		bl	_ZL18is_valid_hw_led_idh
+ 337              	.LVL40:
+ 129:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+ 338              		.loc 1 129 37 discriminator 1 view .LVU82
+ 339 0008 70B1     		cbz	r0, .L33
+ 129:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+ 340              		.loc 1 129 37 discriminator 2 view .LVU83
+ 341 000a 69B1     		cbz	r1, .L33
+ 133:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 342              		.loc 1 133 5 is_stmt 1 view .LVU84
+ 343              	.LVL41:
+ 135:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+ 344              		.loc 1 135 5 view .LVU85
+ 135:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+ 345              		.loc 1 135 20 is_stmt 0 view .LVU86
+ 346 000c 084B     		ldr	r3, .L34
+ 347 000e 2201     		lsls	r2, r4, #4
+ 348 0010 03EB0414 		add	r4, r3, r4, lsl #4
+ 349              	.LVL42:
+ 135:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+ 350              		.loc 1 135 20 view .LVU87
+ 351 0014 9858     		ldr	r0, [r3, r2]
+ 135:../APP/Src/LedAdapter_N32G430.cpp ****         return LED_ERROR_INVALID_ID;
+ 352              		.loc 1 135 5 view .LVU88
+ 353 0016 38B1     		cbz	r0, .L33
+ 140:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 354              		.loc 1 140 5 is_stmt 1 view .LVU89
+ 140:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 355              		.loc 1 140 19 is_stmt 0 view .LVU90
+ 356 0018 A268     		ldr	r2, [r4, #8]
+ 357 001a A188     		ldrh	r1, [r4, #4]
+ 358              	.LVL43:
+ 140:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 359              		.loc 1 140 19 view .LVU91
+ 360 001c FFF7FEFF 		bl	LED_Initialize
+ 361              	.LVL44:
+ 143:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 362              		.loc 1 143 5 is_stmt 1 view .LVU92
+ 145:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 363              		.loc 1 145 5 view .LVU93
+ 145:../APP/Src/LedAdapter_N32G430.cpp ****     
+ 364              		.loc 1 145 30 is_stmt 0 view .LVU94
+ 365 0020 0123     		movs	r3, #1
+ 366 0022 2373     		strb	r3, [r4, #12]
+ 147:../APP/Src/LedAdapter_N32G430.cpp **** }
+ 367              		.loc 1 147 5 is_stmt 1 view .LVU95
+ 147:../APP/Src/LedAdapter_N32G430.cpp **** }
+ 368              		.loc 1 147 12 is_stmt 0 view .LVU96
+ 369 0024 0020     		movs	r0, #0
+ 370              	.LVL45:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 13
+
+
+ 371              	.L30:
+ 148:../APP/Src/LedAdapter_N32G430.cpp **** 
+ 372              		.loc 1 148 1 view .LVU97
+ 373 0026 10BD     		pop	{r4, pc}
+ 374              	.LVL46:
+ 375              	.L33:
+ 130:../APP/Src/LedAdapter_N32G430.cpp ****     }
+ 376              		.loc 1 130 16 view .LVU98
+ 377 0028 6FF00100 		mvn	r0, #1
+ 378 002c FBE7     		b	.L30
+ 379              	.L35:
+ 380 002e 00BF     		.align	2
+ 381              	.L34:
+ 382 0030 00000000 		.word	_ZL14led_hw_configs
+ 383              		.cfi_endproc
+ 384              	.LFE132:
+ 386              		.section	.text.LedAdapter_N32G430_Init,"ax",%progbits
+ 387              		.align	1
+ 388              		.global	LedAdapter_N32G430_Init
+ 389              		.syntax unified
+ 390              		.thumb
+ 391              		.thumb_func
+ 393              	LedAdapter_N32G430_Init:
+ 394              	.LFB130:
+  89:../APP/Src/LedAdapter_N32G430.cpp ****     return Led_RegisterInterface(&n32g430_led_interface);
+ 395              		.loc 1 89 1 is_stmt 1 view -0
+ 396              		.cfi_startproc
+ 397              		@ args = 0, pretend = 0, frame = 0
+ 398              		@ frame_needed = 0, uses_anonymous_args = 0
+ 399              		@ link register save eliminated.
+  90:../APP/Src/LedAdapter_N32G430.cpp **** }
+ 400              		.loc 1 90 5 view .LVU100
+  90:../APP/Src/LedAdapter_N32G430.cpp **** }
+ 401              		.loc 1 90 33 is_stmt 0 view .LVU101
+ 402 0000 0148     		ldr	r0, .L37
+ 403 0002 FFF7FEBF 		b	Led_RegisterInterface
+ 404              	.LVL47:
+ 405              	.L38:
+ 406 0006 00BF     		.align	2
+ 407              	.L37:
+ 408 0008 00000000 		.word	_ZL21n32g430_led_interface
+ 409              		.cfi_endproc
+ 410              	.LFE130:
+ 412              		.section	.text.LedAdapter_N32G430_InitAllLeds,"ax",%progbits
+ 413              		.align	1
+ 414              		.global	LedAdapter_N32G430_InitAllLeds
+ 415              		.syntax unified
+ 416              		.thumb
+ 417              		.thumb_func
+ 419              	LedAdapter_N32G430_InitAllLeds:
+ 420              	.LFB131:
+  98:../APP/Src/LedAdapter_N32G430.cpp ****     LedError_t result = LedAdapter_N32G430_Init();
+ 421              		.loc 1 98 1 is_stmt 1 view -0
+ 422              		.cfi_startproc
+ 423              		@ args = 0, pretend = 0, frame = 8
+ 424              		@ frame_needed = 0, uses_anonymous_args = 0
+  99:../APP/Src/LedAdapter_N32G430.cpp ****     if (result != LED_OK) {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 14
+
+
+ 425              		.loc 1 99 5 view .LVU103
+  98:../APP/Src/LedAdapter_N32G430.cpp ****     LedError_t result = LedAdapter_N32G430_Init();
+ 426              		.loc 1 98 1 is_stmt 0 view .LVU104
+ 427 0000 F7B5     		push	{r0, r1, r2, r4, r5, r6, r7, lr}
+ 428              	.LCFI4:
+ 429              		.cfi_def_cfa_offset 32
+ 430              		.cfi_offset 4, -20
+ 431              		.cfi_offset 5, -16
+ 432              		.cfi_offset 6, -12
+ 433              		.cfi_offset 7, -8
+ 434              		.cfi_offset 14, -4
+  99:../APP/Src/LedAdapter_N32G430.cpp ****     if (result != LED_OK) {
+ 435              		.loc 1 99 48 view .LVU105
+ 436 0002 FFF7FEFF 		bl	LedAdapter_N32G430_Init
+ 437              	.LVL48:
+ 100:../APP/Src/LedAdapter_N32G430.cpp ****         return result;
+ 438              		.loc 1 100 5 is_stmt 1 view .LVU106
+ 439 0006 0446     		mov	r4, r0
+ 440 0008 80B9     		cbnz	r0, .L40
+ 441              	.LBB4:
+ 442              	.LBB5:
+ 106:../APP/Src/LedAdapter_N32G430.cpp ****             LedConfig_t config = {
+ 443              		.loc 1 106 31 is_stmt 0 view .LVU107
+ 444 000a 0A4F     		ldr	r7, .L47
+ 445              	.LBE5:
+ 446              	.LBE4:
+ 447 000c 0546     		mov	r5, r0
+ 448              	.LBB10:
+ 449              	.LBB8:
+ 450              	.LBB6:
+ 107:../APP/Src/LedAdapter_N32G430.cpp ****                 .led_id = i,
+ 451              		.loc 1 107 25 view .LVU108
+ 452 000e 6E46     		mov	r6, sp
+ 453              	.LVL49:
+ 454              	.L42:
+ 107:../APP/Src/LedAdapter_N32G430.cpp ****                 .led_id = i,
+ 455              		.loc 1 107 25 view .LVU109
+ 456              	.LBE6:
+ 457              	.LBE8:
+ 458              	.LBE10:
+ 106:../APP/Src/LedAdapter_N32G430.cpp ****             LedConfig_t config = {
+ 459              		.loc 1 106 9 is_stmt 1 view .LVU110
+ 460              	.LBB11:
+ 461              	.LBB9:
+ 106:../APP/Src/LedAdapter_N32G430.cpp ****             LedConfig_t config = {
+ 462              		.loc 1 106 31 is_stmt 0 view .LVU111
+ 463 0010 2B01     		lsls	r3, r5, #4
+ 106:../APP/Src/LedAdapter_N32G430.cpp ****             LedConfig_t config = {
+ 464              		.loc 1 106 9 view .LVU112
+ 465 0012 FB58     		ldr	r3, [r7, r3]
+ 466 0014 3BB1     		cbz	r3, .L41
+ 467 0016 E8B2     		uxtb	r0, r5
+ 468              	.LBB7:
+ 107:../APP/Src/LedAdapter_N32G430.cpp ****                 .led_id = i,
+ 469              		.loc 1 107 13 is_stmt 1 view .LVU113
+ 113:../APP/Src/LedAdapter_N32G430.cpp ****         }
+ 470              		.loc 1 113 21 is_stmt 0 view .LVU114
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 15
+
+
+ 471 0018 3146     		mov	r1, r6
+ 107:../APP/Src/LedAdapter_N32G430.cpp ****                 .led_id = i,
+ 472              		.loc 1 107 25 view .LVU115
+ 473 001a C6E90044 		strd	r4, r4, [r6]
+ 111:../APP/Src/LedAdapter_N32G430.cpp ****             
+ 474              		.loc 1 111 13 view .LVU116
+ 475 001e 8DF80000 		strb	r0, [sp]
+ 113:../APP/Src/LedAdapter_N32G430.cpp ****         }
+ 476              		.loc 1 113 13 is_stmt 1 view .LVU117
+ 113:../APP/Src/LedAdapter_N32G430.cpp ****         }
+ 477              		.loc 1 113 21 is_stmt 0 view .LVU118
+ 478 0022 FFF7FEFF 		bl	Led_Init
+ 479              	.LVL50:
+ 480              	.L41:
+ 113:../APP/Src/LedAdapter_N32G430.cpp ****         }
+ 481              		.loc 1 113 21 view .LVU119
+ 482              	.LBE7:
+ 483              	.LBE9:
+ 105:../APP/Src/LedAdapter_N32G430.cpp ****         if (led_hw_configs[i].gpio_port != nullptr) {
+ 484              		.loc 1 105 5 is_stmt 1 discriminator 2 view .LVU120
+ 105:../APP/Src/LedAdapter_N32G430.cpp ****         if (led_hw_configs[i].gpio_port != nullptr) {
+ 485              		.loc 1 105 27 discriminator 1 view .LVU121
+ 486 0026 0135     		adds	r5, r5, #1
+ 487              	.LVL51:
+ 105:../APP/Src/LedAdapter_N32G430.cpp ****         if (led_hw_configs[i].gpio_port != nullptr) {
+ 488              		.loc 1 105 27 is_stmt 0 discriminator 1 view .LVU122
+ 489 0028 082D     		cmp	r5, #8
+ 490 002a F1D1     		bne	.L42
+ 491              	.LVL52:
+ 492              	.L40:
+ 105:../APP/Src/LedAdapter_N32G430.cpp ****         if (led_hw_configs[i].gpio_port != nullptr) {
+ 493              		.loc 1 105 27 discriminator 1 view .LVU123
+ 494              	.LBE11:
+ 118:../APP/Src/LedAdapter_N32G430.cpp **** 
+ 495              		.loc 1 118 1 view .LVU124
+ 496 002c 2046     		mov	r0, r4
+ 497 002e 03B0     		add	sp, sp, #12
+ 498              	.LCFI5:
+ 499              		.cfi_def_cfa_offset 20
+ 500              		@ sp needed
+ 501 0030 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 502              	.LVL53:
+ 503              	.L48:
+ 118:../APP/Src/LedAdapter_N32G430.cpp **** 
+ 504              		.loc 1 118 1 view .LVU125
+ 505 0032 00BF     		.align	2
+ 506              	.L47:
+ 507 0034 00000000 		.word	_ZL14led_hw_configs
+ 508              		.cfi_endproc
+ 509              	.LFE131:
+ 511              		.section	.rodata._ZL21n32g430_led_interface,"a"
+ 512              		.align	2
+ 515              	_ZL21n32g430_led_interface:
+ 516 0000 00000000 		.word	_ZL16n32g430_led_inithPK11LedConfig_t
+ 517 0004 00000000 		.word	_ZL21n32g430_led_set_stateh10LedState_t
+ 518 0008 00000000 		.word	_ZL21n32g430_led_get_stateh
+ 519 000c 00000000 		.word	_ZL18n32g430_led_deinith
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 16
+
+
+ 520              		.section	.data._ZL14led_hw_configs,"aw"
+ 521              		.align	2
+ 524              	_ZL14led_hw_configs:
+ 525 0000 00340240 		.word	1073886208
+ 526 0004 0200     		.short	2
+ 527 0006 0000     		.space	2
+ 528 0008 80000000 		.word	128
+ 529 000c 00       		.byte	0
+ 530 000d 000000   		.space	3
+ 531 0010 00340240 		.word	1073886208
+ 532 0014 0400     		.short	4
+ 533 0016 0000     		.space	2
+ 534 0018 80000000 		.word	128
+ 535 001c 00       		.byte	0
+ 536 001d 000000   		.space	3
+ 537 0020 00340240 		.word	1073886208
+ 538 0024 0800     		.short	8
+ 539 0026 0000     		.space	2
+ 540 0028 80000000 		.word	128
+ 541 002c 00       		.byte	0
+ 542 002d 000000   		.space	3
+ 543 0030 00000000 		.word	0
+ 544 0034 00000000 		.space	12
+ 544      00000000 
+ 544      00000000 
+ 545 0040 00000000 		.word	0
+ 546 0044 00000000 		.space	12
+ 546      00000000 
+ 546      00000000 
+ 547 0050 00000000 		.word	0
+ 548 0054 00000000 		.space	12
+ 548      00000000 
+ 548      00000000 
+ 549 0060 00000000 		.word	0
+ 550 0064 00000000 		.space	12
+ 550      00000000 
+ 550      00000000 
+ 551 0070 00000000 		.word	0
+ 552 0074 00000000 		.space	12
+ 552      00000000 
+ 552      00000000 
+ 553              		.text
+ 554              	.Letext0:
+ 555              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 556              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 557              		.file 4 "../APP/Ins/Led.h"
+ 558              		.file 5 "../firmware/CMSIS/device/n32g430.h"
+ 559              		.file 6 "../core/inc/bsp_led.h"
+ 560              		.file 7 "../firmware/n32g430_std_periph_driver/inc/n32g430_gpio.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s 			page 17
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 LedAdapter_N32G430.cpp
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:21     .text._ZL18is_valid_hw_led_idh:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:26     .text._ZL18is_valid_hw_led_idh:00000000 _ZL18is_valid_hw_led_idh
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:59     .text._ZL18is_valid_hw_led_idh:00000018 $d
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:524    .data._ZL14led_hw_configs:00000000 _ZL14led_hw_configs
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:64     .text._ZL18n32g430_led_deinith:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:69     .text._ZL18n32g430_led_deinith:00000000 _ZL18n32g430_led_deinith
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:129    .text._ZL18n32g430_led_deinith:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:134    .text._ZL21n32g430_led_get_stateh:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:139    .text._ZL21n32g430_led_get_stateh:00000000 _ZL21n32g430_led_get_stateh
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:190    .text._ZL21n32g430_led_get_stateh:00000028 $d
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:195    .text._ZL21n32g430_led_set_stateh10LedState_t:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:200    .text._ZL21n32g430_led_set_stateh10LedState_t:00000000 _ZL21n32g430_led_set_stateh10LedState_t
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:309    .text._ZL21n32g430_led_set_stateh10LedState_t:00000054 $d
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:314    .text._ZL16n32g430_led_inithPK11LedConfig_t:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:319    .text._ZL16n32g430_led_inithPK11LedConfig_t:00000000 _ZL16n32g430_led_inithPK11LedConfig_t
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:382    .text._ZL16n32g430_led_inithPK11LedConfig_t:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:387    .text.LedAdapter_N32G430_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:393    .text.LedAdapter_N32G430_Init:00000000 LedAdapter_N32G430_Init
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:408    .text.LedAdapter_N32G430_Init:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:515    .rodata._ZL21n32g430_led_interface:00000000 _ZL21n32g430_led_interface
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:413    .text.LedAdapter_N32G430_InitAllLeds:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:419    .text.LedAdapter_N32G430_InitAllLeds:00000000 LedAdapter_N32G430_InitAllLeds
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:507    .text.LedAdapter_N32G430_InitAllLeds:00000034 $d
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:512    .rodata._ZL21n32g430_led_interface:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccMzg1mT.s:521    .data._ZL14led_hw_configs:00000000 $d
+
+UNDEFINED SYMBOLS
+LED_Off
+GPIO_Output_Pin_Data_Get
+LED_On
+LED_Toggle
+LED_Initialize
+Led_RegisterInterface
+Led_Init

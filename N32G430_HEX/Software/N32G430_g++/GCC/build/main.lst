@@ -1,0 +1,689 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"main.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../core/src/main.cpp"
+  20              		.section	.rodata.main.str1.1,"aMS",%progbits,1
+  21              	.LC0:
+  22 0000 4E333247 		.ascii	"N32G430 C++ LED System Test Started!\015\012\000"
+  22      34333020 
+  22      432B2B20 
+  22      4C454420 
+  22      53797374 
+  23              	.LC1:
+  24 0027 42617564 		.ascii	"Baudrate: 115200\015\012\000"
+  24      72617465 
+  24      3A203131 
+  24      35323030 
+  24      0D0A00
+  25              	.LC2:
+  26 003a 4C454420 		.ascii	"LED Class System Initialized...\015\012\000"
+  26      436C6173 
+  26      73205379 
+  26      7374656D 
+  26      20496E69 
+  27              	.LC3:
+  28 005c 4C454420 		.ascii	"LED System initialized successfully!\015\012\000"
+  28      53797374 
+  28      656D2069 
+  28      6E697469 
+  28      616C697A 
+  29              	.LC4:
+  30 0083 4C454420 		.ascii	"LED System initialization failed!\015\012\000"
+  30      53797374 
+  30      656D2069 
+  30      6E697469 
+  30      616C697A 
+  31              	.LC5:
+  32 00a7 53797374 		.ascii	"System running... LED demo...\015\012\000"
+  32      656D2072 
+  32      756E6E69 
+  32      6E672E2E 
+  32      2E204C45 
+  33              	.LC6:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s 			page 2
+
+
+  34 00c7 4C454431 		.ascii	"LED1 ON\015\012\000"
+  34      204F4E0D 
+  34      0A00
+  35              	.LC7:
+  36 00d1 4C454432 		.ascii	"LED2 ON\015\012\000"
+  36      204F4E0D 
+  36      0A00
+  37              	.LC8:
+  38 00db 4C454433 		.ascii	"LED3 ON\015\012\000"
+  38      204F4E0D 
+  38      0A00
+  39              	.LC9:
+  40 00e5 416C6C20 		.ascii	"All LEDs TOGGLE\015\012\000"
+  40      4C454473 
+  40      20544F47 
+  40      474C450D 
+  40      0A00
+  41              		.section	.text.startup.main,"ax",%progbits
+  42              		.align	1
+  43              		.global	main
+  44              		.syntax unified
+  45              		.thumb
+  46              		.thumb_func
+  48              	main:
+  49              	.LFB140:
+   1:../core/src/main.cpp **** /*****************************************************************************
+   2:../core/src/main.cpp ****  * Copyright (c) 2019, Nations Technologies Inc.
+   3:../core/src/main.cpp ****  *
+   4:../core/src/main.cpp ****  * All rights reserved.
+   5:../core/src/main.cpp ****  * ****************************************************************************
+   6:../core/src/main.cpp ****  *
+   7:../core/src/main.cpp ****  * Redistribution and use in source and binary forms, with or without
+   8:../core/src/main.cpp ****  * modification, are permitted provided that the following conditions are met:
+   9:../core/src/main.cpp ****  *
+  10:../core/src/main.cpp ****  * - Redistributions of source code must retain the above copyright notice,
+  11:../core/src/main.cpp ****  * this list of conditions and the disclaimer below.
+  12:../core/src/main.cpp ****  *
+  13:../core/src/main.cpp ****  * Nations' name may not be used to endorse or promote products derived from
+  14:../core/src/main.cpp ****  * this software without specific prior written permission.
+  15:../core/src/main.cpp ****  *
+  16:../core/src/main.cpp ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY NATIONS "AS IS" AND ANY EXPRESS OR
+  17:../core/src/main.cpp ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  18:../core/src/main.cpp ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  19:../core/src/main.cpp ****  * DISCLAIMED. IN NO EVENT SHALL NATIONS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  20:../core/src/main.cpp ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  21:../core/src/main.cpp ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  22:../core/src/main.cpp ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  23:../core/src/main.cpp ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  24:../core/src/main.cpp ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  25:../core/src/main.cpp ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  26:../core/src/main.cpp ****  * ****************************************************************************/
+  27:../core/src/main.cpp **** 
+  28:../core/src/main.cpp **** /**
+  29:../core/src/main.cpp **** *\*\file main.cpp
+  30:../core/src/main.cpp **** *\*\author Nations
+  31:../core/src/main.cpp **** *\*\version v1.0.0
+  32:../core/src/main.cpp **** *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s 			page 3
+
+
+  33:../core/src/main.cpp **** **/
+  34:../core/src/main.cpp **** 
+  35:../core/src/main.cpp **** /*BSP include*/
+  36:../core/src/main.cpp **** #include "main.h"
+  37:../core/src/main.cpp **** #include "bsp_delay.h"
+  38:../core/src/main.cpp **** #include "bsp_usart.h"
+  39:../core/src/main.cpp **** 
+  40:../core/src/main.cpp **** /*APP include*/
+  41:../core/src/main.cpp **** #include "Buffer.h"
+  42:../core/src/main.cpp **** #include "Led.h"
+  43:../core/src/main.cpp **** #include "LedAdapter_N32G430.h"
+  44:../core/src/main.cpp **** 
+  45:../core/src/main.cpp **** /*RTT include*/
+  46:../core/src/main.cpp **** #include "SEGGER_RTT.h"
+  47:../core/src/main.cpp **** 
+  48:../core/src/main.cpp **** /**
+  49:../core/src/main.cpp ****  *\*\name   main.
+  50:../core/src/main.cpp ****  *\*\fun    main function.
+  51:../core/src/main.cpp ****  *\*\param  none.
+  52:../core/src/main.cpp ****  *\*\return none.
+  53:../core/src/main.cpp **** **/
+  54:../core/src/main.cpp **** int main(void)
+  55:../core/src/main.cpp **** {
+  50              		.loc 1 55 1 view -0
+  51              		.cfi_startproc
+  52              		@ args = 0, pretend = 0, frame = 8
+  53              		@ frame_needed = 0, uses_anonymous_args = 0
+  56:../core/src/main.cpp **** 	uint32_t led_counter = 0;
+  54              		.loc 1 56 2 view .LVU1
+  55              	.LVL0:
+  57:../core/src/main.cpp **** 	uint32_t system_tick = 0;
+  56              		.loc 1 57 2 view .LVU2
+  58:../core/src/main.cpp **** 
+  59:../core/src/main.cpp **** 	/*RTT初始化*/
+  60:../core/src/main.cpp **** 	SEGGER_RTT_Init();
+  57              		.loc 1 60 2 view .LVU3
+  55:../core/src/main.cpp **** 	uint32_t led_counter = 0;
+  58              		.loc 1 55 1 is_stmt 0 view .LVU4
+  59 0000 F7B5     		push	{r0, r1, r2, r4, r5, r6, r7, lr}
+  60              	.LCFI0:
+  61              		.cfi_def_cfa_offset 32
+  62              		.cfi_offset 4, -20
+  63              		.cfi_offset 5, -16
+  64              		.cfi_offset 6, -12
+  65              		.cfi_offset 7, -8
+  66              		.cfi_offset 14, -4
+  67              		.loc 1 60 17 view .LVU5
+  68 0002 FFF7FEFF 		bl	SEGGER_RTT_Init
+  69              	.LVL1:
+  61:../core/src/main.cpp **** 	SEGGER_RTT_printf(0, "N32G430 C++ LED System Test Started!\r\n");
+  70              		.loc 1 61 2 is_stmt 1 view .LVU6
+  71              		.loc 1 61 19 is_stmt 0 view .LVU7
+  72 0006 4849     		ldr	r1, .L17
+  73 0008 0020     		movs	r0, #0
+  74 000a FFF7FEFF 		bl	SEGGER_RTT_printf
+  75              	.LVL2:
+  62:../core/src/main.cpp **** 	SEGGER_RTT_printf(0, "Baudrate: 115200\r\n");
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s 			page 4
+
+
+  76              		.loc 1 62 2 is_stmt 1 view .LVU8
+  77              		.loc 1 62 19 is_stmt 0 view .LVU9
+  78 000e 4749     		ldr	r1, .L17+4
+  79 0010 0020     		movs	r0, #0
+  80 0012 FFF7FEFF 		bl	SEGGER_RTT_printf
+  81              	.LVL3:
+  63:../core/src/main.cpp **** 	SEGGER_RTT_printf(0, "LED Class System Initialized...\r\n");
+  82              		.loc 1 63 2 is_stmt 1 view .LVU10
+  83              		.loc 1 63 19 is_stmt 0 view .LVU11
+  84 0016 4649     		ldr	r1, .L17+8
+  85 0018 0020     		movs	r0, #0
+  86 001a FFF7FEFF 		bl	SEGGER_RTT_printf
+  87              	.LVL4:
+  64:../core/src/main.cpp **** 
+  65:../core/src/main.cpp **** 	/* 初始化USART1 */
+  66:../core/src/main.cpp **** 	USART1_Init();
+  88              		.loc 1 66 2 is_stmt 1 view .LVU12
+  89              		.loc 1 66 13 is_stmt 0 view .LVU13
+  90 001e FFF7FEFF 		bl	USART1_Init
+  91              	.LVL5:
+  67:../core/src/main.cpp **** 	
+  68:../core/src/main.cpp **** 	/* 初始化LED系统 */
+  69:../core/src/main.cpp **** 	if (LedAdapter_N32G430_InitAllLeds() == LED_OK) {
+  92              		.loc 1 69 2 is_stmt 1 view .LVU14
+  93              		.loc 1 69 36 is_stmt 0 view .LVU15
+  94 0022 FFF7FEFF 		bl	LedAdapter_N32G430_InitAllLeds
+  95              	.LVL6:
+  96              		.loc 1 69 2 discriminator 1 view .LVU16
+  97 0026 0446     		mov	r4, r0
+  98 0028 0028     		cmp	r0, #0
+  99 002a 37D1     		bne	.L2
+  70:../core/src/main.cpp **** 		SEGGER_RTT_printf(0, "LED System initialized successfully!\r\n");
+ 100              		.loc 1 70 3 is_stmt 1 view .LVU17
+ 101              		.loc 1 70 20 is_stmt 0 view .LVU18
+ 102 002c 4149     		ldr	r1, .L17+12
+ 103 002e FFF7FEFF 		bl	SEGGER_RTT_printf
+ 104              	.LVL7:
+  71:../core/src/main.cpp **** 		
+  72:../core/src/main.cpp **** 		// 配置LED闪烁
+  73:../core/src/main.cpp **** 		Led_SetBlinkPeriod(LED_ID_STATUS, LED_BLINK_SLOW);   // 状态LED慢闪
+ 105              		.loc 1 73 3 is_stmt 1 view .LVU19
+ 106              		.loc 1 73 21 is_stmt 0 view .LVU20
+ 107 0032 4FF47A71 		mov	r1, #1000
+ 108 0036 2046     		mov	r0, r4
+ 109 0038 FFF7FEFF 		bl	Led_SetBlinkPeriod
+ 110              	.LVL8:
+  74:../core/src/main.cpp **** 		Led_SetBlinkPeriod(LED_ID_ERROR, LED_BLINK_FAST);    // 错误LED快闪
+ 111              		.loc 1 74 3 is_stmt 1 view .LVU21
+ 112              		.loc 1 74 21 is_stmt 0 view .LVU22
+ 113 003c 6421     		movs	r1, #100
+ 114 003e 0120     		movs	r0, #1
+ 115 0040 FFF7FEFF 		bl	Led_SetBlinkPeriod
+ 116              	.LVL9:
+  75:../core/src/main.cpp **** 		Led_SetBlinkPeriod(LED_ID_COMM, LED_BLINK_NORMAL);   // 通信LED正常闪烁
+ 117              		.loc 1 75 3 is_stmt 1 view .LVU23
+ 118              		.loc 1 75 21 is_stmt 0 view .LVU24
+ 119 0044 4FF4FA71 		mov	r1, #500
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s 			page 5
+
+
+ 120 0048 0220     		movs	r0, #2
+ 121 004a FFF7FEFF 		bl	Led_SetBlinkPeriod
+ 122              	.LVL10:
+  76:../core/src/main.cpp **** 		
+  77:../core/src/main.cpp **** 		// 开启状态LED
+  78:../core/src/main.cpp **** 		Led_On(LED_ID_STATUS);
+ 123              		.loc 1 78 3 is_stmt 1 view .LVU25
+ 124              		.loc 1 78 9 is_stmt 0 view .LVU26
+ 125 004e 2046     		mov	r0, r4
+ 126 0050 FFF7FEFF 		bl	Led_On
+ 127              	.LVL11:
+ 128              	.L4:
+  55:../core/src/main.cpp **** 	uint32_t led_counter = 0;
+ 129              		.loc 1 55 1 view .LVU27
+ 130 0054 0024     		movs	r4, #0
+ 131              	.LBB2:
+ 132              	.LBB3:
+ 133              	.LBB4:
+  79:../core/src/main.cpp **** 	} else {
+  80:../core/src/main.cpp **** 		SEGGER_RTT_printf(0, "LED System initialization failed!\r\n");
+  81:../core/src/main.cpp **** 	}
+  82:../core/src/main.cpp **** 
+  83:../core/src/main.cpp **** 	while(1)
+  84:../core/src/main.cpp **** 	{
+  85:../core/src/main.cpp **** 		system_tick++;
+  86:../core/src/main.cpp **** 		
+  87:../core/src/main.cpp **** 		// 更新LED闪烁状态（每10ms调用一次）
+  88:../core/src/main.cpp **** 		if ((system_tick % 10) == 0) {
+  89:../core/src/main.cpp **** 			uint32_t current_time = system_tick;
+  90:../core/src/main.cpp **** 			Led_BlinkUpdate(LED_ID_STATUS, current_time);
+  91:../core/src/main.cpp **** 			Led_BlinkUpdate(LED_ID_ERROR, current_time);
+  92:../core/src/main.cpp **** 			Led_BlinkUpdate(LED_ID_COMM, current_time);
+  93:../core/src/main.cpp **** 		}
+  94:../core/src/main.cpp **** 
+  95:../core/src/main.cpp **** 		/* 每2秒发送一次状态信息并演示LED控制 */
+  96:../core/src/main.cpp **** 		if(led_counter >= 2000)  // 2秒计数
+  97:../core/src/main.cpp **** 		{
+  98:../core/src/main.cpp **** 			SEGGER_RTT_printf(0,"System running... LED demo...\r\n");
+  99:../core/src/main.cpp **** 			
+ 100:../core/src/main.cpp **** 			// LED控制演示
+ 101:../core/src/main.cpp **** 			static uint8_t demo_step = 0;
+ 102:../core/src/main.cpp **** 			switch(demo_step) {
+ 134              		.loc 1 102 11 view .LVU28
+ 135 0056 384E     		ldr	r6, .L17+16
+ 136              	.LBE4:
+ 137              	.LBE3:
+ 138              	.LBE2:
+  55:../core/src/main.cpp **** 	uint32_t led_counter = 0;
+ 139              		.loc 1 55 1 view .LVU29
+ 140 0058 2546     		mov	r5, r4
+ 141              	.LBB17:
+ 142              	.LBB8:
+ 143              	.LBB9:
+  90:../core/src/main.cpp **** 			Led_BlinkUpdate(LED_ID_ERROR, current_time);
+ 144              		.loc 1 90 19 view .LVU30
+ 145 005a 2746     		mov	r7, r4
+ 146              	.LVL12:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s 			page 6
+
+
+ 147              	.L3:
+  90:../core/src/main.cpp **** 			Led_BlinkUpdate(LED_ID_ERROR, current_time);
+ 148              		.loc 1 90 19 view .LVU31
+ 149              	.LBE9:
+ 150              	.LBE8:
+ 151              	.LBE17:
+  83:../core/src/main.cpp **** 	{
+ 152              		.loc 1 83 2 is_stmt 1 view .LVU32
+ 153              	.LBB18:
+  85:../core/src/main.cpp **** 		
+ 154              		.loc 1 85 3 view .LVU33
+  85:../core/src/main.cpp **** 		
+ 155              		.loc 1 85 14 is_stmt 0 view .LVU34
+ 156 005c 0134     		adds	r4, r4, #1
+ 157              	.LVL13:
+  88:../core/src/main.cpp **** 			uint32_t current_time = system_tick;
+ 158              		.loc 1 88 3 is_stmt 1 view .LVU35
+  85:../core/src/main.cpp **** 		
+ 159              		.loc 1 85 14 is_stmt 0 view .LVU36
+ 160 005e 0A23     		movs	r3, #10
+ 161 0060 B4FBF3F0 		udiv	r0, r4, r3
+ 162 0064 03FB1040 		mls	r0, r3, r0, r4
+ 163              	.LBB11:
+  88:../core/src/main.cpp **** 			uint32_t current_time = system_tick;
+ 164              		.loc 1 88 3 view .LVU37
+ 165 0068 50B9     		cbnz	r0, .L5
+ 166              	.LBB10:
+  89:../core/src/main.cpp **** 			Led_BlinkUpdate(LED_ID_STATUS, current_time);
+ 167              		.loc 1 89 4 is_stmt 1 view .LVU38
+ 168              	.LVL14:
+  90:../core/src/main.cpp **** 			Led_BlinkUpdate(LED_ID_ERROR, current_time);
+ 169              		.loc 1 90 4 view .LVU39
+  90:../core/src/main.cpp **** 			Led_BlinkUpdate(LED_ID_ERROR, current_time);
+ 170              		.loc 1 90 19 is_stmt 0 view .LVU40
+ 171 006a 2146     		mov	r1, r4
+ 172 006c FFF7FEFF 		bl	Led_BlinkUpdate
+ 173              	.LVL15:
+  91:../core/src/main.cpp **** 			Led_BlinkUpdate(LED_ID_COMM, current_time);
+ 174              		.loc 1 91 4 is_stmt 1 view .LVU41
+  91:../core/src/main.cpp **** 			Led_BlinkUpdate(LED_ID_COMM, current_time);
+ 175              		.loc 1 91 19 is_stmt 0 view .LVU42
+ 176 0070 2146     		mov	r1, r4
+ 177 0072 0120     		movs	r0, #1
+ 178 0074 FFF7FEFF 		bl	Led_BlinkUpdate
+ 179              	.LVL16:
+  92:../core/src/main.cpp **** 		}
+ 180              		.loc 1 92 4 is_stmt 1 view .LVU43
+  92:../core/src/main.cpp **** 		}
+ 181              		.loc 1 92 19 is_stmt 0 view .LVU44
+ 182 0078 2146     		mov	r1, r4
+ 183 007a 0220     		movs	r0, #2
+ 184 007c FFF7FEFF 		bl	Led_BlinkUpdate
+ 185              	.LVL17:
+ 186              	.L5:
+  92:../core/src/main.cpp **** 		}
+ 187              		.loc 1 92 19 view .LVU45
+ 188              	.LBE10:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s 			page 7
+
+
+ 189              	.LBE11:
+  96:../core/src/main.cpp **** 		{
+ 190              		.loc 1 96 3 is_stmt 1 view .LVU46
+ 191              	.LBB12:
+ 192 0080 B5F5FA6F 		cmp	r5, #2000
+ 193 0084 22D1     		bne	.L6
+ 194              	.LBB5:
+  98:../core/src/main.cpp **** 			
+ 195              		.loc 1 98 4 view .LVU47
+  98:../core/src/main.cpp **** 			
+ 196              		.loc 1 98 21 is_stmt 0 view .LVU48
+ 197 0086 2D49     		ldr	r1, .L17+20
+ 198 0088 0020     		movs	r0, #0
+ 199 008a FFF7FEFF 		bl	SEGGER_RTT_printf
+ 200              	.LVL18:
+ 101:../core/src/main.cpp **** 			switch(demo_step) {
+ 201              		.loc 1 101 4 is_stmt 1 view .LVU49
+ 202              		.loc 1 102 4 view .LVU50
+ 203 008e 3378     		ldrb	r3, [r6]	@ zero_extendqisi2
+ 204 0090 032B     		cmp	r3, #3
+ 205 0092 15D8     		bhi	.L7
+ 206 0094 DFE803F0 		tbb	[pc, r3]
+ 207              	.L9:
+ 208 0098 07       		.byte	(.L12-.L9)/2
+ 209 0099 22       		.byte	(.L11-.L9)/2
+ 210 009a 2D       		.byte	(.L10-.L9)/2
+ 211 009b 38       		.byte	(.L8-.L9)/2
+ 212              	.LVL19:
+ 213              		.p2align 1
+ 214              	.L2:
+ 215              		.loc 1 102 4 is_stmt 0 view .LVU51
+ 216              	.LBE5:
+ 217              	.LBE12:
+ 218              	.LBE18:
+  80:../core/src/main.cpp **** 	}
+ 219              		.loc 1 80 3 is_stmt 1 view .LVU52
+  80:../core/src/main.cpp **** 	}
+ 220              		.loc 1 80 20 is_stmt 0 view .LVU53
+ 221 009c 2849     		ldr	r1, .L17+24
+ 222 009e 0020     		movs	r0, #0
+ 223 00a0 FFF7FEFF 		bl	SEGGER_RTT_printf
+ 224              	.LVL20:
+ 225 00a4 D6E7     		b	.L4
+ 226              	.LVL21:
+ 227              	.L12:
+ 228              	.LBB19:
+ 229              	.LBB13:
+ 230              	.LBB6:
+ 103:../core/src/main.cpp **** 				case 0:
+ 231              		.loc 1 103 5 is_stmt 1 view .LVU54
+ 104:../core/src/main.cpp **** 					Led_On(LED_ID_1);
+ 232              		.loc 1 104 6 view .LVU55
+ 233              		.loc 1 104 12 is_stmt 0 view .LVU56
+ 234 00a6 0020     		movs	r0, #0
+ 235 00a8 FFF7FEFF 		bl	Led_On
+ 236              	.LVL22:
+ 105:../core/src/main.cpp **** 					Led_Off(LED_ID_2);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s 			page 8
+
+
+ 237              		.loc 1 105 6 is_stmt 1 view .LVU57
+ 238              		.loc 1 105 13 is_stmt 0 view .LVU58
+ 239 00ac 0120     		movs	r0, #1
+ 240 00ae FFF7FEFF 		bl	Led_Off
+ 241              	.LVL23:
+ 106:../core/src/main.cpp **** 					Led_Off(LED_ID_3);
+ 242              		.loc 1 106 6 is_stmt 1 view .LVU59
+ 243              		.loc 1 106 13 is_stmt 0 view .LVU60
+ 244 00b2 0220     		movs	r0, #2
+ 245 00b4 FFF7FEFF 		bl	Led_Off
+ 246              	.LVL24:
+ 107:../core/src/main.cpp **** 					SEGGER_RTT_printf(0,"LED1 ON\r\n");
+ 247              		.loc 1 107 6 is_stmt 1 view .LVU61
+ 248              		.loc 1 107 23 is_stmt 0 view .LVU62
+ 249 00b8 2249     		ldr	r1, .L17+28
+ 250              	.L16:
+ 108:../core/src/main.cpp **** 					break;
+ 109:../core/src/main.cpp **** 				case 1:
+ 110:../core/src/main.cpp **** 					Led_Off(LED_ID_1);
+ 111:../core/src/main.cpp **** 					Led_On(LED_ID_2);
+ 112:../core/src/main.cpp **** 					Led_Off(LED_ID_3);
+ 113:../core/src/main.cpp **** 					SEGGER_RTT_printf(0,"LED2 ON\r\n");
+ 114:../core/src/main.cpp **** 					break;
+ 115:../core/src/main.cpp **** 				case 2:
+ 116:../core/src/main.cpp **** 					Led_Off(LED_ID_1);
+ 117:../core/src/main.cpp **** 					Led_Off(LED_ID_2);
+ 118:../core/src/main.cpp **** 					Led_On(LED_ID_3);
+ 119:../core/src/main.cpp **** 					SEGGER_RTT_printf(0,"LED3 ON\r\n");
+ 120:../core/src/main.cpp **** 					break;
+ 121:../core/src/main.cpp **** 				case 3:
+ 122:../core/src/main.cpp **** 					Led_Toggle(LED_ID_1);
+ 123:../core/src/main.cpp **** 					Led_Toggle(LED_ID_2);
+ 124:../core/src/main.cpp **** 					Led_Toggle(LED_ID_3);
+ 125:../core/src/main.cpp **** 					SEGGER_RTT_printf(0,"All LEDs TOGGLE\r\n");
+ 251              		.loc 1 125 23 view .LVU63
+ 252 00ba 0020     		movs	r0, #0
+ 253 00bc FFF7FEFF 		bl	SEGGER_RTT_printf
+ 254              	.LVL25:
+ 126:../core/src/main.cpp **** 					break;
+ 255              		.loc 1 126 6 is_stmt 1 view .LVU64
+ 256              	.L7:
+ 127:../core/src/main.cpp **** 			}
+ 128:../core/src/main.cpp **** 			
+ 129:../core/src/main.cpp **** 			demo_step = (demo_step + 1) % 4;
+ 257              		.loc 1 129 4 view .LVU65
+ 258              		.loc 1 129 17 is_stmt 0 view .LVU66
+ 259 00c0 3378     		ldrb	r3, [r6]	@ zero_extendqisi2
+ 260              		.loc 1 129 27 view .LVU67
+ 261 00c2 0133     		adds	r3, r3, #1
+ 262              		.loc 1 129 32 view .LVU68
+ 263 00c4 03F00303 		and	r3, r3, #3
+ 264              		.loc 1 129 14 view .LVU69
+ 265 00c8 3370     		strb	r3, [r6]
+ 130:../core/src/main.cpp **** 			led_counter = 0;
+ 266              		.loc 1 130 4 is_stmt 1 view .LVU70
+ 267              	.LVL26:
+ 268              		.loc 1 130 16 is_stmt 0 view .LVU71
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s 			page 9
+
+
+ 269 00ca 0025     		movs	r5, #0
+ 270              	.LVL27:
+ 271              	.L6:
+ 272              		.loc 1 130 16 view .LVU72
+ 273              	.LBE6:
+ 274              	.LBE13:
+ 131:../core/src/main.cpp **** 		}
+ 132:../core/src/main.cpp **** 		
+ 133:../core/src/main.cpp **** 		// 简单延时（实际项目中应该使用定时器）
+ 134:../core/src/main.cpp **** 		for(volatile uint32_t i = 0; i < 10000; i++);
+ 275              		.loc 1 134 3 is_stmt 1 view .LVU73
+ 276              	.LBB14:
+ 277              		.loc 1 134 25 is_stmt 0 view .LVU74
+ 278 00cc 0197     		str	r7, [sp, #4]
+ 279              		.loc 1 134 34 discriminator 1 view .LVU75
+ 280 00ce 42F20F72 		movw	r2, #9999
+ 281              	.L13:
+ 282              		.loc 1 134 34 is_stmt 1 discriminator 1 view .LVU76
+ 283 00d2 019B     		ldr	r3, [sp, #4]
+ 284 00d4 9342     		cmp	r3, r2
+ 285 00d6 22D9     		bls	.L14
+ 286              	.LBE14:
+ 135:../core/src/main.cpp **** 		led_counter++;
+ 287              		.loc 1 135 3 view .LVU77
+ 288              		.loc 1 135 14 is_stmt 0 view .LVU78
+ 289 00d8 0135     		adds	r5, r5, #1
+ 290              	.LVL28:
+ 291              		.loc 1 135 14 view .LVU79
+ 292              	.LBE19:
+  83:../core/src/main.cpp **** 	{
+ 293              		.loc 1 83 2 is_stmt 1 view .LVU80
+ 136:../core/src/main.cpp **** 	}
+ 294              		.loc 1 136 2 is_stmt 0 view .LVU81
+ 295 00da BFE7     		b	.L3
+ 296              	.L11:
+ 297              	.LBB20:
+ 298              	.LBB15:
+ 299              	.LBB7:
+ 109:../core/src/main.cpp **** 					Led_Off(LED_ID_1);
+ 300              		.loc 1 109 5 is_stmt 1 view .LVU82
+ 110:../core/src/main.cpp **** 					Led_On(LED_ID_2);
+ 301              		.loc 1 110 6 view .LVU83
+ 110:../core/src/main.cpp **** 					Led_On(LED_ID_2);
+ 302              		.loc 1 110 13 is_stmt 0 view .LVU84
+ 303 00dc 0020     		movs	r0, #0
+ 304 00de FFF7FEFF 		bl	Led_Off
+ 305              	.LVL29:
+ 111:../core/src/main.cpp **** 					Led_Off(LED_ID_3);
+ 306              		.loc 1 111 6 is_stmt 1 view .LVU85
+ 111:../core/src/main.cpp **** 					Led_Off(LED_ID_3);
+ 307              		.loc 1 111 12 is_stmt 0 view .LVU86
+ 308 00e2 0120     		movs	r0, #1
+ 309 00e4 FFF7FEFF 		bl	Led_On
+ 310              	.LVL30:
+ 112:../core/src/main.cpp **** 					SEGGER_RTT_printf(0,"LED2 ON\r\n");
+ 311              		.loc 1 112 6 is_stmt 1 view .LVU87
+ 112:../core/src/main.cpp **** 					SEGGER_RTT_printf(0,"LED2 ON\r\n");
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s 			page 10
+
+
+ 312              		.loc 1 112 13 is_stmt 0 view .LVU88
+ 313 00e8 0220     		movs	r0, #2
+ 314 00ea FFF7FEFF 		bl	Led_Off
+ 315              	.LVL31:
+ 113:../core/src/main.cpp **** 					break;
+ 316              		.loc 1 113 6 is_stmt 1 view .LVU89
+ 113:../core/src/main.cpp **** 					break;
+ 317              		.loc 1 113 23 is_stmt 0 view .LVU90
+ 318 00ee 1649     		ldr	r1, .L17+32
+ 319 00f0 E3E7     		b	.L16
+ 320              	.L10:
+ 115:../core/src/main.cpp **** 					Led_Off(LED_ID_1);
+ 321              		.loc 1 115 5 is_stmt 1 view .LVU91
+ 116:../core/src/main.cpp **** 					Led_Off(LED_ID_2);
+ 322              		.loc 1 116 6 view .LVU92
+ 116:../core/src/main.cpp **** 					Led_Off(LED_ID_2);
+ 323              		.loc 1 116 13 is_stmt 0 view .LVU93
+ 324 00f2 0020     		movs	r0, #0
+ 325 00f4 FFF7FEFF 		bl	Led_Off
+ 326              	.LVL32:
+ 117:../core/src/main.cpp **** 					Led_On(LED_ID_3);
+ 327              		.loc 1 117 6 is_stmt 1 view .LVU94
+ 117:../core/src/main.cpp **** 					Led_On(LED_ID_3);
+ 328              		.loc 1 117 13 is_stmt 0 view .LVU95
+ 329 00f8 0120     		movs	r0, #1
+ 330 00fa FFF7FEFF 		bl	Led_Off
+ 331              	.LVL33:
+ 118:../core/src/main.cpp **** 					SEGGER_RTT_printf(0,"LED3 ON\r\n");
+ 332              		.loc 1 118 6 is_stmt 1 view .LVU96
+ 118:../core/src/main.cpp **** 					SEGGER_RTT_printf(0,"LED3 ON\r\n");
+ 333              		.loc 1 118 12 is_stmt 0 view .LVU97
+ 334 00fe 0220     		movs	r0, #2
+ 335 0100 FFF7FEFF 		bl	Led_On
+ 336              	.LVL34:
+ 119:../core/src/main.cpp **** 					break;
+ 337              		.loc 1 119 6 is_stmt 1 view .LVU98
+ 119:../core/src/main.cpp **** 					break;
+ 338              		.loc 1 119 23 is_stmt 0 view .LVU99
+ 339 0104 1149     		ldr	r1, .L17+36
+ 340 0106 D8E7     		b	.L16
+ 341              	.L8:
+ 121:../core/src/main.cpp **** 					Led_Toggle(LED_ID_1);
+ 342              		.loc 1 121 5 is_stmt 1 view .LVU100
+ 122:../core/src/main.cpp **** 					Led_Toggle(LED_ID_2);
+ 343              		.loc 1 122 6 view .LVU101
+ 122:../core/src/main.cpp **** 					Led_Toggle(LED_ID_2);
+ 344              		.loc 1 122 16 is_stmt 0 view .LVU102
+ 345 0108 0020     		movs	r0, #0
+ 346 010a FFF7FEFF 		bl	Led_Toggle
+ 347              	.LVL35:
+ 123:../core/src/main.cpp **** 					Led_Toggle(LED_ID_3);
+ 348              		.loc 1 123 6 is_stmt 1 view .LVU103
+ 123:../core/src/main.cpp **** 					Led_Toggle(LED_ID_3);
+ 349              		.loc 1 123 16 is_stmt 0 view .LVU104
+ 350 010e 0120     		movs	r0, #1
+ 351 0110 FFF7FEFF 		bl	Led_Toggle
+ 352              	.LVL36:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s 			page 11
+
+
+ 124:../core/src/main.cpp **** 					SEGGER_RTT_printf(0,"All LEDs TOGGLE\r\n");
+ 353              		.loc 1 124 6 is_stmt 1 view .LVU105
+ 124:../core/src/main.cpp **** 					SEGGER_RTT_printf(0,"All LEDs TOGGLE\r\n");
+ 354              		.loc 1 124 16 is_stmt 0 view .LVU106
+ 355 0114 0220     		movs	r0, #2
+ 356 0116 FFF7FEFF 		bl	Led_Toggle
+ 357              	.LVL37:
+ 125:../core/src/main.cpp **** 					break;
+ 358              		.loc 1 125 6 is_stmt 1 view .LVU107
+ 125:../core/src/main.cpp **** 					break;
+ 359              		.loc 1 125 23 is_stmt 0 view .LVU108
+ 360 011a 0D49     		ldr	r1, .L17+40
+ 361 011c CDE7     		b	.L16
+ 362              	.L14:
+ 125:../core/src/main.cpp **** 					break;
+ 363              		.loc 1 125 23 view .LVU109
+ 364              	.LBE7:
+ 365              	.LBE15:
+ 366              	.LBB16:
+ 134:../core/src/main.cpp **** 		led_counter++;
+ 367              		.loc 1 134 3 is_stmt 1 discriminator 3 view .LVU110
+ 368 011e 019B     		ldr	r3, [sp, #4]
+ 369 0120 0133     		adds	r3, r3, #1
+ 370 0122 0193     		str	r3, [sp, #4]
+ 371 0124 D5E7     		b	.L13
+ 372              	.L18:
+ 373 0126 00BF     		.align	2
+ 374              	.L17:
+ 375 0128 00000000 		.word	.LC0
+ 376 012c 27000000 		.word	.LC1
+ 377 0130 3A000000 		.word	.LC2
+ 378 0134 5C000000 		.word	.LC3
+ 379 0138 00000000 		.word	_ZZ4mainE9demo_step
+ 380 013c A7000000 		.word	.LC5
+ 381 0140 83000000 		.word	.LC4
+ 382 0144 C7000000 		.word	.LC6
+ 383 0148 D1000000 		.word	.LC7
+ 384 014c DB000000 		.word	.LC8
+ 385 0150 E5000000 		.word	.LC9
+ 386              	.LBE16:
+ 387              	.LBE20:
+ 388              		.cfi_endproc
+ 389              	.LFE140:
+ 391              		.section	.bss._ZZ4mainE9demo_step,"aw",%nobits
+ 394              	_ZZ4mainE9demo_step:
+ 395 0000 00       		.space	1
+ 396              		.text
+ 397              	.Letext0:
+ 398              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 399              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 400              		.file 4 "../APP/Ins/Led.h"
+ 401              		.file 5 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/c++/14.2.1/cstdlib"
+ 402              		.file 6 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/c++/14.2.1/bits/std_abs.h"
+ 403              		.file 7 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/c++/14.2.1/arm-none-eabi/thumb/v7e-m+fp/h
+ 404              		.file 8 "D:/Tool/arm-gnu-toolchain/lib/gcc/arm-none-eabi/14.2.1/include/stddef.h"
+ 405              		.file 9 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/stdlib.h"
+ 406              		.file 10 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/c++/14.2.1/stdlib.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s 			page 12
+
+
+ 407              		.file 11 "../APP/Ins/LedAdapter_N32G430.h"
+ 408              		.file 12 "../RTT/Ins/SEGGER_RTT.h"
+ 409              		.file 13 "../core/inc/bsp_usart.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.cpp
+C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s:42     .text.startup.main:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s:48     .text.startup.main:00000000 main
+C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s:208    .text.startup.main:00000098 $d
+C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s:213    .text.startup.main:0000009c $t
+C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s:375    .text.startup.main:00000128 $d
+C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s:394    .bss._ZZ4mainE9demo_step:00000000 _ZZ4mainE9demo_step
+C:\Users\Dawn\AppData\Local\Temp\ccW8Lx8Q.s:395    .bss._ZZ4mainE9demo_step:00000000 $d
+
+UNDEFINED SYMBOLS
+SEGGER_RTT_Init
+SEGGER_RTT_printf
+USART1_Init
+LedAdapter_N32G430_InitAllLeds
+Led_SetBlinkPeriod
+Led_On
+Led_BlinkUpdate
+Led_Off
+Led_Toggle

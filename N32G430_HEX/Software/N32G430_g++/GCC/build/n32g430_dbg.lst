@@ -1,0 +1,522 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"n32g430_dbg.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c"
+  20              		.section	.text.UCID_Get,"ax",%progbits
+  21              		.align	1
+  22              		.global	UCID_Get
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	UCID_Get:
+  28              	.LVL0:
+  29              	.LFB130:
+   1:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** /*****************************************************************************
+   2:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * Copyright (c) 2019, Nations Technologies Inc.
+   3:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  *
+   4:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * All rights reserved.
+   5:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * ****************************************************************************
+   6:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  *
+   7:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * Redistribution and use in source and binary forms, with or without
+   8:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * modification, are permitted provided that the following conditions are met:
+   9:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  *
+  10:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * - Redistributions of source code must retain the above copyright notice,
+  11:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * this list of conditions and the disclaimer below.
+  12:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  *
+  13:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * Nations' name may not be used to endorse or promote products derived from
+  14:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * this software without specific prior written permission.
+  15:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  *
+  16:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY NATIONS "AS IS" AND ANY EXPRESS OR
+  17:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  18:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  19:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * DISCLAIMED. IN NO EVENT SHALL NATIONS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  20:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  21:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  22:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  23:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  24:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  25:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  26:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****  * ****************************************************************************/
+  27:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** 
+  28:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** /**
+  29:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\file n32g430_dbg.c
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s 			page 2
+
+
+  30:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\author Nations
+  31:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\version v1.0.0
+  32:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
+  33:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** **/
+  34:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** 
+  35:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** #ifndef __N32G430_DBG_H__
+  36:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** #define __N32G430_DBG_H__
+  37:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** 
+  38:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** #ifdef __cplusplus
+  39:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** extern "C" {
+  40:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** #endif
+  41:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** 
+  42:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** #include "n32g430.h"
+  43:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** 
+  44:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** #define IDCODE_DEVID_MASK ((uint32_t)0x00000FFF)
+  45:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** 
+  46:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** /**
+  47:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\name    UCID_Get.
+  48:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\fun     get unique customer id.
+  49:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\param   UCIDbuf
+  50:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\return  none
+  51:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** **/
+  52:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** void UCID_Get(uint8_t *UCIDbuf)
+  53:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** {
+  30              		.loc 1 53 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  54:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     uint8_t num = 0;
+  34              		.loc 1 54 5 view .LVU1
+  55:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     uint32_t* ucid_addr = (void*)0;
+  35              		.loc 1 55 5 view .LVU2
+  56:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     uint32_t temp = 0;
+  36              		.loc 1 56 5 view .LVU3
+  57:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** 
+  58:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     ucid_addr = (uint32_t*)UCID_BASE;
+  37              		.loc 1 58 5 view .LVU4
+  59:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     
+  60:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     for (num = 0; num < UCID_LENGTH;)
+  38              		.loc 1 60 5 view .LVU5
+  39              		.loc 1 60 23 discriminator 1 view .LVU6
+  53:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     uint8_t num = 0;
+  40              		.loc 1 53 1 is_stmt 0 view .LVU7
+  41 0000 10B5     		push	{r4, lr}
+  42              	.LCFI0:
+  43              		.cfi_def_cfa_offset 8
+  44              		.cfi_offset 4, -8
+  45              		.cfi_offset 14, -4
+  58:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     
+  46              		.loc 1 58 15 view .LVU8
+  47 0002 094A     		ldr	r2, .L4
+  48              		.loc 1 60 23 discriminator 1 view .LVU9
+  49 0004 0949     		ldr	r1, .L4+4
+  50              	.LVL1:
+  51              	.L2:
+  61:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     {
+  62:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****         temp = *(__IO uint32_t*)(ucid_addr++); 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s 			page 3
+
+
+  52              		.loc 1 62 9 is_stmt 1 view .LVU10
+  53 0006 1346     		mov	r3, r2
+  54              		.loc 1 62 17 is_stmt 0 view .LVU11
+  55 0008 0432     		adds	r2, r2, #4
+  56              	.LVL2:
+  57              		.loc 1 62 14 view .LVU12
+  58 000a 1B68     		ldr	r3, [r3]
+  59              	.LVL3:
+  63:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****         UCIDbuf[num++] = (temp & 0xFF);
+  60              		.loc 1 63 9 is_stmt 1 view .LVU13
+  61              		.loc 1 63 24 is_stmt 0 view .LVU14
+  62 000c 0370     		strb	r3, [r0]
+  64:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****         UCIDbuf[num++] = (temp & 0xFF00) >> 8;
+  63              		.loc 1 64 9 is_stmt 1 view .LVU15
+  64              	.LVL4:
+  65              		.loc 1 64 42 is_stmt 0 view .LVU16
+  66 000e 1C0A     		lsrs	r4, r3, #8
+  67              		.loc 1 64 24 view .LVU17
+  68 0010 4470     		strb	r4, [r0, #1]
+  65:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****         UCIDbuf[num++] = (temp & 0xFF0000) >> 16;
+  69              		.loc 1 65 9 is_stmt 1 view .LVU18
+  70              	.LVL5:
+  60:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     {
+  71              		.loc 1 60 23 is_stmt 0 discriminator 1 view .LVU19
+  72 0012 8A42     		cmp	r2, r1
+  73              		.loc 1 65 44 view .LVU20
+  74 0014 4FEA1344 		lsr	r4, r3, #16
+  66:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****         UCIDbuf[num++] = (temp & 0xFF000000) >> 24;
+  75              		.loc 1 66 46 view .LVU21
+  76 0018 4FEA1363 		lsr	r3, r3, #24
+  77              	.LVL6:
+  65:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****         UCIDbuf[num++] = (temp & 0xFF0000) >> 16;
+  78              		.loc 1 65 24 view .LVU22
+  79 001c 8470     		strb	r4, [r0, #2]
+  80              		.loc 1 66 9 is_stmt 1 view .LVU23
+  81              	.LVL7:
+  82              		.loc 1 66 24 is_stmt 0 view .LVU24
+  83 001e C370     		strb	r3, [r0, #3]
+  60:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     {
+  84              		.loc 1 60 23 is_stmt 1 discriminator 1 view .LVU25
+  85 0020 00F10400 		add	r0, r0, #4
+  86 0024 EFD1     		bne	.L2
+  67:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     }
+  68:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** }
+  87              		.loc 1 68 1 is_stmt 0 view .LVU26
+  88 0026 10BD     		pop	{r4, pc}
+  89              	.L5:
+  90              		.align	2
+  91              	.L4:
+  92 0028 C0F7FF1F 		.word	536868800
+  93 002c D0F7FF1F 		.word	536868816
+  94              		.cfi_endproc
+  95              	.LFE130:
+  97              		.section	.text.UID_Get,"ax",%progbits
+  98              		.align	1
+  99              		.global	UID_Get
+ 100              		.syntax unified
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s 			page 4
+
+
+ 101              		.thumb
+ 102              		.thumb_func
+ 104              	UID_Get:
+ 105              	.LVL8:
+ 106              	.LFB131:
+  69:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** 
+  70:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** /**
+  71:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\name    UID_Get.
+  72:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\fun     get unique device id.
+  73:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\param   UIDbuf
+  74:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\return  none
+  75:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** **/
+  76:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** void UID_Get(uint8_t *UIDbuf)
+  77:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** {
+ 107              		.loc 1 77 1 is_stmt 1 view -0
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+  78:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     uint8_t num = 0;
+ 111              		.loc 1 78 5 view .LVU28
+  79:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     uint32_t* uid_addr = (void*)0;
+ 112              		.loc 1 79 5 view .LVU29
+  80:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     uint32_t temp = 0;
+ 113              		.loc 1 80 5 view .LVU30
+  81:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     
+  82:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     uid_addr = (uint32_t*)UID_BASE;
+ 114              		.loc 1 82 5 view .LVU31
+  83:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****         
+  84:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     for (num = 0; num < UID_LENGTH;)
+ 115              		.loc 1 84 5 view .LVU32
+ 116              		.loc 1 84 23 discriminator 1 view .LVU33
+  77:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     uint8_t num = 0;
+ 117              		.loc 1 77 1 is_stmt 0 view .LVU34
+ 118 0000 10B5     		push	{r4, lr}
+ 119              	.LCFI1:
+ 120              		.cfi_def_cfa_offset 8
+ 121              		.cfi_offset 4, -8
+ 122              		.cfi_offset 14, -4
+  82:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****         
+ 123              		.loc 1 82 14 view .LVU35
+ 124 0002 094A     		ldr	r2, .L9
+ 125              		.loc 1 84 23 discriminator 1 view .LVU36
+ 126 0004 0949     		ldr	r1, .L9+4
+ 127              	.LVL9:
+ 128              	.L7:
+  85:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     {
+  86:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****         temp = *(__IO uint32_t*)(uid_addr++);
+ 129              		.loc 1 86 9 is_stmt 1 view .LVU37
+ 130 0006 1346     		mov	r3, r2
+ 131              		.loc 1 86 17 is_stmt 0 view .LVU38
+ 132 0008 0432     		adds	r2, r2, #4
+ 133              	.LVL10:
+ 134              		.loc 1 86 14 view .LVU39
+ 135 000a 1B68     		ldr	r3, [r3]
+ 136              	.LVL11:
+  87:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****         UIDbuf[num++] = (temp & 0xFF);
+ 137              		.loc 1 87 9 is_stmt 1 view .LVU40
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s 			page 5
+
+
+ 138              		.loc 1 87 23 is_stmt 0 view .LVU41
+ 139 000c 0370     		strb	r3, [r0]
+  88:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****         UIDbuf[num++] = (temp & 0xFF00) >> 8;
+ 140              		.loc 1 88 9 is_stmt 1 view .LVU42
+ 141              	.LVL12:
+ 142              		.loc 1 88 41 is_stmt 0 view .LVU43
+ 143 000e 1C0A     		lsrs	r4, r3, #8
+ 144              		.loc 1 88 23 view .LVU44
+ 145 0010 4470     		strb	r4, [r0, #1]
+  89:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****         UIDbuf[num++] = (temp & 0xFF0000) >> 16;
+ 146              		.loc 1 89 9 is_stmt 1 view .LVU45
+ 147              	.LVL13:
+  84:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     {
+ 148              		.loc 1 84 23 is_stmt 0 discriminator 1 view .LVU46
+ 149 0012 8A42     		cmp	r2, r1
+ 150              		.loc 1 89 43 view .LVU47
+ 151 0014 4FEA1344 		lsr	r4, r3, #16
+  90:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****         UIDbuf[num++] = (temp & 0xFF000000) >> 24;
+ 152              		.loc 1 90 45 view .LVU48
+ 153 0018 4FEA1363 		lsr	r3, r3, #24
+ 154              	.LVL14:
+  89:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****         UIDbuf[num++] = (temp & 0xFF0000) >> 16;
+ 155              		.loc 1 89 23 view .LVU49
+ 156 001c 8470     		strb	r4, [r0, #2]
+ 157              		.loc 1 90 9 is_stmt 1 view .LVU50
+ 158              	.LVL15:
+ 159              		.loc 1 90 23 is_stmt 0 view .LVU51
+ 160 001e C370     		strb	r3, [r0, #3]
+  84:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     {
+ 161              		.loc 1 84 23 is_stmt 1 discriminator 1 view .LVU52
+ 162 0020 00F10400 		add	r0, r0, #4
+ 163 0024 EFD1     		bne	.L7
+  91:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     }
+  92:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** }
+ 164              		.loc 1 92 1 is_stmt 0 view .LVU53
+ 165 0026 10BD     		pop	{r4, pc}
+ 166              	.L10:
+ 167              		.align	2
+ 168              	.L9:
+ 169 0028 F0F7FF1F 		.word	536868848
+ 170 002c FCF7FF1F 		.word	536868860
+ 171              		.cfi_endproc
+ 172              	.LFE131:
+ 174              		.section	.text.DBG_Revision_Number_Get,"ax",%progbits
+ 175              		.align	1
+ 176              		.global	DBG_Revision_Number_Get
+ 177              		.syntax unified
+ 178              		.thumb
+ 179              		.thumb_func
+ 181              	DBG_Revision_Number_Get:
+ 182              	.LFB132:
+  93:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** 
+  94:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** /**
+  95:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\name    DBG_Revision_Number_Get.
+  96:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\fun     get the revision number.
+  97:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\param   none
+  98:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\return  revision number
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s 			page 6
+
+
+  99:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** **/
+ 100:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** uint32_t DBG_Revision_Number_Get(void)
+ 101:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** {
+ 183              		.loc 1 101 1 is_stmt 1 view -0
+ 184              		.cfi_startproc
+ 185              		@ args = 0, pretend = 0, frame = 0
+ 186              		@ frame_needed = 0, uses_anonymous_args = 0
+ 187              		@ link register save eliminated.
+ 102:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     return (DBG->ID & 0x00FF);
+ 188              		.loc 1 102 5 view .LVU55
+ 189              		.loc 1 102 16 is_stmt 0 view .LVU56
+ 190 0000 014B     		ldr	r3, .L12
+ 191 0002 1868     		ldr	r0, [r3]
+ 103:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** }
+ 192              		.loc 1 103 1 view .LVU57
+ 193 0004 C0B2     		uxtb	r0, r0
+ 194 0006 7047     		bx	lr
+ 195              	.L13:
+ 196              		.align	2
+ 197              	.L12:
+ 198 0008 002004E0 		.word	-536600576
+ 199              		.cfi_endproc
+ 200              	.LFE132:
+ 202              		.section	.text.DBG_Device_Number_Get,"ax",%progbits
+ 203              		.align	1
+ 204              		.global	DBG_Device_Number_Get
+ 205              		.syntax unified
+ 206              		.thumb
+ 207              		.thumb_func
+ 209              	DBG_Device_Number_Get:
+ 210              	.LFB133:
+ 104:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** 
+ 105:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** /**
+ 106:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\name    DBG_Device_Number_Get.
+ 107:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\fun     get the device identifer.
+ 108:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\param   none
+ 109:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\return  Device identifier
+ 110:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** **/
+ 111:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** uint32_t DBG_Device_Number_Get(void)
+ 112:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** {
+ 211              		.loc 1 112 1 is_stmt 1 view -0
+ 212              		.cfi_startproc
+ 213              		@ args = 0, pretend = 0, frame = 0
+ 214              		@ frame_needed = 0, uses_anonymous_args = 0
+ 215              		@ link register save eliminated.
+ 113:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     uint32_t id = DBG->ID;
+ 216              		.loc 1 113 5 view .LVU59
+ 217              		.loc 1 113 14 is_stmt 0 view .LVU60
+ 218 0000 044B     		ldr	r3, .L15
+ 219 0002 1B68     		ldr	r3, [r3]
+ 220              	.LVL16:
+ 114:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     return ((id & 0x00F00000) >> 20) | ((id & 0xFF00) >> 4);
+ 221              		.loc 1 114 5 is_stmt 1 view .LVU61
+ 222              		.loc 1 114 31 is_stmt 0 view .LVU62
+ 223 0004 C3F30350 		ubfx	r0, r3, #20, #4
+ 224              		.loc 1 114 55 view .LVU63
+ 225 0008 1B09     		lsrs	r3, r3, #4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s 			page 7
+
+
+ 226              	.LVL17:
+ 227              		.loc 1 114 55 view .LVU64
+ 228 000a 03F47F63 		and	r3, r3, #4080
+ 115:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** }
+ 229              		.loc 1 115 1 view .LVU65
+ 230 000e 1843     		orrs	r0, r0, r3
+ 231 0010 7047     		bx	lr
+ 232              	.L16:
+ 233 0012 00BF     		.align	2
+ 234              	.L15:
+ 235 0014 002004E0 		.word	-536600576
+ 236              		.cfi_endproc
+ 237              	.LFE133:
+ 239              		.section	.text.DBG_Peripheral_ON,"ax",%progbits
+ 240              		.align	1
+ 241              		.global	DBG_Peripheral_ON
+ 242              		.syntax unified
+ 243              		.thumb
+ 244              		.thumb_func
+ 246              	DBG_Peripheral_ON:
+ 247              	.LVL18:
+ 248              	.LFB134:
+ 116:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** 
+ 117:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** /**
+ 118:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\name    DBG_Peripheral_ON.
+ 119:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\fun     Configures the specified peripheral run when the MCU under Debug mode.
+ 120:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\param   DBG_Periph :
+ 121:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_SLEEP             \* Keep debugger connection during SLEEP mode *\
+ 122:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_STOP              \* Keep debugger connection during STOP mode *\
+ 123:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_STANDBY           \* Keep debugger connection during STANDBY mode *\
+ 124:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_IWDG_STOP         \* IWDG stopped when Core is halted. *\
+ 125:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_WWDG_STOP         \* WWDG stopped when Core is halted. *\
+ 126:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_TIM1_STOP         \* TIM1 counter stopped when Core is halted. *\
+ 127:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_TIM2_STOP         \* TIM2 counter stopped when Core is halted. *\
+ 128:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_TIM3_STOP         \* TIM3 counter stopped when Core is halted. *\
+ 129:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_TIM4_STOP         \* TIM4 counter stopped when Core is halted. *\
+ 130:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_CAN_STOP          \* CAN  stopped when Core is halted. *\
+ 131:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_I2C1SMBUS_TIMEOUT \* I2C1 SMBUS timeout mode stopped when Core is halted. *\
+ 132:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_I2C2SMBUS_TIMEOUT \* I2C2 SMBUS timeout mode stopped when Core is halted. *\
+ 133:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_TIM8_STOP         \* TIM8 counter stopped when Core is halted. *\
+ 134:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_TIM5_STOP         \* TIM5 counter stopped when Core is halted. *\
+ 135:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_TIM6_STOP         \* TIM6 counter stopped when Core is halted. *\
+ 136:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\return  none
+ 137:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** **/
+ 138:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** void DBG_Peripheral_ON(uint32_t DBG_Periph)
+ 139:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** {
+ 249              		.loc 1 139 1 is_stmt 1 view -0
+ 250              		.cfi_startproc
+ 251              		@ args = 0, pretend = 0, frame = 0
+ 252              		@ frame_needed = 0, uses_anonymous_args = 0
+ 253              		@ link register save eliminated.
+ 140:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     DBG->CTRL |= DBG_Periph;
+ 254              		.loc 1 140 5 view .LVU67
+ 255              		.loc 1 140 8 is_stmt 0 view .LVU68
+ 256 0000 024A     		ldr	r2, .L18
+ 257 0002 5368     		ldr	r3, [r2, #4]
+ 258              		.loc 1 140 15 view .LVU69
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s 			page 8
+
+
+ 259 0004 0343     		orrs	r3, r3, r0
+ 260 0006 5360     		str	r3, [r2, #4]
+ 141:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** }
+ 261              		.loc 1 141 1 view .LVU70
+ 262 0008 7047     		bx	lr
+ 263              	.L19:
+ 264 000a 00BF     		.align	2
+ 265              	.L18:
+ 266 000c 002004E0 		.word	-536600576
+ 267              		.cfi_endproc
+ 268              	.LFE134:
+ 270              		.section	.text.DBG_Peripheral_OFF,"ax",%progbits
+ 271              		.align	1
+ 272              		.global	DBG_Peripheral_OFF
+ 273              		.syntax unified
+ 274              		.thumb
+ 275              		.thumb_func
+ 277              	DBG_Peripheral_OFF:
+ 278              	.LVL19:
+ 279              	.LFB135:
+ 142:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** 
+ 143:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** /**
+ 144:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\name    DBG_Peripheral_OFF.
+ 145:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\fun     Configures the specified peripheral run or stop when the MCU under Debug mode.
+ 146:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\param   DBG_Periph :
+ 147:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_SLEEP             \* Debugger disconnect during SLEEP mode *\
+ 148:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_STOP              \* Debugger disconnect during STOP mode *\
+ 149:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_STANDBY           \* Debugger disconnect during STANDBY mode *\
+ 150:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_IWDG_STOP         \* IWDG don't stop when Core is halted. *\
+ 151:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_WWDG_STOP         \* WWDG don't stop when Core is halted. *\
+ 152:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_TIM1_STOP         \* TIM1 counter don't stop when Core is halted. *\
+ 153:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_TIM2_STOP         \* TIM2 counter don't stop when Core is halted. *\
+ 154:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_TIM3_STOP         \* TIM3 counter don't stop when Core is halted. *\
+ 155:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_TIM4_STOP         \* TIM4 counter don't stop when Core is halted. *\
+ 156:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_CAN_STOP          \* CAN  stopped when Core is halted. *\
+ 157:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_I2C1SMBUS_TIMEOUT \* I2C1 SMBUS timeout mode don't stop when Core is halted. 
+ 158:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_I2C2SMBUS_TIMEOUT \* I2C2 SMBUS timeout mode don't stop when Core is halted. 
+ 159:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_TIM8_STOP         \* TIM8 counter don't stop when Core is halted. *\
+ 160:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_TIM5_STOP         \* TIM5 counter don't stop when Core is halted. *\
+ 161:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****                 - DBG_TIM6_STOP         \* TIM6 counter don't stop when Core is halted. *\
+ 162:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** *\*\return  none
+ 163:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** **/
+ 164:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** void DBG_Peripheral_OFF(uint32_t DBG_Periph)
+ 165:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** {
+ 280              		.loc 1 165 1 is_stmt 1 view -0
+ 281              		.cfi_startproc
+ 282              		@ args = 0, pretend = 0, frame = 0
+ 283              		@ frame_needed = 0, uses_anonymous_args = 0
+ 284              		@ link register save eliminated.
+ 166:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c ****     DBG->CTRL &= ~DBG_Periph;
+ 285              		.loc 1 166 5 view .LVU72
+ 286              		.loc 1 166 8 is_stmt 0 view .LVU73
+ 287 0000 024A     		ldr	r2, .L21
+ 288 0002 5368     		ldr	r3, [r2, #4]
+ 289              		.loc 1 166 15 view .LVU74
+ 290 0004 23EA0003 		bic	r3, r3, r0
+ 291 0008 5360     		str	r3, [r2, #4]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s 			page 9
+
+
+ 167:../firmware/n32g430_std_periph_driver/src/n32g430_dbg.c **** }
+ 292              		.loc 1 167 1 view .LVU75
+ 293 000a 7047     		bx	lr
+ 294              	.L22:
+ 295              		.align	2
+ 296              	.L21:
+ 297 000c 002004E0 		.word	-536600576
+ 298              		.cfi_endproc
+ 299              	.LFE135:
+ 301              		.text
+ 302              	.Letext0:
+ 303              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 304              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 305              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 n32g430_dbg.c
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:21     .text.UCID_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:27     .text.UCID_Get:00000000 UCID_Get
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:92     .text.UCID_Get:00000028 $d
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:98     .text.UID_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:104    .text.UID_Get:00000000 UID_Get
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:169    .text.UID_Get:00000028 $d
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:175    .text.DBG_Revision_Number_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:181    .text.DBG_Revision_Number_Get:00000000 DBG_Revision_Number_Get
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:198    .text.DBG_Revision_Number_Get:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:203    .text.DBG_Device_Number_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:209    .text.DBG_Device_Number_Get:00000000 DBG_Device_Number_Get
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:235    .text.DBG_Device_Number_Get:00000014 $d
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:240    .text.DBG_Peripheral_ON:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:246    .text.DBG_Peripheral_ON:00000000 DBG_Peripheral_ON
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:266    .text.DBG_Peripheral_ON:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:271    .text.DBG_Peripheral_OFF:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:277    .text.DBG_Peripheral_OFF:00000000 DBG_Peripheral_OFF
+C:\Users\Dawn\AppData\Local\Temp\ccFSyHSc.s:297    .text.DBG_Peripheral_OFF:0000000c $d
+
+NO UNDEFINED SYMBOLS

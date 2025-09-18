@@ -1,0 +1,565 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"n32g430_beeper.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c"
+  20              		.section	.text.BEEPER_Reset,"ax",%progbits
+  21              		.align	1
+  22              		.global	BEEPER_Reset
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	BEEPER_Reset:
+  28              	.LFB130:
+   1:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** /*****************************************************************************
+   2:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * Copyright (c) 2019, Nations Technologies Inc.
+   3:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  *
+   4:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * All rights reserved.
+   5:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * ****************************************************************************
+   6:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  *
+   7:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * Redistribution and use in source and binary forms, with or without
+   8:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * modification, are permitted provided that the following conditions are met:
+   9:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  *
+  10:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * - Redistributions of source code must retain the above copyright notice,
+  11:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * this list of conditions and the disclaimer below.
+  12:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  *
+  13:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * Nations' name may not be used to endorse or promote products derived from
+  14:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * this software without specific prior written permission.
+  15:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  *
+  16:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY NATIONS "AS IS" AND ANY EXPRESS OR
+  17:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  18:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  19:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * DISCLAIMED. IN NO EVENT SHALL NATIONS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  20:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  21:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  22:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  23:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  24:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  25:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  26:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****  * ****************************************************************************/
+  27:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 
+  28:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** /**
+  29:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\file n32g430_beeper.c
+  30:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\author Nations
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s 			page 2
+
+
+  31:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\version v1.0.0
+  32:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
+  33:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** **/
+  34:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 
+  35:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** #include "n32g430_beeper.h"
+  36:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** #include "n32g430_rcc.h"
+  37:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 
+  38:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** /**
+  39:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\name    BEEPER_Reset.
+  40:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\fun     Reset the BEEPER register to it's default reset values.
+  41:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\param   none.
+  42:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\return  none. 
+  43:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** **/
+  44:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** void BEEPER_Reset(void)
+  45:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** {
+  29              		.loc 1 45 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  46:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 	  RCC_APB2_Peripheral_Reset(RCC_APB2_PERIPH_BEEPER);   
+  34              		.loc 1 46 4 view .LVU1
+  35 0000 0220     		movs	r0, #2
+  36 0002 FFF7FEBF 		b	RCC_APB2_Peripheral_Reset
+  37              	.LVL0:
+  38              		.cfi_endproc
+  39              	.LFE130:
+  41              		.section	.text.BEEPER_Clock_Select,"ax",%progbits
+  42              		.align	1
+  43              		.global	BEEPER_Clock_Select
+  44              		.syntax unified
+  45              		.thumb
+  46              		.thumb_func
+  48              	BEEPER_Clock_Select:
+  49              	.LVL1:
+  50              	.LFB131:
+  47:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** }
+  48:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 
+  49:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** /**
+  50:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\name    BEEPER_Clock_Select.
+  51:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\fun     Beeper clock selection.
+  52:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\param   clock_selection:  
+  53:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\          - BEEPER_CLK_SOURCE_APB 
+  54:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\          - BEEPER_CLK_SOURCE_LSI 
+  55:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\          - BEEPER_CLK_SOURCE_LSE 
+  56:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\return  none. 
+  57:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** **/
+  58:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** void BEEPER_Clock_Select(uint32_t clock_selection)
+  59:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** {
+  51              		.loc 1 59 1 view -0
+  52              		.cfi_startproc
+  53              		@ args = 0, pretend = 0, frame = 0
+  54              		@ frame_needed = 0, uses_anonymous_args = 0
+  55              		@ link register save eliminated.
+  60:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 	  BEEPER->CTRL &= BEEPER_CLK_MASK;
+  56              		.loc 1 60 4 view .LVU3
+  57              		.loc 1 60 10 is_stmt 0 view .LVU4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s 			page 3
+
+
+  58 0000 064B     		ldr	r3, .L3
+  59 0002 D3F80028 		ldr	r2, [r3, #2048]
+  60              		.loc 1 60 17 view .LVU5
+  61 0006 22F00C02 		bic	r2, r2, #12
+  62 000a C3F80028 		str	r2, [r3, #2048]
+  61:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****       BEEPER->CTRL |= clock_selection;    
+  63              		.loc 1 61 7 is_stmt 1 view .LVU6
+  64              		.loc 1 61 13 is_stmt 0 view .LVU7
+  65 000e D3F80028 		ldr	r2, [r3, #2048]
+  66              		.loc 1 61 20 view .LVU8
+  67 0012 0243     		orrs	r2, r2, r0
+  68 0014 C3F80028 		str	r2, [r3, #2048]
+  62:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** }
+  69              		.loc 1 62 1 view .LVU9
+  70 0018 7047     		bx	lr
+  71              	.L4:
+  72 001a 00BF     		.align	2
+  73              	.L3:
+  74 001c 00000140 		.word	1073807360
+  75              		.cfi_endproc
+  76              	.LFE131:
+  78              		.section	.text.BEEPER_APB_Clock_Prescale_Set,"ax",%progbits
+  79              		.align	1
+  80              		.global	BEEPER_APB_Clock_Prescale_Set
+  81              		.syntax unified
+  82              		.thumb
+  83              		.thumb_func
+  85              	BEEPER_APB_Clock_Prescale_Set:
+  86              	.LVL2:
+  87              	.LFB132:
+  63:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 
+  64:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** /**
+  65:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\name    BEEPER_APB_Clock_Prescale_Set.
+  66:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\fun     Set BEEPER APB clock prescale factor.
+  67:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\param   prescale_factor:  if LSI or LSE clock is selected, this parameter is ignored
+  68:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\          - 0 ~ 63  if prescale_factor > 0 and prescale_factor < 64, the APB clock frequency is
+  69:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\return  none. 
+  70:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** **/
+  71:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** void BEEPER_APB_Clock_Prescale_Set(uint32_t prescale_factor)
+  72:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** {
+  88              		.loc 1 72 1 is_stmt 1 view -0
+  89              		.cfi_startproc
+  90              		@ args = 0, pretend = 0, frame = 0
+  91              		@ frame_needed = 0, uses_anonymous_args = 0
+  92              		@ link register save eliminated.
+  73:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 	  BEEPER->CTRL &= BEEPER_FREQUENCY_MASK;
+  93              		.loc 1 73 4 view .LVU11
+  94              		.loc 1 73 10 is_stmt 0 view .LVU12
+  95 0000 064B     		ldr	r3, .L6
+  96 0002 D3F80028 		ldr	r2, [r3, #2048]
+  97              		.loc 1 73 17 view .LVU13
+  98 0006 22F47C12 		bic	r2, r2, #4128768
+  99 000a C3F80028 		str	r2, [r3, #2048]
+  74:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 	  BEEPER->CTRL |= (prescale_factor << BEEPER_PSC_BIT_MASK);
+ 100              		.loc 1 74 4 is_stmt 1 view .LVU14
+ 101              		.loc 1 74 10 is_stmt 0 view .LVU15
+ 102 000e D3F80028 		ldr	r2, [r3, #2048]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s 			page 4
+
+
+ 103              		.loc 1 74 17 view .LVU16
+ 104 0012 42EA0042 		orr	r2, r2, r0, lsl #16
+ 105 0016 C3F80028 		str	r2, [r3, #2048]
+  75:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** }
+ 106              		.loc 1 75 1 view .LVU17
+ 107 001a 7047     		bx	lr
+ 108              	.L7:
+ 109              		.align	2
+ 110              	.L6:
+ 111 001c 00000140 		.word	1073807360
+ 112              		.cfi_endproc
+ 113              	.LFE132:
+ 115              		.section	.text.BEEPER_Div_Factor_Select,"ax",%progbits
+ 116              		.align	1
+ 117              		.global	BEEPER_Div_Factor_Select
+ 118              		.syntax unified
+ 119              		.thumb
+ 120              		.thumb_func
+ 122              	BEEPER_Div_Factor_Select:
+ 123              	.LVL3:
+ 124              	.LFB133:
+  76:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 
+  77:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** /**
+  78:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\name    BEEPER_Div_Factor_Select.
+  79:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\fun     Beeper division factor selection.
+  80:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\param   div_factor:  
+  81:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\          - 0 ~ 511  if div_factor is x, output frequency value divided by (x + 1) * 2
+  82:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\return  none. 
+  83:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** **/
+  84:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** void BEEPER_Div_Factor_Select(uint32_t div_factor)
+  85:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** {     BEEPER->CTRL &= BEEPER_DIV_MASK;
+ 125              		.loc 1 85 1 is_stmt 1 view -0
+ 126              		.cfi_startproc
+ 127              		@ args = 0, pretend = 0, frame = 0
+ 128              		@ frame_needed = 0, uses_anonymous_args = 0
+ 129              		@ link register save eliminated.
+ 130              		.loc 1 85 7 view .LVU19
+ 131              		.loc 1 85 13 is_stmt 0 view .LVU20
+ 132 0000 064B     		ldr	r3, .L9
+ 133 0002 D3F80028 		ldr	r2, [r3, #2048]
+ 134              		.loc 1 85 20 view .LVU21
+ 135 0006 6FF30C12 		bfc	r2, #4, #9
+ 136 000a C3F80028 		str	r2, [r3, #2048]
+  86:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****       BEEPER->CTRL |= (div_factor << BEEPER_BEEPDIV_BIT_MASK);
+ 137              		.loc 1 86 7 is_stmt 1 view .LVU22
+ 138              		.loc 1 86 13 is_stmt 0 view .LVU23
+ 139 000e D3F80028 		ldr	r2, [r3, #2048]
+ 140              		.loc 1 86 20 view .LVU24
+ 141 0012 42EA0012 		orr	r2, r2, r0, lsl #4
+ 142 0016 C3F80028 		str	r2, [r3, #2048]
+  87:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** }
+ 143              		.loc 1 87 1 view .LVU25
+ 144 001a 7047     		bx	lr
+ 145              	.L10:
+ 146              		.align	2
+ 147              	.L9:
+ 148 001c 00000140 		.word	1073807360
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s 			page 5
+
+
+ 149              		.cfi_endproc
+ 150              	.LFE133:
+ 152              		.section	.text.BEEPER_Initialize,"ax",%progbits
+ 153              		.align	1
+ 154              		.global	BEEPER_Initialize
+ 155              		.syntax unified
+ 156              		.thumb
+ 157              		.thumb_func
+ 159              	BEEPER_Initialize:
+ 160              	.LVL4:
+ 161              	.LFB134:
+  88:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 
+  89:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** /**
+  90:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\name    BEEPER_Initialize.
+  91:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\fun     Init Beeper.
+  92:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\param   clock_selection:  
+  93:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\          - BEEPER_CLK_SOURCE_APB 
+  94:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\          - BEEPER_CLK_SOURCE_LSI 
+  95:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\          - BEEPER_CLK_SOURCE_LSE
+  96:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\param   prescale_factor:  if LSI or LSE clock is selected, this parameter is ignored
+  97:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\          - 0 ~ 63  if prescale_factor > 0 and prescale_factor < 64, the APB clock frequency is
+  98:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\param   div_factor:  
+  99:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\          - 0 ~ 511  if div_factor is x, output frequency value divided by (x + 1) * 2
+ 100:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\return  none. 
+ 101:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** **/
+ 102:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** void BEEPER_Initialize(uint32_t clock_selection, uint32_t prescale_factor, uint32_t div_factor)
+ 103:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** {
+ 162              		.loc 1 103 1 is_stmt 1 view -0
+ 163              		.cfi_startproc
+ 164              		@ args = 0, pretend = 0, frame = 0
+ 165              		@ frame_needed = 0, uses_anonymous_args = 0
+ 104:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 	  BEEPER_Clock_Select(clock_selection);
+ 166              		.loc 1 104 4 view .LVU27
+ 103:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 	  BEEPER_Clock_Select(clock_selection);
+ 167              		.loc 1 103 1 is_stmt 0 view .LVU28
+ 168 0000 10B5     		push	{r4, lr}
+ 169              	.LCFI0:
+ 170              		.cfi_def_cfa_offset 8
+ 171              		.cfi_offset 4, -8
+ 172              		.cfi_offset 14, -4
+ 103:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 	  BEEPER_Clock_Select(clock_selection);
+ 173              		.loc 1 103 1 view .LVU29
+ 174 0002 1446     		mov	r4, r2
+ 175              		.loc 1 104 4 view .LVU30
+ 176 0004 FFF7FEFF 		bl	BEEPER_Clock_Select
+ 177              	.LVL5:
+ 105:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 	  BEEPER_APB_Clock_Prescale_Set(prescale_factor);
+ 178              		.loc 1 105 4 is_stmt 1 view .LVU31
+ 179 0008 0846     		mov	r0, r1
+ 180              	.LVL6:
+ 181              		.loc 1 105 4 is_stmt 0 view .LVU32
+ 182 000a FFF7FEFF 		bl	BEEPER_APB_Clock_Prescale_Set
+ 183              	.LVL7:
+ 106:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 	  BEEPER_Div_Factor_Select(div_factor);
+ 184              		.loc 1 106 4 is_stmt 1 view .LVU33
+ 185 000e 2046     		mov	r0, r4
+ 107:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s 			page 6
+
+
+ 186              		.loc 1 107 1 is_stmt 0 view .LVU34
+ 187 0010 BDE81040 		pop	{r4, lr}
+ 188              	.LCFI1:
+ 189              		.cfi_restore 14
+ 190              		.cfi_restore 4
+ 191              		.cfi_def_cfa_offset 0
+ 192              	.LVL8:
+ 106:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 	  BEEPER_Div_Factor_Select(div_factor);
+ 193              		.loc 1 106 4 view .LVU35
+ 194 0014 FFF7FEBF 		b	BEEPER_Div_Factor_Select
+ 195              	.LVL9:
+ 196              		.cfi_endproc
+ 197              	.LFE134:
+ 199              		.section	.text.BEEPER_Bypass_Clock_Signal,"ax",%progbits
+ 200              		.align	1
+ 201              		.global	BEEPER_Bypass_Clock_Signal
+ 202              		.syntax unified
+ 203              		.thumb
+ 204              		.thumb_func
+ 206              	BEEPER_Bypass_Clock_Signal:
+ 207              	.LFB135:
+ 108:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 
+ 109:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 
+ 110:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** /**
+ 111:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\name    BEEPER_Bypass_Clock_Signal.
+ 112:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\fun     Bypass the selected clock signal to the output ports.
+ 113:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\param   none. 
+ 114:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\return  none. 
+ 115:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** **/
+ 116:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** void BEEPER_Bypass_Clock_Signal(void)
+ 117:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** {
+ 208              		.loc 1 117 1 is_stmt 1 view -0
+ 209              		.cfi_startproc
+ 210              		@ args = 0, pretend = 0, frame = 0
+ 211              		@ frame_needed = 0, uses_anonymous_args = 0
+ 212              		@ link register save eliminated.
+ 118:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 	  BEEPER->CTRL |= BEEPER_BYPASS;
+ 213              		.loc 1 118 4 view .LVU37
+ 214              		.loc 1 118 10 is_stmt 0 view .LVU38
+ 215 0000 034A     		ldr	r2, .L13
+ 216 0002 D2F80038 		ldr	r3, [r2, #2048]
+ 217              		.loc 1 118 17 view .LVU39
+ 218 0006 43F40043 		orr	r3, r3, #32768
+ 219 000a C2F80038 		str	r3, [r2, #2048]
+ 119:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** }
+ 220              		.loc 1 119 1 view .LVU40
+ 221 000e 7047     		bx	lr
+ 222              	.L14:
+ 223              		.align	2
+ 224              	.L13:
+ 225 0010 00000140 		.word	1073807360
+ 226              		.cfi_endproc
+ 227              	.LFE135:
+ 229              		.section	.text.BEEPER_Inverted_Enable,"ax",%progbits
+ 230              		.align	1
+ 231              		.global	BEEPER_Inverted_Enable
+ 232              		.syntax unified
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s 			page 7
+
+
+ 233              		.thumb
+ 234              		.thumb_func
+ 236              	BEEPER_Inverted_Enable:
+ 237              	.LFB136:
+ 120:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 
+ 121:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 
+ 122:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** /**
+ 123:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\name    BEEPER_Inverted_Enable.
+ 124:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\fun     Beeper complementary output enable.
+ 125:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\param   none. 
+ 126:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\return  none. 
+ 127:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** **/
+ 128:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** void BEEPER_Inverted_Enable(void)
+ 129:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** {
+ 238              		.loc 1 129 1 is_stmt 1 view -0
+ 239              		.cfi_startproc
+ 240              		@ args = 0, pretend = 0, frame = 0
+ 241              		@ frame_needed = 0, uses_anonymous_args = 0
+ 242              		@ link register save eliminated.
+ 130:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****       BEEPER->CTRL |= BEEPER_INV_ENABLE;
+ 243              		.loc 1 130 7 view .LVU42
+ 244              		.loc 1 130 13 is_stmt 0 view .LVU43
+ 245 0000 034A     		ldr	r2, .L16
+ 246 0002 D2F80038 		ldr	r3, [r2, #2048]
+ 247              		.loc 1 130 20 view .LVU44
+ 248 0006 43F00203 		orr	r3, r3, #2
+ 249 000a C2F80038 		str	r3, [r2, #2048]
+ 131:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** }
+ 250              		.loc 1 131 1 view .LVU45
+ 251 000e 7047     		bx	lr
+ 252              	.L17:
+ 253              		.align	2
+ 254              	.L16:
+ 255 0010 00000140 		.word	1073807360
+ 256              		.cfi_endproc
+ 257              	.LFE136:
+ 259              		.section	.text.BEEPER_Inverted_Disable,"ax",%progbits
+ 260              		.align	1
+ 261              		.global	BEEPER_Inverted_Disable
+ 262              		.syntax unified
+ 263              		.thumb
+ 264              		.thumb_func
+ 266              	BEEPER_Inverted_Disable:
+ 267              	.LFB137:
+ 132:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 
+ 133:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** /**
+ 134:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\name    BEEPER_Inverted_Disable.
+ 135:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\fun     Beeper complementary output disable.
+ 136:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\param   none. 
+ 137:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\return  none. 
+ 138:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** **/
+ 139:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** void BEEPER_Inverted_Disable(void)
+ 140:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** {
+ 268              		.loc 1 140 1 is_stmt 1 view -0
+ 269              		.cfi_startproc
+ 270              		@ args = 0, pretend = 0, frame = 0
+ 271              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s 			page 8
+
+
+ 272              		@ link register save eliminated.
+ 141:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****       BEEPER->CTRL &= BEEPER_INV_DISABLE;
+ 273              		.loc 1 141 7 view .LVU47
+ 274              		.loc 1 141 13 is_stmt 0 view .LVU48
+ 275 0000 034A     		ldr	r2, .L19
+ 276 0002 D2F80038 		ldr	r3, [r2, #2048]
+ 277              		.loc 1 141 20 view .LVU49
+ 278 0006 23F00203 		bic	r3, r3, #2
+ 279 000a C2F80038 		str	r3, [r2, #2048]
+ 142:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** }
+ 280              		.loc 1 142 1 view .LVU50
+ 281 000e 7047     		bx	lr
+ 282              	.L20:
+ 283              		.align	2
+ 284              	.L19:
+ 285 0010 00000140 		.word	1073807360
+ 286              		.cfi_endproc
+ 287              	.LFE137:
+ 289              		.section	.text.BEEPER_Enable,"ax",%progbits
+ 290              		.align	1
+ 291              		.global	BEEPER_Enable
+ 292              		.syntax unified
+ 293              		.thumb
+ 294              		.thumb_func
+ 296              	BEEPER_Enable:
+ 297              	.LFB138:
+ 143:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 
+ 144:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 
+ 145:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** /**
+ 146:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\name    BEEPER_Enable.
+ 147:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\fun     Enable beeper.
+ 148:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\param   none. 
+ 149:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\return  none. 
+ 150:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** **/
+ 151:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** void BEEPER_Enable(void)
+ 152:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** {
+ 298              		.loc 1 152 1 is_stmt 1 view -0
+ 299              		.cfi_startproc
+ 300              		@ args = 0, pretend = 0, frame = 0
+ 301              		@ frame_needed = 0, uses_anonymous_args = 0
+ 302              		@ link register save eliminated.
+ 153:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****       BEEPER->CTRL |= BEEPER_ENABLE;
+ 303              		.loc 1 153 7 view .LVU52
+ 304              		.loc 1 153 13 is_stmt 0 view .LVU53
+ 305 0000 034A     		ldr	r2, .L22
+ 306 0002 D2F80038 		ldr	r3, [r2, #2048]
+ 307              		.loc 1 153 20 view .LVU54
+ 308 0006 43F00103 		orr	r3, r3, #1
+ 309 000a C2F80038 		str	r3, [r2, #2048]
+ 154:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** }
+ 310              		.loc 1 154 1 view .LVU55
+ 311 000e 7047     		bx	lr
+ 312              	.L23:
+ 313              		.align	2
+ 314              	.L22:
+ 315 0010 00000140 		.word	1073807360
+ 316              		.cfi_endproc
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s 			page 9
+
+
+ 317              	.LFE138:
+ 319              		.section	.text.BEEPER_Disable,"ax",%progbits
+ 320              		.align	1
+ 321              		.global	BEEPER_Disable
+ 322              		.syntax unified
+ 323              		.thumb
+ 324              		.thumb_func
+ 326              	BEEPER_Disable:
+ 327              	.LFB139:
+ 155:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** 
+ 156:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** /**
+ 157:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\name    BEEPER_Disable.
+ 158:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\fun     Disable beeper.
+ 159:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\param   none. 
+ 160:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** *\*\return  none. 
+ 161:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** **/
+ 162:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** void BEEPER_Disable(void)
+ 163:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** {
+ 328              		.loc 1 163 1 is_stmt 1 view -0
+ 329              		.cfi_startproc
+ 330              		@ args = 0, pretend = 0, frame = 0
+ 331              		@ frame_needed = 0, uses_anonymous_args = 0
+ 332              		@ link register save eliminated.
+ 164:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c ****       BEEPER->CTRL &= BEEPER_DISABLE;
+ 333              		.loc 1 164 7 view .LVU57
+ 334              		.loc 1 164 13 is_stmt 0 view .LVU58
+ 335 0000 034A     		ldr	r2, .L25
+ 336 0002 D2F80038 		ldr	r3, [r2, #2048]
+ 337              		.loc 1 164 20 view .LVU59
+ 338 0006 23F00103 		bic	r3, r3, #1
+ 339 000a C2F80038 		str	r3, [r2, #2048]
+ 165:../firmware/n32g430_std_periph_driver/src/n32g430_beeper.c **** }
+ 340              		.loc 1 165 1 view .LVU60
+ 341 000e 7047     		bx	lr
+ 342              	.L26:
+ 343              		.align	2
+ 344              	.L25:
+ 345 0010 00000140 		.word	1073807360
+ 346              		.cfi_endproc
+ 347              	.LFE139:
+ 349              		.text
+ 350              	.Letext0:
+ 351              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 352              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 353              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 354              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 n32g430_beeper.c
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:21     .text.BEEPER_Reset:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:27     .text.BEEPER_Reset:00000000 BEEPER_Reset
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:42     .text.BEEPER_Clock_Select:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:48     .text.BEEPER_Clock_Select:00000000 BEEPER_Clock_Select
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:74     .text.BEEPER_Clock_Select:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:79     .text.BEEPER_APB_Clock_Prescale_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:85     .text.BEEPER_APB_Clock_Prescale_Set:00000000 BEEPER_APB_Clock_Prescale_Set
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:111    .text.BEEPER_APB_Clock_Prescale_Set:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:116    .text.BEEPER_Div_Factor_Select:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:122    .text.BEEPER_Div_Factor_Select:00000000 BEEPER_Div_Factor_Select
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:148    .text.BEEPER_Div_Factor_Select:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:153    .text.BEEPER_Initialize:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:159    .text.BEEPER_Initialize:00000000 BEEPER_Initialize
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:200    .text.BEEPER_Bypass_Clock_Signal:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:206    .text.BEEPER_Bypass_Clock_Signal:00000000 BEEPER_Bypass_Clock_Signal
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:225    .text.BEEPER_Bypass_Clock_Signal:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:230    .text.BEEPER_Inverted_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:236    .text.BEEPER_Inverted_Enable:00000000 BEEPER_Inverted_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:255    .text.BEEPER_Inverted_Enable:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:260    .text.BEEPER_Inverted_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:266    .text.BEEPER_Inverted_Disable:00000000 BEEPER_Inverted_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:285    .text.BEEPER_Inverted_Disable:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:290    .text.BEEPER_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:296    .text.BEEPER_Enable:00000000 BEEPER_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:315    .text.BEEPER_Enable:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:320    .text.BEEPER_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:326    .text.BEEPER_Disable:00000000 BEEPER_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccfLTnmi.s:345    .text.BEEPER_Disable:00000010 $d
+
+UNDEFINED SYMBOLS
+RCC_APB2_Peripheral_Reset

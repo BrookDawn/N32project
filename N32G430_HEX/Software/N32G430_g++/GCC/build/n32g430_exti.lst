@@ -1,0 +1,1143 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"n32g430_exti.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../firmware/n32g430_std_periph_driver/src/n32g430_exti.c"
+  20              		.section	.text.EXTI_Reset,"ax",%progbits
+  21              		.align	1
+  22              		.global	EXTI_Reset
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	EXTI_Reset:
+  28              	.LFB130:
+   1:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** /*****************************************************************************
+   2:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * Copyright (c) 2019, Nations Technologies Inc.
+   3:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  *
+   4:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * All rights reserved.
+   5:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * ****************************************************************************
+   6:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  *
+   7:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * Redistribution and use in source and binary forms, with or without
+   8:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * modification, are permitted provided that the following conditions are met:
+   9:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  *
+  10:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * - Redistributions of source code must retain the above copyright notice,
+  11:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * this list of conditions and the disclaimer below.
+  12:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  *
+  13:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * Nations' name may not be used to endorse or promote products derived from
+  14:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * this software without specific prior written permission.
+  15:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  *
+  16:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY NATIONS "AS IS" AND ANY EXPRESS OR
+  17:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  18:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  19:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * DISCLAIMED. IN NO EVENT SHALL NATIONS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  20:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  21:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  22:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  23:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  24:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  25:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  26:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****  * ****************************************************************************/
+  27:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+  28:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** /**
+  29:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\file n32g430_exti.c
+  30:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\author Nations
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 2
+
+
+  31:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\version v1.0.0
+  32:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
+  33:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** **/
+  34:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+  35:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** #include "n32g430_exti.h"
+  36:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+  37:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+  38:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** /**
+  39:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\name    EXTI_Reset.
+  40:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\fun     Reset the EXTI registers.
+  41:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\return  none
+  42:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** **/
+  43:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** void EXTI_Reset(void)
+  44:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** {
+  29              		.loc 1 44 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  45:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->IMASK  = 0x00000000;
+  34              		.loc 1 45 5 view .LVU1
+  35              		.loc 1 45 18 is_stmt 0 view .LVU2
+  36 0000 044B     		ldr	r3, .L2
+  37 0002 0022     		movs	r2, #0
+  38 0004 1A60     		str	r2, [r3]
+  46:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->EMASK  = 0x00000000;
+  39              		.loc 1 46 5 is_stmt 1 view .LVU3
+  40              		.loc 1 46 18 is_stmt 0 view .LVU4
+  41 0006 5A60     		str	r2, [r3, #4]
+  47:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->RT_CFG = 0x00000000;
+  42              		.loc 1 47 5 is_stmt 1 view .LVU5
+  43              		.loc 1 47 18 is_stmt 0 view .LVU6
+  44 0008 9A60     		str	r2, [r3, #8]
+  48:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->FT_CFG = 0x00000000;
+  45              		.loc 1 48 5 is_stmt 1 view .LVU7
+  46              		.loc 1 48 18 is_stmt 0 view .LVU8
+  47 000a DA60     		str	r2, [r3, #12]
+  49:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->PEND   = 0x00FFFFFF;
+  48              		.loc 1 49 5 is_stmt 1 view .LVU9
+  49              		.loc 1 49 18 is_stmt 0 view .LVU10
+  50 000c 6FF07F42 		mvn	r2, #-16777216
+  51 0010 5A61     		str	r2, [r3, #20]
+  50:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** }
+  52              		.loc 1 50 1 view .LVU11
+  53 0012 7047     		bx	lr
+  54              	.L3:
+  55              		.align	2
+  56              	.L2:
+  57 0014 00040140 		.word	1073808384
+  58              		.cfi_endproc
+  59              	.LFE130:
+  61              		.section	.text.EXTI_Work_Mode_Config,"ax",%progbits
+  62              		.align	1
+  63              		.global	EXTI_Work_Mode_Config
+  64              		.syntax unified
+  65              		.thumb
+  66              		.thumb_func
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 3
+
+
+  68              	EXTI_Work_Mode_Config:
+  69              	.LVL0:
+  70              	.LFB132:
+  51:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+  52:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** /**
+  53:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\name    EXTI_Peripheral_Initializes.
+  54:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\fun     Initializes the EXTI according to EXTI_InitStruct.
+  55:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\param   EXTI_InitStruct :
+  56:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\          - EXTI_Mode
+  57:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_Mode_Interrupt
+  58:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_Mode_Event
+  59:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\          - EXTI_Trigger
+  60:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_Trigger_Rising
+  61:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_Trigger_Falling
+  62:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_Trigger_Rising_Falling
+  63:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\          - EXTI_Line
+  64:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE0              
+  65:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE1            
+  66:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE2              
+  67:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE3             
+  68:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE4              
+  69:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE5 
+  70:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE6              
+  71:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE7                
+  72:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE8              
+  73:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE9              
+  74:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE10              
+  75:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE11            
+  76:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE12            
+  77:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE13   
+  78:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE14
+  79:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE15   
+  80:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE16   
+  81:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE17   
+  82:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE18   
+  83:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE19     
+  84:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE20   
+  85:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE21   
+  86:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE22 
+  87:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE23  
+  88:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\          - EXTI_LineCmd
+  89:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - ENABLE
+  90:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - DISABLE
+  91:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\return  none
+  92:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** **/
+  93:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** void EXTI_Peripheral_Initializes(EXTI_InitType* EXTI_InitStruct)
+  94:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** {
+  95:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_Work_Mode_Config(EXTI_InitStruct->EXTI_Line,EXTI_InitStruct->EXTI_Mode);
+  96:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_Trigger_Config(EXTI_InitStruct->EXTI_Line,EXTI_InitStruct->EXTI_Trigger);
+  97:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_LineCmd_Disable(EXTI_InitStruct->EXTI_Line,EXTI_InitStruct->EXTI_LineCmd,EXTI_InitStruct->
+  98:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** }
+  99:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 100:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** /**
+ 101:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\name    EXTI_Work_Mode_Config.
+ 102:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\fun     Config the EXTI according to EXTI_Mode.
+ 103:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\param   exti_mode :
+ 104:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_Mode_Interrupt
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 4
+
+
+ 105:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_Mode_Event
+ 106:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\param   exti_line :
+ 107:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE0              
+ 108:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE1            
+ 109:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE2              
+ 110:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE3             
+ 111:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE4              
+ 112:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE5 
+ 113:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE6              
+ 114:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE7                
+ 115:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE8              
+ 116:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE9              
+ 117:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE10              
+ 118:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE11            
+ 119:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE12            
+ 120:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE13   
+ 121:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE14
+ 122:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE15   
+ 123:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE16   
+ 124:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE17   
+ 125:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE18   
+ 126:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE19     
+ 127:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE20   
+ 128:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE21   
+ 129:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE22 
+ 130:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE23 
+ 131:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\return  none
+ 132:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** **/
+ 133:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** void EXTI_Work_Mode_Config(uint32_t exti_line,uint32_t exti_mode)
+ 134:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** {
+  71              		.loc 1 134 1 is_stmt 1 view -0
+  72              		.cfi_startproc
+  73              		@ args = 0, pretend = 0, frame = 0
+  74              		@ frame_needed = 0, uses_anonymous_args = 0
+  75              		@ link register save eliminated.
+ 135:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     uint32_t temp_value = 0;    
+  76              		.loc 1 135 5 view .LVU13
+ 136:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     temp_value = (uint32_t)EXTI_BASE;    
+  77              		.loc 1 136 5 view .LVU14
+ 137:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     /* Clear work mode configuration */
+ 138:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->IMASK &= ~exti_line;
+  78              		.loc 1 138 5 view .LVU15
+  79              		.loc 1 138 9 is_stmt 0 view .LVU16
+  80 0000 084B     		ldr	r3, .L5
+  81 0002 1A68     		ldr	r2, [r3]
+  82              		.loc 1 138 17 view .LVU17
+  83 0004 22EA0002 		bic	r2, r2, r0
+  84 0008 1A60     		str	r2, [r3]
+ 139:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->EMASK &= ~exti_line;
+  85              		.loc 1 139 5 is_stmt 1 view .LVU18
+  86              		.loc 1 139 9 is_stmt 0 view .LVU19
+  87 000a 5A68     		ldr	r2, [r3, #4]
+ 140:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****    /* Select the work mode */
+ 141:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     temp_value += exti_mode;
+  88              		.loc 1 141 16 view .LVU20
+  89 000c 01F18041 		add	r1, r1, #1073741824
+  90              	.LVL1:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 5
+
+
+  91              		.loc 1 141 16 view .LVU21
+  92 0010 01F58231 		add	r1, r1, #66560
+  93              	.LVL2:
+ 139:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->EMASK &= ~exti_line;
+  94              		.loc 1 139 17 view .LVU22
+  95 0014 22EA0002 		bic	r2, r2, r0
+  96 0018 5A60     		str	r2, [r3, #4]
+  97              		.loc 1 141 5 is_stmt 1 view .LVU23
+  98              	.LVL3:
+ 142:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     *(__IO uint32_t*)temp_value |= exti_line;
+  99              		.loc 1 142 5 view .LVU24
+ 100 001a 0B68     		ldr	r3, [r1]
+ 101              		.loc 1 142 33 is_stmt 0 view .LVU25
+ 102 001c 0343     		orrs	r3, r3, r0
+ 103 001e 0B60     		str	r3, [r1]
+ 143:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** }
+ 104              		.loc 1 143 1 view .LVU26
+ 105 0020 7047     		bx	lr
+ 106              	.L6:
+ 107 0022 00BF     		.align	2
+ 108              	.L5:
+ 109 0024 00040140 		.word	1073808384
+ 110              		.cfi_endproc
+ 111              	.LFE132:
+ 113              		.section	.text.EXTI_Trigger_Config,"ax",%progbits
+ 114              		.align	1
+ 115              		.global	EXTI_Trigger_Config
+ 116              		.syntax unified
+ 117              		.thumb
+ 118              		.thumb_func
+ 120              	EXTI_Trigger_Config:
+ 121              	.LVL4:
+ 122              	.LFB133:
+ 144:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 145:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** /**
+ 146:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\name    EXTI_EXTI_Trigger_Config.
+ 147:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\fun     Config the EXTI according to EXTI_Trigger.
+ 148:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\param   exti_trigger :
+ 149:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_Trigger_Rising
+ 150:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_Trigger_Falling
+ 151:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_Trigger_Rising_Falling
+ 152:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\param   exti_line :
+ 153:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE0              
+ 154:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE1            
+ 155:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE2              
+ 156:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE3             
+ 157:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE4              
+ 158:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE5 
+ 159:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE6              
+ 160:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE7                
+ 161:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE8              
+ 162:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE9              
+ 163:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE10              
+ 164:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE11            
+ 165:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE12            
+ 166:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE13   
+ 167:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE14
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 6
+
+
+ 168:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE15   
+ 169:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE16   
+ 170:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE17   
+ 171:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE18   
+ 172:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE19     
+ 173:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE20   
+ 174:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE21  
+ 175:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE22
+ 176:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE23
+ 177:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\return  none
+ 178:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** **/
+ 179:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** void EXTI_Trigger_Config(uint32_t exti_line,uint32_t exti_trigger)
+ 180:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** {
+ 123              		.loc 1 180 1 is_stmt 1 view -0
+ 124              		.cfi_startproc
+ 125              		@ args = 0, pretend = 0, frame = 0
+ 126              		@ frame_needed = 0, uses_anonymous_args = 0
+ 127              		@ link register save eliminated.
+ 181:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     uint32_t temp_value = 0;    
+ 128              		.loc 1 181 5 view .LVU28
+ 182:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     temp_value = (uint32_t)EXTI_BASE;      
+ 129              		.loc 1 182 5 view .LVU29
+ 183:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     /* Clear Rising Falling edge configuration */
+ 184:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->RT_CFG &= ~exti_line;
+ 130              		.loc 1 184 5 view .LVU30
+ 131              		.loc 1 184 9 is_stmt 0 view .LVU31
+ 132 0000 0C4B     		ldr	r3, .L10
+ 133 0002 9A68     		ldr	r2, [r3, #8]
+ 134              		.loc 1 184 18 view .LVU32
+ 135 0004 22EA0002 		bic	r2, r2, r0
+ 136 0008 9A60     		str	r2, [r3, #8]
+ 185:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->FT_CFG &= ~exti_line;
+ 137              		.loc 1 185 5 is_stmt 1 view .LVU33
+ 138              		.loc 1 185 9 is_stmt 0 view .LVU34
+ 139 000a DA68     		ldr	r2, [r3, #12]
+ 186:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 187:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****    /* Select the trigger method */
+ 188:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     if(exti_trigger == EXTI_Trigger_Rising_Falling)
+ 140              		.loc 1 188 7 view .LVU35
+ 141 000c 1029     		cmp	r1, #16
+ 185:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->FT_CFG &= ~exti_line;
+ 142              		.loc 1 185 18 view .LVU36
+ 143 000e 22EA0002 		bic	r2, r2, r0
+ 144 0012 DA60     		str	r2, [r3, #12]
+ 145              		.loc 1 188 5 is_stmt 1 view .LVU37
+ 146              		.loc 1 188 7 is_stmt 0 view .LVU38
+ 147 0014 06D1     		bne	.L8
+ 148              	.LVL5:
+ 149              	.LBB4:
+ 150              	.LBI4:
+ 179:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** {
+ 151              		.loc 1 179 6 is_stmt 1 view .LVU39
+ 152              	.LBB5:
+ 189:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     {
+ 190:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         EXTI->RT_CFG |= exti_line;
+ 153              		.loc 1 190 9 view .LVU40
+ 154              		.loc 1 190 13 is_stmt 0 view .LVU41
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 7
+
+
+ 155 0016 9A68     		ldr	r2, [r3, #8]
+ 156              		.loc 1 190 22 view .LVU42
+ 157 0018 0243     		orrs	r2, r2, r0
+ 158 001a 9A60     		str	r2, [r3, #8]
+ 191:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         EXTI->FT_CFG |= exti_line;
+ 159              		.loc 1 191 9 is_stmt 1 view .LVU43
+ 160              		.loc 1 191 13 is_stmt 0 view .LVU44
+ 161 001c DA68     		ldr	r2, [r3, #12]
+ 162              		.loc 1 191 22 view .LVU45
+ 163 001e 1043     		orrs	r0, r0, r2
+ 164              	.LVL6:
+ 165              		.loc 1 191 22 view .LVU46
+ 166 0020 D860     		str	r0, [r3, #12]
+ 167              	.LVL7:
+ 192:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     }
+ 193:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     else
+ 194:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     {
+ 195:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         temp_value = (uint32_t)EXTI_BASE;
+ 196:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         temp_value += exti_trigger;
+ 197:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 198:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         *(__IO uint32_t*)temp_value |= exti_line;      
+ 199:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     }    
+ 200:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 201:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** }
+ 168              		.loc 1 201 1 view .LVU47
+ 169 0022 7047     		bx	lr
+ 170              	.LVL8:
+ 171              	.L8:
+ 172              		.loc 1 201 1 view .LVU48
+ 173              	.LBE5:
+ 174              	.LBE4:
+ 195:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         temp_value += exti_trigger;
+ 175              		.loc 1 195 9 is_stmt 1 view .LVU49
+ 196:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 176              		.loc 1 196 9 view .LVU50
+ 198:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     }    
+ 177              		.loc 1 198 9 view .LVU51
+ 196:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 178              		.loc 1 196 20 is_stmt 0 view .LVU52
+ 179 0024 01F18041 		add	r1, r1, #1073741824
+ 180              	.LVL9:
+ 196:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 181              		.loc 1 196 20 view .LVU53
+ 182 0028 01F58231 		add	r1, r1, #66560
+ 183              	.LVL10:
+ 198:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     }    
+ 184              		.loc 1 198 9 view .LVU54
+ 185 002c 0B68     		ldr	r3, [r1]
+ 198:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     }    
+ 186              		.loc 1 198 37 view .LVU55
+ 187 002e 0343     		orrs	r3, r3, r0
+ 188 0030 0B60     		str	r3, [r1]
+ 189              		.loc 1 201 1 view .LVU56
+ 190 0032 7047     		bx	lr
+ 191              	.L11:
+ 192              		.align	2
+ 193              	.L10:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 8
+
+
+ 194 0034 00040140 		.word	1073808384
+ 195              		.cfi_endproc
+ 196              	.LFE133:
+ 198              		.section	.text.EXTI_LineCmd_Disable,"ax",%progbits
+ 199              		.align	1
+ 200              		.global	EXTI_LineCmd_Disable
+ 201              		.syntax unified
+ 202              		.thumb
+ 203              		.thumb_func
+ 205              	EXTI_LineCmd_Disable:
+ 206              	.LVL11:
+ 207              	.LFB134:
+ 202:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 203:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** /**
+ 204:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\name    EXTI_EXTI_LineCmd_Disable.
+ 205:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\fun     Config the EXTI according to EXTI_LineCmd.
+ 206:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\param   exti_linecmd :   
+ 207:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - ENABLE
+ 208:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - DISABLE
+ 209:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\param   exti_mode :
+ 210:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_Mode_Interrupt
+ 211:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_Mode_Event
+ 212:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\param   exti_line :
+ 213:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE0              
+ 214:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE1            
+ 215:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE2              
+ 216:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE3             
+ 217:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE4              
+ 218:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE5 
+ 219:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE6              
+ 220:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE7                
+ 221:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE8              
+ 222:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE9              
+ 223:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE10              
+ 224:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE11            
+ 225:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE12            
+ 226:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE13   
+ 227:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE14
+ 228:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE15   
+ 229:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE16   
+ 230:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE17   
+ 231:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE18   
+ 232:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE19     
+ 233:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE20   
+ 234:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE21 
+ 235:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE22
+ 236:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE23 
+ 237:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\return  none
+ 238:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** **/
+ 239:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** void EXTI_LineCmd_Disable(uint32_t exti_line,uint32_t exti_linecmd,uint32_t exti_mode)
+ 240:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** {
+ 208              		.loc 1 240 1 is_stmt 1 view -0
+ 209              		.cfi_startproc
+ 210              		@ args = 0, pretend = 0, frame = 0
+ 211              		@ frame_needed = 0, uses_anonymous_args = 0
+ 212              		@ link register save eliminated.
+ 241:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     uint32_t temp_value = 0;    
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 9
+
+
+ 213              		.loc 1 241 5 view .LVU58
+ 242:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     temp_value = (uint32_t)EXTI_BASE;    
+ 214              		.loc 1 242 5 view .LVU59
+ 243:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****      /* Disable the selected external lines */
+ 244:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     if(exti_linecmd == DISABLE)
+ 215              		.loc 1 244 5 view .LVU60
+ 216              		.loc 1 244 7 is_stmt 0 view .LVU61
+ 217 0000 39B9     		cbnz	r1, .L12
+ 218              	.LVL12:
+ 219              	.LBB8:
+ 220              	.LBI8:
+ 239:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** {
+ 221              		.loc 1 239 6 is_stmt 1 view .LVU62
+ 222              	.LBB9:
+ 245:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     {
+ 246:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         temp_value += exti_mode;
+ 223              		.loc 1 246 9 view .LVU63
+ 247:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         /* Disable the selected external lines */
+ 248:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         *(__IO uint32_t*)temp_value &= ~exti_line;             
+ 224              		.loc 1 248 9 view .LVU64
+ 246:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         /* Disable the selected external lines */
+ 225              		.loc 1 246 20 is_stmt 0 view .LVU65
+ 226 0002 02F18042 		add	r2, r2, #1073741824
+ 227              	.LVL13:
+ 246:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         /* Disable the selected external lines */
+ 228              		.loc 1 246 20 view .LVU66
+ 229 0006 02F58232 		add	r2, r2, #66560
+ 230              	.LVL14:
+ 231              		.loc 1 248 9 view .LVU67
+ 232 000a 1368     		ldr	r3, [r2]
+ 233              		.loc 1 248 37 view .LVU68
+ 234 000c 23EA0000 		bic	r0, r3, r0
+ 235              	.LVL15:
+ 236              		.loc 1 248 37 view .LVU69
+ 237 0010 1060     		str	r0, [r2]
+ 238              	.LVL16:
+ 239              	.L12:
+ 240              		.loc 1 248 37 view .LVU70
+ 241              	.LBE9:
+ 242              	.LBE8:
+ 249:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     }
+ 250:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** }
+ 243              		.loc 1 250 1 view .LVU71
+ 244 0012 7047     		bx	lr
+ 245              		.cfi_endproc
+ 246              	.LFE134:
+ 248              		.section	.text.EXTI_Peripheral_Initializes,"ax",%progbits
+ 249              		.align	1
+ 250              		.global	EXTI_Peripheral_Initializes
+ 251              		.syntax unified
+ 252              		.thumb
+ 253              		.thumb_func
+ 255              	EXTI_Peripheral_Initializes:
+ 256              	.LVL17:
+ 257              	.LFB131:
+  94:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_Work_Mode_Config(EXTI_InitStruct->EXTI_Line,EXTI_InitStruct->EXTI_Mode);
+ 258              		.loc 1 94 1 is_stmt 1 view -0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 10
+
+
+ 259              		.cfi_startproc
+ 260              		@ args = 0, pretend = 0, frame = 0
+ 261              		@ frame_needed = 0, uses_anonymous_args = 0
+  95:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_Trigger_Config(EXTI_InitStruct->EXTI_Line,EXTI_InitStruct->EXTI_Trigger);
+ 262              		.loc 1 95 5 view .LVU73
+  94:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_Work_Mode_Config(EXTI_InitStruct->EXTI_Line,EXTI_InitStruct->EXTI_Mode);
+ 263              		.loc 1 94 1 is_stmt 0 view .LVU74
+ 264 0000 10B5     		push	{r4, lr}
+ 265              	.LCFI0:
+ 266              		.cfi_def_cfa_offset 8
+ 267              		.cfi_offset 4, -8
+ 268              		.cfi_offset 14, -4
+  94:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_Work_Mode_Config(EXTI_InitStruct->EXTI_Line,EXTI_InitStruct->EXTI_Mode);
+ 269              		.loc 1 94 1 view .LVU75
+ 270 0002 0446     		mov	r4, r0
+  95:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_Trigger_Config(EXTI_InitStruct->EXTI_Line,EXTI_InitStruct->EXTI_Trigger);
+ 271              		.loc 1 95 5 view .LVU76
+ 272 0004 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
+ 273 0006 0068     		ldr	r0, [r0]
+ 274              	.LVL18:
+  95:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_Trigger_Config(EXTI_InitStruct->EXTI_Line,EXTI_InitStruct->EXTI_Trigger);
+ 275              		.loc 1 95 5 view .LVU77
+ 276 0008 FFF7FEFF 		bl	EXTI_Work_Mode_Config
+ 277              	.LVL19:
+  96:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_LineCmd_Disable(EXTI_InitStruct->EXTI_Line,EXTI_InitStruct->EXTI_LineCmd,EXTI_InitStruct->
+ 278              		.loc 1 96 5 is_stmt 1 view .LVU78
+ 279 000c 6179     		ldrb	r1, [r4, #5]	@ zero_extendqisi2
+ 280 000e 2068     		ldr	r0, [r4]
+ 281 0010 FFF7FEFF 		bl	EXTI_Trigger_Config
+ 282              	.LVL20:
+  97:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** }
+ 283              		.loc 1 97 5 view .LVU79
+ 284 0014 2279     		ldrb	r2, [r4, #4]	@ zero_extendqisi2
+ 285 0016 A179     		ldrb	r1, [r4, #6]	@ zero_extendqisi2
+ 286 0018 2068     		ldr	r0, [r4]
+  98:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 287              		.loc 1 98 1 is_stmt 0 view .LVU80
+ 288 001a BDE81040 		pop	{r4, lr}
+ 289              	.LCFI1:
+ 290              		.cfi_restore 14
+ 291              		.cfi_restore 4
+ 292              		.cfi_def_cfa_offset 0
+ 293              	.LVL21:
+  97:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** }
+ 294              		.loc 1 97 5 view .LVU81
+ 295 001e FFF7FEBF 		b	EXTI_LineCmd_Disable
+ 296              	.LVL22:
+ 297              		.cfi_endproc
+ 298              	.LFE131:
+ 300              		.section	.text.EXTI_Structure_Initializes,"ax",%progbits
+ 301              		.align	1
+ 302              		.global	EXTI_Structure_Initializes
+ 303              		.syntax unified
+ 304              		.thumb
+ 305              		.thumb_func
+ 307              	EXTI_Structure_Initializes:
+ 308              	.LVL23:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 11
+
+
+ 309              	.LFB135:
+ 251:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 252:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 253:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** /**
+ 254:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\name    EXTI_Structure_Initializes.
+ 255:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\fun     Fills each EXTI_InitStruct member with its default value.
+ 256:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\param   EXTI_InitStruct :   
+ 257:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_Line
+ 258:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_Mode
+ 259:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_Trigger
+ 260:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LineCmd  
+ 261:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\return  none
+ 262:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** **/
+ 263:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** void EXTI_Structure_Initializes(EXTI_InitType* EXTI_InitStruct)
+ 264:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** {
+ 310              		.loc 1 264 1 is_stmt 1 view -0
+ 311              		.cfi_startproc
+ 312              		@ args = 0, pretend = 0, frame = 0
+ 313              		@ frame_needed = 0, uses_anonymous_args = 0
+ 314              		@ link register save eliminated.
+ 265:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_InitStruct->EXTI_Line    = EXTI_LINENONE;
+ 315              		.loc 1 265 5 view .LVU83
+ 266:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_InitStruct->EXTI_Mode    = EXTI_Mode_Interrupt;
+ 316              		.loc 1 266 5 view .LVU84
+ 267:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_InitStruct->EXTI_Trigger = EXTI_Trigger_Falling;
+ 317              		.loc 1 267 5 view .LVU85
+ 268:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_InitStruct->EXTI_LineCmd = DISABLE;
+ 318              		.loc 1 268 5 view .LVU86
+ 265:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_InitStruct->EXTI_Mode    = EXTI_Mode_Interrupt;
+ 319              		.loc 1 265 35 is_stmt 0 view .LVU87
+ 320 0000 0023     		movs	r3, #0
+ 266:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_InitStruct->EXTI_Trigger = EXTI_Trigger_Falling;
+ 321              		.loc 1 266 35 view .LVU88
+ 322 0002 4FF44062 		mov	r2, #3072
+ 265:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_InitStruct->EXTI_Mode    = EXTI_Mode_Interrupt;
+ 323              		.loc 1 265 35 view .LVU89
+ 324 0006 0360     		str	r3, [r0]
+ 266:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI_InitStruct->EXTI_Trigger = EXTI_Trigger_Falling;
+ 325              		.loc 1 266 35 view .LVU90
+ 326 0008 8280     		strh	r2, [r0, #4]	@ movhi
+ 327              		.loc 1 268 35 view .LVU91
+ 328 000a 8371     		strb	r3, [r0, #6]
+ 269:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** }
+ 329              		.loc 1 269 1 view .LVU92
+ 330 000c 7047     		bx	lr
+ 331              		.cfi_endproc
+ 332              	.LFE135:
+ 334              		.section	.text.EXTI_Software_Interrupt_Trigger,"ax",%progbits
+ 335              		.align	1
+ 336              		.global	EXTI_Software_Interrupt_Trigger
+ 337              		.syntax unified
+ 338              		.thumb
+ 339              		.thumb_func
+ 341              	EXTI_Software_Interrupt_Trigger:
+ 342              	.LVL24:
+ 343              	.LFB136:
+ 270:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 12
+
+
+ 271:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 272:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** /**
+ 273:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\name    EXTI_Software_Interrupt_Trigger.
+ 274:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\fun     Generates a Software interrupt.
+ 275:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\param   exti_line :   
+ 276:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE0              
+ 277:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE1            
+ 278:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE2              
+ 279:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE3             
+ 280:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE4              
+ 281:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE5 
+ 282:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE6              
+ 283:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE7                
+ 284:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE8              
+ 285:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE9              
+ 286:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE10              
+ 287:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE11            
+ 288:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE12            
+ 289:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE13   
+ 290:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE14
+ 291:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE15   
+ 292:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE16   
+ 293:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE17   
+ 294:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE18   
+ 295:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE19     
+ 296:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE20   
+ 297:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE21 
+ 298:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE22
+ 299:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE23
+ 300:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\return  none
+ 301:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** **/
+ 302:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** void EXTI_Software_Interrupt_Trigger(uint32_t exti_line)
+ 303:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** {
+ 344              		.loc 1 303 1 is_stmt 1 view -0
+ 345              		.cfi_startproc
+ 346              		@ args = 0, pretend = 0, frame = 0
+ 347              		@ frame_needed = 0, uses_anonymous_args = 0
+ 348              		@ link register save eliminated.
+ 304:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     /* Set the EXTI_SWIE ON bit, The EXTI generates a Software interrupt */
+ 305:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->SWIE |= exti_line;
+ 349              		.loc 1 305 5 view .LVU94
+ 350              		.loc 1 305 9 is_stmt 0 view .LVU95
+ 351 0000 024A     		ldr	r2, .L17
+ 352 0002 1369     		ldr	r3, [r2, #16]
+ 353              		.loc 1 305 16 view .LVU96
+ 354 0004 0343     		orrs	r3, r3, r0
+ 355 0006 1361     		str	r3, [r2, #16]
+ 306:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** }
+ 356              		.loc 1 306 1 view .LVU97
+ 357 0008 7047     		bx	lr
+ 358              	.L18:
+ 359 000a 00BF     		.align	2
+ 360              	.L17:
+ 361 000c 00040140 		.word	1073808384
+ 362              		.cfi_endproc
+ 363              	.LFE136:
+ 365              		.section	.text.EXTI_Flag_Status_Get,"ax",%progbits
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 13
+
+
+ 366              		.align	1
+ 367              		.global	EXTI_Flag_Status_Get
+ 368              		.syntax unified
+ 369              		.thumb
+ 370              		.thumb_func
+ 372              	EXTI_Flag_Status_Get:
+ 373              	.LVL25:
+ 374              	.LFB137:
+ 307:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 308:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 309:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 310:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** /**
+ 311:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\name    EXTI_Flag_Status_Get.
+ 312:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\fun     Get EXTI line flag status.
+ 313:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\param   exti_line :   
+ 314:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE0              
+ 315:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE1            
+ 316:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE2              
+ 317:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE3             
+ 318:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE4              
+ 319:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE5 
+ 320:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE6              
+ 321:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE7                
+ 322:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE8              
+ 323:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE9              
+ 324:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE10              
+ 325:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE11            
+ 326:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE12            
+ 327:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE13   
+ 328:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE14
+ 329:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE15   
+ 330:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE16   
+ 331:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE17   
+ 332:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE18   
+ 333:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE19     
+ 334:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE20   
+ 335:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE21 
+ 336:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE22
+ 337:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE23
+ 338:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\return  SET or RESET
+ 339:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** **/
+ 340:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** FlagStatus EXTI_Flag_Status_Get(uint32_t exti_line)
+ 341:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** {
+ 375              		.loc 1 341 1 is_stmt 1 view -0
+ 376              		.cfi_startproc
+ 377              		@ args = 0, pretend = 0, frame = 0
+ 378              		@ frame_needed = 0, uses_anonymous_args = 0
+ 379              		@ link register save eliminated.
+ 342:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     if ((EXTI->PEND & exti_line) != (uint32_t)RESET)
+ 380              		.loc 1 342 5 view .LVU99
+ 381              		.loc 1 342 14 is_stmt 0 view .LVU100
+ 382 0000 034B     		ldr	r3, .L20
+ 383 0002 5B69     		ldr	r3, [r3, #20]
+ 384              		.loc 1 342 21 view .LVU101
+ 385 0004 1840     		ands	r0, r0, r3
+ 386              	.LVL26:
+ 343:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 14
+
+
+ 344:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         /* EXTI line flag status is set */
+ 345:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         return SET;
+ 346:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     }
+ 347:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     else
+ 348:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     {
+ 349:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         /* EXTI line flag status is reset */
+ 350:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         return RESET;
+ 351:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     }
+ 352:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** }
+ 387              		.loc 1 352 1 view .LVU102
+ 388 0006 0038     		subs	r0, r0, #0
+ 389 0008 18BF     		it	ne
+ 390 000a 0120     		movne	r0, #1
+ 391 000c 7047     		bx	lr
+ 392              	.L21:
+ 393 000e 00BF     		.align	2
+ 394              	.L20:
+ 395 0010 00040140 		.word	1073808384
+ 396              		.cfi_endproc
+ 397              	.LFE137:
+ 399              		.section	.text.EXTI_Flag_Status_Clear,"ax",%progbits
+ 400              		.align	1
+ 401              		.global	EXTI_Flag_Status_Clear
+ 402              		.syntax unified
+ 403              		.thumb
+ 404              		.thumb_func
+ 406              	EXTI_Flag_Status_Clear:
+ 407              	.LVL27:
+ 408              	.LFB138:
+ 353:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 354:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** /**
+ 355:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\name    EXTI_Flag_Status_Clear.
+ 356:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\fun     Clear EXTI line flag status.
+ 357:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\param   exti_line :   
+ 358:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE0              
+ 359:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE1            
+ 360:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE2              
+ 361:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE3             
+ 362:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE4              
+ 363:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE5 
+ 364:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE6              
+ 365:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE7                
+ 366:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE8              
+ 367:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE9              
+ 368:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE10              
+ 369:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE11            
+ 370:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE12            
+ 371:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE13   
+ 372:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE14
+ 373:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE15   
+ 374:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE16   
+ 375:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE17   
+ 376:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE18   
+ 377:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE19     
+ 378:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE20   
+ 379:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE21 
+ 380:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE22
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 15
+
+
+ 381:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE23
+ 382:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\return  none
+ 383:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** **/
+ 384:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** void EXTI_Flag_Status_Clear(uint32_t exti_line)
+ 385:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** {
+ 409              		.loc 1 385 1 is_stmt 1 view -0
+ 410              		.cfi_startproc
+ 411              		@ args = 0, pretend = 0, frame = 0
+ 412              		@ frame_needed = 0, uses_anonymous_args = 0
+ 413              		@ link register save eliminated.
+ 386:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     /* Clear EXTI line flag status. */
+ 387:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->PEND = exti_line;
+ 414              		.loc 1 387 5 view .LVU104
+ 415              		.loc 1 387 16 is_stmt 0 view .LVU105
+ 416 0000 014B     		ldr	r3, .L23
+ 417 0002 5861     		str	r0, [r3, #20]
+ 388:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** }
+ 418              		.loc 1 388 1 view .LVU106
+ 419 0004 7047     		bx	lr
+ 420              	.L24:
+ 421 0006 00BF     		.align	2
+ 422              	.L23:
+ 423 0008 00040140 		.word	1073808384
+ 424              		.cfi_endproc
+ 425              	.LFE138:
+ 427              		.section	.text.EXTI_Interrupt_Status_Get,"ax",%progbits
+ 428              		.align	1
+ 429              		.global	EXTI_Interrupt_Status_Get
+ 430              		.syntax unified
+ 431              		.thumb
+ 432              		.thumb_func
+ 434              	EXTI_Interrupt_Status_Get:
+ 435              	.LVL28:
+ 436              	.LFB139:
+ 389:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 390:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 391:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 392:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 393:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** /**
+ 394:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\name    EXTI_Interrupt_Status_Get.
+ 395:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\fun     GET EXTI line interrupt status.
+ 396:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\param   exti_line :   
+ 397:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE0              
+ 398:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE1            
+ 399:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE2              
+ 400:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE3             
+ 401:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE4              
+ 402:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE5 
+ 403:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE6              
+ 404:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE7                
+ 405:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE8              
+ 406:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE9              
+ 407:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE10              
+ 408:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE11            
+ 409:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE12            
+ 410:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE13   
+ 411:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE14
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 16
+
+
+ 412:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE15   
+ 413:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE16   
+ 414:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE17   
+ 415:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE18   
+ 416:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE19     
+ 417:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE20   
+ 418:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE21 
+ 419:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE22
+ 420:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE23
+ 421:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\return  SET or RESET
+ 422:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** **/
+ 423:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** INTStatus EXTI_Interrupt_Status_Get(uint32_t exti_line)
+ 424:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** {
+ 437              		.loc 1 424 1 is_stmt 1 view -0
+ 438              		.cfi_startproc
+ 439              		@ args = 0, pretend = 0, frame = 0
+ 440              		@ frame_needed = 0, uses_anonymous_args = 0
+ 441              		@ link register save eliminated.
+ 425:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 426:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 427:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     if (((EXTI->PEND & exti_line) != (uint32_t)RESET) && ((EXTI->IMASK & exti_line) != (uint32_t)RE
+ 442              		.loc 1 427 5 view .LVU108
+ 443              		.loc 1 427 15 is_stmt 0 view .LVU109
+ 444 0000 0549     		ldr	r1, .L28
+ 424:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 445              		.loc 1 424 1 view .LVU110
+ 446 0002 0246     		mov	r2, r0
+ 447              		.loc 1 427 15 view .LVU111
+ 448 0004 4869     		ldr	r0, [r1, #20]
+ 449              	.LVL29:
+ 450              		.loc 1 427 8 view .LVU112
+ 451 0006 1040     		ands	r0, r0, r2
+ 452 0008 04D0     		beq	.L26
+ 453              		.loc 1 427 64 discriminator 1 view .LVU113
+ 454 000a 0868     		ldr	r0, [r1]
+ 455              		.loc 1 427 72 discriminator 1 view .LVU114
+ 456 000c 1040     		ands	r0, r0, r2
+ 457              		.loc 1 427 55 discriminator 1 view .LVU115
+ 458 000e 0038     		subs	r0, r0, #0
+ 459 0010 18BF     		it	ne
+ 460 0012 0120     		movne	r0, #1
+ 461              	.L26:
+ 428:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     {
+ 429:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         /* EXTI line interrupt status is set */
+ 430:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         return SET;
+ 431:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     }
+ 432:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     else
+ 433:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     {
+ 434:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         /* EXTI line interrupt status is reset */
+ 435:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****         return RESET;
+ 436:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     }
+ 437:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 438:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** }
+ 462              		.loc 1 438 1 view .LVU116
+ 463 0014 7047     		bx	lr
+ 464              	.L29:
+ 465 0016 00BF     		.align	2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 17
+
+
+ 466              	.L28:
+ 467 0018 00040140 		.word	1073808384
+ 468              		.cfi_endproc
+ 469              	.LFE139:
+ 471              		.section	.text.EXTI_Interrupt_Status_Clear,"ax",%progbits
+ 472              		.align	1
+ 473              		.global	EXTI_Interrupt_Status_Clear
+ 474              		.syntax unified
+ 475              		.thumb
+ 476              		.thumb_func
+ 478              	EXTI_Interrupt_Status_Clear:
+ 479              	.LFB145:
+ 480              		.cfi_startproc
+ 439:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 440:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 441:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** /**
+ 442:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\name    EXTI_Interrupt_Status_Clear.
+ 443:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\fun     Clear EXTI line interrupt pend bit.
+ 444:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\param   exti_line :   
+ 445:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE0              
+ 446:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE1            
+ 447:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE2              
+ 448:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE3             
+ 449:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE4              
+ 450:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE5 
+ 451:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE6              
+ 452:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE7                
+ 453:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE8              
+ 454:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE9              
+ 455:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE10              
+ 456:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE11            
+ 457:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE12            
+ 458:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE13   
+ 459:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE14
+ 460:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE15   
+ 461:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE16   
+ 462:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE17   
+ 463:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE18   
+ 464:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE19     
+ 465:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE20   
+ 466:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE21 
+ 467:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE22
+ 468:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_LINE23
+ 469:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\return  none
+ 470:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** **/
+ 471:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** void EXTI_Interrupt_Status_Clear(uint32_t exti_line)
+ 481              		.loc 1 471 6 is_stmt 1 view -0
+ 482              		@ args = 0, pretend = 0, frame = 0
+ 483              		@ frame_needed = 0, uses_anonymous_args = 0
+ 484              		@ link register save eliminated.
+ 485 0000 014B     		ldr	r3, .L31
+ 486 0002 5861     		str	r0, [r3, #20]
+ 487 0004 7047     		bx	lr
+ 488              	.L32:
+ 489 0006 00BF     		.align	2
+ 490              	.L31:
+ 491 0008 00040140 		.word	1073808384
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 18
+
+
+ 492              		.cfi_endproc
+ 493              	.LFE145:
+ 495              		.section	.text.EXTI_RTC_Time_Stamp_Select,"ax",%progbits
+ 496              		.align	1
+ 497              		.global	EXTI_RTC_Time_Stamp_Select
+ 498              		.syntax unified
+ 499              		.thumb
+ 500              		.thumb_func
+ 502              	EXTI_RTC_Time_Stamp_Select:
+ 503              	.LVL30:
+ 504              	.LFB141:
+ 472:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** {
+ 473:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 474:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     /* Clear EXTI line interrupt pend bit. */
+ 475:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->PEND = exti_line;
+ 476:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** }
+ 477:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** 
+ 478:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** /**
+ 479:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\name    EXTI_RTC_Time_Stamp_Select.
+ 480:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\fun     Select the input of TimeStamp event.
+ 481:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\param   exti_tssel_line :   
+ 482:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line0             
+ 483:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line1            
+ 484:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line2             
+ 485:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line3             
+ 486:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line4               
+ 487:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line5 
+ 488:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line6              
+ 489:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line7                
+ 490:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line8              
+ 491:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line9              
+ 492:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line10              
+ 493:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line11            
+ 494:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line12            
+ 495:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line13   
+ 496:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line14
+ 497:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\            - EXTI_TSSEL_Line15   
+ 498:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** *\*\return  none
+ 499:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** **/
+ 500:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** void EXTI_RTC_Time_Stamp_Select(uint32_t exti_tssel_line)
+ 501:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** {
+ 505              		.loc 1 501 1 view -0
+ 506              		.cfi_startproc
+ 507              		@ args = 0, pretend = 0, frame = 0
+ 508              		@ frame_needed = 0, uses_anonymous_args = 0
+ 509              		@ link register save eliminated.
+ 502:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     /* Select the input of TimeStamp event */
+ 503:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->TS_SEL &= EXTI_TSSEL_LINE_MASK;
+ 510              		.loc 1 503 5 view .LVU119
+ 511              		.loc 1 503 9 is_stmt 0 view .LVU120
+ 512 0000 034B     		ldr	r3, .L34
+ 513 0002 9A69     		ldr	r2, [r3, #24]
+ 514              		.loc 1 503 18 view .LVU121
+ 515 0004 0022     		movs	r2, #0
+ 516 0006 9A61     		str	r2, [r3, #24]
+ 504:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c ****     EXTI->TS_SEL |= exti_tssel_line;
+ 517              		.loc 1 504 5 is_stmt 1 view .LVU122
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 19
+
+
+ 518              		.loc 1 504 9 is_stmt 0 view .LVU123
+ 519 0008 9A69     		ldr	r2, [r3, #24]
+ 520              		.loc 1 504 18 view .LVU124
+ 521 000a 0243     		orrs	r2, r2, r0
+ 522 000c 9A61     		str	r2, [r3, #24]
+ 505:../firmware/n32g430_std_periph_driver/src/n32g430_exti.c **** }
+ 523              		.loc 1 505 1 view .LVU125
+ 524 000e 7047     		bx	lr
+ 525              	.L35:
+ 526              		.align	2
+ 527              	.L34:
+ 528 0010 00040140 		.word	1073808384
+ 529              		.cfi_endproc
+ 530              	.LFE141:
+ 532              		.text
+ 533              	.Letext0:
+ 534              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 535              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 536              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 537              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_exti.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s 			page 20
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 n32g430_exti.c
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:21     .text.EXTI_Reset:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:27     .text.EXTI_Reset:00000000 EXTI_Reset
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:57     .text.EXTI_Reset:00000014 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:62     .text.EXTI_Work_Mode_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:68     .text.EXTI_Work_Mode_Config:00000000 EXTI_Work_Mode_Config
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:109    .text.EXTI_Work_Mode_Config:00000024 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:114    .text.EXTI_Trigger_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:120    .text.EXTI_Trigger_Config:00000000 EXTI_Trigger_Config
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:194    .text.EXTI_Trigger_Config:00000034 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:199    .text.EXTI_LineCmd_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:205    .text.EXTI_LineCmd_Disable:00000000 EXTI_LineCmd_Disable
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:249    .text.EXTI_Peripheral_Initializes:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:255    .text.EXTI_Peripheral_Initializes:00000000 EXTI_Peripheral_Initializes
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:301    .text.EXTI_Structure_Initializes:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:307    .text.EXTI_Structure_Initializes:00000000 EXTI_Structure_Initializes
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:335    .text.EXTI_Software_Interrupt_Trigger:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:341    .text.EXTI_Software_Interrupt_Trigger:00000000 EXTI_Software_Interrupt_Trigger
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:361    .text.EXTI_Software_Interrupt_Trigger:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:366    .text.EXTI_Flag_Status_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:372    .text.EXTI_Flag_Status_Get:00000000 EXTI_Flag_Status_Get
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:395    .text.EXTI_Flag_Status_Get:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:400    .text.EXTI_Flag_Status_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:406    .text.EXTI_Flag_Status_Clear:00000000 EXTI_Flag_Status_Clear
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:423    .text.EXTI_Flag_Status_Clear:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:428    .text.EXTI_Interrupt_Status_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:434    .text.EXTI_Interrupt_Status_Get:00000000 EXTI_Interrupt_Status_Get
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:467    .text.EXTI_Interrupt_Status_Get:00000018 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:472    .text.EXTI_Interrupt_Status_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:478    .text.EXTI_Interrupt_Status_Clear:00000000 EXTI_Interrupt_Status_Clear
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:491    .text.EXTI_Interrupt_Status_Clear:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:496    .text.EXTI_RTC_Time_Stamp_Select:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:502    .text.EXTI_RTC_Time_Stamp_Select:00000000 EXTI_RTC_Time_Stamp_Select
+C:\Users\Dawn\AppData\Local\Temp\cc4QGAxm.s:528    .text.EXTI_RTC_Time_Stamp_Select:00000010 $d
+
+NO UNDEFINED SYMBOLS

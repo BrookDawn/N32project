@@ -1,0 +1,1704 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"Buffer.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../APP/Src/Buffer.cpp"
+  20              		.section	.rodata.RingBuffer_Init.str1.1,"aMS",%progbits,1
+  21              	.LC0:
+  22 0000 52696E67 		.ascii	"RingBuffer_Init: buffer->p_head = %p, buffer->p_tai"
+  22      42756666 
+  22      65725F49 
+  22      6E69743A 
+  22      20627566 
+  23 0033 6C203D20 		.ascii	"l = %p\012\000"
+  23      25700A00 
+  24              		.section	.text.RingBuffer_Init,"ax",%progbits
+  25              		.align	1
+  26              		.global	RingBuffer_Init
+  27              		.syntax unified
+  28              		.thumb
+  29              		.thumb_func
+  31              	RingBuffer_Init:
+  32              	.LVL0:
+  33              	.LFB1:
+   1:../APP/Src/Buffer.cpp **** #include "Buffer.h"
+   2:../APP/Src/Buffer.cpp **** #include <stdio.h>
+   3:../APP/Src/Buffer.cpp **** #include <string.h>
+   4:../APP/Src/Buffer.cpp **** 
+   5:../APP/Src/Buffer.cpp **** 
+   6:../APP/Src/Buffer.cpp **** /**
+   7:../APP/Src/Buffer.cpp ****  * @brief        初始化环形缓冲区 
+   8:../APP/Src/Buffer.cpp ****  * @param buffer 缓冲区结构体
+   9:../APP/Src/Buffer.cpp ****  * @note         头指针和尾指针都为0，清空缓冲区数据
+  10:../APP/Src/Buffer.cpp ****  */
+  11:../APP/Src/Buffer.cpp **** void RingBuffer_Init(Buffer_t *buffer)
+  12:../APP/Src/Buffer.cpp **** {
+  34              		.loc 1 12 1 view -0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 0
+  37              		@ frame_needed = 0, uses_anonymous_args = 0
+  13:../APP/Src/Buffer.cpp ****     buffer->p_head = (uint16_t *)buffer->data;
+  38              		.loc 1 13 5 view .LVU1
+  12:../APP/Src/Buffer.cpp ****     buffer->p_head = (uint16_t *)buffer->data;
+  39              		.loc 1 12 1 is_stmt 0 view .LVU2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 2
+
+
+  40 0000 10B5     		push	{r4, lr}
+  41              	.LCFI0:
+  42              		.cfi_def_cfa_offset 8
+  43              		.cfi_offset 4, -8
+  44              		.cfi_offset 14, -4
+  14:../APP/Src/Buffer.cpp ****     buffer->p_tail = (uint16_t *)buffer->data; 
+  15:../APP/Src/Buffer.cpp ****     buffer->p_read = (uint16_t *)buffer->data;
+  16:../APP/Src/Buffer.cpp ****     buffer->data_length = 0;
+  45              		.loc 1 16 25 view .LVU3
+  46 0002 0021     		movs	r1, #0
+  12:../APP/Src/Buffer.cpp ****     buffer->p_head = (uint16_t *)buffer->data;
+  47              		.loc 1 12 1 view .LVU4
+  48 0004 0446     		mov	r4, r0
+  49              		.loc 1 16 25 view .LVU5
+  50 0006 8186     		strh	r1, [r0, #52]	@ movhi
+  17:../APP/Src/Buffer.cpp ****     memset(buffer->data, 0, sizeof(buffer->data));
+  51              		.loc 1 17 11 view .LVU6
+  52 0008 2822     		movs	r2, #40
+  14:../APP/Src/Buffer.cpp ****     buffer->p_tail = (uint16_t *)buffer->data; 
+  53              		.loc 1 14 20 view .LVU7
+  54 000a C0E90A00 		strd	r0, r0, [r0, #40]
+  15:../APP/Src/Buffer.cpp ****     buffer->data_length = 0;
+  55              		.loc 1 15 5 is_stmt 1 view .LVU8
+  15:../APP/Src/Buffer.cpp ****     buffer->data_length = 0;
+  56              		.loc 1 15 20 is_stmt 0 view .LVU9
+  57 000e 0063     		str	r0, [r0, #48]
+  16:../APP/Src/Buffer.cpp ****     memset(buffer->data, 0, sizeof(buffer->data));
+  58              		.loc 1 16 5 is_stmt 1 view .LVU10
+  59              		.loc 1 17 5 view .LVU11
+  60              		.loc 1 17 11 is_stmt 0 view .LVU12
+  61 0010 FFF7FEFF 		bl	memset
+  62              	.LVL1:
+  18:../APP/Src/Buffer.cpp **** 
+  19:../APP/Src/Buffer.cpp **** #if __BUFFER_DEBUG__ == 1
+  20:../APP/Src/Buffer.cpp ****     printf("RingBuffer_Init: buffer->p_head = %p, buffer->p_tail = %p\n", buffer->p_head, buffer->p
+  63              		.loc 1 20 5 is_stmt 1 view .LVU13
+  64              		.loc 1 20 11 is_stmt 0 view .LVU14
+  65 0014 2246     		mov	r2, r4
+  66 0016 2146     		mov	r1, r4
+  67 0018 0248     		ldr	r0, .L2
+  21:../APP/Src/Buffer.cpp **** #endif
+  22:../APP/Src/Buffer.cpp **** }
+  68              		.loc 1 22 1 view .LVU15
+  69 001a BDE81040 		pop	{r4, lr}
+  70              	.LCFI1:
+  71              		.cfi_restore 14
+  72              		.cfi_restore 4
+  73              		.cfi_def_cfa_offset 0
+  74              	.LVL2:
+  20:../APP/Src/Buffer.cpp **** #endif
+  75              		.loc 1 20 11 view .LVU16
+  76 001e FFF7FEBF 		b	printf
+  77              	.LVL3:
+  78              	.L3:
+  20:../APP/Src/Buffer.cpp **** #endif
+  79              		.loc 1 20 11 view .LVU17
+  80 0022 00BF     		.align	2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 3
+
+
+  81              	.L2:
+  82 0024 00000000 		.word	.LC0
+  83              		.cfi_endproc
+  84              	.LFE1:
+  86              		.section	.rodata.RingBuffer_WriteArray.str1.1,"aMS",%progbits,1
+  87              	.LC1:
+  88 0000 52696E67 		.ascii	"RingBuffer_WriteArray: InitError\000"
+  88      42756666 
+  88      65725F57 
+  88      72697465 
+  88      41727261 
+  89              	.LC2:
+  90 0021 52696E67 		.ascii	"RingBuffer_WriteArray: Invalid parameters\000"
+  90      42756666 
+  90      65725F57 
+  90      72697465 
+  90      41727261 
+  91              	.LC3:
+  92 004b 52696E67 		.ascii	"RingBuffer_WriteArray: Buffer full, moving head by "
+  92      42756666 
+  92      65725F57 
+  92      72697465 
+  92      41727261 
+  93 007e 25642062 		.ascii	"%d bytes\012\000"
+  93      79746573 
+  93      0A00
+  94              	.LC4:
+  95 0088 52696E67 		.ascii	"RingBuffer_WriteArray: Copied %d bytes (offset %d),"
+  95      42756666 
+  95      65725F57 
+  95      72697465 
+  95      41727261 
+  96 00bb 20705F68 		.ascii	" p_head = %p, p_tail = %p\012\000"
+  96      65616420 
+  96      3D202570 
+  96      2C20705F 
+  96      7461696C 
+  97              		.section	.text.RingBuffer_WriteArray,"ax",%progbits
+  98              		.align	1
+  99              		.global	RingBuffer_WriteArray
+ 100              		.syntax unified
+ 101              		.thumb
+ 102              		.thumb_func
+ 104              	RingBuffer_WriteArray:
+ 105              	.LVL4:
+ 106              	.LFB2:
+  23:../APP/Src/Buffer.cpp **** 
+  24:../APP/Src/Buffer.cpp **** /**
+  25:../APP/Src/Buffer.cpp ****  * @brief        使用memcpy写入数组
+  26:../APP/Src/Buffer.cpp ****  * @param buffer 缓冲区结构体
+  27:../APP/Src/Buffer.cpp ****  * @param data   数据数组
+  28:../APP/Src/Buffer.cpp ****  * @param length 数组长度
+  29:../APP/Src/Buffer.cpp ****  * @return 状态
+  30:../APP/Src/Buffer.cpp ****  */
+  31:../APP/Src/Buffer.cpp **** Buffer_State_t RingBuffer_WriteArray(Buffer_t *buffer, uint8_t *data, uint16_t length)
+  32:../APP/Src/Buffer.cpp **** {
+ 107              		.loc 1 32 1 is_stmt 1 view -0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 4
+
+
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+  33:../APP/Src/Buffer.cpp ****     /* 判断缓冲区是否初始化 */
+  34:../APP/Src/Buffer.cpp ****     if (buffer->p_head == NULL || buffer->p_tail == NULL)
+ 111              		.loc 1 34 5 view .LVU19
+ 112 0000 836A     		ldr	r3, [r0, #40]
+  32:../APP/Src/Buffer.cpp ****     /* 判断缓冲区是否初始化 */
+ 113              		.loc 1 32 1 is_stmt 0 view .LVU20
+ 114 0002 2DE9F743 		push	{r0, r1, r2, r4, r5, r6, r7, r8, r9, lr}
+ 115              	.LCFI2:
+ 116              		.cfi_def_cfa_offset 40
+ 117              		.cfi_offset 4, -28
+ 118              		.cfi_offset 5, -24
+ 119              		.cfi_offset 6, -20
+ 120              		.cfi_offset 7, -16
+ 121              		.cfi_offset 8, -12
+ 122              		.cfi_offset 9, -8
+ 123              		.cfi_offset 14, -4
+  32:../APP/Src/Buffer.cpp ****     /* 判断缓冲区是否初始化 */
+ 124              		.loc 1 32 1 view .LVU21
+ 125 0006 0546     		mov	r5, r0
+ 126 0008 8946     		mov	r9, r1
+ 127 000a 1646     		mov	r6, r2
+ 128              		.loc 1 34 5 view .LVU22
+ 129 000c 0BB1     		cbz	r3, .L5
+ 130              		.loc 1 34 32 discriminator 1 view .LVU23
+ 131 000e C36A     		ldr	r3, [r0, #44]
+ 132 0010 3BB9     		cbnz	r3, .L6
+ 133              	.L5:
+  35:../APP/Src/Buffer.cpp ****     {
+  36:../APP/Src/Buffer.cpp **** #if __BUFFER_DEBUG__ == 1
+  37:../APP/Src/Buffer.cpp ****         printf("RingBuffer_WriteArray: InitError\n");
+ 134              		.loc 1 37 9 is_stmt 1 view .LVU24
+ 135              		.loc 1 37 15 is_stmt 0 view .LVU25
+ 136 0012 2348     		ldr	r0, .L24
+ 137              	.LVL5:
+ 138              	.L23:
+  38:../APP/Src/Buffer.cpp **** #endif
+  39:../APP/Src/Buffer.cpp ****         return BUFFER_InitError;
+  40:../APP/Src/Buffer.cpp ****     }
+  41:../APP/Src/Buffer.cpp **** 
+  42:../APP/Src/Buffer.cpp ****     /* 判断参数有效性 */
+  43:../APP/Src/Buffer.cpp ****     if (data == NULL || length == 0)
+  44:../APP/Src/Buffer.cpp ****     {
+  45:../APP/Src/Buffer.cpp **** #if __BUFFER_DEBUG__ == 1
+  46:../APP/Src/Buffer.cpp ****         printf("RingBuffer_WriteArray: Invalid parameters\n");
+ 139              		.loc 1 46 15 view .LVU26
+ 140 0014 FFF7FEFF 		bl	puts
+ 141              	.LVL6:
+  47:../APP/Src/Buffer.cpp **** #endif
+  48:../APP/Src/Buffer.cpp ****         return BUFFER_InitError;
+ 142              		.loc 1 48 9 is_stmt 1 view .LVU27
+  39:../APP/Src/Buffer.cpp ****     }
+ 143              		.loc 1 39 16 is_stmt 0 view .LVU28
+ 144 0018 4FF0FF30 		mov	r0, #-1
+ 145              	.LVL7:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 5
+
+
+ 146              	.L10:
+  49:../APP/Src/Buffer.cpp ****     }
+  50:../APP/Src/Buffer.cpp **** 
+  51:../APP/Src/Buffer.cpp ****     uint16_t remaining = length;
+  52:../APP/Src/Buffer.cpp ****     uint16_t offset = 0;
+  53:../APP/Src/Buffer.cpp ****     
+  54:../APP/Src/Buffer.cpp ****     while (remaining > 0)
+  55:../APP/Src/Buffer.cpp ****     {
+  56:../APP/Src/Buffer.cpp ****         /* 计算当前可连续写入的字节数 */
+  57:../APP/Src/Buffer.cpp ****         uint16_t available_to_end = BUFFER_SIZE - ((uint8_t *)buffer->p_tail - buffer->data);
+  58:../APP/Src/Buffer.cpp ****         uint16_t write_size = (remaining < available_to_end) ? remaining : available_to_end;
+  59:../APP/Src/Buffer.cpp ****         
+  60:../APP/Src/Buffer.cpp ****         /* 检查是否需要移动头指针（缓冲区满的情况） */
+  61:../APP/Src/Buffer.cpp ****         uint16_t *next_tail = (uint16_t *)((uint8_t *)buffer->p_tail + write_size);
+  62:../APP/Src/Buffer.cpp ****         if ((uint8_t *)next_tail >= buffer->data + BUFFER_SIZE)
+  63:../APP/Src/Buffer.cpp ****         {
+  64:../APP/Src/Buffer.cpp ****             next_tail = (uint16_t *)(buffer->data + ((uint8_t *)next_tail - (buffer->data + BUFFER_
+  65:../APP/Src/Buffer.cpp ****         }
+  66:../APP/Src/Buffer.cpp ****         
+  67:../APP/Src/Buffer.cpp ****         if (next_tail == buffer->p_head)
+  68:../APP/Src/Buffer.cpp ****         {
+  69:../APP/Src/Buffer.cpp ****             /* 缓冲区满，移动头指针 */
+  70:../APP/Src/Buffer.cpp ****             uint16_t head_move = write_size;
+  71:../APP/Src/Buffer.cpp ****             buffer->p_head = (uint16_t *)((uint8_t *)buffer->p_head + head_move);
+  72:../APP/Src/Buffer.cpp ****             if ((uint8_t *)buffer->p_head >= buffer->data + BUFFER_SIZE)
+  73:../APP/Src/Buffer.cpp ****             {
+  74:../APP/Src/Buffer.cpp ****                 buffer->p_head = (uint16_t *)(buffer->data + ((uint8_t *)buffer->p_head - (buffer->
+  75:../APP/Src/Buffer.cpp ****             }
+  76:../APP/Src/Buffer.cpp **** #if __BUFFER_DEBUG__ == 1
+  77:../APP/Src/Buffer.cpp ****             printf("RingBuffer_WriteArray: Buffer full, moving head by %d bytes\n", head_move);
+  78:../APP/Src/Buffer.cpp **** #endif
+  79:../APP/Src/Buffer.cpp ****         }
+  80:../APP/Src/Buffer.cpp ****         
+  81:../APP/Src/Buffer.cpp ****         /* 使用memcpy批量复制 */
+  82:../APP/Src/Buffer.cpp ****         memcpy((uint8_t *)buffer->p_tail, data + offset, write_size);
+  83:../APP/Src/Buffer.cpp ****         
+  84:../APP/Src/Buffer.cpp ****         /* 更新尾指针 */
+  85:../APP/Src/Buffer.cpp ****         buffer->p_tail = (uint16_t *)((uint8_t *)buffer->p_tail + write_size);
+  86:../APP/Src/Buffer.cpp ****         if ((uint8_t *)buffer->p_tail >= buffer->data + BUFFER_SIZE)
+  87:../APP/Src/Buffer.cpp ****         {
+  88:../APP/Src/Buffer.cpp ****             buffer->p_tail = (uint16_t *)buffer->data;
+  89:../APP/Src/Buffer.cpp ****         }
+  90:../APP/Src/Buffer.cpp ****         
+  91:../APP/Src/Buffer.cpp **** #if __BUFFER_DEBUG__ == 1
+  92:../APP/Src/Buffer.cpp ****         printf("RingBuffer_WriteArray: Copied %d bytes (offset %d), p_head = %p, p_tail = %p\n", 
+  93:../APP/Src/Buffer.cpp ****                write_size, offset, buffer->p_head, buffer->p_tail);
+  94:../APP/Src/Buffer.cpp **** #endif
+  95:../APP/Src/Buffer.cpp ****         
+  96:../APP/Src/Buffer.cpp ****         remaining -= write_size;
+  97:../APP/Src/Buffer.cpp ****         offset += write_size;
+  98:../APP/Src/Buffer.cpp ****     }
+  99:../APP/Src/Buffer.cpp **** 
+ 100:../APP/Src/Buffer.cpp ****     return BUFFER_OK;
+ 101:../APP/Src/Buffer.cpp **** }
+ 147              		.loc 1 101 1 view .LVU29
+ 148 001c 03B0     		add	sp, sp, #12
+ 149              	.LCFI3:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 6
+
+
+ 150              		.cfi_remember_state
+ 151              		.cfi_def_cfa_offset 28
+ 152              		@ sp needed
+ 153 001e BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 154              	.LVL8:
+ 155              	.L6:
+ 156              	.LCFI4:
+ 157              		.cfi_restore_state
+  43:../APP/Src/Buffer.cpp ****     {
+ 158              		.loc 1 43 5 is_stmt 1 view .LVU30
+ 159 0022 01B1     		cbz	r1, .L8
+  43:../APP/Src/Buffer.cpp ****     {
+ 160              		.loc 1 43 22 is_stmt 0 discriminator 1 view .LVU31
+ 161 0024 0AB9     		cbnz	r2, .L15
+ 162              	.L8:
+  46:../APP/Src/Buffer.cpp **** #endif
+ 163              		.loc 1 46 9 is_stmt 1 view .LVU32
+  46:../APP/Src/Buffer.cpp **** #endif
+ 164              		.loc 1 46 15 is_stmt 0 view .LVU33
+ 165 0026 1F48     		ldr	r0, .L24+4
+ 166              	.LVL9:
+  46:../APP/Src/Buffer.cpp **** #endif
+ 167              		.loc 1 46 15 view .LVU34
+ 168 0028 F4E7     		b	.L23
+ 169              	.LVL10:
+ 170              	.L15:
+  52:../APP/Src/Buffer.cpp ****     
+ 171              		.loc 1 52 14 view .LVU35
+ 172 002a 4FF00008 		mov	r8, #0
+ 173              	.LBB2:
+  62:../APP/Src/Buffer.cpp ****         {
+ 174              		.loc 1 62 50 view .LVU36
+ 175 002e 00F12807 		add	r7, r0, #40
+ 176              	.LVL11:
+ 177              	.L9:
+  57:../APP/Src/Buffer.cpp ****         uint16_t write_size = (remaining < available_to_end) ? remaining : available_to_end;
+ 178              		.loc 1 57 9 is_stmt 1 view .LVU37
+  57:../APP/Src/Buffer.cpp ****         uint16_t write_size = (remaining < available_to_end) ? remaining : available_to_end;
+ 179              		.loc 1 57 71 is_stmt 0 view .LVU38
+ 180 0032 EB6A     		ldr	r3, [r5, #44]
+ 181              	.LVL12:
+  58:../APP/Src/Buffer.cpp ****         
+ 182              		.loc 1 58 9 is_stmt 1 view .LVU39
+ 183              	.LBB3:
+  67:../APP/Src/Buffer.cpp ****         {
+ 184              		.loc 1 67 34 is_stmt 0 view .LVU40
+ 185 0034 AA6A     		ldr	r2, [r5, #40]
+ 186              	.LBE3:
+  57:../APP/Src/Buffer.cpp ****         uint16_t write_size = (remaining < available_to_end) ? remaining : available_to_end;
+ 187              		.loc 1 57 78 view .LVU41
+ 188 0036 5C1B     		subs	r4, r3, r5
+  57:../APP/Src/Buffer.cpp ****         uint16_t write_size = (remaining < available_to_end) ? remaining : available_to_end;
+ 189              		.loc 1 57 18 view .LVU42
+ 190 0038 C4F12804 		rsb	r4, r4, #40
+  58:../APP/Src/Buffer.cpp ****         
+ 191              		.loc 1 58 62 view .LVU43
+ 192 003c A4B2     		uxth	r4, r4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 7
+
+
+ 193 003e B442     		cmp	r4, r6
+ 194 0040 28BF     		it	cs
+ 195 0042 3446     		movcs	r4, r6
+ 196              	.LVL13:
+  61:../APP/Src/Buffer.cpp ****         if ((uint8_t *)next_tail >= buffer->data + BUFFER_SIZE)
+ 197              		.loc 1 61 9 is_stmt 1 view .LVU44
+  61:../APP/Src/Buffer.cpp ****         if ((uint8_t *)next_tail >= buffer->data + BUFFER_SIZE)
+ 198              		.loc 1 61 19 is_stmt 0 view .LVU45
+ 199 0044 2344     		add	r3, r3, r4
+ 200              	.LVL14:
+  62:../APP/Src/Buffer.cpp ****         {
+ 201              		.loc 1 62 9 is_stmt 1 view .LVU46
+ 202 0046 9F42     		cmp	r7, r3
+  64:../APP/Src/Buffer.cpp ****         }
+ 203              		.loc 1 64 13 view .LVU47
+  64:../APP/Src/Buffer.cpp ****         }
+ 204              		.loc 1 64 75 is_stmt 0 view .LVU48
+ 205 0048 9CBF     		itt	ls
+ 206 004a DB1B     		subls	r3, r3, r7
+ 207              	.LVL15:
+  64:../APP/Src/Buffer.cpp ****         }
+ 208              		.loc 1 64 23 view .LVU49
+ 209 004c 5B19     		addls	r3, r3, r5
+ 210              	.LVL16:
+  67:../APP/Src/Buffer.cpp ****         {
+ 211              		.loc 1 67 9 is_stmt 1 view .LVU50
+ 212              	.LBB5:
+ 213 004e 9A42     		cmp	r2, r3
+ 214 0050 09D1     		bne	.L12
+ 215              	.LBB4:
+  70:../APP/Src/Buffer.cpp ****             buffer->p_head = (uint16_t *)((uint8_t *)buffer->p_head + head_move);
+ 216              		.loc 1 70 13 view .LVU51
+ 217              	.LVL17:
+  71:../APP/Src/Buffer.cpp ****             if ((uint8_t *)buffer->p_head >= buffer->data + BUFFER_SIZE)
+ 218              		.loc 1 71 13 view .LVU52
+  71:../APP/Src/Buffer.cpp ****             if ((uint8_t *)buffer->p_head >= buffer->data + BUFFER_SIZE)
+ 219              		.loc 1 71 30 is_stmt 0 view .LVU53
+ 220 0052 2344     		add	r3, r3, r4
+ 221              	.LVL18:
+  72:../APP/Src/Buffer.cpp ****             {
+ 222              		.loc 1 72 13 is_stmt 1 view .LVU54
+ 223 0054 9F42     		cmp	r7, r3
+  74:../APP/Src/Buffer.cpp ****             }
+ 224              		.loc 1 74 17 view .LVU55
+  74:../APP/Src/Buffer.cpp ****             }
+ 225              		.loc 1 74 89 is_stmt 0 view .LVU56
+ 226 0056 9CBF     		itt	ls
+ 227 0058 DB1B     		subls	r3, r3, r7
+  74:../APP/Src/Buffer.cpp ****             }
+ 228              		.loc 1 74 34 view .LVU57
+ 229 005a 5B19     		addls	r3, r3, r5
+  77:../APP/Src/Buffer.cpp **** #endif
+ 230              		.loc 1 77 19 view .LVU58
+ 231 005c 1248     		ldr	r0, .L24+8
+  71:../APP/Src/Buffer.cpp ****             if ((uint8_t *)buffer->p_head >= buffer->data + BUFFER_SIZE)
+ 232              		.loc 1 71 28 view .LVU59
+ 233 005e AB62     		str	r3, [r5, #40]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 8
+
+
+  77:../APP/Src/Buffer.cpp **** #endif
+ 234              		.loc 1 77 13 is_stmt 1 view .LVU60
+  77:../APP/Src/Buffer.cpp **** #endif
+ 235              		.loc 1 77 19 is_stmt 0 view .LVU61
+ 236 0060 2146     		mov	r1, r4
+ 237 0062 FFF7FEFF 		bl	printf
+ 238              	.LVL19:
+ 239              	.L12:
+  77:../APP/Src/Buffer.cpp **** #endif
+ 240              		.loc 1 77 19 view .LVU62
+ 241              	.LBE4:
+ 242              	.LBE5:
+  82:../APP/Src/Buffer.cpp ****         
+ 243              		.loc 1 82 9 is_stmt 1 view .LVU63
+  82:../APP/Src/Buffer.cpp ****         
+ 244              		.loc 1 82 15 is_stmt 0 view .LVU64
+ 245 0066 2246     		mov	r2, r4
+ 246 0068 09EB0801 		add	r1, r9, r8
+ 247 006c E86A     		ldr	r0, [r5, #44]
+ 248 006e FFF7FEFF 		bl	memcpy
+ 249              	.LVL20:
+  85:../APP/Src/Buffer.cpp ****         if ((uint8_t *)buffer->p_tail >= buffer->data + BUFFER_SIZE)
+ 250              		.loc 1 85 9 is_stmt 1 view .LVU65
+  85:../APP/Src/Buffer.cpp ****         if ((uint8_t *)buffer->p_tail >= buffer->data + BUFFER_SIZE)
+ 251              		.loc 1 85 26 is_stmt 0 view .LVU66
+ 252 0072 EB6A     		ldr	r3, [r5, #44]
+  92:../APP/Src/Buffer.cpp ****                write_size, offset, buffer->p_head, buffer->p_tail);
+ 253              		.loc 1 92 15 view .LVU67
+ 254 0074 0D48     		ldr	r0, .L24+12
+  85:../APP/Src/Buffer.cpp ****         if ((uint8_t *)buffer->p_tail >= buffer->data + BUFFER_SIZE)
+ 255              		.loc 1 85 26 view .LVU68
+ 256 0076 2344     		add	r3, r3, r4
+  86:../APP/Src/Buffer.cpp ****         {
+ 257              		.loc 1 86 9 is_stmt 1 view .LVU69
+  88:../APP/Src/Buffer.cpp ****         }
+ 258              		.loc 1 88 28 is_stmt 0 view .LVU70
+ 259 0078 9F42     		cmp	r7, r3
+ 260 007a 98BF     		it	ls
+ 261 007c 2B46     		movls	r3, r5
+ 262 007e EB62     		str	r3, [r5, #44]
+  92:../APP/Src/Buffer.cpp ****                write_size, offset, buffer->p_head, buffer->p_tail);
+ 263              		.loc 1 92 9 is_stmt 1 view .LVU71
+  96:../APP/Src/Buffer.cpp ****         offset += write_size;
+ 264              		.loc 1 96 19 is_stmt 0 view .LVU72
+ 265 0080 361B     		subs	r6, r6, r4
+ 266              	.LVL21:
+  92:../APP/Src/Buffer.cpp ****                write_size, offset, buffer->p_head, buffer->p_tail);
+ 267              		.loc 1 92 15 view .LVU73
+ 268 0082 0093     		str	r3, [sp]
+ 269 0084 4246     		mov	r2, r8
+ 270 0086 2146     		mov	r1, r4
+ 271 0088 AB6A     		ldr	r3, [r5, #40]
+  97:../APP/Src/Buffer.cpp ****     }
+ 272              		.loc 1 97 16 view .LVU74
+ 273 008a 4444     		add	r4, r4, r8
+ 274              	.LVL22:
+  96:../APP/Src/Buffer.cpp ****         offset += write_size;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 9
+
+
+ 275              		.loc 1 96 19 view .LVU75
+ 276 008c B6B2     		uxth	r6, r6
+  92:../APP/Src/Buffer.cpp ****                write_size, offset, buffer->p_head, buffer->p_tail);
+ 277              		.loc 1 92 15 view .LVU76
+ 278 008e FFF7FEFF 		bl	printf
+ 279              	.LVL23:
+  96:../APP/Src/Buffer.cpp ****         offset += write_size;
+ 280              		.loc 1 96 9 is_stmt 1 view .LVU77
+  97:../APP/Src/Buffer.cpp ****     }
+ 281              		.loc 1 97 9 view .LVU78
+  97:../APP/Src/Buffer.cpp ****     }
+ 282              		.loc 1 97 16 is_stmt 0 view .LVU79
+ 283 0092 1FFA84F8 		uxth	r8, r4
+ 284              	.LVL24:
+  97:../APP/Src/Buffer.cpp ****     }
+ 285              		.loc 1 97 16 view .LVU80
+ 286              	.LBE2:
+  54:../APP/Src/Buffer.cpp ****     {
+ 287              		.loc 1 54 22 is_stmt 1 view .LVU81
+ 288 0096 002E     		cmp	r6, #0
+ 289 0098 CBD1     		bne	.L9
+ 100:../APP/Src/Buffer.cpp **** }
+ 290              		.loc 1 100 12 is_stmt 0 view .LVU82
+ 291 009a 3046     		mov	r0, r6
+ 292 009c BEE7     		b	.L10
+ 293              	.L25:
+ 294 009e 00BF     		.align	2
+ 295              	.L24:
+ 296 00a0 00000000 		.word	.LC1
+ 297 00a4 21000000 		.word	.LC2
+ 298 00a8 4B000000 		.word	.LC3
+ 299 00ac 88000000 		.word	.LC4
+ 300              		.cfi_endproc
+ 301              	.LFE2:
+ 303              		.section	.rodata.RingBuffer_ReadArray.str1.1,"aMS",%progbits,1
+ 304              	.LC5:
+ 305 0000 52696E67 		.ascii	"RingBuffer_ReadArray: buffer->p_head = %p, buffer->"
+ 305      42756666 
+ 305      65725F52 
+ 305      65616441 
+ 305      72726179 
+ 306 0033 705F7461 		.ascii	"p_tail = %p\012\000"
+ 306      696C203D 
+ 306      2025700A 
+ 306      00
+ 307              	.LC6:
+ 308 0040 52696E67 		.ascii	"RingBuffer_ReadArray: InitError\000"
+ 308      42756666 
+ 308      65725F52 
+ 308      65616441 
+ 308      72726179 
+ 309              	.LC7:
+ 310 0060 52696E67 		.ascii	"RingBuffer_ReadArray: Invalid parameters\000"
+ 310      42756666 
+ 310      65725F52 
+ 310      65616441 
+ 310      72726179 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 10
+
+
+ 311              	.LC8:
+ 312 0089 52696E67 		.ascii	"RingBuffer_ReadArray: Read data[%d] = %d, p_head = "
+ 312      42756666 
+ 312      65725F52 
+ 312      65616441 
+ 312      72726179 
+ 313 00bc 25702C20 		.ascii	"%p, p_tail = %p\012\000"
+ 313      705F7461 
+ 313      696C203D 
+ 313      2025700A 
+ 313      00
+ 314              		.section	.text.RingBuffer_ReadArray,"ax",%progbits
+ 315              		.align	1
+ 316              		.global	RingBuffer_ReadArray
+ 317              		.syntax unified
+ 318              		.thumb
+ 319              		.thumb_func
+ 321              	RingBuffer_ReadArray:
+ 322              	.LVL25:
+ 323              	.LFB3:
+ 102:../APP/Src/Buffer.cpp **** 
+ 103:../APP/Src/Buffer.cpp **** 
+ 104:../APP/Src/Buffer.cpp **** 
+ 105:../APP/Src/Buffer.cpp **** Buffer_State_t RingBuffer_ReadArray(Buffer_t *buffer, uint8_t *data, uint16_t length)
+ 106:../APP/Src/Buffer.cpp **** {
+ 324              		.loc 1 106 1 is_stmt 1 view -0
+ 325              		.cfi_startproc
+ 326              		@ args = 0, pretend = 0, frame = 0
+ 327              		@ frame_needed = 0, uses_anonymous_args = 0
+ 107:../APP/Src/Buffer.cpp ****     if (buffer->p_head == NULL || buffer->p_tail == NULL)
+ 328              		.loc 1 107 5 view .LVU84
+ 106:../APP/Src/Buffer.cpp ****     if (buffer->p_head == NULL || buffer->p_tail == NULL)
+ 329              		.loc 1 106 1 is_stmt 0 view .LVU85
+ 330 0000 2DE9F341 		push	{r0, r1, r4, r5, r6, r7, r8, lr}
+ 331              	.LCFI5:
+ 332              		.cfi_def_cfa_offset 32
+ 333              		.cfi_offset 4, -24
+ 334              		.cfi_offset 5, -20
+ 335              		.cfi_offset 6, -16
+ 336              		.cfi_offset 7, -12
+ 337              		.cfi_offset 8, -8
+ 338              		.cfi_offset 14, -4
+ 106:../APP/Src/Buffer.cpp ****     if (buffer->p_head == NULL || buffer->p_tail == NULL)
+ 339              		.loc 1 106 1 view .LVU86
+ 340 0004 0D46     		mov	r5, r1
+ 341 0006 1746     		mov	r7, r2
+ 342              		.loc 1 107 43 discriminator 1 view .LVU87
+ 343 0008 D0E90A12 		ldrd	r1, r2, [r0, #40]
+ 344              	.LVL26:
+ 106:../APP/Src/Buffer.cpp ****     if (buffer->p_head == NULL || buffer->p_tail == NULL)
+ 345              		.loc 1 106 1 view .LVU88
+ 346 000c 0446     		mov	r4, r0
+ 347              		.loc 1 107 5 view .LVU89
+ 348 000e 01B1     		cbz	r1, .L27
+ 349              		.loc 1 107 32 discriminator 1 view .LVU90
+ 350 0010 52B9     		cbnz	r2, .L28
+ 351              	.L27:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 11
+
+
+ 108:../APP/Src/Buffer.cpp ****     {
+ 109:../APP/Src/Buffer.cpp **** #if __BUFFER_DEBUG__ == 1   
+ 110:../APP/Src/Buffer.cpp ****         printf("RingBuffer_ReadArray: buffer->p_head = %p, buffer->p_tail = %p\n", buffer->p_head, 
+ 352              		.loc 1 110 9 is_stmt 1 view .LVU91
+ 353              		.loc 1 110 15 is_stmt 0 view .LVU92
+ 354 0012 1648     		ldr	r0, .L44
+ 355              	.LVL27:
+ 356              		.loc 1 110 15 view .LVU93
+ 357 0014 FFF7FEFF 		bl	printf
+ 358              	.LVL28:
+ 111:../APP/Src/Buffer.cpp ****         printf("RingBuffer_ReadArray: InitError\n");
+ 359              		.loc 1 111 9 is_stmt 1 view .LVU94
+ 360              		.loc 1 111 15 is_stmt 0 view .LVU95
+ 361 0018 1548     		ldr	r0, .L44+4
+ 362              	.L43:
+ 112:../APP/Src/Buffer.cpp **** #endif
+ 113:../APP/Src/Buffer.cpp ****         return BUFFER_InitError;
+ 114:../APP/Src/Buffer.cpp ****     }
+ 115:../APP/Src/Buffer.cpp **** 
+ 116:../APP/Src/Buffer.cpp ****     if (data == NULL || length == 0)
+ 117:../APP/Src/Buffer.cpp ****     {
+ 118:../APP/Src/Buffer.cpp **** #if __BUFFER_DEBUG__ == 1
+ 119:../APP/Src/Buffer.cpp ****         printf("RingBuffer_ReadArray: Invalid parameters\n");
+ 363              		.loc 1 119 15 view .LVU96
+ 364 001a FFF7FEFF 		bl	puts
+ 365              	.LVL29:
+ 120:../APP/Src/Buffer.cpp **** #endif
+ 121:../APP/Src/Buffer.cpp ****         return BUFFER_InitError;
+ 366              		.loc 1 121 9 is_stmt 1 view .LVU97
+ 113:../APP/Src/Buffer.cpp ****     }
+ 367              		.loc 1 113 16 is_stmt 0 view .LVU98
+ 368 001e 4FF0FF30 		mov	r0, #-1
+ 369              	.LVL30:
+ 370              	.L32:
+ 122:../APP/Src/Buffer.cpp ****     }
+ 123:../APP/Src/Buffer.cpp **** 
+ 124:../APP/Src/Buffer.cpp ****     for (uint16_t i = 0; i < length; i++)
+ 125:../APP/Src/Buffer.cpp ****     {
+ 126:../APP/Src/Buffer.cpp ****         data[i] = *((uint8_t *)buffer->p_head);
+ 127:../APP/Src/Buffer.cpp ****         buffer->p_head = (uint16_t *)((uint8_t *)buffer->p_head + sizeof(uint8_t));
+ 128:../APP/Src/Buffer.cpp ****         if ((uint8_t *)buffer->p_head >= buffer->data + BUFFER_SIZE)
+ 129:../APP/Src/Buffer.cpp ****         {
+ 130:../APP/Src/Buffer.cpp ****             buffer->p_head = (uint16_t *)buffer->data;
+ 131:../APP/Src/Buffer.cpp ****         }
+ 132:../APP/Src/Buffer.cpp **** 
+ 133:../APP/Src/Buffer.cpp **** #if __BUFFER_DEBUG__ == 1   
+ 134:../APP/Src/Buffer.cpp **** printf("RingBuffer_ReadArray: Read data[%d] = %d, p_head = %p, p_tail = %p\n",  
+ 135:../APP/Src/Buffer.cpp ****         i, data[i], buffer->p_head, buffer->p_tail);
+ 136:../APP/Src/Buffer.cpp **** #endif
+ 137:../APP/Src/Buffer.cpp ****     }
+ 138:../APP/Src/Buffer.cpp **** 
+ 139:../APP/Src/Buffer.cpp ****         return BUFFER_OK;
+ 140:../APP/Src/Buffer.cpp **** }
+ 371              		.loc 1 140 1 view .LVU99
+ 372 0022 02B0     		add	sp, sp, #8
+ 373              	.LCFI6:
+ 374              		.cfi_remember_state
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 12
+
+
+ 375              		.cfi_def_cfa_offset 24
+ 376              		@ sp needed
+ 377 0024 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 378              	.LVL31:
+ 379              	.L28:
+ 380              	.LCFI7:
+ 381              		.cfi_restore_state
+ 116:../APP/Src/Buffer.cpp ****     {
+ 382              		.loc 1 116 5 is_stmt 1 view .LVU100
+ 383 0028 05B1     		cbz	r5, .L30
+ 116:../APP/Src/Buffer.cpp ****     {
+ 384              		.loc 1 116 22 is_stmt 0 discriminator 1 view .LVU101
+ 385 002a 0FB9     		cbnz	r7, .L31
+ 386              	.L30:
+ 119:../APP/Src/Buffer.cpp **** #endif
+ 387              		.loc 1 119 9 is_stmt 1 view .LVU102
+ 119:../APP/Src/Buffer.cpp **** #endif
+ 388              		.loc 1 119 15 is_stmt 0 view .LVU103
+ 389 002c 1148     		ldr	r0, .L44+8
+ 390              	.LVL32:
+ 119:../APP/Src/Buffer.cpp **** #endif
+ 391              		.loc 1 119 15 view .LVU104
+ 392 002e F4E7     		b	.L43
+ 393              	.LVL33:
+ 394              	.L31:
+ 119:../APP/Src/Buffer.cpp **** #endif
+ 395              		.loc 1 119 15 view .LVU105
+ 396 0030 013D     		subs	r5, r5, #1
+ 397              	.LVL34:
+ 116:../APP/Src/Buffer.cpp ****     {
+ 398              		.loc 1 116 22 discriminator 1 view .LVU106
+ 399 0032 0026     		movs	r6, #0
+ 400              	.LBB6:
+ 128:../APP/Src/Buffer.cpp ****         {
+ 401              		.loc 1 128 55 view .LVU107
+ 402 0034 00F12808 		add	r8, r0, #40
+ 403              	.LVL35:
+ 404              	.L34:
+ 126:../APP/Src/Buffer.cpp ****         buffer->p_head = (uint16_t *)((uint8_t *)buffer->p_head + sizeof(uint8_t));
+ 405              		.loc 1 126 9 is_stmt 1 view .LVU108
+ 126:../APP/Src/Buffer.cpp ****         buffer->p_head = (uint16_t *)((uint8_t *)buffer->p_head + sizeof(uint8_t));
+ 406              		.loc 1 126 19 is_stmt 0 view .LVU109
+ 407 0038 A36A     		ldr	r3, [r4, #40]
+ 134:../APP/Src/Buffer.cpp ****         i, data[i], buffer->p_head, buffer->p_tail);
+ 408              		.loc 1 134 7 view .LVU110
+ 409 003a 0F48     		ldr	r0, .L44+12
+ 126:../APP/Src/Buffer.cpp ****         buffer->p_head = (uint16_t *)((uint8_t *)buffer->p_head + sizeof(uint8_t));
+ 410              		.loc 1 126 19 view .LVU111
+ 411 003c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 126:../APP/Src/Buffer.cpp ****         buffer->p_head = (uint16_t *)((uint8_t *)buffer->p_head + sizeof(uint8_t));
+ 412              		.loc 1 126 17 view .LVU112
+ 413 003e 05F8013F 		strb	r3, [r5, #1]!
+ 127:../APP/Src/Buffer.cpp ****         if ((uint8_t *)buffer->p_head >= buffer->data + BUFFER_SIZE)
+ 414              		.loc 1 127 9 is_stmt 1 view .LVU113
+ 127:../APP/Src/Buffer.cpp ****         if ((uint8_t *)buffer->p_head >= buffer->data + BUFFER_SIZE)
+ 415              		.loc 1 127 26 is_stmt 0 view .LVU114
+ 416 0042 A36A     		ldr	r3, [r4, #40]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 13
+
+
+ 417 0044 0133     		adds	r3, r3, #1
+ 128:../APP/Src/Buffer.cpp ****         {
+ 418              		.loc 1 128 9 is_stmt 1 view .LVU115
+ 419 0046 4345     		cmp	r3, r8
+ 130:../APP/Src/Buffer.cpp ****         }
+ 420              		.loc 1 130 13 view .LVU116
+ 421 0048 2CBF     		ite	cs
+ 422 004a 2246     		movcs	r2, r4
+ 423 004c 1A46     		movcc	r2, r3
+ 127:../APP/Src/Buffer.cpp ****         if ((uint8_t *)buffer->p_head >= buffer->data + BUFFER_SIZE)
+ 424              		.loc 1 127 24 is_stmt 0 view .LVU117
+ 425 004e A262     		str	r2, [r4, #40]
+ 134:../APP/Src/Buffer.cpp ****         i, data[i], buffer->p_head, buffer->p_tail);
+ 426              		.loc 1 134 1 is_stmt 1 view .LVU118
+ 134:../APP/Src/Buffer.cpp ****         i, data[i], buffer->p_head, buffer->p_tail);
+ 427              		.loc 1 134 7 is_stmt 0 view .LVU119
+ 428 0050 E26A     		ldr	r2, [r4, #44]
+ 429 0052 0092     		str	r2, [sp]
+ 130:../APP/Src/Buffer.cpp ****         }
+ 430              		.loc 1 130 50 view .LVU120
+ 431 0054 28BF     		it	cs
+ 432 0056 2346     		movcs	r3, r4
+ 134:../APP/Src/Buffer.cpp ****         i, data[i], buffer->p_head, buffer->p_tail);
+ 433              		.loc 1 134 7 view .LVU121
+ 434 0058 3146     		mov	r1, r6
+ 435 005a 2A78     		ldrb	r2, [r5]	@ zero_extendqisi2
+ 124:../APP/Src/Buffer.cpp ****     {
+ 436              		.loc 1 124 28 discriminator 1 view .LVU122
+ 437 005c 0136     		adds	r6, r6, #1
+ 438              	.LVL36:
+ 134:../APP/Src/Buffer.cpp ****         i, data[i], buffer->p_head, buffer->p_tail);
+ 439              		.loc 1 134 7 view .LVU123
+ 440 005e FFF7FEFF 		bl	printf
+ 441              	.LVL37:
+ 124:../APP/Src/Buffer.cpp ****     {
+ 442              		.loc 1 124 5 is_stmt 1 discriminator 2 view .LVU124
+ 124:../APP/Src/Buffer.cpp ****     {
+ 443              		.loc 1 124 28 discriminator 1 view .LVU125
+ 444 0062 BE42     		cmp	r6, r7
+ 445 0064 E8D1     		bne	.L34
+ 446              	.LBE6:
+ 139:../APP/Src/Buffer.cpp **** }
+ 447              		.loc 1 139 16 is_stmt 0 view .LVU126
+ 448 0066 0020     		movs	r0, #0
+ 449 0068 DBE7     		b	.L32
+ 450              	.L45:
+ 451 006a 00BF     		.align	2
+ 452              	.L44:
+ 453 006c 00000000 		.word	.LC5
+ 454 0070 40000000 		.word	.LC6
+ 455 0074 60000000 		.word	.LC7
+ 456 0078 89000000 		.word	.LC8
+ 457              		.cfi_endproc
+ 458              	.LFE3:
+ 460              		.section	.text.Data_Pack,"ax",%progbits
+ 461              		.align	1
+ 462              		.global	Data_Pack
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 14
+
+
+ 463              		.syntax unified
+ 464              		.thumb
+ 465              		.thumb_func
+ 467              	Data_Pack:
+ 468              	.LVL38:
+ 469              	.LFB5:
+ 141:../APP/Src/Buffer.cpp **** 
+ 142:../APP/Src/Buffer.cpp **** 
+ 143:../APP/Src/Buffer.cpp ****  /**
+ 144:../APP/Src/Buffer.cpp ****   * @brief        数据读取
+ 145:../APP/Src/Buffer.cpp ****   * @param buffer 缓冲区结构体
+ 146:../APP/Src/Buffer.cpp ****   * @param data   输出数据
+ 147:../APP/Src/Buffer.cpp ****   * @return       有效数据长度（0表示失败）
+ 148:../APP/Src/Buffer.cpp ****   * @note         读取有效的数据帧，返回实际读取的数据长度
+ 149:../APP/Src/Buffer.cpp ****   */
+ 150:../APP/Src/Buffer.cpp ****  uint8_t Data_Read(Buffer_t *buffer, uint8_t *data)
+ 151:../APP/Src/Buffer.cpp ****  {
+ 152:../APP/Src/Buffer.cpp ****      if (buffer->p_read == NULL || data == NULL)
+ 153:../APP/Src/Buffer.cpp ****      {
+ 154:../APP/Src/Buffer.cpp **** #if __BUFFER_DEBUG__ == 1
+ 155:../APP/Src/Buffer.cpp ****          printf("Data_Read: Invalid parameters\n");
+ 156:../APP/Src/Buffer.cpp **** #endif
+ 157:../APP/Src/Buffer.cpp ****          return 0;
+ 158:../APP/Src/Buffer.cpp ****      }
+ 159:../APP/Src/Buffer.cpp **** 
+ 160:../APP/Src/Buffer.cpp ****      // 先检查是否有有效帧
+ 161:../APP/Src/Buffer.cpp ****      if (Data_Check(buffer) != BUFFER_OK)
+ 162:../APP/Src/Buffer.cpp ****      {
+ 163:../APP/Src/Buffer.cpp **** #if __BUFFER_DEBUG__ == 1
+ 164:../APP/Src/Buffer.cpp ****          printf("Data_Read: No valid frame found\n");
+ 165:../APP/Src/Buffer.cpp **** #endif
+ 166:../APP/Src/Buffer.cpp ****          return 0;
+ 167:../APP/Src/Buffer.cpp ****      }
+ 168:../APP/Src/Buffer.cpp **** 
+ 169:../APP/Src/Buffer.cpp ****      // 读取帧长度
+ 170:../APP/Src/Buffer.cpp ****      uint8_t frame_length = *((uint8_t *)buffer->p_read + 1);
+ 171:../APP/Src/Buffer.cpp ****      
+ 172:../APP/Src/Buffer.cpp ****      // 读取帧数据
+ 173:../APP/Src/Buffer.cpp ****      uint16_t *p_temp = (uint16_t *)((uint8_t *)buffer->p_read + 2); // 跳过帧头和帧长度
+ 174:../APP/Src/Buffer.cpp ****      
+ 175:../APP/Src/Buffer.cpp ****      for (uint8_t i = 0; i < frame_length; i++)
+ 176:../APP/Src/Buffer.cpp ****      {
+ 177:../APP/Src/Buffer.cpp ****          data[i] = *((uint8_t *)p_temp);
+ 178:../APP/Src/Buffer.cpp ****          p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 179:../APP/Src/Buffer.cpp ****          if ((uint8_t *)p_temp >= buffer->data + BUFFER_SIZE)
+ 180:../APP/Src/Buffer.cpp ****          {
+ 181:../APP/Src/Buffer.cpp ****              p_temp = (uint16_t *)buffer->data;
+ 182:../APP/Src/Buffer.cpp ****          }
+ 183:../APP/Src/Buffer.cpp ****      }
+ 184:../APP/Src/Buffer.cpp **** 
+ 185:../APP/Src/Buffer.cpp ****      // 移动读指针到下一帧开始位置
+ 186:../APP/Src/Buffer.cpp ****      buffer->p_read = (uint16_t *)((uint8_t *)buffer->p_read + frame_length + 4); // 跳过帧头�
+ 187:../APP/Src/Buffer.cpp ****      if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 188:../APP/Src/Buffer.cpp ****      {
+ 189:../APP/Src/Buffer.cpp ****          buffer->p_read = (uint16_t *)(buffer->data + ((uint8_t *)buffer->p_read - (buffer->data + 
+ 190:../APP/Src/Buffer.cpp ****      }
+ 191:../APP/Src/Buffer.cpp **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 15
+
+
+ 192:../APP/Src/Buffer.cpp **** #if __BUFFER_DEBUG__ == 1
+ 193:../APP/Src/Buffer.cpp ****      printf("Data_Read: Read frame data, length = %d\n", frame_length);
+ 194:../APP/Src/Buffer.cpp **** #endif
+ 195:../APP/Src/Buffer.cpp **** 
+ 196:../APP/Src/Buffer.cpp ****      return frame_length;
+ 197:../APP/Src/Buffer.cpp ****  }
+ 198:../APP/Src/Buffer.cpp **** 
+ 199:../APP/Src/Buffer.cpp **** 
+ 200:../APP/Src/Buffer.cpp **** /**
+ 201:../APP/Src/Buffer.cpp ****  * @brief        数据打包
+ 202:../APP/Src/Buffer.cpp ****  * @param buffer 缓冲区结构体
+ 203:../APP/Src/Buffer.cpp ****  * @return       状态
+ 204:../APP/Src/Buffer.cpp ****  * @note         打包帧头、帧长度、帧数据、帧尾、校验和
+ 205:../APP/Src/Buffer.cpp ****  */
+ 206:../APP/Src/Buffer.cpp **** uint16_t Data_Pack(Buffer_t *buffer)
+ 207:../APP/Src/Buffer.cpp **** {
+ 470              		.loc 1 207 1 is_stmt 1 view -0
+ 471              		.cfi_startproc
+ 472              		@ args = 0, pretend = 0, frame = 0
+ 473              		@ frame_needed = 0, uses_anonymous_args = 0
+ 474              		@ link register save eliminated.
+ 208:../APP/Src/Buffer.cpp ****     // 这里可以实现数据打包功能
+ 209:../APP/Src/Buffer.cpp ****     // 暂时返回0，表示未实现
+ 210:../APP/Src/Buffer.cpp ****     return 0;
+ 475              		.loc 1 210 5 view .LVU128
+ 211:../APP/Src/Buffer.cpp **** }
+ 476              		.loc 1 211 1 is_stmt 0 view .LVU129
+ 477 0000 0020     		movs	r0, #0
+ 478              	.LVL39:
+ 479              		.loc 1 211 1 view .LVU130
+ 480 0002 7047     		bx	lr
+ 481              		.cfi_endproc
+ 482              	.LFE5:
+ 484              		.section	.rodata.Data_Check.str1.1,"aMS",%progbits,1
+ 485              	.LC9:
+ 486 0000 44617461 		.ascii	"Data_Check: Found frame header at position %d\012\000"
+ 486      5F436865 
+ 486      636B3A20 
+ 486      466F756E 
+ 486      64206672 
+ 487              	.LC10:
+ 488 002f 44617461 		.ascii	"Data_Check: Frame length = %d\012\000"
+ 488      5F436865 
+ 488      636B3A20 
+ 488      4672616D 
+ 488      65206C65 
+ 489              	.LC11:
+ 490 004e 44617461 		.ascii	"Data_Check: Calculated checksum = 0x%02X, Stored ch"
+ 490      5F436865 
+ 490      636B3A20 
+ 490      43616C63 
+ 490      756C6174 
+ 491 0081 65636B73 		.ascii	"ecksum = 0x%02X\012\000"
+ 491      756D203D 
+ 491      20307825 
+ 491      3032580A 
+ 491      00
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 16
+
+
+ 492              	.LC12:
+ 493 0092 44617461 		.ascii	"Data_Check: Frame tail = 0x%02X\012\000"
+ 493      5F436865 
+ 493      636B3A20 
+ 493      4672616D 
+ 493      65207461 
+ 494              	.LC13:
+ 495 00b3 44617461 		.ascii	"Data_Check: Valid frame found, length = %d\012\000"
+ 495      5F436865 
+ 495      636B3A20 
+ 495      56616C69 
+ 495      64206672 
+ 496              		.section	.text.Data_Check,"ax",%progbits
+ 497              		.align	1
+ 498              		.global	Data_Check
+ 499              		.syntax unified
+ 500              		.thumb
+ 501              		.thumb_func
+ 503              	Data_Check:
+ 504              	.LVL40:
+ 505              	.LFB6:
+ 212:../APP/Src/Buffer.cpp **** 
+ 213:../APP/Src/Buffer.cpp **** /**
+ 214:../APP/Src/Buffer.cpp ****  * @brief        数据校验
+ 215:../APP/Src/Buffer.cpp ****  * @param buffer 缓冲区结构体
+ 216:../APP/Src/Buffer.cpp ****  * @return       状态
+ 217:../APP/Src/Buffer.cpp ****  * @note         校验帧头、帧长度、帧数据、帧尾、校验和
+ 218:../APP/Src/Buffer.cpp ****  */
+ 219:../APP/Src/Buffer.cpp **** Buffer_State_t Data_Check(Buffer_t *buffer)
+ 220:../APP/Src/Buffer.cpp **** {
+ 506              		.loc 1 220 1 is_stmt 1 view -0
+ 507              		.cfi_startproc
+ 508              		@ args = 0, pretend = 0, frame = 0
+ 509              		@ frame_needed = 0, uses_anonymous_args = 0
+ 221:../APP/Src/Buffer.cpp ****     //判断读指针是否为空
+ 222:../APP/Src/Buffer.cpp ****     if (buffer->p_read == NULL)
+ 510              		.loc 1 222 5 view .LVU132
+ 220:../APP/Src/Buffer.cpp ****     //判断读指针是否为空
+ 511              		.loc 1 220 1 is_stmt 0 view .LVU133
+ 512 0000 2DE9F84F 		push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 513              	.LCFI8:
+ 514              		.cfi_def_cfa_offset 40
+ 515              		.cfi_offset 3, -40
+ 516              		.cfi_offset 4, -36
+ 517              		.cfi_offset 5, -32
+ 518              		.cfi_offset 6, -28
+ 519              		.cfi_offset 7, -24
+ 520              		.cfi_offset 8, -20
+ 521              		.cfi_offset 9, -16
+ 522              		.cfi_offset 10, -12
+ 523              		.cfi_offset 11, -8
+ 524              		.cfi_offset 14, -4
+ 525              		.loc 1 222 17 view .LVU134
+ 526 0004 066B     		ldr	r6, [r0, #48]
+ 220:../APP/Src/Buffer.cpp ****     //判断读指针是否为空
+ 527              		.loc 1 220 1 view .LVU135
+ 528 0006 0446     		mov	r4, r0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 17
+
+
+ 529              		.loc 1 222 5 view .LVU136
+ 530 0008 002E     		cmp	r6, #0
+ 531 000a 64D0     		beq	.L62
+ 532 000c 2827     		movs	r7, #40
+ 533              	.LVL41:
+ 534              	.L61:
+ 535              	.LBB7:
+ 223:../APP/Src/Buffer.cpp ****     {
+ 224:../APP/Src/Buffer.cpp ****         return BUFFER_InitError;
+ 225:../APP/Src/Buffer.cpp ****     }
+ 226:../APP/Src/Buffer.cpp **** 
+ 227:../APP/Src/Buffer.cpp ****     uint16_t data_length = 0;
+ 228:../APP/Src/Buffer.cpp ****     uint8_t checksum = 0;
+ 229:../APP/Src/Buffer.cpp ****     uint8_t temp_checksum = 0;
+ 230:../APP/Src/Buffer.cpp ****     uint16_t *p_temp = buffer->p_read;
+ 231:../APP/Src/Buffer.cpp ****     uint16_t *start_position = buffer->p_read; // 记录起始位置，防止无限循环
+ 232:../APP/Src/Buffer.cpp ****     uint16_t search_count = 0; // 搜索计数器
+ 233:../APP/Src/Buffer.cpp **** 
+ 234:../APP/Src/Buffer.cpp ****     while(search_count < BUFFER_SIZE)/* 循环检测数据，最多搜索整个缓冲区 */
+ 235:../APP/Src/Buffer.cpp ****     {
+ 236:../APP/Src/Buffer.cpp ****         search_count++;
+ 536              		.loc 1 236 9 is_stmt 1 view .LVU137
+ 237:../APP/Src/Buffer.cpp ****         
+ 238:../APP/Src/Buffer.cpp ****         /* 判断帧头 */
+ 239:../APP/Src/Buffer.cpp ****         if (*((uint8_t *)buffer->p_read) != 0x55)
+ 537              		.loc 1 239 9 view .LVU138
+ 538              		.loc 1 239 34 is_stmt 0 view .LVU139
+ 539 000e 216B     		ldr	r1, [r4, #48]
+ 540              		.loc 1 239 9 view .LVU140
+ 541 0010 0B78     		ldrb	r3, [r1]	@ zero_extendqisi2
+ 542 0012 552B     		cmp	r3, #85
+ 240:../APP/Src/Buffer.cpp ****         {
+ 241:../APP/Src/Buffer.cpp ****             buffer->p_read = (uint16_t *)((uint8_t *)buffer->p_read + 1);
+ 242:../APP/Src/Buffer.cpp ****             if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 543              		.loc 1 242 59 view .LVU141
+ 544 0014 04F12805 		add	r5, r4, #40
+ 239:../APP/Src/Buffer.cpp ****         {
+ 545              		.loc 1 239 9 view .LVU142
+ 546 0018 01D0     		beq	.L49
+ 547              	.L74:
+ 243:../APP/Src/Buffer.cpp ****             {
+ 244:../APP/Src/Buffer.cpp ****                 buffer->p_read = (uint16_t *)buffer->data;
+ 245:../APP/Src/Buffer.cpp ****             }
+ 246:../APP/Src/Buffer.cpp ****             continue;
+ 247:../APP/Src/Buffer.cpp ****         }
+ 248:../APP/Src/Buffer.cpp **** 
+ 249:../APP/Src/Buffer.cpp **** #if __BUFFER_DEBUG__ == 1
+ 250:../APP/Src/Buffer.cpp ****         printf("Data_Check: Found frame header at position %d\n", 
+ 251:../APP/Src/Buffer.cpp ****                (int)((uint8_t *)buffer->p_read - buffer->data));
+ 252:../APP/Src/Buffer.cpp **** #endif
+ 253:../APP/Src/Buffer.cpp **** 
+ 254:../APP/Src/Buffer.cpp ****         /* 检查是否有足够数据读取帧长度 */
+ 255:../APP/Src/Buffer.cpp ****         uint8_t *next_byte = (uint8_t *)buffer->p_read + 1;
+ 256:../APP/Src/Buffer.cpp ****         if (next_byte >= buffer->data + BUFFER_SIZE)
+ 257:../APP/Src/Buffer.cpp ****         {
+ 258:../APP/Src/Buffer.cpp ****             next_byte = buffer->data;
+ 259:../APP/Src/Buffer.cpp ****         }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 18
+
+
+ 260:../APP/Src/Buffer.cpp **** 
+ 261:../APP/Src/Buffer.cpp ****         /* 读取帧长度 */
+ 262:../APP/Src/Buffer.cpp ****         data_length = *next_byte;
+ 263:../APP/Src/Buffer.cpp ****         
+ 264:../APP/Src/Buffer.cpp **** #if __BUFFER_DEBUG__ == 1
+ 265:../APP/Src/Buffer.cpp ****         printf("Data_Check: Frame length = %d\n", data_length);
+ 266:../APP/Src/Buffer.cpp **** #endif
+ 267:../APP/Src/Buffer.cpp **** 
+ 268:../APP/Src/Buffer.cpp ****         /* 判断帧长度是否合理 */
+ 269:../APP/Src/Buffer.cpp ****         if (data_length == 0 || data_length > BUFFER_SIZE - 4)
+ 270:../APP/Src/Buffer.cpp ****         {
+ 271:../APP/Src/Buffer.cpp ****             buffer->p_read = (uint16_t *)((uint8_t *)buffer->p_read + 1);
+ 272:../APP/Src/Buffer.cpp ****             if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 273:../APP/Src/Buffer.cpp ****             {
+ 274:../APP/Src/Buffer.cpp ****                 buffer->p_read = (uint16_t *)buffer->data;
+ 275:../APP/Src/Buffer.cpp ****             }
+ 276:../APP/Src/Buffer.cpp ****             continue;
+ 277:../APP/Src/Buffer.cpp ****         }
+ 278:../APP/Src/Buffer.cpp **** 
+ 279:../APP/Src/Buffer.cpp ****         /* 计算校验和：帧头 + 帧长度 + 帧数据 + 帧尾 */
+ 280:../APP/Src/Buffer.cpp ****         temp_checksum = 0;
+ 281:../APP/Src/Buffer.cpp ****         p_temp = buffer->p_read;
+ 282:../APP/Src/Buffer.cpp ****         
+ 283:../APP/Src/Buffer.cpp ****         // 帧头
+ 284:../APP/Src/Buffer.cpp ****         temp_checksum += *((uint8_t *)p_temp);
+ 285:../APP/Src/Buffer.cpp ****         p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 286:../APP/Src/Buffer.cpp ****         if ((uint8_t *)p_temp >= buffer->data + BUFFER_SIZE)
+ 287:../APP/Src/Buffer.cpp ****         {
+ 288:../APP/Src/Buffer.cpp ****             p_temp = (uint16_t *)buffer->data;
+ 289:../APP/Src/Buffer.cpp ****         }
+ 290:../APP/Src/Buffer.cpp ****         
+ 291:../APP/Src/Buffer.cpp ****         // 帧长度
+ 292:../APP/Src/Buffer.cpp ****         temp_checksum += *((uint8_t *)p_temp);
+ 293:../APP/Src/Buffer.cpp ****         p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 294:../APP/Src/Buffer.cpp ****         if ((uint8_t *)p_temp >= buffer->data + BUFFER_SIZE)
+ 295:../APP/Src/Buffer.cpp ****         {
+ 296:../APP/Src/Buffer.cpp ****             p_temp = (uint16_t *)buffer->data;
+ 297:../APP/Src/Buffer.cpp ****         }
+ 298:../APP/Src/Buffer.cpp ****         
+ 299:../APP/Src/Buffer.cpp ****         // 帧数据
+ 300:../APP/Src/Buffer.cpp ****         for (uint16_t i = 0; i < data_length; i++)
+ 301:../APP/Src/Buffer.cpp ****         {
+ 302:../APP/Src/Buffer.cpp ****             temp_checksum += *((uint8_t *)p_temp);
+ 303:../APP/Src/Buffer.cpp ****             p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 304:../APP/Src/Buffer.cpp ****             if ((uint8_t *)p_temp >= buffer->data + BUFFER_SIZE)
+ 305:../APP/Src/Buffer.cpp ****             {
+ 306:../APP/Src/Buffer.cpp ****                 p_temp = (uint16_t *)buffer->data;
+ 307:../APP/Src/Buffer.cpp ****             }
+ 308:../APP/Src/Buffer.cpp ****         }
+ 309:../APP/Src/Buffer.cpp ****         
+ 310:../APP/Src/Buffer.cpp ****         /* 读取存储的校验和 */
+ 311:../APP/Src/Buffer.cpp ****         checksum = *((uint8_t *)p_temp);
+ 312:../APP/Src/Buffer.cpp ****         p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 313:../APP/Src/Buffer.cpp ****         if ((uint8_t *)p_temp >= buffer->data + BUFFER_SIZE)
+ 314:../APP/Src/Buffer.cpp ****         {
+ 315:../APP/Src/Buffer.cpp ****             p_temp = (uint16_t *)buffer->data;
+ 316:../APP/Src/Buffer.cpp ****         }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 19
+
+
+ 317:../APP/Src/Buffer.cpp ****         
+ 318:../APP/Src/Buffer.cpp ****         /* 读取帧尾并加入校验和计算 */
+ 319:../APP/Src/Buffer.cpp ****         uint8_t frame_tail = *((uint8_t *)p_temp);
+ 320:../APP/Src/Buffer.cpp ****         temp_checksum += frame_tail;
+ 321:../APP/Src/Buffer.cpp **** 
+ 322:../APP/Src/Buffer.cpp **** #if __BUFFER_DEBUG__ == 1
+ 323:../APP/Src/Buffer.cpp ****         printf("Data_Check: Calculated checksum = 0x%02X, Stored checksum = 0x%02X\n", 
+ 324:../APP/Src/Buffer.cpp ****                temp_checksum & 0xFF, checksum);
+ 325:../APP/Src/Buffer.cpp ****         printf("Data_Check: Frame tail = 0x%02X\n", frame_tail);
+ 326:../APP/Src/Buffer.cpp **** #endif
+ 327:../APP/Src/Buffer.cpp **** 
+ 328:../APP/Src/Buffer.cpp ****         /* 检测校验和 */
+ 329:../APP/Src/Buffer.cpp ****         if ((temp_checksum & 0xFF) != checksum)
+ 330:../APP/Src/Buffer.cpp ****         {
+ 331:../APP/Src/Buffer.cpp ****             // 校验和错误，移动到下一个字节继续查找
+ 332:../APP/Src/Buffer.cpp ****             buffer->p_read = (uint16_t *)((uint8_t *)buffer->p_read + 1);
+ 333:../APP/Src/Buffer.cpp ****             if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 334:../APP/Src/Buffer.cpp ****             {
+ 335:../APP/Src/Buffer.cpp ****                 buffer->p_read = (uint16_t *)buffer->data;
+ 336:../APP/Src/Buffer.cpp ****             }
+ 337:../APP/Src/Buffer.cpp ****             continue;
+ 338:../APP/Src/Buffer.cpp ****         }
+ 339:../APP/Src/Buffer.cpp **** 
+ 340:../APP/Src/Buffer.cpp ****         /* 判断帧尾 */
+ 341:../APP/Src/Buffer.cpp ****         if (frame_tail != 0xAA)
+ 342:../APP/Src/Buffer.cpp ****         {
+ 343:../APP/Src/Buffer.cpp ****             // 帧尾错误，移动到下一个字节继续查找
+ 344:../APP/Src/Buffer.cpp ****             buffer->p_read = (uint16_t *)((uint8_t *)buffer->p_read + 1);
+ 548              		.loc 1 344 30 view .LVU143
+ 549 001a 0131     		adds	r1, r1, #1
+ 550 001c 15E0     		b	.L76
+ 551              	.L49:
+ 250:../APP/Src/Buffer.cpp ****                (int)((uint8_t *)buffer->p_read - buffer->data));
+ 552              		.loc 1 250 9 is_stmt 1 view .LVU144
+ 250:../APP/Src/Buffer.cpp ****                (int)((uint8_t *)buffer->p_read - buffer->data));
+ 553              		.loc 1 250 15 is_stmt 0 view .LVU145
+ 554 001e 091B     		subs	r1, r1, r4
+ 555 0020 2E48     		ldr	r0, .L77
+ 556 0022 FFF7FEFF 		bl	printf
+ 557              	.LVL42:
+ 255:../APP/Src/Buffer.cpp ****         if (next_byte >= buffer->data + BUFFER_SIZE)
+ 558              		.loc 1 255 9 is_stmt 1 view .LVU146
+ 255:../APP/Src/Buffer.cpp ****         if (next_byte >= buffer->data + BUFFER_SIZE)
+ 559              		.loc 1 255 18 is_stmt 0 view .LVU147
+ 560 0026 236B     		ldr	r3, [r4, #48]
+ 265:../APP/Src/Buffer.cpp **** #endif
+ 561              		.loc 1 265 15 view .LVU148
+ 562 0028 2D48     		ldr	r0, .L77+4
+ 255:../APP/Src/Buffer.cpp ****         if (next_byte >= buffer->data + BUFFER_SIZE)
+ 563              		.loc 1 255 18 view .LVU149
+ 564 002a 0133     		adds	r3, r3, #1
+ 565              	.LVL43:
+ 256:../APP/Src/Buffer.cpp ****         {
+ 566              		.loc 1 256 9 is_stmt 1 view .LVU150
+ 258:../APP/Src/Buffer.cpp ****         }
+ 567              		.loc 1 258 23 is_stmt 0 view .LVU151
+ 568 002c AB42     		cmp	r3, r5
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 20
+
+
+ 569 002e 28BF     		it	cs
+ 570 0030 2346     		movcs	r3, r4
+ 571              	.LVL44:
+ 262:../APP/Src/Buffer.cpp ****         
+ 572              		.loc 1 262 9 is_stmt 1 view .LVU152
+ 262:../APP/Src/Buffer.cpp ****         
+ 573              		.loc 1 262 23 is_stmt 0 view .LVU153
+ 574 0032 93F80080 		ldrb	r8, [r3]	@ zero_extendqisi2
+ 575              	.LVL45:
+ 265:../APP/Src/Buffer.cpp **** #endif
+ 576              		.loc 1 265 9 is_stmt 1 view .LVU154
+ 265:../APP/Src/Buffer.cpp **** #endif
+ 577              		.loc 1 265 15 is_stmt 0 view .LVU155
+ 578 0036 4146     		mov	r1, r8
+ 579 0038 FFF7FEFF 		bl	printf
+ 580              	.LVL46:
+ 269:../APP/Src/Buffer.cpp ****         {
+ 581              		.loc 1 269 9 is_stmt 1 view .LVU156
+ 271:../APP/Src/Buffer.cpp ****             if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 582              		.loc 1 271 62 is_stmt 0 view .LVU157
+ 583 003c 236B     		ldr	r3, [r4, #48]
+ 269:../APP/Src/Buffer.cpp ****         {
+ 584              		.loc 1 269 9 view .LVU158
+ 585 003e 08F1FF32 		add	r2, r8, #-1
+ 586 0042 232A     		cmp	r2, #35
+ 271:../APP/Src/Buffer.cpp ****             if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 587              		.loc 1 271 30 view .LVU159
+ 588 0044 03F10101 		add	r1, r3, #1
+ 269:../APP/Src/Buffer.cpp ****         {
+ 589              		.loc 1 269 9 view .LVU160
+ 590 0048 0AD9     		bls	.L53
+ 591              	.LVL47:
+ 592              	.L76:
+ 345:../APP/Src/Buffer.cpp ****             if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 593              		.loc 1 345 13 is_stmt 1 view .LVU161
+ 594 004a A942     		cmp	r1, r5
+ 595 004c 41D3     		bcc	.L50
+ 346:../APP/Src/Buffer.cpp ****             {
+ 347:../APP/Src/Buffer.cpp ****                 buffer->p_read = (uint16_t *)buffer->data;
+ 596              		.loc 1 347 17 view .LVU162
+ 597              		.loc 1 347 32 is_stmt 0 view .LVU163
+ 598 004e 2463     		str	r4, [r4, #48]
+ 599              	.L51:
+ 600              		.loc 1 347 32 view .LVU164
+ 601              	.LBE7:
+ 234:../APP/Src/Buffer.cpp ****     {
+ 602              		.loc 1 234 24 is_stmt 1 view .LVU165
+ 603 0050 013F     		subs	r7, r7, #1
+ 604              	.LVL48:
+ 234:../APP/Src/Buffer.cpp ****     {
+ 605              		.loc 1 234 24 is_stmt 0 view .LVU166
+ 606 0052 BFB2     		uxth	r7, r7
+ 607 0054 002F     		cmp	r7, #0
+ 608 0056 DAD1     		bne	.L61
+ 348:../APP/Src/Buffer.cpp ****             }
+ 349:../APP/Src/Buffer.cpp ****             continue;
+ 350:../APP/Src/Buffer.cpp ****         }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 21
+
+
+ 351:../APP/Src/Buffer.cpp **** 
+ 352:../APP/Src/Buffer.cpp ****         /* 所有检查都通过，找到有效帧 */
+ 353:../APP/Src/Buffer.cpp **** #if __BUFFER_DEBUG__ == 1
+ 354:../APP/Src/Buffer.cpp ****         printf("Data_Check: Valid frame found, length = %d\n", data_length);
+ 355:../APP/Src/Buffer.cpp **** #endif
+ 356:../APP/Src/Buffer.cpp ****         return BUFFER_OK;
+ 357:../APP/Src/Buffer.cpp ****     }
+ 358:../APP/Src/Buffer.cpp ****     
+ 359:../APP/Src/Buffer.cpp ****     // 搜索完整个缓冲区都没有找到有效帧
+ 360:../APP/Src/Buffer.cpp ****     buffer->p_read = start_position; // 恢复原始位置
+ 609              		.loc 1 360 5 is_stmt 1 view .LVU167
+ 610              		.loc 1 360 20 is_stmt 0 view .LVU168
+ 611 0058 2663     		str	r6, [r4, #48]
+ 361:../APP/Src/Buffer.cpp ****     return BUFFER_ReadError;
+ 612              		.loc 1 361 5 is_stmt 1 view .LVU169
+ 613              		.loc 1 361 12 is_stmt 0 view .LVU170
+ 614 005a 6FF00100 		mvn	r0, #1
+ 615 005e 36E0     		b	.L48
+ 616              	.LVL49:
+ 617              	.L53:
+ 618              	.LBB10:
+ 280:../APP/Src/Buffer.cpp ****         p_temp = buffer->p_read;
+ 619              		.loc 1 280 9 is_stmt 1 view .LVU171
+ 281:../APP/Src/Buffer.cpp ****         
+ 620              		.loc 1 281 9 view .LVU172
+ 284:../APP/Src/Buffer.cpp ****         p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 621              		.loc 1 284 9 view .LVU173
+ 284:../APP/Src/Buffer.cpp ****         p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 622              		.loc 1 284 26 is_stmt 0 view .LVU174
+ 623 0060 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 624              	.LVL50:
+ 285:../APP/Src/Buffer.cpp ****         if ((uint8_t *)p_temp >= buffer->data + BUFFER_SIZE)
+ 625              		.loc 1 285 9 is_stmt 1 view .LVU175
+ 286:../APP/Src/Buffer.cpp ****         {
+ 626              		.loc 1 286 9 view .LVU176
+ 292:../APP/Src/Buffer.cpp ****         p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 627              		.loc 1 292 9 view .LVU177
+ 292:../APP/Src/Buffer.cpp ****         p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 628              		.loc 1 292 23 is_stmt 0 view .LVU178
+ 629 0062 A942     		cmp	r1, r5
+ 630 0064 34BF     		ite	cc
+ 631 0066 0B46     		movcc	r3, r1
+ 632 0068 2346     		movcs	r3, r4
+ 633              	.LVL51:
+ 292:../APP/Src/Buffer.cpp ****         p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 634              		.loc 1 292 23 view .LVU179
+ 635 006a 13F8011B 		ldrb	r1, [r3], #1	@ zero_extendqisi2
+ 636              	.LVL52:
+ 292:../APP/Src/Buffer.cpp ****         p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 637              		.loc 1 292 23 view .LVU180
+ 638 006e 1144     		add	r1, r1, r2
+ 639 0070 C9B2     		uxtb	r1, r1
+ 640              	.LVL53:
+ 293:../APP/Src/Buffer.cpp ****         if ((uint8_t *)p_temp >= buffer->data + BUFFER_SIZE)
+ 641              		.loc 1 293 9 is_stmt 1 view .LVU181
+ 294:../APP/Src/Buffer.cpp ****         {
+ 642              		.loc 1 294 9 view .LVU182
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 22
+
+
+ 296:../APP/Src/Buffer.cpp ****         }
+ 643              		.loc 1 296 20 is_stmt 0 view .LVU183
+ 644 0072 AB42     		cmp	r3, r5
+ 645 0074 28BF     		it	cs
+ 646 0076 2346     		movcs	r3, r4
+ 647              	.LVL54:
+ 648              	.LBB8:
+ 300:../APP/Src/Buffer.cpp ****         {
+ 649              		.loc 1 300 32 is_stmt 1 discriminator 1 view .LVU184
+ 650              	.LBE8:
+ 296:../APP/Src/Buffer.cpp ****         }
+ 651              		.loc 1 296 20 is_stmt 0 view .LVU185
+ 652 0078 0022     		movs	r2, #0
+ 653              	.LVL55:
+ 654              	.L57:
+ 655              	.LBB9:
+ 302:../APP/Src/Buffer.cpp ****             p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 656              		.loc 1 302 13 is_stmt 1 view .LVU186
+ 302:../APP/Src/Buffer.cpp ****             p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 657              		.loc 1 302 27 is_stmt 0 view .LVU187
+ 658 007a 13F8010B 		ldrb	r0, [r3], #1	@ zero_extendqisi2
+ 659              	.LVL56:
+ 300:../APP/Src/Buffer.cpp ****         {
+ 660              		.loc 1 300 32 discriminator 1 view .LVU188
+ 661 007e 0132     		adds	r2, r2, #1
+ 662              	.LVL57:
+ 302:../APP/Src/Buffer.cpp ****             p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 663              		.loc 1 302 27 view .LVU189
+ 664 0080 0144     		add	r1, r1, r0
+ 665              	.LVL58:
+ 300:../APP/Src/Buffer.cpp ****         {
+ 666              		.loc 1 300 32 discriminator 1 view .LVU190
+ 667 0082 90B2     		uxth	r0, r2
+ 306:../APP/Src/Buffer.cpp ****             }
+ 668              		.loc 1 306 24 view .LVU191
+ 669 0084 AB42     		cmp	r3, r5
+ 670 0086 28BF     		it	cs
+ 671 0088 2346     		movcs	r3, r4
+ 672              	.LVL59:
+ 300:../APP/Src/Buffer.cpp ****         {
+ 673              		.loc 1 300 32 discriminator 1 view .LVU192
+ 674 008a 4045     		cmp	r0, r8
+ 302:../APP/Src/Buffer.cpp ****             p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 675              		.loc 1 302 27 view .LVU193
+ 676 008c C9B2     		uxtb	r1, r1
+ 677              	.LVL60:
+ 303:../APP/Src/Buffer.cpp ****             if ((uint8_t *)p_temp >= buffer->data + BUFFER_SIZE)
+ 678              		.loc 1 303 13 is_stmt 1 view .LVU194
+ 304:../APP/Src/Buffer.cpp ****             {
+ 679              		.loc 1 304 13 view .LVU195
+ 300:../APP/Src/Buffer.cpp ****         {
+ 680              		.loc 1 300 9 discriminator 2 view .LVU196
+ 300:../APP/Src/Buffer.cpp ****         {
+ 681              		.loc 1 300 32 discriminator 1 view .LVU197
+ 682 008e F4D3     		bcc	.L57
+ 683              	.LBE9:
+ 311:../APP/Src/Buffer.cpp ****         p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 23
+
+
+ 684              		.loc 1 311 9 view .LVU198
+ 311:../APP/Src/Buffer.cpp ****         p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 685              		.loc 1 311 18 is_stmt 0 view .LVU199
+ 686 0090 13F801BB 		ldrb	fp, [r3], #1	@ zero_extendqisi2
+ 687              	.LVL61:
+ 312:../APP/Src/Buffer.cpp ****         if ((uint8_t *)p_temp >= buffer->data + BUFFER_SIZE)
+ 688              		.loc 1 312 9 is_stmt 1 view .LVU200
+ 313:../APP/Src/Buffer.cpp ****         {
+ 689              		.loc 1 313 9 view .LVU201
+ 323:../APP/Src/Buffer.cpp ****                temp_checksum & 0xFF, checksum);
+ 690              		.loc 1 323 15 is_stmt 0 view .LVU202
+ 691 0094 1348     		ldr	r0, .L77+8
+ 315:../APP/Src/Buffer.cpp ****         }
+ 692              		.loc 1 315 20 view .LVU203
+ 693 0096 AB42     		cmp	r3, r5
+ 694 0098 28BF     		it	cs
+ 695 009a 2346     		movcs	r3, r4
+ 696              	.LVL62:
+ 319:../APP/Src/Buffer.cpp ****         temp_checksum += frame_tail;
+ 697              		.loc 1 319 9 is_stmt 1 view .LVU204
+ 323:../APP/Src/Buffer.cpp ****                temp_checksum & 0xFF, checksum);
+ 698              		.loc 1 323 15 is_stmt 0 view .LVU205
+ 699 009c 5A46     		mov	r2, fp
+ 319:../APP/Src/Buffer.cpp ****         temp_checksum += frame_tail;
+ 700              		.loc 1 319 17 view .LVU206
+ 701 009e 93F800A0 		ldrb	r10, [r3]	@ zero_extendqisi2
+ 702              	.LVL63:
+ 320:../APP/Src/Buffer.cpp **** 
+ 703              		.loc 1 320 9 is_stmt 1 view .LVU207
+ 320:../APP/Src/Buffer.cpp **** 
+ 704              		.loc 1 320 23 is_stmt 0 view .LVU208
+ 705 00a2 5144     		add	r1, r1, r10
+ 706              	.LVL64:
+ 320:../APP/Src/Buffer.cpp **** 
+ 707              		.loc 1 320 23 view .LVU209
+ 708 00a4 5FFA81F9 		uxtb	r9, r1
+ 709              	.LVL65:
+ 323:../APP/Src/Buffer.cpp ****                temp_checksum & 0xFF, checksum);
+ 710              		.loc 1 323 9 is_stmt 1 view .LVU210
+ 323:../APP/Src/Buffer.cpp ****                temp_checksum & 0xFF, checksum);
+ 711              		.loc 1 323 15 is_stmt 0 view .LVU211
+ 712 00a8 4946     		mov	r1, r9
+ 713 00aa FFF7FEFF 		bl	printf
+ 714              	.LVL66:
+ 325:../APP/Src/Buffer.cpp **** #endif
+ 715              		.loc 1 325 9 is_stmt 1 view .LVU212
+ 325:../APP/Src/Buffer.cpp **** #endif
+ 716              		.loc 1 325 15 is_stmt 0 view .LVU213
+ 717 00ae 0E48     		ldr	r0, .L77+12
+ 718 00b0 5146     		mov	r1, r10
+ 719 00b2 FFF7FEFF 		bl	printf
+ 720              	.LVL67:
+ 329:../APP/Src/Buffer.cpp ****         {
+ 721              		.loc 1 329 9 is_stmt 1 view .LVU214
+ 722 00b6 CB45     		cmp	fp, r9
+ 723 00b8 01D0     		beq	.L59
+ 724              	.L72:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 24
+
+
+ 344:../APP/Src/Buffer.cpp ****             if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 725              		.loc 1 344 13 view .LVU215
+ 344:../APP/Src/Buffer.cpp ****             if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 726              		.loc 1 344 30 is_stmt 0 view .LVU216
+ 727 00ba 216B     		ldr	r1, [r4, #48]
+ 728 00bc ADE7     		b	.L74
+ 729              	.L59:
+ 341:../APP/Src/Buffer.cpp ****         {
+ 730              		.loc 1 341 9 is_stmt 1 view .LVU217
+ 731 00be BAF1AA0F 		cmp	r10, #170
+ 732 00c2 FAD1     		bne	.L72
+ 354:../APP/Src/Buffer.cpp **** #endif
+ 733              		.loc 1 354 9 view .LVU218
+ 354:../APP/Src/Buffer.cpp **** #endif
+ 734              		.loc 1 354 15 is_stmt 0 view .LVU219
+ 735 00c4 0948     		ldr	r0, .L77+16
+ 736 00c6 4146     		mov	r1, r8
+ 737 00c8 FFF7FEFF 		bl	printf
+ 738              	.LVL68:
+ 356:../APP/Src/Buffer.cpp ****     }
+ 739              		.loc 1 356 9 is_stmt 1 view .LVU220
+ 356:../APP/Src/Buffer.cpp ****     }
+ 740              		.loc 1 356 16 is_stmt 0 view .LVU221
+ 741 00cc 0020     		movs	r0, #0
+ 742              	.LVL69:
+ 743              	.L48:
+ 356:../APP/Src/Buffer.cpp ****     }
+ 744              		.loc 1 356 16 view .LVU222
+ 745              	.LBE10:
+ 362:../APP/Src/Buffer.cpp **** }
+ 746              		.loc 1 362 1 view .LVU223
+ 747 00ce BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 748              	.LVL70:
+ 749              	.L50:
+ 750              	.LBB11:
+ 241:../APP/Src/Buffer.cpp ****             if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 751              		.loc 1 241 28 view .LVU224
+ 752 00d2 2163     		str	r1, [r4, #48]
+ 753 00d4 BCE7     		b	.L51
+ 754              	.LVL71:
+ 755              	.L62:
+ 241:../APP/Src/Buffer.cpp ****             if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 756              		.loc 1 241 28 view .LVU225
+ 757              	.LBE11:
+ 224:../APP/Src/Buffer.cpp ****     }
+ 758              		.loc 1 224 16 view .LVU226
+ 759 00d6 4FF0FF30 		mov	r0, #-1
+ 760              	.LVL72:
+ 224:../APP/Src/Buffer.cpp ****     }
+ 761              		.loc 1 224 16 view .LVU227
+ 762 00da F8E7     		b	.L48
+ 763              	.L78:
+ 764              		.align	2
+ 765              	.L77:
+ 766 00dc 00000000 		.word	.LC9
+ 767 00e0 2F000000 		.word	.LC10
+ 768 00e4 4E000000 		.word	.LC11
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 25
+
+
+ 769 00e8 92000000 		.word	.LC12
+ 770 00ec B3000000 		.word	.LC13
+ 771              		.cfi_endproc
+ 772              	.LFE6:
+ 774              		.section	.rodata.Data_Read.str1.1,"aMS",%progbits,1
+ 775              	.LC14:
+ 776 0000 44617461 		.ascii	"Data_Read: Invalid parameters\000"
+ 776      5F526561 
+ 776      643A2049 
+ 776      6E76616C 
+ 776      69642070 
+ 777              	.LC15:
+ 778 001e 44617461 		.ascii	"Data_Read: No valid frame found\000"
+ 778      5F526561 
+ 778      643A204E 
+ 778      6F207661 
+ 778      6C696420 
+ 779              	.LC16:
+ 780 003e 44617461 		.ascii	"Data_Read: Read frame data, length = %d\012\000"
+ 780      5F526561 
+ 780      643A2052 
+ 780      65616420 
+ 780      6672616D 
+ 781              		.section	.text.Data_Read,"ax",%progbits
+ 782              		.align	1
+ 783              		.global	Data_Read
+ 784              		.syntax unified
+ 785              		.thumb
+ 786              		.thumb_func
+ 788              	Data_Read:
+ 789              	.LVL73:
+ 790              	.LFB4:
+ 151:../APP/Src/Buffer.cpp ****      if (buffer->p_read == NULL || data == NULL)
+ 791              		.loc 1 151 2 is_stmt 1 view -0
+ 792              		.cfi_startproc
+ 793              		@ args = 0, pretend = 0, frame = 0
+ 794              		@ frame_needed = 0, uses_anonymous_args = 0
+ 152:../APP/Src/Buffer.cpp ****      {
+ 795              		.loc 1 152 6 is_stmt 0 view .LVU229
+ 796 0000 036B     		ldr	r3, [r0, #48]
+ 151:../APP/Src/Buffer.cpp ****      if (buffer->p_read == NULL || data == NULL)
+ 797              		.loc 1 151 2 view .LVU230
+ 798 0002 70B5     		push	{r4, r5, r6, lr}
+ 799              	.LCFI9:
+ 800              		.cfi_def_cfa_offset 16
+ 801              		.cfi_offset 4, -16
+ 802              		.cfi_offset 5, -12
+ 803              		.cfi_offset 6, -8
+ 804              		.cfi_offset 14, -4
+ 151:../APP/Src/Buffer.cpp ****      if (buffer->p_read == NULL || data == NULL)
+ 805              		.loc 1 151 2 view .LVU231
+ 806 0004 0446     		mov	r4, r0
+ 152:../APP/Src/Buffer.cpp ****      {
+ 807              		.loc 1 152 6 is_stmt 1 view .LVU232
+ 151:../APP/Src/Buffer.cpp ****      if (buffer->p_read == NULL || data == NULL)
+ 808              		.loc 1 151 2 is_stmt 0 view .LVU233
+ 809 0006 0D46     		mov	r5, r1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 26
+
+
+ 152:../APP/Src/Buffer.cpp ****      {
+ 810              		.loc 1 152 6 view .LVU234
+ 811 0008 03B1     		cbz	r3, .L80
+ 152:../APP/Src/Buffer.cpp ****      {
+ 812              		.loc 1 152 33 discriminator 1 view .LVU235
+ 813 000a 29B9     		cbnz	r1, .L81
+ 814              	.L80:
+ 155:../APP/Src/Buffer.cpp **** #endif
+ 815              		.loc 1 155 10 is_stmt 1 view .LVU236
+ 155:../APP/Src/Buffer.cpp **** #endif
+ 816              		.loc 1 155 16 is_stmt 0 view .LVU237
+ 817 000c 1448     		ldr	r0, .L93
+ 818              	.LVL74:
+ 819              	.L92:
+ 164:../APP/Src/Buffer.cpp **** #endif
+ 820              		.loc 1 164 16 view .LVU238
+ 821 000e FFF7FEFF 		bl	puts
+ 822              	.LVL75:
+ 166:../APP/Src/Buffer.cpp ****      }
+ 823              		.loc 1 166 10 is_stmt 1 view .LVU239
+ 157:../APP/Src/Buffer.cpp ****      }
+ 824              		.loc 1 157 17 is_stmt 0 view .LVU240
+ 825 0012 0026     		movs	r6, #0
+ 826              	.LVL76:
+ 827              	.L84:
+ 197:../APP/Src/Buffer.cpp **** 
+ 828              		.loc 1 197 2 view .LVU241
+ 829 0014 3046     		mov	r0, r6
+ 830 0016 70BD     		pop	{r4, r5, r6, pc}
+ 831              	.LVL77:
+ 832              	.L81:
+ 161:../APP/Src/Buffer.cpp ****      {
+ 833              		.loc 1 161 6 is_stmt 1 view .LVU242
+ 161:../APP/Src/Buffer.cpp ****      {
+ 834              		.loc 1 161 20 is_stmt 0 view .LVU243
+ 835 0018 FFF7FEFF 		bl	Data_Check
+ 836              	.LVL78:
+ 161:../APP/Src/Buffer.cpp ****      {
+ 837              		.loc 1 161 6 discriminator 1 view .LVU244
+ 838 001c 08B1     		cbz	r0, .L83
+ 164:../APP/Src/Buffer.cpp **** #endif
+ 839              		.loc 1 164 10 is_stmt 1 view .LVU245
+ 164:../APP/Src/Buffer.cpp **** #endif
+ 840              		.loc 1 164 16 is_stmt 0 view .LVU246
+ 841 001e 1148     		ldr	r0, .L93+4
+ 842 0020 F5E7     		b	.L92
+ 843              	.L83:
+ 170:../APP/Src/Buffer.cpp ****      
+ 844              		.loc 1 170 6 is_stmt 1 view .LVU247
+ 170:../APP/Src/Buffer.cpp ****      
+ 845              		.loc 1 170 50 is_stmt 0 view .LVU248
+ 846 0022 226B     		ldr	r2, [r4, #48]
+ 170:../APP/Src/Buffer.cpp ****      
+ 847              		.loc 1 170 14 view .LVU249
+ 848 0024 5678     		ldrb	r6, [r2, #1]	@ zero_extendqisi2
+ 849              	.LVL79:
+ 173:../APP/Src/Buffer.cpp ****      
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 27
+
+
+ 850              		.loc 1 173 6 is_stmt 1 view .LVU250
+ 851 0026 2B46     		mov	r3, r5
+ 173:../APP/Src/Buffer.cpp ****      
+ 852              		.loc 1 173 16 is_stmt 0 view .LVU251
+ 853 0028 0232     		adds	r2, r2, #2
+ 854              	.LVL80:
+ 175:../APP/Src/Buffer.cpp ****      {
+ 855              		.loc 1 175 6 is_stmt 1 view .LVU252
+ 175:../APP/Src/Buffer.cpp ****      {
+ 856              		.loc 1 175 6 is_stmt 0 view .LVU253
+ 857 002a A819     		adds	r0, r5, r6
+ 858              	.LBB12:
+ 179:../APP/Src/Buffer.cpp ****          {
+ 859              		.loc 1 179 48 view .LVU254
+ 860 002c 04F12801 		add	r1, r4, #40
+ 861              	.LVL81:
+ 862              	.L85:
+ 175:../APP/Src/Buffer.cpp ****      {
+ 863              		.loc 1 175 28 is_stmt 1 discriminator 1 view .LVU255
+ 864 0030 8342     		cmp	r3, r0
+ 865 0032 0CD1     		bne	.L87
+ 175:../APP/Src/Buffer.cpp ****      {
+ 866              		.loc 1 175 28 is_stmt 0 discriminator 1 view .LVU256
+ 867              	.LBE12:
+ 186:../APP/Src/Buffer.cpp ****      if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 868              		.loc 1 186 6 is_stmt 1 view .LVU257
+ 186:../APP/Src/Buffer.cpp ****      if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 869              		.loc 1 186 23 is_stmt 0 view .LVU258
+ 870 0034 236B     		ldr	r3, [r4, #48]
+ 871              	.LVL82:
+ 193:../APP/Src/Buffer.cpp **** #endif
+ 872              		.loc 1 193 12 view .LVU259
+ 873 0036 0C48     		ldr	r0, .L93+8
+ 186:../APP/Src/Buffer.cpp ****      if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 874              		.loc 1 186 77 view .LVU260
+ 875 0038 321D     		adds	r2, r6, #4
+ 876              	.LVL83:
+ 186:../APP/Src/Buffer.cpp ****      if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 877              		.loc 1 186 23 view .LVU261
+ 878 003a 1344     		add	r3, r3, r2
+ 187:../APP/Src/Buffer.cpp ****      {
+ 879              		.loc 1 187 6 is_stmt 1 view .LVU262
+ 880 003c 8B42     		cmp	r3, r1
+ 189:../APP/Src/Buffer.cpp ****      }
+ 881              		.loc 1 189 10 view .LVU263
+ 189:../APP/Src/Buffer.cpp ****      }
+ 882              		.loc 1 189 82 is_stmt 0 view .LVU264
+ 883 003e 24BF     		itt	cs
+ 884 0040 5B1A     		subcs	r3, r3, r1
+ 189:../APP/Src/Buffer.cpp ****      }
+ 885              		.loc 1 189 27 view .LVU265
+ 886 0042 1B19     		addcs	r3, r3, r4
+ 186:../APP/Src/Buffer.cpp ****      if ((uint8_t *)buffer->p_read >= buffer->data + BUFFER_SIZE)
+ 887              		.loc 1 186 21 view .LVU266
+ 888 0044 2363     		str	r3, [r4, #48]
+ 193:../APP/Src/Buffer.cpp **** #endif
+ 889              		.loc 1 193 6 is_stmt 1 view .LVU267
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 28
+
+
+ 193:../APP/Src/Buffer.cpp **** #endif
+ 890              		.loc 1 193 12 is_stmt 0 view .LVU268
+ 891 0046 3146     		mov	r1, r6
+ 892 0048 FFF7FEFF 		bl	printf
+ 893              	.LVL84:
+ 196:../APP/Src/Buffer.cpp ****  }
+ 894              		.loc 1 196 6 is_stmt 1 view .LVU269
+ 196:../APP/Src/Buffer.cpp ****  }
+ 895              		.loc 1 196 13 is_stmt 0 view .LVU270
+ 896 004c E2E7     		b	.L84
+ 897              	.LVL85:
+ 898              	.L87:
+ 899              	.LBB13:
+ 177:../APP/Src/Buffer.cpp ****          p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 900              		.loc 1 177 10 is_stmt 1 view .LVU271
+ 177:../APP/Src/Buffer.cpp ****          p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 901              		.loc 1 177 20 is_stmt 0 view .LVU272
+ 902 004e 12F8015B 		ldrb	r5, [r2], #1	@ zero_extendqisi2
+ 903              	.LVL86:
+ 177:../APP/Src/Buffer.cpp ****          p_temp = (uint16_t *)((uint8_t *)p_temp + 1);
+ 904              		.loc 1 177 18 view .LVU273
+ 905 0052 03F8015B 		strb	r5, [r3], #1
+ 906              	.LVL87:
+ 178:../APP/Src/Buffer.cpp ****          if ((uint8_t *)p_temp >= buffer->data + BUFFER_SIZE)
+ 907              		.loc 1 178 10 is_stmt 1 view .LVU274
+ 179:../APP/Src/Buffer.cpp ****          {
+ 908              		.loc 1 179 10 view .LVU275
+ 181:../APP/Src/Buffer.cpp ****          }
+ 909              		.loc 1 181 21 is_stmt 0 view .LVU276
+ 910 0056 8A42     		cmp	r2, r1
+ 911 0058 28BF     		it	cs
+ 912 005a 2246     		movcs	r2, r4
+ 913              	.LVL88:
+ 175:../APP/Src/Buffer.cpp ****      {
+ 914              		.loc 1 175 6 is_stmt 1 discriminator 2 view .LVU277
+ 915 005c E8E7     		b	.L85
+ 916              	.L94:
+ 917 005e 00BF     		.align	2
+ 918              	.L93:
+ 919 0060 00000000 		.word	.LC14
+ 920 0064 1E000000 		.word	.LC15
+ 921 0068 3E000000 		.word	.LC16
+ 922              	.LBE13:
+ 923              		.cfi_endproc
+ 924              	.LFE4:
+ 926              		.text
+ 927              	.Letext0:
+ 928              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 929              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 930              		.file 4 "../APP/Ins/Buffer.h"
+ 931              		.file 5 "D:/Tool/arm-gnu-toolchain/lib/gcc/arm-none-eabi/14.2.1/include/stddef.h"
+ 932              		.file 6 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/string.h"
+ 933              		.file 7 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/stdio.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s 			page 29
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 Buffer.cpp
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:25     .text.RingBuffer_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:31     .text.RingBuffer_Init:00000000 RingBuffer_Init
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:82     .text.RingBuffer_Init:00000024 $d
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:98     .text.RingBuffer_WriteArray:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:104    .text.RingBuffer_WriteArray:00000000 RingBuffer_WriteArray
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:296    .text.RingBuffer_WriteArray:000000a0 $d
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:315    .text.RingBuffer_ReadArray:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:321    .text.RingBuffer_ReadArray:00000000 RingBuffer_ReadArray
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:453    .text.RingBuffer_ReadArray:0000006c $d
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:461    .text.Data_Pack:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:467    .text.Data_Pack:00000000 Data_Pack
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:497    .text.Data_Check:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:503    .text.Data_Check:00000000 Data_Check
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:766    .text.Data_Check:000000dc $d
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:782    .text.Data_Read:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:788    .text.Data_Read:00000000 Data_Read
+C:\Users\Dawn\AppData\Local\Temp\ccr9Lp59.s:919    .text.Data_Read:00000060 $d
+
+UNDEFINED SYMBOLS
+memset
+printf
+puts
+memcpy

@@ -1,0 +1,379 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccTUubYX.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"bsp_led.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../core/src/bsp_led.c"
+  20              		.section	.text.LED_Initialize,"ax",%progbits
+  21              		.align	1
+  22              		.global	LED_Initialize
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	LED_Initialize:
+  28              	.LVL0:
+  29              	.LFB130:
+   1:../core/src/bsp_led.c **** /*****************************************************************************
+   2:../core/src/bsp_led.c ****  * Copyright (c) 2019, Nations Technologies Inc.
+   3:../core/src/bsp_led.c ****  *
+   4:../core/src/bsp_led.c ****  * All rights reserved.
+   5:../core/src/bsp_led.c ****  * ****************************************************************************
+   6:../core/src/bsp_led.c ****  *
+   7:../core/src/bsp_led.c ****  * Redistribution and use in source and binary forms, with or without
+   8:../core/src/bsp_led.c ****  * modification, are permitted provided that the following conditions are met:
+   9:../core/src/bsp_led.c ****  *
+  10:../core/src/bsp_led.c ****  * - Redistributions of source code must retain the above copyright notice,
+  11:../core/src/bsp_led.c ****  * this list of conditions and the disclaimer below.
+  12:../core/src/bsp_led.c ****  *
+  13:../core/src/bsp_led.c ****  * Nations' name may not be used to endorse or promote products derived from
+  14:../core/src/bsp_led.c ****  * this software without specific prior written permission.
+  15:../core/src/bsp_led.c ****  *
+  16:../core/src/bsp_led.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY NATIONS "AS IS" AND ANY EXPRESS OR
+  17:../core/src/bsp_led.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  18:../core/src/bsp_led.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  19:../core/src/bsp_led.c ****  * DISCLAIMED. IN NO EVENT SHALL NATIONS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  20:../core/src/bsp_led.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  21:../core/src/bsp_led.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  22:../core/src/bsp_led.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  23:../core/src/bsp_led.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  24:../core/src/bsp_led.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  25:../core/src/bsp_led.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  26:../core/src/bsp_led.c ****  * ****************************************************************************/
+  27:../core/src/bsp_led.c ****  
+  28:../core/src/bsp_led.c **** /**
+  29:../core/src/bsp_led.c **** *\*\file led.c
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccTUubYX.s 			page 2
+
+
+  30:../core/src/bsp_led.c **** *\*\author Nations
+  31:../core/src/bsp_led.c **** *\*\version v1.0.0
+  32:../core/src/bsp_led.c **** *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
+  33:../core/src/bsp_led.c **** **/
+  34:../core/src/bsp_led.c **** 
+  35:../core/src/bsp_led.c **** #include "bsp_led.h"
+  36:../core/src/bsp_led.c **** 
+  37:../core/src/bsp_led.c **** /**
+  38:../core/src/bsp_led.c ****  *\*\name   LED_Initialize.
+  39:../core/src/bsp_led.c ****  *\*\fun    Initialize the specified LED.
+  40:../core/src/bsp_led.c ****  *\*\param  GPIOx :
+  41:../core/src/bsp_led.c ****  *\*\          - GPIOA
+  42:../core/src/bsp_led.c ****  *\*\          - GPIOB
+  43:../core/src/bsp_led.c ****  *\*\          - GPIOC
+  44:../core/src/bsp_led.c ****  *\*\          - GPIOD
+  45:../core/src/bsp_led.c ****  *\*\param  pin :
+  46:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_0
+  47:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_1
+  48:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_2
+  49:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_3
+  50:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_4
+  51:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_5
+  52:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_6
+  53:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_7
+  54:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_8
+  55:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_9
+  56:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_10
+  57:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_11
+  58:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_12
+  59:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_13
+  60:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_14
+  61:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_15
+  62:../core/src/bsp_led.c ****  *\*\param  AHB_periph :
+  63:../core/src/bsp_led.c ****  *\*\          - RCC_AHB_PERIPH_GPIOA
+  64:../core/src/bsp_led.c ****  *\*\          - RCC_AHB_PERIPH_GPIOB
+  65:../core/src/bsp_led.c ****  *\*\          - RCC_AHB_PERIPH_GPIOC
+  66:../core/src/bsp_led.c ****  *\*\          - RCC_AHB_PERIPH_GPIOD
+  67:../core/src/bsp_led.c **** **/
+  68:../core/src/bsp_led.c **** void LED_Initialize(GPIO_Module* GPIOx, uint16_t pin, uint32_t AHB_periph)
+  69:../core/src/bsp_led.c **** {
+  30              		.loc 1 69 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 24
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  70:../core/src/bsp_led.c **** 	/* Define a structure of type GPIO_InitType */
+  71:../core/src/bsp_led.c **** 	GPIO_InitType GPIO_InitStructure;
+  34              		.loc 1 71 2 view .LVU1
+  72:../core/src/bsp_led.c **** 	
+  73:../core/src/bsp_led.c **** 	/* Enable LED related GPIO peripheral clock */
+  74:../core/src/bsp_led.c **** 	RCC_AHB_Peripheral_Clock_Enable(AHB_periph);
+  35              		.loc 1 74 2 view .LVU2
+  69:../core/src/bsp_led.c **** 	/* Define a structure of type GPIO_InitType */
+  36              		.loc 1 69 1 is_stmt 0 view .LVU3
+  37 0000 30B5     		push	{r4, r5, lr}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 12
+  40              		.cfi_offset 4, -12
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccTUubYX.s 			page 3
+
+
+  41              		.cfi_offset 5, -8
+  42              		.cfi_offset 14, -4
+  43 0002 0446     		mov	r4, r0
+  44 0004 87B0     		sub	sp, sp, #28
+  45              	.LCFI1:
+  46              		.cfi_def_cfa_offset 40
+  47              		.loc 1 74 2 view .LVU4
+  48 0006 1046     		mov	r0, r2
+  49              	.LVL1:
+  69:../core/src/bsp_led.c **** 	/* Define a structure of type GPIO_InitType */
+  50              		.loc 1 69 1 view .LVU5
+  51 0008 0D46     		mov	r5, r1
+  52              		.loc 1 74 2 view .LVU6
+  53 000a FFF7FEFF 		bl	RCC_AHB_Peripheral_Clock_Enable
+  54              	.LVL2:
+  75:../core/src/bsp_led.c **** 	
+  76:../core/src/bsp_led.c **** 	/* Assign default value to GPIO_InitStructure structure */
+  77:../core/src/bsp_led.c **** 	GPIO_Structure_Initialize(&GPIO_InitStructure);
+  55              		.loc 1 77 2 is_stmt 1 view .LVU7
+  56 000e 6846     		mov	r0, sp
+  57 0010 FFF7FEFF 		bl	GPIO_Structure_Initialize
+  58              	.LVL3:
+  78:../core/src/bsp_led.c **** 	
+  79:../core/src/bsp_led.c **** 	/* Select the GPIO pin to control */
+  80:../core/src/bsp_led.c **** 	GPIO_InitStructure.Pin          = pin;
+  59              		.loc 1 80 2 view .LVU8
+  81:../core/src/bsp_led.c **** 	/* Set pin mode to general push-pull output */
+  82:../core/src/bsp_led.c **** 	GPIO_InitStructure.GPIO_Mode    = GPIO_MODE_OUT_PP;
+  60              		.loc 1 82 34 is_stmt 0 view .LVU9
+  61 0014 0123     		movs	r3, #1
+  62 0016 0193     		str	r3, [sp, #4]
+  83:../core/src/bsp_led.c **** 	/* Set the pin drive current to 4MA*/
+  84:../core/src/bsp_led.c **** 	GPIO_InitStructure.GPIO_Current = GPIO_DS_4MA;
+  85:../core/src/bsp_led.c **** 	/* Initialize GPIO */
+  86:../core/src/bsp_led.c **** 	GPIO_Peripheral_Initialize(GPIOx, &GPIO_InitStructure);
+  63              		.loc 1 86 2 view .LVU10
+  64 0018 6946     		mov	r1, sp
+  84:../core/src/bsp_led.c **** 	/* Initialize GPIO */
+  65              		.loc 1 84 34 view .LVU11
+  66 001a 0223     		movs	r3, #2
+  67              		.loc 1 86 2 view .LVU12
+  68 001c 2046     		mov	r0, r4
+  80:../core/src/bsp_led.c **** 	/* Set pin mode to general push-pull output */
+  69              		.loc 1 80 34 view .LVU13
+  70 001e 0095     		str	r5, [sp]
+  82:../core/src/bsp_led.c **** 	/* Set the pin drive current to 4MA*/
+  71              		.loc 1 82 2 is_stmt 1 view .LVU14
+  84:../core/src/bsp_led.c **** 	/* Initialize GPIO */
+  72              		.loc 1 84 2 view .LVU15
+  84:../core/src/bsp_led.c **** 	/* Initialize GPIO */
+  73              		.loc 1 84 34 is_stmt 0 view .LVU16
+  74 0020 0493     		str	r3, [sp, #16]
+  75              		.loc 1 86 2 is_stmt 1 view .LVU17
+  76 0022 FFF7FEFF 		bl	GPIO_Peripheral_Initialize
+  77              	.LVL4:
+  87:../core/src/bsp_led.c **** }
+  78              		.loc 1 87 1 is_stmt 0 view .LVU18
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccTUubYX.s 			page 4
+
+
+  79 0026 07B0     		add	sp, sp, #28
+  80              	.LCFI2:
+  81              		.cfi_def_cfa_offset 12
+  82              		@ sp needed
+  83 0028 30BD     		pop	{r4, r5, pc}
+  84              		.loc 1 87 1 view .LVU19
+  85              		.cfi_endproc
+  86              	.LFE130:
+  88              		.section	.text.LED_Toggle,"ax",%progbits
+  89              		.align	1
+  90              		.global	LED_Toggle
+  91              		.syntax unified
+  92              		.thumb
+  93              		.thumb_func
+  95              	LED_Toggle:
+  96              	.LVL5:
+  97              	.LFB131:
+  88:../core/src/bsp_led.c **** 
+  89:../core/src/bsp_led.c **** /**
+  90:../core/src/bsp_led.c ****  *\*\name   LED_Toggle.
+  91:../core/src/bsp_led.c ****  *\*\fun    GPIOx Specifies the led port to be toggled.
+  92:../core/src/bsp_led.c ****  *\*\param  GPIOx :
+  93:../core/src/bsp_led.c ****  *\*\          - GPIOA
+  94:../core/src/bsp_led.c ****  *\*\          - GPIOB
+  95:../core/src/bsp_led.c ****  *\*\          - GPIOC
+  96:../core/src/bsp_led.c ****  *\*\          - GPIOD
+  97:../core/src/bsp_led.c ****  *\*\param  pin :
+  98:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_0
+  99:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_1
+ 100:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_2
+ 101:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_3
+ 102:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_4
+ 103:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_5
+ 104:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_6
+ 105:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_7
+ 106:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_8
+ 107:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_9
+ 108:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_10
+ 109:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_11
+ 110:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_12
+ 111:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_13
+ 112:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_14
+ 113:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_15
+ 114:../core/src/bsp_led.c **** **/
+ 115:../core/src/bsp_led.c **** void LED_Toggle(GPIO_Module* GPIOx, uint16_t pin)
+ 116:../core/src/bsp_led.c **** {
+  98              		.loc 1 116 1 is_stmt 1 view -0
+  99              		.cfi_startproc
+ 100              		@ args = 0, pretend = 0, frame = 0
+ 101              		@ frame_needed = 0, uses_anonymous_args = 0
+ 102              		@ link register save eliminated.
+ 117:../core/src/bsp_led.c ****     GPIO_Pin_Toggle(GPIOx, pin);
+ 103              		.loc 1 117 5 view .LVU21
+ 104 0000 FFF7FEBF 		b	GPIO_Pin_Toggle
+ 105              	.LVL6:
+ 106              		.loc 1 117 5 is_stmt 0 view .LVU22
+ 107              		.cfi_endproc
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccTUubYX.s 			page 5
+
+
+ 108              	.LFE131:
+ 110              		.section	.text.LED_On,"ax",%progbits
+ 111              		.align	1
+ 112              		.global	LED_On
+ 113              		.syntax unified
+ 114              		.thumb
+ 115              		.thumb_func
+ 117              	LED_On:
+ 118              	.LVL7:
+ 119              	.LFB132:
+ 118:../core/src/bsp_led.c **** }
+ 119:../core/src/bsp_led.c **** 
+ 120:../core/src/bsp_led.c **** 
+ 121:../core/src/bsp_led.c **** /**
+ 122:../core/src/bsp_led.c ****  *\*\name   LED_On.
+ 123:../core/src/bsp_led.c ****  *\*\fun    GPIOx Specifies the led port to be set on.
+ 124:../core/src/bsp_led.c ****  *\*\param  GPIOx :
+ 125:../core/src/bsp_led.c ****  *\*\          - GPIOA
+ 126:../core/src/bsp_led.c ****  *\*\          - GPIOB
+ 127:../core/src/bsp_led.c ****  *\*\          - GPIOC
+ 128:../core/src/bsp_led.c ****  *\*\          - GPIOD
+ 129:../core/src/bsp_led.c ****  *\*\param  pin :
+ 130:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_0
+ 131:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_1
+ 132:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_2
+ 133:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_3
+ 134:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_4
+ 135:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_5
+ 136:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_6
+ 137:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_7
+ 138:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_8
+ 139:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_9
+ 140:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_10
+ 141:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_11
+ 142:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_12
+ 143:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_13
+ 144:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_14
+ 145:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_15
+ 146:../core/src/bsp_led.c **** **/
+ 147:../core/src/bsp_led.c **** void LED_On(GPIO_Module* GPIOx,uint16_t pin)
+ 148:../core/src/bsp_led.c **** {
+ 120              		.loc 1 148 1 is_stmt 1 view -0
+ 121              		.cfi_startproc
+ 122              		@ args = 0, pretend = 0, frame = 0
+ 123              		@ frame_needed = 0, uses_anonymous_args = 0
+ 124              		@ link register save eliminated.
+ 149:../core/src/bsp_led.c ****     GPIO_Pins_Set(GPIOx, pin);
+ 125              		.loc 1 149 5 view .LVU24
+ 126 0000 FFF7FEBF 		b	GPIO_Pins_Set
+ 127              	.LVL8:
+ 128              		.loc 1 149 5 is_stmt 0 view .LVU25
+ 129              		.cfi_endproc
+ 130              	.LFE132:
+ 132              		.section	.text.LED_Off,"ax",%progbits
+ 133              		.align	1
+ 134              		.global	LED_Off
+ 135              		.syntax unified
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccTUubYX.s 			page 6
+
+
+ 136              		.thumb
+ 137              		.thumb_func
+ 139              	LED_Off:
+ 140              	.LVL9:
+ 141              	.LFB133:
+ 150:../core/src/bsp_led.c **** }
+ 151:../core/src/bsp_led.c **** 
+ 152:../core/src/bsp_led.c **** 
+ 153:../core/src/bsp_led.c **** /**
+ 154:../core/src/bsp_led.c ****  *\*\name   LED_Off.
+ 155:../core/src/bsp_led.c ****  *\*\fun    GPIOx Specifies the led port to be set off.
+ 156:../core/src/bsp_led.c ****  *\*\param  GPIOx :
+ 157:../core/src/bsp_led.c ****  *\*\          - GPIOA
+ 158:../core/src/bsp_led.c ****  *\*\          - GPIOB
+ 159:../core/src/bsp_led.c ****  *\*\          - GPIOC
+ 160:../core/src/bsp_led.c ****  *\*\          - GPIOD
+ 161:../core/src/bsp_led.c ****  *\*\param  pin :
+ 162:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_0
+ 163:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_1
+ 164:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_2
+ 165:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_3
+ 166:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_4
+ 167:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_5
+ 168:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_6
+ 169:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_7
+ 170:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_8
+ 171:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_9
+ 172:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_10
+ 173:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_11
+ 174:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_12
+ 175:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_13
+ 176:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_14
+ 177:../core/src/bsp_led.c ****  *\*\          - GPIO_PIN_15
+ 178:../core/src/bsp_led.c **** **/
+ 179:../core/src/bsp_led.c **** void LED_Off(GPIO_Module* GPIOx,uint16_t pin)
+ 180:../core/src/bsp_led.c **** {
+ 142              		.loc 1 180 1 is_stmt 1 view -0
+ 143              		.cfi_startproc
+ 144              		@ args = 0, pretend = 0, frame = 0
+ 145              		@ frame_needed = 0, uses_anonymous_args = 0
+ 146              		@ link register save eliminated.
+ 181:../core/src/bsp_led.c ****     GPIO_PBC_Pins_Reset(GPIOx, pin);
+ 147              		.loc 1 181 5 view .LVU27
+ 148 0000 FFF7FEBF 		b	GPIO_PBC_Pins_Reset
+ 149              	.LVL10:
+ 150              		.loc 1 181 5 is_stmt 0 view .LVU28
+ 151              		.cfi_endproc
+ 152              	.LFE133:
+ 154              		.text
+ 155              	.Letext0:
+ 156              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 157              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 158              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 159              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_gpio.h"
+ 160              		.file 6 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccTUubYX.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 bsp_led.c
+C:\Users\Dawn\AppData\Local\Temp\ccTUubYX.s:21     .text.LED_Initialize:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccTUubYX.s:27     .text.LED_Initialize:00000000 LED_Initialize
+C:\Users\Dawn\AppData\Local\Temp\ccTUubYX.s:89     .text.LED_Toggle:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccTUubYX.s:95     .text.LED_Toggle:00000000 LED_Toggle
+C:\Users\Dawn\AppData\Local\Temp\ccTUubYX.s:111    .text.LED_On:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccTUubYX.s:117    .text.LED_On:00000000 LED_On
+C:\Users\Dawn\AppData\Local\Temp\ccTUubYX.s:133    .text.LED_Off:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccTUubYX.s:139    .text.LED_Off:00000000 LED_Off
+
+UNDEFINED SYMBOLS
+RCC_AHB_Peripheral_Clock_Enable
+GPIO_Structure_Initialize
+GPIO_Peripheral_Initialize
+GPIO_Pin_Toggle
+GPIO_Pins_Set
+GPIO_PBC_Pins_Reset

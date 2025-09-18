@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
   27:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
   28:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
   29:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\file      n32g430_lptim.c
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 2
 
 
   30:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\author    Nations
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
   53              		.cfi_startproc
   54              		@ args = 0, pretend = 0, frame = 0
   55              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 3
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 3
 
 
   56              		@ link register save eliminated.
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
   98              		.thumb
   99              		.thumb_func
  101              	LPTIM_Initializes_Structure:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 4
 
 
  102              	.LVL4:
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  104:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_CLK_SOURCE_EXTERNAL
  105:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Prescaler
  106:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_PRESCALER_DIV1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 5
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 5
 
 
  107:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\           -LPTIM_PRESCALER_DIV2 
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  132              		.loc 1 160 1 is_stmt 1 view -0
  133              		.cfi_startproc
  134              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 6
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 6
 
 
  135              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  170              		.loc 1 181 11 is_stmt 0 view .LVU30
  171 0000 C368     		ldr	r3, [r0, #12]
  172              		.loc 1 181 17 view .LVU31
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 7
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 7
 
 
  173 0002 23F48003 		bic	r3, r3, #4194304
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  211              		.section	.text.LPTIM_Auto_Reload_Set,"ax",%progbits
  212              		.align	1
  213              		.global	LPTIM_Auto_Reload_Set
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 8
 
 
  214              		.syntax unified
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  244              		.loc 1 227 1 is_stmt 1 view -0
  245              		.cfi_startproc
  246              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 9
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 9
 
 
  247              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  285              		.syntax unified
  286              		.thumb
  287              		.thumb_func
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 10
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 10
 
 
  289              	LPTIM_Compare_Get:
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  320              		@ frame_needed = 0, uses_anonymous_args = 0
  321              		@ link register save eliminated.
  272:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     /* Return the value of LPTIM_CNT registers */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 11
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 11
 
 
  273:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****     return (uint16_t)LPTIMx->CNT;
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  358 000c C360     		str	r3, [r0, #12]
  293:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
  359              		.loc 1 293 1 view .LVU67
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 12
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 12
 
 
  360 000e 7047     		bx	lr
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  313:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Output_Config.
  314:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Configure the LPTIM instance output (LPTIMx_OUT).
  315:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 13
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 13
 
 
  316:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  337:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
  338:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
  339:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   Waveform
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 14
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 14
 
 
  340:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_OUTPUT_WAVEFORM_PWM
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  466              		.loc 1 363 1 is_stmt 1 view -0
  467              		.cfi_startproc
  468              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 15
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 15
 
 
  469              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  504 0008 C368     		ldr	r3, [r0, #12]
  505              		.loc 1 384 17 view .LVU99
  506 000a 0B43     		orrs	r3, r3, r1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 16
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 16
 
 
  507 000c C360     		str	r3, [r0, #12]
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  402:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
  403:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
  404:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Prescaler_Set.
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 17
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 17
 
 
  405:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Set actual prescaler division ratio.
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  429:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Prescaler_Get.
  430:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Get actual prescaler division ratio.
  431:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 18
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 18
 
 
  432:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  606              		.cfi_startproc
  607              		@ args = 0, pretend = 0, frame = 0
  608              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 19
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 19
 
 
  609              		@ link register save eliminated.
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  649              		.global	LPTIM_Timeout_Get
  650              		.syntax unified
  651              		.thumb
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 20
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 20
 
 
  652              		.thumb_func
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  682              		.loc 1 505 1 is_stmt 1 view -0
  683              		.cfi_startproc
  684              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 21
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 21
 
 
  685              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  708              		.loc 1 538 1 is_stmt 1 view -0
  709              		.cfi_startproc
  710              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 22
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 22
 
 
  711              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  554:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_SOURCE_RTCTAMP3
  555:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_SOURCE_COMP1
  556:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_SOURCE_COMP2
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 23
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 23
 
 
  557:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\       -LPTIM_TRIG_SOURCE_COMP3
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  784              	.LVL41:
  580:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
  785              		.loc 1 580 1 view .LVU154
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 24
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 24
 
 
  786 0002 00F0C000 		and	r0, r0, #192
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  599:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /** LPTIM_EF_Clock_Configuration Clock Configuration **/
  600:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   
  601:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 25
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 25
 
 
  602:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  863              		.loc 1 130 3 view .LVU169
  124:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   ErrorStatus result = SUCCESS;
  864              		.loc 1 124 1 is_stmt 0 view .LVU170
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 26
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 26
 
 
  865 0000 08B5     		push	{r3, lr}
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  906 0026 0020     		movs	r0, #0
  907              	.LVL53:
  132:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c ****   }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 27
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 27
 
 
  908              		.loc 1 132 12 view .LVU184
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  636:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
  637:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
  638:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   ClockFilter
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 28
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 28
 
 
  639:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\         -LPTIM_CLK_FILTER_NONE
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  660:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return 
  661:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_CLK_POLARITY_RISING
  662:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_CLK_POLARITY_FALLING
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 29
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 29
 
 
  663:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\        -LPTIM_CLK_POLARITY_RISING_FALLING    
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  1017              		.loc 1 684 1 view .LVU205
  1018 0002 00F01800 		and	r0, r0, #24
  1019 0006 7047     		bx	lr
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 30
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 30
 
 
  1020              		.cfi_endproc
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  1056              		.align	1
  1057              		.global	LPTIM_Encoder_Mode_Get
  1058              		.syntax unified
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 31
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 31
 
 
  1059              		.thumb
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  1090              		.loc 1 731 3 view .LVU216
  1091              		.loc 1 731 9 is_stmt 0 view .LVU217
  1092 0000 C368     		ldr	r3, [r0, #12]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 32
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 32
 
 
  1093              		.loc 1 731 15 view .LVU218
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  746:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
  747:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_NoEncoder_Mode_Enable.
  748:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\fun     Enable the non-orthogonal encoder mode.
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 33
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 33
 
 
  749:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  768:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
  1174              		.loc 1 768 1 view .LVU234
  1175 0008 7047     		bx	lr
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 34
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 34
 
 
  1176              		.cfi_endproc
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  789:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   LPTIMx 
  790:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -Low-Power Timer instance
  791:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\param   option 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 35
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 35
 
 
  792:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\          -LPTIM_INTPUT1_CONNECT_TO_GPIO
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  816:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\return  none
  817:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** **/
  818:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 36
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 36
 
 
  819:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** void LPTIM_Input2_Option(LPTIM_Module *LPTIMx, uint32_t option)
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  843:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** {
  1278              		.loc 1 843 1 is_stmt 1 view -0
  1279              		.cfi_startproc
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 37
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 37
 
 
  1280              		@ args = 0, pretend = 0, frame = 0
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  1314              	.LVL73:
  866:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** }
  1315              		.loc 1 866 1 view .LVU264
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 38
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 38
 
 
  1316 0004 0CBF     		ite	eq
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  1348              		.cfi_endproc
  1349              	.LFE176:
  1351              		.section	.text.LPTIM_Interrupt_Disable,"ax",%progbits
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 39
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 39
 
 
  1352              		.align	1
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  913:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
  914:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** 
  915:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** /**
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 40
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 40
 
 
  916:../firmware/n32g430_std_periph_driver/src/n32g430_lptim.c **** *\*\name    LPTIM_Interrupt_Check.
@@ -2382,117 +2382,117 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 1
  1406              	.LFE178:
  1408              		.text
  1409              	.Letext0:
- 1410              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
- 1411              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 1410              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 1411              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
  1412              		.file 4 "../firmware/CMSIS/device/n32g430.h"
  1413              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_lptim.h"
  1414              		.file 6 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 41
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 41
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 n32g430_lptim.c
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:21     .text.LPTIM_Reset:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:27     .text.LPTIM_Reset:00000000 LPTIM_Reset
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:43     .text.LPTIM_OFF:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:49     .text.LPTIM_OFF:00000000 LPTIM_OFF
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:69     .text.LPTIM_ON:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:75     .text.LPTIM_ON:00000000 LPTIM_ON
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:95     .text.LPTIM_Initializes_Structure:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:101    .text.LPTIM_Initializes_Structure:00000000 LPTIM_Initializes_Structure
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:123    .text.LPTIM_Counter_Start:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:129    .text.LPTIM_Counter_Start:00000000 LPTIM_Counter_Start
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:155    .text.LPTIM_Update_Mode_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:161    .text.LPTIM_Update_Mode_Set:00000000 LPTIM_Update_Mode_Set
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:187    .text.LPTIM_Update_Mode_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:193    .text.LPTIM_Update_Mode_Get:00000000 LPTIM_Update_Mode_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:212    .text.LPTIM_Auto_Reload_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:218    .text.LPTIM_Auto_Reload_Set:00000000 LPTIM_Auto_Reload_Set
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:235    .text.LPTIM_Auto_Reload_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:241    .text.LPTIM_Auto_Reload_Get:00000000 LPTIM_Auto_Reload_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:260    .text.LPTIM_Compare_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:266    .text.LPTIM_Compare_Set:00000000 LPTIM_Compare_Set
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:283    .text.LPTIM_Compare_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:289    .text.LPTIM_Compare_Get:00000000 LPTIM_Compare_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:308    .text.LPTIM_Counter_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:314    .text.LPTIM_Counter_Get:00000000 LPTIM_Counter_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:333    .text.LPTIM_Counter_Mode_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:339    .text.LPTIM_Counter_Mode_Set:00000000 LPTIM_Counter_Mode_Set
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:365    .text.LPTIM_Counter_Mode_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:371    .text.LPTIM_Counter_Mode_Get:00000000 LPTIM_Counter_Mode_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:390    .text.LPTIM_Output_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:396    .text.LPTIM_Output_Config:00000000 LPTIM_Output_Config
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:425    .text.LPTIM_Waveform_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:431    .text.LPTIM_Waveform_Set:00000000 LPTIM_Waveform_Set
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:457    .text.LPTIM_Waveform_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:463    .text.LPTIM_Waveform_Get:00000000 LPTIM_Waveform_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:482    .text.LPTIM_Polarity_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:488    .text.LPTIM_Polarity_Set:00000000 LPTIM_Polarity_Set
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:514    .text.LPTIM_Polarity_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:520    .text.LPTIM_Polarity_Get:00000000 LPTIM_Polarity_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:539    .text.LPTIM_Prescaler_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:545    .text.LPTIM_Prescaler_Set:00000000 LPTIM_Prescaler_Set
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:571    .text.LPTIM_Prescaler_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:577    .text.LPTIM_Prescaler_Get:00000000 LPTIM_Prescaler_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:596    .text.LPTIM_Timeout_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:602    .text.LPTIM_Timeout_Enable:00000000 LPTIM_Timeout_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:622    .text.LPTIM_Timeout_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:628    .text.LPTIM_Timeout_Disable:00000000 LPTIM_Timeout_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:648    .text.LPTIM_Timeout_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:654    .text.LPTIM_Timeout_Get:00000000 LPTIM_Timeout_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:673    .text.LPTIM_Software_Trigger:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:679    .text.LPTIM_Software_Trigger:00000000 LPTIM_Software_Trigger
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:699    .text.LPTIM_Trigger_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:705    .text.LPTIM_Trigger_Config:00000000 LPTIM_Trigger_Config
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:742    .text.LPTIM_Trigger_Source_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:748    .text.LPTIM_Trigger_Source_Get:00000000 LPTIM_Trigger_Source_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:767    .text.LPTIM_Trigger_Filter_Get:00000000 $t
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s 			page 42
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:21     .text.LPTIM_Reset:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:27     .text.LPTIM_Reset:00000000 LPTIM_Reset
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:43     .text.LPTIM_OFF:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:49     .text.LPTIM_OFF:00000000 LPTIM_OFF
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:69     .text.LPTIM_ON:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:75     .text.LPTIM_ON:00000000 LPTIM_ON
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:95     .text.LPTIM_Initializes_Structure:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:101    .text.LPTIM_Initializes_Structure:00000000 LPTIM_Initializes_Structure
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:123    .text.LPTIM_Counter_Start:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:129    .text.LPTIM_Counter_Start:00000000 LPTIM_Counter_Start
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:155    .text.LPTIM_Update_Mode_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:161    .text.LPTIM_Update_Mode_Set:00000000 LPTIM_Update_Mode_Set
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:187    .text.LPTIM_Update_Mode_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:193    .text.LPTIM_Update_Mode_Get:00000000 LPTIM_Update_Mode_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:212    .text.LPTIM_Auto_Reload_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:218    .text.LPTIM_Auto_Reload_Set:00000000 LPTIM_Auto_Reload_Set
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:235    .text.LPTIM_Auto_Reload_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:241    .text.LPTIM_Auto_Reload_Get:00000000 LPTIM_Auto_Reload_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:260    .text.LPTIM_Compare_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:266    .text.LPTIM_Compare_Set:00000000 LPTIM_Compare_Set
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:283    .text.LPTIM_Compare_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:289    .text.LPTIM_Compare_Get:00000000 LPTIM_Compare_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:308    .text.LPTIM_Counter_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:314    .text.LPTIM_Counter_Get:00000000 LPTIM_Counter_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:333    .text.LPTIM_Counter_Mode_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:339    .text.LPTIM_Counter_Mode_Set:00000000 LPTIM_Counter_Mode_Set
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:365    .text.LPTIM_Counter_Mode_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:371    .text.LPTIM_Counter_Mode_Get:00000000 LPTIM_Counter_Mode_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:390    .text.LPTIM_Output_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:396    .text.LPTIM_Output_Config:00000000 LPTIM_Output_Config
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:425    .text.LPTIM_Waveform_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:431    .text.LPTIM_Waveform_Set:00000000 LPTIM_Waveform_Set
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:457    .text.LPTIM_Waveform_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:463    .text.LPTIM_Waveform_Get:00000000 LPTIM_Waveform_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:482    .text.LPTIM_Polarity_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:488    .text.LPTIM_Polarity_Set:00000000 LPTIM_Polarity_Set
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:514    .text.LPTIM_Polarity_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:520    .text.LPTIM_Polarity_Get:00000000 LPTIM_Polarity_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:539    .text.LPTIM_Prescaler_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:545    .text.LPTIM_Prescaler_Set:00000000 LPTIM_Prescaler_Set
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:571    .text.LPTIM_Prescaler_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:577    .text.LPTIM_Prescaler_Get:00000000 LPTIM_Prescaler_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:596    .text.LPTIM_Timeout_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:602    .text.LPTIM_Timeout_Enable:00000000 LPTIM_Timeout_Enable
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:622    .text.LPTIM_Timeout_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:628    .text.LPTIM_Timeout_Disable:00000000 LPTIM_Timeout_Disable
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:648    .text.LPTIM_Timeout_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:654    .text.LPTIM_Timeout_Get:00000000 LPTIM_Timeout_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:673    .text.LPTIM_Software_Trigger:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:679    .text.LPTIM_Software_Trigger:00000000 LPTIM_Software_Trigger
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:699    .text.LPTIM_Trigger_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:705    .text.LPTIM_Trigger_Config:00000000 LPTIM_Trigger_Config
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:742    .text.LPTIM_Trigger_Source_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:748    .text.LPTIM_Trigger_Source_Get:00000000 LPTIM_Trigger_Source_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:767    .text.LPTIM_Trigger_Filter_Get:00000000 $t
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s 			page 42
 
 
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:773    .text.LPTIM_Trigger_Filter_Get:00000000 LPTIM_Trigger_Filter_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:792    .text.LPTIM_Trigger_Polarity_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:798    .text.LPTIM_Trigger_Polarity_Get:00000000 LPTIM_Trigger_Polarity_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:817    .text.LPTIM_Clock_Source_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:823    .text.LPTIM_Clock_Source_Set:00000000 LPTIM_Clock_Source_Set
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:849    .text.LPTIM_Initializes:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:855    .text.LPTIM_Initializes:00000000 LPTIM_Initializes
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:914    .text.LPTIM_Clock_Source_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:920    .text.LPTIM_Clock_Source_Get:00000000 LPTIM_Clock_Source_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:939    .text.LPTIM_Clock_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:945    .text.LPTIM_Clock_Config:00000000 LPTIM_Clock_Config
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:974    .text.LPTIM_Clock_Polarity_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:980    .text.LPTIM_Clock_Polarity_Get:00000000 LPTIM_Clock_Polarity_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:999    .text.LPTIM_Clock_Filter_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1005   .text.LPTIM_Clock_Filter_Get:00000000 LPTIM_Clock_Filter_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1024   .text.LPTIM_Encoder_Mode_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1030   .text.LPTIM_Encoder_Mode_Set:00000000 LPTIM_Encoder_Mode_Set
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1056   .text.LPTIM_Encoder_Mode_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1062   .text.LPTIM_Encoder_Mode_Get:00000000 LPTIM_Encoder_Mode_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1076   .text.LPTIM_Encoder_Mode_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1082   .text.LPTIM_Encoder_Mode_Enable:00000000 LPTIM_Encoder_Mode_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1102   .text.LPTIM_Encoder_Mode_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1108   .text.LPTIM_Encoder_Mode_Disable:00000000 LPTIM_Encoder_Mode_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1128   .text.LPTIM_NoEncoder_Mode_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1134   .text.LPTIM_NoEncoder_Mode_Enable:00000000 LPTIM_NoEncoder_Mode_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1154   .text.LPTIM_NoEncoder_Mode_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1160   .text.LPTIM_NoEncoder_Mode_Disable:00000000 LPTIM_NoEncoder_Mode_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1180   .text.LPTIM_Encoder_Mode_Check:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1186   .text.LPTIM_Encoder_Mode_Check:00000000 LPTIM_Encoder_Mode_Check
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1205   .text.LPTIM_Input1_Option:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1211   .text.LPTIM_Input1_Option:00000000 LPTIM_Input1_Option
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1237   .text.LPTIM_Input2_Option:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1243   .text.LPTIM_Input2_Option:00000000 LPTIM_Input2_Option
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1269   .text.LPTIM_FLAG_Clear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1275   .text.LPTIM_FLAG_Clear:00000000 LPTIM_FLAG_Clear
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1295   .text.LPTIM_Flag_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1301   .text.LPTIM_Flag_Get:00000000 LPTIM_Flag_Get
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1326   .text.LPTIM_Interrupt_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1332   .text.LPTIM_Interrupt_Enable:00000000 LPTIM_Interrupt_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1352   .text.LPTIM_Interrupt_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1358   .text.LPTIM_Interrupt_Disable:00000000 LPTIM_Interrupt_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1378   .text.LPTIM_Interrupt_Check:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccKjW531.s:1384   .text.LPTIM_Interrupt_Check:00000000 LPTIM_Interrupt_Check
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:773    .text.LPTIM_Trigger_Filter_Get:00000000 LPTIM_Trigger_Filter_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:792    .text.LPTIM_Trigger_Polarity_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:798    .text.LPTIM_Trigger_Polarity_Get:00000000 LPTIM_Trigger_Polarity_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:817    .text.LPTIM_Clock_Source_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:823    .text.LPTIM_Clock_Source_Set:00000000 LPTIM_Clock_Source_Set
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:849    .text.LPTIM_Initializes:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:855    .text.LPTIM_Initializes:00000000 LPTIM_Initializes
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:914    .text.LPTIM_Clock_Source_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:920    .text.LPTIM_Clock_Source_Get:00000000 LPTIM_Clock_Source_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:939    .text.LPTIM_Clock_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:945    .text.LPTIM_Clock_Config:00000000 LPTIM_Clock_Config
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:974    .text.LPTIM_Clock_Polarity_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:980    .text.LPTIM_Clock_Polarity_Get:00000000 LPTIM_Clock_Polarity_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:999    .text.LPTIM_Clock_Filter_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1005   .text.LPTIM_Clock_Filter_Get:00000000 LPTIM_Clock_Filter_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1024   .text.LPTIM_Encoder_Mode_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1030   .text.LPTIM_Encoder_Mode_Set:00000000 LPTIM_Encoder_Mode_Set
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1056   .text.LPTIM_Encoder_Mode_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1062   .text.LPTIM_Encoder_Mode_Get:00000000 LPTIM_Encoder_Mode_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1076   .text.LPTIM_Encoder_Mode_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1082   .text.LPTIM_Encoder_Mode_Enable:00000000 LPTIM_Encoder_Mode_Enable
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1102   .text.LPTIM_Encoder_Mode_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1108   .text.LPTIM_Encoder_Mode_Disable:00000000 LPTIM_Encoder_Mode_Disable
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1128   .text.LPTIM_NoEncoder_Mode_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1134   .text.LPTIM_NoEncoder_Mode_Enable:00000000 LPTIM_NoEncoder_Mode_Enable
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1154   .text.LPTIM_NoEncoder_Mode_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1160   .text.LPTIM_NoEncoder_Mode_Disable:00000000 LPTIM_NoEncoder_Mode_Disable
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1180   .text.LPTIM_Encoder_Mode_Check:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1186   .text.LPTIM_Encoder_Mode_Check:00000000 LPTIM_Encoder_Mode_Check
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1205   .text.LPTIM_Input1_Option:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1211   .text.LPTIM_Input1_Option:00000000 LPTIM_Input1_Option
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1237   .text.LPTIM_Input2_Option:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1243   .text.LPTIM_Input2_Option:00000000 LPTIM_Input2_Option
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1269   .text.LPTIM_FLAG_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1275   .text.LPTIM_FLAG_Clear:00000000 LPTIM_FLAG_Clear
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1295   .text.LPTIM_Flag_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1301   .text.LPTIM_Flag_Get:00000000 LPTIM_Flag_Get
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1326   .text.LPTIM_Interrupt_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1332   .text.LPTIM_Interrupt_Enable:00000000 LPTIM_Interrupt_Enable
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1352   .text.LPTIM_Interrupt_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1358   .text.LPTIM_Interrupt_Disable:00000000 LPTIM_Interrupt_Disable
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1378   .text.LPTIM_Interrupt_Check:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc6PBlwT.s:1384   .text.LPTIM_Interrupt_Check:00000000 LPTIM_Interrupt_Check
 
 UNDEFINED SYMBOLS
 RCC_LPTIM_Reset

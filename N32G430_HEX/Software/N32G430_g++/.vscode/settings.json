@@ -1,0 +1,4 @@
+{
+    "makefile.exportCompileCommandsFile": true,
+    "makefile.compileCommandsPath": "${workspaceFolder}/compile_commands.json"
+  }

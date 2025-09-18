@@ -1,0 +1,600 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"misc.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../firmware/n32g430_std_periph_driver/src/misc.c"
+  20              		.section	.text.NVIC_Priority_Group_Set,"ax",%progbits
+  21              		.align	1
+  22              		.global	NVIC_Priority_Group_Set
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	NVIC_Priority_Group_Set:
+  28              	.LVL0:
+  29              	.LFB130:
+   1:../firmware/n32g430_std_periph_driver/src/misc.c **** /*****************************************************************************
+   2:../firmware/n32g430_std_periph_driver/src/misc.c ****  * Copyright (c) 2019, Nations Technologies Inc.
+   3:../firmware/n32g430_std_periph_driver/src/misc.c ****  *
+   4:../firmware/n32g430_std_periph_driver/src/misc.c ****  * All rights reserved.
+   5:../firmware/n32g430_std_periph_driver/src/misc.c ****  * ****************************************************************************
+   6:../firmware/n32g430_std_periph_driver/src/misc.c ****  *
+   7:../firmware/n32g430_std_periph_driver/src/misc.c ****  * Redistribution and use in source and binary forms, with or without
+   8:../firmware/n32g430_std_periph_driver/src/misc.c ****  * modification, are permitted provided that the following conditions are met:
+   9:../firmware/n32g430_std_periph_driver/src/misc.c ****  *
+  10:../firmware/n32g430_std_periph_driver/src/misc.c ****  * - Redistributions of source code must retain the above copyright notice,
+  11:../firmware/n32g430_std_periph_driver/src/misc.c ****  * this list of conditions and the disclaimer below.
+  12:../firmware/n32g430_std_periph_driver/src/misc.c ****  *
+  13:../firmware/n32g430_std_periph_driver/src/misc.c ****  * Nations' name may not be used to endorse or promote products derived from
+  14:../firmware/n32g430_std_periph_driver/src/misc.c ****  * this software without specific prior written permission.
+  15:../firmware/n32g430_std_periph_driver/src/misc.c ****  *
+  16:../firmware/n32g430_std_periph_driver/src/misc.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY NATIONS "AS IS" AND ANY EXPRESS OR
+  17:../firmware/n32g430_std_periph_driver/src/misc.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  18:../firmware/n32g430_std_periph_driver/src/misc.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  19:../firmware/n32g430_std_periph_driver/src/misc.c ****  * DISCLAIMED. IN NO EVENT SHALL NATIONS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  20:../firmware/n32g430_std_periph_driver/src/misc.c ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  21:../firmware/n32g430_std_periph_driver/src/misc.c ****  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  22:../firmware/n32g430_std_periph_driver/src/misc.c ****  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  23:../firmware/n32g430_std_periph_driver/src/misc.c ****  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  24:../firmware/n32g430_std_periph_driver/src/misc.c ****  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  25:../firmware/n32g430_std_periph_driver/src/misc.c ****  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  26:../firmware/n32g430_std_periph_driver/src/misc.c ****  * ****************************************************************************/
+  27:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+  28:../firmware/n32g430_std_periph_driver/src/misc.c **** /**
+  29:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\file misc.c
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s 			page 2
+
+
+  30:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\author Nations
+  31:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\version v1.0.0
+  32:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
+  33:../firmware/n32g430_std_periph_driver/src/misc.c **** **/
+  34:../firmware/n32g430_std_periph_driver/src/misc.c **** #include "misc.h"
+  35:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+  36:../firmware/n32g430_std_periph_driver/src/misc.c **** /** MISC Driving Functions Declaration **/
+  37:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+  38:../firmware/n32g430_std_periph_driver/src/misc.c **** /**
+  39:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\name    NVIC_Priority_Group_Set
+  40:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\fun     Configures the priority grouping: pre-emption priority and subpriority.
+  41:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\param   NVIC_priority_group :
+  42:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\            - NVIC_PER0_SUB4_PRIORITYGROUP    0 bits for pre-emption priority 4 bits for subpri
+  43:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\            - NVIC_PER1_SUB3_PRIORITYGROUP    1 bits for pre-emption priority 3 bits for subpri
+  44:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\            - NVIC_PER2_SUB2_PRIORITYGROUP    2 bits for pre-emption priority 2 bits for subpri
+  45:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\            - NVIC_PER3_SUB1_PRIORITYGROUP    3 bits for pre-emption priority 1 bits for subpri
+  46:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\            - NVIC_PER4_SUB0_PRIORITYGROUP    4 bits for pre-emption priority 0 bits for subpri
+  47:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\return  none
+  48:../firmware/n32g430_std_periph_driver/src/misc.c **** **/
+  49:../firmware/n32g430_std_periph_driver/src/misc.c **** void NVIC_Priority_Group_Set(uint32_t NVIC_priority_group)
+  50:../firmware/n32g430_std_periph_driver/src/misc.c **** {
+  30              		.loc 1 50 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  51:../firmware/n32g430_std_periph_driver/src/misc.c ****     /* Set the PRIGROUP[10:8] bits according to NVIC_priority_group value */
+  52:../firmware/n32g430_std_periph_driver/src/misc.c ****     SCB->AIRCR = AIRCR_VECTKEY_MASK | NVIC_priority_group;
+  35              		.loc 1 52 5 view .LVU1
+  36              		.loc 1 52 16 is_stmt 0 view .LVU2
+  37 0000 034B     		ldr	r3, .L2
+  38              		.loc 1 52 37 view .LVU3
+  39 0002 40F0BF60 		orr	r0, r0, #100139008
+  40              	.LVL1:
+  41              		.loc 1 52 37 view .LVU4
+  42 0006 40F40030 		orr	r0, r0, #131072
+  43              		.loc 1 52 16 view .LVU5
+  44 000a D860     		str	r0, [r3, #12]
+  53:../firmware/n32g430_std_periph_driver/src/misc.c **** }
+  45              		.loc 1 53 1 view .LVU6
+  46 000c 7047     		bx	lr
+  47              	.L3:
+  48 000e 00BF     		.align	2
+  49              	.L2:
+  50 0010 00ED00E0 		.word	-536810240
+  51              		.cfi_endproc
+  52              	.LFE130:
+  54              		.section	.text.NVIC_Initializes,"ax",%progbits
+  55              		.align	1
+  56              		.global	NVIC_Initializes
+  57              		.syntax unified
+  58              		.thumb
+  59              		.thumb_func
+  61              	NVIC_Initializes:
+  62              	.LVL2:
+  63              	.LFB131:
+  54:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s 			page 3
+
+
+  55:../firmware/n32g430_std_periph_driver/src/misc.c **** /**
+  56:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\name    NVIC_Initializes
+  57:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\fun     Initializes the NVIC peripheral according to the specified parameters in the NVIC_struc
+  58:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\param   NVIC_structure_initializes :
+  59:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\              - NVIC_IRQChannel :
+  60:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  IRQn_Type    N32G430 Interrupt Number Definition
+  61:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\        if NVIC_priority_group is NVIC_PER0_SUB4_PRIORITYGROUP :
+  62:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\              - NVIC_IRQChannelPreemptionPriority :
+  63:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_0
+  64:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\              - NVIC_IRQChannelSubPriority :
+  65:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_0
+  66:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_1
+  67:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_2
+  68:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_3
+  69:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_4
+  70:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_5
+  71:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_6
+  72:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_7
+  73:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_8
+  74:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_9
+  75:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_10
+  76:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_11
+  77:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_12
+  78:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_13
+  79:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_14
+  80:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_15
+  81:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\        if NVIC_priority_group is NVIC_PER1_SUB3_PRIORITYGROUP :
+  82:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\              - NVIC_IRQChannelPreemptionPriority :
+  83:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_0
+  84:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_1
+  85:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\              - NVIC_IRQChannelSubPriority :
+  86:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_0 to NVIC_SUB_PRIORITY_7
+  87:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\        if NVIC_priority_group is NVIC_PER2_SUB2_PRIORITYGROUP :
+  88:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\              - NVIC_IRQChannelPreemptionPriority :
+  89:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_0 to NVIC_PER_PRIORITY_3
+  90:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\              - NVIC_IRQChannelSubPriority :
+  91:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_0 to NVIC_SUB_PRIORITY_3
+  92:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\        if NVIC_priority_group is NVIC_PER3_SUB1_PRIORITYGROUP :
+  93:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\              - NVIC_IRQChannelPreemptionPriority :
+  94:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_0 to NVIC_PER_PRIORITY_7
+  95:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\              - NVIC_IRQChannelSubPriority :
+  96:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_0
+  97:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_1
+  98:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\        if NVIC_priority_group is NVIC_PER4_SUB0_PRIORITYGROUP :
+  99:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\              - NVIC_IRQChannelPreemptionPriority :
+ 100:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_0
+ 101:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_1
+ 102:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_2
+ 103:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_3
+ 104:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_4
+ 105:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_5
+ 106:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_6
+ 107:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_7
+ 108:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_8
+ 109:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_9
+ 110:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_10
+ 111:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_11
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s 			page 4
+
+
+ 112:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_12
+ 113:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_13
+ 114:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_14
+ 115:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_15
+ 116:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\              - NVIC_IRQChannelSubPriority :
+ 117:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_SUB_PRIORITY_0
+ 118:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\              - NVIC_IRQChannelCmd :
+ 119:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  ENABLE
+ 120:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  DISABLE
+ 121:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\return  none
+ 122:../firmware/n32g430_std_periph_driver/src/misc.c **** **/
+ 123:../firmware/n32g430_std_periph_driver/src/misc.c **** void NVIC_Initializes(NVIC_InitType* NVIC_structure_initializes)
+ 124:../firmware/n32g430_std_periph_driver/src/misc.c **** {
+  64              		.loc 1 124 1 is_stmt 1 view -0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+ 125:../firmware/n32g430_std_periph_driver/src/misc.c ****     uint32_t temp_priority_value = 0x00, temp_pre_value = 0x00, temp_sub_value = 0x0F;
+  68              		.loc 1 125 5 view .LVU8
+ 126:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 127:../firmware/n32g430_std_periph_driver/src/misc.c ****     if (NVIC_structure_initializes->NVIC_IRQChannelCmd != DISABLE)
+  69              		.loc 1 127 5 view .LVU9
+ 124:../firmware/n32g430_std_periph_driver/src/misc.c ****     uint32_t temp_priority_value = 0x00, temp_pre_value = 0x00, temp_sub_value = 0x0F;
+  70              		.loc 1 124 1 is_stmt 0 view .LVU10
+  71 0000 70B5     		push	{r4, r5, r6, lr}
+  72              	.LCFI0:
+  73              		.cfi_def_cfa_offset 16
+  74              		.cfi_offset 4, -16
+  75              		.cfi_offset 5, -12
+  76              		.cfi_offset 6, -8
+  77              		.cfi_offset 14, -4
+ 128:../firmware/n32g430_std_periph_driver/src/misc.c ****     {
+ 129:../firmware/n32g430_std_periph_driver/src/misc.c ****         /* Compute the Corresponding IRQ Priority */
+ 130:../firmware/n32g430_std_periph_driver/src/misc.c ****         temp_priority_value = \
+ 131:../firmware/n32g430_std_periph_driver/src/misc.c ****         (NVIC_PRIORITYGROUP_MASK - ((SCB->AIRCR) & NVIC_PRIORITYGROUP_MASK)) >> SCB_AIRCR_OFFSET;
+ 132:../firmware/n32g430_std_periph_driver/src/misc.c ****         
+ 133:../firmware/n32g430_std_periph_driver/src/misc.c ****         temp_pre_value      = (NVIC_PRE_SUB_SUM - temp_priority_value);
+ 134:../firmware/n32g430_std_periph_driver/src/misc.c ****         temp_sub_value      = temp_sub_value >> temp_priority_value;
+ 135:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 136:../firmware/n32g430_std_periph_driver/src/misc.c ****         temp_priority_value = \
+ 137:../firmware/n32g430_std_periph_driver/src/misc.c ****         (uint32_t)NVIC_structure_initializes->NVIC_IRQChannelPreemptionPriority << temp_pre_value;
+ 138:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 139:../firmware/n32g430_std_periph_driver/src/misc.c ****         temp_priority_value |= \
+ 140:../firmware/n32g430_std_periph_driver/src/misc.c ****         NVIC_structure_initializes->NVIC_IRQChannelSubPriority & temp_sub_value;
+ 141:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 142:../firmware/n32g430_std_periph_driver/src/misc.c ****         temp_priority_value = temp_priority_value << NVIC_IP_OFFSET;
+ 143:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 144:../firmware/n32g430_std_periph_driver/src/misc.c ****         NVIC->IP[NVIC_structure_initializes->NVIC_IRQChannel] = temp_priority_value;
+  78              		.loc 1 144 44 view .LVU11
+  79 0002 0178     		ldrb	r1, [r0]	@ zero_extendqisi2
+ 145:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 146:../firmware/n32g430_std_periph_driver/src/misc.c ****         /* Enable the Selected IRQ Channels */
+ 147:../firmware/n32g430_std_periph_driver/src/misc.c ****         NVIC->ISER[NVIC_structure_initializes->NVIC_IRQChannel >> NVIC_ISER_BIT_LENGTH] = \
+ 148:../firmware/n32g430_std_periph_driver/src/misc.c ****         (uint32_t)0x01 << (NVIC_structure_initializes->NVIC_IRQChannel & NVIC_IRQCHANNEL_MASK);
+  80              		.loc 1 148 24 view .LVU12
+  81 0004 0125     		movs	r5, #1
+  82              		.loc 1 148 72 view .LVU13
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s 			page 5
+
+
+  83 0006 01F01F03 		and	r3, r1, #31
+  84              		.loc 1 148 24 view .LVU14
+  85 000a 9D40     		lsls	r5, r5, r3
+ 127:../firmware/n32g430_std_periph_driver/src/misc.c ****     {
+  86              		.loc 1 127 8 view .LVU15
+  87 000c C378     		ldrb	r3, [r0, #3]	@ zero_extendqisi2
+ 147:../firmware/n32g430_std_periph_driver/src/misc.c ****         (uint32_t)0x01 << (NVIC_structure_initializes->NVIC_IRQChannel & NVIC_IRQCHANNEL_MASK);
+  88              		.loc 1 147 64 view .LVU16
+  89 000e 4C09     		lsrs	r4, r1, #5
+ 127:../firmware/n32g430_std_periph_driver/src/misc.c ****     {
+  90              		.loc 1 127 8 view .LVU17
+  91 0010 BBB1     		cbz	r3, .L5
+ 130:../firmware/n32g430_std_periph_driver/src/misc.c ****         (NVIC_PRIORITYGROUP_MASK - ((SCB->AIRCR) & NVIC_PRIORITYGROUP_MASK)) >> SCB_AIRCR_OFFSET;
+  92              		.loc 1 130 9 is_stmt 1 view .LVU18
+ 131:../firmware/n32g430_std_periph_driver/src/misc.c ****         
+  93              		.loc 1 131 41 is_stmt 0 view .LVU19
+  94 0012 0E4B     		ldr	r3, .L7
+ 137:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+  95              		.loc 1 137 9 view .LVU20
+  96 0014 4678     		ldrb	r6, [r0, #1]	@ zero_extendqisi2
+ 131:../firmware/n32g430_std_periph_driver/src/misc.c ****         
+  97              		.loc 1 131 41 view .LVU21
+  98 0016 DA68     		ldr	r2, [r3, #12]
+ 131:../firmware/n32g430_std_periph_driver/src/misc.c ****         
+  99              		.loc 1 131 34 view .LVU22
+ 100 0018 D243     		mvns	r2, r2
+ 130:../firmware/n32g430_std_periph_driver/src/misc.c ****         (NVIC_PRIORITYGROUP_MASK - ((SCB->AIRCR) & NVIC_PRIORITYGROUP_MASK)) >> SCB_AIRCR_OFFSET;
+ 101              		.loc 1 130 29 view .LVU23
+ 102 001a C2F30222 		ubfx	r2, r2, #8, #3
+ 103              	.LVL3:
+ 133:../firmware/n32g430_std_periph_driver/src/misc.c ****         temp_sub_value      = temp_sub_value >> temp_priority_value;
+ 104              		.loc 1 133 9 is_stmt 1 view .LVU24
+ 133:../firmware/n32g430_std_periph_driver/src/misc.c ****         temp_sub_value      = temp_sub_value >> temp_priority_value;
+ 105              		.loc 1 133 29 is_stmt 0 view .LVU25
+ 106 001e C2F10403 		rsb	r3, r2, #4
+ 107              	.LVL4:
+ 134:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 108              		.loc 1 134 9 is_stmt 1 view .LVU26
+ 136:../firmware/n32g430_std_periph_driver/src/misc.c ****         (uint32_t)NVIC_structure_initializes->NVIC_IRQChannelPreemptionPriority << temp_pre_value;
+ 109              		.loc 1 136 9 view .LVU27
+ 136:../firmware/n32g430_std_periph_driver/src/misc.c ****         (uint32_t)NVIC_structure_initializes->NVIC_IRQChannelPreemptionPriority << temp_pre_value;
+ 110              		.loc 1 136 29 is_stmt 0 view .LVU28
+ 111 0022 9E40     		lsls	r6, r6, r3
+ 112              	.LVL5:
+ 139:../firmware/n32g430_std_periph_driver/src/misc.c ****         NVIC_structure_initializes->NVIC_IRQChannelSubPriority & temp_sub_value;
+ 113              		.loc 1 139 9 is_stmt 1 view .LVU29
+ 140:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 114              		.loc 1 140 35 is_stmt 0 view .LVU30
+ 115 0024 8378     		ldrb	r3, [r0, #2]	@ zero_extendqisi2
+ 116              	.LVL6:
+ 134:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 117              		.loc 1 134 29 view .LVU31
+ 118 0026 0F20     		movs	r0, #15
+ 119              	.LVL7:
+ 134:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 120              		.loc 1 134 29 view .LVU32
+ 121 0028 20FA02F2 		lsr	r2, r0, r2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s 			page 6
+
+
+ 122              	.LVL8:
+ 140:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 123              		.loc 1 140 64 view .LVU33
+ 124 002c 1340     		ands	r3, r3, r2
+ 125              	.LVL9:
+ 142:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 126              		.loc 1 142 9 is_stmt 1 view .LVU34
+ 144:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 127              		.loc 1 144 9 view .LVU35
+ 144:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 128              		.loc 1 144 63 is_stmt 0 view .LVU36
+ 129 002e 084A     		ldr	r2, .L7+4
+ 130              	.LVL10:
+ 139:../firmware/n32g430_std_periph_driver/src/misc.c ****         NVIC_structure_initializes->NVIC_IRQChannelSubPriority & temp_sub_value;
+ 131              		.loc 1 139 29 view .LVU37
+ 132 0030 3343     		orrs	r3, r3, r6
+ 133              	.LVL11:
+ 144:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 134              		.loc 1 144 63 view .LVU38
+ 135 0032 1B01     		lsls	r3, r3, #4
+ 136              	.LVL12:
+ 144:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 137              		.loc 1 144 63 view .LVU39
+ 138 0034 1144     		add	r1, r1, r2
+ 139 0036 DBB2     		uxtb	r3, r3
+ 140              	.LVL13:
+ 144:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 141              		.loc 1 144 63 view .LVU40
+ 142 0038 81F80033 		strb	r3, [r1, #768]
+ 147:../firmware/n32g430_std_periph_driver/src/misc.c ****         (uint32_t)0x01 << (NVIC_structure_initializes->NVIC_IRQChannel & NVIC_IRQCHANNEL_MASK);
+ 143              		.loc 1 147 9 is_stmt 1 view .LVU41
+ 147:../firmware/n32g430_std_periph_driver/src/misc.c ****         (uint32_t)0x01 << (NVIC_structure_initializes->NVIC_IRQChannel & NVIC_IRQCHANNEL_MASK);
+ 144              		.loc 1 147 89 is_stmt 0 view .LVU42
+ 145 003c 42F82450 		str	r5, [r2, r4, lsl #2]
+ 146              	.LVL14:
+ 147              	.L4:
+ 149:../firmware/n32g430_std_periph_driver/src/misc.c ****     }
+ 150:../firmware/n32g430_std_periph_driver/src/misc.c ****     else
+ 151:../firmware/n32g430_std_periph_driver/src/misc.c ****     {
+ 152:../firmware/n32g430_std_periph_driver/src/misc.c ****         /* Disable the Selected IRQ Channels */
+ 153:../firmware/n32g430_std_periph_driver/src/misc.c ****         NVIC->ICER[NVIC_structure_initializes->NVIC_IRQChannel >> NVIC_ISER_BIT_LENGTH] = \
+ 154:../firmware/n32g430_std_periph_driver/src/misc.c ****         (uint32_t)0x01 << (NVIC_structure_initializes->NVIC_IRQChannel & NVIC_IRQCHANNEL_MASK);
+ 155:../firmware/n32g430_std_periph_driver/src/misc.c ****     }
+ 156:../firmware/n32g430_std_periph_driver/src/misc.c **** }
+ 148              		.loc 1 156 1 view .LVU43
+ 149 0040 70BD     		pop	{r4, r5, r6, pc}
+ 150              	.LVL15:
+ 151              	.L5:
+ 153:../firmware/n32g430_std_periph_driver/src/misc.c ****         (uint32_t)0x01 << (NVIC_structure_initializes->NVIC_IRQChannel & NVIC_IRQCHANNEL_MASK);
+ 152              		.loc 1 153 9 is_stmt 1 view .LVU44
+ 153:../firmware/n32g430_std_periph_driver/src/misc.c ****         (uint32_t)0x01 << (NVIC_structure_initializes->NVIC_IRQChannel & NVIC_IRQCHANNEL_MASK);
+ 153              		.loc 1 153 89 is_stmt 0 view .LVU45
+ 154 0042 034B     		ldr	r3, .L7+4
+ 155 0044 2034     		adds	r4, r4, #32
+ 156 0046 43F82450 		str	r5, [r3, r4, lsl #2]
+ 157              		.loc 1 156 1 view .LVU46
+ 158 004a F9E7     		b	.L4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s 			page 7
+
+
+ 159              	.L8:
+ 160              		.align	2
+ 161              	.L7:
+ 162 004c 00ED00E0 		.word	-536810240
+ 163 0050 00E100E0 		.word	-536813312
+ 164              		.cfi_endproc
+ 165              	.LFE131:
+ 167              		.section	.text.NVIC_Vector_Table_Set,"ax",%progbits
+ 168              		.align	1
+ 169              		.global	NVIC_Vector_Table_Set
+ 170              		.syntax unified
+ 171              		.thumb
+ 172              		.thumb_func
+ 174              	NVIC_Vector_Table_Set:
+ 175              	.LVL16:
+ 176              	.LFB132:
+ 157:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 158:../firmware/n32g430_std_periph_driver/src/misc.c **** /**
+ 159:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\name    NVIC_Vector_Table_Set
+ 160:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\fun     Sets the vector table location and Offset.
+ 161:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\param   NVIC_vecter_table specifies if the vector table is in RAM or FLASH memory.
+ 162:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\        This parameter can be one of the following values:
+ 163:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\            - NVIC_VECTTAB_RAM
+ 164:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\            - NVIC_VECTTAB_FLASH
+ 165:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\param   offset Vector Table base offset field. This value must be a multiple of 0x200.
+ 166:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\return  none
+ 167:../firmware/n32g430_std_periph_driver/src/misc.c **** **/
+ 168:../firmware/n32g430_std_periph_driver/src/misc.c **** void NVIC_Vector_Table_Set(uint32_t NVIC_vecter_table, uint32_t offset)
+ 169:../firmware/n32g430_std_periph_driver/src/misc.c **** {
+ 177              		.loc 1 169 1 is_stmt 1 view -0
+ 178              		.cfi_startproc
+ 179              		@ args = 0, pretend = 0, frame = 0
+ 180              		@ frame_needed = 0, uses_anonymous_args = 0
+ 181              		@ link register save eliminated.
+ 170:../firmware/n32g430_std_periph_driver/src/misc.c ****     SCB->VTOR = NVIC_vecter_table | (offset & (uint32_t)NVIC_VECTTAB_MASK);
+ 182              		.loc 1 170 5 view .LVU48
+ 183              		.loc 1 170 45 is_stmt 0 view .LVU49
+ 184 0000 21F06041 		bic	r1, r1, #-536870912
+ 185              	.LVL17:
+ 186              		.loc 1 170 15 view .LVU50
+ 187 0004 024B     		ldr	r3, .L10
+ 188              		.loc 1 170 45 view .LVU51
+ 189 0006 21F07F01 		bic	r1, r1, #127
+ 190              		.loc 1 170 35 view .LVU52
+ 191 000a 0143     		orrs	r1, r1, r0
+ 192              		.loc 1 170 15 view .LVU53
+ 193 000c 9960     		str	r1, [r3, #8]
+ 171:../firmware/n32g430_std_periph_driver/src/misc.c **** }
+ 194              		.loc 1 171 1 view .LVU54
+ 195 000e 7047     		bx	lr
+ 196              	.L11:
+ 197              		.align	2
+ 198              	.L10:
+ 199 0010 00ED00E0 		.word	-536810240
+ 200              		.cfi_endproc
+ 201              	.LFE132:
+ 203              		.section	.text.NVIC_System_LowPower_Enable,"ax",%progbits
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s 			page 8
+
+
+ 204              		.align	1
+ 205              		.global	NVIC_System_LowPower_Enable
+ 206              		.syntax unified
+ 207              		.thumb
+ 208              		.thumb_func
+ 210              	NVIC_System_LowPower_Enable:
+ 211              	.LVL18:
+ 212              	.LFB133:
+ 172:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 173:../firmware/n32g430_std_periph_driver/src/misc.c **** /**
+ 174:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\name    NVIC_System_Low_Power_Enable
+ 175:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\fun     Selects the condition for the system to enter low power mode.
+ 176:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\param   low_power_mode Specifies the new mode for the system to enter low power mode.
+ 177:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\        This parameter can be one of the following values:
+ 178:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\            - NVIC_LP_SEVONPEND
+ 179:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\            - NVIC_LP_SLEEPDEEP
+ 180:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\            - NVIC_LP_SLEEPONEXIT
+ 181:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\return  none
+ 182:../firmware/n32g430_std_periph_driver/src/misc.c ****  */
+ 183:../firmware/n32g430_std_periph_driver/src/misc.c **** void NVIC_System_LowPower_Enable(uint8_t low_power_mode)
+ 184:../firmware/n32g430_std_periph_driver/src/misc.c **** {
+ 213              		.loc 1 184 1 is_stmt 1 view -0
+ 214              		.cfi_startproc
+ 215              		@ args = 0, pretend = 0, frame = 0
+ 216              		@ frame_needed = 0, uses_anonymous_args = 0
+ 217              		@ link register save eliminated.
+ 185:../firmware/n32g430_std_periph_driver/src/misc.c ****     SCB->SCR |= low_power_mode;
+ 218              		.loc 1 185 5 view .LVU56
+ 219              		.loc 1 185 8 is_stmt 0 view .LVU57
+ 220 0000 024B     		ldr	r3, .L13
+ 221 0002 1A69     		ldr	r2, [r3, #16]
+ 222              		.loc 1 185 14 view .LVU58
+ 223 0004 1043     		orrs	r0, r0, r2
+ 224              	.LVL19:
+ 225              		.loc 1 185 14 view .LVU59
+ 226 0006 1861     		str	r0, [r3, #16]
+ 186:../firmware/n32g430_std_periph_driver/src/misc.c **** }
+ 227              		.loc 1 186 1 view .LVU60
+ 228 0008 7047     		bx	lr
+ 229              	.L14:
+ 230 000a 00BF     		.align	2
+ 231              	.L13:
+ 232 000c 00ED00E0 		.word	-536810240
+ 233              		.cfi_endproc
+ 234              	.LFE133:
+ 236              		.section	.text.NVIC_System_Low_Power_Disable,"ax",%progbits
+ 237              		.align	1
+ 238              		.global	NVIC_System_Low_Power_Disable
+ 239              		.syntax unified
+ 240              		.thumb
+ 241              		.thumb_func
+ 243              	NVIC_System_Low_Power_Disable:
+ 244              	.LVL20:
+ 245              	.LFB134:
+ 187:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 188:../firmware/n32g430_std_periph_driver/src/misc.c **** /**
+ 189:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\name    NVIC_System_Low_Power_Disable
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s 			page 9
+
+
+ 190:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\fun     Selects the condition for the system to enter low power mode.
+ 191:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\param   low_power_mode :
+ 192:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\            - NVIC_LP_SEVONPEND
+ 193:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\            - NVIC_LP_SLEEPDEEP
+ 194:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\            - NVIC_LP_SLEEPONEXIT
+ 195:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\return  none
+ 196:../firmware/n32g430_std_periph_driver/src/misc.c ****  */
+ 197:../firmware/n32g430_std_periph_driver/src/misc.c **** void NVIC_System_Low_Power_Disable(uint8_t low_power_mode)
+ 198:../firmware/n32g430_std_periph_driver/src/misc.c **** {
+ 246              		.loc 1 198 1 is_stmt 1 view -0
+ 247              		.cfi_startproc
+ 248              		@ args = 0, pretend = 0, frame = 0
+ 249              		@ frame_needed = 0, uses_anonymous_args = 0
+ 250              		@ link register save eliminated.
+ 199:../firmware/n32g430_std_periph_driver/src/misc.c ****     SCB->SCR &= (uint32_t)(~(uint32_t)low_power_mode);
+ 251              		.loc 1 199 5 view .LVU62
+ 252              		.loc 1 199 8 is_stmt 0 view .LVU63
+ 253 0000 024A     		ldr	r2, .L16
+ 254 0002 1369     		ldr	r3, [r2, #16]
+ 255              		.loc 1 199 14 view .LVU64
+ 256 0004 23EA0003 		bic	r3, r3, r0
+ 257 0008 1361     		str	r3, [r2, #16]
+ 200:../firmware/n32g430_std_periph_driver/src/misc.c **** }
+ 258              		.loc 1 200 1 view .LVU65
+ 259 000a 7047     		bx	lr
+ 260              	.L17:
+ 261              		.align	2
+ 262              	.L16:
+ 263 000c 00ED00E0 		.word	-536810240
+ 264              		.cfi_endproc
+ 265              	.LFE134:
+ 267              		.section	.text.SysTick_Clock_Source_Set,"ax",%progbits
+ 268              		.align	1
+ 269              		.global	SysTick_Clock_Source_Set
+ 270              		.syntax unified
+ 271              		.thumb
+ 272              		.thumb_func
+ 274              	SysTick_Clock_Source_Set:
+ 275              	.LVL21:
+ 276              	.LFB135:
+ 201:../firmware/n32g430_std_periph_driver/src/misc.c **** 
+ 202:../firmware/n32g430_std_periph_driver/src/misc.c **** /**
+ 203:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\name  SysTick_Clock_Source_Set
+ 204:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\fun   Configures the SysTick clock source.
+ 205:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\param systick_clock_source :
+ 206:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\       - SYSTICK_CLKSOURCE_HCLK_DIV8    External clock selected as SysTick clock source.
+ 207:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\       - SYSTICK_CLKSOURCE_HCLK         AHB clock selected as SysTick clock source.
+ 208:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\return  none
+ 209:../firmware/n32g430_std_periph_driver/src/misc.c ****  */
+ 210:../firmware/n32g430_std_periph_driver/src/misc.c **** void SysTick_Clock_Source_Set(uint32_t systick_clock_source)
+ 211:../firmware/n32g430_std_periph_driver/src/misc.c **** {
+ 277              		.loc 1 211 1 is_stmt 1 view -0
+ 278              		.cfi_startproc
+ 279              		@ args = 0, pretend = 0, frame = 0
+ 280              		@ frame_needed = 0, uses_anonymous_args = 0
+ 281              		@ link register save eliminated.
+ 212:../firmware/n32g430_std_periph_driver/src/misc.c ****     if (systick_clock_source == SYSTICK_CLKSOURCE_HCLK)
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s 			page 10
+
+
+ 282              		.loc 1 212 5 view .LVU67
+ 283 0000 4FF0E023 		mov	r3, #-536813568
+ 284              		.loc 1 212 8 is_stmt 0 view .LVU68
+ 285 0004 0428     		cmp	r0, #4
+ 213:../firmware/n32g430_std_periph_driver/src/misc.c ****     {
+ 214:../firmware/n32g430_std_periph_driver/src/misc.c ****         SysTick->CTRL |= SYSTICK_CLKSOURCE_HCLK;
+ 286              		.loc 1 214 16 view .LVU69
+ 287 0006 1A69     		ldr	r2, [r3, #16]
+ 288              		.loc 1 214 9 is_stmt 1 view .LVU70
+ 289              		.loc 1 214 23 is_stmt 0 view .LVU71
+ 290 0008 0CBF     		ite	eq
+ 291 000a 42F00402 		orreq	r2, r2, #4
+ 215:../firmware/n32g430_std_periph_driver/src/misc.c ****     }
+ 216:../firmware/n32g430_std_periph_driver/src/misc.c ****     else
+ 217:../firmware/n32g430_std_periph_driver/src/misc.c ****     {
+ 218:../firmware/n32g430_std_periph_driver/src/misc.c ****         SysTick->CTRL &= SYSTICK_CLKSOURCE_HCLK_DIV8;
+ 292              		.loc 1 218 9 is_stmt 1 view .LVU72
+ 293              		.loc 1 218 23 is_stmt 0 view .LVU73
+ 294 000e 22F00402 		bicne	r2, r2, #4
+ 295 0012 1A61     		str	r2, [r3, #16]
+ 219:../firmware/n32g430_std_periph_driver/src/misc.c ****     }
+ 220:../firmware/n32g430_std_periph_driver/src/misc.c **** }
+ 296              		.loc 1 220 1 view .LVU74
+ 297 0014 7047     		bx	lr
+ 298              		.cfi_endproc
+ 299              	.LFE135:
+ 301              		.text
+ 302              	.Letext0:
+ 303              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 304              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 305              		.file 4 "../firmware/CMSIS/core/core_cm4.h"
+ 306              		.file 5 "../firmware/CMSIS/device/n32g430.h"
+ 307              		.file 6 "../firmware/n32g430_std_periph_driver/inc/misc.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 misc.c
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:21     .text.NVIC_Priority_Group_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:27     .text.NVIC_Priority_Group_Set:00000000 NVIC_Priority_Group_Set
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:50     .text.NVIC_Priority_Group_Set:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:55     .text.NVIC_Initializes:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:61     .text.NVIC_Initializes:00000000 NVIC_Initializes
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:162    .text.NVIC_Initializes:0000004c $d
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:168    .text.NVIC_Vector_Table_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:174    .text.NVIC_Vector_Table_Set:00000000 NVIC_Vector_Table_Set
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:199    .text.NVIC_Vector_Table_Set:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:204    .text.NVIC_System_LowPower_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:210    .text.NVIC_System_LowPower_Enable:00000000 NVIC_System_LowPower_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:232    .text.NVIC_System_LowPower_Enable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:237    .text.NVIC_System_Low_Power_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:243    .text.NVIC_System_Low_Power_Disable:00000000 NVIC_System_Low_Power_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:263    .text.NVIC_System_Low_Power_Disable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:268    .text.SysTick_Clock_Source_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccOFdiQ0.s:274    .text.SysTick_Clock_Source_Set:00000000 SysTick_Clock_Source_Set
+
+NO UNDEFINED SYMBOLS

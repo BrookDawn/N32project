@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 1
   27:../firmware/n32g430_std_periph_driver/src/misc.c **** 
   28:../firmware/n32g430_std_periph_driver/src/misc.c **** /**
   29:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\file misc.c
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s 			page 2
 
 
   30:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\author Nations
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 1
   62              	.LVL2:
   63              	.LFB131:
   54:../firmware/n32g430_std_periph_driver/src/misc.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 3
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s 			page 3
 
 
   55:../firmware/n32g430_std_periph_driver/src/misc.c **** /**
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 1
  109:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_9
  110:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_10
  111:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_11
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s 			page 4
 
 
  112:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\                   -  NVIC_PER_PRIORITY_12
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 1
   80              		.loc 1 148 24 view .LVU12
   81 0004 0125     		movs	r5, #1
   82              		.loc 1 148 72 view .LVU13
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 5
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s 			page 5
 
 
   83 0006 01F01F03 		and	r3, r1, #31
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 1
  134:../firmware/n32g430_std_periph_driver/src/misc.c **** 
  120              		.loc 1 134 29 view .LVU32
  121 0028 20FA02F2 		lsr	r2, r0, r2
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 6
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s 			page 6
 
 
  122              	.LVL8:
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 1
  156 0046 43F82450 		str	r5, [r3, r4, lsl #2]
  157              		.loc 1 156 1 view .LVU46
  158 004a F9E7     		b	.L4
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 7
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s 			page 7
 
 
  159              	.L8:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 1
  200              		.cfi_endproc
  201              	.LFE132:
  203              		.section	.text.NVIC_System_LowPower_Enable,"ax",%progbits
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s 			page 8
 
 
  204              		.align	1
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 1
  187:../firmware/n32g430_std_periph_driver/src/misc.c **** 
  188:../firmware/n32g430_std_periph_driver/src/misc.c **** /**
  189:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\name    NVIC_System_Low_Power_Disable
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 9
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s 			page 9
 
 
  190:../firmware/n32g430_std_periph_driver/src/misc.c **** *\*\fun     Selects the condition for the system to enter low power mode.
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 1
  280              		@ frame_needed = 0, uses_anonymous_args = 0
  281              		@ link register save eliminated.
  212:../firmware/n32g430_std_periph_driver/src/misc.c ****     if (systick_clock_source == SYSTICK_CLKSOURCE_HCLK)
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 10
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s 			page 10
 
 
  282              		.loc 1 212 5 view .LVU67
@@ -569,32 +569,32 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 1
  299              	.LFE135:
  301              		.text
  302              	.Letext0:
- 303              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
- 304              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 303              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 304              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
  305              		.file 4 "../firmware/CMSIS/core/core_cm4.h"
  306              		.file 5 "../firmware/CMSIS/device/n32g430.h"
  307              		.file 6 "../firmware/n32g430_std_periph_driver/inc/misc.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s 			page 11
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s 			page 11
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 misc.c
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:21     .text.NVIC_Priority_Group_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:27     .text.NVIC_Priority_Group_Set:00000000 NVIC_Priority_Group_Set
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:50     .text.NVIC_Priority_Group_Set:00000010 $d
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:55     .text.NVIC_Initializes:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:61     .text.NVIC_Initializes:00000000 NVIC_Initializes
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:162    .text.NVIC_Initializes:0000004c $d
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:168    .text.NVIC_Vector_Table_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:174    .text.NVIC_Vector_Table_Set:00000000 NVIC_Vector_Table_Set
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:199    .text.NVIC_Vector_Table_Set:00000010 $d
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:204    .text.NVIC_System_LowPower_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:210    .text.NVIC_System_LowPower_Enable:00000000 NVIC_System_LowPower_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:232    .text.NVIC_System_LowPower_Enable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:237    .text.NVIC_System_Low_Power_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:243    .text.NVIC_System_Low_Power_Disable:00000000 NVIC_System_Low_Power_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:263    .text.NVIC_System_Low_Power_Disable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:268    .text.SysTick_Clock_Source_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccusg1La.s:274    .text.SysTick_Clock_Source_Set:00000000 SysTick_Clock_Source_Set
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:21     .text.NVIC_Priority_Group_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:27     .text.NVIC_Priority_Group_Set:00000000 NVIC_Priority_Group_Set
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:50     .text.NVIC_Priority_Group_Set:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:55     .text.NVIC_Initializes:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:61     .text.NVIC_Initializes:00000000 NVIC_Initializes
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:162    .text.NVIC_Initializes:0000004c $d
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:168    .text.NVIC_Vector_Table_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:174    .text.NVIC_Vector_Table_Set:00000000 NVIC_Vector_Table_Set
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:199    .text.NVIC_Vector_Table_Set:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:204    .text.NVIC_System_LowPower_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:210    .text.NVIC_System_LowPower_Enable:00000000 NVIC_System_LowPower_Enable
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:232    .text.NVIC_System_LowPower_Enable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:237    .text.NVIC_System_Low_Power_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:243    .text.NVIC_System_Low_Power_Disable:00000000 NVIC_System_Low_Power_Disable
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:263    .text.NVIC_System_Low_Power_Disable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:268    .text.SysTick_Clock_Source_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc8Kc4Bz.s:274    .text.SysTick_Clock_Source_Set:00000000 SysTick_Clock_Source_Set
 
 NO UNDEFINED SYMBOLS
