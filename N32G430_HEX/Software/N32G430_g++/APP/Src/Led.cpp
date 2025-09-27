@@ -52,14 +52,15 @@ LedError_t Led_RegisterInterface(const LedInterface_t* interface)
  */
 LedError_t Led_Init(uint8_t led_id, const LedConfig_t* config)
 {
+    // 检查系统是否初始化
     if (!system_initialized || hardware_interface == nullptr) {
         return LED_ERROR_NOT_INIT;
     }
-    
+    // 检查LED ID和配置参数
     if (!is_valid_led_id(led_id) || config == nullptr) {
         return LED_ERROR_INVALID_ID;
     }
-    
+    // 获取对应的LED控制器
     LedController_t* controller = get_led_controller(led_id);
     
     // 配置LED控制器
@@ -71,7 +72,8 @@ LedError_t Led_Init(uint8_t led_id, const LedConfig_t* config)
     
     // 调用硬件初始化
     LedError_t result = hardware_interface->init(led_id, config);
-    if (result == LED_OK) {
+    if (result == LED_OK) 
+    {
         controller->is_initialized = true;
     }
     
@@ -83,20 +85,29 @@ LedError_t Led_Init(uint8_t led_id, const LedConfig_t* config)
  */
 LedError_t Led_SetState(uint8_t led_id, LedState_t state)
 {
-    if (!is_valid_led_id(led_id)) {
+    //先判断ID是否合法和是否初始化
+    if (!is_valid_led_id(led_id))
+    {
         return LED_ERROR_INVALID_ID;
     }
-    
+    //输入ID，获取控制器
     LedController_t* controller = get_led_controller(led_id);
-    if (!controller->is_initialized) {
+    //判断是否初始化
+    if (!controller->is_initialized) 
+    {
         return LED_ERROR_NOT_INIT;
     }
-    
+    //调用硬件接口设置状态 控制器 -> 接口 -> 设置状态：指向函数指针
     LedError_t result = controller->interface->set_state(led_id, state);
-    if (result == LED_OK) {
-        if (state != LED_STATE_TOGGLE) {
+    if (result == LED_OK) 
+    {
+        // 更新当前状态（如果不是切换状态）
+        if (state != LED_STATE_TOGGLE) 
+        {
             controller->current_state = state;
-        } else {
+        }
+        else 
+        {
             // 切换状态
             controller->current_state = (controller->current_state == LED_STATE_ON) ? 
                                        LED_STATE_OFF : LED_STATE_ON;
@@ -111,15 +122,19 @@ LedError_t Led_SetState(uint8_t led_id, LedState_t state)
  */
 LedState_t Led_GetState(uint8_t led_id)
 {
-    if (!is_valid_led_id(led_id)) {
+    //先判断ID是否合法和是否初始化
+    if (!is_valid_led_id(led_id)) 
+    {
         return LED_STATE_OFF;
     }
-    
+    //输入ID，获取控制器
     LedController_t* controller = get_led_controller(led_id);
-    if (!controller->is_initialized) {
+    //判断是否初始化
+    if (!controller->is_initialized) 
+    {
         return LED_STATE_OFF;
     }
-    
+    //返回当前状态
     return controller->current_state;
 }
 
@@ -152,20 +167,24 @@ LedError_t Led_Toggle(uint8_t led_id)
  */
 LedError_t Led_BlinkUpdate(uint8_t led_id, uint32_t current_time)
 {
-    if (!is_valid_led_id(led_id)) {
+    if (!is_valid_led_id(led_id)) 
+    {
         return LED_ERROR_INVALID_ID;
     }
     
     LedController_t* controller = get_led_controller(led_id);
-    if (!controller->is_initialized) {
+    if (!controller->is_initialized) 
+    {
         return LED_ERROR_NOT_INIT;
     }
     
     // 检查是否需要切换状态
-    if (controller->config.blink_period > 0) {
+    if (controller->config.blink_period > 0) 
+    {
         uint32_t elapsed = current_time - controller->last_toggle_time;
         
-        if (elapsed >= controller->config.blink_period) {
+        if (elapsed >= controller->config.blink_period) 
+        {
             Led_Toggle(led_id);
             controller->last_toggle_time = current_time;
         }
@@ -179,15 +198,18 @@ LedError_t Led_BlinkUpdate(uint8_t led_id, uint32_t current_time)
  */
 LedError_t Led_SetBlinkPeriod(uint8_t led_id, uint32_t period_ms)
 {
+    //先判断ID是否合法和是否初始化
     if (!is_valid_led_id(led_id)) {
         return LED_ERROR_INVALID_ID;
     }
-    
+    //输入ID，获取控制器
     LedController_t* controller = get_led_controller(led_id);
-    if (!controller->is_initialized) {
+    //判断是否初始化
+    if (!controller->is_initialized) 
+    {
         return LED_ERROR_NOT_INIT;
     }
-    
+    //设置闪烁周期
     controller->config.blink_period = period_ms;
     return LED_OK;
 }
@@ -234,7 +256,9 @@ static bool is_valid_led_id(uint8_t led_id)
  */
 static LedController_t* get_led_controller(uint8_t led_id)
 {
-    if (is_valid_led_id(led_id)) {
+    
+    if (is_valid_led_id(led_id)) 
+    {
         return &led_controllers[led_id];
     }
     return nullptr;

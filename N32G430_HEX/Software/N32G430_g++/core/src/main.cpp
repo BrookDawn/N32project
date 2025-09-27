@@ -66,13 +66,14 @@ int main(void)
 	USART1_Init();
 	
 	/* 初始化LED系统 */
-	if (LedAdapter_N32G430_InitAllLeds() == LED_OK) {
+	if (LedAdapter_N32G430_InitAllLeds() == LED_OK) 
+	{
 		SEGGER_RTT_printf(0, "LED System initialized successfully!\r\n");
 		
 		// 配置LED闪烁
-		Led_SetBlinkPeriod(LED_ID_STATUS, LED_BLINK_SLOW);   // 状态LED慢闪
-		Led_SetBlinkPeriod(LED_ID_ERROR, LED_BLINK_FAST);    // 错误LED快闪
-		Led_SetBlinkPeriod(LED_ID_COMM, LED_BLINK_NORMAL);   // 通信LED正常闪烁
+		Led_SetBlinkPeriod(LED_ID_STATUS, 	LED_BLINK_SLOW);   		// 状态LED慢闪
+		Led_SetBlinkPeriod(LED_ID_ERROR, 	LED_BLINK_FAST);    	// 错误LED快闪
+		Led_SetBlinkPeriod(LED_ID_COMM, 	LED_BLINK_NORMAL);   	// 通信LED正常闪烁
 		
 		// 开启状态LED
 		Led_On(LED_ID_STATUS);
@@ -85,11 +86,12 @@ int main(void)
 		system_tick++;
 		
 		// 更新LED闪烁状态（每10ms调用一次）
-		if ((system_tick % 10) == 0) {
+		if ((system_tick % 10) == 0)
+		{
 			uint32_t current_time = system_tick;
-			Led_BlinkUpdate(LED_ID_STATUS, current_time);
-			Led_BlinkUpdate(LED_ID_ERROR, current_time);
-			Led_BlinkUpdate(LED_ID_COMM, current_time);
+			Led_BlinkUpdate(LED_ID_STATUS, 	current_time);
+			Led_BlinkUpdate(LED_ID_ERROR, 	current_time);
+			Led_BlinkUpdate(LED_ID_COMM, 	current_time);
 		}
 
 		/* 每2秒发送一次状态信息并演示LED控制 */

@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "ProPrj_BLDCcontroller_2025-09-27")(type "KiCad")(uri "$(KIPRJMOD)/ProPrj_BLDCcontroller_2025-09-27.pretty")(options "")(descr ""))
+)
