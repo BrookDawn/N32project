@@ -33,24 +33,24 @@ typedef struct {
 static N32G430_LedHwConfig_t led_hw_configs[MAX_LED_COUNT] = {
     // LED_ID_1 (PA1)
     {
-        .gpio_port = LED1_GPIO_PORT,
-        .gpio_pin = LED1_GPIO_PIN,
-        .gpio_clk = LED1_GPIO_CLK,
-        .is_configured = false
+        .gpio_port      = LED1_GPIO_PORT,
+        .gpio_pin       = LED1_GPIO_PIN,
+        .gpio_clk       = LED1_GPIO_CLK,
+        .is_configured  = false
     },
     // LED_ID_2 (PA2)  
     {
-        .gpio_port = LED2_GPIO_PORT,
-        .gpio_pin = LED2_GPIO_PIN,
-        .gpio_clk = LED2_GPIO_CLK,
-        .is_configured = false
+        .gpio_port      = LED2_GPIO_PORT,
+        .gpio_pin       = LED2_GPIO_PIN,
+        .gpio_clk       = LED2_GPIO_CLK,
+        .is_configured  = false
     },
-    // LED_ID_3 (PA3) - 注意：这里修正了BSP中的错误配置
+    // LED_ID_3 (PA3) 
     {
-        .gpio_port = GPIOA,
-        .gpio_pin = LED3_GPIO_PIN,
-        .gpio_clk = RCC_AHB_PERIPH_GPIOA,
-        .is_configured = false
+        .gpio_port      = LED3_GPIO_PORT,
+        .gpio_pin       = LED3_GPIO_PIN,
+        .gpio_clk       = LED3_GPIO_CLK,
+        .is_configured  = false
     },
     // 其他LED配置可以在这里添加
     {0}, {0}, {0}, {0}, {0}
@@ -71,10 +71,10 @@ static void configure_gpio_for_led(const N32G430_LedHwConfig_t* hw_config, bool 
  * @brief N32G430 LED硬件接口
  */
 static const LedInterface_t n32g430_led_interface = {
-    .init = n32g430_led_init,
-    .set_state = n32g430_led_set_state,
-    .get_state = n32g430_led_get_state,
-    .deinit = n32g430_led_deinit
+    .init       = n32g430_led_init,
+    .set_state  = n32g430_led_set_state,
+    .get_state  = n32g430_led_get_state,
+    .deinit     = n32g430_led_deinit
 };
 
 /* ==================== 公共API函数 ==================== */
@@ -96,20 +96,25 @@ LedError_t LedAdapter_N32G430_Init(void)
  */
 LedError_t LedAdapter_N32G430_InitAllLeds(void)
 {
+    // 首先初始化适配器
     LedError_t result = LedAdapter_N32G430_Init();
-    if (result != LED_OK) {
+    if (result != LED_OK) 
+    {
         return result;
     }
     
     // 初始化所有有效的LED
-    for (uint8_t i = 0; i < MAX_LED_COUNT; i++) {
-        if (led_hw_configs[i].gpio_port != nullptr) {
-            LedConfig_t config = {
-                .led_id = i,
-                .active_low = false,
-                .blink_period = 0  // 默认不闪烁
+    for (uint8_t i = 0; i < MAX_LED_COUNT; i++) 
+    {
+        if (led_hw_configs[i].gpio_port != nullptr) 
+        {
+            LedConfig_t config = 
+            {
+                .led_id         = i,
+                .active_low     = false,
+                .blink_period   = 0  // 默认不闪烁
             };
-            
+            //函数初始化
             Led_Init(i, &config);
         }
     }
@@ -126,13 +131,15 @@ LedError_t LedAdapter_N32G430_InitAllLeds(void)
  */
 static LedError_t n32g430_led_init(uint8_t led_id, const LedConfig_t* config)
 {
-    if (!is_valid_hw_led_id(led_id) || config == nullptr) {
+    if (!is_valid_hw_led_id(led_id) || config == nullptr) 
+    {
         return LED_ERROR_INVALID_ID;
     }
     
     N32G430_LedHwConfig_t* hw_config = &led_hw_configs[led_id];
     
-    if (hw_config->gpio_port == nullptr) {
+    if (hw_config->gpio_port == nullptr) 
+    {
         return LED_ERROR_INVALID_ID;
     }
     
@@ -152,17 +159,20 @@ static LedError_t n32g430_led_init(uint8_t led_id, const LedConfig_t* config)
  */
 static LedError_t n32g430_led_set_state(uint8_t led_id, LedState_t state)
 {
-    if (!is_valid_hw_led_id(led_id)) {
+    if (!is_valid_hw_led_id(led_id)) 
+    {
         return LED_ERROR_INVALID_ID;
     }
     
     N32G430_LedHwConfig_t* hw_config = &led_hw_configs[led_id];
     
-    if (!hw_config->is_configured) {
+    if (!hw_config->is_configured) 
+    {
         return LED_ERROR_NOT_INIT;
     }
     
-    switch (state) {
+    switch (state) 
+    {
         case LED_STATE_ON:
             LED_On(hw_config->gpio_port, hw_config->gpio_pin);
             break;
@@ -187,13 +197,15 @@ static LedError_t n32g430_led_set_state(uint8_t led_id, LedState_t state)
  */
 static LedState_t n32g430_led_get_state(uint8_t led_id)
 {
-    if (!is_valid_hw_led_id(led_id)) {
+    if (!is_valid_hw_led_id(led_id)) 
+    {
         return LED_STATE_OFF;
     }
     
     N32G430_LedHwConfig_t* hw_config = &led_hw_configs[led_id];
     
-    if (!hw_config->is_configured) {
+    if (!hw_config->is_configured) 
+    {
         return LED_STATE_OFF;
     }
     
@@ -208,13 +220,15 @@ static LedState_t n32g430_led_get_state(uint8_t led_id)
  */
 static LedError_t n32g430_led_deinit(uint8_t led_id)
 {
-    if (!is_valid_hw_led_id(led_id)) {
+    if (!is_valid_hw_led_id(led_id)) 
+    {
         return LED_ERROR_INVALID_ID;
     }
     
     N32G430_LedHwConfig_t* hw_config = &led_hw_configs[led_id];
     
-    if (hw_config->is_configured) {
+    if (hw_config->is_configured) 
+    {
         // 关闭LED
         LED_Off(hw_config->gpio_port, hw_config->gpio_pin);
         hw_config->is_configured = false;

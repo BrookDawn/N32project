@@ -31,10 +31,10 @@ typedef enum {
  * @brief LED错误代码枚举
  */
 typedef enum {
-    LED_OK = 0,             /**< 操作成功 */
-    LED_ERROR = -1,         /**< 一般错误 */
-    LED_ERROR_INVALID_ID = -2, /**< 无效的LED ID */
-    LED_ERROR_NOT_INIT = -3    /**< LED未初始化 */
+    LED_OK = 0,                 /**< 操作成功 */
+    LED_ERROR = -1,             /**< 一般错误 */
+    LED_ERROR_INVALID_ID = -2,  /**< 无效的LED ID */
+    LED_ERROR_NOT_INIT = -3     /**< LED未初始化 */
 } LedError_t;
 
 /**
