@@ -1,0 +1,427 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"tim.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../core/src/tim.c"
+  20              		.section	.text.MX_TIM4_Init,"ax",%progbits
+  21              		.align	1
+  22              		.global	MX_TIM4_Init
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	MX_TIM4_Init:
+  28              	.LFB130:
+   1:../core/src/tim.c **** #include "tim.h"
+   2:../core/src/tim.c **** #include "n32g430_rcc.h"
+   3:../core/src/tim.c **** #include "misc.h"
+   4:../core/src/tim.c **** #include "system_n32g430.h"
+   5:../core/src/tim.c **** 
+   6:../core/src/tim.c **** __attribute__((weak)) void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
+   7:../core/src/tim.c **** extern uint32_t SystemCoreClock;
+   8:../core/src/tim.c **** 
+   9:../core/src/tim.c **** TIM_HandleTypeDef htim4;
+  10:../core/src/tim.c **** 
+  11:../core/src/tim.c **** void MX_TIM4_Init(void)
+  12:../core/src/tim.c **** {
+  29              		.loc 1 12 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 24
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  13:../core/src/tim.c ****     uint32_t prescaler = (SystemCoreClock / 1000000U) - 1U;
+  33              		.loc 1 13 5 view .LVU1
+  12:../core/src/tim.c ****     uint32_t prescaler = (SystemCoreClock / 1000000U) - 1U;
+  34              		.loc 1 12 1 is_stmt 0 view .LVU2
+  35 0000 70B5     		push	{r4, r5, r6, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 16
+  38              		.cfi_offset 4, -16
+  39              		.cfi_offset 5, -12
+  40              		.cfi_offset 6, -8
+  41              		.cfi_offset 14, -4
+  42              		.loc 1 13 43 view .LVU3
+  43 0002 174B     		ldr	r3, .L2
+  14:../core/src/tim.c ****     TIM_TimeBaseInitType TIM_BaseStruct;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s 			page 2
+
+
+  15:../core/src/tim.c **** 
+  16:../core/src/tim.c ****     RCC_APB1_Peripheral_Clock_Enable(RCC_APB1_PERIPH_TIM4);
+  17:../core/src/tim.c **** 
+  18:../core/src/tim.c ****     TIM_Base_Struct_Initialize(&TIM_BaseStruct);
+  19:../core/src/tim.c ****     TIM_BaseStruct.Prescaler = (uint16_t)prescaler;
+  20:../core/src/tim.c ****     TIM_BaseStruct.Period = 1000U - 1U;
+  21:../core/src/tim.c ****     TIM_BaseStruct.CntMode = TIM_CNT_MODE_UP;
+  22:../core/src/tim.c ****     TIM_BaseStruct.ClkDiv = TIM_CLK_DIV1;
+  23:../core/src/tim.c **** 
+  24:../core/src/tim.c ****     TIM_Base_Initialize(TIM4, &TIM_BaseStruct);
+  44              		.loc 1 24 5 view .LVU4
+  45 0004 174D     		ldr	r5, .L2+4
+  13:../core/src/tim.c ****     TIM_TimeBaseInitType TIM_BaseStruct;
+  46              		.loc 1 13 43 view .LVU5
+  47 0006 1C68     		ldr	r4, [r3]
+  48 0008 174B     		ldr	r3, .L2+8
+  49 000a B4FBF3F4 		udiv	r4, r4, r3
+  12:../core/src/tim.c ****     uint32_t prescaler = (SystemCoreClock / 1000000U) - 1U;
+  50              		.loc 1 12 1 view .LVU6
+  51 000e 86B0     		sub	sp, sp, #24
+  52              	.LCFI1:
+  53              		.cfi_def_cfa_offset 40
+  16:../core/src/tim.c **** 
+  54              		.loc 1 16 5 view .LVU7
+  55 0010 0420     		movs	r0, #4
+  56 0012 FFF7FEFF 		bl	RCC_APB1_Peripheral_Clock_Enable
+  57              	.LVL0:
+  18:../core/src/tim.c ****     TIM_BaseStruct.Prescaler = (uint16_t)prescaler;
+  58              		.loc 1 18 5 view .LVU8
+  59 0016 02A8     		add	r0, sp, #8
+  60 0018 FFF7FEFF 		bl	TIM_Base_Struct_Initialize
+  61              	.LVL1:
+  13:../core/src/tim.c ****     TIM_TimeBaseInitType TIM_BaseStruct;
+  62              		.loc 1 13 14 view .LVU9
+  63 001c 013C     		subs	r4, r4, #1
+  64              	.LVL2:
+  14:../core/src/tim.c **** 
+  65              		.loc 1 14 5 is_stmt 1 view .LVU10
+  16:../core/src/tim.c **** 
+  66              		.loc 1 16 5 view .LVU11
+  18:../core/src/tim.c ****     TIM_BaseStruct.Prescaler = (uint16_t)prescaler;
+  67              		.loc 1 18 5 view .LVU12
+  19:../core/src/tim.c ****     TIM_BaseStruct.Period = 1000U - 1U;
+  68              		.loc 1 19 5 view .LVU13
+  20:../core/src/tim.c ****     TIM_BaseStruct.CntMode = TIM_CNT_MODE_UP;
+  69              		.loc 1 20 27 is_stmt 0 view .LVU14
+  70 001e 40F2E733 		movw	r3, #999
+  21:../core/src/tim.c ****     TIM_BaseStruct.ClkDiv = TIM_CLK_DIV1;
+  71              		.loc 1 21 28 view .LVU15
+  72 0022 0026     		movs	r6, #0
+  73              		.loc 1 24 5 view .LVU16
+  74 0024 02A9     		add	r1, sp, #8
+  75 0026 2846     		mov	r0, r5
+  20:../core/src/tim.c ****     TIM_BaseStruct.CntMode = TIM_CNT_MODE_UP;
+  76              		.loc 1 20 27 view .LVU17
+  77 0028 0393     		str	r3, [sp, #12]
+  19:../core/src/tim.c ****     TIM_BaseStruct.Period = 1000U - 1U;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s 			page 3
+
+
+  78              		.loc 1 19 32 view .LVU18
+  79 002a ADF80840 		strh	r4, [sp, #8]	@ movhi
+  20:../core/src/tim.c ****     TIM_BaseStruct.CntMode = TIM_CNT_MODE_UP;
+  80              		.loc 1 20 5 is_stmt 1 view .LVU19
+  21:../core/src/tim.c ****     TIM_BaseStruct.ClkDiv = TIM_CLK_DIV1;
+  81              		.loc 1 21 5 view .LVU20
+  22:../core/src/tim.c **** 
+  82              		.loc 1 22 5 view .LVU21
+  83              		.loc 1 24 5 view .LVU22
+  21:../core/src/tim.c ****     TIM_BaseStruct.ClkDiv = TIM_CLK_DIV1;
+  84              		.loc 1 21 28 is_stmt 0 view .LVU23
+  85 002e ADF80A60 		strh	r6, [sp, #10]	@ movhi
+  86              		.loc 1 24 5 view .LVU24
+  87 0032 FFF7FEFF 		bl	TIM_Base_Initialize
+  88              	.LVL3:
+  25:../core/src/tim.c ****     TIM_Base_Count_Set(TIM4, 0);
+  89              		.loc 1 25 5 is_stmt 1 view .LVU25
+  90 0036 3146     		mov	r1, r6
+  91 0038 2846     		mov	r0, r5
+  92 003a FFF7FEFF 		bl	TIM_Base_Count_Set
+  93              	.LVL4:
+  26:../core/src/tim.c ****     TIM_Interrupt_Status_Clear(TIM4, TIM_INT_UPDATE);
+  94              		.loc 1 26 5 view .LVU26
+  95 003e 0121     		movs	r1, #1
+  96 0040 2846     		mov	r0, r5
+  97 0042 FFF7FEFF 		bl	TIM_Interrupt_Status_Clear
+  98              	.LVL5:
+  27:../core/src/tim.c **** 
+  28:../core/src/tim.c ****     NVIC_InitType NVIC_InitStructure;
+  99              		.loc 1 28 5 view .LVU27
+  29:../core/src/tim.c ****     NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;
+ 100              		.loc 1 29 5 view .LVU28
+  30:../core/src/tim.c ****     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+ 101              		.loc 1 30 5 view .LVU29
+  31:../core/src/tim.c ****     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+ 102              		.loc 1 31 5 view .LVU30
+  32:../core/src/tim.c ****     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+ 103              		.loc 1 32 5 view .LVU31
+  29:../core/src/tim.c ****     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+ 104              		.loc 1 29 40 is_stmt 0 view .LVU32
+ 105 0046 094B     		ldr	r3, .L2+12
+ 106 0048 0193     		str	r3, [sp, #4]
+  33:../core/src/tim.c ****     NVIC_Initializes(&NVIC_InitStructure);
+ 107              		.loc 1 33 5 is_stmt 1 view .LVU33
+ 108 004a 01A8     		add	r0, sp, #4
+ 109 004c FFF7FEFF 		bl	NVIC_Initializes
+ 110              	.LVL6:
+  34:../core/src/tim.c **** 
+  35:../core/src/tim.c ****     htim4.Instance = TIM4;
+ 111              		.loc 1 35 5 view .LVU34
+ 112              		.loc 1 35 20 is_stmt 0 view .LVU35
+ 113 0050 074B     		ldr	r3, .L2+16
+  36:../core/src/tim.c ****     htim4.Prescaler = prescaler;
+  37:../core/src/tim.c ****     htim4.Period = TIM_BaseStruct.Period;
+ 114              		.loc 1 37 34 view .LVU36
+ 115 0052 BDF80C20 		ldrh	r2, [sp, #12]
+ 116 0056 9A60     		str	r2, [r3, #8]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s 			page 4
+
+
+  36:../core/src/tim.c ****     htim4.Prescaler = prescaler;
+ 117              		.loc 1 36 21 view .LVU37
+ 118 0058 C3E90054 		strd	r5, r4, [r3]
+ 119              		.loc 1 37 5 is_stmt 1 view .LVU38
+  38:../core/src/tim.c **** }
+ 120              		.loc 1 38 1 is_stmt 0 view .LVU39
+ 121 005c 06B0     		add	sp, sp, #24
+ 122              	.LCFI2:
+ 123              		.cfi_def_cfa_offset 16
+ 124              		@ sp needed
+ 125 005e 70BD     		pop	{r4, r5, r6, pc}
+ 126              	.LVL7:
+ 127              	.L3:
+ 128              		.loc 1 38 1 view .LVU40
+ 129              		.align	2
+ 130              	.L2:
+ 131 0060 00000000 		.word	SystemCoreClock
+ 132 0064 00080040 		.word	1073743872
+ 133 0068 40420F00 		.word	1000000
+ 134 006c 1D010101 		.word	16843037
+ 135 0070 00000000 		.word	htim4
+ 136              		.cfi_endproc
+ 137              	.LFE130:
+ 139              		.section	.text.HAL_TIM_Base_Start_IT,"ax",%progbits
+ 140              		.align	1
+ 141              		.global	HAL_TIM_Base_Start_IT
+ 142              		.syntax unified
+ 143              		.thumb
+ 144              		.thumb_func
+ 146              	HAL_TIM_Base_Start_IT:
+ 147              	.LVL8:
+ 148              	.LFB131:
+  39:../core/src/tim.c **** 
+  40:../core/src/tim.c **** HAL_StatusTypeDef HAL_TIM_Base_Start_IT(TIM_HandleTypeDef *htim)
+  41:../core/src/tim.c **** {
+ 149              		.loc 1 41 1 is_stmt 1 view -0
+ 150              		.cfi_startproc
+ 151              		@ args = 0, pretend = 0, frame = 0
+ 152              		@ frame_needed = 0, uses_anonymous_args = 0
+  42:../core/src/tim.c ****     if (htim == NULL || htim->Instance == NULL)
+ 153              		.loc 1 42 5 view .LVU42
+  41:../core/src/tim.c ****     if (htim == NULL || htim->Instance == NULL)
+ 154              		.loc 1 41 1 is_stmt 0 view .LVU43
+ 155 0000 10B5     		push	{r4, lr}
+ 156              	.LCFI3:
+ 157              		.cfi_def_cfa_offset 8
+ 158              		.cfi_offset 4, -8
+ 159              		.cfi_offset 14, -4
+ 160              		.loc 1 42 8 view .LVU44
+ 161 0002 0446     		mov	r4, r0
+ 162 0004 68B1     		cbz	r0, .L7
+ 163              		.loc 1 42 29 discriminator 1 view .LVU45
+ 164 0006 0068     		ldr	r0, [r0]
+ 165              	.LVL9:
+ 166              		.loc 1 42 22 discriminator 1 view .LVU46
+ 167 0008 58B1     		cbz	r0, .L7
+  43:../core/src/tim.c ****     {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s 			page 5
+
+
+  44:../core/src/tim.c ****         return HAL_ERROR;
+  45:../core/src/tim.c ****     }
+  46:../core/src/tim.c **** 
+  47:../core/src/tim.c ****     TIM_Interrupt_Status_Clear(htim->Instance, TIM_INT_UPDATE);
+ 168              		.loc 1 47 5 is_stmt 1 view .LVU47
+ 169 000a 0121     		movs	r1, #1
+ 170 000c FFF7FEFF 		bl	TIM_Interrupt_Status_Clear
+ 171              	.LVL10:
+  48:../core/src/tim.c ****     TIM_Interrupt_Enable(htim->Instance, TIM_INT_UPDATE);
+ 172              		.loc 1 48 5 view .LVU48
+ 173 0010 2068     		ldr	r0, [r4]
+ 174 0012 0121     		movs	r1, #1
+ 175 0014 FFF7FEFF 		bl	TIM_Interrupt_Enable
+ 176              	.LVL11:
+  49:../core/src/tim.c ****     TIM_On(htim->Instance);
+ 177              		.loc 1 49 5 view .LVU49
+ 178 0018 2068     		ldr	r0, [r4]
+ 179 001a FFF7FEFF 		bl	TIM_On
+ 180              	.LVL12:
+  50:../core/src/tim.c **** 
+  51:../core/src/tim.c ****     return HAL_OK;
+ 181              		.loc 1 51 5 view .LVU50
+ 182              		.loc 1 51 12 is_stmt 0 view .LVU51
+ 183 001e 0020     		movs	r0, #0
+ 184              	.L5:
+  52:../core/src/tim.c **** }
+ 185              		.loc 1 52 1 view .LVU52
+ 186 0020 10BD     		pop	{r4, pc}
+ 187              	.LVL13:
+ 188              	.L7:
+  44:../core/src/tim.c ****     }
+ 189              		.loc 1 44 16 view .LVU53
+ 190 0022 0120     		movs	r0, #1
+ 191 0024 FCE7     		b	.L5
+ 192              		.cfi_endproc
+ 193              	.LFE131:
+ 195              		.section	.text.HAL_TIM_PeriodElapsedCallback,"ax",%progbits
+ 196              		.align	1
+ 197              		.weak	HAL_TIM_PeriodElapsedCallback
+ 198              		.syntax unified
+ 199              		.thumb
+ 200              		.thumb_func
+ 202              	HAL_TIM_PeriodElapsedCallback:
+ 203              	.LVL14:
+ 204              	.LFB133:
+  53:../core/src/tim.c **** 
+  54:../core/src/tim.c **** void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
+  55:../core/src/tim.c **** {
+  56:../core/src/tim.c ****     if (TIM_Interrupt_Status_Get(htim->Instance, TIM_INT_UPDATE) == SET)
+  57:../core/src/tim.c ****     {
+  58:../core/src/tim.c ****         TIM_Interrupt_Status_Clear(htim->Instance, TIM_INT_UPDATE);
+  59:../core/src/tim.c ****         HAL_TIM_PeriodElapsedCallback(htim);
+  60:../core/src/tim.c ****     }
+  61:../core/src/tim.c **** }
+  62:../core/src/tim.c **** 
+  63:../core/src/tim.c **** __attribute__((weak)) void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+  64:../core/src/tim.c **** {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s 			page 6
+
+
+ 205              		.loc 1 64 1 is_stmt 1 view -0
+ 206              		.cfi_startproc
+ 207              		@ args = 0, pretend = 0, frame = 0
+ 208              		@ frame_needed = 0, uses_anonymous_args = 0
+ 209              		@ link register save eliminated.
+  65:../core/src/tim.c ****     (void)htim;
+ 210              		.loc 1 65 5 view .LVU55
+  66:../core/src/tim.c **** }
+ 211              		.loc 1 66 1 is_stmt 0 view .LVU56
+ 212 0000 7047     		bx	lr
+ 213              		.cfi_endproc
+ 214              	.LFE133:
+ 216              		.section	.text.HAL_TIM_IRQHandler,"ax",%progbits
+ 217              		.align	1
+ 218              		.global	HAL_TIM_IRQHandler
+ 219              		.syntax unified
+ 220              		.thumb
+ 221              		.thumb_func
+ 223              	HAL_TIM_IRQHandler:
+ 224              	.LVL15:
+ 225              	.LFB132:
+  55:../core/src/tim.c ****     if (TIM_Interrupt_Status_Get(htim->Instance, TIM_INT_UPDATE) == SET)
+ 226              		.loc 1 55 1 is_stmt 1 view -0
+ 227              		.cfi_startproc
+ 228              		@ args = 0, pretend = 0, frame = 0
+ 229              		@ frame_needed = 0, uses_anonymous_args = 0
+  56:../core/src/tim.c ****     {
+ 230              		.loc 1 56 5 view .LVU58
+  55:../core/src/tim.c ****     if (TIM_Interrupt_Status_Get(htim->Instance, TIM_INT_UPDATE) == SET)
+ 231              		.loc 1 55 1 is_stmt 0 view .LVU59
+ 232 0000 10B5     		push	{r4, lr}
+ 233              	.LCFI4:
+ 234              		.cfi_def_cfa_offset 8
+ 235              		.cfi_offset 4, -8
+ 236              		.cfi_offset 14, -4
+  56:../core/src/tim.c ****     {
+ 237              		.loc 1 56 9 view .LVU60
+ 238 0002 0121     		movs	r1, #1
+  55:../core/src/tim.c ****     if (TIM_Interrupt_Status_Get(htim->Instance, TIM_INT_UPDATE) == SET)
+ 239              		.loc 1 55 1 view .LVU61
+ 240 0004 0446     		mov	r4, r0
+  56:../core/src/tim.c ****     {
+ 241              		.loc 1 56 9 view .LVU62
+ 242 0006 0068     		ldr	r0, [r0]
+ 243              	.LVL16:
+  56:../core/src/tim.c ****     {
+ 244              		.loc 1 56 9 view .LVU63
+ 245 0008 FFF7FEFF 		bl	TIM_Interrupt_Status_Get
+ 246              	.LVL17:
+  56:../core/src/tim.c ****     {
+ 247              		.loc 1 56 8 discriminator 1 view .LVU64
+ 248 000c 0128     		cmp	r0, #1
+  56:../core/src/tim.c ****     {
+ 249              		.loc 1 56 9 view .LVU65
+ 250 000e 0146     		mov	r1, r0
+  56:../core/src/tim.c ****     {
+ 251              		.loc 1 56 8 discriminator 1 view .LVU66
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s 			page 7
+
+
+ 252 0010 05D1     		bne	.L9
+  58:../core/src/tim.c ****         HAL_TIM_PeriodElapsedCallback(htim);
+ 253              		.loc 1 58 9 is_stmt 1 view .LVU67
+ 254 0012 2068     		ldr	r0, [r4]
+ 255 0014 FFF7FEFF 		bl	TIM_Interrupt_Status_Clear
+ 256              	.LVL18:
+  59:../core/src/tim.c ****     }
+ 257              		.loc 1 59 9 view .LVU68
+ 258 0018 2046     		mov	r0, r4
+ 259 001a FFF7FEFF 		bl	HAL_TIM_PeriodElapsedCallback
+ 260              	.LVL19:
+ 261              	.L9:
+  61:../core/src/tim.c **** 
+ 262              		.loc 1 61 1 is_stmt 0 view .LVU69
+ 263 001e 10BD     		pop	{r4, pc}
+  61:../core/src/tim.c **** 
+ 264              		.loc 1 61 1 view .LVU70
+ 265              		.cfi_endproc
+ 266              	.LFE132:
+ 268              		.global	htim4
+ 269              		.section	.bss.htim4,"aw",%nobits
+ 270              		.align	2
+ 273              	htim4:
+ 274 0000 00000000 		.space	12
+ 274      00000000 
+ 274      00000000 
+ 275              		.text
+ 276              	.Letext0:
+ 277              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 278              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 279              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 280              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_tim.h"
+ 281              		.file 6 "../firmware/n32g430_std_periph_driver/inc/misc.h"
+ 282              		.file 7 "../core/inc/hal_compat.h"
+ 283              		.file 8 "../core/inc/tim.h"
+ 284              		.file 9 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 tim.c
+C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s:21     .text.MX_TIM4_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s:27     .text.MX_TIM4_Init:00000000 MX_TIM4_Init
+C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s:131    .text.MX_TIM4_Init:00000060 $d
+C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s:273    .bss.htim4:00000000 htim4
+C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s:140    .text.HAL_TIM_Base_Start_IT:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s:146    .text.HAL_TIM_Base_Start_IT:00000000 HAL_TIM_Base_Start_IT
+C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s:196    .text.HAL_TIM_PeriodElapsedCallback:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s:202    .text.HAL_TIM_PeriodElapsedCallback:00000000 HAL_TIM_PeriodElapsedCallback
+C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s:217    .text.HAL_TIM_IRQHandler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s:223    .text.HAL_TIM_IRQHandler:00000000 HAL_TIM_IRQHandler
+C:\Users\Dawn\AppData\Local\Temp\ccJvkqWa.s:270    .bss.htim4:00000000 $d
+
+UNDEFINED SYMBOLS
+RCC_APB1_Peripheral_Clock_Enable
+TIM_Base_Struct_Initialize
+TIM_Base_Initialize
+TIM_Base_Count_Set
+TIM_Interrupt_Status_Clear
+NVIC_Initializes
+SystemCoreClock
+TIM_Interrupt_Enable
+TIM_On
+TIM_Interrupt_Status_Get
