@@ -7,6 +7,8 @@
 #include "bsp_usart.h"
 
 #define MODBUS_FUNC_READ_HOLDING_REGISTERS   0x03U
+#define MODBUS_FUNC_WRITE_SINGLE_REGISTER    0x06U
+#define MODBUS_FUNC_WRITE_MULTIPLE_REGISTERS 0x10U
 #define MODBUS_EXCEPTION_MASK                0x80U
 
 #define MODBUS_MAX_REGS_PER_REQUEST          60U
@@ -20,15 +22,30 @@ static uint8_t s_slaveAddress = MODBUS_SLAVE_ADDRESS_DEFAULT;
 static uint16_t s_registerCache[MODBUS_REGISTER_COUNT];
 static uint16_t s_nextRegister = MODBUS_REGISTER_START;
 
+/* 写请求队列 */
+static ModbusWriteRequest_t s_writeQueue[MODBUS_WRITE_QUEUE_SIZE];
+static uint8_t s_writeQueueHead = 0;
+static uint8_t s_writeQueueTail = 0;
+static uint8_t s_writeQueueCount = 0;
+
 static uint16_t ModbusMaster_CalcCRC(const uint8_t* data, uint16_t length);
 static bool ModbusMaster_ReadBytes(uint8_t* buffer, uint16_t length);
 static bool ModbusMaster_ReadHoldingRegisters(uint16_t startReg, uint16_t quantity, uint16_t* dest);
+static bool ModbusMaster_ExecuteWriteSingle(uint16_t address, uint16_t value);
+static bool ModbusMaster_ExecuteWriteMultiple(uint16_t address, uint16_t count, const uint16_t* values);
+static bool ModbusMaster_ProcessWriteQueue(void);
 
 void ModbusMaster_Init(uint8_t slaveAddress)
 {
     s_slaveAddress = slaveAddress;
     s_nextRegister = MODBUS_REGISTER_START;
     memset(s_registerCache, 0, sizeof(s_registerCache));
+
+    /* 初始化写队列 */
+    s_writeQueueHead = 0;
+    s_writeQueueTail = 0;
+    s_writeQueueCount = 0;
+    memset(s_writeQueue, 0, sizeof(s_writeQueue));
 
     USART2_Init();
     USART2_FlushRxBuffer();
@@ -39,6 +56,15 @@ void ModbusMaster_Init(uint8_t slaveAddress)
 
 void ModbusMaster_Task(void)
 {
+    /* 优先处理写请求队列 */
+    if(s_writeQueueCount > 0)
+    {
+        ModbusMaster_ProcessWriteQueue();
+        SysTick_Delay_Ms(MODBUS_INTER_REQUEST_DELAY_MS);
+        return;
+    }
+
+    /* 定时轮询读取寄存器 */
     uint16_t start = s_nextRegister;
     uint16_t remaining = (MODBUS_REGISTER_END - start) + 1U;
     uint16_t quantity = (remaining > MODBUS_MAX_REGS_PER_REQUEST) ? MODBUS_MAX_REGS_PER_REQUEST : remaining;
@@ -184,15 +210,24 @@ static bool ModbusMaster_ReadBytes(uint8_t* buffer, uint16_t length)
         return false;
     }
 
-    for(uint16_t i = 0; i < length; i++)
+    uint32_t timeout = MODBUS_RESPONSE_TIMEOUT_MS;
+    uint16_t received = 0;
+
+    while(received < length && timeout > 0)
     {
-        if(!USART2_ReadByteTimeout(&buffer[i], MODBUS_RESPONSE_TIMEOUT_MS))
+        uint16_t count = USART2_GetRxData(&buffer[received], length - received);
+        if(count > 0)
         {
-            return false;
+            received += count;
+        }
+        else
+        {
+            SysTick_Delay_Ms(1);
+            timeout--;
         }
     }
 
-    return true;
+    return (received == length);
 }
 
 static uint16_t ModbusMaster_CalcCRC(const uint8_t* data, uint16_t length)
@@ -216,4 +251,238 @@ static uint16_t ModbusMaster_CalcCRC(const uint8_t* data, uint16_t length)
     }
 
     return crc;
+}
+
+/* 写单个寄存器实现 (功能码0x06) */
+static bool ModbusMaster_ExecuteWriteSingle(uint16_t address, uint16_t value)
+{
+    uint8_t txFrame[8];
+    txFrame[0] = s_slaveAddress;
+    txFrame[1] = MODBUS_FUNC_WRITE_SINGLE_REGISTER;
+    txFrame[2] = (uint8_t)(address >> 8);
+    txFrame[3] = (uint8_t)(address & 0xFFU);
+    txFrame[4] = (uint8_t)(value >> 8);
+    txFrame[5] = (uint8_t)(value & 0xFFU);
+
+    uint16_t crc = ModbusMaster_CalcCRC(txFrame, 6U);
+    txFrame[6] = (uint8_t)(crc & 0xFFU);
+    txFrame[7] = (uint8_t)(crc >> 8);
+
+    USART2_FlushRxBuffer();
+    USART2_SendArray(txFrame, sizeof(txFrame));
+
+    /* 读取响应 - 写单个寄存器响应与请求帧相同 */
+    uint8_t rxFrame[8];
+    if(!ModbusMaster_ReadBytes(rxFrame, 8U))
+    {
+        SEGGER_RTT_printf(0, "[Modbus] Write single timeout\r\n");
+        return false;
+    }
+
+    /* 验证从机地址 */
+    if(rxFrame[0] != s_slaveAddress)
+    {
+        return false;
+    }
+
+    /* 检查异常响应 */
+    if(rxFrame[1] == (MODBUS_FUNC_WRITE_SINGLE_REGISTER | MODBUS_EXCEPTION_MASK))
+    {
+        SEGGER_RTT_printf(0, "[Modbus] Write single exception: 0x%02X\r\n", rxFrame[2]);
+        return false;
+    }
+
+    /* 验证功能码 */
+    if(rxFrame[1] != MODBUS_FUNC_WRITE_SINGLE_REGISTER)
+    {
+        return false;
+    }
+
+    /* 验证CRC */
+    uint16_t crcCalc = ModbusMaster_CalcCRC(rxFrame, 6U);
+    uint16_t crcResp = (uint16_t)rxFrame[6] | ((uint16_t)rxFrame[7] << 8);
+
+    if(crcCalc != crcResp)
+    {
+        SEGGER_RTT_printf(0, "[Modbus] Write single CRC error\r\n");
+        return false;
+    }
+
+    /* 验证响应的地址和值 */
+    uint16_t respAddr = ((uint16_t)rxFrame[2] << 8) | rxFrame[3];
+    uint16_t respValue = ((uint16_t)rxFrame[4] << 8) | rxFrame[5];
+
+    if(respAddr != address || respValue != value)
+    {
+        SEGGER_RTT_printf(0, "[Modbus] Write single echo mismatch\r\n");
+        return false;
+    }
+
+    SEGGER_RTT_printf(0, "[Modbus] Write OK: 0x%04X = 0x%04X\r\n", address, value);
+    return true;
+}
+
+/* 写多个寄存器实现 (功能码0x10) */
+static bool ModbusMaster_ExecuteWriteMultiple(uint16_t address, uint16_t count, const uint16_t* values)
+{
+    if(values == NULL || count == 0U || count > MODBUS_MAX_WRITE_REGS)
+    {
+        return false;
+    }
+
+    uint8_t txFrame[7 + MODBUS_MAX_WRITE_REGS * 2];
+    txFrame[0] = s_slaveAddress;
+    txFrame[1] = MODBUS_FUNC_WRITE_MULTIPLE_REGISTERS;
+    txFrame[2] = (uint8_t)(address >> 8);
+    txFrame[3] = (uint8_t)(address & 0xFFU);
+    txFrame[4] = (uint8_t)(count >> 8);
+    txFrame[5] = (uint8_t)(count & 0xFFU);
+    txFrame[6] = (uint8_t)(count * 2U);
+
+    /* 填充数据 */
+    for(uint16_t i = 0; i < count; i++)
+    {
+        txFrame[7 + i * 2] = (uint8_t)(values[i] >> 8);
+        txFrame[7 + i * 2 + 1] = (uint8_t)(values[i] & 0xFFU);
+    }
+
+    uint16_t frameLen = 7U + count * 2U;
+    uint16_t crc = ModbusMaster_CalcCRC(txFrame, frameLen);
+    txFrame[frameLen] = (uint8_t)(crc & 0xFFU);
+    txFrame[frameLen + 1] = (uint8_t)(crc >> 8);
+
+    USART2_FlushRxBuffer();
+    USART2_SendArray(txFrame, frameLen + 2U);
+
+    /* 读取响应 - 写多个寄存器响应为8字节 */
+    uint8_t rxFrame[8];
+    if(!ModbusMaster_ReadBytes(rxFrame, 8U))
+    {
+        SEGGER_RTT_printf(0, "[Modbus] Write multiple timeout\r\n");
+        return false;
+    }
+
+    /* 验证从机地址 */
+    if(rxFrame[0] != s_slaveAddress)
+    {
+        return false;
+    }
+
+    /* 检查异常响应 */
+    if(rxFrame[1] == (MODBUS_FUNC_WRITE_MULTIPLE_REGISTERS | MODBUS_EXCEPTION_MASK))
+    {
+        SEGGER_RTT_printf(0, "[Modbus] Write multiple exception: 0x%02X\r\n", rxFrame[2]);
+        return false;
+    }
+
+    /* 验证功能码 */
+    if(rxFrame[1] != MODBUS_FUNC_WRITE_MULTIPLE_REGISTERS)
+    {
+        return false;
+    }
+
+    /* 验证CRC */
+    uint16_t crcCalc = ModbusMaster_CalcCRC(rxFrame, 6U);
+    uint16_t crcResp = (uint16_t)rxFrame[6] | ((uint16_t)rxFrame[7] << 8);
+
+    if(crcCalc != crcResp)
+    {
+        SEGGER_RTT_printf(0, "[Modbus] Write multiple CRC error\r\n");
+        return false;
+    }
+
+    /* 验证响应的地址和数量 */
+    uint16_t respAddr = ((uint16_t)rxFrame[2] << 8) | rxFrame[3];
+    uint16_t respCount = ((uint16_t)rxFrame[4] << 8) | rxFrame[5];
+
+    if(respAddr != address || respCount != count)
+    {
+        SEGGER_RTT_printf(0, "[Modbus] Write multiple echo mismatch\r\n");
+        return false;
+    }
+
+    SEGGER_RTT_printf(0, "[Modbus] Write OK: 0x%04X (%u regs)\r\n", address, count);
+    return true;
+}
+
+/* 处理写请求队列 */
+static bool ModbusMaster_ProcessWriteQueue(void)
+{
+    if(s_writeQueueCount == 0)
+    {
+        return false;
+    }
+
+    ModbusWriteRequest_t* req = &s_writeQueue[s_writeQueueHead];
+    bool result = false;
+
+    if(req->type == MODBUS_WRITE_SINGLE)
+    {
+        result = ModbusMaster_ExecuteWriteSingle(req->address, req->values[0]);
+    }
+    else if(req->type == MODBUS_WRITE_MULTIPLE)
+    {
+        result = ModbusMaster_ExecuteWriteMultiple(req->address, req->count, req->values);
+    }
+
+    /* 从队列移除 */
+    s_writeQueueHead = (s_writeQueueHead + 1U) % MODBUS_WRITE_QUEUE_SIZE;
+    s_writeQueueCount--;
+
+    return result;
+}
+
+/* 公开API: 写单个寄存器 (添加到队列) */
+bool ModbusMaster_WriteSingleRegister(uint16_t address, uint16_t value)
+{
+    if(s_writeQueueCount >= MODBUS_WRITE_QUEUE_SIZE)
+    {
+        SEGGER_RTT_printf(0, "[Modbus] Write queue full\r\n");
+        return false;
+    }
+
+    ModbusWriteRequest_t* req = &s_writeQueue[s_writeQueueTail];
+    req->type = MODBUS_WRITE_SINGLE;
+    req->address = address;
+    req->count = 1U;
+    req->values[0] = value;
+
+    s_writeQueueTail = (s_writeQueueTail + 1U) % MODBUS_WRITE_QUEUE_SIZE;
+    s_writeQueueCount++;
+
+    SEGGER_RTT_printf(0, "[Modbus] Queued write single: 0x%04X = 0x%04X\r\n", address, value);
+    return true;
+}
+
+/* 公开API: 写多个寄存器 (添加到队列) */
+bool ModbusMaster_WriteMultipleRegisters(uint16_t address, uint16_t count, const uint16_t* values)
+{
+    if(values == NULL || count == 0U || count > MODBUS_MAX_WRITE_REGS)
+    {
+        return false;
+    }
+
+    if(s_writeQueueCount >= MODBUS_WRITE_QUEUE_SIZE)
+    {
+        SEGGER_RTT_printf(0, "[Modbus] Write queue full\r\n");
+        return false;
+    }
+
+    ModbusWriteRequest_t* req = &s_writeQueue[s_writeQueueTail];
+    req->type = MODBUS_WRITE_MULTIPLE;
+    req->address = address;
+    req->count = count;
+    memcpy(req->values, values, count * sizeof(uint16_t));
+
+    s_writeQueueTail = (s_writeQueueTail + 1U) % MODBUS_WRITE_QUEUE_SIZE;
+    s_writeQueueCount++;
+
+    SEGGER_RTT_printf(0, "[Modbus] Queued write multiple: 0x%04X (%u regs)\r\n", address, count);
+    return true;
+}
+
+/* 公开API: 获取写队列当前数量 */
+uint8_t ModbusMaster_GetWriteQueueCount(void)
+{
+    return s_writeQueueCount;
 }

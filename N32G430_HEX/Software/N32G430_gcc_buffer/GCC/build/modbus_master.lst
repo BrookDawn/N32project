@@ -1,0 +1,2793 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"modbus_master.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../APP/Src/modbus_master.c"
+  20              		.section	.text.ModbusMaster_CalcCRC,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	ModbusMaster_CalcCRC:
+  27              	.LVL0:
+  28              	.LFB136:
+   1:../APP/Src/modbus_master.c **** #include "modbus_master.h"
+   2:../APP/Src/modbus_master.c **** 
+   3:../APP/Src/modbus_master.c **** #include <string.h>
+   4:../APP/Src/modbus_master.c **** 
+   5:../APP/Src/modbus_master.c **** #include "SEGGER_RTT.h"
+   6:../APP/Src/modbus_master.c **** #include "bsp_delay.h"
+   7:../APP/Src/modbus_master.c **** #include "bsp_usart.h"
+   8:../APP/Src/modbus_master.c **** 
+   9:../APP/Src/modbus_master.c **** #define MODBUS_FUNC_READ_HOLDING_REGISTERS   0x03U
+  10:../APP/Src/modbus_master.c **** #define MODBUS_FUNC_WRITE_SINGLE_REGISTER    0x06U
+  11:../APP/Src/modbus_master.c **** #define MODBUS_FUNC_WRITE_MULTIPLE_REGISTERS 0x10U
+  12:../APP/Src/modbus_master.c **** #define MODBUS_EXCEPTION_MASK                0x80U
+  13:../APP/Src/modbus_master.c **** 
+  14:../APP/Src/modbus_master.c **** #define MODBUS_MAX_REGS_PER_REQUEST          60U
+  15:../APP/Src/modbus_master.c **** #define MODBUS_RESPONSE_TIMEOUT_MS           50U
+  16:../APP/Src/modbus_master.c **** #define MODBUS_INTER_REQUEST_DELAY_MS        10U
+  17:../APP/Src/modbus_master.c **** 
+  18:../APP/Src/modbus_master.c **** #define MODBUS_FRAME_HEADER_SIZE             3U
+  19:../APP/Src/modbus_master.c **** #define MODBUS_FRAME_BUFFER_SIZE             (MODBUS_FRAME_HEADER_SIZE + (MODBUS_MAX_REGS_PER_REQUE
+  20:../APP/Src/modbus_master.c **** 
+  21:../APP/Src/modbus_master.c **** static uint8_t s_slaveAddress = MODBUS_SLAVE_ADDRESS_DEFAULT;
+  22:../APP/Src/modbus_master.c **** static uint16_t s_registerCache[MODBUS_REGISTER_COUNT];
+  23:../APP/Src/modbus_master.c **** static uint16_t s_nextRegister = MODBUS_REGISTER_START;
+  24:../APP/Src/modbus_master.c **** 
+  25:../APP/Src/modbus_master.c **** /* 写请求队列 */
+  26:../APP/Src/modbus_master.c **** static ModbusWriteRequest_t s_writeQueue[MODBUS_WRITE_QUEUE_SIZE];
+  27:../APP/Src/modbus_master.c **** static uint8_t s_writeQueueHead = 0;
+  28:../APP/Src/modbus_master.c **** static uint8_t s_writeQueueTail = 0;
+  29:../APP/Src/modbus_master.c **** static uint8_t s_writeQueueCount = 0;
+  30:../APP/Src/modbus_master.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 2
+
+
+  31:../APP/Src/modbus_master.c **** static uint16_t ModbusMaster_CalcCRC(const uint8_t* data, uint16_t length);
+  32:../APP/Src/modbus_master.c **** static bool ModbusMaster_ReadBytes(uint8_t* buffer, uint16_t length);
+  33:../APP/Src/modbus_master.c **** static bool ModbusMaster_ReadHoldingRegisters(uint16_t startReg, uint16_t quantity, uint16_t* dest)
+  34:../APP/Src/modbus_master.c **** static bool ModbusMaster_ExecuteWriteSingle(uint16_t address, uint16_t value);
+  35:../APP/Src/modbus_master.c **** static bool ModbusMaster_ExecuteWriteMultiple(uint16_t address, uint16_t count, const uint16_t* val
+  36:../APP/Src/modbus_master.c **** static bool ModbusMaster_ProcessWriteQueue(void);
+  37:../APP/Src/modbus_master.c **** 
+  38:../APP/Src/modbus_master.c **** void ModbusMaster_Init(uint8_t slaveAddress)
+  39:../APP/Src/modbus_master.c **** {
+  40:../APP/Src/modbus_master.c ****     s_slaveAddress = slaveAddress;
+  41:../APP/Src/modbus_master.c ****     s_nextRegister = MODBUS_REGISTER_START;
+  42:../APP/Src/modbus_master.c ****     memset(s_registerCache, 0, sizeof(s_registerCache));
+  43:../APP/Src/modbus_master.c **** 
+  44:../APP/Src/modbus_master.c ****     /* 初始化写队列 */
+  45:../APP/Src/modbus_master.c ****     s_writeQueueHead = 0;
+  46:../APP/Src/modbus_master.c ****     s_writeQueueTail = 0;
+  47:../APP/Src/modbus_master.c ****     s_writeQueueCount = 0;
+  48:../APP/Src/modbus_master.c ****     memset(s_writeQueue, 0, sizeof(s_writeQueue));
+  49:../APP/Src/modbus_master.c **** 
+  50:../APP/Src/modbus_master.c ****     USART2_Init();
+  51:../APP/Src/modbus_master.c ****     USART2_FlushRxBuffer();
+  52:../APP/Src/modbus_master.c **** 
+  53:../APP/Src/modbus_master.c ****     SEGGER_RTT_printf(0, "[Modbus] Master ready. Slave: 0x%02X, Range: 0x%04X-0x%04X\r\n",
+  54:../APP/Src/modbus_master.c ****                       s_slaveAddress, MODBUS_REGISTER_START, MODBUS_REGISTER_END);
+  55:../APP/Src/modbus_master.c **** }
+  56:../APP/Src/modbus_master.c **** 
+  57:../APP/Src/modbus_master.c **** void ModbusMaster_Task(void)
+  58:../APP/Src/modbus_master.c **** {
+  59:../APP/Src/modbus_master.c ****     /* 优先处理写请求队列 */
+  60:../APP/Src/modbus_master.c ****     if(s_writeQueueCount > 0)
+  61:../APP/Src/modbus_master.c ****     {
+  62:../APP/Src/modbus_master.c ****         ModbusMaster_ProcessWriteQueue();
+  63:../APP/Src/modbus_master.c ****         SysTick_Delay_Ms(MODBUS_INTER_REQUEST_DELAY_MS);
+  64:../APP/Src/modbus_master.c ****         return;
+  65:../APP/Src/modbus_master.c ****     }
+  66:../APP/Src/modbus_master.c **** 
+  67:../APP/Src/modbus_master.c ****     /* 定时轮询读取寄存器 */
+  68:../APP/Src/modbus_master.c ****     uint16_t start = s_nextRegister;
+  69:../APP/Src/modbus_master.c ****     uint16_t remaining = (MODBUS_REGISTER_END - start) + 1U;
+  70:../APP/Src/modbus_master.c ****     uint16_t quantity = (remaining > MODBUS_MAX_REGS_PER_REQUEST) ? MODBUS_MAX_REGS_PER_REQUEST : r
+  71:../APP/Src/modbus_master.c **** 
+  72:../APP/Src/modbus_master.c ****     if(ModbusMaster_ReadHoldingRegisters(start, quantity, &s_registerCache[start - MODBUS_REGISTER_
+  73:../APP/Src/modbus_master.c ****     {
+  74:../APP/Src/modbus_master.c ****         uint16_t endAddr = start + quantity - 1U;
+  75:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] Read OK: 0x%04X-0x%04X (%u regs)\r\n", start, endAddr, quant
+  76:../APP/Src/modbus_master.c **** 
+  77:../APP/Src/modbus_master.c ****         s_nextRegister = (endAddr >= MODBUS_REGISTER_END) ? MODBUS_REGISTER_START : (uint16_t)(endA
+  78:../APP/Src/modbus_master.c ****     }
+  79:../APP/Src/modbus_master.c ****     else
+  80:../APP/Src/modbus_master.c ****     {
+  81:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] Read failed at 0x%04X (%u regs)\r\n", start, quantity);
+  82:../APP/Src/modbus_master.c ****     }
+  83:../APP/Src/modbus_master.c **** 
+  84:../APP/Src/modbus_master.c ****     SysTick_Delay_Ms(MODBUS_INTER_REQUEST_DELAY_MS);
+  85:../APP/Src/modbus_master.c **** }
+  86:../APP/Src/modbus_master.c **** 
+  87:../APP/Src/modbus_master.c **** const uint16_t* ModbusMaster_GetRegisterCache(void)
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 3
+
+
+  88:../APP/Src/modbus_master.c **** {
+  89:../APP/Src/modbus_master.c ****     return s_registerCache;
+  90:../APP/Src/modbus_master.c **** }
+  91:../APP/Src/modbus_master.c **** 
+  92:../APP/Src/modbus_master.c **** bool ModbusMaster_GetRegister(uint16_t address, uint16_t* value)
+  93:../APP/Src/modbus_master.c **** {
+  94:../APP/Src/modbus_master.c ****     if(value == NULL || address < MODBUS_REGISTER_START || address > MODBUS_REGISTER_END)
+  95:../APP/Src/modbus_master.c ****     {
+  96:../APP/Src/modbus_master.c ****         return false;
+  97:../APP/Src/modbus_master.c ****     }
+  98:../APP/Src/modbus_master.c **** 
+  99:../APP/Src/modbus_master.c ****     *value = s_registerCache[address - MODBUS_REGISTER_START];
+ 100:../APP/Src/modbus_master.c ****     return true;
+ 101:../APP/Src/modbus_master.c **** }
+ 102:../APP/Src/modbus_master.c **** 
+ 103:../APP/Src/modbus_master.c **** static bool ModbusMaster_ReadHoldingRegisters(uint16_t startReg, uint16_t quantity, uint16_t* dest)
+ 104:../APP/Src/modbus_master.c **** {
+ 105:../APP/Src/modbus_master.c ****     if(dest == NULL || quantity == 0U || quantity > MODBUS_MAX_REGS_PER_REQUEST)
+ 106:../APP/Src/modbus_master.c ****     {
+ 107:../APP/Src/modbus_master.c ****         return false;
+ 108:../APP/Src/modbus_master.c ****     }
+ 109:../APP/Src/modbus_master.c **** 
+ 110:../APP/Src/modbus_master.c ****     uint8_t txFrame[8];
+ 111:../APP/Src/modbus_master.c ****     txFrame[0] = s_slaveAddress;
+ 112:../APP/Src/modbus_master.c ****     txFrame[1] = MODBUS_FUNC_READ_HOLDING_REGISTERS;
+ 113:../APP/Src/modbus_master.c ****     txFrame[2] = (uint8_t)(startReg >> 8);
+ 114:../APP/Src/modbus_master.c ****     txFrame[3] = (uint8_t)(startReg & 0xFFU);
+ 115:../APP/Src/modbus_master.c ****     txFrame[4] = (uint8_t)(quantity >> 8);
+ 116:../APP/Src/modbus_master.c ****     txFrame[5] = (uint8_t)(quantity & 0xFFU);
+ 117:../APP/Src/modbus_master.c **** 
+ 118:../APP/Src/modbus_master.c ****     uint16_t crc = ModbusMaster_CalcCRC(txFrame, 6U);
+ 119:../APP/Src/modbus_master.c ****     txFrame[6] = (uint8_t)(crc & 0xFFU);
+ 120:../APP/Src/modbus_master.c ****     txFrame[7] = (uint8_t)(crc >> 8);
+ 121:../APP/Src/modbus_master.c **** 
+ 122:../APP/Src/modbus_master.c ****     USART2_FlushRxBuffer();
+ 123:../APP/Src/modbus_master.c ****     USART2_SendArray(txFrame, sizeof(txFrame));
+ 124:../APP/Src/modbus_master.c **** 
+ 125:../APP/Src/modbus_master.c ****     uint8_t rxFrame[MODBUS_FRAME_BUFFER_SIZE] = {0};
+ 126:../APP/Src/modbus_master.c ****     if(!ModbusMaster_ReadBytes(rxFrame, MODBUS_FRAME_HEADER_SIZE))
+ 127:../APP/Src/modbus_master.c ****     {
+ 128:../APP/Src/modbus_master.c ****         return false;
+ 129:../APP/Src/modbus_master.c ****     }
+ 130:../APP/Src/modbus_master.c **** 
+ 131:../APP/Src/modbus_master.c ****     if(rxFrame[0] != s_slaveAddress)
+ 132:../APP/Src/modbus_master.c ****     {
+ 133:../APP/Src/modbus_master.c ****         return false;
+ 134:../APP/Src/modbus_master.c ****     }
+ 135:../APP/Src/modbus_master.c **** 
+ 136:../APP/Src/modbus_master.c ****     if(rxFrame[1] == (MODBUS_FUNC_READ_HOLDING_REGISTERS | MODBUS_EXCEPTION_MASK))
+ 137:../APP/Src/modbus_master.c ****     {
+ 138:../APP/Src/modbus_master.c ****         uint8_t exception[1];
+ 139:../APP/Src/modbus_master.c ****         if(!ModbusMaster_ReadBytes(exception, 1U))
+ 140:../APP/Src/modbus_master.c ****         {
+ 141:../APP/Src/modbus_master.c ****             return false;
+ 142:../APP/Src/modbus_master.c ****         }
+ 143:../APP/Src/modbus_master.c **** 
+ 144:../APP/Src/modbus_master.c ****         uint8_t crcBytes[2];
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 4
+
+
+ 145:../APP/Src/modbus_master.c ****         if(!ModbusMaster_ReadBytes(crcBytes, 2U))
+ 146:../APP/Src/modbus_master.c ****         {
+ 147:../APP/Src/modbus_master.c ****             return false;
+ 148:../APP/Src/modbus_master.c ****         }
+ 149:../APP/Src/modbus_master.c **** 
+ 150:../APP/Src/modbus_master.c ****         uint8_t exceptionFrame[MODBUS_FRAME_HEADER_SIZE];
+ 151:../APP/Src/modbus_master.c ****         exceptionFrame[0] = rxFrame[0];
+ 152:../APP/Src/modbus_master.c ****         exceptionFrame[1] = rxFrame[1];
+ 153:../APP/Src/modbus_master.c ****         exceptionFrame[2] = exception[0];
+ 154:../APP/Src/modbus_master.c **** 
+ 155:../APP/Src/modbus_master.c ****         uint16_t crcCalc = ModbusMaster_CalcCRC(exceptionFrame, MODBUS_FRAME_HEADER_SIZE);
+ 156:../APP/Src/modbus_master.c ****         uint16_t crcResp = (uint16_t)crcBytes[0] | ((uint16_t)crcBytes[1] << 8);
+ 157:../APP/Src/modbus_master.c **** 
+ 158:../APP/Src/modbus_master.c ****         if(crcCalc == crcResp)
+ 159:../APP/Src/modbus_master.c ****         {
+ 160:../APP/Src/modbus_master.c ****             SEGGER_RTT_printf(0, "[Modbus] Exception code: 0x%02X\r\n", exception[0]);
+ 161:../APP/Src/modbus_master.c ****         }
+ 162:../APP/Src/modbus_master.c **** 
+ 163:../APP/Src/modbus_master.c ****         return false;
+ 164:../APP/Src/modbus_master.c ****     }
+ 165:../APP/Src/modbus_master.c **** 
+ 166:../APP/Src/modbus_master.c ****     if(rxFrame[1] != MODBUS_FUNC_READ_HOLDING_REGISTERS)
+ 167:../APP/Src/modbus_master.c ****     {
+ 168:../APP/Src/modbus_master.c ****         return false;
+ 169:../APP/Src/modbus_master.c ****     }
+ 170:../APP/Src/modbus_master.c **** 
+ 171:../APP/Src/modbus_master.c ****     uint8_t byteCount = rxFrame[2];
+ 172:../APP/Src/modbus_master.c ****     if(byteCount != (quantity * 2U))
+ 173:../APP/Src/modbus_master.c ****     {
+ 174:../APP/Src/modbus_master.c ****         return false;
+ 175:../APP/Src/modbus_master.c ****     }
+ 176:../APP/Src/modbus_master.c **** 
+ 177:../APP/Src/modbus_master.c ****     if(!ModbusMaster_ReadBytes(&rxFrame[MODBUS_FRAME_HEADER_SIZE], byteCount))
+ 178:../APP/Src/modbus_master.c ****     {
+ 179:../APP/Src/modbus_master.c ****         return false;
+ 180:../APP/Src/modbus_master.c ****     }
+ 181:../APP/Src/modbus_master.c **** 
+ 182:../APP/Src/modbus_master.c ****     uint8_t crcBytes[2];
+ 183:../APP/Src/modbus_master.c ****     if(!ModbusMaster_ReadBytes(crcBytes, 2U))
+ 184:../APP/Src/modbus_master.c ****     {
+ 185:../APP/Src/modbus_master.c ****         return false;
+ 186:../APP/Src/modbus_master.c ****     }
+ 187:../APP/Src/modbus_master.c **** 
+ 188:../APP/Src/modbus_master.c ****     uint16_t crcCalc = ModbusMaster_CalcCRC(rxFrame, MODBUS_FRAME_HEADER_SIZE + byteCount);
+ 189:../APP/Src/modbus_master.c ****     uint16_t crcResp = (uint16_t)crcBytes[0] | ((uint16_t)crcBytes[1] << 8);
+ 190:../APP/Src/modbus_master.c **** 
+ 191:../APP/Src/modbus_master.c ****     if(crcCalc != crcResp)
+ 192:../APP/Src/modbus_master.c ****     {
+ 193:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] CRC error. Calc:0x%04X Resp:0x%04X\r\n", crcCalc, crcResp);
+ 194:../APP/Src/modbus_master.c ****         return false;
+ 195:../APP/Src/modbus_master.c ****     }
+ 196:../APP/Src/modbus_master.c **** 
+ 197:../APP/Src/modbus_master.c ****     for(uint16_t i = 0; i < quantity; i++)
+ 198:../APP/Src/modbus_master.c ****     {
+ 199:../APP/Src/modbus_master.c ****         uint16_t index = MODBUS_FRAME_HEADER_SIZE + (i * 2U);
+ 200:../APP/Src/modbus_master.c ****         dest[i] = ((uint16_t)rxFrame[index] << 8) | rxFrame[index + 1U];
+ 201:../APP/Src/modbus_master.c ****     }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 5
+
+
+ 202:../APP/Src/modbus_master.c **** 
+ 203:../APP/Src/modbus_master.c ****     return true;
+ 204:../APP/Src/modbus_master.c **** }
+ 205:../APP/Src/modbus_master.c **** 
+ 206:../APP/Src/modbus_master.c **** static bool ModbusMaster_ReadBytes(uint8_t* buffer, uint16_t length)
+ 207:../APP/Src/modbus_master.c **** {
+ 208:../APP/Src/modbus_master.c ****     if(buffer == NULL)
+ 209:../APP/Src/modbus_master.c ****     {
+ 210:../APP/Src/modbus_master.c ****         return false;
+ 211:../APP/Src/modbus_master.c ****     }
+ 212:../APP/Src/modbus_master.c **** 
+ 213:../APP/Src/modbus_master.c ****     uint32_t timeout = MODBUS_RESPONSE_TIMEOUT_MS;
+ 214:../APP/Src/modbus_master.c ****     uint16_t received = 0;
+ 215:../APP/Src/modbus_master.c **** 
+ 216:../APP/Src/modbus_master.c ****     while(received < length && timeout > 0)
+ 217:../APP/Src/modbus_master.c ****     {
+ 218:../APP/Src/modbus_master.c ****         uint16_t count = USART2_GetRxData(&buffer[received], length - received);
+ 219:../APP/Src/modbus_master.c ****         if(count > 0)
+ 220:../APP/Src/modbus_master.c ****         {
+ 221:../APP/Src/modbus_master.c ****             received += count;
+ 222:../APP/Src/modbus_master.c ****         }
+ 223:../APP/Src/modbus_master.c ****         else
+ 224:../APP/Src/modbus_master.c ****         {
+ 225:../APP/Src/modbus_master.c ****             SysTick_Delay_Ms(1);
+ 226:../APP/Src/modbus_master.c ****             timeout--;
+ 227:../APP/Src/modbus_master.c ****         }
+ 228:../APP/Src/modbus_master.c ****     }
+ 229:../APP/Src/modbus_master.c **** 
+ 230:../APP/Src/modbus_master.c ****     return (received == length);
+ 231:../APP/Src/modbus_master.c **** }
+ 232:../APP/Src/modbus_master.c **** 
+ 233:../APP/Src/modbus_master.c **** static uint16_t ModbusMaster_CalcCRC(const uint8_t* data, uint16_t length)
+ 234:../APP/Src/modbus_master.c **** {
+  29              		.loc 1 234 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+ 235:../APP/Src/modbus_master.c ****     uint16_t crc = 0xFFFFU;
+  33              		.loc 1 235 5 view .LVU1
+ 236:../APP/Src/modbus_master.c **** 
+ 237:../APP/Src/modbus_master.c ****     for(uint16_t pos = 0; pos < length; pos++)
+  34              		.loc 1 237 5 view .LVU2
+  35              	.LBB21:
+  36              		.loc 1 237 9 view .LVU3
+  37              		.loc 1 237 31 discriminator 1 view .LVU4
+  38              	.LBE21:
+ 234:../APP/Src/modbus_master.c ****     uint16_t crc = 0xFFFFU;
+  39              		.loc 1 234 1 is_stmt 0 view .LVU5
+  40 0000 30B5     		push	{r4, r5, lr}
+  41              	.LCFI0:
+  42              		.cfi_def_cfa_offset 12
+  43              		.cfi_offset 4, -12
+  44              		.cfi_offset 5, -8
+  45              		.cfi_offset 14, -4
+  46 0002 0246     		mov	r2, r0
+  47 0004 0144     		add	r1, r1, r0
+  48              	.LVL1:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 6
+
+
+ 235:../APP/Src/modbus_master.c ****     uint16_t crc = 0xFFFFU;
+  49              		.loc 1 235 14 view .LVU6
+  50 0006 4FF6FF70 		movw	r0, #65535
+  51              	.LVL2:
+  52              	.L3:
+  53              	.LBB23:
+ 238:../APP/Src/modbus_master.c ****     {
+ 239:../APP/Src/modbus_master.c ****         crc ^= data[pos];
+  54              		.loc 1 239 9 is_stmt 1 view .LVU7
+  55              		.loc 1 239 20 is_stmt 0 view .LVU8
+  56 000a 12F8013B 		ldrb	r3, [r2], #1	@ zero_extendqisi2
+  57              	.LVL3:
+  58              		.loc 1 239 13 view .LVU9
+  59 000e 0824     		movs	r4, #8
+  60 0010 5840     		eors	r0, r0, r3
+  61              	.LVL4:
+ 240:../APP/Src/modbus_master.c ****         for(uint8_t i = 0; i < 8U; i++)
+  62              		.loc 1 240 9 is_stmt 1 view .LVU10
+  63              	.LBB22:
+  64              		.loc 1 240 13 view .LVU11
+  65              		.loc 1 240 30 discriminator 1 view .LVU12
+  66              	.L2:
+ 241:../APP/Src/modbus_master.c ****         {
+ 242:../APP/Src/modbus_master.c ****             if((crc & 0x0001U) != 0U)
+  67              		.loc 1 242 13 view .LVU13
+  68              		.loc 1 242 15 is_stmt 0 view .LVU14
+  69 0012 00F00103 		and	r3, r0, #1
+  70 0016 03EB8305 		add	r5, r3, r3, lsl #2
+  71 001a 03EB4533 		add	r3, r3, r5, lsl #13
+  72 001e 83EA5003 		eor	r3, r3, r0, lsr #1
+  73 0022 98B2     		uxth	r0, r3
+  74              	.LVL5:
+ 240:../APP/Src/modbus_master.c ****         for(uint8_t i = 0; i < 8U; i++)
+  75              		.loc 1 240 37 is_stmt 1 discriminator 2 view .LVU15
+ 240:../APP/Src/modbus_master.c ****         for(uint8_t i = 0; i < 8U; i++)
+  76              		.loc 1 240 30 discriminator 1 view .LVU16
+  77 0024 631E     		subs	r3, r4, #1
+  78 0026 13F0FF04 		ands	r4, r3, #255
+  79              	.LVL6:
+ 240:../APP/Src/modbus_master.c ****         for(uint8_t i = 0; i < 8U; i++)
+  80              		.loc 1 240 30 is_stmt 0 discriminator 1 view .LVU17
+  81 002a F2D1     		bne	.L2
+  82              	.LBE22:
+ 237:../APP/Src/modbus_master.c ****     {
+  83              		.loc 1 237 44 is_stmt 1 discriminator 2 view .LVU18
+  84              	.LVL7:
+ 237:../APP/Src/modbus_master.c ****     {
+  85              		.loc 1 237 31 discriminator 1 view .LVU19
+  86 002c 8A42     		cmp	r2, r1
+  87 002e ECD1     		bne	.L3
+  88              	.LBE23:
+ 243:../APP/Src/modbus_master.c ****             {
+ 244:../APP/Src/modbus_master.c ****                 crc = (crc >> 1U) ^ 0xA001U;
+ 245:../APP/Src/modbus_master.c ****             }
+ 246:../APP/Src/modbus_master.c ****             else
+ 247:../APP/Src/modbus_master.c ****             {
+ 248:../APP/Src/modbus_master.c ****                 crc >>= 1U;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 7
+
+
+ 249:../APP/Src/modbus_master.c ****             }
+ 250:../APP/Src/modbus_master.c ****         }
+ 251:../APP/Src/modbus_master.c ****     }
+ 252:../APP/Src/modbus_master.c **** 
+ 253:../APP/Src/modbus_master.c ****     return crc;
+  89              		.loc 1 253 5 view .LVU20
+ 254:../APP/Src/modbus_master.c **** }
+  90              		.loc 1 254 1 is_stmt 0 view .LVU21
+  91 0030 30BD     		pop	{r4, r5, pc}
+  92              		.cfi_endproc
+  93              	.LFE136:
+  95              		.section	.text.ModbusMaster_ReadBytes.part.0,"ax",%progbits
+  96              		.align	1
+  97              		.syntax unified
+  98              		.thumb
+  99              		.thumb_func
+ 101              	ModbusMaster_ReadBytes.part.0:
+ 102              	.LVL8:
+ 103              	.LFB143:
+ 206:../APP/Src/modbus_master.c **** {
+ 104              		.loc 1 206 13 is_stmt 1 view -0
+ 105              		.cfi_startproc
+ 106              		@ args = 0, pretend = 0, frame = 0
+ 107              		@ frame_needed = 0, uses_anonymous_args = 0
+ 216:../APP/Src/modbus_master.c ****     {
+ 108              		.loc 1 216 29 view .LVU23
+ 206:../APP/Src/modbus_master.c **** {
+ 109              		.loc 1 206 13 is_stmt 0 view .LVU24
+ 110 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 111              	.LCFI1:
+ 112              		.cfi_def_cfa_offset 24
+ 113              		.cfi_offset 3, -24
+ 114              		.cfi_offset 4, -20
+ 115              		.cfi_offset 5, -16
+ 116              		.cfi_offset 6, -12
+ 117              		.cfi_offset 7, -8
+ 118              		.cfi_offset 14, -4
+ 206:../APP/Src/modbus_master.c **** {
+ 119              		.loc 1 206 13 view .LVU25
+ 120 0002 0746     		mov	r7, r0
+ 121 0004 0D46     		mov	r5, r1
+ 213:../APP/Src/modbus_master.c ****     uint16_t received = 0;
+ 122              		.loc 1 213 14 view .LVU26
+ 123 0006 3226     		movs	r6, #50
+ 214:../APP/Src/modbus_master.c **** 
+ 124              		.loc 1 214 14 view .LVU27
+ 125 0008 0024     		movs	r4, #0
+ 126              	.LVL9:
+ 127              	.L10:
+ 128              	.LBB24:
+ 218:../APP/Src/modbus_master.c ****         if(count > 0)
+ 129              		.loc 1 218 9 is_stmt 1 view .LVU28
+ 218:../APP/Src/modbus_master.c ****         if(count > 0)
+ 130              		.loc 1 218 26 is_stmt 0 view .LVU29
+ 131 000a 291B     		subs	r1, r5, r4
+ 132 000c 89B2     		uxth	r1, r1
+ 133 000e 3819     		adds	r0, r7, r4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 8
+
+
+ 134 0010 FFF7FEFF 		bl	USART2_GetRxData
+ 135              	.LVL10:
+ 219:../APP/Src/modbus_master.c ****         {
+ 136              		.loc 1 219 9 is_stmt 1 view .LVU30
+ 219:../APP/Src/modbus_master.c ****         {
+ 137              		.loc 1 219 11 is_stmt 0 view .LVU31
+ 138 0014 38B1     		cbz	r0, .L7
+ 221:../APP/Src/modbus_master.c ****         }
+ 139              		.loc 1 221 13 is_stmt 1 view .LVU32
+ 221:../APP/Src/modbus_master.c ****         }
+ 140              		.loc 1 221 22 is_stmt 0 view .LVU33
+ 141 0016 0444     		add	r4, r4, r0
+ 142              	.LVL11:
+ 221:../APP/Src/modbus_master.c ****         }
+ 143              		.loc 1 221 22 view .LVU34
+ 144 0018 A4B2     		uxth	r4, r4
+ 145              	.LVL12:
+ 221:../APP/Src/modbus_master.c ****         }
+ 146              		.loc 1 221 22 view .LVU35
+ 147              	.LBE24:
+ 216:../APP/Src/modbus_master.c ****     {
+ 148              		.loc 1 216 29 is_stmt 1 view .LVU36
+ 149 001a A542     		cmp	r5, r4
+ 150 001c F5D8     		bhi	.L10
+ 151              	.LVL13:
+ 152              	.L9:
+ 230:../APP/Src/modbus_master.c **** }
+ 153              		.loc 1 230 5 view .LVU37
+ 231:../APP/Src/modbus_master.c **** 
+ 154              		.loc 1 231 1 is_stmt 0 view .LVU38
+ 155 001e 2B1B     		subs	r3, r5, r4
+ 156 0020 5842     		rsbs	r0, r3, #0
+ 157 0022 5841     		adcs	r0, r0, r3
+ 158 0024 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 159              	.LVL14:
+ 160              	.L7:
+ 161              	.LBB25:
+ 225:../APP/Src/modbus_master.c ****             timeout--;
+ 162              		.loc 1 225 13 is_stmt 1 view .LVU39
+ 163 0026 0120     		movs	r0, #1
+ 164              	.LVL15:
+ 225:../APP/Src/modbus_master.c ****             timeout--;
+ 165              		.loc 1 225 13 is_stmt 0 view .LVU40
+ 166 0028 FFF7FEFF 		bl	SysTick_Delay_Ms
+ 167              	.LVL16:
+ 226:../APP/Src/modbus_master.c ****         }
+ 168              		.loc 1 226 13 is_stmt 1 view .LVU41
+ 169              	.LBE25:
+ 216:../APP/Src/modbus_master.c ****     {
+ 170              		.loc 1 216 29 is_stmt 0 view .LVU42
+ 171 002c A542     		cmp	r5, r4
+ 172              	.LBB26:
+ 226:../APP/Src/modbus_master.c ****         }
+ 173              		.loc 1 226 20 view .LVU43
+ 174 002e 06F1FF36 		add	r6, r6, #-1
+ 175              	.LVL17:
+ 226:../APP/Src/modbus_master.c ****         }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 9
+
+
+ 176              		.loc 1 226 20 view .LVU44
+ 177              	.LBE26:
+ 216:../APP/Src/modbus_master.c ****     {
+ 178              		.loc 1 216 29 is_stmt 1 view .LVU45
+ 179 0032 F4D9     		bls	.L9
+ 216:../APP/Src/modbus_master.c ****     {
+ 180              		.loc 1 216 29 is_stmt 0 discriminator 1 view .LVU46
+ 181 0034 002E     		cmp	r6, #0
+ 182 0036 E8D1     		bne	.L10
+ 183 0038 F1E7     		b	.L9
+ 184              		.cfi_endproc
+ 185              	.LFE143:
+ 187              		.section	.rodata.ModbusMaster_Init.str1.1,"aMS",%progbits,1
+ 188              	.LC0:
+ 189 0000 5B4D6F64 		.ascii	"[Modbus] Master ready. Slave: 0x%02X, Range: 0x%04X"
+ 189      6275735D 
+ 189      204D6173 
+ 189      74657220 
+ 189      72656164 
+ 190 0033 2D307825 		.ascii	"-0x%04X\015\012\000"
+ 190      3034580D 
+ 190      0A00
+ 191              		.section	.text.ModbusMaster_Init,"ax",%progbits
+ 192              		.align	1
+ 193              		.global	ModbusMaster_Init
+ 194              		.syntax unified
+ 195              		.thumb
+ 196              		.thumb_func
+ 198              	ModbusMaster_Init:
+ 199              	.LVL18:
+ 200              	.LFB130:
+  39:../APP/Src/modbus_master.c ****     s_slaveAddress = slaveAddress;
+ 201              		.loc 1 39 1 is_stmt 1 view -0
+ 202              		.cfi_startproc
+ 203              		@ args = 0, pretend = 0, frame = 0
+ 204              		@ frame_needed = 0, uses_anonymous_args = 0
+  40:../APP/Src/modbus_master.c ****     s_nextRegister = MODBUS_REGISTER_START;
+ 205              		.loc 1 40 5 view .LVU48
+  39:../APP/Src/modbus_master.c ****     s_slaveAddress = slaveAddress;
+ 206              		.loc 1 39 1 is_stmt 0 view .LVU49
+ 207 0000 37B5     		push	{r0, r1, r2, r4, r5, lr}
+ 208              	.LCFI2:
+ 209              		.cfi_def_cfa_offset 24
+ 210              		.cfi_offset 4, -12
+ 211              		.cfi_offset 5, -8
+ 212              		.cfi_offset 14, -4
+  40:../APP/Src/modbus_master.c ****     s_nextRegister = MODBUS_REGISTER_START;
+ 213              		.loc 1 40 20 view .LVU50
+ 214 0002 124D     		ldr	r5, .L15
+  41:../APP/Src/modbus_master.c ****     memset(s_registerCache, 0, sizeof(s_registerCache));
+ 215              		.loc 1 41 20 view .LVU51
+ 216 0004 124B     		ldr	r3, .L15+4
+  40:../APP/Src/modbus_master.c ****     s_nextRegister = MODBUS_REGISTER_START;
+ 217              		.loc 1 40 20 view .LVU52
+ 218 0006 2870     		strb	r0, [r5]
+  41:../APP/Src/modbus_master.c ****     memset(s_registerCache, 0, sizeof(s_registerCache));
+ 219              		.loc 1 41 5 is_stmt 1 view .LVU53
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 10
+
+
+  41:../APP/Src/modbus_master.c ****     memset(s_registerCache, 0, sizeof(s_registerCache));
+ 220              		.loc 1 41 20 is_stmt 0 view .LVU54
+ 221 0008 0024     		movs	r4, #0
+  42:../APP/Src/modbus_master.c **** 
+ 222              		.loc 1 42 5 view .LVU55
+ 223 000a 2146     		mov	r1, r4
+ 224 000c 4FF4C072 		mov	r2, #384
+ 225 0010 1048     		ldr	r0, .L15+8
+ 226              	.LVL19:
+  41:../APP/Src/modbus_master.c ****     memset(s_registerCache, 0, sizeof(s_registerCache));
+ 227              		.loc 1 41 20 view .LVU56
+ 228 0012 1C80     		strh	r4, [r3]	@ movhi
+  42:../APP/Src/modbus_master.c **** 
+ 229              		.loc 1 42 5 is_stmt 1 view .LVU57
+ 230 0014 FFF7FEFF 		bl	memset
+ 231              	.LVL20:
+  45:../APP/Src/modbus_master.c ****     s_writeQueueTail = 0;
+ 232              		.loc 1 45 5 view .LVU58
+  45:../APP/Src/modbus_master.c ****     s_writeQueueTail = 0;
+ 233              		.loc 1 45 22 is_stmt 0 view .LVU59
+ 234 0018 0F4B     		ldr	r3, .L15+12
+  48:../APP/Src/modbus_master.c **** 
+ 235              		.loc 1 48 5 view .LVU60
+ 236 001a 1048     		ldr	r0, .L15+16
+  45:../APP/Src/modbus_master.c ****     s_writeQueueTail = 0;
+ 237              		.loc 1 45 22 view .LVU61
+ 238 001c 1C70     		strb	r4, [r3]
+  46:../APP/Src/modbus_master.c ****     s_writeQueueCount = 0;
+ 239              		.loc 1 46 5 is_stmt 1 view .LVU62
+  46:../APP/Src/modbus_master.c ****     s_writeQueueCount = 0;
+ 240              		.loc 1 46 22 is_stmt 0 view .LVU63
+ 241 001e 104B     		ldr	r3, .L15+20
+ 242 0020 1C70     		strb	r4, [r3]
+  47:../APP/Src/modbus_master.c ****     memset(s_writeQueue, 0, sizeof(s_writeQueue));
+ 243              		.loc 1 47 5 is_stmt 1 view .LVU64
+  47:../APP/Src/modbus_master.c ****     memset(s_writeQueue, 0, sizeof(s_writeQueue));
+ 244              		.loc 1 47 23 is_stmt 0 view .LVU65
+ 245 0022 104B     		ldr	r3, .L15+24
+  48:../APP/Src/modbus_master.c **** 
+ 246              		.loc 1 48 5 view .LVU66
+ 247 0024 2146     		mov	r1, r4
+ 248 0026 4FF49872 		mov	r2, #304
+  47:../APP/Src/modbus_master.c ****     memset(s_writeQueue, 0, sizeof(s_writeQueue));
+ 249              		.loc 1 47 23 view .LVU67
+ 250 002a 1C70     		strb	r4, [r3]
+  48:../APP/Src/modbus_master.c **** 
+ 251              		.loc 1 48 5 is_stmt 1 view .LVU68
+ 252 002c FFF7FEFF 		bl	memset
+ 253              	.LVL21:
+  50:../APP/Src/modbus_master.c ****     USART2_FlushRxBuffer();
+ 254              		.loc 1 50 5 view .LVU69
+ 255 0030 FFF7FEFF 		bl	USART2_Init
+ 256              	.LVL22:
+  51:../APP/Src/modbus_master.c **** 
+ 257              		.loc 1 51 5 view .LVU70
+ 258 0034 FFF7FEFF 		bl	USART2_FlushRxBuffer
+ 259              	.LVL23:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 11
+
+
+  53:../APP/Src/modbus_master.c ****                       s_slaveAddress, MODBUS_REGISTER_START, MODBUS_REGISTER_END);
+ 260              		.loc 1 53 5 view .LVU71
+ 261 0038 BF23     		movs	r3, #191
+ 262 003a 0093     		str	r3, [sp]
+ 263 003c 2A78     		ldrb	r2, [r5]	@ zero_extendqisi2
+ 264 003e 0A49     		ldr	r1, .L15+28
+ 265 0040 2346     		mov	r3, r4
+ 266 0042 2046     		mov	r0, r4
+ 267 0044 FFF7FEFF 		bl	SEGGER_RTT_printf
+ 268              	.LVL24:
+  55:../APP/Src/modbus_master.c **** 
+ 269              		.loc 1 55 1 is_stmt 0 view .LVU72
+ 270 0048 03B0     		add	sp, sp, #12
+ 271              	.LCFI3:
+ 272              		.cfi_def_cfa_offset 12
+ 273              		@ sp needed
+ 274 004a 30BD     		pop	{r4, r5, pc}
+ 275              	.L16:
+ 276              		.align	2
+ 277              	.L15:
+ 278 004c 00000000 		.word	s_slaveAddress
+ 279 0050 00000000 		.word	s_nextRegister
+ 280 0054 00000000 		.word	s_registerCache
+ 281 0058 00000000 		.word	s_writeQueueHead
+ 282 005c 00000000 		.word	s_writeQueue
+ 283 0060 00000000 		.word	s_writeQueueTail
+ 284 0064 00000000 		.word	s_writeQueueCount
+ 285 0068 00000000 		.word	.LC0
+ 286              		.cfi_endproc
+ 287              	.LFE130:
+ 289              		.section	.rodata.ModbusMaster_Task.str1.1,"aMS",%progbits,1
+ 290              	.LC1:
+ 291 0000 5B4D6F64 		.ascii	"[Modbus] Write single timeout\015\012\000"
+ 291      6275735D 
+ 291      20577269 
+ 291      74652073 
+ 291      696E676C 
+ 292              	.LC2:
+ 293 0020 5B4D6F64 		.ascii	"[Modbus] Write single exception: 0x%02X\015\012\000"
+ 293      6275735D 
+ 293      20577269 
+ 293      74652073 
+ 293      696E676C 
+ 294              	.LC3:
+ 295 004a 5B4D6F64 		.ascii	"[Modbus] Write single CRC error\015\012\000"
+ 295      6275735D 
+ 295      20577269 
+ 295      74652073 
+ 295      696E676C 
+ 296              	.LC4:
+ 297 006c 5B4D6F64 		.ascii	"[Modbus] Write single echo mismatch\015\012\000"
+ 297      6275735D 
+ 297      20577269 
+ 297      74652073 
+ 297      696E676C 
+ 298              	.LC5:
+ 299 0092 5B4D6F64 		.ascii	"[Modbus] Write OK: 0x%04X = 0x%04X\015\012\000"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 12
+
+
+ 299      6275735D 
+ 299      20577269 
+ 299      7465204F 
+ 299      4B3A2030 
+ 300              	.LC6:
+ 301 00b7 5B4D6F64 		.ascii	"[Modbus] Write multiple timeout\015\012\000"
+ 301      6275735D 
+ 301      20577269 
+ 301      7465206D 
+ 301      756C7469 
+ 302              	.LC7:
+ 303 00d9 5B4D6F64 		.ascii	"[Modbus] Write multiple exception: 0x%02X\015\012\000"
+ 303      6275735D 
+ 303      20577269 
+ 303      7465206D 
+ 303      756C7469 
+ 304              	.LC8:
+ 305 0105 5B4D6F64 		.ascii	"[Modbus] Write multiple CRC error\015\012\000"
+ 305      6275735D 
+ 305      20577269 
+ 305      7465206D 
+ 305      756C7469 
+ 306              	.LC9:
+ 307 0129 5B4D6F64 		.ascii	"[Modbus] Write multiple echo mismatch\015\012\000"
+ 307      6275735D 
+ 307      20577269 
+ 307      7465206D 
+ 307      756C7469 
+ 308              	.LC10:
+ 309 0151 5B4D6F64 		.ascii	"[Modbus] Write OK: 0x%04X (%u regs)\015\012\000"
+ 309      6275735D 
+ 309      20577269 
+ 309      7465204F 
+ 309      4B3A2030 
+ 310              	.LC11:
+ 311 0177 5B4D6F64 		.ascii	"[Modbus] Exception code: 0x%02X\015\012\000"
+ 311      6275735D 
+ 311      20457863 
+ 311      65707469 
+ 311      6F6E2063 
+ 312              	.LC12:
+ 313 0199 5B4D6F64 		.ascii	"[Modbus] CRC error. Calc:0x%04X Resp:0x%04X\015\012"
+ 313      6275735D 
+ 313      20435243 
+ 313      20657272 
+ 313      6F722E20 
+ 314 01c6 00       		.ascii	"\000"
+ 315              	.LC13:
+ 316 01c7 5B4D6F64 		.ascii	"[Modbus] Read OK: 0x%04X-0x%04X (%u regs)\015\012\000"
+ 316      6275735D 
+ 316      20526561 
+ 316      64204F4B 
+ 316      3A203078 
+ 317              	.LC14:
+ 318 01f3 5B4D6F64 		.ascii	"[Modbus] Read failed at 0x%04X (%u regs)\015\012\000"
+ 318      6275735D 
+ 318      20526561 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 13
+
+
+ 318      64206661 
+ 318      696C6564 
+ 319              		.section	.text.ModbusMaster_Task,"ax",%progbits
+ 320              		.align	1
+ 321              		.global	ModbusMaster_Task
+ 322              		.syntax unified
+ 323              		.thumb
+ 324              		.thumb_func
+ 326              	ModbusMaster_Task:
+ 327              	.LFB131:
+  58:../APP/Src/modbus_master.c ****     /* 优先处理写请求队列 */
+ 328              		.loc 1 58 1 is_stmt 1 view -0
+ 329              		.cfi_startproc
+ 330              		@ args = 0, pretend = 0, frame = 144
+ 331              		@ frame_needed = 0, uses_anonymous_args = 0
+  60:../APP/Src/modbus_master.c ****     {
+ 332              		.loc 1 60 5 view .LVU74
+  58:../APP/Src/modbus_master.c ****     /* 优先处理写请求队列 */
+ 333              		.loc 1 58 1 is_stmt 0 view .LVU75
+ 334 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 335              	.LCFI4:
+ 336              		.cfi_def_cfa_offset 32
+ 337              		.cfi_offset 4, -32
+ 338              		.cfi_offset 5, -28
+ 339              		.cfi_offset 6, -24
+ 340              		.cfi_offset 7, -20
+ 341              		.cfi_offset 8, -16
+ 342              		.cfi_offset 9, -12
+ 343              		.cfi_offset 10, -8
+ 344              		.cfi_offset 14, -4
+  60:../APP/Src/modbus_master.c ****     {
+ 345              		.loc 1 60 26 view .LVU76
+ 346 0004 BC4D     		ldr	r5, .L66
+  60:../APP/Src/modbus_master.c ****     {
+ 347              		.loc 1 60 7 view .LVU77
+ 348 0006 2E78     		ldrb	r6, [r5]	@ zero_extendqisi2
+  58:../APP/Src/modbus_master.c ****     /* 优先处理写请求队列 */
+ 349              		.loc 1 58 1 view .LVU78
+ 350 0008 A6B0     		sub	sp, sp, #152
+ 351              	.LCFI5:
+ 352              		.cfi_def_cfa_offset 184
+  60:../APP/Src/modbus_master.c ****     {
+ 353              		.loc 1 60 7 view .LVU79
+ 354 000a 002E     		cmp	r6, #0
+ 355 000c 00F0ED80 		beq	.L18
+  62:../APP/Src/modbus_master.c ****         SysTick_Delay_Ms(MODBUS_INTER_REQUEST_DELAY_MS);
+ 356              		.loc 1 62 9 is_stmt 1 view .LVU80
+ 357              	.LBB59:
+ 358              	.LBI59:
+ 255:../APP/Src/modbus_master.c **** 
+ 256:../APP/Src/modbus_master.c **** /* 写单个寄存器实现 (功能码0x06) */
+ 257:../APP/Src/modbus_master.c **** static bool ModbusMaster_ExecuteWriteSingle(uint16_t address, uint16_t value)
+ 258:../APP/Src/modbus_master.c **** {
+ 259:../APP/Src/modbus_master.c ****     uint8_t txFrame[8];
+ 260:../APP/Src/modbus_master.c ****     txFrame[0] = s_slaveAddress;
+ 261:../APP/Src/modbus_master.c ****     txFrame[1] = MODBUS_FUNC_WRITE_SINGLE_REGISTER;
+ 262:../APP/Src/modbus_master.c ****     txFrame[2] = (uint8_t)(address >> 8);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 14
+
+
+ 263:../APP/Src/modbus_master.c ****     txFrame[3] = (uint8_t)(address & 0xFFU);
+ 264:../APP/Src/modbus_master.c ****     txFrame[4] = (uint8_t)(value >> 8);
+ 265:../APP/Src/modbus_master.c ****     txFrame[5] = (uint8_t)(value & 0xFFU);
+ 266:../APP/Src/modbus_master.c **** 
+ 267:../APP/Src/modbus_master.c ****     uint16_t crc = ModbusMaster_CalcCRC(txFrame, 6U);
+ 268:../APP/Src/modbus_master.c ****     txFrame[6] = (uint8_t)(crc & 0xFFU);
+ 269:../APP/Src/modbus_master.c ****     txFrame[7] = (uint8_t)(crc >> 8);
+ 270:../APP/Src/modbus_master.c **** 
+ 271:../APP/Src/modbus_master.c ****     USART2_FlushRxBuffer();
+ 272:../APP/Src/modbus_master.c ****     USART2_SendArray(txFrame, sizeof(txFrame));
+ 273:../APP/Src/modbus_master.c **** 
+ 274:../APP/Src/modbus_master.c ****     /* 读取响应 - 写单个寄存器响应与请求帧相同 */
+ 275:../APP/Src/modbus_master.c ****     uint8_t rxFrame[8];
+ 276:../APP/Src/modbus_master.c ****     if(!ModbusMaster_ReadBytes(rxFrame, 8U))
+ 277:../APP/Src/modbus_master.c ****     {
+ 278:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] Write single timeout\r\n");
+ 279:../APP/Src/modbus_master.c ****         return false;
+ 280:../APP/Src/modbus_master.c ****     }
+ 281:../APP/Src/modbus_master.c **** 
+ 282:../APP/Src/modbus_master.c ****     /* 验证从机地址 */
+ 283:../APP/Src/modbus_master.c ****     if(rxFrame[0] != s_slaveAddress)
+ 284:../APP/Src/modbus_master.c ****     {
+ 285:../APP/Src/modbus_master.c ****         return false;
+ 286:../APP/Src/modbus_master.c ****     }
+ 287:../APP/Src/modbus_master.c **** 
+ 288:../APP/Src/modbus_master.c ****     /* 检查异常响应 */
+ 289:../APP/Src/modbus_master.c ****     if(rxFrame[1] == (MODBUS_FUNC_WRITE_SINGLE_REGISTER | MODBUS_EXCEPTION_MASK))
+ 290:../APP/Src/modbus_master.c ****     {
+ 291:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] Write single exception: 0x%02X\r\n", rxFrame[2]);
+ 292:../APP/Src/modbus_master.c ****         return false;
+ 293:../APP/Src/modbus_master.c ****     }
+ 294:../APP/Src/modbus_master.c **** 
+ 295:../APP/Src/modbus_master.c ****     /* 验证功能码 */
+ 296:../APP/Src/modbus_master.c ****     if(rxFrame[1] != MODBUS_FUNC_WRITE_SINGLE_REGISTER)
+ 297:../APP/Src/modbus_master.c ****     {
+ 298:../APP/Src/modbus_master.c ****         return false;
+ 299:../APP/Src/modbus_master.c ****     }
+ 300:../APP/Src/modbus_master.c **** 
+ 301:../APP/Src/modbus_master.c ****     /* 验证CRC */
+ 302:../APP/Src/modbus_master.c ****     uint16_t crcCalc = ModbusMaster_CalcCRC(rxFrame, 6U);
+ 303:../APP/Src/modbus_master.c ****     uint16_t crcResp = (uint16_t)rxFrame[6] | ((uint16_t)rxFrame[7] << 8);
+ 304:../APP/Src/modbus_master.c **** 
+ 305:../APP/Src/modbus_master.c ****     if(crcCalc != crcResp)
+ 306:../APP/Src/modbus_master.c ****     {
+ 307:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] Write single CRC error\r\n");
+ 308:../APP/Src/modbus_master.c ****         return false;
+ 309:../APP/Src/modbus_master.c ****     }
+ 310:../APP/Src/modbus_master.c **** 
+ 311:../APP/Src/modbus_master.c ****     /* 验证响应的地址和值 */
+ 312:../APP/Src/modbus_master.c ****     uint16_t respAddr = ((uint16_t)rxFrame[2] << 8) | rxFrame[3];
+ 313:../APP/Src/modbus_master.c ****     uint16_t respValue = ((uint16_t)rxFrame[4] << 8) | rxFrame[5];
+ 314:../APP/Src/modbus_master.c **** 
+ 315:../APP/Src/modbus_master.c ****     if(respAddr != address || respValue != value)
+ 316:../APP/Src/modbus_master.c ****     {
+ 317:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] Write single echo mismatch\r\n");
+ 318:../APP/Src/modbus_master.c ****         return false;
+ 319:../APP/Src/modbus_master.c ****     }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 15
+
+
+ 320:../APP/Src/modbus_master.c **** 
+ 321:../APP/Src/modbus_master.c ****     SEGGER_RTT_printf(0, "[Modbus] Write OK: 0x%04X = 0x%04X\r\n", address, value);
+ 322:../APP/Src/modbus_master.c ****     return true;
+ 323:../APP/Src/modbus_master.c **** }
+ 324:../APP/Src/modbus_master.c **** 
+ 325:../APP/Src/modbus_master.c **** /* 写多个寄存器实现 (功能码0x10) */
+ 326:../APP/Src/modbus_master.c **** static bool ModbusMaster_ExecuteWriteMultiple(uint16_t address, uint16_t count, const uint16_t* val
+ 327:../APP/Src/modbus_master.c **** {
+ 328:../APP/Src/modbus_master.c ****     if(values == NULL || count == 0U || count > MODBUS_MAX_WRITE_REGS)
+ 329:../APP/Src/modbus_master.c ****     {
+ 330:../APP/Src/modbus_master.c ****         return false;
+ 331:../APP/Src/modbus_master.c ****     }
+ 332:../APP/Src/modbus_master.c **** 
+ 333:../APP/Src/modbus_master.c ****     uint8_t txFrame[7 + MODBUS_MAX_WRITE_REGS * 2];
+ 334:../APP/Src/modbus_master.c ****     txFrame[0] = s_slaveAddress;
+ 335:../APP/Src/modbus_master.c ****     txFrame[1] = MODBUS_FUNC_WRITE_MULTIPLE_REGISTERS;
+ 336:../APP/Src/modbus_master.c ****     txFrame[2] = (uint8_t)(address >> 8);
+ 337:../APP/Src/modbus_master.c ****     txFrame[3] = (uint8_t)(address & 0xFFU);
+ 338:../APP/Src/modbus_master.c ****     txFrame[4] = (uint8_t)(count >> 8);
+ 339:../APP/Src/modbus_master.c ****     txFrame[5] = (uint8_t)(count & 0xFFU);
+ 340:../APP/Src/modbus_master.c ****     txFrame[6] = (uint8_t)(count * 2U);
+ 341:../APP/Src/modbus_master.c **** 
+ 342:../APP/Src/modbus_master.c ****     /* 填充数据 */
+ 343:../APP/Src/modbus_master.c ****     for(uint16_t i = 0; i < count; i++)
+ 344:../APP/Src/modbus_master.c ****     {
+ 345:../APP/Src/modbus_master.c ****         txFrame[7 + i * 2] = (uint8_t)(values[i] >> 8);
+ 346:../APP/Src/modbus_master.c ****         txFrame[7 + i * 2 + 1] = (uint8_t)(values[i] & 0xFFU);
+ 347:../APP/Src/modbus_master.c ****     }
+ 348:../APP/Src/modbus_master.c **** 
+ 349:../APP/Src/modbus_master.c ****     uint16_t frameLen = 7U + count * 2U;
+ 350:../APP/Src/modbus_master.c ****     uint16_t crc = ModbusMaster_CalcCRC(txFrame, frameLen);
+ 351:../APP/Src/modbus_master.c ****     txFrame[frameLen] = (uint8_t)(crc & 0xFFU);
+ 352:../APP/Src/modbus_master.c ****     txFrame[frameLen + 1] = (uint8_t)(crc >> 8);
+ 353:../APP/Src/modbus_master.c **** 
+ 354:../APP/Src/modbus_master.c ****     USART2_FlushRxBuffer();
+ 355:../APP/Src/modbus_master.c ****     USART2_SendArray(txFrame, frameLen + 2U);
+ 356:../APP/Src/modbus_master.c **** 
+ 357:../APP/Src/modbus_master.c ****     /* 读取响应 - 写多个寄存器响应为8字节 */
+ 358:../APP/Src/modbus_master.c ****     uint8_t rxFrame[8];
+ 359:../APP/Src/modbus_master.c ****     if(!ModbusMaster_ReadBytes(rxFrame, 8U))
+ 360:../APP/Src/modbus_master.c ****     {
+ 361:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] Write multiple timeout\r\n");
+ 362:../APP/Src/modbus_master.c ****         return false;
+ 363:../APP/Src/modbus_master.c ****     }
+ 364:../APP/Src/modbus_master.c **** 
+ 365:../APP/Src/modbus_master.c ****     /* 验证从机地址 */
+ 366:../APP/Src/modbus_master.c ****     if(rxFrame[0] != s_slaveAddress)
+ 367:../APP/Src/modbus_master.c ****     {
+ 368:../APP/Src/modbus_master.c ****         return false;
+ 369:../APP/Src/modbus_master.c ****     }
+ 370:../APP/Src/modbus_master.c **** 
+ 371:../APP/Src/modbus_master.c ****     /* 检查异常响应 */
+ 372:../APP/Src/modbus_master.c ****     if(rxFrame[1] == (MODBUS_FUNC_WRITE_MULTIPLE_REGISTERS | MODBUS_EXCEPTION_MASK))
+ 373:../APP/Src/modbus_master.c ****     {
+ 374:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] Write multiple exception: 0x%02X\r\n", rxFrame[2]);
+ 375:../APP/Src/modbus_master.c ****         return false;
+ 376:../APP/Src/modbus_master.c ****     }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 16
+
+
+ 377:../APP/Src/modbus_master.c **** 
+ 378:../APP/Src/modbus_master.c ****     /* 验证功能码 */
+ 379:../APP/Src/modbus_master.c ****     if(rxFrame[1] != MODBUS_FUNC_WRITE_MULTIPLE_REGISTERS)
+ 380:../APP/Src/modbus_master.c ****     {
+ 381:../APP/Src/modbus_master.c ****         return false;
+ 382:../APP/Src/modbus_master.c ****     }
+ 383:../APP/Src/modbus_master.c **** 
+ 384:../APP/Src/modbus_master.c ****     /* 验证CRC */
+ 385:../APP/Src/modbus_master.c ****     uint16_t crcCalc = ModbusMaster_CalcCRC(rxFrame, 6U);
+ 386:../APP/Src/modbus_master.c ****     uint16_t crcResp = (uint16_t)rxFrame[6] | ((uint16_t)rxFrame[7] << 8);
+ 387:../APP/Src/modbus_master.c **** 
+ 388:../APP/Src/modbus_master.c ****     if(crcCalc != crcResp)
+ 389:../APP/Src/modbus_master.c ****     {
+ 390:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] Write multiple CRC error\r\n");
+ 391:../APP/Src/modbus_master.c ****         return false;
+ 392:../APP/Src/modbus_master.c ****     }
+ 393:../APP/Src/modbus_master.c **** 
+ 394:../APP/Src/modbus_master.c ****     /* 验证响应的地址和数量 */
+ 395:../APP/Src/modbus_master.c ****     uint16_t respAddr = ((uint16_t)rxFrame[2] << 8) | rxFrame[3];
+ 396:../APP/Src/modbus_master.c ****     uint16_t respCount = ((uint16_t)rxFrame[4] << 8) | rxFrame[5];
+ 397:../APP/Src/modbus_master.c **** 
+ 398:../APP/Src/modbus_master.c ****     if(respAddr != address || respCount != count)
+ 399:../APP/Src/modbus_master.c ****     {
+ 400:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] Write multiple echo mismatch\r\n");
+ 401:../APP/Src/modbus_master.c ****         return false;
+ 402:../APP/Src/modbus_master.c ****     }
+ 403:../APP/Src/modbus_master.c **** 
+ 404:../APP/Src/modbus_master.c ****     SEGGER_RTT_printf(0, "[Modbus] Write OK: 0x%04X (%u regs)\r\n", address, count);
+ 405:../APP/Src/modbus_master.c ****     return true;
+ 406:../APP/Src/modbus_master.c **** }
+ 407:../APP/Src/modbus_master.c **** 
+ 408:../APP/Src/modbus_master.c **** /* 处理写请求队列 */
+ 409:../APP/Src/modbus_master.c **** static bool ModbusMaster_ProcessWriteQueue(void)
+ 359              		.loc 1 409 13 view .LVU81
+ 360              	.LBB60:
+ 410:../APP/Src/modbus_master.c **** {
+ 411:../APP/Src/modbus_master.c ****     if(s_writeQueueCount == 0)
+ 361              		.loc 1 411 5 view .LVU82
+ 412:../APP/Src/modbus_master.c ****     {
+ 413:../APP/Src/modbus_master.c ****         return false;
+ 414:../APP/Src/modbus_master.c ****     }
+ 415:../APP/Src/modbus_master.c **** 
+ 416:../APP/Src/modbus_master.c ****     ModbusWriteRequest_t* req = &s_writeQueue[s_writeQueueHead];
+ 362              		.loc 1 416 5 view .LVU83
+ 363              		.loc 1 416 46 is_stmt 0 view .LVU84
+ 364 0010 BA4E     		ldr	r6, .L66+4
+ 417:../APP/Src/modbus_master.c ****     bool result = false;
+ 418:../APP/Src/modbus_master.c **** 
+ 419:../APP/Src/modbus_master.c ****     if(req->type == MODBUS_WRITE_SINGLE)
+ 365              		.loc 1 419 11 view .LVU85
+ 366 0012 BB49     		ldr	r1, .L66+8
+ 416:../APP/Src/modbus_master.c ****     bool result = false;
+ 367              		.loc 1 416 46 view .LVU86
+ 368 0014 3278     		ldrb	r2, [r6]	@ zero_extendqisi2
+ 369              	.LVL25:
+ 417:../APP/Src/modbus_master.c ****     bool result = false;
+ 370              		.loc 1 417 5 is_stmt 1 view .LVU87
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 17
+
+
+ 371              		.loc 1 419 5 view .LVU88
+ 372              		.loc 1 419 11 is_stmt 0 view .LVU89
+ 373 0016 2623     		movs	r3, #38
+ 374 0018 5A43     		muls	r2, r3, r2
+ 375              	.LVL26:
+ 376              		.loc 1 419 11 view .LVU90
+ 377 001a 8B18     		adds	r3, r1, r2
+ 378 001c 8C5C     		ldrb	r4, [r1, r2]	@ zero_extendqisi2
+ 379              		.loc 1 419 7 view .LVU91
+ 380 001e 002C     		cmp	r4, #0
+ 381 0020 64D1     		bne	.L19
+ 420:../APP/Src/modbus_master.c ****     {
+ 421:../APP/Src/modbus_master.c ****         result = ModbusMaster_ExecuteWriteSingle(req->address, req->values[0]);
+ 382              		.loc 1 421 9 is_stmt 1 view .LVU92
+ 383 0022 5888     		ldrh	r0, [r3, #2]
+ 384 0024 DA88     		ldrh	r2, [r3, #6]
+ 385              	.LBB61:
+ 386              	.LBB62:
+ 260:../APP/Src/modbus_master.c ****     txFrame[1] = MODBUS_FUNC_WRITE_SINGLE_REGISTER;
+ 387              		.loc 1 260 16 is_stmt 0 view .LVU93
+ 388 0026 DFF81093 		ldr	r9, .L66+64
+ 389              	.LBE62:
+ 390              	.LBE61:
+ 391              		.loc 1 421 18 view .LVU94
+ 392 002a 5F88     		ldrh	r7, [r3, #2]
+ 393 002c B3F80680 		ldrh	r8, [r3, #6]
+ 394              	.LVL27:
+ 395              	.LBB69:
+ 396              	.LBI61:
+ 257:../APP/Src/modbus_master.c **** {
+ 397              		.loc 1 257 13 is_stmt 1 view .LVU95
+ 398              	.LBB65:
+ 259:../APP/Src/modbus_master.c ****     txFrame[0] = s_slaveAddress;
+ 399              		.loc 1 259 5 view .LVU96
+ 260:../APP/Src/modbus_master.c ****     txFrame[1] = MODBUS_FUNC_WRITE_SINGLE_REGISTER;
+ 400              		.loc 1 260 5 view .LVU97
+ 260:../APP/Src/modbus_master.c ****     txFrame[1] = MODBUS_FUNC_WRITE_SINGLE_REGISTER;
+ 401              		.loc 1 260 16 is_stmt 0 view .LVU98
+ 402 0030 99F80030 		ldrb	r3, [r9]	@ zero_extendqisi2
+ 403              	.LVL28:
+ 260:../APP/Src/modbus_master.c ****     txFrame[1] = MODBUS_FUNC_WRITE_SINGLE_REGISTER;
+ 404              		.loc 1 260 16 view .LVU99
+ 405 0034 8DF81430 		strb	r3, [sp, #20]
+ 261:../APP/Src/modbus_master.c ****     txFrame[2] = (uint8_t)(address >> 8);
+ 406              		.loc 1 261 5 is_stmt 1 view .LVU100
+ 407 0038 40BA     		rev16	r0, r0
+ 408 003a 52BA     		rev16	r2, r2
+ 261:../APP/Src/modbus_master.c ****     txFrame[2] = (uint8_t)(address >> 8);
+ 409              		.loc 1 261 16 is_stmt 0 view .LVU101
+ 410 003c 0621     		movs	r1, #6
+ 411              	.LVL29:
+ 262:../APP/Src/modbus_master.c ****     txFrame[3] = (uint8_t)(address & 0xFFU);
+ 412              		.loc 1 262 16 view .LVU102
+ 413 003e ADF81600 		strh	r0, [sp, #22]	@ movhi
+ 267:../APP/Src/modbus_master.c ****     txFrame[6] = (uint8_t)(crc & 0xFFU);
+ 414              		.loc 1 267 20 view .LVU103
+ 415 0042 05A8     		add	r0, sp, #20
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 18
+
+
+ 261:../APP/Src/modbus_master.c ****     txFrame[2] = (uint8_t)(address >> 8);
+ 416              		.loc 1 261 16 view .LVU104
+ 417 0044 8DF81510 		strb	r1, [sp, #21]
+ 262:../APP/Src/modbus_master.c ****     txFrame[3] = (uint8_t)(address & 0xFFU);
+ 418              		.loc 1 262 5 is_stmt 1 view .LVU105
+ 263:../APP/Src/modbus_master.c ****     txFrame[4] = (uint8_t)(value >> 8);
+ 419              		.loc 1 263 5 view .LVU106
+ 264:../APP/Src/modbus_master.c ****     txFrame[5] = (uint8_t)(value & 0xFFU);
+ 420              		.loc 1 264 5 view .LVU107
+ 265:../APP/Src/modbus_master.c **** 
+ 421              		.loc 1 265 5 view .LVU108
+ 264:../APP/Src/modbus_master.c ****     txFrame[5] = (uint8_t)(value & 0xFFU);
+ 422              		.loc 1 264 16 is_stmt 0 view .LVU109
+ 423 0048 ADF81820 		strh	r2, [sp, #24]	@ movhi
+ 267:../APP/Src/modbus_master.c ****     txFrame[6] = (uint8_t)(crc & 0xFFU);
+ 424              		.loc 1 267 5 is_stmt 1 view .LVU110
+ 267:../APP/Src/modbus_master.c ****     txFrame[6] = (uint8_t)(crc & 0xFFU);
+ 425              		.loc 1 267 20 is_stmt 0 view .LVU111
+ 426 004c FFF7FEFF 		bl	ModbusMaster_CalcCRC
+ 427              	.LVL30:
+ 268:../APP/Src/modbus_master.c ****     txFrame[7] = (uint8_t)(crc >> 8);
+ 428              		.loc 1 268 5 is_stmt 1 view .LVU112
+ 269:../APP/Src/modbus_master.c **** 
+ 429              		.loc 1 269 5 view .LVU113
+ 268:../APP/Src/modbus_master.c ****     txFrame[7] = (uint8_t)(crc >> 8);
+ 430              		.loc 1 268 16 is_stmt 0 view .LVU114
+ 431 0050 ADF81A00 		strh	r0, [sp, #26]	@ movhi
+ 271:../APP/Src/modbus_master.c ****     USART2_SendArray(txFrame, sizeof(txFrame));
+ 432              		.loc 1 271 5 is_stmt 1 view .LVU115
+ 433 0054 FFF7FEFF 		bl	USART2_FlushRxBuffer
+ 434              	.LVL31:
+ 272:../APP/Src/modbus_master.c **** 
+ 435              		.loc 1 272 5 view .LVU116
+ 436 0058 0821     		movs	r1, #8
+ 437 005a 05A8     		add	r0, sp, #20
+ 438 005c FFF7FEFF 		bl	USART2_SendArray
+ 439              	.LVL32:
+ 275:../APP/Src/modbus_master.c ****     if(!ModbusMaster_ReadBytes(rxFrame, 8U))
+ 440              		.loc 1 275 5 view .LVU117
+ 276:../APP/Src/modbus_master.c ****     {
+ 441              		.loc 1 276 5 view .LVU118
+ 442              	.LBB63:
+ 443              	.LBI63:
+ 206:../APP/Src/modbus_master.c **** {
+ 444              		.loc 1 206 13 view .LVU119
+ 445              	.LBB64:
+ 208:../APP/Src/modbus_master.c ****     {
+ 446              		.loc 1 208 5 view .LVU120
+ 447 0060 0821     		movs	r1, #8
+ 448 0062 07A8     		add	r0, sp, #28
+ 449              	.LVL33:
+ 208:../APP/Src/modbus_master.c ****     {
+ 450              		.loc 1 208 5 is_stmt 0 view .LVU121
+ 451 0064 FFF7FEFF 		bl	ModbusMaster_ReadBytes.part.0
+ 452              	.LVL34:
+ 208:../APP/Src/modbus_master.c ****     {
+ 453              		.loc 1 208 5 view .LVU122
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 19
+
+
+ 454              	.LBE64:
+ 455              	.LBE63:
+ 276:../APP/Src/modbus_master.c ****     {
+ 456              		.loc 1 276 7 discriminator 1 view .LVU123
+ 457 0068 18B9     		cbnz	r0, .L20
+ 278:../APP/Src/modbus_master.c ****         return false;
+ 458              		.loc 1 278 9 is_stmt 1 view .LVU124
+ 459 006a A649     		ldr	r1, .L66+12
+ 460              	.LVL35:
+ 461              	.L63:
+ 278:../APP/Src/modbus_master.c ****         return false;
+ 462              		.loc 1 278 9 is_stmt 0 view .LVU125
+ 463              	.LBE65:
+ 464              	.LBE69:
+ 465              	.LBB70:
+ 466              	.LBB71:
+ 390:../APP/Src/modbus_master.c ****         return false;
+ 467              		.loc 1 390 9 view .LVU126
+ 468 006c FFF7FEFF 		bl	SEGGER_RTT_printf
+ 469              	.LVL36:
+ 391:../APP/Src/modbus_master.c ****     }
+ 470              		.loc 1 391 9 is_stmt 1 view .LVU127
+ 391:../APP/Src/modbus_master.c ****     }
+ 471              		.loc 1 391 16 is_stmt 0 view .LVU128
+ 472 0070 0FE0     		b	.L26
+ 473              	.LVL37:
+ 474              	.L20:
+ 391:../APP/Src/modbus_master.c ****     }
+ 475              		.loc 1 391 16 view .LVU129
+ 476              	.LBE71:
+ 477              	.LBE70:
+ 478              	.LBB82:
+ 479              	.LBB66:
+ 283:../APP/Src/modbus_master.c ****     {
+ 480              		.loc 1 283 5 is_stmt 1 view .LVU130
+ 283:../APP/Src/modbus_master.c ****     {
+ 481              		.loc 1 283 7 is_stmt 0 view .LVU131
+ 482 0072 9DF81C20 		ldrb	r2, [sp, #28]	@ zero_extendqisi2
+ 483 0076 99F80030 		ldrb	r3, [r9]	@ zero_extendqisi2
+ 484 007a 9A42     		cmp	r2, r3
+ 485 007c 09D1     		bne	.L26
+ 289:../APP/Src/modbus_master.c ****     {
+ 486              		.loc 1 289 5 is_stmt 1 view .LVU132
+ 289:../APP/Src/modbus_master.c ****     {
+ 487              		.loc 1 289 15 is_stmt 0 view .LVU133
+ 488 007e 9DF81D10 		ldrb	r1, [sp, #29]	@ zero_extendqisi2
+ 289:../APP/Src/modbus_master.c ****     {
+ 489              		.loc 1 289 7 view .LVU134
+ 490 0082 8629     		cmp	r1, #134
+ 491 0084 13D1     		bne	.L22
+ 291:../APP/Src/modbus_master.c ****         return false;
+ 492              		.loc 1 291 9 is_stmt 1 view .LVU135
+ 493 0086 9DF81E20 		ldrb	r2, [sp, #30]	@ zero_extendqisi2
+ 494 008a 9F49     		ldr	r1, .L66+16
+ 495              	.LVL38:
+ 496              	.L64:
+ 291:../APP/Src/modbus_master.c ****         return false;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 20
+
+
+ 497              		.loc 1 291 9 is_stmt 0 view .LVU136
+ 498              	.LBE66:
+ 499              	.LBE82:
+ 500              	.LBB83:
+ 501              	.LBB75:
+ 374:../APP/Src/modbus_master.c ****         return false;
+ 502              		.loc 1 374 9 view .LVU137
+ 503 008c 0020     		movs	r0, #0
+ 504 008e FFF7FEFF 		bl	SEGGER_RTT_printf
+ 505              	.LVL39:
+ 375:../APP/Src/modbus_master.c ****     }
+ 506              		.loc 1 375 9 is_stmt 1 view .LVU138
+ 507              	.L26:
+ 375:../APP/Src/modbus_master.c ****     }
+ 508              		.loc 1 375 9 is_stmt 0 view .LVU139
+ 509              	.LBE75:
+ 510              	.LBE83:
+ 422:../APP/Src/modbus_master.c ****     }
+ 423:../APP/Src/modbus_master.c ****     else if(req->type == MODBUS_WRITE_MULTIPLE)
+ 424:../APP/Src/modbus_master.c ****     {
+ 425:../APP/Src/modbus_master.c ****         result = ModbusMaster_ExecuteWriteMultiple(req->address, req->count, req->values);
+ 426:../APP/Src/modbus_master.c ****     }
+ 427:../APP/Src/modbus_master.c **** 
+ 428:../APP/Src/modbus_master.c ****     /* 从队列移除 */
+ 429:../APP/Src/modbus_master.c ****     s_writeQueueHead = (s_writeQueueHead + 1U) % MODBUS_WRITE_QUEUE_SIZE;
+ 511              		.loc 1 429 5 is_stmt 1 view .LVU140
+ 512              		.loc 1 429 42 is_stmt 0 view .LVU141
+ 513 0092 3378     		ldrb	r3, [r6]	@ zero_extendqisi2
+ 514 0094 0133     		adds	r3, r3, #1
+ 515              		.loc 1 429 48 view .LVU142
+ 516 0096 03F00703 		and	r3, r3, #7
+ 517              		.loc 1 429 22 view .LVU143
+ 518 009a 3370     		strb	r3, [r6]
+ 430:../APP/Src/modbus_master.c ****     s_writeQueueCount--;
+ 519              		.loc 1 430 5 is_stmt 1 view .LVU144
+ 520              		.loc 1 430 22 is_stmt 0 view .LVU145
+ 521 009c 2B78     		ldrb	r3, [r5]	@ zero_extendqisi2
+ 522 009e 013B     		subs	r3, r3, #1
+ 523 00a0 2B70     		strb	r3, [r5]
+ 431:../APP/Src/modbus_master.c **** 
+ 432:../APP/Src/modbus_master.c ****     return result;
+ 524              		.loc 1 432 5 is_stmt 1 view .LVU146
+ 525              	.LBE60:
+ 526              	.LBE59:
+  63:../APP/Src/modbus_master.c ****         return;
+ 527              		.loc 1 63 9 view .LVU147
+ 528              	.LVL40:
+ 529              	.L46:
+  84:../APP/Src/modbus_master.c **** }
+ 530              		.loc 1 84 5 view .LVU148
+ 531 00a2 0A20     		movs	r0, #10
+  85:../APP/Src/modbus_master.c **** 
+ 532              		.loc 1 85 1 is_stmt 0 view .LVU149
+ 533 00a4 26B0     		add	sp, sp, #152
+ 534              	.LCFI6:
+ 535              		.cfi_remember_state
+ 536              		.cfi_def_cfa_offset 32
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 21
+
+
+ 537              		@ sp needed
+ 538 00a6 BDE8F047 		pop	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 539              	.LCFI7:
+ 540              		.cfi_restore 14
+ 541              		.cfi_restore 10
+ 542              		.cfi_restore 9
+ 543              		.cfi_restore 8
+ 544              		.cfi_restore 7
+ 545              		.cfi_restore 6
+ 546              		.cfi_restore 5
+ 547              		.cfi_restore 4
+ 548              		.cfi_def_cfa_offset 0
+  84:../APP/Src/modbus_master.c **** }
+ 549              		.loc 1 84 5 view .LVU150
+ 550 00aa FFF7FEBF 		b	SysTick_Delay_Ms
+ 551              	.LVL41:
+ 552              	.L22:
+ 553              	.LCFI8:
+ 554              		.cfi_restore_state
+ 555              	.LBB93:
+ 556              	.LBB92:
+ 557              	.LBB84:
+ 558              	.LBB67:
+ 296:../APP/Src/modbus_master.c ****     {
+ 559              		.loc 1 296 5 is_stmt 1 view .LVU151
+ 296:../APP/Src/modbus_master.c ****     {
+ 560              		.loc 1 296 7 is_stmt 0 view .LVU152
+ 561 00ae 0629     		cmp	r1, #6
+ 562 00b0 EFD1     		bne	.L26
+ 302:../APP/Src/modbus_master.c ****     uint16_t crcResp = (uint16_t)rxFrame[6] | ((uint16_t)rxFrame[7] << 8);
+ 563              		.loc 1 302 5 is_stmt 1 view .LVU153
+ 302:../APP/Src/modbus_master.c ****     uint16_t crcResp = (uint16_t)rxFrame[6] | ((uint16_t)rxFrame[7] << 8);
+ 564              		.loc 1 302 24 is_stmt 0 view .LVU154
+ 565 00b2 07A8     		add	r0, sp, #28
+ 566 00b4 FFF7FEFF 		bl	ModbusMaster_CalcCRC
+ 567              	.LVL42:
+ 303:../APP/Src/modbus_master.c **** 
+ 568              		.loc 1 303 5 is_stmt 1 view .LVU155
+ 305:../APP/Src/modbus_master.c ****     {
+ 569              		.loc 1 305 5 view .LVU156
+ 305:../APP/Src/modbus_master.c ****     {
+ 570              		.loc 1 305 7 is_stmt 0 view .LVU157
+ 571 00b8 BDF82230 		ldrh	r3, [sp, #34]
+ 572 00bc 8342     		cmp	r3, r0
+ 573 00be 02D0     		beq	.L23
+ 307:../APP/Src/modbus_master.c ****         return false;
+ 574              		.loc 1 307 9 is_stmt 1 view .LVU158
+ 575 00c0 9249     		ldr	r1, .L66+20
+ 576              	.LVL43:
+ 577              	.L62:
+ 307:../APP/Src/modbus_master.c ****         return false;
+ 578              		.loc 1 307 9 is_stmt 0 view .LVU159
+ 579              	.LBE67:
+ 580              	.LBE84:
+ 581              	.LBB85:
+ 582              	.LBB76:
+ 390:../APP/Src/modbus_master.c ****         return false;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 22
+
+
+ 583              		.loc 1 390 9 view .LVU160
+ 584 00c2 0020     		movs	r0, #0
+ 585 00c4 D2E7     		b	.L63
+ 586              	.LVL44:
+ 587              	.L23:
+ 390:../APP/Src/modbus_master.c ****         return false;
+ 588              		.loc 1 390 9 view .LVU161
+ 589              	.LBE76:
+ 590              	.LBE85:
+ 591              	.LBB86:
+ 592              	.LBB68:
+ 312:../APP/Src/modbus_master.c ****     uint16_t respValue = ((uint16_t)rxFrame[4] << 8) | rxFrame[5];
+ 593              		.loc 1 312 5 is_stmt 1 view .LVU162
+ 313:../APP/Src/modbus_master.c **** 
+ 594              		.loc 1 313 5 view .LVU163
+ 315:../APP/Src/modbus_master.c ****     {
+ 595              		.loc 1 315 5 view .LVU164
+ 315:../APP/Src/modbus_master.c ****     {
+ 596              		.loc 1 315 7 is_stmt 0 view .LVU165
+ 597 00c6 BDF81E20 		ldrh	r2, [sp, #30]
+ 598 00ca 52BA     		rev16	r2, r2
+ 599 00cc 92B2     		uxth	r2, r2
+ 600 00ce BA42     		cmp	r2, r7
+ 601 00d0 05D1     		bne	.L24
+ 315:../APP/Src/modbus_master.c ****     {
+ 602              		.loc 1 315 28 discriminator 1 view .LVU166
+ 603 00d2 BDF82030 		ldrh	r3, [sp, #32]
+ 604 00d6 5BBA     		rev16	r3, r3
+ 605 00d8 9BB2     		uxth	r3, r3
+ 606 00da 4345     		cmp	r3, r8
+ 607 00dc 01D0     		beq	.L25
+ 608              	.L24:
+ 317:../APP/Src/modbus_master.c ****         return false;
+ 609              		.loc 1 317 9 is_stmt 1 view .LVU167
+ 610 00de 8C49     		ldr	r1, .L66+24
+ 611 00e0 EFE7     		b	.L62
+ 612              	.L25:
+ 321:../APP/Src/modbus_master.c ****     return true;
+ 613              		.loc 1 321 5 view .LVU168
+ 614 00e2 8C49     		ldr	r1, .L66+28
+ 615              	.LVL45:
+ 616              	.L65:
+ 321:../APP/Src/modbus_master.c ****     return true;
+ 617              		.loc 1 321 5 is_stmt 0 view .LVU169
+ 618              	.LBE68:
+ 619              	.LBE86:
+ 620              	.LBB87:
+ 621              	.LBB77:
+ 404:../APP/Src/modbus_master.c ****     return true;
+ 622              		.loc 1 404 5 view .LVU170
+ 623 00e4 0020     		movs	r0, #0
+ 624 00e6 FFF7FEFF 		bl	SEGGER_RTT_printf
+ 625              	.LVL46:
+ 405:../APP/Src/modbus_master.c **** }
+ 626              		.loc 1 405 5 is_stmt 1 view .LVU171
+ 405:../APP/Src/modbus_master.c **** }
+ 627              		.loc 1 405 12 is_stmt 0 view .LVU172
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 23
+
+
+ 628 00ea D2E7     		b	.L26
+ 629              	.LVL47:
+ 630              	.L19:
+ 405:../APP/Src/modbus_master.c **** }
+ 631              		.loc 1 405 12 view .LVU173
+ 632              	.LBE77:
+ 633              	.LBE87:
+ 423:../APP/Src/modbus_master.c ****     {
+ 634              		.loc 1 423 10 is_stmt 1 view .LVU174
+ 423:../APP/Src/modbus_master.c ****     {
+ 635              		.loc 1 423 12 is_stmt 0 view .LVU175
+ 636 00ec 012C     		cmp	r4, #1
+ 637 00ee D0D1     		bne	.L26
+ 425:../APP/Src/modbus_master.c ****     }
+ 638              		.loc 1 425 9 is_stmt 1 view .LVU176
+ 425:../APP/Src/modbus_master.c ****     }
+ 639              		.loc 1 425 18 is_stmt 0 view .LVU177
+ 640 00f0 B3F80480 		ldrh	r8, [r3, #4]
+ 641              	.LVL48:
+ 642              	.LBB88:
+ 643              	.LBI70:
+ 326:../APP/Src/modbus_master.c **** {
+ 644              		.loc 1 326 13 is_stmt 1 view .LVU178
+ 645              	.LBB78:
+ 328:../APP/Src/modbus_master.c ****     {
+ 646              		.loc 1 328 5 view .LVU179
+ 328:../APP/Src/modbus_master.c ****     {
+ 647              		.loc 1 328 23 is_stmt 0 discriminator 1 view .LVU180
+ 648 00f4 08F1FF30 		add	r0, r8, #-1
+ 649 00f8 0F28     		cmp	r0, #15
+ 650 00fa CAD8     		bhi	.L26
+ 334:../APP/Src/modbus_master.c ****     txFrame[1] = MODBUS_FUNC_WRITE_MULTIPLE_REGISTERS;
+ 651              		.loc 1 334 16 view .LVU181
+ 652 00fc DFF83892 		ldr	r9, .L66+64
+ 653 0100 5888     		ldrh	r0, [r3, #2]
+ 654              	.LBE78:
+ 655              	.LBE88:
+ 425:../APP/Src/modbus_master.c ****     }
+ 656              		.loc 1 425 18 view .LVU182
+ 657 0102 5F88     		ldrh	r7, [r3, #2]
+ 658              	.LBB89:
+ 659              	.LBB79:
+ 333:../APP/Src/modbus_master.c ****     txFrame[0] = s_slaveAddress;
+ 660              		.loc 1 333 5 is_stmt 1 view .LVU183
+ 334:../APP/Src/modbus_master.c ****     txFrame[1] = MODBUS_FUNC_WRITE_MULTIPLE_REGISTERS;
+ 661              		.loc 1 334 5 view .LVU184
+ 334:../APP/Src/modbus_master.c ****     txFrame[1] = MODBUS_FUNC_WRITE_MULTIPLE_REGISTERS;
+ 662              		.loc 1 334 16 is_stmt 0 view .LVU185
+ 663 0104 99F80030 		ldrb	r3, [r9]	@ zero_extendqisi2
+ 664 0108 8DF81C30 		strb	r3, [sp, #28]
+ 335:../APP/Src/modbus_master.c ****     txFrame[2] = (uint8_t)(address >> 8);
+ 665              		.loc 1 335 5 is_stmt 1 view .LVU186
+ 335:../APP/Src/modbus_master.c ****     txFrame[2] = (uint8_t)(address >> 8);
+ 666              		.loc 1 335 16 is_stmt 0 view .LVU187
+ 667 010c 1023     		movs	r3, #16
+ 668 010e 8DF81D30 		strb	r3, [sp, #29]
+ 336:../APP/Src/modbus_master.c ****     txFrame[3] = (uint8_t)(address & 0xFFU);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 24
+
+
+ 669              		.loc 1 336 5 is_stmt 1 view .LVU188
+ 337:../APP/Src/modbus_master.c ****     txFrame[4] = (uint8_t)(count >> 8);
+ 670              		.loc 1 337 5 view .LVU189
+ 338:../APP/Src/modbus_master.c ****     txFrame[5] = (uint8_t)(count & 0xFFU);
+ 671              		.loc 1 338 16 is_stmt 0 view .LVU190
+ 672 0112 0023     		movs	r3, #0
+ 673 0114 8DF82030 		strb	r3, [sp, #32]
+ 674              	.LBE79:
+ 675              	.LBE89:
+ 425:../APP/Src/modbus_master.c ****     }
+ 676              		.loc 1 425 81 view .LVU191
+ 677 0118 0632     		adds	r2, r2, #6
+ 678              	.LBB90:
+ 679              	.LBB80:
+ 339:../APP/Src/modbus_master.c ****     txFrame[6] = (uint8_t)(count * 2U);
+ 680              		.loc 1 339 18 view .LVU192
+ 681 011a 5FFA88F3 		uxtb	r3, r8
+ 682 011e 40BA     		rev16	r0, r0
+ 339:../APP/Src/modbus_master.c ****     txFrame[6] = (uint8_t)(count * 2U);
+ 683              		.loc 1 339 16 view .LVU193
+ 684 0120 8DF82130 		strb	r3, [sp, #33]
+ 685              	.LBE80:
+ 686              	.LBE90:
+ 425:../APP/Src/modbus_master.c ****     }
+ 687              		.loc 1 425 81 view .LVU194
+ 688 0124 0A44     		add	r2, r2, r1
+ 689              	.LBB91:
+ 690              	.LBB81:
+ 340:../APP/Src/modbus_master.c **** 
+ 691              		.loc 1 340 18 view .LVU195
+ 692 0126 5B00     		lsls	r3, r3, #1
+ 340:../APP/Src/modbus_master.c **** 
+ 693              		.loc 1 340 16 view .LVU196
+ 694 0128 8DF82230 		strb	r3, [sp, #34]
+ 336:../APP/Src/modbus_master.c ****     txFrame[3] = (uint8_t)(address & 0xFFU);
+ 695              		.loc 1 336 16 view .LVU197
+ 696 012c ADF81E00 		strh	r0, [sp, #30]	@ movhi
+ 338:../APP/Src/modbus_master.c ****     txFrame[5] = (uint8_t)(count & 0xFFU);
+ 697              		.loc 1 338 5 is_stmt 1 view .LVU198
+ 339:../APP/Src/modbus_master.c ****     txFrame[6] = (uint8_t)(count * 2U);
+ 698              		.loc 1 339 5 view .LVU199
+ 340:../APP/Src/modbus_master.c **** 
+ 699              		.loc 1 340 5 view .LVU200
+ 343:../APP/Src/modbus_master.c ****     {
+ 700              		.loc 1 343 5 view .LVU201
+ 701              	.LBB72:
+ 343:../APP/Src/modbus_master.c ****     {
+ 702              		.loc 1 343 9 view .LVU202
+ 703              	.LVL49:
+ 343:../APP/Src/modbus_master.c ****     {
+ 704              		.loc 1 343 27 discriminator 1 view .LVU203
+ 705 0130 07AB     		add	r3, sp, #28
+ 706 0132 4FEA480A 		lsl	r10, r8, #1
+ 707 0136 02EB4801 		add	r1, r2, r8, lsl #1
+ 708              	.LVL50:
+ 709              	.L29:
+ 345:../APP/Src/modbus_master.c ****         txFrame[7 + i * 2 + 1] = (uint8_t)(values[i] & 0xFFU);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 25
+
+
+ 710              		.loc 1 345 9 view .LVU204
+ 345:../APP/Src/modbus_master.c ****         txFrame[7 + i * 2 + 1] = (uint8_t)(values[i] & 0xFFU);
+ 711              		.loc 1 345 46 is_stmt 0 view .LVU205
+ 712 013a 32F8020B 		ldrh	r0, [r2], #2
+ 713              	.LVL51:
+ 346:../APP/Src/modbus_master.c ****     }
+ 714              		.loc 1 346 34 view .LVU206
+ 715 013e 1872     		strb	r0, [r3, #8]
+ 345:../APP/Src/modbus_master.c ****         txFrame[7 + i * 2 + 1] = (uint8_t)(values[i] & 0xFFU);
+ 716              		.loc 1 345 30 view .LVU207
+ 717 0140 040A     		lsrs	r4, r0, #8
+ 343:../APP/Src/modbus_master.c ****     {
+ 718              		.loc 1 343 27 discriminator 1 view .LVU208
+ 719 0142 8A42     		cmp	r2, r1
+ 345:../APP/Src/modbus_master.c ****         txFrame[7 + i * 2 + 1] = (uint8_t)(values[i] & 0xFFU);
+ 720              		.loc 1 345 30 view .LVU209
+ 721 0144 DC71     		strb	r4, [r3, #7]
+ 346:../APP/Src/modbus_master.c ****     }
+ 722              		.loc 1 346 9 is_stmt 1 view .LVU210
+ 343:../APP/Src/modbus_master.c ****     {
+ 723              		.loc 1 343 37 discriminator 3 view .LVU211
+ 724              	.LVL52:
+ 343:../APP/Src/modbus_master.c ****     {
+ 725              		.loc 1 343 27 discriminator 1 view .LVU212
+ 726 0146 03F10203 		add	r3, r3, #2
+ 727 014a F6D1     		bne	.L29
+ 728              	.LBE72:
+ 349:../APP/Src/modbus_master.c ****     uint16_t crc = ModbusMaster_CalcCRC(txFrame, frameLen);
+ 729              		.loc 1 349 5 view .LVU213
+ 349:../APP/Src/modbus_master.c ****     uint16_t crc = ModbusMaster_CalcCRC(txFrame, frameLen);
+ 730              		.loc 1 349 36 is_stmt 0 view .LVU214
+ 731 014c 1FFA8AFA 		uxth	r10, r10
+ 349:../APP/Src/modbus_master.c ****     uint16_t crc = ModbusMaster_CalcCRC(txFrame, frameLen);
+ 732              		.loc 1 349 14 view .LVU215
+ 733 0150 0AF10704 		add	r4, r10, #7
+ 734 0154 A4B2     		uxth	r4, r4
+ 735              	.LVL53:
+ 350:../APP/Src/modbus_master.c ****     txFrame[frameLen] = (uint8_t)(crc & 0xFFU);
+ 736              		.loc 1 350 5 is_stmt 1 view .LVU216
+ 350:../APP/Src/modbus_master.c ****     txFrame[frameLen] = (uint8_t)(crc & 0xFFU);
+ 737              		.loc 1 350 20 is_stmt 0 view .LVU217
+ 738 0156 2146     		mov	r1, r4
+ 739 0158 07A8     		add	r0, sp, #28
+ 740 015a FFF7FEFF 		bl	ModbusMaster_CalcCRC
+ 741              	.LVL54:
+ 351:../APP/Src/modbus_master.c ****     txFrame[frameLen + 1] = (uint8_t)(crc >> 8);
+ 742              		.loc 1 351 5 is_stmt 1 view .LVU218
+ 351:../APP/Src/modbus_master.c ****     txFrame[frameLen + 1] = (uint8_t)(crc >> 8);
+ 743              		.loc 1 351 23 is_stmt 0 view .LVU219
+ 744 015e 04F19803 		add	r3, r4, #152
+ 745 0162 0DEB0304 		add	r4, sp, r3
+ 746              	.LVL55:
+ 351:../APP/Src/modbus_master.c ****     txFrame[frameLen + 1] = (uint8_t)(crc >> 8);
+ 747              		.loc 1 351 25 view .LVU220
+ 748 0166 04F87C0C 		strb	r0, [r4, #-124]
+ 352:../APP/Src/modbus_master.c **** 
+ 749              		.loc 1 352 5 is_stmt 1 view .LVU221
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 26
+
+
+ 352:../APP/Src/modbus_master.c **** 
+ 750              		.loc 1 352 29 is_stmt 0 view .LVU222
+ 751 016a 000A     		lsrs	r0, r0, #8
+ 752              	.LVL56:
+ 352:../APP/Src/modbus_master.c **** 
+ 753              		.loc 1 352 29 view .LVU223
+ 754 016c 04F87B0C 		strb	r0, [r4, #-123]
+ 354:../APP/Src/modbus_master.c ****     USART2_SendArray(txFrame, frameLen + 2U);
+ 755              		.loc 1 354 5 is_stmt 1 view .LVU224
+ 756 0170 FFF7FEFF 		bl	USART2_FlushRxBuffer
+ 757              	.LVL57:
+ 355:../APP/Src/modbus_master.c **** 
+ 758              		.loc 1 355 5 view .LVU225
+ 759 0174 0AF10901 		add	r1, r10, #9
+ 760 0178 89B2     		uxth	r1, r1
+ 761 017a 07A8     		add	r0, sp, #28
+ 762 017c FFF7FEFF 		bl	USART2_SendArray
+ 763              	.LVL58:
+ 358:../APP/Src/modbus_master.c ****     if(!ModbusMaster_ReadBytes(rxFrame, 8U))
+ 764              		.loc 1 358 5 view .LVU226
+ 359:../APP/Src/modbus_master.c ****     {
+ 765              		.loc 1 359 5 view .LVU227
+ 766              	.LBB73:
+ 767              	.LBI73:
+ 206:../APP/Src/modbus_master.c **** {
+ 768              		.loc 1 206 13 view .LVU228
+ 769              	.LBB74:
+ 208:../APP/Src/modbus_master.c ****     {
+ 770              		.loc 1 208 5 view .LVU229
+ 771 0180 0821     		movs	r1, #8
+ 772 0182 05A8     		add	r0, sp, #20
+ 773              	.LVL59:
+ 208:../APP/Src/modbus_master.c ****     {
+ 774              		.loc 1 208 5 is_stmt 0 view .LVU230
+ 775 0184 FFF7FEFF 		bl	ModbusMaster_ReadBytes.part.0
+ 776              	.LVL60:
+ 208:../APP/Src/modbus_master.c ****     {
+ 777              		.loc 1 208 5 view .LVU231
+ 778              	.LBE74:
+ 779              	.LBE73:
+ 359:../APP/Src/modbus_master.c ****     {
+ 780              		.loc 1 359 7 discriminator 1 view .LVU232
+ 781 0188 08B9     		cbnz	r0, .L30
+ 361:../APP/Src/modbus_master.c ****         return false;
+ 782              		.loc 1 361 9 is_stmt 1 view .LVU233
+ 783 018a 6349     		ldr	r1, .L66+32
+ 784 018c 6EE7     		b	.L63
+ 785              	.L30:
+ 366:../APP/Src/modbus_master.c ****     {
+ 786              		.loc 1 366 5 view .LVU234
+ 366:../APP/Src/modbus_master.c ****     {
+ 787              		.loc 1 366 7 is_stmt 0 view .LVU235
+ 788 018e 9DF81420 		ldrb	r2, [sp, #20]	@ zero_extendqisi2
+ 789 0192 99F80030 		ldrb	r3, [r9]	@ zero_extendqisi2
+ 790 0196 9A42     		cmp	r2, r3
+ 791 0198 7FF47BAF 		bne	.L26
+ 372:../APP/Src/modbus_master.c ****     {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 27
+
+
+ 792              		.loc 1 372 5 is_stmt 1 view .LVU236
+ 372:../APP/Src/modbus_master.c ****     {
+ 793              		.loc 1 372 15 is_stmt 0 view .LVU237
+ 794 019c 9DF81530 		ldrb	r3, [sp, #21]	@ zero_extendqisi2
+ 372:../APP/Src/modbus_master.c ****     {
+ 795              		.loc 1 372 7 view .LVU238
+ 796 01a0 902B     		cmp	r3, #144
+ 797 01a2 03D1     		bne	.L32
+ 374:../APP/Src/modbus_master.c ****         return false;
+ 798              		.loc 1 374 9 is_stmt 1 view .LVU239
+ 799 01a4 9DF81620 		ldrb	r2, [sp, #22]	@ zero_extendqisi2
+ 800 01a8 5C49     		ldr	r1, .L66+36
+ 801 01aa 6FE7     		b	.L64
+ 802              	.L32:
+ 379:../APP/Src/modbus_master.c ****     {
+ 803              		.loc 1 379 5 view .LVU240
+ 379:../APP/Src/modbus_master.c ****     {
+ 804              		.loc 1 379 7 is_stmt 0 view .LVU241
+ 805 01ac 102B     		cmp	r3, #16
+ 806 01ae 7FF470AF 		bne	.L26
+ 385:../APP/Src/modbus_master.c ****     uint16_t crcResp = (uint16_t)rxFrame[6] | ((uint16_t)rxFrame[7] << 8);
+ 807              		.loc 1 385 5 is_stmt 1 view .LVU242
+ 385:../APP/Src/modbus_master.c ****     uint16_t crcResp = (uint16_t)rxFrame[6] | ((uint16_t)rxFrame[7] << 8);
+ 808              		.loc 1 385 24 is_stmt 0 view .LVU243
+ 809 01b2 0621     		movs	r1, #6
+ 810 01b4 05A8     		add	r0, sp, #20
+ 811 01b6 FFF7FEFF 		bl	ModbusMaster_CalcCRC
+ 812              	.LVL61:
+ 386:../APP/Src/modbus_master.c **** 
+ 813              		.loc 1 386 5 is_stmt 1 view .LVU244
+ 388:../APP/Src/modbus_master.c ****     {
+ 814              		.loc 1 388 5 view .LVU245
+ 388:../APP/Src/modbus_master.c ****     {
+ 815              		.loc 1 388 7 is_stmt 0 view .LVU246
+ 816 01ba BDF81A30 		ldrh	r3, [sp, #26]
+ 817 01be 8342     		cmp	r3, r0
+ 818 01c0 01D0     		beq	.L33
+ 390:../APP/Src/modbus_master.c ****         return false;
+ 819              		.loc 1 390 9 is_stmt 1 view .LVU247
+ 820 01c2 5749     		ldr	r1, .L66+40
+ 821 01c4 7DE7     		b	.L62
+ 822              	.L33:
+ 395:../APP/Src/modbus_master.c ****     uint16_t respCount = ((uint16_t)rxFrame[4] << 8) | rxFrame[5];
+ 823              		.loc 1 395 5 view .LVU248
+ 824              	.LVL62:
+ 396:../APP/Src/modbus_master.c **** 
+ 825              		.loc 1 396 5 view .LVU249
+ 398:../APP/Src/modbus_master.c ****     {
+ 826              		.loc 1 398 5 view .LVU250
+ 398:../APP/Src/modbus_master.c ****     {
+ 827              		.loc 1 398 7 is_stmt 0 view .LVU251
+ 828 01c6 BDF81630 		ldrh	r3, [sp, #22]
+ 829 01ca 5BBA     		rev16	r3, r3
+ 830 01cc 9BB2     		uxth	r3, r3
+ 831 01ce BB42     		cmp	r3, r7
+ 832 01d0 05D1     		bne	.L34
+ 398:../APP/Src/modbus_master.c ****     {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 28
+
+
+ 833              		.loc 1 398 28 discriminator 1 view .LVU252
+ 834 01d2 BDF81830 		ldrh	r3, [sp, #24]
+ 835 01d6 5BBA     		rev16	r3, r3
+ 836 01d8 9BB2     		uxth	r3, r3
+ 837 01da 4345     		cmp	r3, r8
+ 838 01dc 01D0     		beq	.L35
+ 839              	.L34:
+ 400:../APP/Src/modbus_master.c ****         return false;
+ 840              		.loc 1 400 9 is_stmt 1 view .LVU253
+ 841 01de 5149     		ldr	r1, .L66+44
+ 842 01e0 6FE7     		b	.L62
+ 843              	.L35:
+ 404:../APP/Src/modbus_master.c ****     return true;
+ 844              		.loc 1 404 5 view .LVU254
+ 845 01e2 5149     		ldr	r1, .L66+48
+ 846 01e4 4346     		mov	r3, r8
+ 847 01e6 3A46     		mov	r2, r7
+ 848 01e8 7CE7     		b	.L65
+ 849              	.LVL63:
+ 850              	.L18:
+ 404:../APP/Src/modbus_master.c ****     return true;
+ 851              		.loc 1 404 5 is_stmt 0 view .LVU255
+ 852              	.LBE81:
+ 853              	.LBE91:
+ 854              	.LBE92:
+ 855              	.LBE93:
+  68:../APP/Src/modbus_master.c ****     uint16_t remaining = (MODBUS_REGISTER_END - start) + 1U;
+ 856              		.loc 1 68 5 is_stmt 1 view .LVU256
+ 857 01ea DFF85081 		ldr	r8, .L66+68
+  68:../APP/Src/modbus_master.c ****     uint16_t remaining = (MODBUS_REGISTER_END - start) + 1U;
+ 858              		.loc 1 68 14 is_stmt 0 view .LVU257
+ 859 01ee B8F80050 		ldrh	r5, [r8]
+ 860              	.LVL64:
+  69:../APP/Src/modbus_master.c ****     uint16_t quantity = (remaining > MODBUS_MAX_REGS_PER_REQUEST) ? MODBUS_MAX_REGS_PER_REQUEST : r
+ 861              		.loc 1 69 5 is_stmt 1 view .LVU258
+  70:../APP/Src/modbus_master.c **** 
+ 862              		.loc 1 70 5 view .LVU259
+ 863 01f2 B8F80030 		ldrh	r3, [r8]
+  69:../APP/Src/modbus_master.c ****     uint16_t quantity = (remaining > MODBUS_MAX_REGS_PER_REQUEST) ? MODBUS_MAX_REGS_PER_REQUEST : r
+ 864              		.loc 1 69 14 is_stmt 0 view .LVU260
+ 865 01f6 C5F1C004 		rsb	r4, r5, #192
+  70:../APP/Src/modbus_master.c **** 
+ 866              		.loc 1 70 14 view .LVU261
+ 867 01fa A4B2     		uxth	r4, r4
+ 868 01fc 3C2C     		cmp	r4, #60
+ 869 01fe 28BF     		it	cs
+ 870 0200 3C24     		movcs	r4, #60
+ 871              	.LVL65:
+  72:../APP/Src/modbus_master.c ****     {
+ 872              		.loc 1 72 5 is_stmt 1 view .LVU262
+ 873              	.LBB94:
+ 874              	.LBI94:
+ 103:../APP/Src/modbus_master.c **** {
+ 875              		.loc 1 103 13 view .LVU263
+ 876              	.LBB95:
+ 105:../APP/Src/modbus_master.c ****     {
+ 877              		.loc 1 105 5 view .LVU264
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 29
+
+
+ 105:../APP/Src/modbus_master.c ****     {
+ 878              		.loc 1 105 21 is_stmt 0 discriminator 1 view .LVU265
+ 879 0202 C02D     		cmp	r5, #192
+ 880 0204 5BBA     		rev16	r3, r3
+ 881 0206 4DD0     		beq	.L37
+ 110:../APP/Src/modbus_master.c ****     txFrame[0] = s_slaveAddress;
+ 882              		.loc 1 110 5 is_stmt 1 view .LVU266
+ 111:../APP/Src/modbus_master.c ****     txFrame[1] = MODBUS_FUNC_READ_HOLDING_REGISTERS;
+ 883              		.loc 1 111 5 view .LVU267
+ 111:../APP/Src/modbus_master.c ****     txFrame[1] = MODBUS_FUNC_READ_HOLDING_REGISTERS;
+ 884              		.loc 1 111 16 is_stmt 0 view .LVU268
+ 885 0208 DFF82C91 		ldr	r9, .L66+64
+ 113:../APP/Src/modbus_master.c ****     txFrame[3] = (uint8_t)(startReg & 0xFFU);
+ 886              		.loc 1 113 16 view .LVU269
+ 887 020c ADF81630 		strh	r3, [sp, #22]	@ movhi
+ 111:../APP/Src/modbus_master.c ****     txFrame[1] = MODBUS_FUNC_READ_HOLDING_REGISTERS;
+ 888              		.loc 1 111 16 view .LVU270
+ 889 0210 99F80020 		ldrb	r2, [r9]	@ zero_extendqisi2
+ 890 0214 8DF81420 		strb	r2, [sp, #20]
+ 112:../APP/Src/modbus_master.c ****     txFrame[2] = (uint8_t)(startReg >> 8);
+ 891              		.loc 1 112 5 is_stmt 1 view .LVU271
+ 118:../APP/Src/modbus_master.c ****     txFrame[6] = (uint8_t)(crc & 0xFFU);
+ 892              		.loc 1 118 20 is_stmt 0 view .LVU272
+ 893 0218 0621     		movs	r1, #6
+ 112:../APP/Src/modbus_master.c ****     txFrame[2] = (uint8_t)(startReg >> 8);
+ 894              		.loc 1 112 16 view .LVU273
+ 895 021a 0327     		movs	r7, #3
+ 118:../APP/Src/modbus_master.c ****     txFrame[6] = (uint8_t)(crc & 0xFFU);
+ 896              		.loc 1 118 20 view .LVU274
+ 897 021c 05A8     		add	r0, sp, #20
+ 112:../APP/Src/modbus_master.c ****     txFrame[2] = (uint8_t)(startReg >> 8);
+ 898              		.loc 1 112 16 view .LVU275
+ 899 021e 8DF81570 		strb	r7, [sp, #21]
+ 113:../APP/Src/modbus_master.c ****     txFrame[3] = (uint8_t)(startReg & 0xFFU);
+ 900              		.loc 1 113 5 is_stmt 1 view .LVU276
+ 114:../APP/Src/modbus_master.c ****     txFrame[4] = (uint8_t)(quantity >> 8);
+ 901              		.loc 1 114 5 view .LVU277
+ 115:../APP/Src/modbus_master.c ****     txFrame[5] = (uint8_t)(quantity & 0xFFU);
+ 902              		.loc 1 115 5 view .LVU278
+ 115:../APP/Src/modbus_master.c ****     txFrame[5] = (uint8_t)(quantity & 0xFFU);
+ 903              		.loc 1 115 16 is_stmt 0 view .LVU279
+ 904 0222 8DF81860 		strb	r6, [sp, #24]
+ 116:../APP/Src/modbus_master.c **** 
+ 905              		.loc 1 116 5 is_stmt 1 view .LVU280
+ 116:../APP/Src/modbus_master.c **** 
+ 906              		.loc 1 116 18 is_stmt 0 view .LVU281
+ 907 0226 8DF81940 		strb	r4, [sp, #25]
+ 118:../APP/Src/modbus_master.c ****     txFrame[6] = (uint8_t)(crc & 0xFFU);
+ 908              		.loc 1 118 5 is_stmt 1 view .LVU282
+ 118:../APP/Src/modbus_master.c ****     txFrame[6] = (uint8_t)(crc & 0xFFU);
+ 909              		.loc 1 118 20 is_stmt 0 view .LVU283
+ 910 022a FFF7FEFF 		bl	ModbusMaster_CalcCRC
+ 911              	.LVL66:
+ 119:../APP/Src/modbus_master.c ****     txFrame[7] = (uint8_t)(crc >> 8);
+ 912              		.loc 1 119 5 is_stmt 1 view .LVU284
+ 120:../APP/Src/modbus_master.c **** 
+ 913              		.loc 1 120 5 view .LVU285
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 30
+
+
+ 119:../APP/Src/modbus_master.c ****     txFrame[7] = (uint8_t)(crc >> 8);
+ 914              		.loc 1 119 16 is_stmt 0 view .LVU286
+ 915 022e ADF81A00 		strh	r0, [sp, #26]	@ movhi
+ 122:../APP/Src/modbus_master.c ****     USART2_SendArray(txFrame, sizeof(txFrame));
+ 916              		.loc 1 122 5 is_stmt 1 view .LVU287
+ 917 0232 FFF7FEFF 		bl	USART2_FlushRxBuffer
+ 918              	.LVL67:
+ 123:../APP/Src/modbus_master.c **** 
+ 919              		.loc 1 123 5 view .LVU288
+ 920 0236 0821     		movs	r1, #8
+ 921 0238 05A8     		add	r0, sp, #20
+ 922 023a FFF7FEFF 		bl	USART2_SendArray
+ 923              	.LVL68:
+ 125:../APP/Src/modbus_master.c ****     if(!ModbusMaster_ReadBytes(rxFrame, MODBUS_FRAME_HEADER_SIZE))
+ 924              		.loc 1 125 5 view .LVU289
+ 125:../APP/Src/modbus_master.c ****     if(!ModbusMaster_ReadBytes(rxFrame, MODBUS_FRAME_HEADER_SIZE))
+ 925              		.loc 1 125 13 is_stmt 0 view .LVU290
+ 926 023e 3146     		mov	r1, r6
+ 927 0240 7B22     		movs	r2, #123
+ 928 0242 07A8     		add	r0, sp, #28
+ 929 0244 FFF7FEFF 		bl	memset
+ 930              	.LVL69:
+ 126:../APP/Src/modbus_master.c ****     {
+ 931              		.loc 1 126 5 is_stmt 1 view .LVU291
+ 932              	.LBB96:
+ 933              	.LBI96:
+ 206:../APP/Src/modbus_master.c **** {
+ 934              		.loc 1 206 13 view .LVU292
+ 935              	.LBB97:
+ 208:../APP/Src/modbus_master.c ****     {
+ 936              		.loc 1 208 5 view .LVU293
+ 937 0248 3946     		mov	r1, r7
+ 938 024a 07A8     		add	r0, sp, #28
+ 939              	.LVL70:
+ 208:../APP/Src/modbus_master.c ****     {
+ 940              		.loc 1 208 5 is_stmt 0 view .LVU294
+ 941 024c FFF7FEFF 		bl	ModbusMaster_ReadBytes.part.0
+ 942              	.LVL71:
+ 208:../APP/Src/modbus_master.c ****     {
+ 943              		.loc 1 208 5 view .LVU295
+ 944              	.LBE97:
+ 945              	.LBE96:
+ 126:../APP/Src/modbus_master.c ****     {
+ 946              		.loc 1 126 7 discriminator 1 view .LVU296
+ 947 0250 40B3     		cbz	r0, .L37
+ 131:../APP/Src/modbus_master.c ****     {
+ 948              		.loc 1 131 5 is_stmt 1 view .LVU297
+ 131:../APP/Src/modbus_master.c ****     {
+ 949              		.loc 1 131 7 is_stmt 0 view .LVU298
+ 950 0252 9DF81C20 		ldrb	r2, [sp, #28]	@ zero_extendqisi2
+ 951 0256 99F80030 		ldrb	r3, [r9]	@ zero_extendqisi2
+ 952 025a 9A42     		cmp	r2, r3
+ 953 025c 22D1     		bne	.L37
+ 136:../APP/Src/modbus_master.c ****     {
+ 954              		.loc 1 136 5 is_stmt 1 view .LVU299
+ 136:../APP/Src/modbus_master.c ****     {
+ 955              		.loc 1 136 15 is_stmt 0 view .LVU300
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 31
+
+
+ 956 025e 9DF81D30 		ldrb	r3, [sp, #29]	@ zero_extendqisi2
+ 136:../APP/Src/modbus_master.c ****     {
+ 957              		.loc 1 136 7 view .LVU301
+ 958 0262 832B     		cmp	r3, #131
+ 959 0264 25D1     		bne	.L39
+ 960              	.LBB98:
+ 138:../APP/Src/modbus_master.c ****         if(!ModbusMaster_ReadBytes(exception, 1U))
+ 961              		.loc 1 138 9 is_stmt 1 view .LVU302
+ 139:../APP/Src/modbus_master.c ****         {
+ 962              		.loc 1 139 9 view .LVU303
+ 963              	.LVL72:
+ 964              	.LBB99:
+ 965              	.LBI99:
+ 206:../APP/Src/modbus_master.c **** {
+ 966              		.loc 1 206 13 view .LVU304
+ 967              	.LBB100:
+ 208:../APP/Src/modbus_master.c ****     {
+ 968              		.loc 1 208 5 view .LVU305
+ 969 0266 0121     		movs	r1, #1
+ 970 0268 02A8     		add	r0, sp, #8
+ 971              	.LVL73:
+ 208:../APP/Src/modbus_master.c ****     {
+ 972              		.loc 1 208 5 is_stmt 0 view .LVU306
+ 973 026a FFF7FEFF 		bl	ModbusMaster_ReadBytes.part.0
+ 974              	.LVL74:
+ 208:../APP/Src/modbus_master.c ****     {
+ 975              		.loc 1 208 5 view .LVU307
+ 976              	.LBE100:
+ 977              	.LBE99:
+ 139:../APP/Src/modbus_master.c ****         {
+ 978              		.loc 1 139 11 discriminator 1 view .LVU308
+ 979 026e C8B1     		cbz	r0, .L37
+ 144:../APP/Src/modbus_master.c ****         if(!ModbusMaster_ReadBytes(crcBytes, 2U))
+ 980              		.loc 1 144 9 is_stmt 1 view .LVU309
+ 145:../APP/Src/modbus_master.c ****         {
+ 981              		.loc 1 145 9 view .LVU310
+ 982              	.LVL75:
+ 983              	.LBB101:
+ 984              	.LBI101:
+ 206:../APP/Src/modbus_master.c **** {
+ 985              		.loc 1 206 13 view .LVU311
+ 986              	.LBB102:
+ 208:../APP/Src/modbus_master.c ****     {
+ 987              		.loc 1 208 5 view .LVU312
+ 988 0270 0221     		movs	r1, #2
+ 989 0272 03A8     		add	r0, sp, #12
+ 990              	.LVL76:
+ 208:../APP/Src/modbus_master.c ****     {
+ 991              		.loc 1 208 5 is_stmt 0 view .LVU313
+ 992 0274 FFF7FEFF 		bl	ModbusMaster_ReadBytes.part.0
+ 993              	.LVL77:
+ 208:../APP/Src/modbus_master.c ****     {
+ 994              		.loc 1 208 5 view .LVU314
+ 995              	.LBE102:
+ 996              	.LBE101:
+ 145:../APP/Src/modbus_master.c ****         {
+ 997              		.loc 1 145 11 discriminator 1 view .LVU315
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 32
+
+
+ 998 0278 A0B1     		cbz	r0, .L37
+ 150:../APP/Src/modbus_master.c ****         exceptionFrame[0] = rxFrame[0];
+ 999              		.loc 1 150 9 is_stmt 1 view .LVU316
+ 151:../APP/Src/modbus_master.c ****         exceptionFrame[1] = rxFrame[1];
+ 1000              		.loc 1 151 9 view .LVU317
+ 152:../APP/Src/modbus_master.c ****         exceptionFrame[2] = exception[0];
+ 1001              		.loc 1 152 9 view .LVU318
+ 151:../APP/Src/modbus_master.c ****         exceptionFrame[1] = rxFrame[1];
+ 1002              		.loc 1 151 27 is_stmt 0 view .LVU319
+ 1003 027a BDF81C30 		ldrh	r3, [sp, #28]
+ 153:../APP/Src/modbus_master.c **** 
+ 1004              		.loc 1 153 38 view .LVU320
+ 1005 027e 9DF80880 		ldrb	r8, [sp, #8]	@ zero_extendqisi2
+ 151:../APP/Src/modbus_master.c ****         exceptionFrame[1] = rxFrame[1];
+ 1006              		.loc 1 151 27 view .LVU321
+ 1007 0282 ADF81030 		strh	r3, [sp, #16]	@ movhi
+ 153:../APP/Src/modbus_master.c **** 
+ 1008              		.loc 1 153 9 is_stmt 1 view .LVU322
+ 155:../APP/Src/modbus_master.c ****         uint16_t crcResp = (uint16_t)crcBytes[0] | ((uint16_t)crcBytes[1] << 8);
+ 1009              		.loc 1 155 28 is_stmt 0 view .LVU323
+ 1010 0286 3946     		mov	r1, r7
+ 1011 0288 04A8     		add	r0, sp, #16
+ 153:../APP/Src/modbus_master.c **** 
+ 1012              		.loc 1 153 27 view .LVU324
+ 1013 028a 8DF81280 		strb	r8, [sp, #18]
+ 155:../APP/Src/modbus_master.c ****         uint16_t crcResp = (uint16_t)crcBytes[0] | ((uint16_t)crcBytes[1] << 8);
+ 1014              		.loc 1 155 9 is_stmt 1 view .LVU325
+ 155:../APP/Src/modbus_master.c ****         uint16_t crcResp = (uint16_t)crcBytes[0] | ((uint16_t)crcBytes[1] << 8);
+ 1015              		.loc 1 155 28 is_stmt 0 view .LVU326
+ 1016 028e FFF7FEFF 		bl	ModbusMaster_CalcCRC
+ 1017              	.LVL78:
+ 156:../APP/Src/modbus_master.c **** 
+ 1018              		.loc 1 156 9 is_stmt 1 view .LVU327
+ 158:../APP/Src/modbus_master.c ****         {
+ 1019              		.loc 1 158 9 view .LVU328
+ 158:../APP/Src/modbus_master.c ****         {
+ 1020              		.loc 1 158 11 is_stmt 0 view .LVU329
+ 1021 0292 BDF80C30 		ldrh	r3, [sp, #12]
+ 1022 0296 8342     		cmp	r3, r0
+ 1023 0298 04D1     		bne	.L37
+ 160:../APP/Src/modbus_master.c ****         }
+ 1024              		.loc 1 160 13 is_stmt 1 view .LVU330
+ 1025 029a 2449     		ldr	r1, .L66+52
+ 1026 029c 4246     		mov	r2, r8
+ 1027 029e 3046     		mov	r0, r6
+ 1028              	.LVL79:
+ 160:../APP/Src/modbus_master.c ****         }
+ 1029              		.loc 1 160 13 is_stmt 0 view .LVU331
+ 1030 02a0 FFF7FEFF 		bl	SEGGER_RTT_printf
+ 1031              	.LVL80:
+ 1032              	.L37:
+ 160:../APP/Src/modbus_master.c ****         }
+ 1033              		.loc 1 160 13 view .LVU332
+ 1034              	.LBE98:
+ 1035              	.LBE95:
+ 1036              	.LBE94:
+  81:../APP/Src/modbus_master.c ****     }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 33
+
+
+ 1037              		.loc 1 81 9 is_stmt 1 view .LVU333
+ 1038 02a4 2249     		ldr	r1, .L66+56
+ 1039 02a6 2346     		mov	r3, r4
+ 1040 02a8 2A46     		mov	r2, r5
+ 1041 02aa 0020     		movs	r0, #0
+ 1042 02ac FFF7FEFF 		bl	SEGGER_RTT_printf
+ 1043              	.LVL81:
+ 1044 02b0 F7E6     		b	.L46
+ 1045              	.LVL82:
+ 1046              	.L39:
+ 1047              	.LBB111:
+ 1048              	.LBB109:
+ 166:../APP/Src/modbus_master.c ****     {
+ 1049              		.loc 1 166 5 view .LVU334
+ 166:../APP/Src/modbus_master.c ****     {
+ 1050              		.loc 1 166 7 is_stmt 0 view .LVU335
+ 1051 02b2 032B     		cmp	r3, #3
+ 1052 02b4 F6D1     		bne	.L37
+ 171:../APP/Src/modbus_master.c ****     if(byteCount != (quantity * 2U))
+ 1053              		.loc 1 171 5 is_stmt 1 view .LVU336
+ 171:../APP/Src/modbus_master.c ****     if(byteCount != (quantity * 2U))
+ 1054              		.loc 1 171 13 is_stmt 0 view .LVU337
+ 1055 02b6 9DF81E60 		ldrb	r6, [sp, #30]	@ zero_extendqisi2
+ 1056              	.LVL83:
+ 172:../APP/Src/modbus_master.c ****     {
+ 1057              		.loc 1 172 5 is_stmt 1 view .LVU338
+ 172:../APP/Src/modbus_master.c ****     {
+ 1058              		.loc 1 172 7 is_stmt 0 view .LVU339
+ 1059 02ba B6EB440F 		cmp	r6, r4, lsl #1
+ 1060 02be F1D1     		bne	.L37
+ 177:../APP/Src/modbus_master.c ****     {
+ 1061              		.loc 1 177 5 is_stmt 1 view .LVU340
+ 1062              	.LVL84:
+ 1063              	.LBB103:
+ 1064              	.LBI103:
+ 206:../APP/Src/modbus_master.c **** {
+ 1065              		.loc 1 206 13 view .LVU341
+ 1066              	.LBB104:
+ 208:../APP/Src/modbus_master.c ****     {
+ 1067              		.loc 1 208 5 view .LVU342
+ 1068 02c0 3146     		mov	r1, r6
+ 1069 02c2 0DF11F00 		add	r0, sp, #31
+ 1070              	.LVL85:
+ 208:../APP/Src/modbus_master.c ****     {
+ 1071              		.loc 1 208 5 is_stmt 0 view .LVU343
+ 1072 02c6 FFF7FEFF 		bl	ModbusMaster_ReadBytes.part.0
+ 1073              	.LVL86:
+ 208:../APP/Src/modbus_master.c ****     {
+ 1074              		.loc 1 208 5 view .LVU344
+ 1075              	.LBE104:
+ 1076              	.LBE103:
+ 177:../APP/Src/modbus_master.c ****     {
+ 1077              		.loc 1 177 7 discriminator 1 view .LVU345
+ 1078 02ca 0028     		cmp	r0, #0
+ 1079 02cc EAD0     		beq	.L37
+ 182:../APP/Src/modbus_master.c ****     if(!ModbusMaster_ReadBytes(crcBytes, 2U))
+ 1080              		.loc 1 182 5 is_stmt 1 view .LVU346
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 34
+
+
+ 183:../APP/Src/modbus_master.c ****     {
+ 1081              		.loc 1 183 5 view .LVU347
+ 1082              	.LVL87:
+ 1083              	.LBB105:
+ 1084              	.LBI105:
+ 206:../APP/Src/modbus_master.c **** {
+ 1085              		.loc 1 206 13 view .LVU348
+ 1086              	.LBB106:
+ 208:../APP/Src/modbus_master.c ****     {
+ 1087              		.loc 1 208 5 view .LVU349
+ 1088 02ce 0221     		movs	r1, #2
+ 1089 02d0 04A8     		add	r0, sp, #16
+ 1090              	.LVL88:
+ 208:../APP/Src/modbus_master.c ****     {
+ 1091              		.loc 1 208 5 is_stmt 0 view .LVU350
+ 1092 02d2 FFF7FEFF 		bl	ModbusMaster_ReadBytes.part.0
+ 1093              	.LVL89:
+ 208:../APP/Src/modbus_master.c ****     {
+ 1094              		.loc 1 208 5 view .LVU351
+ 1095              	.LBE106:
+ 1096              	.LBE105:
+ 183:../APP/Src/modbus_master.c ****     {
+ 1097              		.loc 1 183 7 discriminator 1 view .LVU352
+ 1098 02d6 0028     		cmp	r0, #0
+ 1099 02d8 E4D0     		beq	.L37
+ 188:../APP/Src/modbus_master.c ****     uint16_t crcResp = (uint16_t)crcBytes[0] | ((uint16_t)crcBytes[1] << 8);
+ 1100              		.loc 1 188 5 is_stmt 1 view .LVU353
+ 188:../APP/Src/modbus_master.c ****     uint16_t crcResp = (uint16_t)crcBytes[0] | ((uint16_t)crcBytes[1] << 8);
+ 1101              		.loc 1 188 24 is_stmt 0 view .LVU354
+ 1102 02da F11C     		adds	r1, r6, #3
+ 1103 02dc 07A8     		add	r0, sp, #28
+ 1104 02de FFF7FEFF 		bl	ModbusMaster_CalcCRC
+ 1105              	.LVL90:
+ 1106 02e2 BDF81030 		ldrh	r3, [sp, #16]
+ 191:../APP/Src/modbus_master.c ****     {
+ 1107              		.loc 1 191 7 view .LVU355
+ 1108 02e6 9842     		cmp	r0, r3
+ 188:../APP/Src/modbus_master.c ****     uint16_t crcResp = (uint16_t)crcBytes[0] | ((uint16_t)crcBytes[1] << 8);
+ 1109              		.loc 1 188 24 view .LVU356
+ 1110 02e8 0246     		mov	r2, r0
+ 1111              	.LVL91:
+ 189:../APP/Src/modbus_master.c **** 
+ 1112              		.loc 1 189 5 is_stmt 1 view .LVU357
+ 191:../APP/Src/modbus_master.c ****     {
+ 1113              		.loc 1 191 5 view .LVU358
+ 191:../APP/Src/modbus_master.c ****     {
+ 1114              		.loc 1 191 7 is_stmt 0 view .LVU359
+ 1115 02ea 29D0     		beq	.L43
+ 193:../APP/Src/modbus_master.c ****         return false;
+ 1116              		.loc 1 193 9 is_stmt 1 view .LVU360
+ 1117 02ec 1149     		ldr	r1, .L66+60
+ 1118 02ee 0020     		movs	r0, #0
+ 1119              	.LVL92:
+ 193:../APP/Src/modbus_master.c ****         return false;
+ 1120              		.loc 1 193 9 is_stmt 0 view .LVU361
+ 1121 02f0 FFF7FEFF 		bl	SEGGER_RTT_printf
+ 1122              	.LVL93:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 35
+
+
+ 194:../APP/Src/modbus_master.c ****     }
+ 1123              		.loc 1 194 9 is_stmt 1 view .LVU362
+ 194:../APP/Src/modbus_master.c ****     }
+ 1124              		.loc 1 194 9 is_stmt 0 view .LVU363
+ 1125 02f4 D6E7     		b	.L37
+ 1126              	.L67:
+ 1127 02f6 00BF     		.align	2
+ 1128              	.L66:
+ 1129 02f8 00000000 		.word	s_writeQueueCount
+ 1130 02fc 00000000 		.word	s_writeQueueHead
+ 1131 0300 00000000 		.word	s_writeQueue
+ 1132 0304 00000000 		.word	.LC1
+ 1133 0308 20000000 		.word	.LC2
+ 1134 030c 4A000000 		.word	.LC3
+ 1135 0310 6C000000 		.word	.LC4
+ 1136 0314 92000000 		.word	.LC5
+ 1137 0318 B7000000 		.word	.LC6
+ 1138 031c D9000000 		.word	.LC7
+ 1139 0320 05010000 		.word	.LC8
+ 1140 0324 29010000 		.word	.LC9
+ 1141 0328 51010000 		.word	.LC10
+ 1142 032c 77010000 		.word	.LC11
+ 1143 0330 F3010000 		.word	.LC14
+ 1144 0334 99010000 		.word	.LC12
+ 1145 0338 00000000 		.word	s_slaveAddress
+ 1146 033c 00000000 		.word	s_nextRegister
+ 1147              	.LVL94:
+ 1148              	.L43:
+ 194:../APP/Src/modbus_master.c ****     }
+ 1149              		.loc 1 194 9 view .LVU364
+ 1150              	.LBE109:
+ 1151              	.LBE111:
+  72:../APP/Src/modbus_master.c ****     {
+ 1152              		.loc 1 72 8 view .LVU365
+ 1153 0340 1049     		ldr	r1, .L68
+ 1154 0342 07AB     		add	r3, sp, #28
+ 1155              	.LVL95:
+  72:../APP/Src/modbus_master.c ****     {
+ 1156              		.loc 1 72 8 view .LVU366
+ 1157 0344 01EB4501 		add	r1, r1, r5, lsl #1
+ 1158 0348 0022     		movs	r2, #0
+ 1159              	.LVL96:
+ 1160              	.L44:
+ 1161              	.LBB112:
+ 1162              	.LBB110:
+ 1163              	.LBB107:
+ 1164              	.LBB108:
+ 199:../APP/Src/modbus_master.c ****         dest[i] = ((uint16_t)rxFrame[index] << 8) | rxFrame[index + 1U];
+ 1165              		.loc 1 199 9 is_stmt 1 view .LVU367
+ 200:../APP/Src/modbus_master.c ****     }
+ 1166              		.loc 1 200 9 view .LVU368
+ 200:../APP/Src/modbus_master.c ****     }
+ 1167              		.loc 1 200 51 is_stmt 0 view .LVU369
+ 1168 034a DE78     		ldrb	r6, [r3, #3]	@ zero_extendqisi2
+ 200:../APP/Src/modbus_master.c ****     }
+ 1169              		.loc 1 200 60 view .LVU370
+ 1170 034c 1879     		ldrb	r0, [r3, #4]	@ zero_extendqisi2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 36
+
+
+ 200:../APP/Src/modbus_master.c ****     }
+ 1171              		.loc 1 200 51 view .LVU371
+ 1172 034e 40EA0620 		orr	r0, r0, r6, lsl #8
+ 200:../APP/Src/modbus_master.c ****     }
+ 1173              		.loc 1 200 17 view .LVU372
+ 1174 0352 21F81200 		strh	r0, [r1, r2, lsl #1]	@ movhi
+ 1175              	.LBE108:
+ 197:../APP/Src/modbus_master.c ****     {
+ 1176              		.loc 1 197 40 is_stmt 1 discriminator 3 view .LVU373
+ 1177              	.LVL97:
+ 197:../APP/Src/modbus_master.c ****     {
+ 1178              		.loc 1 197 27 discriminator 1 view .LVU374
+ 1179 0356 0132     		adds	r2, r2, #1
+ 1180              	.LVL98:
+ 197:../APP/Src/modbus_master.c ****     {
+ 1181              		.loc 1 197 27 is_stmt 0 discriminator 1 view .LVU375
+ 1182 0358 90B2     		uxth	r0, r2
+ 1183 035a 8442     		cmp	r4, r0
+ 1184 035c 03F10203 		add	r3, r3, #2
+ 1185              	.LVL99:
+ 197:../APP/Src/modbus_master.c ****     {
+ 1186              		.loc 1 197 27 discriminator 1 view .LVU376
+ 1187 0360 F3D8     		bhi	.L44
+ 1188              	.LVL100:
+ 197:../APP/Src/modbus_master.c ****     {
+ 1189              		.loc 1 197 27 discriminator 1 view .LVU377
+ 1190              	.LBE107:
+ 1191              	.LBE110:
+ 1192              	.LBE112:
+ 1193              	.LBB113:
+  74:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] Read OK: 0x%04X-0x%04X (%u regs)\r\n", start, endAddr, quant
+ 1194              		.loc 1 74 9 is_stmt 1 view .LVU378
+  74:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] Read OK: 0x%04X-0x%04X (%u regs)\r\n", start, endAddr, quant
+ 1195              		.loc 1 74 34 is_stmt 0 view .LVU379
+ 1196 0362 2E19     		adds	r6, r5, r4
+ 1197 0364 B6B2     		uxth	r6, r6
+  74:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] Read OK: 0x%04X-0x%04X (%u regs)\r\n", start, endAddr, quant
+ 1198              		.loc 1 74 18 view .LVU380
+ 1199 0366 771E     		subs	r7, r6, #1
+ 1200 0368 BFB2     		uxth	r7, r7
+ 1201              	.LVL101:
+  75:../APP/Src/modbus_master.c **** 
+ 1202              		.loc 1 75 9 is_stmt 1 view .LVU381
+ 1203 036a 0749     		ldr	r1, .L68+4
+ 1204 036c 0094     		str	r4, [sp]
+ 1205 036e 3B46     		mov	r3, r7
+ 1206 0370 2A46     		mov	r2, r5
+ 1207 0372 0020     		movs	r0, #0
+ 1208 0374 FFF7FEFF 		bl	SEGGER_RTT_printf
+ 1209              	.LVL102:
+  77:../APP/Src/modbus_master.c ****     }
+ 1210              		.loc 1 77 9 view .LVU382
+  77:../APP/Src/modbus_master.c ****     }
+ 1211              		.loc 1 77 24 is_stmt 0 discriminator 2 view .LVU383
+ 1212 0378 BF2F     		cmp	r7, #191
+ 1213 037a 28BF     		it	cs
+ 1214 037c 0026     		movcs	r6, #0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 37
+
+
+  77:../APP/Src/modbus_master.c ****     }
+ 1215              		.loc 1 77 24 discriminator 4 view .LVU384
+ 1216 037e A8F80060 		strh	r6, [r8]	@ movhi
+ 1217              	.LBE113:
+ 1218 0382 8EE6     		b	.L46
+ 1219              	.L69:
+ 1220              		.align	2
+ 1221              	.L68:
+ 1222 0384 00000000 		.word	s_registerCache
+ 1223 0388 C7010000 		.word	.LC13
+ 1224              		.cfi_endproc
+ 1225              	.LFE131:
+ 1227              		.section	.text.ModbusMaster_GetRegisterCache,"ax",%progbits
+ 1228              		.align	1
+ 1229              		.global	ModbusMaster_GetRegisterCache
+ 1230              		.syntax unified
+ 1231              		.thumb
+ 1232              		.thumb_func
+ 1234              	ModbusMaster_GetRegisterCache:
+ 1235              	.LFB132:
+  88:../APP/Src/modbus_master.c ****     return s_registerCache;
+ 1236              		.loc 1 88 1 is_stmt 1 view -0
+ 1237              		.cfi_startproc
+ 1238              		@ args = 0, pretend = 0, frame = 0
+ 1239              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1240              		@ link register save eliminated.
+  89:../APP/Src/modbus_master.c **** }
+ 1241              		.loc 1 89 5 view .LVU386
+  90:../APP/Src/modbus_master.c **** 
+ 1242              		.loc 1 90 1 is_stmt 0 view .LVU387
+ 1243 0000 0048     		ldr	r0, .L71
+ 1244 0002 7047     		bx	lr
+ 1245              	.L72:
+ 1246              		.align	2
+ 1247              	.L71:
+ 1248 0004 00000000 		.word	s_registerCache
+ 1249              		.cfi_endproc
+ 1250              	.LFE132:
+ 1252              		.section	.text.ModbusMaster_GetRegister,"ax",%progbits
+ 1253              		.align	1
+ 1254              		.global	ModbusMaster_GetRegister
+ 1255              		.syntax unified
+ 1256              		.thumb
+ 1257              		.thumb_func
+ 1259              	ModbusMaster_GetRegister:
+ 1260              	.LVL103:
+ 1261              	.LFB133:
+  93:../APP/Src/modbus_master.c ****     if(value == NULL || address < MODBUS_REGISTER_START || address > MODBUS_REGISTER_END)
+ 1262              		.loc 1 93 1 is_stmt 1 view -0
+ 1263              		.cfi_startproc
+ 1264              		@ args = 0, pretend = 0, frame = 0
+ 1265              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1266              		@ link register save eliminated.
+  94:../APP/Src/modbus_master.c ****     {
+ 1267              		.loc 1 94 5 view .LVU389
+  93:../APP/Src/modbus_master.c ****     if(value == NULL || address < MODBUS_REGISTER_START || address > MODBUS_REGISTER_END)
+ 1268              		.loc 1 93 1 is_stmt 0 view .LVU390
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 38
+
+
+ 1269 0000 0346     		mov	r3, r0
+  94:../APP/Src/modbus_master.c ****     {
+ 1270              		.loc 1 94 7 view .LVU391
+ 1271 0002 0846     		mov	r0, r1
+ 1272              	.LVL104:
+  94:../APP/Src/modbus_master.c ****     {
+ 1273              		.loc 1 94 7 view .LVU392
+ 1274 0004 41B1     		cbz	r1, .L74
+  94:../APP/Src/modbus_master.c ****     {
+ 1275              		.loc 1 94 57 discriminator 1 view .LVU393
+ 1276 0006 BF2B     		cmp	r3, #191
+ 1277 0008 05D8     		bhi	.L76
+  99:../APP/Src/modbus_master.c ****     return true;
+ 1278              		.loc 1 99 5 is_stmt 1 view .LVU394
+  99:../APP/Src/modbus_master.c ****     return true;
+ 1279              		.loc 1 99 29 is_stmt 0 view .LVU395
+ 1280 000a 044A     		ldr	r2, .L77
+ 1281 000c 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 1282              	.LVL105:
+  99:../APP/Src/modbus_master.c ****     return true;
+ 1283              		.loc 1 99 12 view .LVU396
+ 1284 0010 0B80     		strh	r3, [r1]	@ movhi
+ 100:../APP/Src/modbus_master.c **** }
+ 1285              		.loc 1 100 5 is_stmt 1 view .LVU397
+ 100:../APP/Src/modbus_master.c **** }
+ 1286              		.loc 1 100 12 is_stmt 0 view .LVU398
+ 1287 0012 0120     		movs	r0, #1
+ 1288 0014 7047     		bx	lr
+ 1289              	.LVL106:
+ 1290              	.L76:
+  96:../APP/Src/modbus_master.c ****     }
+ 1291              		.loc 1 96 16 view .LVU399
+ 1292 0016 0020     		movs	r0, #0
+ 1293              	.LVL107:
+ 1294              	.L74:
+ 101:../APP/Src/modbus_master.c **** 
+ 1295              		.loc 1 101 1 view .LVU400
+ 1296 0018 7047     		bx	lr
+ 1297              	.L78:
+ 1298 001a 00BF     		.align	2
+ 1299              	.L77:
+ 1300 001c 00000000 		.word	s_registerCache
+ 1301              		.cfi_endproc
+ 1302              	.LFE133:
+ 1304              		.section	.rodata.ModbusMaster_WriteSingleRegister.str1.1,"aMS",%progbits,1
+ 1305              	.LC15:
+ 1306 0000 5B4D6F64 		.ascii	"[Modbus] Write queue full\015\012\000"
+ 1306      6275735D 
+ 1306      20577269 
+ 1306      74652071 
+ 1306      75657565 
+ 1307              	.LC16:
+ 1308 001c 5B4D6F64 		.ascii	"[Modbus] Queued write single: 0x%04X = 0x%04X\015\012"
+ 1308      6275735D 
+ 1308      20517565 
+ 1308      75656420 
+ 1308      77726974 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 39
+
+
+ 1309 004b 00       		.ascii	"\000"
+ 1310              		.section	.text.ModbusMaster_WriteSingleRegister,"ax",%progbits
+ 1311              		.align	1
+ 1312              		.global	ModbusMaster_WriteSingleRegister
+ 1313              		.syntax unified
+ 1314              		.thumb
+ 1315              		.thumb_func
+ 1317              	ModbusMaster_WriteSingleRegister:
+ 1318              	.LVL108:
+ 1319              	.LFB140:
+ 433:../APP/Src/modbus_master.c **** }
+ 434:../APP/Src/modbus_master.c **** 
+ 435:../APP/Src/modbus_master.c **** /* 公开API: 写单个寄存器 (添加到队列) */
+ 436:../APP/Src/modbus_master.c **** bool ModbusMaster_WriteSingleRegister(uint16_t address, uint16_t value)
+ 437:../APP/Src/modbus_master.c **** {
+ 1320              		.loc 1 437 1 is_stmt 1 view -0
+ 1321              		.cfi_startproc
+ 1322              		@ args = 0, pretend = 0, frame = 0
+ 1323              		@ frame_needed = 0, uses_anonymous_args = 0
+ 438:../APP/Src/modbus_master.c ****     if(s_writeQueueCount >= MODBUS_WRITE_QUEUE_SIZE)
+ 1324              		.loc 1 438 5 view .LVU402
+ 437:../APP/Src/modbus_master.c ****     if(s_writeQueueCount >= MODBUS_WRITE_QUEUE_SIZE)
+ 1325              		.loc 1 437 1 is_stmt 0 view .LVU403
+ 1326 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1327              	.LCFI9:
+ 1328              		.cfi_def_cfa_offset 24
+ 1329              		.cfi_offset 3, -24
+ 1330              		.cfi_offset 4, -20
+ 1331              		.cfi_offset 5, -16
+ 1332              		.cfi_offset 6, -12
+ 1333              		.cfi_offset 7, -8
+ 1334              		.cfi_offset 14, -4
+ 1335              		.loc 1 438 26 view .LVU404
+ 1336 0002 144F     		ldr	r7, .L82
+ 437:../APP/Src/modbus_master.c ****     if(s_writeQueueCount >= MODBUS_WRITE_QUEUE_SIZE)
+ 1337              		.loc 1 437 1 view .LVU405
+ 1338 0004 0B46     		mov	r3, r1
+ 1339              		.loc 1 438 26 view .LVU406
+ 1340 0006 3978     		ldrb	r1, [r7]	@ zero_extendqisi2
+ 1341              	.LVL109:
+ 1342              		.loc 1 438 7 view .LVU407
+ 1343 0008 0729     		cmp	r1, #7
+ 437:../APP/Src/modbus_master.c ****     if(s_writeQueueCount >= MODBUS_WRITE_QUEUE_SIZE)
+ 1344              		.loc 1 437 1 view .LVU408
+ 1345 000a 0246     		mov	r2, r0
+ 1346              		.loc 1 438 7 view .LVU409
+ 1347 000c 05D9     		bls	.L80
+ 439:../APP/Src/modbus_master.c ****     {
+ 440:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] Write queue full\r\n");
+ 1348              		.loc 1 440 9 is_stmt 1 view .LVU410
+ 1349 000e 1249     		ldr	r1, .L82+4
+ 1350 0010 0020     		movs	r0, #0
+ 1351              	.LVL110:
+ 1352              		.loc 1 440 9 is_stmt 0 view .LVU411
+ 1353 0012 FFF7FEFF 		bl	SEGGER_RTT_printf
+ 1354              	.LVL111:
+ 441:../APP/Src/modbus_master.c ****         return false;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 40
+
+
+ 1355              		.loc 1 441 9 is_stmt 1 view .LVU412
+ 1356              		.loc 1 441 16 is_stmt 0 view .LVU413
+ 1357 0016 0020     		movs	r0, #0
+ 1358              	.L81:
+ 442:../APP/Src/modbus_master.c ****     }
+ 443:../APP/Src/modbus_master.c **** 
+ 444:../APP/Src/modbus_master.c ****     ModbusWriteRequest_t* req = &s_writeQueue[s_writeQueueTail];
+ 445:../APP/Src/modbus_master.c ****     req->type = MODBUS_WRITE_SINGLE;
+ 446:../APP/Src/modbus_master.c ****     req->address = address;
+ 447:../APP/Src/modbus_master.c ****     req->count = 1U;
+ 448:../APP/Src/modbus_master.c ****     req->values[0] = value;
+ 449:../APP/Src/modbus_master.c **** 
+ 450:../APP/Src/modbus_master.c ****     s_writeQueueTail = (s_writeQueueTail + 1U) % MODBUS_WRITE_QUEUE_SIZE;
+ 451:../APP/Src/modbus_master.c ****     s_writeQueueCount++;
+ 452:../APP/Src/modbus_master.c **** 
+ 453:../APP/Src/modbus_master.c ****     SEGGER_RTT_printf(0, "[Modbus] Queued write single: 0x%04X = 0x%04X\r\n", address, value);
+ 454:../APP/Src/modbus_master.c ****     return true;
+ 455:../APP/Src/modbus_master.c **** }
+ 1359              		.loc 1 455 1 view .LVU414
+ 1360 0018 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1361              	.LVL112:
+ 1362              	.L80:
+ 444:../APP/Src/modbus_master.c ****     req->type = MODBUS_WRITE_SINGLE;
+ 1363              		.loc 1 444 5 is_stmt 1 view .LVU415
+ 444:../APP/Src/modbus_master.c ****     req->type = MODBUS_WRITE_SINGLE;
+ 1364              		.loc 1 444 46 is_stmt 0 view .LVU416
+ 1365 001a DFF844C0 		ldr	ip, .L82+12
+ 445:../APP/Src/modbus_master.c ****     req->address = address;
+ 1366              		.loc 1 445 15 view .LVU417
+ 1367 001e DFF844E0 		ldr	lr, .L82+16
+ 444:../APP/Src/modbus_master.c ****     req->type = MODBUS_WRITE_SINGLE;
+ 1368              		.loc 1 444 46 view .LVU418
+ 1369 0022 9CF80040 		ldrb	r4, [ip]	@ zero_extendqisi2
+ 1370              	.LVL113:
+ 445:../APP/Src/modbus_master.c ****     req->address = address;
+ 1371              		.loc 1 445 5 is_stmt 1 view .LVU419
+ 445:../APP/Src/modbus_master.c ****     req->address = address;
+ 1372              		.loc 1 445 15 is_stmt 0 view .LVU420
+ 1373 0026 2625     		movs	r5, #38
+ 1374 0028 6543     		muls	r5, r4, r5
+ 1375 002a 0020     		movs	r0, #0
+ 1376              	.LVL114:
+ 445:../APP/Src/modbus_master.c ****     req->address = address;
+ 1377              		.loc 1 445 15 view .LVU421
+ 1378 002c 0EEB0506 		add	r6, lr, r5
+ 1379              	.LVL115:
+ 445:../APP/Src/modbus_master.c ****     req->address = address;
+ 1380              		.loc 1 445 15 view .LVU422
+ 1381 0030 0EF80500 		strb	r0, [lr, r5]
+ 446:../APP/Src/modbus_master.c ****     req->count = 1U;
+ 1382              		.loc 1 446 5 is_stmt 1 view .LVU423
+ 447:../APP/Src/modbus_master.c ****     req->values[0] = value;
+ 1383              		.loc 1 447 16 is_stmt 0 view .LVU424
+ 1384 0034 0125     		movs	r5, #1
+ 451:../APP/Src/modbus_master.c **** 
+ 1385              		.loc 1 451 22 view .LVU425
+ 1386 0036 2944     		add	r1, r1, r5
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 41
+
+
+ 450:../APP/Src/modbus_master.c ****     s_writeQueueCount++;
+ 1387              		.loc 1 450 42 view .LVU426
+ 1388 0038 2C44     		add	r4, r4, r5
+ 451:../APP/Src/modbus_master.c **** 
+ 1389              		.loc 1 451 22 view .LVU427
+ 1390 003a 3970     		strb	r1, [r7]
+ 450:../APP/Src/modbus_master.c ****     s_writeQueueCount++;
+ 1391              		.loc 1 450 48 view .LVU428
+ 1392 003c 04F00704 		and	r4, r4, #7
+ 453:../APP/Src/modbus_master.c ****     return true;
+ 1393              		.loc 1 453 5 view .LVU429
+ 1394 0040 0649     		ldr	r1, .L82+8
+ 446:../APP/Src/modbus_master.c ****     req->count = 1U;
+ 1395              		.loc 1 446 18 view .LVU430
+ 1396 0042 7280     		strh	r2, [r6, #2]	@ movhi
+ 447:../APP/Src/modbus_master.c ****     req->values[0] = value;
+ 1397              		.loc 1 447 5 is_stmt 1 view .LVU431
+ 447:../APP/Src/modbus_master.c ****     req->values[0] = value;
+ 1398              		.loc 1 447 16 is_stmt 0 view .LVU432
+ 1399 0044 B580     		strh	r5, [r6, #4]	@ movhi
+ 448:../APP/Src/modbus_master.c **** 
+ 1400              		.loc 1 448 5 is_stmt 1 view .LVU433
+ 448:../APP/Src/modbus_master.c **** 
+ 1401              		.loc 1 448 20 is_stmt 0 view .LVU434
+ 1402 0046 F380     		strh	r3, [r6, #6]	@ movhi
+ 450:../APP/Src/modbus_master.c ****     s_writeQueueCount++;
+ 1403              		.loc 1 450 5 is_stmt 1 view .LVU435
+ 450:../APP/Src/modbus_master.c ****     s_writeQueueCount++;
+ 1404              		.loc 1 450 22 is_stmt 0 view .LVU436
+ 1405 0048 8CF80040 		strb	r4, [ip]
+ 451:../APP/Src/modbus_master.c **** 
+ 1406              		.loc 1 451 5 is_stmt 1 view .LVU437
+ 453:../APP/Src/modbus_master.c ****     return true;
+ 1407              		.loc 1 453 5 view .LVU438
+ 1408 004c FFF7FEFF 		bl	SEGGER_RTT_printf
+ 1409              	.LVL116:
+ 454:../APP/Src/modbus_master.c **** }
+ 1410              		.loc 1 454 5 view .LVU439
+ 454:../APP/Src/modbus_master.c **** }
+ 1411              		.loc 1 454 12 is_stmt 0 view .LVU440
+ 1412 0050 2846     		mov	r0, r5
+ 1413 0052 E1E7     		b	.L81
+ 1414              	.L83:
+ 1415              		.align	2
+ 1416              	.L82:
+ 1417 0054 00000000 		.word	s_writeQueueCount
+ 1418 0058 00000000 		.word	.LC15
+ 1419 005c 1C000000 		.word	.LC16
+ 1420 0060 00000000 		.word	s_writeQueueTail
+ 1421 0064 00000000 		.word	s_writeQueue
+ 1422              		.cfi_endproc
+ 1423              	.LFE140:
+ 1425              		.section	.rodata.ModbusMaster_WriteMultipleRegisters.str1.1,"aMS",%progbits,1
+ 1426              	.LC17:
+ 1427 0000 5B4D6F64 		.ascii	"[Modbus] Queued write multiple: 0x%04X (%u regs)\015"
+ 1427      6275735D 
+ 1427      20517565 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 42
+
+
+ 1427      75656420 
+ 1427      77726974 
+ 1428 0031 0A00     		.ascii	"\012\000"
+ 1429              		.section	.text.ModbusMaster_WriteMultipleRegisters,"ax",%progbits
+ 1430              		.align	1
+ 1431              		.global	ModbusMaster_WriteMultipleRegisters
+ 1432              		.syntax unified
+ 1433              		.thumb
+ 1434              		.thumb_func
+ 1436              	ModbusMaster_WriteMultipleRegisters:
+ 1437              	.LVL117:
+ 1438              	.LFB141:
+ 456:../APP/Src/modbus_master.c **** 
+ 457:../APP/Src/modbus_master.c **** /* 公开API: 写多个寄存器 (添加到队列) */
+ 458:../APP/Src/modbus_master.c **** bool ModbusMaster_WriteMultipleRegisters(uint16_t address, uint16_t count, const uint16_t* values)
+ 459:../APP/Src/modbus_master.c **** {
+ 1439              		.loc 1 459 1 is_stmt 1 view -0
+ 1440              		.cfi_startproc
+ 1441              		@ args = 0, pretend = 0, frame = 0
+ 1442              		@ frame_needed = 0, uses_anonymous_args = 0
+ 460:../APP/Src/modbus_master.c ****     if(values == NULL || count == 0U || count > MODBUS_MAX_WRITE_REGS)
+ 1443              		.loc 1 460 5 view .LVU442
+ 459:../APP/Src/modbus_master.c ****     if(values == NULL || count == 0U || count > MODBUS_MAX_WRITE_REGS)
+ 1444              		.loc 1 459 1 is_stmt 0 view .LVU443
+ 1445 0000 2DE9F84F 		push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 1446              	.LCFI10:
+ 1447              		.cfi_def_cfa_offset 40
+ 1448              		.cfi_offset 3, -40
+ 1449              		.cfi_offset 4, -36
+ 1450              		.cfi_offset 5, -32
+ 1451              		.cfi_offset 6, -28
+ 1452              		.cfi_offset 7, -24
+ 1453              		.cfi_offset 8, -20
+ 1454              		.cfi_offset 9, -16
+ 1455              		.cfi_offset 10, -12
+ 1456              		.cfi_offset 11, -8
+ 1457              		.cfi_offset 14, -4
+ 459:../APP/Src/modbus_master.c ****     if(values == NULL || count == 0U || count > MODBUS_MAX_WRITE_REGS)
+ 1458              		.loc 1 459 1 view .LVU444
+ 1459 0004 0D46     		mov	r5, r1
+ 1460 0006 8046     		mov	r8, r0
+ 1461              		.loc 1 460 7 view .LVU445
+ 1462 0008 1146     		mov	r1, r2
+ 1463              	.LVL118:
+ 1464              		.loc 1 460 7 view .LVU446
+ 1465 000a 6AB1     		cbz	r2, .L85
+ 1466              		.loc 1 460 23 discriminator 1 view .LVU447
+ 1467 000c 6B1E     		subs	r3, r5, #1
+ 1468 000e 0F2B     		cmp	r3, #15
+ 1469 0010 0AD8     		bhi	.L85
+ 461:../APP/Src/modbus_master.c ****     {
+ 462:../APP/Src/modbus_master.c ****         return false;
+ 463:../APP/Src/modbus_master.c ****     }
+ 464:../APP/Src/modbus_master.c **** 
+ 465:../APP/Src/modbus_master.c ****     if(s_writeQueueCount >= MODBUS_WRITE_QUEUE_SIZE)
+ 1470              		.loc 1 465 5 is_stmt 1 view .LVU448
+ 1471              		.loc 1 465 26 is_stmt 0 view .LVU449
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 43
+
+
+ 1472 0012 DFF86CA0 		ldr	r10, .L91+12
+ 1473 0016 9AF80090 		ldrb	r9, [r10]	@ zero_extendqisi2
+ 1474              		.loc 1 465 7 view .LVU450
+ 1475 001a B9F1070F 		cmp	r9, #7
+ 1476 001e 06D9     		bls	.L86
+ 466:../APP/Src/modbus_master.c ****     {
+ 467:../APP/Src/modbus_master.c ****         SEGGER_RTT_printf(0, "[Modbus] Write queue full\r\n");
+ 1477              		.loc 1 467 9 is_stmt 1 view .LVU451
+ 1478 0020 1449     		ldr	r1, .L91
+ 1479 0022 0020     		movs	r0, #0
+ 1480              	.LVL119:
+ 1481              		.loc 1 467 9 is_stmt 0 view .LVU452
+ 1482 0024 FFF7FEFF 		bl	SEGGER_RTT_printf
+ 1483              	.LVL120:
+ 468:../APP/Src/modbus_master.c ****         return false;
+ 1484              		.loc 1 468 9 is_stmt 1 view .LVU453
+ 1485              	.L85:
+ 462:../APP/Src/modbus_master.c ****     }
+ 1486              		.loc 1 462 16 is_stmt 0 view .LVU454
+ 1487 0028 0020     		movs	r0, #0
+ 1488              	.L87:
+ 469:../APP/Src/modbus_master.c ****     }
+ 470:../APP/Src/modbus_master.c **** 
+ 471:../APP/Src/modbus_master.c ****     ModbusWriteRequest_t* req = &s_writeQueue[s_writeQueueTail];
+ 472:../APP/Src/modbus_master.c ****     req->type = MODBUS_WRITE_MULTIPLE;
+ 473:../APP/Src/modbus_master.c ****     req->address = address;
+ 474:../APP/Src/modbus_master.c ****     req->count = count;
+ 475:../APP/Src/modbus_master.c ****     memcpy(req->values, values, count * sizeof(uint16_t));
+ 476:../APP/Src/modbus_master.c **** 
+ 477:../APP/Src/modbus_master.c ****     s_writeQueueTail = (s_writeQueueTail + 1U) % MODBUS_WRITE_QUEUE_SIZE;
+ 478:../APP/Src/modbus_master.c ****     s_writeQueueCount++;
+ 479:../APP/Src/modbus_master.c **** 
+ 480:../APP/Src/modbus_master.c ****     SEGGER_RTT_printf(0, "[Modbus] Queued write multiple: 0x%04X (%u regs)\r\n", address, count);
+ 481:../APP/Src/modbus_master.c ****     return true;
+ 482:../APP/Src/modbus_master.c **** }
+ 1489              		.loc 1 482 1 view .LVU455
+ 1490 002a BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1491              	.LVL121:
+ 1492              	.L86:
+ 471:../APP/Src/modbus_master.c ****     req->type = MODBUS_WRITE_MULTIPLE;
+ 1493              		.loc 1 471 5 is_stmt 1 view .LVU456
+ 471:../APP/Src/modbus_master.c ****     req->type = MODBUS_WRITE_MULTIPLE;
+ 1494              		.loc 1 471 46 is_stmt 0 view .LVU457
+ 1495 002e DFF854B0 		ldr	fp, .L91+16
+ 472:../APP/Src/modbus_master.c ****     req->address = address;
+ 1496              		.loc 1 472 15 view .LVU458
+ 1497 0032 1148     		ldr	r0, .L91+4
+ 1498              	.LVL122:
+ 471:../APP/Src/modbus_master.c ****     req->type = MODBUS_WRITE_MULTIPLE;
+ 1499              		.loc 1 471 46 view .LVU459
+ 1500 0034 9BF80060 		ldrb	r6, [fp]	@ zero_extendqisi2
+ 1501              	.LVL123:
+ 472:../APP/Src/modbus_master.c ****     req->address = address;
+ 1502              		.loc 1 472 5 is_stmt 1 view .LVU460
+ 472:../APP/Src/modbus_master.c ****     req->address = address;
+ 1503              		.loc 1 472 15 is_stmt 0 view .LVU461
+ 1504 0038 2624     		movs	r4, #38
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 44
+
+
+ 1505 003a 7443     		muls	r4, r6, r4
+ 1506 003c 0127     		movs	r7, #1
+ 1507 003e 0319     		adds	r3, r0, r4
+ 1508              	.LVL124:
+ 472:../APP/Src/modbus_master.c ****     req->address = address;
+ 1509              		.loc 1 472 15 view .LVU462
+ 1510 0040 0755     		strb	r7, [r0, r4]
+ 473:../APP/Src/modbus_master.c ****     req->count = count;
+ 1511              		.loc 1 473 5 is_stmt 1 view .LVU463
+ 475:../APP/Src/modbus_master.c **** 
+ 1512              		.loc 1 475 15 is_stmt 0 view .LVU464
+ 1513 0042 0634     		adds	r4, r4, #6
+ 475:../APP/Src/modbus_master.c **** 
+ 1514              		.loc 1 475 5 view .LVU465
+ 1515 0044 05FA07F2 		lsl	r2, r5, r7
+ 1516 0048 2044     		add	r0, r0, r4
+ 477:../APP/Src/modbus_master.c ****     s_writeQueueCount++;
+ 1517              		.loc 1 477 42 view .LVU466
+ 1518 004a 3E44     		add	r6, r6, r7
+ 473:../APP/Src/modbus_master.c ****     req->count = count;
+ 1519              		.loc 1 473 18 view .LVU467
+ 1520 004c A3F80280 		strh	r8, [r3, #2]	@ movhi
+ 474:../APP/Src/modbus_master.c ****     memcpy(req->values, values, count * sizeof(uint16_t));
+ 1521              		.loc 1 474 5 is_stmt 1 view .LVU468
+ 474:../APP/Src/modbus_master.c ****     memcpy(req->values, values, count * sizeof(uint16_t));
+ 1522              		.loc 1 474 16 is_stmt 0 view .LVU469
+ 1523 0050 9D80     		strh	r5, [r3, #4]	@ movhi
+ 475:../APP/Src/modbus_master.c **** 
+ 1524              		.loc 1 475 5 is_stmt 1 view .LVU470
+ 477:../APP/Src/modbus_master.c ****     s_writeQueueCount++;
+ 1525              		.loc 1 477 48 is_stmt 0 view .LVU471
+ 1526 0052 06F00706 		and	r6, r6, #7
+ 475:../APP/Src/modbus_master.c **** 
+ 1527              		.loc 1 475 5 view .LVU472
+ 1528 0056 FFF7FEFF 		bl	memcpy
+ 1529              	.LVL125:
+ 477:../APP/Src/modbus_master.c ****     s_writeQueueCount++;
+ 1530              		.loc 1 477 5 is_stmt 1 view .LVU473
+ 478:../APP/Src/modbus_master.c **** 
+ 1531              		.loc 1 478 22 is_stmt 0 view .LVU474
+ 1532 005a B944     		add	r9, r9, r7
+ 480:../APP/Src/modbus_master.c ****     return true;
+ 1533              		.loc 1 480 5 view .LVU475
+ 1534 005c 0749     		ldr	r1, .L91+8
+ 477:../APP/Src/modbus_master.c ****     s_writeQueueCount++;
+ 1535              		.loc 1 477 22 view .LVU476
+ 1536 005e 8BF80060 		strb	r6, [fp]
+ 478:../APP/Src/modbus_master.c **** 
+ 1537              		.loc 1 478 5 is_stmt 1 view .LVU477
+ 480:../APP/Src/modbus_master.c ****     return true;
+ 1538              		.loc 1 480 5 is_stmt 0 view .LVU478
+ 1539 0062 2B46     		mov	r3, r5
+ 1540 0064 4246     		mov	r2, r8
+ 1541 0066 0020     		movs	r0, #0
+ 478:../APP/Src/modbus_master.c **** 
+ 1542              		.loc 1 478 22 view .LVU479
+ 1543 0068 8AF80090 		strb	r9, [r10]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 45
+
+
+ 480:../APP/Src/modbus_master.c ****     return true;
+ 1544              		.loc 1 480 5 is_stmt 1 view .LVU480
+ 1545 006c FFF7FEFF 		bl	SEGGER_RTT_printf
+ 1546              	.LVL126:
+ 481:../APP/Src/modbus_master.c **** }
+ 1547              		.loc 1 481 5 view .LVU481
+ 481:../APP/Src/modbus_master.c **** }
+ 1548              		.loc 1 481 12 is_stmt 0 view .LVU482
+ 1549 0070 3846     		mov	r0, r7
+ 1550 0072 DAE7     		b	.L87
+ 1551              	.L92:
+ 1552              		.align	2
+ 1553              	.L91:
+ 1554 0074 00000000 		.word	.LC15
+ 1555 0078 00000000 		.word	s_writeQueue
+ 1556 007c 00000000 		.word	.LC17
+ 1557 0080 00000000 		.word	s_writeQueueCount
+ 1558 0084 00000000 		.word	s_writeQueueTail
+ 1559              		.cfi_endproc
+ 1560              	.LFE141:
+ 1562              		.section	.text.ModbusMaster_GetWriteQueueCount,"ax",%progbits
+ 1563              		.align	1
+ 1564              		.global	ModbusMaster_GetWriteQueueCount
+ 1565              		.syntax unified
+ 1566              		.thumb
+ 1567              		.thumb_func
+ 1569              	ModbusMaster_GetWriteQueueCount:
+ 1570              	.LFB142:
+ 483:../APP/Src/modbus_master.c **** 
+ 484:../APP/Src/modbus_master.c **** /* 公开API: 获取写队列当前数量 */
+ 485:../APP/Src/modbus_master.c **** uint8_t ModbusMaster_GetWriteQueueCount(void)
+ 486:../APP/Src/modbus_master.c **** {
+ 1571              		.loc 1 486 1 is_stmt 1 view -0
+ 1572              		.cfi_startproc
+ 1573              		@ args = 0, pretend = 0, frame = 0
+ 1574              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1575              		@ link register save eliminated.
+ 487:../APP/Src/modbus_master.c ****     return s_writeQueueCount;
+ 1576              		.loc 1 487 5 view .LVU484
+ 488:../APP/Src/modbus_master.c **** }
+ 1577              		.loc 1 488 1 is_stmt 0 view .LVU485
+ 1578 0000 014B     		ldr	r3, .L94
+ 1579 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 1580 0004 7047     		bx	lr
+ 1581              	.L95:
+ 1582 0006 00BF     		.align	2
+ 1583              	.L94:
+ 1584 0008 00000000 		.word	s_writeQueueCount
+ 1585              		.cfi_endproc
+ 1586              	.LFE142:
+ 1588              		.section	.bss.s_writeQueueCount,"aw",%nobits
+ 1591              	s_writeQueueCount:
+ 1592 0000 00       		.space	1
+ 1593              		.section	.bss.s_writeQueueTail,"aw",%nobits
+ 1596              	s_writeQueueTail:
+ 1597 0000 00       		.space	1
+ 1598              		.section	.bss.s_writeQueueHead,"aw",%nobits
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 46
+
+
+ 1601              	s_writeQueueHead:
+ 1602 0000 00       		.space	1
+ 1603              		.section	.bss.s_writeQueue,"aw",%nobits
+ 1604              		.align	1
+ 1607              	s_writeQueue:
+ 1608 0000 00000000 		.space	304
+ 1608      00000000 
+ 1608      00000000 
+ 1608      00000000 
+ 1608      00000000 
+ 1609              		.section	.bss.s_nextRegister,"aw",%nobits
+ 1610              		.align	1
+ 1613              	s_nextRegister:
+ 1614 0000 0000     		.space	2
+ 1615              		.section	.bss.s_registerCache,"aw",%nobits
+ 1616              		.align	1
+ 1619              	s_registerCache:
+ 1620 0000 00000000 		.space	384
+ 1620      00000000 
+ 1620      00000000 
+ 1620      00000000 
+ 1620      00000000 
+ 1621              		.section	.data.s_slaveAddress,"aw"
+ 1624              	s_slaveAddress:
+ 1625 0000 01       		.byte	1
+ 1626              		.text
+ 1627              	.Letext0:
+ 1628              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 1629              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 1630              		.file 4 "../APP/Ins/modbus_master.h"
+ 1631              		.file 5 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/string.h"
+ 1632              		.file 6 "../core/inc/bsp_usart.h"
+ 1633              		.file 7 "../core/inc/bsp_delay.h"
+ 1634              		.file 8 "../RTT/Ins/SEGGER_RTT.h"
+ 1635              		.file 9 "<built-in>"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s 			page 47
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 modbus_master.c
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:21     .text.ModbusMaster_CalcCRC:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:26     .text.ModbusMaster_CalcCRC:00000000 ModbusMaster_CalcCRC
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:96     .text.ModbusMaster_ReadBytes.part.0:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:101    .text.ModbusMaster_ReadBytes.part.0:00000000 ModbusMaster_ReadBytes.part.0
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:192    .text.ModbusMaster_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:198    .text.ModbusMaster_Init:00000000 ModbusMaster_Init
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:278    .text.ModbusMaster_Init:0000004c $d
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1624   .data.s_slaveAddress:00000000 s_slaveAddress
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1613   .bss.s_nextRegister:00000000 s_nextRegister
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1619   .bss.s_registerCache:00000000 s_registerCache
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1601   .bss.s_writeQueueHead:00000000 s_writeQueueHead
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1607   .bss.s_writeQueue:00000000 s_writeQueue
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1596   .bss.s_writeQueueTail:00000000 s_writeQueueTail
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1591   .bss.s_writeQueueCount:00000000 s_writeQueueCount
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:320    .text.ModbusMaster_Task:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:326    .text.ModbusMaster_Task:00000000 ModbusMaster_Task
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1129   .text.ModbusMaster_Task:000002f8 $d
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1153   .text.ModbusMaster_Task:00000340 $t
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1222   .text.ModbusMaster_Task:00000384 $d
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1228   .text.ModbusMaster_GetRegisterCache:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1234   .text.ModbusMaster_GetRegisterCache:00000000 ModbusMaster_GetRegisterCache
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1248   .text.ModbusMaster_GetRegisterCache:00000004 $d
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1253   .text.ModbusMaster_GetRegister:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1259   .text.ModbusMaster_GetRegister:00000000 ModbusMaster_GetRegister
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1300   .text.ModbusMaster_GetRegister:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1311   .text.ModbusMaster_WriteSingleRegister:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1317   .text.ModbusMaster_WriteSingleRegister:00000000 ModbusMaster_WriteSingleRegister
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1417   .text.ModbusMaster_WriteSingleRegister:00000054 $d
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1430   .text.ModbusMaster_WriteMultipleRegisters:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1436   .text.ModbusMaster_WriteMultipleRegisters:00000000 ModbusMaster_WriteMultipleRegisters
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1554   .text.ModbusMaster_WriteMultipleRegisters:00000074 $d
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1563   .text.ModbusMaster_GetWriteQueueCount:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1569   .text.ModbusMaster_GetWriteQueueCount:00000000 ModbusMaster_GetWriteQueueCount
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1584   .text.ModbusMaster_GetWriteQueueCount:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1592   .bss.s_writeQueueCount:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1597   .bss.s_writeQueueTail:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1602   .bss.s_writeQueueHead:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1604   .bss.s_writeQueue:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1610   .bss.s_nextRegister:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccRqXnXb.s:1616   .bss.s_registerCache:00000000 $d
+
+UNDEFINED SYMBOLS
+USART2_GetRxData
+SysTick_Delay_Ms
+memset
+USART2_Init
+USART2_FlushRxBuffer
+SEGGER_RTT_printf
+USART2_SendArray
+memcpy
