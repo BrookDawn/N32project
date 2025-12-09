@@ -31,7 +31,7 @@ D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/har
 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-lock.o)
                               D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-findfp.o) (__retarget_lock_init_recursive)
 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-memcpy.o)
-                              build/Buffer.o (memcpy)
+                              build/bsp_usart.o (memcpy)
 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-strlen.o)
                               build/SEGGER_RTT.o (strlen)
 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__call_atexit.o)
@@ -199,20 +199,6 @@ Discarded input sections
  .bss           0x00000000        0x0 build/bsp_delay.o
  .text.SysTick_Delay_Us
                 0x00000000       0x60 build/bsp_delay.o
- .text.SysTick_Delay_Ms
-                0x00000000       0x5c build/bsp_delay.o
- .debug_info    0x00000000      0x858 build/bsp_delay.o
- .debug_abbrev  0x00000000      0x21b build/bsp_delay.o
- .debug_loc     0x00000000      0x2ce build/bsp_delay.o
- .debug_aranges
-                0x00000000       0x28 build/bsp_delay.o
- .debug_ranges  0x00000000       0x48 build/bsp_delay.o
- .debug_line    0x00000000      0x2c8 build/bsp_delay.o
- .debug_str     0x00000000      0x6b2 build/bsp_delay.o
- .comment       0x00000000       0x46 build/bsp_delay.o
- .debug_frame   0x00000000       0x50 build/bsp_delay.o
- .ARM.attributes
-                0x00000000       0x34 build/bsp_delay.o
  .text          0x00000000        0x0 build/bsp_led.o
  .data          0x00000000        0x0 build/bsp_led.o
  .bss           0x00000000        0x0 build/bsp_led.o
@@ -237,6 +223,8 @@ Discarded input sections
  .text          0x00000000        0x0 build/bsp_usart.o
  .data          0x00000000        0x0 build/bsp_usart.o
  .bss           0x00000000        0x0 build/bsp_usart.o
+ .text.USART1_Init
+                0x00000000       0xa8 build/bsp_usart.o
  .text.USART1_SendByte
                 0x00000000       0x20 build/bsp_usart.o
  .text.USART1_SendString
@@ -251,6 +239,13 @@ Discarded input sections
                 0x00000000       0x10 build/bsp_usart.o
  .text.USART1_DisableInterrupt
                 0x00000000       0x10 build/bsp_usart.o
+ .text.USART2_SendArray_DMA
+                0x00000000       0x50 build/bsp_usart.o
+ .text.USART2_IsTxBusy
+                0x00000000        0xc build/bsp_usart.o
+ .text.USART2_GetRxCount
+                0x00000000       0x30 build/bsp_usart.o
+ .bss.rx_tail   0x00000000        0x2 build/bsp_usart.o
  .text          0x00000000        0x0 build/main.o
  .data          0x00000000        0x0 build/main.o
  .bss           0x00000000        0x0 build/main.o
@@ -302,6 +297,23 @@ Discarded input sections
  .debug_frame   0x00000000       0xd0 build/Buffer.o
  .ARM.attributes
                 0x00000000       0x34 build/Buffer.o
+ .text          0x00000000        0x0 build/modbus_master.o
+ .data          0x00000000        0x0 build/modbus_master.o
+ .bss           0x00000000        0x0 build/modbus_master.o
+ .text.ModbusMaster_GetRegisterCache
+                0x00000000        0x8 build/modbus_master.o
+ .text.ModbusMaster_GetRegister
+                0x00000000       0x20 build/modbus_master.o
+ .rodata.ModbusMaster_WriteSingleRegister.str1.1
+                0x00000000       0x4c build/modbus_master.o
+ .text.ModbusMaster_WriteSingleRegister
+                0x00000000       0x68 build/modbus_master.o
+ .rodata.ModbusMaster_WriteMultipleRegisters.str1.1
+                0x00000000       0x33 build/modbus_master.o
+ .text.ModbusMaster_WriteMultipleRegisters
+                0x00000000       0x88 build/modbus_master.o
+ .text.ModbusMaster_GetWriteQueueCount
+                0x00000000        0xc build/modbus_master.o
  .text          0x00000000        0x0 build/SEGGER_RTT.o
  .data          0x00000000        0x0 build/SEGGER_RTT.o
  .bss           0x00000000        0x0 build/SEGGER_RTT.o
@@ -864,68 +876,22 @@ Discarded input sections
  .text          0x00000000        0x0 build/n32g430_dma.o
  .data          0x00000000        0x0 build/n32g430_dma.o
  .bss           0x00000000        0x0 build/n32g430_dma.o
- .text.DMA_Reset
-                0x00000000       0xb8 build/n32g430_dma.o
  .text.DMA_Peripheral_Address_Config
                 0x00000000        0x4 build/n32g430_dma.o
  .text.DMA_Memory_Address_Config
                 0x00000000        0x4 build/n32g430_dma.o
- .text.DMA_Destination_Config
-                0x00000000       0x10 build/n32g430_dma.o
  .text.DMA_Buffer_Size_Config
                 0x00000000        0x4 build/n32g430_dma.o
- .text.DMA_Peripheral_Addr_Increment_Config
-                0x00000000       0x10 build/n32g430_dma.o
- .text.DMA_Memory_Addr_Increment_Config
-                0x00000000       0x10 build/n32g430_dma.o
- .text.DMA_Peripheral_Data_Width_Config
-                0x00000000       0x10 build/n32g430_dma.o
- .text.DMA_Memory_Data_Width_Config
-                0x00000000       0x10 build/n32g430_dma.o
- .text.DMA_Circular_Mode_Config
-                0x00000000       0x10 build/n32g430_dma.o
- .text.DMA_Priority_Config
-                0x00000000       0x10 build/n32g430_dma.o
- .text.DMA_Memory_2_Memory_Config
-                0x00000000       0x10 build/n32g430_dma.o
- .text.DMA_Initializes
-                0x00000000       0x44 build/n32g430_dma.o
  .text.DMA_Structure_Initializes
                 0x00000000       0x1a build/n32g430_dma.o
- .text.DMA_Channel_Enable
-                0x00000000        0xa build/n32g430_dma.o
- .text.DMA_Channel_Disable
-                0x00000000        0xa build/n32g430_dma.o
- .text.DMA_Interrupts_Enable
-                0x00000000        0x8 build/n32g430_dma.o
  .text.DMA_Interrupts_Disable
                 0x00000000        0xa build/n32g430_dma.o
  .text.DMA_Current_Data_Transfer_Number_Set
                 0x00000000        0x4 build/n32g430_dma.o
- .text.DMA_Current_Data_Transfer_Number_Get
-                0x00000000        0x6 build/n32g430_dma.o
  .text.DMA_Flag_Status_Get
                 0x00000000        0xc build/n32g430_dma.o
  .text.DMA_Flag_Status_Clear
                 0x00000000        0x4 build/n32g430_dma.o
- .text.DMA_Interrupt_Status_Get
-                0x00000000        0xc build/n32g430_dma.o
- .text.DMA_Interrupt_Status_Clear
-                0x00000000        0x4 build/n32g430_dma.o
- .text.DMA_Channel_Request_Remap
-                0x00000000        0x4 build/n32g430_dma.o
- .debug_info    0x00000000      0x990 build/n32g430_dma.o
- .debug_abbrev  0x00000000      0x2b1 build/n32g430_dma.o
- .debug_loc     0x00000000      0x122 build/n32g430_dma.o
- .debug_aranges
-                0x00000000       0xe0 build/n32g430_dma.o
- .debug_ranges  0x00000000       0xe8 build/n32g430_dma.o
- .debug_line    0x00000000      0x5a6 build/n32g430_dma.o
- .debug_str     0x00000000      0x5a4 build/n32g430_dma.o
- .comment       0x00000000       0x46 build/n32g430_dma.o
- .debug_frame   0x00000000      0x1ac build/n32g430_dma.o
- .ARM.attributes
-                0x00000000       0x34 build/n32g430_dma.o
  .text          0x00000000        0x0 build/n32g430_exti.o
  .data          0x00000000        0x0 build/n32g430_exti.o
  .bss           0x00000000        0x0 build/n32g430_exti.o
@@ -1534,9 +1500,9 @@ Discarded input sections
                 0x00000000       0x10 build/n32g430_rcc.o
  .text.RCC_AHB_Peripheral_Clock_Disable
                 0x00000000       0x10 build/n32g430_rcc.o
- .text.RCC_APB2_Peripheral_Clock_Disable
+ .text.RCC_APB2_Peripheral_Clock_Enable
                 0x00000000       0x10 build/n32g430_rcc.o
- .text.RCC_APB1_Peripheral_Clock_Enable
+ .text.RCC_APB2_Peripheral_Clock_Disable
                 0x00000000       0x10 build/n32g430_rcc.o
  .text.RCC_LPTIM_Clock_Config
                 0x00000000       0x30 build/n32g430_rcc.o
@@ -2206,8 +2172,6 @@ Discarded input sections
                 0x00000000        0xe build/n32g430_usart.o
  .text.USART_Interrput_Disable
                 0x00000000       0x28 build/n32g430_usart.o
- .text.USART_DMA_Transfer_Enable
-                0x00000000        0xa build/n32g430_usart.o
  .text.USART_DMA_Transfer_Disable
                 0x00000000        0xc build/n32g430_usart.o
  .text.USART_Address_Set
@@ -2224,8 +2188,6 @@ Discarded input sections
                 0x00000000        0xc build/n32g430_usart.o
  .text.USART_LIN_Disable
                 0x00000000        0xe build/n32g430_usart.o
- .text.USART_Data_Send
-                0x00000000        0x8 build/n32g430_usart.o
  .text.USART_Break_Frame_Send
                 0x00000000        0xc build/n32g430_usart.o
  .text.USART_Guard_Time_Set
@@ -2249,8 +2211,6 @@ Discarded input sections
  .text.USART_IrDA_Enable
                 0x00000000        0xc build/n32g430_usart.o
  .text.USART_IrDA_Disable
-                0x00000000        0xe build/n32g430_usart.o
- .text.USART_Flag_Status_Get
                 0x00000000        0xe build/n32g430_usart.o
  .text.USART_Flag_Clear
                 0x00000000        0x8 build/n32g430_usart.o
@@ -3208,6 +3168,7 @@ LOAD build/bsp_usart.o
 LOAD build/main.o
 LOAD build/n32g430_it.o
 LOAD build/Buffer.o
+LOAD build/modbus_master.o
 LOAD build/SEGGER_RTT.o
 LOAD build/SEGGER_RTT_printf.o
 LOAD build/system_n32g430.o
@@ -3255,7 +3216,7 @@ LOAD D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+f
                 0x08000000                g_pfnVectors
                 0x08000114                        . = ALIGN (0x4)
 
-.text           0x08000114      0xf8c
+.text           0x08000114     0x17d8
                 0x08000114                        . = ALIGN (0x4)
  *(.text)
  .text          0x08000114      0x134 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-memcpy.o)
@@ -3269,356 +3230,476 @@ LOAD D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+f
                 0x08000288       0x28 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
  .text.frame_dummy
                 0x080002b0       0x24 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
- .text.USART1_Init
-                0x080002d4       0xa8 build/bsp_usart.o
-                0x080002d4                USART1_Init
+ .text.SysTick_Delay_Ms
+                0x080002d4       0x5c build/bsp_delay.o
+                0x080002d4                SysTick_Delay_Ms
  .text.USART1_IRQHandler
-                0x0800037c       0x54 build/bsp_usart.o
-                0x0800037c                USART1_IRQHandler
+                0x08000330       0x54 build/bsp_usart.o
+                0x08000330                USART1_IRQHandler
+ .text.USART2_Init
+                0x08000384      0x158 build/bsp_usart.o
+                0x08000384                USART2_Init
+ .text.USART2_SendByte
+                0x080004dc       0x20 build/bsp_usart.o
+                0x080004dc                USART2_SendByte
+ .text.USART2_SendArray
+                0x080004fc       0x28 build/bsp_usart.o
+                0x080004fc                USART2_SendArray
+ .text.USART2_GetRxData
+                0x08000524       0x50 build/bsp_usart.o
+                0x08000524                USART2_GetRxData
+ .text.USART2_FlushRxBuffer
+                0x08000574       0x1c build/bsp_usart.o
+                0x08000574                USART2_FlushRxBuffer
+ .text.USART2_IRQHandler
+                0x08000590       0x34 build/bsp_usart.o
+                0x08000590                USART2_IRQHandler
+ .text.DMA_Channel1_IRQHandler
+                0x080005c4       0x30 build/bsp_usart.o
+                0x080005c4                DMA_Channel1_IRQHandler
  .text.startup.main
-                0x080003d0       0x3c build/main.o
-                0x080003d0                main
+                0x080005f4       0x30 build/main.o
+                0x080005f4                main
  .text.NMI_Handler
-                0x0800040c        0x2 build/n32g430_it.o
-                0x0800040c                NMI_Handler
+                0x08000624        0x2 build/n32g430_it.o
+                0x08000624                NMI_Handler
  .text.HardFault_Handler
-                0x0800040e        0x2 build/n32g430_it.o
-                0x0800040e                HardFault_Handler
+                0x08000626        0x2 build/n32g430_it.o
+                0x08000626                HardFault_Handler
  .text.SVC_Handler
-                0x08000410        0x2 build/n32g430_it.o
-                0x08000410                SVC_Handler
+                0x08000628        0x2 build/n32g430_it.o
+                0x08000628                SVC_Handler
  .text.SysTick_Handler
-                0x08000412        0x2 build/n32g430_it.o
-                0x08000412                SysTick_Handler
+                0x0800062a        0x2 build/n32g430_it.o
+                0x0800062a                SysTick_Handler
+ .text.ModbusMaster_CalcCRC
+                0x0800062c       0x32 build/modbus_master.o
+ .text.ModbusMaster_ReadBytes.part.0
+                0x0800065e       0x3a build/modbus_master.o
+ .text.ModbusMaster_Init
+                0x08000698       0x6c build/modbus_master.o
+                0x08000698                ModbusMaster_Init
+ .text.ModbusMaster_Task
+                0x08000704      0x38c build/modbus_master.o
+                0x08000704                ModbusMaster_Task
  .text._GetAvailWriteSpace
-                0x08000414       0x12 build/SEGGER_RTT.o
+                0x08000a90       0x12 build/SEGGER_RTT.o
  .text._WriteNoCheck
-                0x08000426       0x3a build/SEGGER_RTT.o
+                0x08000aa2       0x3a build/SEGGER_RTT.o
  .text._WriteBlocking
-                0x08000460       0x5a build/SEGGER_RTT.o
- *fill*         0x080004ba        0x2 
- .text._DoInit  0x080004bc       0x68 build/SEGGER_RTT.o
+                0x08000adc       0x5a build/SEGGER_RTT.o
+ *fill*         0x08000b36        0x2 
+ .text._DoInit  0x08000b38       0x68 build/SEGGER_RTT.o
  .text.SEGGER_RTT_WriteNoLock
-                0x08000524       0x58 build/SEGGER_RTT.o
-                0x08000524                SEGGER_RTT_WriteNoLock
+                0x08000ba0       0x58 build/SEGGER_RTT.o
+                0x08000ba0                SEGGER_RTT_WriteNoLock
  .text.SEGGER_RTT_Write
-                0x0800057c       0x34 build/SEGGER_RTT.o
-                0x0800057c                SEGGER_RTT_Write
+                0x08000bf8       0x34 build/SEGGER_RTT.o
+                0x08000bf8                SEGGER_RTT_Write
  .text.SEGGER_RTT_Init
-                0x080005b0        0x4 build/SEGGER_RTT.o
-                0x080005b0                SEGGER_RTT_Init
+                0x08000c2c        0x4 build/SEGGER_RTT.o
+                0x08000c2c                SEGGER_RTT_Init
  .text._StoreChar
-                0x080005b4       0x3c build/SEGGER_RTT_printf.o
+                0x08000c30       0x3c build/SEGGER_RTT_printf.o
  .text._PrintUnsigned
-                0x080005f0       0xd4 build/SEGGER_RTT_printf.o
+                0x08000c6c       0xd4 build/SEGGER_RTT_printf.o
  .text.SEGGER_RTT_vprintf
-                0x080006c4      0x2e8 build/SEGGER_RTT_printf.o
-                0x080006c4                SEGGER_RTT_vprintf
+                0x08000d40      0x2e8 build/SEGGER_RTT_printf.o
+                0x08000d40                SEGGER_RTT_vprintf
  .text.SEGGER_RTT_printf
-                0x080009ac       0x1c build/SEGGER_RTT_printf.o
-                0x080009ac                SEGGER_RTT_printf
+                0x08001028       0x1c build/SEGGER_RTT_printf.o
+                0x08001028                SEGGER_RTT_printf
  .text.System_Initializes
-                0x080009c8      0x16c build/system_n32g430.o
-                0x080009c8                System_Initializes
+                0x08001044      0x16c build/system_n32g430.o
+                0x08001044                System_Initializes
  .text.NVIC_Initializes
-                0x08000b34       0x54 build/misc.o
-                0x08000b34                NVIC_Initializes
+                0x080011b0       0x54 build/misc.o
+                0x080011b0                NVIC_Initializes
+ .text.DMA_Reset
+                0x08001204       0xb8 build/n32g430_dma.o
+                0x08001204                DMA_Reset
+ .text.DMA_Destination_Config
+                0x080012bc       0x10 build/n32g430_dma.o
+                0x080012bc                DMA_Destination_Config
+ .text.DMA_Peripheral_Addr_Increment_Config
+                0x080012cc       0x10 build/n32g430_dma.o
+                0x080012cc                DMA_Peripheral_Addr_Increment_Config
+ .text.DMA_Memory_Addr_Increment_Config
+                0x080012dc       0x10 build/n32g430_dma.o
+                0x080012dc                DMA_Memory_Addr_Increment_Config
+ .text.DMA_Peripheral_Data_Width_Config
+                0x080012ec       0x10 build/n32g430_dma.o
+                0x080012ec                DMA_Peripheral_Data_Width_Config
+ .text.DMA_Memory_Data_Width_Config
+                0x080012fc       0x10 build/n32g430_dma.o
+                0x080012fc                DMA_Memory_Data_Width_Config
+ .text.DMA_Circular_Mode_Config
+                0x0800130c       0x10 build/n32g430_dma.o
+                0x0800130c                DMA_Circular_Mode_Config
+ .text.DMA_Priority_Config
+                0x0800131c       0x10 build/n32g430_dma.o
+                0x0800131c                DMA_Priority_Config
+ .text.DMA_Memory_2_Memory_Config
+                0x0800132c       0x10 build/n32g430_dma.o
+                0x0800132c                DMA_Memory_2_Memory_Config
+ .text.DMA_Initializes
+                0x0800133c       0x44 build/n32g430_dma.o
+                0x0800133c                DMA_Initializes
+ .text.DMA_Channel_Enable
+                0x08001380        0xa build/n32g430_dma.o
+                0x08001380                DMA_Channel_Enable
+ .text.DMA_Channel_Disable
+                0x0800138a        0xa build/n32g430_dma.o
+                0x0800138a                DMA_Channel_Disable
+ .text.DMA_Interrupts_Enable
+                0x08001394        0x8 build/n32g430_dma.o
+                0x08001394                DMA_Interrupts_Enable
+ .text.DMA_Current_Data_Transfer_Number_Get
+                0x0800139c        0x6 build/n32g430_dma.o
+                0x0800139c                DMA_Current_Data_Transfer_Number_Get
+ .text.DMA_Interrupt_Status_Get
+                0x080013a2        0xc build/n32g430_dma.o
+                0x080013a2                DMA_Interrupt_Status_Get
+ .text.DMA_Interrupt_Status_Clear
+                0x080013ae        0x4 build/n32g430_dma.o
+                0x080013ae                DMA_Interrupt_Status_Clear
+ .text.DMA_Channel_Request_Remap
+                0x080013b2        0x4 build/n32g430_dma.o
+                0x080013b2                DMA_Channel_Request_Remap
  .text.GPIO_Alternate_Set
-                0x08000b88       0x32 build/n32g430_gpio.o
-                0x08000b88                GPIO_Alternate_Set
+                0x080013b6       0x32 build/n32g430_gpio.o
+                0x080013b6                GPIO_Alternate_Set
  .text.GPIO_Mode_Set
-                0x08000bba       0x36 build/n32g430_gpio.o
-                0x08000bba                GPIO_Mode_Set
+                0x080013e8       0x36 build/n32g430_gpio.o
+                0x080013e8                GPIO_Mode_Set
  .text.GPIO_Pull_Set
-                0x08000bf0       0x16 build/n32g430_gpio.o
-                0x08000bf0                GPIO_Pull_Set
+                0x0800141e       0x16 build/n32g430_gpio.o
+                0x0800141e                GPIO_Pull_Set
  .text.GPIO_SlewRate_Set
-                0x08000c06       0x14 build/n32g430_gpio.o
-                0x08000c06                GPIO_SlewRate_Set
+                0x08001434       0x14 build/n32g430_gpio.o
+                0x08001434                GPIO_SlewRate_Set
  .text.GPIO_Driver_Set
-                0x08000c1a       0x16 build/n32g430_gpio.o
-                0x08000c1a                GPIO_Driver_Set
+                0x08001448       0x16 build/n32g430_gpio.o
+                0x08001448                GPIO_Driver_Set
  .text.GPIO_Peripheral_Initialize
-                0x08000c30       0x42 build/n32g430_gpio.o
-                0x08000c30                GPIO_Peripheral_Initialize
- *fill*         0x08000c72        0x2 
+                0x0800145e       0x42 build/n32g430_gpio.o
+                0x0800145e                GPIO_Peripheral_Initialize
  .text.RCC_Clocks_Frequencies_Value_Get
-                0x08000c74       0xb0 build/n32g430_rcc.o
-                0x08000c74                RCC_Clocks_Frequencies_Value_Get
+                0x080014a0       0xb0 build/n32g430_rcc.o
+                0x080014a0                RCC_Clocks_Frequencies_Value_Get
  .text.RCC_AHB_Peripheral_Clock_Enable
-                0x08000d24       0x10 build/n32g430_rcc.o
-                0x08000d24                RCC_AHB_Peripheral_Clock_Enable
- .text.RCC_APB2_Peripheral_Clock_Enable
-                0x08000d34       0x10 build/n32g430_rcc.o
-                0x08000d34                RCC_APB2_Peripheral_Clock_Enable
+                0x08001550       0x10 build/n32g430_rcc.o
+                0x08001550                RCC_AHB_Peripheral_Clock_Enable
+ .text.RCC_APB1_Peripheral_Clock_Enable
+                0x08001560       0x10 build/n32g430_rcc.o
+                0x08001560                RCC_APB1_Peripheral_Clock_Enable
  .text.USART_Baud_Rate_Config
-                0x08000d44       0x5c build/n32g430_usart.o
-                0x08000d44                USART_Baud_Rate_Config
+                0x08001570       0x5c build/n32g430_usart.o
+                0x08001570                USART_Baud_Rate_Config
  .text.USART_Initializes
-                0x08000da0       0x54 build/n32g430_usart.o
-                0x08000da0                USART_Initializes
+                0x080015cc       0x54 build/n32g430_usart.o
+                0x080015cc                USART_Initializes
  .text.USART_Enable
-                0x08000df4        0xc build/n32g430_usart.o
-                0x08000df4                USART_Enable
+                0x08001620        0xc build/n32g430_usart.o
+                0x08001620                USART_Enable
  .text.USART_Interrput_Enable
-                0x08000e00       0x26 build/n32g430_usart.o
-                0x08000e00                USART_Interrput_Enable
+                0x0800162c       0x26 build/n32g430_usart.o
+                0x0800162c                USART_Interrput_Enable
+ .text.USART_DMA_Transfer_Enable
+                0x08001652        0xa build/n32g430_usart.o
+                0x08001652                USART_DMA_Transfer_Enable
+ .text.USART_Data_Send
+                0x0800165c        0x8 build/n32g430_usart.o
+                0x0800165c                USART_Data_Send
  .text.USART_Data_Receive
-                0x08000e26        0x8 build/n32g430_usart.o
-                0x08000e26                USART_Data_Receive
+                0x08001664        0x8 build/n32g430_usart.o
+                0x08001664                USART_Data_Receive
+ .text.USART_Flag_Status_Get
+                0x0800166c        0xe build/n32g430_usart.o
+                0x0800166c                USART_Flag_Status_Get
  .text.USART_Interrupt_Status_Get
-                0x08000e2e       0x3c build/n32g430_usart.o
-                0x08000e2e                USART_Interrupt_Status_Get
+                0x0800167a       0x3c build/n32g430_usart.o
+                0x0800167a                USART_Interrupt_Status_Get
  .text.USART_Interrupt_Status_Clear
-                0x08000e6a        0xe build/n32g430_usart.o
-                0x08000e6a                USART_Interrupt_Status_Clear
+                0x080016b6        0xe build/n32g430_usart.o
+                0x080016b6                USART_Interrupt_Status_Clear
  .text.Reset_Handler
-                0x08000e78       0x50 build/startup_n32g430_gcc.o
-                0x08000e78                Reset_Handler
+                0x080016c4       0x50 build/startup_n32g430_gcc.o
+                0x080016c4                Reset_Handler
  .text.Default_Handler
-                0x08000ec8        0x2 build/startup_n32g430_gcc.o
-                0x08000ec8                EXTI2_IRQHandler
-                0x08000ec8                TIM8_TRG_COM_IRQHandler
-                0x08000ec8                TIM8_CC_IRQHandler
-                0x08000ec8                TIM1_CC_IRQHandler
-                0x08000ec8                TIM6_IRQHandler
-                0x08000ec8                PVD_IRQHandler
-                0x08000ec8                PendSV_Handler
-                0x08000ec8                EXTI3_IRQHandler
-                0x08000ec8                DMA_Channel8_IRQHandler
-                0x08000ec8                EXTI0_IRQHandler
-                0x08000ec8                I2C2_EV_IRQHandler
-                0x08000ec8                CAN_TX_IRQHandler
-                0x08000ec8                SPI1_IRQHandler
-                0x08000ec8                CAN_SCE_IRQHandler
-                0x08000ec8                RTC_TAMPER_STAMP_IRQHandler
-                0x08000ec8                DMA_Channel1_IRQHandler
-                0x08000ec8                TIM8_UP_IRQHandler
-                0x08000ec8                DMA_Channel4_IRQHandler
-                0x08000ec8                TIM4_IRQHandler
-                0x08000ec8                DMA_Channel5_IRQHandler
-                0x08000ec8                CAN_RX1_IRQHandler
-                0x08000ec8                I2C1_EV_IRQHandler
-                0x08000ec8                UART4_IRQHandler
-                0x08000ec8                TIM3_IRQHandler
-                0x08000ec8                RCC_IRQHandler
-                0x08000ec8                TIM1_TRG_COM_IRQHandler
-                0x08000ec8                Default_Handler
-                0x08000ec8                EXTI15_10_IRQHandler
-                0x08000ec8                ADC_IRQHandler
-                0x08000ec8                DMA_Channel3_IRQHandler
-                0x08000ec8                TIM5_IRQHandler
-                0x08000ec8                EXTI9_5_IRQHandler
-                0x08000ec8                RTC_WKUP_IRQHandler
-                0x08000ec8                MMU_IRQHandler
-                0x08000ec8                SPI2_IRQHandler
-                0x08000ec8                DMA_Channel2_IRQHandler
-                0x08000ec8                COMP_1_2_3_IRQHandler
-                0x08000ec8                EXTI4_IRQHandler
-                0x08000ec8                TIM1_UP_IRQHandler
-                0x08000ec8                DMA_Channel7_IRQHandler
-                0x08000ec8                WWDG_IRQHandler
-                0x08000ec8                TIM2_IRQHandler
-                0x08000ec8                TIM1_BRK_IRQHandler
-                0x08000ec8                EXTI1_IRQHandler
-                0x08000ec8                DMA_Channel6_IRQHandler
-                0x08000ec8                RTCAlarm_IRQHandler
-                0x08000ec8                USART2_IRQHandler
-                0x08000ec8                I2C2_ER_IRQHandler
-                0x08000ec8                LPTIM_WKUP_IRQHandler
-                0x08000ec8                TIM8_BRK_IRQHandler
-                0x08000ec8                FLASH_IRQHandler
-                0x08000ec8                CAN_RX0_IRQHandler
-                0x08000ec8                UART3_IRQHandler
-                0x08000ec8                I2C1_ER_IRQHandler
- *fill*         0x08000eca        0x2 
- .text.memset   0x08000ecc       0x9c D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-memset.o)
-                0x08000ecc                memset
+                0x08001714        0x2 build/startup_n32g430_gcc.o
+                0x08001714                EXTI2_IRQHandler
+                0x08001714                TIM8_TRG_COM_IRQHandler
+                0x08001714                TIM8_CC_IRQHandler
+                0x08001714                TIM1_CC_IRQHandler
+                0x08001714                TIM6_IRQHandler
+                0x08001714                PVD_IRQHandler
+                0x08001714                PendSV_Handler
+                0x08001714                EXTI3_IRQHandler
+                0x08001714                DMA_Channel8_IRQHandler
+                0x08001714                EXTI0_IRQHandler
+                0x08001714                I2C2_EV_IRQHandler
+                0x08001714                CAN_TX_IRQHandler
+                0x08001714                SPI1_IRQHandler
+                0x08001714                CAN_SCE_IRQHandler
+                0x08001714                RTC_TAMPER_STAMP_IRQHandler
+                0x08001714                TIM8_UP_IRQHandler
+                0x08001714                DMA_Channel4_IRQHandler
+                0x08001714                TIM4_IRQHandler
+                0x08001714                DMA_Channel5_IRQHandler
+                0x08001714                CAN_RX1_IRQHandler
+                0x08001714                I2C1_EV_IRQHandler
+                0x08001714                UART4_IRQHandler
+                0x08001714                TIM3_IRQHandler
+                0x08001714                RCC_IRQHandler
+                0x08001714                TIM1_TRG_COM_IRQHandler
+                0x08001714                Default_Handler
+                0x08001714                EXTI15_10_IRQHandler
+                0x08001714                ADC_IRQHandler
+                0x08001714                DMA_Channel3_IRQHandler
+                0x08001714                TIM5_IRQHandler
+                0x08001714                EXTI9_5_IRQHandler
+                0x08001714                RTC_WKUP_IRQHandler
+                0x08001714                MMU_IRQHandler
+                0x08001714                SPI2_IRQHandler
+                0x08001714                DMA_Channel2_IRQHandler
+                0x08001714                COMP_1_2_3_IRQHandler
+                0x08001714                EXTI4_IRQHandler
+                0x08001714                TIM1_UP_IRQHandler
+                0x08001714                DMA_Channel7_IRQHandler
+                0x08001714                WWDG_IRQHandler
+                0x08001714                TIM2_IRQHandler
+                0x08001714                TIM1_BRK_IRQHandler
+                0x08001714                EXTI1_IRQHandler
+                0x08001714                DMA_Channel6_IRQHandler
+                0x08001714                RTCAlarm_IRQHandler
+                0x08001714                I2C2_ER_IRQHandler
+                0x08001714                LPTIM_WKUP_IRQHandler
+                0x08001714                TIM8_BRK_IRQHandler
+                0x08001714                FLASH_IRQHandler
+                0x08001714                CAN_RX0_IRQHandler
+                0x08001714                UART3_IRQHandler
+                0x08001714                I2C1_ER_IRQHandler
+ *fill*         0x08001716        0x2 
+ .text.memset   0x08001718       0x9c D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-memset.o)
+                0x08001718                memset
  .text.__libc_init_array
-                0x08000f68       0x50 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-init.o)
-                0x08000f68                __libc_init_array
+                0x080017b4       0x50 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-init.o)
+                0x080017b4                __libc_init_array
  .text.__retarget_lock_acquire_recursive
-                0x08000fb8        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-lock.o)
-                0x08000fb8                __retarget_lock_acquire_recursive
+                0x08001804        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-lock.o)
+                0x08001804                __retarget_lock_acquire_recursive
  .text.__retarget_lock_release_recursive
-                0x08000fbc        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-lock.o)
-                0x08000fbc                __retarget_lock_release_recursive
+                0x08001808        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-lock.o)
+                0x08001808                __retarget_lock_release_recursive
  .text.startup.register_fini
-                0x08000fc0       0x14 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__call_atexit.o)
- .text.atexit   0x08000fd4        0xc D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-atexit.o)
-                0x08000fd4                atexit
+                0x0800180c       0x14 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__call_atexit.o)
+ .text.atexit   0x08001820        0xc D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-atexit.o)
+                0x08001820                atexit
  .text.__libc_fini_array
-                0x08000fe0       0x28 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-fini.o)
-                0x08000fe0                __libc_fini_array
+                0x0800182c       0x28 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-fini.o)
+                0x0800182c                __libc_fini_array
  .text.__register_exitproc
-                0x08001008       0x80 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__atexit.o)
-                0x08001008                __register_exitproc
+                0x08001854       0x80 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__atexit.o)
+                0x08001854                __register_exitproc
  *(.glue_7)
- .glue_7        0x08001088        0x0 linker stubs
+ .glue_7        0x080018d4        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x08001088        0x0 linker stubs
+ .glue_7t       0x080018d4        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x08001088        0x0 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
+ .eh_frame      0x080018d4        0x0 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
  *(.init)
- .init          0x08001088        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crti.o
-                0x08001088                _init
- .init          0x0800108c        0x8 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtn.o
+ .init          0x080018d4        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crti.o
+                0x080018d4                _init
+ .init          0x080018d8        0x8 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtn.o
  *(.fini)
- .fini          0x08001094        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crti.o
-                0x08001094                _fini
- .fini          0x08001098        0x8 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtn.o
-                0x080010a0                        . = ALIGN (0x4)
-                0x080010a0                        __fsymtab_start = .
+ .fini          0x080018e0        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crti.o
+                0x080018e0                _fini
+ .fini          0x080018e4        0x8 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtn.o
+                0x080018ec                        . = ALIGN (0x4)
+                0x080018ec                        __fsymtab_start = .
  *(FSymTab)
-                0x080010a0                        __fsymtab_end = .
-                0x080010a0                        . = ALIGN (0x4)
-                0x080010a0                        __vsymtab_start = .
+                0x080018ec                        __fsymtab_end = .
+                0x080018ec                        . = ALIGN (0x4)
+                0x080018ec                        __vsymtab_start = .
  *(VSymTab)
-                0x080010a0                        __vsymtab_end = .
-                0x080010a0                        . = ALIGN (0x4)
-                0x080010a0                        __rt_init_start = .
+                0x080018ec                        __vsymtab_end = .
+                0x080018ec                        . = ALIGN (0x4)
+                0x080018ec                        __rt_init_start = .
  *(SORT_BY_NAME(.rti_fn*))
-                0x080010a0                        __rt_init_end = .
-                0x080010a0                        . = ALIGN (0x4)
-                0x080010a0                        _etext = .
+                0x080018ec                        __rt_init_end = .
+                0x080018ec                        . = ALIGN (0x4)
+                0x080018ec                        _etext = .
 
-.vfp11_veneer   0x080010a0        0x0
- .vfp11_veneer  0x080010a0        0x0 linker stubs
+.vfp11_veneer   0x080018ec        0x0
+ .vfp11_veneer  0x080018ec        0x0 linker stubs
 
-.v4_bx          0x080010a0        0x0
- .v4_bx         0x080010a0        0x0 linker stubs
+.v4_bx          0x080018ec        0x0
+ .v4_bx         0x080018ec        0x0 linker stubs
 
-.iplt           0x080010a0        0x0
- .iplt          0x080010a0        0x0 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
+.iplt           0x080018ec        0x0
+ .iplt          0x080018ec        0x0 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.rodata         0x080010a0       0xec
-                0x080010a0                        . = ALIGN (0x4)
+.rodata         0x080018ec      0x314
+                0x080018ec                        . = ALIGN (0x4)
  *(.rodata)
  *(.rodata*)
  .rodata.main.str1.1
-                0x080010a0       0x8b build/main.o
-                                 0x7b (size before relaxing)
+                0x080018ec      0x2b3 build/main.o
+                                 0x48 (size before relaxing)
+ .rodata.ModbusMaster_Init.str1.1
+                0x08001b9f       0x3d build/modbus_master.o
+ .rodata.ModbusMaster_Task.str1.1
+                0x08001b9f      0x21e build/modbus_master.o
  .rodata._DoInit.str1.1
-                0x0800112b        0x9 build/SEGGER_RTT.o
+                0x08001b9f        0x9 build/SEGGER_RTT.o
  .rodata._aInitStr.0
-                0x0800112b       0x11 build/SEGGER_RTT.o
+                0x08001b9f       0x11 build/SEGGER_RTT.o
  .rodata.SEGGER_RTT_vprintf.str1.1
-                0x0800113c        0x7 build/SEGGER_RTT_printf.o
+                0x08001bb0        0x7 build/SEGGER_RTT_printf.o
  .rodata._aV2C.0
-                0x0800113c       0x10 build/SEGGER_RTT_printf.o
+                0x08001bb0       0x10 build/SEGGER_RTT_printf.o
  .rodata.ADCPLLCLKPresTable
-                0x0800114c       0x20 build/n32g430_rcc.o
+                0x08001bc0       0x20 build/n32g430_rcc.o
  .rodata.ADCHCLKPresTable
-                0x0800116c       0x10 build/n32g430_rcc.o
+                0x08001be0       0x10 build/n32g430_rcc.o
  .rodata.APBAHBPresTable
-                0x0800117c       0x10 build/n32g430_rcc.o
-                0x0800118c                        . = ALIGN (0x4)
+                0x08001bf0       0x10 build/n32g430_rcc.o
+                0x08001dc0                        . = ALIGN (0x4)
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM            0x0800118c        0x8
-                0x0800118c                        __exidx_start = .
+.ARM            0x08001c00        0x8
+                0x08001c00                        __exidx_start = .
  *(.ARM.exidx*)
- .ARM.exidx     0x0800118c        0x8 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-memcpy.o)
-                0x08001194                        __exidx_end = .
+ .ARM.exidx     0x08001c00        0x8 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-memcpy.o)
+                0x08001c08                        __exidx_end = .
 
-.rel.dyn        0x08001194        0x0
- .rel.iplt      0x08001194        0x0 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
+.rel.dyn        0x08001c08        0x0
+ .rel.iplt      0x08001c08        0x0 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.preinit_array  0x08001194        0x0
-                0x08001194                        PROVIDE (__preinit_array_start = .)
+.preinit_array  0x08001c08        0x0
+                0x08001c08                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x08001194                        PROVIDE (__preinit_array_end = .)
+                0x08001c08                        PROVIDE (__preinit_array_end = .)
 
-.init_array     0x08001194        0x8
-                0x08001194                        PROVIDE (__init_array_start = .)
+.init_array     0x08001c08        0x8
+                0x08001c08                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  .init_array.00000
-                0x08001194        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__call_atexit.o)
+                0x08001c08        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__call_atexit.o)
  *(.init_array*)
- .init_array    0x08001198        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
-                0x0800119c                        PROVIDE (__init_array_end = .)
+ .init_array    0x08001c0c        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
+                0x08001c10                        PROVIDE (__init_array_end = .)
 
-.fini_array     0x0800119c        0x4
-                0x0800119c                        PROVIDE (__fini_array_start = .)
+.fini_array     0x08001c10        0x4
+                0x08001c10                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x0800119c        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
-                0x080011a0                        PROVIDE (__fini_array_end = .)
-                0x080011a0                        _sidata = LOADADDR (.data)
+ .fini_array    0x08001c10        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
+                0x08001c14                        PROVIDE (__fini_array_end = .)
+                0x08001c14                        _sidata = LOADADDR (.data)
 
-.data           0x20000000        0x8 load address 0x080011a0
+.data           0x20000000        0xc load address 0x08001c14
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _sdata = .
  *(.data)
  *(.data*)
+ .data.s_slaveAddress
+                0x20000000        0x1 build/modbus_master.o
+ *fill*         0x20000001        0x3 
  .data.SystemClockFrequency
-                0x20000000        0x4 build/system_n32g430.o
-                0x20000000                SystemClockFrequency
+                0x20000004        0x4 build/system_n32g430.o
+                0x20000004                SystemClockFrequency
  .data.__atexit_recursive_mutex
-                0x20000004        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__call_atexit.o)
-                0x20000004                __atexit_recursive_mutex
-                0x20000008                        . = ALIGN (0x4)
-                0x20000008                        _edata = .
+                0x20000008        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__call_atexit.o)
+                0x20000008                __atexit_recursive_mutex
+                0x2000000c                        . = ALIGN (0x4)
+                0x2000000c                        _edata = .
 
 .tm_clone_table
-                0x20000008        0x0 load address 0x080011a8
+                0x2000000c        0x0 load address 0x08001c20
  .tm_clone_table
-                0x20000008        0x0 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
+                0x2000000c        0x0 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
  .tm_clone_table
-                0x20000008        0x0 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtend.o
+                0x2000000c        0x0 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtend.o
 
-.igot.plt       0x20000008        0x0 load address 0x080011a8
- .igot.plt      0x20000008        0x0 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
-                0x20000008                        . = ALIGN (0x4)
+.igot.plt       0x2000000c        0x0 load address 0x08001c20
+ .igot.plt      0x2000000c        0x0 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
+                0x2000000c                        . = ALIGN (0x4)
 
-.bss            0x20000008      0x774 load address 0x080011a8
-                0x20000008                        _sbss = .
-                0x20000008                        __bss_start__ = _sbss
+.bss            0x2000000c      0xc30 load address 0x08001c20
+                0x2000000c                        _sbss = .
+                0x2000000c                        __bss_start__ = _sbss
  *(.bss)
  *(.bss*)
  .bss.completed.1
-                0x20000008        0x1 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
- *fill*         0x20000009        0x3 
- .bss.object.0  0x2000000c       0x18 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
- .bss.rx_count  0x20000024        0x2 build/bsp_usart.o
- .bss.rx_tail   0x20000026        0x2 build/bsp_usart.o
- .bss.rx_head   0x20000028        0x2 build/bsp_usart.o
+                0x2000000c        0x1 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
+ *fill*         0x2000000d        0x3 
+ .bss.object.0  0x20000010       0x18 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
+ .bss.usart2_last_dma_counter
+                0x20000028        0x2 build/bsp_usart.o
+ .bss.usart2_tx_busy
+                0x2000002a        0x1 build/bsp_usart.o
+ *fill*         0x2000002b        0x1 
+ .bss.usart2_rx_read_index
+                0x2000002c        0x2 build/bsp_usart.o
+ .bss.usart2_rx_write_index
+                0x2000002e        0x2 build/bsp_usart.o
+ .bss.usart2_rx_dma_buffer
+                0x20000030      0x100 build/bsp_usart.o
+ .bss.usart2_tx_dma_buffer
+                0x20000130      0x100 build/bsp_usart.o
+ .bss.rx_count  0x20000230        0x2 build/bsp_usart.o
+ .bss.rx_head   0x20000232        0x2 build/bsp_usart.o
  .bss.usart1_rx_buffer
-                0x2000002a      0x100 build/bsp_usart.o
+                0x20000234      0x100 build/bsp_usart.o
+ .bss.s_writeQueueCount
+                0x20000334        0x1 build/modbus_master.o
+ .bss.s_writeQueueTail
+                0x20000335        0x1 build/modbus_master.o
+ .bss.s_writeQueueHead
+                0x20000336        0x1 build/modbus_master.o
+ *fill*         0x20000337        0x1 
+ .bss.s_writeQueue
+                0x20000338      0x130 build/modbus_master.o
+ .bss.s_nextRegister
+                0x20000468        0x2 build/modbus_master.o
+ .bss.s_registerCache
+                0x2000046a      0x180 build/modbus_master.o
  .bss._acDownBuffer
-                0x2000012a       0x10 build/SEGGER_RTT.o
+                0x200005ea       0x10 build/SEGGER_RTT.o
  .bss._acUpBuffer
-                0x2000013a      0x400 build/SEGGER_RTT.o
- *fill*         0x2000053a        0x2 
+                0x200005fa      0x400 build/SEGGER_RTT.o
+ *fill*         0x200009fa        0x2 
  .bss._SEGGER_RTT
-                0x2000053c       0xa8 build/SEGGER_RTT.o
-                0x2000053c                _SEGGER_RTT
+                0x200009fc       0xa8 build/SEGGER_RTT.o
+                0x200009fc                _SEGGER_RTT
  .bss.__lock___atexit_recursive_mutex
-                0x200005e4        0x1 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-lock.o)
-                0x200005e4                __lock___atexit_recursive_mutex
- *fill*         0x200005e5        0x3 
- .bss.__atexit  0x200005e8        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__call_atexit.o)
-                0x200005e8                __atexit
+                0x20000aa4        0x1 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-lock.o)
+                0x20000aa4                __lock___atexit_recursive_mutex
+ *fill*         0x20000aa5        0x3 
+ .bss.__atexit  0x20000aa8        0x4 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__call_atexit.o)
+                0x20000aa8                __atexit
  .bss.__atexit0
-                0x200005ec      0x190 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__atexit.o)
-                0x200005ec                __atexit0
+                0x20000aac      0x190 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__atexit.o)
+                0x20000aac                __atexit0
  *(COMMON)
-                0x2000077c                        . = ALIGN (0x4)
-                0x2000077c                        _ebss = .
-                0x2000077c                        __bss_end__ = _ebss
+                0x20000c3c                        . = ALIGN (0x4)
+                0x20000c3c                        _ebss = .
+                0x20000c3c                        __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x2000077c      0x600 load address 0x080011a8
-                0x2000077c                        . = ALIGN (0x4)
-                0x2000077c                        PROVIDE (end = .)
+                0x20000c3c      0x600 load address 0x08001c20
+                0x20000c3c                        . = ALIGN (0x4)
+                0x20000c3c                        PROVIDE (end = .)
                 [!provide]                        PROVIDE (_end = .)
-                0x2000097c                        . = (. + _Min_Heap_Size)
- *fill*         0x2000077c      0x200 
-                0x20000d7c                        . = (. + _Min_Stack_Size)
- *fill*         0x2000097c      0x400 
-                0x20000d7c                        . = ALIGN (0x4)
+                0x20000e3c                        . = (. + _Min_Heap_Size)
+ *fill*         0x20000c3c      0x200 
+                0x2000123c                        . = (. + _Min_Stack_Size)
+ *fill*         0x20000e3c      0x400 
+                0x2000123c                        . = ALIGN (0x4)
 
 /DISCARD/
  libc.a(*)
@@ -3633,186 +3714,222 @@ LOAD D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+f
  .ARM.attributes
                 0x00000022       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtbegin.o
  .ARM.attributes
-                0x00000056       0x34 build/bsp_usart.o
+                0x00000056       0x34 build/bsp_delay.o
  .ARM.attributes
-                0x0000008a       0x34 build/main.o
+                0x0000008a       0x34 build/bsp_usart.o
  .ARM.attributes
-                0x000000be       0x34 build/n32g430_it.o
+                0x000000be       0x34 build/main.o
  .ARM.attributes
-                0x000000f2       0x34 build/SEGGER_RTT.o
+                0x000000f2       0x34 build/n32g430_it.o
  .ARM.attributes
-                0x00000126       0x34 build/SEGGER_RTT_printf.o
+                0x00000126       0x34 build/modbus_master.o
  .ARM.attributes
-                0x0000015a       0x34 build/system_n32g430.o
+                0x0000015a       0x34 build/SEGGER_RTT.o
  .ARM.attributes
-                0x0000018e       0x34 build/misc.o
+                0x0000018e       0x34 build/SEGGER_RTT_printf.o
  .ARM.attributes
-                0x000001c2       0x34 build/n32g430_gpio.o
+                0x000001c2       0x34 build/system_n32g430.o
  .ARM.attributes
-                0x000001f6       0x34 build/n32g430_rcc.o
+                0x000001f6       0x34 build/misc.o
  .ARM.attributes
-                0x0000022a       0x34 build/n32g430_usart.o
+                0x0000022a       0x34 build/n32g430_dma.o
  .ARM.attributes
-                0x0000025e       0x21 build/startup_n32g430_gcc.o
+                0x0000025e       0x34 build/n32g430_gpio.o
  .ARM.attributes
-                0x0000027f       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-memset.o)
+                0x00000292       0x34 build/n32g430_rcc.o
  .ARM.attributes
-                0x000002b3       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-init.o)
+                0x000002c6       0x34 build/n32g430_usart.o
  .ARM.attributes
-                0x000002e7       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-lock.o)
+                0x000002fa       0x21 build/startup_n32g430_gcc.o
  .ARM.attributes
-                0x0000031b       0x20 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-memcpy.o)
+                0x0000031b       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-memset.o)
  .ARM.attributes
-                0x0000033b       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__call_atexit.o)
+                0x0000034f       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-init.o)
  .ARM.attributes
-                0x0000036f       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-atexit.o)
+                0x00000383       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-lock.o)
  .ARM.attributes
-                0x000003a3       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-fini.o)
+                0x000003b7       0x20 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-memcpy.o)
  .ARM.attributes
-                0x000003d7       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__atexit.o)
+                0x000003d7       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__call_atexit.o)
  .ARM.attributes
-                0x0000040b       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtend.o
+                0x0000040b       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-atexit.o)
  .ARM.attributes
-                0x0000043f       0x22 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtn.o
+                0x0000043f       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-fini.o)
+ .ARM.attributes
+                0x00000473       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__atexit.o)
+ .ARM.attributes
+                0x000004a7       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtend.o
+ .ARM.attributes
+                0x000004db       0x22 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard/crtn.o
 OUTPUT(build/output.elf elf32-littlearm)
 LOAD linker stubs
 LOAD D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a
 LOAD D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libm.a
 LOAD D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libgcc.a
 
-.debug_info     0x00000000     0x7411
- .debug_info    0x00000000      0xb2a build/bsp_usart.o
- .debug_info    0x00000b2a      0x18d build/main.o
- .debug_info    0x00000cb7      0x109 build/n32g430_it.o
- .debug_info    0x00000dc0     0x1f16 build/SEGGER_RTT.o
- .debug_info    0x00002cd6      0x69b build/SEGGER_RTT_printf.o
- .debug_info    0x00003371      0x727 build/system_n32g430.o
- .debug_info    0x00003a98      0x60c build/misc.o
- .debug_info    0x000040a4      0xfa0 build/n32g430_gpio.o
- .debug_info    0x00005044     0x108a build/n32g430_rcc.o
- .debug_info    0x000060ce     0x1313 build/n32g430_usart.o
- .debug_info    0x000073e1       0x30 build/startup_n32g430_gcc.o
+.debug_info     0x00000000     0xa0a5
+ .debug_info    0x00000000      0x858 build/bsp_delay.o
+ .debug_info    0x00000858     0x14b3 build/bsp_usart.o
+ .debug_info    0x00001d0b      0x178 build/main.o
+ .debug_info    0x00001e83      0x109 build/n32g430_it.o
+ .debug_info    0x00001f8c     0x1138 build/modbus_master.o
+ .debug_info    0x000030c4     0x1f16 build/SEGGER_RTT.o
+ .debug_info    0x00004fda      0x69b build/SEGGER_RTT_printf.o
+ .debug_info    0x00005675      0x727 build/system_n32g430.o
+ .debug_info    0x00005d9c      0x60c build/misc.o
+ .debug_info    0x000063a8      0x990 build/n32g430_dma.o
+ .debug_info    0x00006d38      0xfa0 build/n32g430_gpio.o
+ .debug_info    0x00007cd8     0x108a build/n32g430_rcc.o
+ .debug_info    0x00008d62     0x1313 build/n32g430_usart.o
+ .debug_info    0x0000a075       0x30 build/startup_n32g430_gcc.o
 
-.debug_abbrev   0x00000000     0x15f9
- .debug_abbrev  0x00000000      0x293 build/bsp_usart.o
- .debug_abbrev  0x00000293       0xf3 build/main.o
- .debug_abbrev  0x00000386       0x7a build/n32g430_it.o
- .debug_abbrev  0x00000400      0x32d build/SEGGER_RTT.o
- .debug_abbrev  0x0000072d      0x297 build/SEGGER_RTT_printf.o
- .debug_abbrev  0x000009c4      0x185 build/system_n32g430.o
- .debug_abbrev  0x00000b49      0x183 build/misc.o
- .debug_abbrev  0x00000ccc      0x345 build/n32g430_gpio.o
- .debug_abbrev  0x00001011      0x2bb build/n32g430_rcc.o
- .debug_abbrev  0x000012cc      0x310 build/n32g430_usart.o
- .debug_abbrev  0x000015dc       0x1d build/startup_n32g430_gcc.o
+.debug_abbrev   0x00000000     0x1f5b
+ .debug_abbrev  0x00000000      0x21b build/bsp_delay.o
+ .debug_abbrev  0x0000021b      0x33d build/bsp_usart.o
+ .debug_abbrev  0x00000558       0xe9 build/main.o
+ .debug_abbrev  0x00000641       0x7a build/n32g430_it.o
+ .debug_abbrev  0x000006bb      0x3f6 build/modbus_master.o
+ .debug_abbrev  0x00000ab1      0x32d build/SEGGER_RTT.o
+ .debug_abbrev  0x00000dde      0x297 build/SEGGER_RTT_printf.o
+ .debug_abbrev  0x00001075      0x185 build/system_n32g430.o
+ .debug_abbrev  0x000011fa      0x183 build/misc.o
+ .debug_abbrev  0x0000137d      0x2b1 build/n32g430_dma.o
+ .debug_abbrev  0x0000162e      0x345 build/n32g430_gpio.o
+ .debug_abbrev  0x00001973      0x2bb build/n32g430_rcc.o
+ .debug_abbrev  0x00001c2e      0x310 build/n32g430_usart.o
+ .debug_abbrev  0x00001f3e       0x1d build/startup_n32g430_gcc.o
 
-.debug_loc      0x00000000     0x5b5d
- .debug_loc     0x00000000      0x2c4 build/bsp_usart.o
- .debug_loc     0x000002c4       0x60 build/main.o
- .debug_loc     0x00000324     0x22b8 build/SEGGER_RTT.o
- .debug_loc     0x000025dc      0xcc5 build/SEGGER_RTT_printf.o
- .debug_loc     0x000032a1      0x128 build/system_n32g430.o
- .debug_loc     0x000033c9      0x1ce build/misc.o
- .debug_loc     0x00003597      0xc51 build/n32g430_gpio.o
- .debug_loc     0x000041e8      0x831 build/n32g430_rcc.o
- .debug_loc     0x00004a19     0x1144 build/n32g430_usart.o
+.debug_loc      0x00000000     0x707c
+ .debug_loc     0x00000000      0x2ce build/bsp_delay.o
+ .debug_loc     0x000002ce      0x70c build/bsp_usart.o
+ .debug_loc     0x000009da       0x20 build/main.o
+ .debug_loc     0x000009fa      0xd27 build/modbus_master.o
+ .debug_loc     0x00001721     0x22b8 build/SEGGER_RTT.o
+ .debug_loc     0x000039d9      0xcc5 build/SEGGER_RTT_printf.o
+ .debug_loc     0x0000469e      0x128 build/system_n32g430.o
+ .debug_loc     0x000047c6      0x1ce build/misc.o
+ .debug_loc     0x00004994      0x122 build/n32g430_dma.o
+ .debug_loc     0x00004ab6      0xc51 build/n32g430_gpio.o
+ .debug_loc     0x00005707      0x831 build/n32g430_rcc.o
+ .debug_loc     0x00005f38     0x1144 build/n32g430_usart.o
 
-.debug_aranges  0x00000000      0x7a0
+.debug_aranges  0x00000000      0x958
  .debug_aranges
-                0x00000000       0x60 build/bsp_usart.o
+                0x00000000       0x28 build/bsp_delay.o
  .debug_aranges
-                0x00000060       0x20 build/main.o
+                0x00000028       0xb0 build/bsp_usart.o
  .debug_aranges
-                0x00000080       0x58 build/n32g430_it.o
+                0x000000d8       0x20 build/main.o
  .debug_aranges
-                0x000000d8      0x138 build/SEGGER_RTT.o
+                0x000000f8       0x58 build/n32g430_it.o
  .debug_aranges
-                0x00000210       0x38 build/SEGGER_RTT_printf.o
+                0x00000150       0x60 build/modbus_master.o
  .debug_aranges
-                0x00000248       0x28 build/system_n32g430.o
+                0x000001b0      0x138 build/SEGGER_RTT.o
  .debug_aranges
-                0x00000270       0x48 build/misc.o
+                0x000002e8       0x38 build/SEGGER_RTT_printf.o
  .debug_aranges
-                0x000002b8      0x140 build/n32g430_gpio.o
+                0x00000320       0x28 build/system_n32g430.o
  .debug_aranges
-                0x000003f8      0x1f8 build/n32g430_rcc.o
+                0x00000348       0x48 build/misc.o
  .debug_aranges
-                0x000005f0      0x188 build/n32g430_usart.o
+                0x00000390       0xe0 build/n32g430_dma.o
  .debug_aranges
-                0x00000778       0x28 build/startup_n32g430_gcc.o
+                0x00000470      0x140 build/n32g430_gpio.o
+ .debug_aranges
+                0x000005b0      0x1f8 build/n32g430_rcc.o
+ .debug_aranges
+                0x000007a8      0x188 build/n32g430_usart.o
+ .debug_aranges
+                0x00000930       0x28 build/startup_n32g430_gcc.o
 
-.debug_ranges   0x00000000      0xa78
- .debug_ranges  0x00000000       0x50 build/bsp_usart.o
- .debug_ranges  0x00000050       0x10 build/main.o
- .debug_ranges  0x00000060       0x48 build/n32g430_it.o
- .debug_ranges  0x000000a8      0x428 build/SEGGER_RTT.o
- .debug_ranges  0x000004d0       0x60 build/SEGGER_RTT_printf.o
- .debug_ranges  0x00000530       0x30 build/system_n32g430.o
- .debug_ranges  0x00000560       0x38 build/misc.o
- .debug_ranges  0x00000598      0x160 build/n32g430_gpio.o
- .debug_ranges  0x000006f8      0x1e8 build/n32g430_rcc.o
- .debug_ranges  0x000008e0      0x178 build/n32g430_usart.o
- .debug_ranges  0x00000a58       0x20 build/startup_n32g430_gcc.o
+.debug_ranges   0x00000000      0xd50
+ .debug_ranges  0x00000000       0x48 build/bsp_delay.o
+ .debug_ranges  0x00000048       0xc0 build/bsp_usart.o
+ .debug_ranges  0x00000108       0x10 build/main.o
+ .debug_ranges  0x00000118       0x48 build/n32g430_it.o
+ .debug_ranges  0x00000160      0x138 build/modbus_master.o
+ .debug_ranges  0x00000298      0x428 build/SEGGER_RTT.o
+ .debug_ranges  0x000006c0       0x60 build/SEGGER_RTT_printf.o
+ .debug_ranges  0x00000720       0x30 build/system_n32g430.o
+ .debug_ranges  0x00000750       0x38 build/misc.o
+ .debug_ranges  0x00000788       0xe8 build/n32g430_dma.o
+ .debug_ranges  0x00000870      0x160 build/n32g430_gpio.o
+ .debug_ranges  0x000009d0      0x1e8 build/n32g430_rcc.o
+ .debug_ranges  0x00000bb8      0x178 build/n32g430_usart.o
+ .debug_ranges  0x00000d30       0x20 build/startup_n32g430_gcc.o
 
-.debug_line     0x00000000     0x4b45
- .debug_line    0x00000000      0x3de build/bsp_usart.o
- .debug_line    0x000003de      0x129 build/main.o
- .debug_line    0x00000507       0xe4 build/n32g430_it.o
- .debug_line    0x000005eb     0x127a build/SEGGER_RTT.o
- .debug_line    0x00001865      0x674 build/SEGGER_RTT_printf.o
- .debug_line    0x00001ed9      0x402 build/system_n32g430.o
- .debug_line    0x000022db      0x2ad build/misc.o
- .debug_line    0x00002588      0xcc7 build/n32g430_gpio.o
- .debug_line    0x0000324f      0xd2d build/n32g430_rcc.o
- .debug_line    0x00003f7c      0xb34 build/n32g430_usart.o
- .debug_line    0x00004ab0       0x95 build/startup_n32g430_gcc.o
+.debug_line     0x00000000     0x606d
+ .debug_line    0x00000000      0x2c8 build/bsp_delay.o
+ .debug_line    0x000002c8      0x7dc build/bsp_usart.o
+ .debug_line    0x00000aa4      0x123 build/main.o
+ .debug_line    0x00000bc7       0xe4 build/n32g430_it.o
+ .debug_line    0x00000cab      0x8c2 build/modbus_master.o
+ .debug_line    0x0000156d     0x127a build/SEGGER_RTT.o
+ .debug_line    0x000027e7      0x674 build/SEGGER_RTT_printf.o
+ .debug_line    0x00002e5b      0x402 build/system_n32g430.o
+ .debug_line    0x0000325d      0x2ad build/misc.o
+ .debug_line    0x0000350a      0x5a6 build/n32g430_dma.o
+ .debug_line    0x00003ab0      0xcc7 build/n32g430_gpio.o
+ .debug_line    0x00004777      0xd2d build/n32g430_rcc.o
+ .debug_line    0x000054a4      0xb34 build/n32g430_usart.o
+ .debug_line    0x00005fd8       0x95 build/startup_n32g430_gcc.o
 
-.debug_str      0x00000000     0x279f
- .debug_str     0x00000000     0x279f build/bsp_usart.o
-                                0x931 (size before relaxing)
- .debug_str     0x0000279f      0x1e2 build/main.o
- .debug_str     0x0000279f      0x205 build/n32g430_it.o
- .debug_str     0x0000279f      0x6d2 build/SEGGER_RTT.o
- .debug_str     0x0000279f      0x2f9 build/SEGGER_RTT_printf.o
- .debug_str     0x0000279f      0x462 build/system_n32g430.o
- .debug_str     0x0000279f      0x453 build/misc.o
- .debug_str     0x0000279f      0x8c4 build/n32g430_gpio.o
- .debug_str     0x0000279f      0xb65 build/n32g430_rcc.o
- .debug_str     0x0000279f      0x973 build/n32g430_usart.o
- .debug_str     0x0000279f       0x99 build/startup_n32g430_gcc.o
+.debug_str      0x00000000     0x3052
+ .debug_str     0x00000000     0x3052 build/bsp_delay.o
+                                0x6b2 (size before relaxing)
+ .debug_str     0x00003052      0xcb5 build/bsp_usart.o
+ .debug_str     0x00003052      0x1ec build/main.o
+ .debug_str     0x00003052      0x205 build/n32g430_it.o
+ .debug_str     0x00003052      0x595 build/modbus_master.o
+ .debug_str     0x00003052      0x6d2 build/SEGGER_RTT.o
+ .debug_str     0x00003052      0x2f9 build/SEGGER_RTT_printf.o
+ .debug_str     0x00003052      0x462 build/system_n32g430.o
+ .debug_str     0x00003052      0x453 build/misc.o
+ .debug_str     0x00003052      0x5a4 build/n32g430_dma.o
+ .debug_str     0x00003052      0x8c4 build/n32g430_gpio.o
+ .debug_str     0x00003052      0xb65 build/n32g430_rcc.o
+ .debug_str     0x00003052      0x973 build/n32g430_usart.o
+ .debug_str     0x00003052       0x99 build/startup_n32g430_gcc.o
 
 .comment        0x00000000       0x45
- .comment       0x00000000       0x45 build/bsp_usart.o
+ .comment       0x00000000       0x45 build/bsp_delay.o
                                  0x46 (size before relaxing)
+ .comment       0x00000045       0x46 build/bsp_usart.o
  .comment       0x00000045       0x46 build/main.o
  .comment       0x00000045       0x46 build/n32g430_it.o
+ .comment       0x00000045       0x46 build/modbus_master.o
  .comment       0x00000045       0x46 build/SEGGER_RTT.o
  .comment       0x00000045       0x46 build/SEGGER_RTT_printf.o
  .comment       0x00000045       0x46 build/system_n32g430.o
  .comment       0x00000045       0x46 build/misc.o
+ .comment       0x00000045       0x46 build/n32g430_dma.o
  .comment       0x00000045       0x46 build/n32g430_gpio.o
  .comment       0x00000045       0x46 build/n32g430_rcc.o
  .comment       0x00000045       0x46 build/n32g430_usart.o
 
-.debug_frame    0x00000000     0x139c
- .debug_frame   0x00000000       0xf8 build/bsp_usart.o
- .debug_frame   0x000000f8       0x28 build/main.o
- .debug_frame   0x00000120       0x90 build/n32g430_it.o
- .debug_frame   0x000001b0      0x420 build/SEGGER_RTT.o
- .debug_frame   0x000005d0       0xb0 build/SEGGER_RTT_printf.o
- .debug_frame   0x00000680       0x3c build/system_n32g430.o
- .debug_frame   0x000006bc       0x7c build/misc.o
- .debug_frame   0x00000738      0x30c build/n32g430_gpio.o
- .debug_frame   0x00000a44      0x42c build/n32g430_rcc.o
- .debug_frame   0x00000e70      0x318 build/n32g430_usart.o
- .debug_frame   0x00001188       0x2c D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-memset.o)
- .debug_frame   0x000011b4       0x2c D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-init.o)
- .debug_frame   0x000011e0       0xb0 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-lock.o)
- .debug_frame   0x00001290       0x28 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-memcpy.o)
- .debug_frame   0x000012b8       0x5c D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__call_atexit.o)
- .debug_frame   0x00001314       0x20 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-atexit.o)
- .debug_frame   0x00001334       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-fini.o)
- .debug_frame   0x00001368       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__atexit.o)
+.debug_frame    0x00000000     0x17cc
+ .debug_frame   0x00000000       0x50 build/bsp_delay.o
+ .debug_frame   0x00000050      0x210 build/bsp_usart.o
+ .debug_frame   0x00000260       0x28 build/main.o
+ .debug_frame   0x00000288       0x90 build/n32g430_it.o
+ .debug_frame   0x00000318      0x11c build/modbus_master.o
+ .debug_frame   0x00000434      0x420 build/SEGGER_RTT.o
+ .debug_frame   0x00000854       0xb0 build/SEGGER_RTT_printf.o
+ .debug_frame   0x00000904       0x3c build/system_n32g430.o
+ .debug_frame   0x00000940       0x7c build/misc.o
+ .debug_frame   0x000009bc      0x1ac build/n32g430_dma.o
+ .debug_frame   0x00000b68      0x30c build/n32g430_gpio.o
+ .debug_frame   0x00000e74      0x42c build/n32g430_rcc.o
+ .debug_frame   0x000012a0      0x318 build/n32g430_usart.o
+ .debug_frame   0x000015b8       0x2c D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-memset.o)
+ .debug_frame   0x000015e4       0x2c D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-init.o)
+ .debug_frame   0x00001610       0xb0 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-lock.o)
+ .debug_frame   0x000016c0       0x28 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-memcpy.o)
+ .debug_frame   0x000016e8       0x5c D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__call_atexit.o)
+ .debug_frame   0x00001744       0x20 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-atexit.o)
+ .debug_frame   0x00001764       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-fini.o)
+ .debug_frame   0x00001798       0x34 D:/Tool/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m+fp/hard\libc.a(libc_a-__atexit.o)
 
 .debug_line_str
                 0x00000000       0xe3

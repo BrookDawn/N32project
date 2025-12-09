@@ -1,4 +1,6 @@
-build/main.o: ../core/src/main.c ../core/inc/main.h \
+build/modbus_master.o: ../APP/Src/modbus_master.c \
+ ../APP/Ins/modbus_master.h ../RTT/Ins/SEGGER_RTT.h \
+ ../RTT/Ins/SEGGER_RTT_Conf.h ../core/inc/bsp_delay.h \
  ../firmware/CMSIS/device/n32g430.h ../firmware/CMSIS/core/core_cm4.h \
  ../firmware/CMSIS/core/cmsis_version.h \
  ../firmware/CMSIS/core/cmsis_compiler.h \
@@ -24,10 +26,11 @@ build/main.o: ../core/src/main.c ../core/inc/main.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_usart.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_wwdg.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h \
- ../firmware/n32g430_std_periph_driver/inc/misc.h \
- ../APP/Ins/modbus_master.h ../RTT/Ins/SEGGER_RTT.h \
- ../RTT/Ins/SEGGER_RTT_Conf.h
-../core/inc/main.h:
+ ../firmware/n32g430_std_periph_driver/inc/misc.h ../core/inc/bsp_usart.h
+../APP/Ins/modbus_master.h:
+../RTT/Ins/SEGGER_RTT.h:
+../RTT/Ins/SEGGER_RTT_Conf.h:
+../core/inc/bsp_delay.h:
 ../firmware/CMSIS/device/n32g430.h:
 ../firmware/CMSIS/core/core_cm4.h:
 ../firmware/CMSIS/core/cmsis_version.h:
@@ -56,6 +59,4 @@ build/main.o: ../core/src/main.c ../core/inc/main.h \
 ../firmware/n32g430_std_periph_driver/inc/n32g430_wwdg.h:
 ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h:
 ../firmware/n32g430_std_periph_driver/inc/misc.h:
-../APP/Ins/modbus_master.h:
-../RTT/Ins/SEGGER_RTT.h:
-../RTT/Ins/SEGGER_RTT_Conf.h:
+../core/inc/bsp_usart.h:

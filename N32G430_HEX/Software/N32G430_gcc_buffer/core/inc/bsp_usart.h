@@ -51,6 +51,14 @@ extern "C" {
 #define USART2_HARDWAREFLOWCTL       USART_HFCTRL_NONE
 #define USART2_MODE                  (USART_MODE_RX | USART_MODE_TX)
 
+/* USART2 DMA配置 */
+#define USART2_TX_DMA_CH             DMA_CH1
+#define USART2_RX_DMA_CH             DMA_CH2
+#define USART2_TX_DMA_IRQn           DMA_Channel1_IRQn
+#define USART2_RX_DMA_IRQn           DMA_Channel2_IRQn
+#define USART2_RX_DMA_BUFFER_SIZE    256
+#define USART2_TX_DMA_BUFFER_SIZE    256
+
 /* 函数声明 */
 void USART1_Init(void);
 void USART1_SendByte(uint8_t data);
@@ -65,12 +73,20 @@ void USART1_DisableInterrupt(void);
 /* 中断处理函数 */
 void USART1_IRQHandler(void);
 
-/* USART2 基础接口（轮询使用） */
+/* USART2 DMA接口 */
 void USART2_Init(void);
 void USART2_SendByte(uint8_t data);
 void USART2_SendArray(const uint8_t* data, uint16_t length);
-bool USART2_ReadByteTimeout(uint8_t* data, uint32_t timeout_ms);
+void USART2_SendArray_DMA(const uint8_t* data, uint16_t length);
+bool USART2_IsTxBusy(void);
+uint16_t USART2_GetRxData(uint8_t* buffer, uint16_t max_length);
+uint16_t USART2_GetRxCount(void);
 void USART2_FlushRxBuffer(void);
+
+/* USART2中断处理函数 */
+void USART2_IRQHandler(void);
+void DMA_Channel1_IRQHandler(void);
+void DMA_Channel2_IRQHandler(void);
 
 #ifdef __cplusplus
 }
