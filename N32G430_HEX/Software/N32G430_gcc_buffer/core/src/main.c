@@ -34,12 +34,7 @@
 
 /*BSP include*/
 #include "main.h"
-#include "bsp_led.h"
-#include "bsp_delay.h"
-#include "bsp_usart.h"
-
-/*APP include*/
-#include "Buffer.h"
+#include "modbus_master.h"
 
 /*RTT include*/
 #include "SEGGER_RTT.h"
@@ -52,29 +47,19 @@
 **/
 int main(void)
 {
-	uint32_t led_counter = 0;
+    /* RTT初始化和banner */
+    SEGGER_RTT_Init();
+    SEGGER_RTT_printf(0, "N32G430 Modbus Master Started\r\n");
+    SEGGER_RTT_printf(0, "USART2 RTU host polling 0x%04X-0x%04X\r\n",
+                      MODBUS_REGISTER_START, MODBUS_REGISTER_END);
 
-	/*RTT初始化*/
-	SEGGER_RTT_Init();
-	SEGGER_RTT_printf(0, "N32G430 USART1 Test Started!\r\n");
-	SEGGER_RTT_printf(0, "Baudrate: 115200\r\n");
-	SEGGER_RTT_printf(0, "Send any character to echo back...\r\n");
+    /* 初始化Modbus主站（内部会配置USART2） */
+    ModbusMaster_Init(MODBUS_SLAVE_ADDRESS_DEFAULT);
 
-	/* 初始化USART1 */
-	USART1_Init();
-
-
-	while(1)
-	{
-
-		/* 每2秒发送一次状态信息 */
-		led_counter++;
-		if(led_counter >= 2)
-		{
-			SEGGER_RTT_printf(0,"System running... LED blinking...\r\n");
-			led_counter = 0;
-		}
-	}
+    while(1)
+    {
+        ModbusMaster_Task();
+    }
 }
 
 

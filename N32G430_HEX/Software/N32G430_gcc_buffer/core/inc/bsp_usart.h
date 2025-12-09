@@ -15,6 +15,7 @@ extern "C" {
 #endif
 
 #include "n32g430.h"
+#include <stdbool.h>
 
 /* USART1 引脚定义 */
 #define USART1_TX_PIN                GPIO_PIN_9
@@ -34,6 +35,22 @@ extern "C" {
 /* 接收缓冲区大小 */
 #define USART1_RX_BUFFER_SIZE        256
 
+/* USART2 引脚定义 */
+#define USART2_TX_PIN                GPIO_PIN_2
+#define USART2_RX_PIN                GPIO_PIN_3
+#define USART2_GPIO_PORT             GPIOA
+#define USART2_GPIO_CLK              RCC_AHB_PERIPH_GPIOA
+#define USART2_CLK                   RCC_APB1_PERIPH_USART2
+#define USART2_GPIO_AF               GPIO_AF5_USART2
+
+/* USART2 配置参数 */
+#define USART2_BAUDRATE              115200
+#define USART2_WORDLENGTH            USART_WL_8B
+#define USART2_STOPBITS              USART_STPB_1
+#define USART2_PARITY                USART_PE_NO
+#define USART2_HARDWAREFLOWCTL       USART_HFCTRL_NONE
+#define USART2_MODE                  (USART_MODE_RX | USART_MODE_TX)
+
 /* 函数声明 */
 void USART1_Init(void);
 void USART1_SendByte(uint8_t data);
@@ -47,6 +64,13 @@ void USART1_DisableInterrupt(void);
 
 /* 中断处理函数 */
 void USART1_IRQHandler(void);
+
+/* USART2 基础接口（轮询使用） */
+void USART2_Init(void);
+void USART2_SendByte(uint8_t data);
+void USART2_SendArray(const uint8_t* data, uint16_t length);
+bool USART2_ReadByteTimeout(uint8_t* data, uint32_t timeout_ms);
+void USART2_FlushRxBuffer(void);
 
 #ifdef __cplusplus
 }
