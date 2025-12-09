@@ -56,6 +56,9 @@ int main(void)
     /* 初始化Modbus主站（内部会配置USART2） */
     ModbusMaster_Init(MODBUS_SLAVE_ADDRESS_DEFAULT);
 
+    ModbusMaster_WriteSingleRegister(0x0001, 0x1234);
+    ModbusMaster_WriteMultipleRegisters(0x0002, 3, (uint16_t[]){0xAAAA, 0xBBBB, 0xCCCC});
+
     while(1)
     {
         ModbusMaster_Task();
