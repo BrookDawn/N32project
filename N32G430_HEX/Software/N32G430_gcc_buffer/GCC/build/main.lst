@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccyOIYow.s 			page 1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cckS3Qfb.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -21,18 +21,18 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccyOIYow.s 			page 1
   18              		.cfi_sections	.debug_frame
   19              		.file 1 "../core/src/main.c"
   20              		.section	.rodata.main.str1.1,"aMS",%progbits,1
-  21              	.LC1:
-  22 0000 4E333247 		.ascii	"N32G430 Modbus Master Started\015\012\000"
+  21              	.LC0:
+  22 0000 4E333247 		.ascii	"N32G430 Modbus Slave Started\015\012\000"
   22      34333020 
   22      4D6F6462 
-  22      7573204D 
-  22      61737465 
-  23              	.LC2:
-  24 0020 55534152 		.ascii	"USART2 RTU host polling 0x%04X-0x%04X\015\012\000"
-  24      54322052 
-  24      54552068 
-  24      6F737420 
-  24      706F6C6C 
+  22      75732053 
+  22      6C617665 
+  23              	.LC1:
+  24 001f 55534152 		.ascii	"USART1 RTU slave, Address: 0x01\015\012\000"
+  24      54312052 
+  24      54552073 
+  24      6C617665 
+  24      2C204164 
   25              		.section	.text.startup.main,"ax",%progbits
   26              		.align	1
   27              		.global	main
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccyOIYow.s 			page 1
   15:../core/src/main.c ****  *
   16:../core/src/main.c ****  * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY NATIONS "AS IS" AND ANY EXPRESS OR
   17:../core/src/main.c ****  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccyOIYow.s 			page 2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cckS3Qfb.s 			page 2
 
 
   18:../core/src/main.c ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
@@ -80,7 +80,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccyOIYow.s 			page 1
   34:../core/src/main.c **** 
   35:../core/src/main.c **** /*BSP include*/
   36:../core/src/main.c **** #include "main.h"
-  37:../core/src/main.c **** #include "modbus_master.h"
+  37:../core/src/main.c **** #include "modbus_slave.h"
   38:../core/src/main.c **** 
   39:../core/src/main.c **** /*RTT include*/
   40:../core/src/main.c **** #include "SEGGER_RTT.h"
@@ -96,116 +96,135 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccyOIYow.s 			page 1
   34              		.loc 1 49 1 view -0
   35              		.cfi_startproc
   36              		@ Volatile: function does not return.
-  37              		@ args = 0, pretend = 0, frame = 8
+  37              		@ args = 0, pretend = 0, frame = 0
   38              		@ frame_needed = 0, uses_anonymous_args = 0
   50:../core/src/main.c ****     /* RTT初始化和banner */
   51:../core/src/main.c ****     SEGGER_RTT_Init();
   39              		.loc 1 51 5 view .LVU1
   49:../core/src/main.c ****     /* RTT初始化和banner */
   40              		.loc 1 49 1 is_stmt 0 view .LVU2
-  41 0000 07B5     		push	{r0, r1, r2, lr}
+  41 0000 08B5     		push	{r3, lr}
   42              	.LCFI0:
-  43              		.cfi_def_cfa_offset 16
-  44              		.cfi_offset 14, -4
-  45              		.loc 1 51 5 view .LVU3
-  46 0002 FFF7FEFF 		bl	SEGGER_RTT_Init
-  47              	.LVL0:
-  52:../core/src/main.c ****     SEGGER_RTT_printf(0, "N32G430 Modbus Master Started\r\n");
-  48              		.loc 1 52 5 is_stmt 1 view .LVU4
-  49 0006 1049     		ldr	r1, .L3
-  50 0008 0020     		movs	r0, #0
-  51 000a FFF7FEFF 		bl	SEGGER_RTT_printf
-  52              	.LVL1:
-  53:../core/src/main.c ****     SEGGER_RTT_printf(0, "USART2 RTU host polling 0x%04X-0x%04X\r\n",
-  53              		.loc 1 53 5 view .LVU5
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccyOIYow.s 			page 3
+  43              		.cfi_def_cfa_offset 8
+  44              		.cfi_offset 3, -8
+  45              		.cfi_offset 14, -4
+  46              		.loc 1 51 5 view .LVU3
+  47 0002 FFF7FEFF 		bl	SEGGER_RTT_Init
+  48              	.LVL0:
+  52:../core/src/main.c ****     SEGGER_RTT_printf(0, "N32G430 Modbus Slave Started\r\n");
+  49              		.loc 1 52 5 is_stmt 1 view .LVU4
+  50 0006 1949     		ldr	r1, .L3
+  51 0008 0020     		movs	r0, #0
+  52 000a FFF7FEFF 		bl	SEGGER_RTT_printf
+  53              	.LVL1:
+  53:../core/src/main.c ****     SEGGER_RTT_printf(0, "USART1 RTU slave, Address: 0x01\r\n");
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cckS3Qfb.s 			page 3
 
 
-  54 000e 0022     		movs	r2, #0
-  55 0010 BF23     		movs	r3, #191
-  56 0012 1046     		mov	r0, r2
-  57 0014 0D49     		ldr	r1, .L3+4
-  58 0016 FFF7FEFF 		bl	SEGGER_RTT_printf
-  59              	.LVL2:
-  54:../core/src/main.c ****                       MODBUS_REGISTER_START, MODBUS_REGISTER_END);
-  55:../core/src/main.c **** 
-  56:../core/src/main.c ****     /* 初始化Modbus主站（内部会配置USART2） */
-  57:../core/src/main.c ****     ModbusMaster_Init(MODBUS_SLAVE_ADDRESS_DEFAULT);
-  60              		.loc 1 57 5 view .LVU6
-  61 001a 0120     		movs	r0, #1
-  62 001c FFF7FEFF 		bl	ModbusMaster_Init
-  63              	.LVL3:
-  58:../core/src/main.c **** 
-  59:../core/src/main.c ****     ModbusMaster_WriteSingleRegister(0x0001, 0x1234);
-  64              		.loc 1 59 5 view .LVU7
-  65 0020 41F23421 		movw	r1, #4660
-  66 0024 0120     		movs	r0, #1
-  67 0026 FFF7FEFF 		bl	ModbusMaster_WriteSingleRegister
-  68              	.LVL4:
-  60:../core/src/main.c ****     ModbusMaster_WriteMultipleRegisters(0x0002, 3, (uint16_t[]){0xAAAA, 0xBBBB, 0xCCCC});
-  69              		.loc 1 60 5 view .LVU8
-  70              		.loc 1 60 64 is_stmt 0 view .LVU9
-  71 002a 094B     		ldr	r3, .L3+8
-  72 002c 1868     		ldr	r0, [r3]	@ unaligned
-  73 002e 0090     		str	r0, [sp]
-  74 0030 9B88     		ldrh	r3, [r3, #4]	@ unaligned
-  75 0032 ADF80430 		strh	r3, [sp, #4]	@ unaligned
-  76              		.loc 1 60 5 view .LVU10
-  77 0036 6A46     		mov	r2, sp
-  78 0038 0321     		movs	r1, #3
-  79 003a 0220     		movs	r0, #2
-  80 003c FFF7FEFF 		bl	ModbusMaster_WriteMultipleRegisters
-  81              	.LVL5:
-  82              	.L2:
-  61:../core/src/main.c **** 
-  62:../core/src/main.c ****     while(1)
-  83              		.loc 1 62 5 is_stmt 1 view .LVU11
-  63:../core/src/main.c ****     {
-  64:../core/src/main.c ****         ModbusMaster_Task();
-  84              		.loc 1 64 9 discriminator 1 view .LVU12
-  85 0040 FFF7FEFF 		bl	ModbusMaster_Task
-  86              	.LVL6:
-  62:../core/src/main.c ****     {
-  87              		.loc 1 62 10 view .LVU13
-  88 0044 FCE7     		b	.L2
-  89              	.L4:
-  90 0046 00BF     		.align	2
-  91              	.L3:
-  92 0048 00000000 		.word	.LC1
-  93 004c 20000000 		.word	.LC2
-  94 0050 00000000 		.word	.LANCHOR0
-  95              		.cfi_endproc
-  96              	.LFE130:
-  98              		.section	.rodata
-  99              		.align	1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccyOIYow.s 			page 4
+  54              		.loc 1 53 5 view .LVU5
+  55 000e 1849     		ldr	r1, .L3+4
+  56 0010 0020     		movs	r0, #0
+  57 0012 FFF7FEFF 		bl	SEGGER_RTT_printf
+  58              	.LVL2:
+  54:../core/src/main.c **** 
+  55:../core/src/main.c ****     /* 初始化Modbus从机（内部会配置USART1 DMA） */
+  56:../core/src/main.c ****     ModbusSlave_Init(MODBUS_SLAVE_ADDRESS_DEFAULT);
+  59              		.loc 1 56 5 view .LVU6
+  60 0016 0120     		movs	r0, #1
+  61 0018 FFF7FEFF 		bl	ModbusSlave_Init
+  62              	.LVL3:
+  57:../core/src/main.c **** 
+  58:../core/src/main.c ****     /* 预设一些寄存器值用于测试 */
+  59:../core/src/main.c ****     ModbusSlave_SetHoldingRegister(0x0000, 0x1234);
+  63              		.loc 1 59 5 view .LVU7
+  64 001c 41F23421 		movw	r1, #4660
+  65 0020 0020     		movs	r0, #0
+  66 0022 FFF7FEFF 		bl	ModbusSlave_SetHoldingRegister
+  67              	.LVL4:
+  60:../core/src/main.c ****     ModbusSlave_SetHoldingRegister(0x0001, 0x5678);
+  68              		.loc 1 60 5 view .LVU8
+  69 0026 45F27861 		movw	r1, #22136
+  70 002a 0120     		movs	r0, #1
+  71 002c FFF7FEFF 		bl	ModbusSlave_SetHoldingRegister
+  72              	.LVL5:
+  61:../core/src/main.c ****     ModbusSlave_SetHoldingRegister(0x0002, 0xABCD);
+  73              		.loc 1 61 5 view .LVU9
+  74 0030 4AF6CD31 		movw	r1, #43981
+  75 0034 0220     		movs	r0, #2
+  76 0036 FFF7FEFF 		bl	ModbusSlave_SetHoldingRegister
+  77              	.LVL6:
+  62:../core/src/main.c ****     ModbusSlave_SetInputRegister(0x0000, 0x1111);
+  78              		.loc 1 62 5 view .LVU10
+  79 003a 41F21111 		movw	r1, #4369
+  80 003e 0020     		movs	r0, #0
+  81 0040 FFF7FEFF 		bl	ModbusSlave_SetInputRegister
+  82              	.LVL7:
+  63:../core/src/main.c ****     ModbusSlave_SetInputRegister(0x0001, 0x2222);
+  83              		.loc 1 63 5 view .LVU11
+  84 0044 42F22221 		movw	r1, #8738
+  85 0048 0120     		movs	r0, #1
+  86 004a FFF7FEFF 		bl	ModbusSlave_SetInputRegister
+  87              	.LVL8:
+  64:../core/src/main.c ****     ModbusSlave_SetCoil(0x0000, true);
+  88              		.loc 1 64 5 view .LVU12
+  89 004e 0121     		movs	r1, #1
+  90 0050 0020     		movs	r0, #0
+  91 0052 FFF7FEFF 		bl	ModbusSlave_SetCoil
+  92              	.LVL9:
+  65:../core/src/main.c ****     ModbusSlave_SetCoil(0x0001, false);
+  93              		.loc 1 65 5 view .LVU13
+  94 0056 0021     		movs	r1, #0
+  95 0058 0120     		movs	r0, #1
+  96 005a FFF7FEFF 		bl	ModbusSlave_SetCoil
+  97              	.LVL10:
+  66:../core/src/main.c ****     ModbusSlave_SetCoil(0x0002, true);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cckS3Qfb.s 			page 4
 
 
- 100              		.set	.LANCHOR0,. + 0
- 101              	.LC0:
- 102 0000 AAAA     		.short	-21846
- 103 0002 BBBB     		.short	-17477
- 104 0004 CCCC     		.short	-13108
- 105              		.text
- 106              	.Letext0:
- 107              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
- 108              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
- 109              		.file 4 "../APP/Ins/modbus_master.h"
- 110              		.file 5 "../RTT/Ins/SEGGER_RTT.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccyOIYow.s 			page 5
+  98              		.loc 1 66 5 view .LVU14
+  99 005e 0121     		movs	r1, #1
+ 100 0060 0220     		movs	r0, #2
+ 101 0062 FFF7FEFF 		bl	ModbusSlave_SetCoil
+ 102              	.LVL11:
+ 103              	.L2:
+  67:../core/src/main.c **** 
+  68:../core/src/main.c ****     while(1)
+ 104              		.loc 1 68 5 view .LVU15
+  69:../core/src/main.c ****     {
+  70:../core/src/main.c ****         ModbusSlave_Task();
+ 105              		.loc 1 70 9 discriminator 1 view .LVU16
+ 106 0066 FFF7FEFF 		bl	ModbusSlave_Task
+ 107              	.LVL12:
+  68:../core/src/main.c ****     {
+ 108              		.loc 1 68 10 view .LVU17
+ 109 006a FCE7     		b	.L2
+ 110              	.L4:
+ 111              		.align	2
+ 112              	.L3:
+ 113 006c 00000000 		.word	.LC0
+ 114 0070 1F000000 		.word	.LC1
+ 115              		.cfi_endproc
+ 116              	.LFE130:
+ 118              		.text
+ 119              	.Letext0:
+ 120              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 121              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 122              		.file 4 "../APP/Ins/modbus_slave.h"
+ 123              		.file 5 "../RTT/Ins/SEGGER_RTT.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cckS3Qfb.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\Dawn\AppData\Local\Temp\ccyOIYow.s:26     .text.startup.main:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccyOIYow.s:32     .text.startup.main:00000000 main
-C:\Users\Dawn\AppData\Local\Temp\ccyOIYow.s:92     .text.startup.main:00000048 $d
-C:\Users\Dawn\AppData\Local\Temp\ccyOIYow.s:99     .rodata:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\cckS3Qfb.s:26     .text.startup.main:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cckS3Qfb.s:32     .text.startup.main:00000000 main
+C:\Users\Dawn\AppData\Local\Temp\cckS3Qfb.s:113    .text.startup.main:0000006c $d
 
 UNDEFINED SYMBOLS
 SEGGER_RTT_Init
 SEGGER_RTT_printf
-ModbusMaster_Init
-ModbusMaster_WriteSingleRegister
-ModbusMaster_WriteMultipleRegisters
-ModbusMaster_Task
+ModbusSlave_Init
+ModbusSlave_SetHoldingRegister
+ModbusSlave_SetInputRegister
+ModbusSlave_SetCoil
+ModbusSlave_Task

@@ -34,7 +34,7 @@
 
 /*BSP include*/
 #include "main.h"
-#include "modbus_master.h"
+#include "modbus_slave.h"
 
 /*RTT include*/
 #include "SEGGER_RTT.h"
@@ -49,19 +49,25 @@ int main(void)
 {
     /* RTT初始化和banner */
     SEGGER_RTT_Init();
-    SEGGER_RTT_printf(0, "N32G430 Modbus Master Started\r\n");
-    SEGGER_RTT_printf(0, "USART2 RTU host polling 0x%04X-0x%04X\r\n",
-                      MODBUS_REGISTER_START, MODBUS_REGISTER_END);
+    SEGGER_RTT_printf(0, "N32G430 Modbus Slave Started\r\n");
+    SEGGER_RTT_printf(0, "USART1 RTU slave, Address: 0x01\r\n");
 
-    /* 初始化Modbus主站（内部会配置USART2） */
-    ModbusMaster_Init(MODBUS_SLAVE_ADDRESS_DEFAULT);
+    /* 初始化Modbus从机（内部会配置USART1 DMA） */
+    ModbusSlave_Init(MODBUS_SLAVE_ADDRESS_DEFAULT);
 
-    ModbusMaster_WriteSingleRegister(0x0001, 0x1234);
-    ModbusMaster_WriteMultipleRegisters(0x0002, 3, (uint16_t[]){0xAAAA, 0xBBBB, 0xCCCC});
+    /* 预设一些寄存器值用于测试 */
+    ModbusSlave_SetHoldingRegister(0x0000, 0x1234);
+    ModbusSlave_SetHoldingRegister(0x0001, 0x5678);
+    ModbusSlave_SetHoldingRegister(0x0002, 0xABCD);
+    ModbusSlave_SetInputRegister(0x0000, 0x1111);
+    ModbusSlave_SetInputRegister(0x0001, 0x2222);
+    ModbusSlave_SetCoil(0x0000, true);
+    ModbusSlave_SetCoil(0x0001, false);
+    ModbusSlave_SetCoil(0x0002, true);
 
     while(1)
     {
-        ModbusMaster_Task();
+        ModbusSlave_Task();
     }
 }
 

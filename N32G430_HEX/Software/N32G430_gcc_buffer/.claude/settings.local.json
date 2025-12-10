@@ -11,7 +11,10 @@
       "Bash(pip install:*)",
       "Bash(pacman -S:*)",
       "Bash(C:\\\\msys64\\\\usr\\\\bin\\\\pacman.exe -S:*)",
-      "Bash(cmd /c:*)"
+      "Bash(cmd /c:*)",
+      "Bash(\"C:\\msys64\\ucrt64\\bin\\python.exe\":*)",
+      "Bash(\"C:\\msys64\\ucrt64\\bin\\python.exe\" -m pip install:*)",
+      "Bash(python:*)"
     ]
   }
 }
