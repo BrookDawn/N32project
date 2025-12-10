@@ -35,6 +35,14 @@ extern "C" {
 /* 接收缓冲区大小 */
 #define USART1_RX_BUFFER_SIZE        256
 
+/* USART1 DMA配置 (用于Modbus从机) */
+#define USART1_TX_DMA_CH             DMA_CH3
+#define USART1_RX_DMA_CH             DMA_CH4
+#define USART1_TX_DMA_IRQn           DMA_Channel3_IRQn
+#define USART1_RX_DMA_IRQn           DMA_Channel4_IRQn
+#define USART1_RX_DMA_BUFFER_SIZE    256
+#define USART1_TX_DMA_BUFFER_SIZE    256
+
 /* USART2 引脚定义 */
 #define USART2_TX_PIN                GPIO_PIN_2
 #define USART2_RX_PIN                GPIO_PIN_3
@@ -70,8 +78,19 @@ uint16_t USART1_ReceiveString(char* buffer, uint16_t max_length);
 void USART1_EnableInterrupt(void);
 void USART1_DisableInterrupt(void);
 
+/* USART1 DMA接口 (用于Modbus从机) */
+void USART1_DMA_Init(void);
+void USART1_SendArray_DMA(const uint8_t* data, uint16_t length);
+bool USART1_IsTxBusy(void);
+uint16_t USART1_DMA_GetRxData(uint8_t* buffer, uint16_t max_length);
+uint16_t USART1_DMA_GetRxCount(void);
+void USART1_DMA_FlushRxBuffer(void);
+bool USART1_IsFrameReceived(void);
+void USART1_ClearFrameReceivedFlag(void);
+
 /* 中断处理函数 */
 void USART1_IRQHandler(void);
+void DMA_Channel3_IRQHandler(void);
 
 /* USART2 DMA接口 */
 void USART2_Init(void);
