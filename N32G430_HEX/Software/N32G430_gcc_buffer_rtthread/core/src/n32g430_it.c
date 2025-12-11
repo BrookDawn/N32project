@@ -36,6 +36,9 @@
 #include "n32g430.h"
 #include "main.h"
 
+/* RT-Thread header */
+#include <rtthread.h>
+
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Exceptions Handlers                         */
@@ -119,9 +122,7 @@ void UsageFault_Handler(void)
  *\*\param  none.
  *\*\return none.
  */
-void SVC_Handler(void)
-{
-}
+/* SVC_Handler is defined in context_gcc.S for RT-Thread */
 
 
 /**
@@ -141,9 +142,7 @@ void DebugMon_Handler(void)
  *\*\param  none.
  *\*\return none.
  */
-void SysTick_Handler(void)
-{
-}
+/* SysTick_Handler is defined in board.c for RT-Thread */
 
 
 

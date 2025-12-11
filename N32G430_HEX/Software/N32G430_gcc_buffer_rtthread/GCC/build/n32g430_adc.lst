@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
   28:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** /**
   29:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\file n32g430_adc.c
   30:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\author Nations
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 2
 
 
   31:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\version v1.0.0
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
   52 000e 2068     		ldr	r0, [r4]
   53              		.loc 1 60 4 view .LVU6
   54 0010 431C     		adds	r3, r0, #1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 3
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 3
 
 
   55 0012 04D1     		bne	.L1
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
   91              		@ link register save eliminated.
   81:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     RCC_AHB_Peripheral_Reset(RCC_AHB_PERIPH_ADC);
   92              		.loc 1 81 5 view .LVU12
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 4
 
 
   93 0000 4FF48050 		mov	r0, #4096
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
   95:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** 
   96:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** /**
   97:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\name    ADC_Multichannels_Disable.
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 5
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 5
 
 
   98:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\fun     Configures the ADC according conversion is performed in
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  174              		.loc 1 117 8 is_stmt 0 view .LVU25
  175 0000 024A     		ldr	r2, .L13
  176 0002 9368     		ldr	r3, [r2, #8]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 6
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 6
 
 
  177              		.loc 1 117 16 view .LVU26
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  221              		.global	ADC_Regular_Group_External_Trigger_Source_Config
  222              		.syntax unified
  223              		.thumb
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 7
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 7
 
 
  224              		.thumb_func
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  258              		.global	ADC_Data_Alignment_Config
  259              		.syntax unified
  260              		.thumb
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 8
 
 
  261              		.thumb_func
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  302              	.LFB138:
  169:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** 
  170:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** /**
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 9
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 9
 
 
  171:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\name    ADC_Regular_Channels_Number_Config.
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  330              		.section	.text.ADC_Initializes,"ax",%progbits
  331              		.align	1
  332              		.global	ADC_Initializes
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 10
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 10
 
 
  333              		.syntax unified
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  243:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     if(ADC_initstruct->MultiChEn)
  344              		.loc 1 243 5 view .LVU58
  242:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     if(ADC_initstruct->MultiChEn)
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 11
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 11
 
 
  345              		.loc 1 242 1 is_stmt 0 view .LVU59
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  263:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     ADC_Regular_Channels_Number_Config(ADC_initstruct->ChsNumber);
  379              		.loc 1 263 5 view .LVU70
  264:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 12
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 12
 
 
  380              		.loc 1 264 1 is_stmt 0 view .LVU71
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  419              		@ frame_needed = 0, uses_anonymous_args = 0
  420              		@ link register save eliminated.
  279:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     /* Reset ADC init structure parameters values */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 13
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 13
 
 
  280:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     /* initialize the MultiChEn member */
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  453              		.loc 1 300 8 is_stmt 0 view .LVU87
  454 0000 024A     		ldr	r2, .L34
  455 0002 9368     		ldr	r3, [r2, #8]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 14
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 14
 
 
  456              		.loc 1 300 16 view .LVU88
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  501              		.syntax unified
  502              		.thumb
  503              		.thumb_func
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 15
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 15
 
 
  505              	ADC_DMA_Transfer_Enable:
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  332:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     /* Clean the ADC_CTRL2 ENDMA bit to disable DMA transfer */
  333:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     ADC->CTRL2 &= ADC_DMA_DISABLE;
  542              		.loc 1 333 5 view .LVU101
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 16
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 16
 
 
  543              		.loc 1 333 8 is_stmt 0 view .LVU102
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  352:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****         ADC->CTRL1 |= adc_interrupt;
  580              		.loc 1 352 9 view .LVU108
  581              	.LBE5:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 17
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 17
 
 
  582              	.LBE4:
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  625              		.section	.text.ADC_Interrupts_Disable,"ax",%progbits
  626              		.align	1
  627              		.global	ADC_Interrupts_Disable
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 18
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 18
 
 
  628              		.syntax unified
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  382:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****         ADC->CTRL3 &= (~adc_interrupt);
  659              		.loc 1 382 12 view .LVU126
  660 0008 916D     		ldrhi	r1, [r2, #88]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 19
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 19
 
 
  661              	.LBB20:
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  394:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - RESET
  395:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** **/
  396:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** FlagStatus ADC_Calibration_Operation(uint32_t calibration_operation)
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 20
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 20
 
 
  397:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** {
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  409:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****         {
  736              		.loc 1 409 17 is_stmt 0 view .LVU149
  737 001a 044B     		ldr	r3, .L63
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 21
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 21
 
 
  738 001c 9A68     		ldr	r2, [r3, #8]
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  436:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_EXTRTRIG_SWSTRRCH_GET_STS
  437:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\return  FlagStatus:
  438:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - SET
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 22
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 22
 
 
  439:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - RESET
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  796 0014 6FF4A003 		mvn	r3, #5242880
  797 0018 9842     		cmp	r0, r3
  798 001a 04D1     		bne	.L68
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 23
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 23
 
 
  451:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     }
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  473:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_CHANNEL_COUNT_2
  474:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_CHANNEL_COUNT_3
  475:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_CHANNEL_COUNT_4
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 24
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 24
 
 
  476:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_CHANNEL_COUNT_5
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  495:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_DISCMODE_REGULAR_DISABLE
  496:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_DISCMODE_INJECTED_ENABLE
  497:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_DISCMODE_INJECTED_DISABLE
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 25
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 25
 
 
  498:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\return  none
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  510:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     }
  901              		.loc 1 510 9 is_stmt 1 view .LVU193
  510:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 26
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 26
 
 
  902              		.loc 1 510 12 is_stmt 0 view .LVU194
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  947              	ADC_Channel_Sample_Time_Config:
  948              	.LVL33:
  949              	.LFB151:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 27
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 27
 
 
  523:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** 
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  962              		.cfi_offset 4, -8
  963              		.cfi_offset 14, -4
  964 0004 144B     		ldr	r3, .L88
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 28
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 28
 
 
  965              		.loc 1 563 7 view .LVU211
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  998 0026 0ED8     		bhi	.L87
  572:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****         ADC->SAMPT1 &= ADC_SAMP_TIME_MASK(temp_value);
  999              		.loc 1 572 9 is_stmt 1 view .LVU225
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 29
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 29
 
 
  1000              	.LVL38:
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1038 0052 D965     		str	r1, [r3, #92]
  1039              		.loc 1 582 1 view .LVU242
  1040 0054 E5E7     		b	.L84
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 30
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 30
 
 
  1041              	.L89:
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  622:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_REGULAR_NUMBER_15
  623:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_REGULAR_NUMBER_16
  624:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\return  none
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 31
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 31
 
 
  625:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** **/
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  640:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     /* ADC regular sequence register1 configures channel13 to channel16 */
  641:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     else
  642:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     {
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 32
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 32
 
 
  643:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****         ADC->RSEQ1 &= ADC_REGULAR_NUMBER_MASK((number - ADC_REG_SEQ_NUM_OFFSET4));
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1132              		.loc 1 643 12 view .LVU271
  1133 0048 DA6A     		ldr	r2, [r3, #44]
  643:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****         ADC->RSEQ1 |= ADC_REGULAR_NUMBER_SET(channel, (number - ADC_REG_SEQ_NUM_OFFSET4));
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 33
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 33
 
 
  1134              		.loc 1 643 23 view .LVU272
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1172              		@ frame_needed = 0, uses_anonymous_args = 0
  1173              		@ link register save eliminated.
  660:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     if(group_operation == ADC_EXTTRIGCONV_REGULAR_ENABLE)
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 34
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 34
 
 
  1174              		.loc 1 660 5 view .LVU280
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1203              	.L99:
  670:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     {
  1204              		.loc 1 670 10 is_stmt 1 view .LVU292
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 35
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 35
 
 
  670:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     {
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1244              		.loc 1 688 1 is_stmt 1 view -0
  1245              		.cfi_startproc
  1246              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 36
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 36
 
 
  1247              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1289 000c 00080240 		.word	1073874944
  1290              		.cfi_endproc
  1291              	.LFE155:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 37
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 37
 
 
  1293              		.section	.text.ADC_Injected_Group_Autoconversion_Disable,"ax",%progbits
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  720:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_EXT_TRIGCONV_INJECTED_T1_CC4            
  721:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_EXT_TRIGCONV_INJECTED_T2_TRGO            
  722:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_EXT_TRIGCONV_INJECTED_T2_CC1            
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 38
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 38
 
 
  723:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_EXT_TRIGCONV_INJECTED_T3_CC4            
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  742:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_EXTJTRIG_SWSTRJCH_DISABLE
  743:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_EXTJTRIG_SWSTRJCH_GET_STS
  744:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\return  FlagStatus:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 39
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 39
 
 
  745:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - SET
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1397              		.loc 1 755 12 is_stmt 0 view .LVU334
  1398 0014 6FF40213 		mvn	r3, #2129920
  1399 0018 9842     		cmp	r0, r3
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 40
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 40
 
 
  1400 001a 04D1     		bne	.L119
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  779:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_CH_0
  780:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_CH_1
  781:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_CH_2
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 41
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 41
 
 
  782:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_CH_3
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1464              		.loc 1 809 8 is_stmt 0 view .LVU353
  1465 0014 9A6B     		ldr	r2, [r3, #56]
  1466              		.loc 1 809 18 view .LVU354
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 42
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 42
 
 
  1467 0016 8840     		lsls	r0, r0, r1
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1504              		.loc 1 828 8 is_stmt 0 view .LVU362
  1505 000a 9A6B     		ldr	r2, [r3, #56]
  1506              		.loc 1 828 15 view .LVU363
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 43
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 43
 
 
  1507 000c 0243     		orrs	r2, r2, r0
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1544 000a 03F50233 		add	r3, r3, #133120
  1545 000e 0193     		str	r3, [sp, #4]
  847:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     temp_value += injected_channel;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 44
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 44
 
 
  1546              		.loc 1 847 5 is_stmt 1 view .LVU371
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1583              		.loc 1 864 1 is_stmt 0 view .LVU380
  1584 0000 82B0     		sub	sp, sp, #8
  1585              	.LCFI9:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 45
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 45
 
 
  1586              		.cfi_def_cfa_offset 8
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  881:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\param   channel :
  882:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_ANALOG_WTDG_SINGLE_CH0
  883:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_ANALOG_WTDG_SINGLE_CH1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 46
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 46
 
 
  884:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_ANALOG_WTDG_SINGLE_CH2
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1651              		.loc 1 912 12 is_stmt 0 view .LVU401
  1652 0018 5A68     		ldr	r2, [r3, #4]
  1653              		.loc 1 912 20 view .LVU402
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 47
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 47
 
 
  1654 001a 1143     		orrs	r1, r1, r2
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1690              		.loc 1 932 8 is_stmt 0 view .LVU409
  1691 0000 024A     		ldr	r2, .L138
  1692 0002 5368     		ldr	r3, [r2, #4]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 48
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 48
 
 
  1693              		.loc 1 932 16 view .LVU410
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1734              	.LFE165:
  1736              		.section	.text.ADC_Analog_Watchdog_HighThresholds_Config,"ax",%progbits
  1737              		.align	1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 49
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 49
 
 
  1738              		.global	ADC_Analog_Watchdog_HighThresholds_Config
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  969:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** {
  1774              		.loc 1 969 1 is_stmt 1 view -0
  1775              		.cfi_startproc
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 50
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 50
 
 
  1776              		@ args = 0, pretend = 0, frame = 0
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1817 0012 43F48063 		orr	r3, r3, #1024
  1818 0016 C2F82038 		str	r3, [r2, #2080]
  1819              		.loc 1 984 5 view .LVU431
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 51
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 51
 
 
  985:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** }
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1862 001c 00080240 		.word	1073874944
  1863              		.cfi_endproc
  1864              	.LFE169:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 52
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 52
 
 
  1866              		.section	.text.ADC_INTFlag_Status_Get,"ax",%progbits
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1895              	.L156:
  1896 0010 00080240 		.word	1073874944
  1897              		.cfi_endproc
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 53
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 53
 
 
  1898              	.LFE170:
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1928              	.LVL75:
  1929              	.L161:
 1051:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****         {
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 54
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 54
 
 
 1052:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****             /* ADC_FLAG is set */
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  1958              		.thumb_func
  1960              	ADC_INTFlag_Status_Clear:
  1961              	.LVL78:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 55
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 55
 
 
  1962              	.LFB172:
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
 1099:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_FLAG_ENDC
 1100:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_FLAG_JENDC
 1101:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_FLAG_JSTR
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 56
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 56
 
 
 1102:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\          - ADC_FLAG_STR
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2029              		.loc 1 1122 5 view .LVU471
 1123:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** }
  2030              		.loc 1 1123 1 is_stmt 0 view .LVU472
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 57
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 57
 
 
  2031 001a 7047     		bx	lr
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2074              	.LFE175:
  2076              		.section	.text.ADC_Deep_Power_Mode_Enable,"ax",%progbits
  2077              		.align	1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 58
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 58
 
 
  2078              		.global	ADC_Deep_Power_Mode_Enable
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2116              		.cfi_startproc
  2117              		@ args = 0, pretend = 0, frame = 0
  2118              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 59
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 59
 
 
  2119              		@ link register save eliminated.
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2161              	.L181:
  2162 000c 00080240 		.word	1073874944
  2163              		.cfi_endproc
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 60
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 60
 
 
  2164              	.LFE178:
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
 1187:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** void ADC_Calibration_Auto_Load_Enable(void)
 1188:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** {   
  2205              		.loc 1 1188 1 is_stmt 1 view -0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 61
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 61
 
 
  2206              		.cfi_startproc
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2248 000a 7047     		bx	lr
  2249              	.L191:
  2250              		.align	2
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 62
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 62
 
 
  2251              	.L190:
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
 1217:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\fun     Disable ADC Calibration Auto Load mode.
 1218:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\return  none
 1219:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** **/
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 63
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 63
 
 
 1220:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** void ADC_Differential_Mode_Disable(void)
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2331              		.loc 1 1239 5 view .LVU522
  2332              		.loc 1 1239 8 is_stmt 0 view .LVU523
  2333 0000 044B     		ldr	r3, .L199
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 64
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 64
 
 
  2334 0002 9A6D     		ldr	r2, [r3, #88]
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2374 0008 DA65     		str	r2, [r3, #92]
 1256:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     /* Set the ADC_SAMPT3 SAMSEL bit to select sample time*/
 1257:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     ADC->SAMPT3 |= sample_time_level;  
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 65
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 65
 
 
  2375              		.loc 1 1257 5 is_stmt 1 view .LVU533
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2410              		.cfi_offset 14, -4
  2411              		.loc 1 1277 8 view .LVU540
  2412 0002 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 66
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 66
 
 
 1276:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     if (ADC_initstructEx->VbatMinitEn)
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2448              		.loc 1 1293 9 is_stmt 1 view .LVU556
  2449 0028 FFF7FEFF 		bl	ADC_Interrupts_Enable
  2450              	.LVL86:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 67
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 67
 
 
  2451              	.L212:
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2483              		.loc 1 1315 1 is_stmt 0 view .LVU568
  2484 004e BDE81040 		pop	{r4, lr}
  2485              	.LCFI12:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 68
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 68
 
 
  2486              		.cfi_remember_state
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2532              		.cfi_endproc
  2533              	.LFE186:
  2535              		.section	.text.ADC_Initializes_StructureEx,"ax",%progbits
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 69
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 69
 
 
  2536              		.align	1
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2557              		.loc 1 1336 41 is_stmt 0 view .LVU585
  2558 0000 0023     		movs	r3, #0
 1349:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     /* initialize the ResBit member */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 70
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 70
 
 
 1350:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     ADC_initstructEx->ResBit            = ADC_RST_BIT_12;
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2596              		.loc 1 1364 1 view .LVU597
  2597 000a 7047     		bx	lr
  2598              	.L222:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 71
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 71
 
 
  2599              		.align	2
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
 1377:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** /**
 1378:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\name    ADC_Differential_Channels_Config.
 1379:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\fun     Configures the ADC Differential mode.
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 72
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 72
 
 
 1380:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c **** *\*\param   DifChs :
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2672              		.section	.text.ADC_Clock_Mode_Config,"ax",%progbits
  2673              		.align	1
  2674              		.global	ADC_Clock_Mode_Config
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 73
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 73
 
 
  2675              		.syntax unified
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2694              		.cfi_offset 14, -4
 1441:../firmware/n32g430_std_periph_driver/src/n32g430_adc.c ****     RCC_ADC_Hclk_Enable();
  2695              		.loc 1 1441 1 view .LVU614
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 74
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 74
 
 
  2696 0002 0546     		mov	r5, r0
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2735              	.LCFI17:
  2736              		.cfi_restore 14
  2737              		.cfi_restore 5
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 75
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 75
 
 
  2738              		.cfi_restore 4
@@ -4468,208 +4468,208 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 1
  2768 0000 00000000 		.space	4
  2769              		.text
  2770              	.Letext0:
- 2771              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
- 2772              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 2771              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 2772              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
  2773              		.file 4 "../firmware/CMSIS/device/n32g430.h"
  2774              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_adc.h"
  2775              		.file 6 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 76
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 76
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 n32g430_adc.c
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:21     .text.ADC_Vrefint_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:27     .text.ADC_Vrefint_Get:00000000 ADC_Vrefint_Get
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:71     .text.ADC_Vrefint_Get:00000020 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2767   .bss.vrefint_value:00000000 vrefint_value
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2753   .data.Get_NVR:00000000 Get_NVR
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:79     .text.ADC_Reset:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:85     .text.ADC_Reset:00000000 ADC_Reset
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:100    .text.ADC_Multichannels_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:106    .text.ADC_Multichannels_Enable:00000000 ADC_Multichannels_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:125    .text.ADC_Multichannels_Enable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:130    .text.ADC_Multichannels_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:136    .text.ADC_Multichannels_Disable:00000000 ADC_Multichannels_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:155    .text.ADC_Multichannels_Disable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:160    .text.ADC_Continue_Conversion_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:166    .text.ADC_Continue_Conversion_Enable:00000000 ADC_Continue_Conversion_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:185    .text.ADC_Continue_Conversion_Enable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:190    .text.ADC_Continue_Conversion_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:196    .text.ADC_Continue_Conversion_Disable:00000000 ADC_Continue_Conversion_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:215    .text.ADC_Continue_Conversion_Disable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:220    .text.ADC_Regular_Group_External_Trigger_Source_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:226    .text.ADC_Regular_Group_External_Trigger_Source_Config:00000000 ADC_Regular_Group_External_Trigger_Source_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:252    .text.ADC_Regular_Group_External_Trigger_Source_Config:00000014 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:257    .text.ADC_Data_Alignment_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:263    .text.ADC_Data_Alignment_Config:00000000 ADC_Data_Alignment_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:289    .text.ADC_Data_Alignment_Config:00000014 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:294    .text.ADC_Regular_Channels_Number_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:300    .text.ADC_Regular_Channels_Number_Config:00000000 ADC_Regular_Channels_Number_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:326    .text.ADC_Regular_Channels_Number_Config:00000014 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:331    .text.ADC_Initializes:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:337    .text.ADC_Initializes:00000000 ADC_Initializes
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:407    .text.ADC_Initializes_Structure:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:413    .text.ADC_Initializes_Structure:00000000 ADC_Initializes_Structure
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:439    .text.ADC_ON:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:445    .text.ADC_ON:00000000 ADC_ON
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:464    .text.ADC_ON:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:469    .text.ADC_OFF:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:475    .text.ADC_OFF:00000000 ADC_OFF
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:494    .text.ADC_OFF:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:499    .text.ADC_DMA_Transfer_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:505    .text.ADC_DMA_Transfer_Enable:00000000 ADC_DMA_Transfer_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:524    .text.ADC_DMA_Transfer_Enable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:529    .text.ADC_DMA_Transfer_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:535    .text.ADC_DMA_Transfer_Disable:00000000 ADC_DMA_Transfer_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:554    .text.ADC_DMA_Transfer_Disable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:559    .text.ADC_Interrupts_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:565    .text.ADC_Interrupts_Enable:00000000 ADC_Interrupts_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:621    .text.ADC_Interrupts_Enable:00000018 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:626    .text.ADC_Interrupts_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:632    .text.ADC_Interrupts_Disable:00000000 ADC_Interrupts_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:688    .text.ADC_Interrupts_Disable:0000001c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:693    .text.ADC_Calibration_Operation:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:699    .text.ADC_Calibration_Operation:00000000 ADC_Calibration_Operation
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:754    .text.ADC_Calibration_Operation:0000002c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:759    .text.ADC_Regular_Channels_Software_Conversion_Operation:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:765    .text.ADC_Regular_Channels_Software_Conversion_Operation:00000000 ADC_Regular_Channels_Software_Conversion_Operation
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 77
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:21     .text.ADC_Vrefint_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:27     .text.ADC_Vrefint_Get:00000000 ADC_Vrefint_Get
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:71     .text.ADC_Vrefint_Get:00000020 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2767   .bss.vrefint_value:00000000 vrefint_value
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2753   .data.Get_NVR:00000000 Get_NVR
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:79     .text.ADC_Reset:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:85     .text.ADC_Reset:00000000 ADC_Reset
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:100    .text.ADC_Multichannels_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:106    .text.ADC_Multichannels_Enable:00000000 ADC_Multichannels_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:125    .text.ADC_Multichannels_Enable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:130    .text.ADC_Multichannels_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:136    .text.ADC_Multichannels_Disable:00000000 ADC_Multichannels_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:155    .text.ADC_Multichannels_Disable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:160    .text.ADC_Continue_Conversion_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:166    .text.ADC_Continue_Conversion_Enable:00000000 ADC_Continue_Conversion_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:185    .text.ADC_Continue_Conversion_Enable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:190    .text.ADC_Continue_Conversion_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:196    .text.ADC_Continue_Conversion_Disable:00000000 ADC_Continue_Conversion_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:215    .text.ADC_Continue_Conversion_Disable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:220    .text.ADC_Regular_Group_External_Trigger_Source_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:226    .text.ADC_Regular_Group_External_Trigger_Source_Config:00000000 ADC_Regular_Group_External_Trigger_Source_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:252    .text.ADC_Regular_Group_External_Trigger_Source_Config:00000014 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:257    .text.ADC_Data_Alignment_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:263    .text.ADC_Data_Alignment_Config:00000000 ADC_Data_Alignment_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:289    .text.ADC_Data_Alignment_Config:00000014 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:294    .text.ADC_Regular_Channels_Number_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:300    .text.ADC_Regular_Channels_Number_Config:00000000 ADC_Regular_Channels_Number_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:326    .text.ADC_Regular_Channels_Number_Config:00000014 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:331    .text.ADC_Initializes:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:337    .text.ADC_Initializes:00000000 ADC_Initializes
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:407    .text.ADC_Initializes_Structure:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:413    .text.ADC_Initializes_Structure:00000000 ADC_Initializes_Structure
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:439    .text.ADC_ON:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:445    .text.ADC_ON:00000000 ADC_ON
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:464    .text.ADC_ON:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:469    .text.ADC_OFF:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:475    .text.ADC_OFF:00000000 ADC_OFF
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:494    .text.ADC_OFF:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:499    .text.ADC_DMA_Transfer_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:505    .text.ADC_DMA_Transfer_Enable:00000000 ADC_DMA_Transfer_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:524    .text.ADC_DMA_Transfer_Enable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:529    .text.ADC_DMA_Transfer_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:535    .text.ADC_DMA_Transfer_Disable:00000000 ADC_DMA_Transfer_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:554    .text.ADC_DMA_Transfer_Disable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:559    .text.ADC_Interrupts_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:565    .text.ADC_Interrupts_Enable:00000000 ADC_Interrupts_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:621    .text.ADC_Interrupts_Enable:00000018 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:626    .text.ADC_Interrupts_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:632    .text.ADC_Interrupts_Disable:00000000 ADC_Interrupts_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:688    .text.ADC_Interrupts_Disable:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:693    .text.ADC_Calibration_Operation:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:699    .text.ADC_Calibration_Operation:00000000 ADC_Calibration_Operation
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:754    .text.ADC_Calibration_Operation:0000002c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:759    .text.ADC_Regular_Channels_Software_Conversion_Operation:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:765    .text.ADC_Regular_Channels_Software_Conversion_Operation:00000000 ADC_Regular_Channels_Software_Conversion_Operation
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 77
 
 
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:823    .text.ADC_Regular_Channels_Software_Conversion_Operation:00000038 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:828    .text.ADC_Discontinuous_Mode_Channel_Count_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:834    .text.ADC_Discontinuous_Mode_Channel_Count_Config:00000000 ADC_Discontinuous_Mode_Channel_Count_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:860    .text.ADC_Discontinuous_Mode_Channel_Count_Config:00000014 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:865    .text.ADC_Discontinuous_Mode_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:871    .text.ADC_Discontinuous_Mode_Config:00000000 ADC_Discontinuous_Mode_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:936    .text.ADC_Discontinuous_Mode_Config:00000048 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:941    .text.ADC_Channel_Sample_Time_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:947    .text.ADC_Channel_Sample_Time_Config:00000000 ADC_Channel_Sample_Time_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1044   .text.ADC_Channel_Sample_Time_Config:00000058 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1049   .text.ADC_Regular_Sequence_Conversion_Number_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1055   .text.ADC_Regular_Sequence_Conversion_Number_Config:00000000 ADC_Regular_Sequence_Conversion_Number_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1155   .text.ADC_Regular_Sequence_Conversion_Number_Config:00000064 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1160   .text.ADC_External_Trigger_Conversion_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1166   .text.ADC_External_Trigger_Conversion_Config:00000000 ADC_External_Trigger_Conversion_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1231   .text.ADC_External_Trigger_Conversion_Config:00000048 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1236   .text.ADC_Regular_Group_Conversion_Data_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1242   .text.ADC_Regular_Group_Conversion_Data_Get:00000000 ADC_Regular_Group_Conversion_Data_Get
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1259   .text.ADC_Regular_Group_Conversion_Data_Get:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1264   .text.ADC_Injected_Group_Autoconversion_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1270   .text.ADC_Injected_Group_Autoconversion_Enable:00000000 ADC_Injected_Group_Autoconversion_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1289   .text.ADC_Injected_Group_Autoconversion_Enable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1294   .text.ADC_Injected_Group_Autoconversion_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1300   .text.ADC_Injected_Group_Autoconversion_Disable:00000000 ADC_Injected_Group_Autoconversion_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1319   .text.ADC_Injected_Group_Autoconversion_Disable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1324   .text.ADC_Injected_Group_External_Trigger_Source_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1330   .text.ADC_Injected_Group_External_Trigger_Source_Config:00000000 ADC_Injected_Group_External_Trigger_Source_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1356   .text.ADC_Injected_Group_External_Trigger_Source_Config:00000014 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1361   .text.ADC_Injected_Channels_Software_Conversion_Operation:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1367   .text.ADC_Injected_Channels_Software_Conversion_Operation:00000000 ADC_Injected_Channels_Software_Conversion_Operation
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1425   .text.ADC_Injected_Channels_Software_Conversion_Operation:00000038 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1430   .text.ADC_Injected_Sequence_Conversion_Number_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1436   .text.ADC_Injected_Sequence_Conversion_Number_Config:00000000 ADC_Injected_Sequence_Conversion_Number_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1477   .text.ADC_Injected_Sequence_Conversion_Number_Config:00000020 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1482   .text.ADC_Injected_Channels_Number_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1488   .text.ADC_Injected_Channels_Number_Config:00000000 ADC_Injected_Channels_Number_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1514   .text.ADC_Injected_Channels_Number_Config:00000014 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1519   .text.ADC_Injected_Channels_Offset_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1525   .text.ADC_Injected_Channels_Offset_Config:00000000 ADC_Injected_Channels_Offset_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1568   .text.ADC_Injected_Group_Conversion_Data_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1574   .text.ADC_Injected_Group_Conversion_Data_Get:00000000 ADC_Injected_Group_Conversion_Data_Get
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1618   .text.ADC_Analog_Watchdog_Mode_Channel_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1624   .text.ADC_Analog_Watchdog_Mode_Channel_Config:00000000 ADC_Analog_Watchdog_Mode_Channel_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1670   .text.ADC_Analog_Watchdog_Mode_Channel_Config:00000028 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1675   .text.ADC_Analog_Watchdog_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1681   .text.ADC_Analog_Watchdog_Enable:00000000 ADC_Analog_Watchdog_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1701   .text.ADC_Analog_Watchdog_Enable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1706   .text.ADC_Analog_Watchdog_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1712   .text.ADC_Analog_Watchdog_Disable:00000000 ADC_Analog_Watchdog_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1732   .text.ADC_Analog_Watchdog_Disable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1737   .text.ADC_Analog_Watchdog_HighThresholds_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1743   .text.ADC_Analog_Watchdog_HighThresholds_Config:00000000 ADC_Analog_Watchdog_HighThresholds_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1760   .text.ADC_Analog_Watchdog_HighThresholds_Config:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1765   .text.ADC_Analog_Watchdog_LowThresholds_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1771   .text.ADC_Analog_Watchdog_LowThresholds_Config:00000000 ADC_Analog_Watchdog_LowThresholds_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1788   .text.ADC_Analog_Watchdog_LowThresholds_Config:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1793   .text.ADC_Temperature_Sensor_And_Vrefint_Channel_Enable:00000000 $t
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 78
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:823    .text.ADC_Regular_Channels_Software_Conversion_Operation:00000038 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:828    .text.ADC_Discontinuous_Mode_Channel_Count_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:834    .text.ADC_Discontinuous_Mode_Channel_Count_Config:00000000 ADC_Discontinuous_Mode_Channel_Count_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:860    .text.ADC_Discontinuous_Mode_Channel_Count_Config:00000014 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:865    .text.ADC_Discontinuous_Mode_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:871    .text.ADC_Discontinuous_Mode_Config:00000000 ADC_Discontinuous_Mode_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:936    .text.ADC_Discontinuous_Mode_Config:00000048 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:941    .text.ADC_Channel_Sample_Time_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:947    .text.ADC_Channel_Sample_Time_Config:00000000 ADC_Channel_Sample_Time_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1044   .text.ADC_Channel_Sample_Time_Config:00000058 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1049   .text.ADC_Regular_Sequence_Conversion_Number_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1055   .text.ADC_Regular_Sequence_Conversion_Number_Config:00000000 ADC_Regular_Sequence_Conversion_Number_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1155   .text.ADC_Regular_Sequence_Conversion_Number_Config:00000064 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1160   .text.ADC_External_Trigger_Conversion_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1166   .text.ADC_External_Trigger_Conversion_Config:00000000 ADC_External_Trigger_Conversion_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1231   .text.ADC_External_Trigger_Conversion_Config:00000048 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1236   .text.ADC_Regular_Group_Conversion_Data_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1242   .text.ADC_Regular_Group_Conversion_Data_Get:00000000 ADC_Regular_Group_Conversion_Data_Get
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1259   .text.ADC_Regular_Group_Conversion_Data_Get:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1264   .text.ADC_Injected_Group_Autoconversion_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1270   .text.ADC_Injected_Group_Autoconversion_Enable:00000000 ADC_Injected_Group_Autoconversion_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1289   .text.ADC_Injected_Group_Autoconversion_Enable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1294   .text.ADC_Injected_Group_Autoconversion_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1300   .text.ADC_Injected_Group_Autoconversion_Disable:00000000 ADC_Injected_Group_Autoconversion_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1319   .text.ADC_Injected_Group_Autoconversion_Disable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1324   .text.ADC_Injected_Group_External_Trigger_Source_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1330   .text.ADC_Injected_Group_External_Trigger_Source_Config:00000000 ADC_Injected_Group_External_Trigger_Source_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1356   .text.ADC_Injected_Group_External_Trigger_Source_Config:00000014 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1361   .text.ADC_Injected_Channels_Software_Conversion_Operation:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1367   .text.ADC_Injected_Channels_Software_Conversion_Operation:00000000 ADC_Injected_Channels_Software_Conversion_Operation
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1425   .text.ADC_Injected_Channels_Software_Conversion_Operation:00000038 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1430   .text.ADC_Injected_Sequence_Conversion_Number_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1436   .text.ADC_Injected_Sequence_Conversion_Number_Config:00000000 ADC_Injected_Sequence_Conversion_Number_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1477   .text.ADC_Injected_Sequence_Conversion_Number_Config:00000020 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1482   .text.ADC_Injected_Channels_Number_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1488   .text.ADC_Injected_Channels_Number_Config:00000000 ADC_Injected_Channels_Number_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1514   .text.ADC_Injected_Channels_Number_Config:00000014 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1519   .text.ADC_Injected_Channels_Offset_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1525   .text.ADC_Injected_Channels_Offset_Config:00000000 ADC_Injected_Channels_Offset_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1568   .text.ADC_Injected_Group_Conversion_Data_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1574   .text.ADC_Injected_Group_Conversion_Data_Get:00000000 ADC_Injected_Group_Conversion_Data_Get
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1618   .text.ADC_Analog_Watchdog_Mode_Channel_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1624   .text.ADC_Analog_Watchdog_Mode_Channel_Config:00000000 ADC_Analog_Watchdog_Mode_Channel_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1670   .text.ADC_Analog_Watchdog_Mode_Channel_Config:00000028 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1675   .text.ADC_Analog_Watchdog_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1681   .text.ADC_Analog_Watchdog_Enable:00000000 ADC_Analog_Watchdog_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1701   .text.ADC_Analog_Watchdog_Enable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1706   .text.ADC_Analog_Watchdog_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1712   .text.ADC_Analog_Watchdog_Disable:00000000 ADC_Analog_Watchdog_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1732   .text.ADC_Analog_Watchdog_Disable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1737   .text.ADC_Analog_Watchdog_HighThresholds_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1743   .text.ADC_Analog_Watchdog_HighThresholds_Config:00000000 ADC_Analog_Watchdog_HighThresholds_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1760   .text.ADC_Analog_Watchdog_HighThresholds_Config:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1765   .text.ADC_Analog_Watchdog_LowThresholds_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1771   .text.ADC_Analog_Watchdog_LowThresholds_Config:00000000 ADC_Analog_Watchdog_LowThresholds_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1788   .text.ADC_Analog_Watchdog_LowThresholds_Config:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1793   .text.ADC_Temperature_Sensor_And_Vrefint_Channel_Enable:00000000 $t
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 78
 
 
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1799   .text.ADC_Temperature_Sensor_And_Vrefint_Channel_Enable:00000000 ADC_Temperature_Sensor_And_Vrefint_Channel_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1825   .text.ADC_Temperature_Sensor_And_Vrefint_Channel_Enable:0000001c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1830   .text.ADC_Temperature_Sensor_And_Vrefint_Channel_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1836   .text.ADC_Temperature_Sensor_And_Vrefint_Channel_Disable:00000000 ADC_Temperature_Sensor_And_Vrefint_Channel_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1862   .text.ADC_Temperature_Sensor_And_Vrefint_Channel_Disable:0000001c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1867   .text.ADC_INTFlag_Status_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1873   .text.ADC_INTFlag_Status_Get:00000000 ADC_INTFlag_Status_Get
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1896   .text.ADC_INTFlag_Status_Get:00000010 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1901   .text.ADC_Flag_Status_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1907   .text.ADC_Flag_Status_Get:00000000 ADC_Flag_Status_Get
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1949   .text.ADC_Flag_Status_Get:0000001c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1954   .text.ADC_INTFlag_Status_Clear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1960   .text.ADC_INTFlag_Status_Clear:00000000 ADC_INTFlag_Status_Clear
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1980   .text.ADC_INTFlag_Status_Clear:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1985   .text.ADC_Flag_Status_Clear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:1991   .text.ADC_Flag_Status_Clear:00000000 ADC_Flag_Status_Clear
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2003   .text.ADC_Vbat_Monitor_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2009   .text.ADC_Vbat_Monitor_Enable:00000000 ADC_Vbat_Monitor_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2035   .text.ADC_Vbat_Monitor_Enable:0000001c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2040   .text.ADC_Vbat_Monitor_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2046   .text.ADC_Vbat_Monitor_Disable:00000000 ADC_Vbat_Monitor_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2072   .text.ADC_Vbat_Monitor_Disable:0000001c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2077   .text.ADC_Deep_Power_Mode_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2083   .text.ADC_Deep_Power_Mode_Enable:00000000 ADC_Deep_Power_Mode_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2102   .text.ADC_Deep_Power_Mode_Enable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2107   .text.ADC_Deep_Power_Mode_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2113   .text.ADC_Deep_Power_Mode_Disable:00000000 ADC_Deep_Power_Mode_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2132   .text.ADC_Deep_Power_Mode_Disable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2137   .text.ADC_AHB_Clock_Mode_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2143   .text.ADC_AHB_Clock_Mode_Config:00000000 ADC_AHB_Clock_Mode_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2162   .text.ADC_AHB_Clock_Mode_Config:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2167   .text.ADC_PLL_Clock_Mode_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2173   .text.ADC_PLL_Clock_Mode_Config:00000000 ADC_PLL_Clock_Mode_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2192   .text.ADC_PLL_Clock_Mode_Config:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2197   .text.ADC_Calibration_Auto_Load_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2203   .text.ADC_Calibration_Auto_Load_Enable:00000000 ADC_Calibration_Auto_Load_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2222   .text.ADC_Calibration_Auto_Load_Enable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2227   .text.ADC_Calibration_Auto_Load_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2233   .text.ADC_Calibration_Auto_Load_Disable:00000000 ADC_Calibration_Auto_Load_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2252   .text.ADC_Calibration_Auto_Load_Disable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2257   .text.ADC_Differential_Mode_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2263   .text.ADC_Differential_Mode_Enable:00000000 ADC_Differential_Mode_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2282   .text.ADC_Differential_Mode_Enable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2287   .text.ADC_Differential_Mode_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2293   .text.ADC_Differential_Mode_Disable:00000000 ADC_Differential_Mode_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2312   .text.ADC_Differential_Mode_Disable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2317   .text.ADC_Data_Resolution_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2323   .text.ADC_Data_Resolution_Config:00000000 ADC_Data_Resolution_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2349   .text.ADC_Data_Resolution_Config:00000014 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2354   .text.ADC_Sample_Time_Level_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2360   .text.ADC_Sample_Time_Level_Config:00000000 ADC_Sample_Time_Level_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2386   .text.ADC_Sample_Time_Level_Config:00000014 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2391   .text.ADC_Initializes_Ex:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2397   .text.ADC_Initializes_Ex:00000000 ADC_Initializes_Ex
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2536   .text.ADC_Initializes_StructureEx:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2542   .text.ADC_Initializes_StructureEx:00000000 ADC_Initializes_StructureEx
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2576   .text.ADC_Bypass_Calibration_Enable:00000000 $t
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s 			page 79
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1799   .text.ADC_Temperature_Sensor_And_Vrefint_Channel_Enable:00000000 ADC_Temperature_Sensor_And_Vrefint_Channel_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1825   .text.ADC_Temperature_Sensor_And_Vrefint_Channel_Enable:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1830   .text.ADC_Temperature_Sensor_And_Vrefint_Channel_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1836   .text.ADC_Temperature_Sensor_And_Vrefint_Channel_Disable:00000000 ADC_Temperature_Sensor_And_Vrefint_Channel_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1862   .text.ADC_Temperature_Sensor_And_Vrefint_Channel_Disable:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1867   .text.ADC_INTFlag_Status_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1873   .text.ADC_INTFlag_Status_Get:00000000 ADC_INTFlag_Status_Get
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1896   .text.ADC_INTFlag_Status_Get:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1901   .text.ADC_Flag_Status_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1907   .text.ADC_Flag_Status_Get:00000000 ADC_Flag_Status_Get
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1949   .text.ADC_Flag_Status_Get:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1954   .text.ADC_INTFlag_Status_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1960   .text.ADC_INTFlag_Status_Clear:00000000 ADC_INTFlag_Status_Clear
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1980   .text.ADC_INTFlag_Status_Clear:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1985   .text.ADC_Flag_Status_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:1991   .text.ADC_Flag_Status_Clear:00000000 ADC_Flag_Status_Clear
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2003   .text.ADC_Vbat_Monitor_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2009   .text.ADC_Vbat_Monitor_Enable:00000000 ADC_Vbat_Monitor_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2035   .text.ADC_Vbat_Monitor_Enable:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2040   .text.ADC_Vbat_Monitor_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2046   .text.ADC_Vbat_Monitor_Disable:00000000 ADC_Vbat_Monitor_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2072   .text.ADC_Vbat_Monitor_Disable:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2077   .text.ADC_Deep_Power_Mode_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2083   .text.ADC_Deep_Power_Mode_Enable:00000000 ADC_Deep_Power_Mode_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2102   .text.ADC_Deep_Power_Mode_Enable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2107   .text.ADC_Deep_Power_Mode_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2113   .text.ADC_Deep_Power_Mode_Disable:00000000 ADC_Deep_Power_Mode_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2132   .text.ADC_Deep_Power_Mode_Disable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2137   .text.ADC_AHB_Clock_Mode_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2143   .text.ADC_AHB_Clock_Mode_Config:00000000 ADC_AHB_Clock_Mode_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2162   .text.ADC_AHB_Clock_Mode_Config:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2167   .text.ADC_PLL_Clock_Mode_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2173   .text.ADC_PLL_Clock_Mode_Config:00000000 ADC_PLL_Clock_Mode_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2192   .text.ADC_PLL_Clock_Mode_Config:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2197   .text.ADC_Calibration_Auto_Load_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2203   .text.ADC_Calibration_Auto_Load_Enable:00000000 ADC_Calibration_Auto_Load_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2222   .text.ADC_Calibration_Auto_Load_Enable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2227   .text.ADC_Calibration_Auto_Load_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2233   .text.ADC_Calibration_Auto_Load_Disable:00000000 ADC_Calibration_Auto_Load_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2252   .text.ADC_Calibration_Auto_Load_Disable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2257   .text.ADC_Differential_Mode_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2263   .text.ADC_Differential_Mode_Enable:00000000 ADC_Differential_Mode_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2282   .text.ADC_Differential_Mode_Enable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2287   .text.ADC_Differential_Mode_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2293   .text.ADC_Differential_Mode_Disable:00000000 ADC_Differential_Mode_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2312   .text.ADC_Differential_Mode_Disable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2317   .text.ADC_Data_Resolution_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2323   .text.ADC_Data_Resolution_Config:00000000 ADC_Data_Resolution_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2349   .text.ADC_Data_Resolution_Config:00000014 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2354   .text.ADC_Sample_Time_Level_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2360   .text.ADC_Sample_Time_Level_Config:00000000 ADC_Sample_Time_Level_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2386   .text.ADC_Sample_Time_Level_Config:00000014 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2391   .text.ADC_Initializes_Ex:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2397   .text.ADC_Initializes_Ex:00000000 ADC_Initializes_Ex
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2536   .text.ADC_Initializes_StructureEx:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2542   .text.ADC_Initializes_StructureEx:00000000 ADC_Initializes_StructureEx
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2576   .text.ADC_Bypass_Calibration_Enable:00000000 $t
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s 			page 79
 
 
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2582   .text.ADC_Bypass_Calibration_Enable:00000000 ADC_Bypass_Calibration_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2601   .text.ADC_Bypass_Calibration_Enable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2606   .text.ADC_Bypass_Calibration_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2612   .text.ADC_Bypass_Calibration_Disable:00000000 ADC_Bypass_Calibration_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2631   .text.ADC_Bypass_Calibration_Disable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2636   .text.ADC_Differential_Channels_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2642   .text.ADC_Differential_Channels_Config:00000000 ADC_Differential_Channels_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2668   .text.ADC_Differential_Channels_Config:00000014 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2673   .text.ADC_Clock_Mode_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2679   .text.ADC_Clock_Mode_Config:00000000 ADC_Clock_Mode_Config
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2750   .data.Get_NVR:00000000 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2760   .data.Program_NVR:00000000 Program_NVR
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2757   .data.Program_NVR:00000000 $d
-C:\Users\Dawn\AppData\Local\Temp\ccEBxnu9.s:2764   .bss.vrefint_value:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2582   .text.ADC_Bypass_Calibration_Enable:00000000 ADC_Bypass_Calibration_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2601   .text.ADC_Bypass_Calibration_Enable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2606   .text.ADC_Bypass_Calibration_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2612   .text.ADC_Bypass_Calibration_Disable:00000000 ADC_Bypass_Calibration_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2631   .text.ADC_Bypass_Calibration_Disable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2636   .text.ADC_Differential_Channels_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2642   .text.ADC_Differential_Channels_Config:00000000 ADC_Differential_Channels_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2668   .text.ADC_Differential_Channels_Config:00000014 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2673   .text.ADC_Clock_Mode_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2679   .text.ADC_Clock_Mode_Config:00000000 ADC_Clock_Mode_Config
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2750   .data.Get_NVR:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2760   .data.Program_NVR:00000000 Program_NVR
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2757   .data.Program_NVR:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccmfykzt.s:2764   .bss.vrefint_value:00000000 $d
 
 UNDEFINED SYMBOLS
 RCC_AHB_Peripheral_Reset

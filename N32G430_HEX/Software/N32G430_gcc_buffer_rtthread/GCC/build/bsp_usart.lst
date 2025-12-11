@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
   29              		.loc 1 27 1 view -0
   30              		.cfi_startproc
   31              		@ args = 0, pretend = 0, frame = 48
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 2
 
 
   32              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
   67              		.loc 1 43 5 view .LVU14
   68 001e 06A9     		add	r1, sp, #24
   69 0020 1B48     		ldr	r0, .L2
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 3
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 3
 
 
   38:../core/src/bsp_usart.c ****     GPIO_InitStructure.GPIO_Mode        = GPIO_MODE_AF_PP;
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
  100              		.loc 1 57 5 view .LVU32
   58:../core/src/bsp_usart.c ****     USART_InitStructure.Parity          = USART1_PARITY;
  101              		.loc 1 58 5 view .LVU33
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 4
 
 
   59:../core/src/bsp_usart.c ****     USART_InitStructure.HardwareFlowControl = USART1_HARDWAREFLOWCTL;
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
   72:../core/src/bsp_usart.c **** 
   73:../core/src/bsp_usart.c ****     /* 使能USART1 */
   74:../core/src/bsp_usart.c ****     USART_Enable(USART1);
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 5
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 5
 
 
  137              		.loc 1 74 5 view .LVU51
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
   87:../core/src/bsp_usart.c **** **/
   88:../core/src/bsp_usart.c **** void USART1_SendByte(uint8_t data)
   89:../core/src/bsp_usart.c **** {
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 6
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 6
 
 
  181              		.loc 1 89 1 is_stmt 1 view -0
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
  228              		.syntax unified
  229              		.thumb
  230              		.thumb_func
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 7
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 7
 
 
  232              	USART1_SendString:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
  270              		.thumb
  271              		.thumb_func
  273              	USART1_SendArray:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 8
 
 
  274              	.LVL18:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
  308 0014 F7E7     		b	.L14
  309              		.cfi_endproc
  310              	.LFE133:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 9
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 9
 
 
  312              		.section	.text.USART1_ReceiveByte,"ax",%progbits
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
  352              		.cfi_endproc
  353              	.LFE134:
  355              		.section	.text.USART1_ReceiveString,"ax",%progbits
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 10
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 10
 
 
  356              		.align	1
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
  392 001c 0139     		subs	r1, r1, #1
  393              	.LVL26:
  394              	.L23:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 11
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 11
 
 
  154:../core/src/bsp_usart.c ****     {
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
  430              		.loc 1 159 9 view .LVU114
  431              	.LVL28:
  159:../core/src/bsp_usart.c ****     }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 12
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 12
 
 
  432              		.loc 1 159 9 is_stmt 0 view .LVU115
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
  478              		.thumb_func
  480              	USART1_DisableInterrupt:
  481              	.LFB137:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 13
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 13
 
 
  175:../core/src/bsp_usart.c **** }
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
  515              	.LCFI9:
  516              		.cfi_def_cfa_offset 8
  517              		.cfi_offset 4, -8
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 14
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 14
 
 
  518              		.cfi_offset 14, -4
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
  560 0032 1380     		strh	r3, [r2]	@ movhi
  207:../core/src/bsp_usart.c ****             rx_count++;
  561              		.loc 1 207 13 is_stmt 1 view .LVU143
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 15
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 15
 
 
  562              		.loc 1 207 21 is_stmt 0 view .LVU144
@@ -898,55 +898,55 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 1
  612      00000000 
  612      00000000 
  613              		.text
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 16
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 16
 
 
  614              	.Letext0:
- 615              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
- 616              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 615              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 616              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
  617              		.file 4 "../firmware/CMSIS/device/n32g430.h"
  618              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_gpio.h"
  619              		.file 6 "../firmware/n32g430_std_periph_driver/inc/n32g430_usart.h"
  620              		.file 7 "../firmware/n32g430_std_periph_driver/inc/misc.h"
  621              		.file 8 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s 			page 17
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s 			page 17
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 bsp_usart.c
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:21     .text.USART1_Init:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:27     .text.USART1_Init:00000000 USART1_Init
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:162    .text.USART1_Init:00000090 $d
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:606    .bss.rx_head:00000000 rx_head
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:600    .bss.rx_tail:00000000 rx_tail
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:594    .bss.rx_count:00000000 rx_count
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:172    .text.USART1_SendByte:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:178    .text.USART1_SendByte:00000000 USART1_SendByte
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:221    .text.USART1_SendByte:0000001c $d
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:226    .text.USART1_SendString:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:232    .text.USART1_SendString:00000000 USART1_SendString
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:267    .text.USART1_SendArray:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:273    .text.USART1_SendArray:00000000 USART1_SendArray
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:313    .text.USART1_ReceiveByte:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:319    .text.USART1_ReceiveByte:00000000 USART1_ReceiveByte
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:351    .text.USART1_ReceiveByte:00000018 $d
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:356    .text.USART1_ReceiveString:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:362    .text.USART1_ReceiveString:00000000 USART1_ReceiveString
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:441    .text.USART1_ReceiveString:00000050 $d
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:611    .bss.usart1_rx_buffer:00000000 usart1_rx_buffer
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:448    .text.USART1_EnableInterrupt:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:454    .text.USART1_EnableInterrupt:00000000 USART1_EnableInterrupt
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:469    .text.USART1_EnableInterrupt:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:474    .text.USART1_DisableInterrupt:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:480    .text.USART1_DisableInterrupt:00000000 USART1_DisableInterrupt
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:495    .text.USART1_DisableInterrupt:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:500    .text.USART1_IRQHandler:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:506    .text.USART1_IRQHandler:00000000 USART1_IRQHandler
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:583    .text.USART1_IRQHandler:00000044 $d
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:591    .bss.rx_count:00000000 $d
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:597    .bss.rx_tail:00000000 $d
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:603    .bss.rx_head:00000000 $d
-C:\Users\Dawn\AppData\Local\Temp\ccCQdgZX.s:612    .bss.usart1_rx_buffer:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:21     .text.USART1_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:27     .text.USART1_Init:00000000 USART1_Init
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:162    .text.USART1_Init:00000090 $d
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:606    .bss.rx_head:00000000 rx_head
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:600    .bss.rx_tail:00000000 rx_tail
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:594    .bss.rx_count:00000000 rx_count
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:172    .text.USART1_SendByte:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:178    .text.USART1_SendByte:00000000 USART1_SendByte
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:221    .text.USART1_SendByte:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:226    .text.USART1_SendString:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:232    .text.USART1_SendString:00000000 USART1_SendString
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:267    .text.USART1_SendArray:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:273    .text.USART1_SendArray:00000000 USART1_SendArray
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:313    .text.USART1_ReceiveByte:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:319    .text.USART1_ReceiveByte:00000000 USART1_ReceiveByte
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:351    .text.USART1_ReceiveByte:00000018 $d
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:356    .text.USART1_ReceiveString:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:362    .text.USART1_ReceiveString:00000000 USART1_ReceiveString
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:441    .text.USART1_ReceiveString:00000050 $d
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:611    .bss.usart1_rx_buffer:00000000 usart1_rx_buffer
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:448    .text.USART1_EnableInterrupt:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:454    .text.USART1_EnableInterrupt:00000000 USART1_EnableInterrupt
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:469    .text.USART1_EnableInterrupt:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:474    .text.USART1_DisableInterrupt:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:480    .text.USART1_DisableInterrupt:00000000 USART1_DisableInterrupt
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:495    .text.USART1_DisableInterrupt:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:500    .text.USART1_IRQHandler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:506    .text.USART1_IRQHandler:00000000 USART1_IRQHandler
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:583    .text.USART1_IRQHandler:00000044 $d
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:591    .bss.rx_count:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:597    .bss.rx_tail:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:603    .bss.rx_head:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccs5BYxk.s:612    .bss.usart1_rx_buffer:00000000 $d
 
 UNDEFINED SYMBOLS
 RCC_AHB_Peripheral_Clock_Enable

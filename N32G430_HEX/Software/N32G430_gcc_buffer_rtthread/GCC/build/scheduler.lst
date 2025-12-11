@@ -1,0 +1,1505 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"scheduler.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../rt-thread/src/scheduler.c"
+  20              		.section	.text.rt_scheduler_sethook,"ax",%progbits
+  21              		.align	1
+  22              		.global	rt_scheduler_sethook
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	rt_scheduler_sethook:
+  28              	.LVL0:
+  29              	.LFB6:
+   1:../rt-thread/src/scheduler.c **** /*
+   2:../rt-thread/src/scheduler.c ****  * Copyright (c) 2006-2022, RT-Thread Development Team
+   3:../rt-thread/src/scheduler.c ****  *
+   4:../rt-thread/src/scheduler.c ****  * SPDX-License-Identifier: Apache-2.0
+   5:../rt-thread/src/scheduler.c ****  *
+   6:../rt-thread/src/scheduler.c ****  * RT-Thread Kernel Scheduler
+   7:../rt-thread/src/scheduler.c ****  */
+   8:../rt-thread/src/scheduler.c **** 
+   9:../rt-thread/src/scheduler.c **** #include <rtthread.h>
+  10:../rt-thread/src/scheduler.c **** #include <rthw.h>
+  11:../rt-thread/src/scheduler.c **** 
+  12:../rt-thread/src/scheduler.c **** /* Scheduler ready list */
+  13:../rt-thread/src/scheduler.c **** static rt_list_t rt_thread_priority_table[RT_THREAD_PRIORITY_MAX];
+  14:../rt-thread/src/scheduler.c **** static rt_uint32_t rt_thread_ready_priority_group;
+  15:../rt-thread/src/scheduler.c **** 
+  16:../rt-thread/src/scheduler.c **** #if RT_THREAD_PRIORITY_MAX > 32
+  17:../rt-thread/src/scheduler.c **** static rt_uint8_t rt_thread_ready_table[32];
+  18:../rt-thread/src/scheduler.c **** #endif
+  19:../rt-thread/src/scheduler.c **** 
+  20:../rt-thread/src/scheduler.c **** /* Current running thread */
+  21:../rt-thread/src/scheduler.c **** struct rt_thread *rt_current_thread = RT_NULL;
+  22:../rt-thread/src/scheduler.c **** rt_uint8_t rt_current_priority;
+  23:../rt-thread/src/scheduler.c **** 
+  24:../rt-thread/src/scheduler.c **** /* Scheduler lock nesting */
+  25:../rt-thread/src/scheduler.c **** static rt_int16_t rt_scheduler_lock_nest;
+  26:../rt-thread/src/scheduler.c **** 
+  27:../rt-thread/src/scheduler.c **** /* Interrupt context switch flag */
+  28:../rt-thread/src/scheduler.c **** rt_uint32_t rt_interrupt_from_thread = 0;
+  29:../rt-thread/src/scheduler.c **** rt_uint32_t rt_interrupt_to_thread = 0;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 2
+
+
+  30:../rt-thread/src/scheduler.c **** rt_uint32_t rt_thread_switch_interrupt_flag = 0;
+  31:../rt-thread/src/scheduler.c **** 
+  32:../rt-thread/src/scheduler.c **** /* Scheduler ready hook */
+  33:../rt-thread/src/scheduler.c **** static void (*rt_scheduler_hook)(struct rt_thread *from, struct rt_thread *to);
+  34:../rt-thread/src/scheduler.c **** 
+  35:../rt-thread/src/scheduler.c **** /**
+  36:../rt-thread/src/scheduler.c ****  * Set scheduler hook
+  37:../rt-thread/src/scheduler.c ****  */
+  38:../rt-thread/src/scheduler.c **** void rt_scheduler_sethook(void (*hook)(struct rt_thread *from, struct rt_thread *to))
+  39:../rt-thread/src/scheduler.c **** {
+  30              		.loc 1 39 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  40:../rt-thread/src/scheduler.c ****     rt_scheduler_hook = hook;
+  35              		.loc 1 40 5 view .LVU1
+  36              		.loc 1 40 23 is_stmt 0 view .LVU2
+  37 0000 014B     		ldr	r3, .L2
+  38 0002 1860     		str	r0, [r3]
+  41:../rt-thread/src/scheduler.c **** }
+  39              		.loc 1 41 1 view .LVU3
+  40 0004 7047     		bx	lr
+  41              	.L3:
+  42 0006 00BF     		.align	2
+  43              	.L2:
+  44 0008 00000000 		.word	rt_scheduler_hook
+  45              		.cfi_endproc
+  46              	.LFE6:
+  48              		.section	.text.rt_system_scheduler_init,"ax",%progbits
+  49              		.align	1
+  50              		.global	rt_system_scheduler_init
+  51              		.syntax unified
+  52              		.thumb
+  53              		.thumb_func
+  55              	rt_system_scheduler_init:
+  56              	.LFB8:
+  42:../rt-thread/src/scheduler.c **** 
+  43:../rt-thread/src/scheduler.c **** /**
+  44:../rt-thread/src/scheduler.c ****  * Get highest priority thread
+  45:../rt-thread/src/scheduler.c ****  */
+  46:../rt-thread/src/scheduler.c **** static struct rt_thread *_get_highest_priority_thread(rt_ubase_t *highest_prio)
+  47:../rt-thread/src/scheduler.c **** {
+  48:../rt-thread/src/scheduler.c ****     register struct rt_thread *highest_priority_thread;
+  49:../rt-thread/src/scheduler.c ****     register rt_ubase_t highest_ready_priority;
+  50:../rt-thread/src/scheduler.c **** 
+  51:../rt-thread/src/scheduler.c **** #if RT_THREAD_PRIORITY_MAX > 32
+  52:../rt-thread/src/scheduler.c ****     register rt_ubase_t number;
+  53:../rt-thread/src/scheduler.c ****     number = __rt_ffs(rt_thread_ready_priority_group) - 1;
+  54:../rt-thread/src/scheduler.c ****     highest_ready_priority = (number << 3) + __rt_ffs(rt_thread_ready_table[number]) - 1;
+  55:../rt-thread/src/scheduler.c **** #else
+  56:../rt-thread/src/scheduler.c ****     highest_ready_priority = __rt_ffs(rt_thread_ready_priority_group) - 1;
+  57:../rt-thread/src/scheduler.c **** #endif
+  58:../rt-thread/src/scheduler.c **** 
+  59:../rt-thread/src/scheduler.c ****     highest_priority_thread = rt_list_entry(rt_thread_priority_table[highest_ready_priority].next,
+  60:../rt-thread/src/scheduler.c ****                                            struct rt_thread,
+  61:../rt-thread/src/scheduler.c ****                                            tlist);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 3
+
+
+  62:../rt-thread/src/scheduler.c ****     *highest_prio = highest_ready_priority;
+  63:../rt-thread/src/scheduler.c **** 
+  64:../rt-thread/src/scheduler.c ****     return highest_priority_thread;
+  65:../rt-thread/src/scheduler.c **** }
+  66:../rt-thread/src/scheduler.c **** 
+  67:../rt-thread/src/scheduler.c **** /**
+  68:../rt-thread/src/scheduler.c ****  * Initialize scheduler
+  69:../rt-thread/src/scheduler.c ****  */
+  70:../rt-thread/src/scheduler.c **** void rt_system_scheduler_init(void)
+  71:../rt-thread/src/scheduler.c **** {
+  57              		.loc 1 71 1 is_stmt 1 view -0
+  58              		.cfi_startproc
+  59              		@ args = 0, pretend = 0, frame = 0
+  60              		@ frame_needed = 0, uses_anonymous_args = 0
+  61              		@ link register save eliminated.
+  72:../rt-thread/src/scheduler.c ****     register rt_base_t offset;
+  62              		.loc 1 72 5 view .LVU5
+  73:../rt-thread/src/scheduler.c **** 
+  74:../rt-thread/src/scheduler.c ****     rt_scheduler_lock_nest = 0;
+  63              		.loc 1 74 5 view .LVU6
+  64              		.loc 1 74 28 is_stmt 0 view .LVU7
+  65 0000 094A     		ldr	r2, .L7
+  66 0002 0023     		movs	r3, #0
+  67 0004 1380     		strh	r3, [r2]	@ movhi
+  75:../rt-thread/src/scheduler.c **** 
+  76:../rt-thread/src/scheduler.c ****     /* Initialize thread priority table */
+  77:../rt-thread/src/scheduler.c ****     for (offset = 0; offset < RT_THREAD_PRIORITY_MAX; offset++)
+  68              		.loc 1 77 5 is_stmt 1 view .LVU8
+  69              	.LVL1:
+  70              		.loc 1 77 29 discriminator 1 view .LVU9
+  71 0006 094A     		ldr	r2, .L7+4
+  72              	.LVL2:
+  73              	.L5:
+  78:../rt-thread/src/scheduler.c ****     {
+  79:../rt-thread/src/scheduler.c ****         rt_list_init(&rt_thread_priority_table[offset]);
+  74              		.loc 1 79 9 view .LVU10
+  75              	.LBB8:
+  76              	.LBI8:
+  77              		.file 2 "../rt-thread/include/rtthread.h"
+   1:../rt-thread/include/rtthread.h **** /*
+   2:../rt-thread/include/rtthread.h ****  * Copyright (c) 2006-2022, RT-Thread Development Team
+   3:../rt-thread/include/rtthread.h ****  *
+   4:../rt-thread/include/rtthread.h ****  * SPDX-License-Identifier: Apache-2.0
+   5:../rt-thread/include/rtthread.h ****  *
+   6:../rt-thread/include/rtthread.h ****  * RT-Thread Nano for N32G430
+   7:../rt-thread/include/rtthread.h ****  */
+   8:../rt-thread/include/rtthread.h **** 
+   9:../rt-thread/include/rtthread.h **** #ifndef __RT_THREAD_H__
+  10:../rt-thread/include/rtthread.h **** #define __RT_THREAD_H__
+  11:../rt-thread/include/rtthread.h **** 
+  12:../rt-thread/include/rtthread.h **** #include <rtdef.h>
+  13:../rt-thread/include/rtthread.h **** #include <rtservice.h>
+  14:../rt-thread/include/rtthread.h **** 
+  15:../rt-thread/include/rtthread.h **** #ifdef __cplusplus
+  16:../rt-thread/include/rtthread.h **** extern "C" {
+  17:../rt-thread/include/rtthread.h **** #endif
+  18:../rt-thread/include/rtthread.h **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 4
+
+
+  19:../rt-thread/include/rtthread.h **** /* RT-Thread kernel interface */
+  20:../rt-thread/include/rtthread.h **** 
+  21:../rt-thread/include/rtthread.h **** /* Initialization and startup */
+  22:../rt-thread/include/rtthread.h **** void rt_system_tick_init(void);
+  23:../rt-thread/include/rtthread.h **** void rt_system_timer_init(void);
+  24:../rt-thread/include/rtthread.h **** void rt_system_timer_thread_init(void);
+  25:../rt-thread/include/rtthread.h **** void rt_system_scheduler_init(void);
+  26:../rt-thread/include/rtthread.h **** void rt_system_scheduler_start(void);
+  27:../rt-thread/include/rtthread.h **** 
+  28:../rt-thread/include/rtthread.h **** /* Thread interface */
+  29:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_init(struct rt_thread *thread,
+  30:../rt-thread/include/rtthread.h ****                         const char       *name,
+  31:../rt-thread/include/rtthread.h ****                         void (*entry)(void *parameter),
+  32:../rt-thread/include/rtthread.h ****                         void             *parameter,
+  33:../rt-thread/include/rtthread.h ****                         void             *stack_start,
+  34:../rt-thread/include/rtthread.h ****                         rt_uint32_t       stack_size,
+  35:../rt-thread/include/rtthread.h ****                         rt_uint8_t        priority,
+  36:../rt-thread/include/rtthread.h ****                         rt_uint32_t       tick);
+  37:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_startup(rt_thread_t thread);
+  38:../rt-thread/include/rtthread.h **** rt_thread_t rt_thread_self(void);
+  39:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_yield(void);
+  40:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_delay(rt_tick_t tick);
+  41:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_mdelay(rt_int32_t ms);
+  42:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_suspend(rt_thread_t thread);
+  43:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_resume(rt_thread_t thread);
+  44:../rt-thread/include/rtthread.h **** 
+  45:../rt-thread/include/rtthread.h **** /* Scheduler interface */
+  46:../rt-thread/include/rtthread.h **** void rt_schedule(void);
+  47:../rt-thread/include/rtthread.h **** void rt_enter_critical(void);
+  48:../rt-thread/include/rtthread.h **** void rt_exit_critical(void);
+  49:../rt-thread/include/rtthread.h **** rt_uint16_t rt_critical_level(void);
+  50:../rt-thread/include/rtthread.h **** 
+  51:../rt-thread/include/rtthread.h **** /* Timer interface */
+  52:../rt-thread/include/rtthread.h **** void rt_timer_init(rt_timer_t  timer,
+  53:../rt-thread/include/rtthread.h ****                    const char *name,
+  54:../rt-thread/include/rtthread.h ****                    void (*timeout)(void *parameter),
+  55:../rt-thread/include/rtthread.h ****                    void       *parameter,
+  56:../rt-thread/include/rtthread.h ****                    rt_tick_t   time,
+  57:../rt-thread/include/rtthread.h ****                    rt_uint8_t  flag);
+  58:../rt-thread/include/rtthread.h **** rt_err_t rt_timer_start(rt_timer_t timer);
+  59:../rt-thread/include/rtthread.h **** rt_err_t rt_timer_stop(rt_timer_t timer);
+  60:../rt-thread/include/rtthread.h **** void rt_timer_check(void);
+  61:../rt-thread/include/rtthread.h **** 
+  62:../rt-thread/include/rtthread.h **** /* Tick interface */
+  63:../rt-thread/include/rtthread.h **** void rt_tick_increase(void);
+  64:../rt-thread/include/rtthread.h **** rt_tick_t rt_tick_get(void);
+  65:../rt-thread/include/rtthread.h **** 
+  66:../rt-thread/include/rtthread.h **** /* Interrupt interface */
+  67:../rt-thread/include/rtthread.h **** rt_base_t rt_hw_interrupt_disable(void);
+  68:../rt-thread/include/rtthread.h **** void rt_hw_interrupt_enable(rt_base_t level);
+  69:../rt-thread/include/rtthread.h **** void rt_hw_context_switch(rt_ubase_t from, rt_ubase_t to);
+  70:../rt-thread/include/rtthread.h **** void rt_hw_context_switch_to(rt_ubase_t to);
+  71:../rt-thread/include/rtthread.h **** void rt_hw_context_switch_interrupt(rt_ubase_t from, rt_ubase_t to);
+  72:../rt-thread/include/rtthread.h **** 
+  73:../rt-thread/include/rtthread.h **** /* Hardware interface */
+  74:../rt-thread/include/rtthread.h **** rt_uint8_t *rt_hw_stack_init(void       *entry,
+  75:../rt-thread/include/rtthread.h ****                              void       *parameter,
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 5
+
+
+  76:../rt-thread/include/rtthread.h ****                              rt_uint8_t *stack_addr,
+  77:../rt-thread/include/rtthread.h ****                              void       *exit);
+  78:../rt-thread/include/rtthread.h **** 
+  79:../rt-thread/include/rtthread.h **** /* Semaphore interface */
+  80:../rt-thread/include/rtthread.h **** #ifdef RT_USING_SEMAPHORE
+  81:../rt-thread/include/rtthread.h **** rt_err_t rt_sem_init(rt_sem_t    sem,
+  82:../rt-thread/include/rtthread.h ****                      const char *name,
+  83:../rt-thread/include/rtthread.h ****                      rt_uint32_t value,
+  84:../rt-thread/include/rtthread.h ****                      rt_uint8_t  flag);
+  85:../rt-thread/include/rtthread.h **** rt_err_t rt_sem_take(rt_sem_t sem, rt_int32_t timeout);
+  86:../rt-thread/include/rtthread.h **** rt_err_t rt_sem_trytake(rt_sem_t sem);
+  87:../rt-thread/include/rtthread.h **** rt_err_t rt_sem_release(rt_sem_t sem);
+  88:../rt-thread/include/rtthread.h **** rt_err_t rt_sem_detach(rt_sem_t sem);
+  89:../rt-thread/include/rtthread.h **** #endif
+  90:../rt-thread/include/rtthread.h **** 
+  91:../rt-thread/include/rtthread.h **** /* Mutex interface */
+  92:../rt-thread/include/rtthread.h **** #ifdef RT_USING_MUTEX
+  93:../rt-thread/include/rtthread.h **** rt_err_t rt_mutex_init(rt_mutex_t mutex, const char *name, rt_uint8_t flag);
+  94:../rt-thread/include/rtthread.h **** rt_err_t rt_mutex_take(rt_mutex_t mutex, rt_int32_t timeout);
+  95:../rt-thread/include/rtthread.h **** rt_err_t rt_mutex_release(rt_mutex_t mutex);
+  96:../rt-thread/include/rtthread.h **** rt_err_t rt_mutex_detach(rt_mutex_t mutex);
+  97:../rt-thread/include/rtthread.h **** #endif
+  98:../rt-thread/include/rtthread.h **** 
+  99:../rt-thread/include/rtthread.h **** /* Memory management */
+ 100:../rt-thread/include/rtthread.h **** void *rt_malloc(rt_size_t nbytes);
+ 101:../rt-thread/include/rtthread.h **** void *rt_realloc(void *ptr, rt_size_t nbytes);
+ 102:../rt-thread/include/rtthread.h **** void *rt_calloc(rt_size_t count, rt_size_t size);
+ 103:../rt-thread/include/rtthread.h **** void rt_free(void *ptr);
+ 104:../rt-thread/include/rtthread.h **** void rt_memory_info(rt_uint32_t *total,
+ 105:../rt-thread/include/rtthread.h ****                     rt_uint32_t *used,
+ 106:../rt-thread/include/rtthread.h ****                     rt_uint32_t *max_used);
+ 107:../rt-thread/include/rtthread.h **** 
+ 108:../rt-thread/include/rtthread.h **** /* Console interface */
+ 109:../rt-thread/include/rtthread.h **** void rt_kprintf(const char *fmt, ...);
+ 110:../rt-thread/include/rtthread.h **** void rt_hw_console_output(const char *str);
+ 111:../rt-thread/include/rtthread.h **** 
+ 112:../rt-thread/include/rtthread.h **** /* System startup hook */
+ 113:../rt-thread/include/rtthread.h **** void rt_application_init(void);
+ 114:../rt-thread/include/rtthread.h **** 
+ 115:../rt-thread/include/rtthread.h **** /* Idle thread hook */
+ 116:../rt-thread/include/rtthread.h **** void rt_thread_idle_init(void);
+ 117:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_idle_sethook(void (*hook)(void));
+ 118:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_idle_delhook(void (*hook)(void));
+ 119:../rt-thread/include/rtthread.h **** 
+ 120:../rt-thread/include/rtthread.h **** /* Kernel object interface */
+ 121:../rt-thread/include/rtthread.h **** void rt_object_init(struct rt_object *object,
+ 122:../rt-thread/include/rtthread.h ****                     enum rt_object_class_type type,
+ 123:../rt-thread/include/rtthread.h ****                     const char *name);
+ 124:../rt-thread/include/rtthread.h **** 
+ 125:../rt-thread/include/rtthread.h **** /* List operations */
+ 126:../rt-thread/include/rtthread.h **** rt_inline void rt_list_init(rt_list_t *l)
+  78              		.loc 2 126 16 view .LVU11
+  79              	.LBB9:
+ 127:../rt-thread/include/rtthread.h **** {
+ 128:../rt-thread/include/rtthread.h ****     l->next = l->prev = l;
+  80              		.loc 2 128 5 view .LVU12
+  81              	.LBE9:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 6
+
+
+  82              	.LBE8:
+  77:../rt-thread/src/scheduler.c ****     {
+  83              		.loc 1 77 61 is_stmt 0 discriminator 3 view .LVU13
+  84 0008 0133     		adds	r3, r3, #1
+  85              	.LVL3:
+  77:../rt-thread/src/scheduler.c ****     {
+  86              		.loc 1 77 29 discriminator 1 view .LVU14
+  87 000a 202B     		cmp	r3, #32
+  88              	.LBB11:
+  89              	.LBB10:
+  90              		.loc 2 128 13 view .LVU15
+  91 000c C2E90022 		strd	r2, r2, [r2]
+  92              	.LVL4:
+  93              		.loc 2 128 13 view .LVU16
+  94              	.LBE10:
+  95              	.LBE11:
+  77:../rt-thread/src/scheduler.c ****     {
+  96              		.loc 1 77 61 is_stmt 1 discriminator 3 view .LVU17
+  77:../rt-thread/src/scheduler.c ****     {
+  97              		.loc 1 77 29 discriminator 1 view .LVU18
+  98 0010 02F10802 		add	r2, r2, #8
+  99 0014 F8D1     		bne	.L5
+  80:../rt-thread/src/scheduler.c ****     }
+  81:../rt-thread/src/scheduler.c **** 
+  82:../rt-thread/src/scheduler.c ****     rt_current_priority = RT_THREAD_PRIORITY_MAX - 1;
+ 100              		.loc 1 82 5 view .LVU19
+ 101              		.loc 1 82 25 is_stmt 0 view .LVU20
+ 102 0016 064B     		ldr	r3, .L7+8
+ 103              	.LVL5:
+ 104              		.loc 1 82 25 view .LVU21
+ 105 0018 1F22     		movs	r2, #31
+ 106 001a 1A70     		strb	r2, [r3]
+  83:../rt-thread/src/scheduler.c ****     rt_current_thread = RT_NULL;
+ 107              		.loc 1 83 5 is_stmt 1 view .LVU22
+ 108              		.loc 1 83 23 is_stmt 0 view .LVU23
+ 109 001c 054A     		ldr	r2, .L7+12
+ 110 001e 0023     		movs	r3, #0
+ 111 0020 1360     		str	r3, [r2]
+  84:../rt-thread/src/scheduler.c **** 
+  85:../rt-thread/src/scheduler.c ****     /* Initialize ready priority group */
+  86:../rt-thread/src/scheduler.c ****     rt_thread_ready_priority_group = 0;
+ 112              		.loc 1 86 5 is_stmt 1 view .LVU24
+ 113              		.loc 1 86 36 is_stmt 0 view .LVU25
+ 114 0022 054A     		ldr	r2, .L7+16
+ 115 0024 1360     		str	r3, [r2]
+  87:../rt-thread/src/scheduler.c **** 
+  88:../rt-thread/src/scheduler.c **** #if RT_THREAD_PRIORITY_MAX > 32
+  89:../rt-thread/src/scheduler.c ****     rt_memset(rt_thread_ready_table, 0, sizeof(rt_thread_ready_table));
+  90:../rt-thread/src/scheduler.c **** #endif
+  91:../rt-thread/src/scheduler.c **** }
+ 116              		.loc 1 91 1 view .LVU26
+ 117 0026 7047     		bx	lr
+ 118              	.L8:
+ 119              		.align	2
+ 120              	.L7:
+ 121 0028 00000000 		.word	rt_scheduler_lock_nest
+ 122 002c 00000000 		.word	rt_thread_priority_table
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 7
+
+
+ 123 0030 00000000 		.word	rt_current_priority
+ 124 0034 00000000 		.word	rt_current_thread
+ 125 0038 00000000 		.word	rt_thread_ready_priority_group
+ 126              		.cfi_endproc
+ 127              	.LFE8:
+ 129              		.section	.text.rt_schedule_insert_thread,"ax",%progbits
+ 130              		.align	1
+ 131              		.global	rt_schedule_insert_thread
+ 132              		.syntax unified
+ 133              		.thumb
+ 134              		.thumb_func
+ 136              	rt_schedule_insert_thread:
+ 137              	.LVL6:
+ 138              	.LFB11:
+  92:../rt-thread/src/scheduler.c **** 
+  93:../rt-thread/src/scheduler.c **** /**
+  94:../rt-thread/src/scheduler.c ****  * Start scheduler
+  95:../rt-thread/src/scheduler.c ****  */
+  96:../rt-thread/src/scheduler.c **** void rt_system_scheduler_start(void)
+  97:../rt-thread/src/scheduler.c **** {
+  98:../rt-thread/src/scheduler.c ****     register struct rt_thread *to_thread;
+  99:../rt-thread/src/scheduler.c ****     rt_ubase_t highest_ready_priority;
+ 100:../rt-thread/src/scheduler.c **** 
+ 101:../rt-thread/src/scheduler.c ****     to_thread = _get_highest_priority_thread(&highest_ready_priority);
+ 102:../rt-thread/src/scheduler.c **** 
+ 103:../rt-thread/src/scheduler.c ****     rt_current_thread = to_thread;
+ 104:../rt-thread/src/scheduler.c **** 
+ 105:../rt-thread/src/scheduler.c ****     /* Switch to the highest priority thread */
+ 106:../rt-thread/src/scheduler.c ****     rt_hw_context_switch_to((rt_ubase_t)&to_thread->sp);
+ 107:../rt-thread/src/scheduler.c **** 
+ 108:../rt-thread/src/scheduler.c ****     /* Never reach here */
+ 109:../rt-thread/src/scheduler.c **** }
+ 110:../rt-thread/src/scheduler.c **** 
+ 111:../rt-thread/src/scheduler.c **** /**
+ 112:../rt-thread/src/scheduler.c ****  * Schedule
+ 113:../rt-thread/src/scheduler.c ****  */
+ 114:../rt-thread/src/scheduler.c **** void rt_schedule(void)
+ 115:../rt-thread/src/scheduler.c **** {
+ 116:../rt-thread/src/scheduler.c ****     rt_base_t level;
+ 117:../rt-thread/src/scheduler.c ****     struct rt_thread *to_thread;
+ 118:../rt-thread/src/scheduler.c ****     struct rt_thread *from_thread;
+ 119:../rt-thread/src/scheduler.c **** 
+ 120:../rt-thread/src/scheduler.c ****     level = rt_hw_interrupt_disable();
+ 121:../rt-thread/src/scheduler.c **** 
+ 122:../rt-thread/src/scheduler.c ****     /* Check scheduler lock */
+ 123:../rt-thread/src/scheduler.c ****     if (rt_scheduler_lock_nest == 0)
+ 124:../rt-thread/src/scheduler.c ****     {
+ 125:../rt-thread/src/scheduler.c ****         rt_ubase_t highest_ready_priority;
+ 126:../rt-thread/src/scheduler.c **** 
+ 127:../rt-thread/src/scheduler.c ****         if (rt_thread_ready_priority_group != 0)
+ 128:../rt-thread/src/scheduler.c ****         {
+ 129:../rt-thread/src/scheduler.c ****             to_thread = _get_highest_priority_thread(&highest_ready_priority);
+ 130:../rt-thread/src/scheduler.c **** 
+ 131:../rt-thread/src/scheduler.c ****             if (to_thread != rt_current_thread)
+ 132:../rt-thread/src/scheduler.c ****             {
+ 133:../rt-thread/src/scheduler.c ****                 rt_current_priority = (rt_uint8_t)highest_ready_priority;
+ 134:../rt-thread/src/scheduler.c ****                 from_thread = rt_current_thread;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 8
+
+
+ 135:../rt-thread/src/scheduler.c ****                 rt_current_thread = to_thread;
+ 136:../rt-thread/src/scheduler.c **** 
+ 137:../rt-thread/src/scheduler.c ****                 if (rt_scheduler_hook)
+ 138:../rt-thread/src/scheduler.c ****                 {
+ 139:../rt-thread/src/scheduler.c ****                     rt_scheduler_hook(from_thread, to_thread);
+ 140:../rt-thread/src/scheduler.c ****                 }
+ 141:../rt-thread/src/scheduler.c **** 
+ 142:../rt-thread/src/scheduler.c ****                 if (rt_thread_switch_interrupt_flag == 0)
+ 143:../rt-thread/src/scheduler.c ****                 {
+ 144:../rt-thread/src/scheduler.c ****                     rt_hw_context_switch((rt_ubase_t)&from_thread->sp,
+ 145:../rt-thread/src/scheduler.c ****                                         (rt_ubase_t)&to_thread->sp);
+ 146:../rt-thread/src/scheduler.c ****                 }
+ 147:../rt-thread/src/scheduler.c ****                 else
+ 148:../rt-thread/src/scheduler.c ****                 {
+ 149:../rt-thread/src/scheduler.c ****                     rt_interrupt_from_thread = (rt_ubase_t)&from_thread->sp;
+ 150:../rt-thread/src/scheduler.c ****                     rt_interrupt_to_thread = (rt_ubase_t)&to_thread->sp;
+ 151:../rt-thread/src/scheduler.c ****                 }
+ 152:../rt-thread/src/scheduler.c ****             }
+ 153:../rt-thread/src/scheduler.c ****         }
+ 154:../rt-thread/src/scheduler.c ****     }
+ 155:../rt-thread/src/scheduler.c **** 
+ 156:../rt-thread/src/scheduler.c ****     rt_hw_interrupt_enable(level);
+ 157:../rt-thread/src/scheduler.c **** }
+ 158:../rt-thread/src/scheduler.c **** 
+ 159:../rt-thread/src/scheduler.c **** /**
+ 160:../rt-thread/src/scheduler.c ****  * Insert thread into ready list
+ 161:../rt-thread/src/scheduler.c ****  */
+ 162:../rt-thread/src/scheduler.c **** void rt_schedule_insert_thread(struct rt_thread *thread)
+ 163:../rt-thread/src/scheduler.c **** {
+ 139              		.loc 1 163 1 is_stmt 1 view -0
+ 140              		.cfi_startproc
+ 141              		@ args = 0, pretend = 0, frame = 0
+ 142              		@ frame_needed = 0, uses_anonymous_args = 0
+ 164:../rt-thread/src/scheduler.c ****     register rt_base_t temp;
+ 143              		.loc 1 164 5 view .LVU28
+ 165:../rt-thread/src/scheduler.c **** 
+ 166:../rt-thread/src/scheduler.c ****     RT_ASSERT(thread != RT_NULL);
+ 144              		.loc 1 166 5 view .LVU29
+ 167:../rt-thread/src/scheduler.c **** 
+ 168:../rt-thread/src/scheduler.c ****     temp = rt_hw_interrupt_disable();
+ 145              		.loc 1 168 5 view .LVU30
+ 163:../rt-thread/src/scheduler.c ****     register rt_base_t temp;
+ 146              		.loc 1 163 1 is_stmt 0 view .LVU31
+ 147 0000 10B5     		push	{r4, lr}
+ 148              	.LCFI0:
+ 149              		.cfi_def_cfa_offset 8
+ 150              		.cfi_offset 4, -8
+ 151              		.cfi_offset 14, -4
+ 163:../rt-thread/src/scheduler.c ****     register rt_base_t temp;
+ 152              		.loc 1 163 1 view .LVU32
+ 153 0002 0446     		mov	r4, r0
+ 154              		.loc 1 168 12 view .LVU33
+ 155 0004 FFF7FEFF 		bl	rt_hw_interrupt_disable
+ 156              	.LVL7:
+ 169:../rt-thread/src/scheduler.c **** 
+ 170:../rt-thread/src/scheduler.c ****     /* Set thread status to ready */
+ 171:../rt-thread/src/scheduler.c ****     thread->stat = RT_THREAD_READY;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 9
+
+
+ 157              		.loc 1 171 5 is_stmt 1 view .LVU34
+ 158              		.loc 1 171 18 is_stmt 0 view .LVU35
+ 159 0008 0123     		movs	r3, #1
+ 172:../rt-thread/src/scheduler.c **** 
+ 173:../rt-thread/src/scheduler.c ****     /* Insert into ready list */
+ 174:../rt-thread/src/scheduler.c ****     rt_list_insert_before(&rt_thread_priority_table[thread->current_priority],
+ 160              		.loc 1 174 59 view .LVU36
+ 161 000a 94F83110 		ldrb	r1, [r4, #49]	@ zero_extendqisi2
+ 171:../rt-thread/src/scheduler.c **** 
+ 162              		.loc 1 171 18 view .LVU37
+ 163 000e 84F83030 		strb	r3, [r4, #48]
+ 164              		.loc 1 174 5 is_stmt 1 view .LVU38
+ 165              	.LBB12:
+ 166              	.LBB13:
+ 129:../rt-thread/include/rtthread.h **** }
+ 130:../rt-thread/include/rtthread.h **** 
+ 131:../rt-thread/include/rtthread.h **** rt_inline void rt_list_insert_after(rt_list_t *l, rt_list_t *n)
+ 132:../rt-thread/include/rtthread.h **** {
+ 133:../rt-thread/include/rtthread.h ****     l->next->prev = n;
+ 134:../rt-thread/include/rtthread.h ****     n->next = l->next;
+ 135:../rt-thread/include/rtthread.h ****     l->next = n;
+ 136:../rt-thread/include/rtthread.h ****     n->prev = l;
+ 137:../rt-thread/include/rtthread.h **** }
+ 138:../rt-thread/include/rtthread.h **** 
+ 139:../rt-thread/include/rtthread.h **** rt_inline void rt_list_insert_before(rt_list_t *l, rt_list_t *n)
+ 140:../rt-thread/include/rtthread.h **** {
+ 141:../rt-thread/include/rtthread.h ****     l->prev->next = n;
+ 167              		.loc 2 141 6 is_stmt 0 view .LVU39
+ 168 0012 0A4B     		ldr	r3, .L10
+ 169 0014 03EBC103 		add	r3, r3, r1, lsl #3
+ 170              	.LBE13:
+ 171              	.LBE12:
+ 172              		.loc 1 174 5 view .LVU40
+ 173 0018 04F11002 		add	r2, r4, #16
+ 174              	.LVL8:
+ 175              	.LBB16:
+ 176              	.LBI12:
+ 139:../rt-thread/include/rtthread.h **** {
+ 177              		.loc 2 139 16 is_stmt 1 view .LVU41
+ 178              	.LBB14:
+ 179              		.loc 2 141 5 view .LVU42
+ 180              		.loc 2 141 6 is_stmt 0 view .LVU43
+ 181 001c 5968     		ldr	r1, [r3, #4]
+ 182              	.LVL9:
+ 183              		.loc 2 141 19 view .LVU44
+ 184 001e 0A60     		str	r2, [r1]
+ 185              	.LVL10:
+ 142:../rt-thread/include/rtthread.h ****     n->prev = l->prev;
+ 186              		.loc 2 142 5 is_stmt 1 view .LVU45
+ 187              		.loc 2 142 13 is_stmt 0 view .LVU46
+ 188 0020 6161     		str	r1, [r4, #20]
+ 143:../rt-thread/include/rtthread.h ****     l->prev = n;
+ 189              		.loc 2 143 5 is_stmt 1 view .LVU47
+ 190              		.loc 2 143 13 is_stmt 0 view .LVU48
+ 191 0022 5A60     		str	r2, [r3, #4]
+ 144:../rt-thread/include/rtthread.h ****     n->next = l;
+ 192              		.loc 2 144 5 is_stmt 1 view .LVU49
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 10
+
+
+ 193              	.LBE14:
+ 194              	.LBE16:
+ 175:../rt-thread/src/scheduler.c ****                           &thread->tlist);
+ 176:../rt-thread/src/scheduler.c **** 
+ 177:../rt-thread/src/scheduler.c ****     /* Set bit in ready group */
+ 178:../rt-thread/src/scheduler.c **** #if RT_THREAD_PRIORITY_MAX > 32
+ 179:../rt-thread/src/scheduler.c ****     rt_thread_ready_table[thread->number] |= thread->high_mask;
+ 180:../rt-thread/src/scheduler.c **** #endif
+ 181:../rt-thread/src/scheduler.c ****     rt_thread_ready_priority_group |= thread->number_mask;
+ 195              		.loc 1 181 36 is_stmt 0 view .LVU50
+ 196 0024 064A     		ldr	r2, .L10+4
+ 197              	.LVL11:
+ 198              	.LBB17:
+ 199              	.LBB15:
+ 200              		.loc 2 144 13 view .LVU51
+ 201 0026 2361     		str	r3, [r4, #16]
+ 202              	.LVL12:
+ 203              		.loc 2 144 13 view .LVU52
+ 204              	.LBE15:
+ 205              	.LBE17:
+ 206              		.loc 1 181 5 is_stmt 1 view .LVU53
+ 207              		.loc 1 181 36 is_stmt 0 view .LVU54
+ 208 0028 1168     		ldr	r1, [r2]
+ 209              		.loc 1 181 45 view .LVU55
+ 210 002a 94F83330 		ldrb	r3, [r4, #51]	@ zero_extendqisi2
+ 182:../rt-thread/src/scheduler.c **** 
+ 183:../rt-thread/src/scheduler.c ****     rt_hw_interrupt_enable(temp);
+ 184:../rt-thread/src/scheduler.c **** }
+ 211              		.loc 1 184 1 view .LVU56
+ 212 002e BDE81040 		pop	{r4, lr}
+ 213              	.LCFI1:
+ 214              		.cfi_restore 14
+ 215              		.cfi_restore 4
+ 216              		.cfi_def_cfa_offset 0
+ 217              	.LVL13:
+ 181:../rt-thread/src/scheduler.c **** 
+ 218              		.loc 1 181 36 view .LVU57
+ 219 0032 0B43     		orrs	r3, r3, r1
+ 220 0034 1360     		str	r3, [r2]
+ 183:../rt-thread/src/scheduler.c **** }
+ 221              		.loc 1 183 5 is_stmt 1 view .LVU58
+ 222 0036 FFF7FEBF 		b	rt_hw_interrupt_enable
+ 223              	.LVL14:
+ 224              	.L11:
+ 183:../rt-thread/src/scheduler.c **** }
+ 225              		.loc 1 183 5 is_stmt 0 view .LVU59
+ 226 003a 00BF     		.align	2
+ 227              	.L10:
+ 228 003c 00000000 		.word	rt_thread_priority_table
+ 229 0040 00000000 		.word	rt_thread_ready_priority_group
+ 230              		.cfi_endproc
+ 231              	.LFE11:
+ 233              		.section	.text.rt_schedule_remove_thread,"ax",%progbits
+ 234              		.align	1
+ 235              		.global	rt_schedule_remove_thread
+ 236              		.syntax unified
+ 237              		.thumb
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 11
+
+
+ 238              		.thumb_func
+ 240              	rt_schedule_remove_thread:
+ 241              	.LVL15:
+ 242              	.LFB12:
+ 185:../rt-thread/src/scheduler.c **** 
+ 186:../rt-thread/src/scheduler.c **** /**
+ 187:../rt-thread/src/scheduler.c ****  * Remove thread from ready list
+ 188:../rt-thread/src/scheduler.c ****  */
+ 189:../rt-thread/src/scheduler.c **** void rt_schedule_remove_thread(struct rt_thread *thread)
+ 190:../rt-thread/src/scheduler.c **** {
+ 243              		.loc 1 190 1 is_stmt 1 view -0
+ 244              		.cfi_startproc
+ 245              		@ args = 0, pretend = 0, frame = 0
+ 246              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191:../rt-thread/src/scheduler.c ****     register rt_base_t temp;
+ 247              		.loc 1 191 5 view .LVU61
+ 192:../rt-thread/src/scheduler.c **** 
+ 193:../rt-thread/src/scheduler.c ****     RT_ASSERT(thread != RT_NULL);
+ 248              		.loc 1 193 5 view .LVU62
+ 194:../rt-thread/src/scheduler.c **** 
+ 195:../rt-thread/src/scheduler.c ****     temp = rt_hw_interrupt_disable();
+ 249              		.loc 1 195 5 view .LVU63
+ 190:../rt-thread/src/scheduler.c ****     register rt_base_t temp;
+ 250              		.loc 1 190 1 is_stmt 0 view .LVU64
+ 251 0000 10B5     		push	{r4, lr}
+ 252              	.LCFI2:
+ 253              		.cfi_def_cfa_offset 8
+ 254              		.cfi_offset 4, -8
+ 255              		.cfi_offset 14, -4
+ 190:../rt-thread/src/scheduler.c ****     register rt_base_t temp;
+ 256              		.loc 1 190 1 view .LVU65
+ 257 0002 0446     		mov	r4, r0
+ 258              		.loc 1 195 12 view .LVU66
+ 259 0004 FFF7FEFF 		bl	rt_hw_interrupt_disable
+ 260              	.LVL16:
+ 196:../rt-thread/src/scheduler.c **** 
+ 197:../rt-thread/src/scheduler.c ****     /* Remove from ready list */
+ 198:../rt-thread/src/scheduler.c ****     rt_list_remove(&thread->tlist);
+ 261              		.loc 1 198 5 is_stmt 1 view .LVU67
+ 262              	.LBB22:
+ 263              	.LBB23:
+ 145:../rt-thread/include/rtthread.h **** }
+ 146:../rt-thread/include/rtthread.h **** 
+ 147:../rt-thread/include/rtthread.h **** rt_inline void rt_list_remove(rt_list_t *n)
+ 148:../rt-thread/include/rtthread.h **** {
+ 149:../rt-thread/include/rtthread.h ****     n->next->prev = n->prev;
+ 264              		.loc 2 149 22 is_stmt 0 view .LVU68
+ 265 0008 D4E90412 		ldrd	r1, r2, [r4, #16]
+ 266              	.LBE23:
+ 267              	.LBE22:
+ 268              		.loc 1 198 5 view .LVU69
+ 269 000c 04F11003 		add	r3, r4, #16
+ 270              	.LVL17:
+ 271              	.LBB25:
+ 272              	.LBI22:
+ 147:../rt-thread/include/rtthread.h **** {
+ 273              		.loc 2 147 16 is_stmt 1 view .LVU70
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 12
+
+
+ 274              	.LBB24:
+ 275              		.loc 2 149 5 view .LVU71
+ 276              		.loc 2 149 19 is_stmt 0 view .LVU72
+ 277 0010 4A60     		str	r2, [r1, #4]
+ 150:../rt-thread/include/rtthread.h ****     n->prev->next = n->next;
+ 278              		.loc 2 150 5 is_stmt 1 view .LVU73
+ 279              		.loc 2 150 19 is_stmt 0 view .LVU74
+ 280 0012 1160     		str	r1, [r2]
+ 151:../rt-thread/include/rtthread.h ****     n->next = n->prev = n;
+ 281              		.loc 2 151 5 is_stmt 1 view .LVU75
+ 282              		.loc 2 151 13 is_stmt 0 view .LVU76
+ 283 0014 C4E90433 		strd	r3, r3, [r4, #16]
+ 284              	.LVL18:
+ 285              		.loc 2 151 13 view .LVU77
+ 286              	.LBE24:
+ 287              	.LBE25:
+ 199:../rt-thread/src/scheduler.c **** 
+ 200:../rt-thread/src/scheduler.c ****     /* Check if need to clear ready group */
+ 201:../rt-thread/src/scheduler.c ****     if (rt_list_isempty(&rt_thread_priority_table[thread->current_priority]))
+ 288              		.loc 1 201 5 is_stmt 1 view .LVU78
+ 289              		.loc 1 201 57 is_stmt 0 view .LVU79
+ 290 0018 94F83120 		ldrb	r2, [r4, #49]	@ zero_extendqisi2
+ 291              	.LVL19:
+ 292              	.LBB26:
+ 293              	.LBI26:
+ 152:../rt-thread/include/rtthread.h **** }
+ 153:../rt-thread/include/rtthread.h **** 
+ 154:../rt-thread/include/rtthread.h **** rt_inline int rt_list_isempty(const rt_list_t *l)
+ 294              		.loc 2 154 15 is_stmt 1 view .LVU80
+ 295              	.LBB27:
+ 155:../rt-thread/include/rtthread.h **** {
+ 156:../rt-thread/include/rtthread.h ****     return l->next == l;
+ 296              		.loc 2 156 5 view .LVU81
+ 297              		.loc 2 156 5 is_stmt 0 view .LVU82
+ 298              	.LBE27:
+ 299              	.LBE26:
+ 300              		.loc 1 201 25 view .LVU83
+ 301 001c 084B     		ldr	r3, .L14
+ 302 001e 03EBC201 		add	r1, r3, r2, lsl #3
+ 303              		.loc 1 201 8 discriminator 1 view .LVU84
+ 304 0022 53F83230 		ldr	r3, [r3, r2, lsl #3]
+ 305 0026 8B42     		cmp	r3, r1
+ 306 0028 06D1     		bne	.L13
+ 202:../rt-thread/src/scheduler.c ****     {
+ 203:../rt-thread/src/scheduler.c **** #if RT_THREAD_PRIORITY_MAX > 32
+ 204:../rt-thread/src/scheduler.c ****         rt_thread_ready_table[thread->number] &= ~thread->high_mask;
+ 205:../rt-thread/src/scheduler.c ****         if (rt_thread_ready_table[thread->number] == 0)
+ 206:../rt-thread/src/scheduler.c ****         {
+ 207:../rt-thread/src/scheduler.c ****             rt_thread_ready_priority_group &= ~thread->number_mask;
+ 208:../rt-thread/src/scheduler.c ****         }
+ 209:../rt-thread/src/scheduler.c **** #else
+ 210:../rt-thread/src/scheduler.c ****         rt_thread_ready_priority_group &= ~thread->number_mask;
+ 307              		.loc 1 210 9 is_stmt 1 view .LVU85
+ 308              		.loc 1 210 40 is_stmt 0 view .LVU86
+ 309 002a 064A     		ldr	r2, .L14+4
+ 310              		.loc 1 210 50 view .LVU87
+ 311 002c 94F83310 		ldrb	r1, [r4, #51]	@ zero_extendqisi2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 13
+
+
+ 312              		.loc 1 210 40 view .LVU88
+ 313 0030 1368     		ldr	r3, [r2]
+ 314 0032 23EA0103 		bic	r3, r3, r1
+ 315 0036 1360     		str	r3, [r2]
+ 316              	.L13:
+ 211:../rt-thread/src/scheduler.c **** #endif
+ 212:../rt-thread/src/scheduler.c ****     }
+ 213:../rt-thread/src/scheduler.c **** 
+ 214:../rt-thread/src/scheduler.c ****     rt_hw_interrupt_enable(temp);
+ 317              		.loc 1 214 5 is_stmt 1 view .LVU89
+ 215:../rt-thread/src/scheduler.c **** }
+ 318              		.loc 1 215 1 is_stmt 0 view .LVU90
+ 319 0038 BDE81040 		pop	{r4, lr}
+ 320              	.LCFI3:
+ 321              		.cfi_restore 14
+ 322              		.cfi_restore 4
+ 323              		.cfi_def_cfa_offset 0
+ 324              	.LVL20:
+ 214:../rt-thread/src/scheduler.c **** }
+ 325              		.loc 1 214 5 view .LVU91
+ 326 003c FFF7FEBF 		b	rt_hw_interrupt_enable
+ 327              	.LVL21:
+ 328              	.L15:
+ 214:../rt-thread/src/scheduler.c **** }
+ 329              		.loc 1 214 5 view .LVU92
+ 330              		.align	2
+ 331              	.L14:
+ 332 0040 00000000 		.word	rt_thread_priority_table
+ 333 0044 00000000 		.word	rt_thread_ready_priority_group
+ 334              		.cfi_endproc
+ 335              	.LFE12:
+ 337              		.section	.text.rt_enter_critical,"ax",%progbits
+ 338              		.align	1
+ 339              		.global	rt_enter_critical
+ 340              		.syntax unified
+ 341              		.thumb
+ 342              		.thumb_func
+ 344              	rt_enter_critical:
+ 345              	.LFB13:
+ 216:../rt-thread/src/scheduler.c **** 
+ 217:../rt-thread/src/scheduler.c **** /**
+ 218:../rt-thread/src/scheduler.c ****  * Enter critical region
+ 219:../rt-thread/src/scheduler.c ****  */
+ 220:../rt-thread/src/scheduler.c **** void rt_enter_critical(void)
+ 221:../rt-thread/src/scheduler.c **** {
+ 346              		.loc 1 221 1 is_stmt 1 view -0
+ 347              		.cfi_startproc
+ 348              		@ args = 0, pretend = 0, frame = 0
+ 349              		@ frame_needed = 0, uses_anonymous_args = 0
+ 222:../rt-thread/src/scheduler.c ****     register rt_base_t level;
+ 350              		.loc 1 222 5 view .LVU94
+ 223:../rt-thread/src/scheduler.c **** 
+ 224:../rt-thread/src/scheduler.c ****     level = rt_hw_interrupt_disable();
+ 351              		.loc 1 224 5 view .LVU95
+ 221:../rt-thread/src/scheduler.c ****     register rt_base_t level;
+ 352              		.loc 1 221 1 is_stmt 0 view .LVU96
+ 353 0000 08B5     		push	{r3, lr}
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 14
+
+
+ 354              	.LCFI4:
+ 355              		.cfi_def_cfa_offset 8
+ 356              		.cfi_offset 3, -8
+ 357              		.cfi_offset 14, -4
+ 358              		.loc 1 224 13 view .LVU97
+ 359 0002 FFF7FEFF 		bl	rt_hw_interrupt_disable
+ 360              	.LVL22:
+ 225:../rt-thread/src/scheduler.c **** 
+ 226:../rt-thread/src/scheduler.c ****     rt_scheduler_lock_nest++;
+ 361              		.loc 1 226 5 is_stmt 1 view .LVU98
+ 362              		.loc 1 226 27 is_stmt 0 view .LVU99
+ 363 0006 044A     		ldr	r2, .L17
+ 364 0008 1388     		ldrh	r3, [r2]
+ 365 000a 0133     		adds	r3, r3, #1
+ 366 000c 1380     		strh	r3, [r2]	@ movhi
+ 227:../rt-thread/src/scheduler.c **** 
+ 228:../rt-thread/src/scheduler.c ****     rt_hw_interrupt_enable(level);
+ 367              		.loc 1 228 5 is_stmt 1 view .LVU100
+ 229:../rt-thread/src/scheduler.c **** }
+ 368              		.loc 1 229 1 is_stmt 0 view .LVU101
+ 369 000e BDE80840 		pop	{r3, lr}
+ 370              	.LCFI5:
+ 371              		.cfi_restore 14
+ 372              		.cfi_restore 3
+ 373              		.cfi_def_cfa_offset 0
+ 228:../rt-thread/src/scheduler.c **** }
+ 374              		.loc 1 228 5 view .LVU102
+ 375 0012 FFF7FEBF 		b	rt_hw_interrupt_enable
+ 376              	.LVL23:
+ 377              	.L18:
+ 228:../rt-thread/src/scheduler.c **** }
+ 378              		.loc 1 228 5 view .LVU103
+ 379 0016 00BF     		.align	2
+ 380              	.L17:
+ 381 0018 00000000 		.word	rt_scheduler_lock_nest
+ 382              		.cfi_endproc
+ 383              	.LFE13:
+ 385              		.section	.text.rt_critical_level,"ax",%progbits
+ 386              		.align	1
+ 387              		.global	rt_critical_level
+ 388              		.syntax unified
+ 389              		.thumb
+ 390              		.thumb_func
+ 392              	rt_critical_level:
+ 393              	.LFB15:
+ 230:../rt-thread/src/scheduler.c **** 
+ 231:../rt-thread/src/scheduler.c **** /**
+ 232:../rt-thread/src/scheduler.c ****  * Exit critical region
+ 233:../rt-thread/src/scheduler.c ****  */
+ 234:../rt-thread/src/scheduler.c **** void rt_exit_critical(void)
+ 235:../rt-thread/src/scheduler.c **** {
+ 236:../rt-thread/src/scheduler.c ****     register rt_base_t level;
+ 237:../rt-thread/src/scheduler.c **** 
+ 238:../rt-thread/src/scheduler.c ****     level = rt_hw_interrupt_disable();
+ 239:../rt-thread/src/scheduler.c **** 
+ 240:../rt-thread/src/scheduler.c ****     rt_scheduler_lock_nest--;
+ 241:../rt-thread/src/scheduler.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 15
+
+
+ 242:../rt-thread/src/scheduler.c ****     if (rt_scheduler_lock_nest <= 0)
+ 243:../rt-thread/src/scheduler.c ****     {
+ 244:../rt-thread/src/scheduler.c ****         rt_scheduler_lock_nest = 0;
+ 245:../rt-thread/src/scheduler.c ****         rt_hw_interrupt_enable(level);
+ 246:../rt-thread/src/scheduler.c **** 
+ 247:../rt-thread/src/scheduler.c ****         if (rt_current_thread)
+ 248:../rt-thread/src/scheduler.c ****         {
+ 249:../rt-thread/src/scheduler.c ****             rt_schedule();
+ 250:../rt-thread/src/scheduler.c ****         }
+ 251:../rt-thread/src/scheduler.c ****     }
+ 252:../rt-thread/src/scheduler.c ****     else
+ 253:../rt-thread/src/scheduler.c ****     {
+ 254:../rt-thread/src/scheduler.c ****         rt_hw_interrupt_enable(level);
+ 255:../rt-thread/src/scheduler.c ****     }
+ 256:../rt-thread/src/scheduler.c **** }
+ 257:../rt-thread/src/scheduler.c **** 
+ 258:../rt-thread/src/scheduler.c **** /**
+ 259:../rt-thread/src/scheduler.c ****  * Get critical level
+ 260:../rt-thread/src/scheduler.c ****  */
+ 261:../rt-thread/src/scheduler.c **** rt_uint16_t rt_critical_level(void)
+ 262:../rt-thread/src/scheduler.c **** {
+ 394              		.loc 1 262 1 is_stmt 1 view -0
+ 395              		.cfi_startproc
+ 396              		@ args = 0, pretend = 0, frame = 0
+ 397              		@ frame_needed = 0, uses_anonymous_args = 0
+ 398              		@ link register save eliminated.
+ 263:../rt-thread/src/scheduler.c ****     return rt_scheduler_lock_nest;
+ 399              		.loc 1 263 5 view .LVU105
+ 264:../rt-thread/src/scheduler.c **** }
+ 400              		.loc 1 264 1 is_stmt 0 view .LVU106
+ 401 0000 014B     		ldr	r3, .L20
+ 402 0002 1888     		ldrh	r0, [r3]
+ 403 0004 7047     		bx	lr
+ 404              	.L21:
+ 405 0006 00BF     		.align	2
+ 406              	.L20:
+ 407 0008 00000000 		.word	rt_scheduler_lock_nest
+ 408              		.cfi_endproc
+ 409              	.LFE15:
+ 411              		.section	.text.__rt_ffs,"ax",%progbits
+ 412              		.align	1
+ 413              		.global	__rt_ffs
+ 414              		.syntax unified
+ 415              		.thumb
+ 416              		.thumb_func
+ 418              	__rt_ffs:
+ 419              	.LVL24:
+ 420              	.LFB16:
+ 265:../rt-thread/src/scheduler.c **** 
+ 266:../rt-thread/src/scheduler.c **** /* Find first set bit */
+ 267:../rt-thread/src/scheduler.c **** #if defined(__CC_ARM) || defined(__CLANG_ARM)
+ 268:../rt-thread/src/scheduler.c **** int __rt_ffs(int value)
+ 269:../rt-thread/src/scheduler.c **** {
+ 270:../rt-thread/src/scheduler.c ****     if (value == 0) return 0;
+ 271:../rt-thread/src/scheduler.c ****     return __builtin_ctz(value) + 1;
+ 272:../rt-thread/src/scheduler.c **** }
+ 273:../rt-thread/src/scheduler.c **** #elif defined(__GNUC__)
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 16
+
+
+ 274:../rt-thread/src/scheduler.c **** int __rt_ffs(int value)
+ 275:../rt-thread/src/scheduler.c **** {
+ 421              		.loc 1 275 1 is_stmt 1 view -0
+ 422              		.cfi_startproc
+ 423              		@ args = 0, pretend = 0, frame = 0
+ 424              		@ frame_needed = 0, uses_anonymous_args = 0
+ 425              		@ link register save eliminated.
+ 276:../rt-thread/src/scheduler.c ****     if (value == 0) return 0;
+ 426              		.loc 1 276 5 view .LVU108
+ 427              		.loc 1 276 8 is_stmt 0 view .LVU109
+ 428 0000 20B1     		cbz	r0, .L23
+ 277:../rt-thread/src/scheduler.c ****     return __builtin_ffs(value);
+ 429              		.loc 1 277 5 is_stmt 1 view .LVU110
+ 430              		.loc 1 277 12 is_stmt 0 view .LVU111
+ 431 0002 90FAA0F0 		rbit	r0, r0
+ 432              	.LVL25:
+ 433              		.loc 1 277 12 view .LVU112
+ 434 0006 B0FA80F0 		clz	r0, r0
+ 435 000a 0130     		adds	r0, r0, #1
+ 436              	.L23:
+ 278:../rt-thread/src/scheduler.c **** }
+ 437              		.loc 1 278 1 view .LVU113
+ 438 000c 7047     		bx	lr
+ 439              		.cfi_endproc
+ 440              	.LFE16:
+ 442              		.section	.text.rt_system_scheduler_start,"ax",%progbits
+ 443              		.align	1
+ 444              		.global	rt_system_scheduler_start
+ 445              		.syntax unified
+ 446              		.thumb
+ 447              		.thumb_func
+ 449              	rt_system_scheduler_start:
+ 450              	.LFB9:
+  97:../rt-thread/src/scheduler.c ****     register struct rt_thread *to_thread;
+ 451              		.loc 1 97 1 is_stmt 1 view -0
+ 452              		.cfi_startproc
+ 453              		@ args = 0, pretend = 0, frame = 0
+ 454              		@ frame_needed = 0, uses_anonymous_args = 0
+  98:../rt-thread/src/scheduler.c ****     rt_ubase_t highest_ready_priority;
+ 455              		.loc 1 98 5 view .LVU115
+  99:../rt-thread/src/scheduler.c **** 
+ 456              		.loc 1 99 5 view .LVU116
+ 101:../rt-thread/src/scheduler.c **** 
+ 457              		.loc 1 101 5 view .LVU117
+ 458              	.LVL26:
+ 459              	.LBB30:
+ 460              	.LBI30:
+  46:../rt-thread/src/scheduler.c **** {
+ 461              		.loc 1 46 26 view .LVU118
+ 462              	.LBB31:
+  48:../rt-thread/src/scheduler.c ****     register rt_ubase_t highest_ready_priority;
+ 463              		.loc 1 48 5 view .LVU119
+  49:../rt-thread/src/scheduler.c **** 
+ 464              		.loc 1 49 5 view .LVU120
+  56:../rt-thread/src/scheduler.c **** #endif
+ 465              		.loc 1 56 5 view .LVU121
+ 466              	.LBE31:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 17
+
+
+ 467              	.LBE30:
+  97:../rt-thread/src/scheduler.c ****     register struct rt_thread *to_thread;
+ 468              		.loc 1 97 1 is_stmt 0 view .LVU122
+ 469 0000 08B5     		push	{r3, lr}
+ 470              	.LCFI6:
+ 471              		.cfi_def_cfa_offset 8
+ 472              		.cfi_offset 3, -8
+ 473              		.cfi_offset 14, -4
+ 474              	.LBB34:
+ 475              	.LBB32:
+  56:../rt-thread/src/scheduler.c **** #endif
+ 476              		.loc 1 56 30 view .LVU123
+ 477 0002 084B     		ldr	r3, .L28
+ 478 0004 1868     		ldr	r0, [r3]
+  59:../rt-thread/src/scheduler.c ****                                            struct rt_thread,
+ 479              		.loc 1 59 31 view .LVU124
+ 480 0006 084B     		ldr	r3, .L28+4
+  56:../rt-thread/src/scheduler.c **** #endif
+ 481              		.loc 1 56 30 view .LVU125
+ 482 0008 FFF7FEFF 		bl	__rt_ffs
+ 483              	.LVL27:
+  59:../rt-thread/src/scheduler.c ****                                            struct rt_thread,
+ 484              		.loc 1 59 5 is_stmt 1 view .LVU126
+  59:../rt-thread/src/scheduler.c ****                                            struct rt_thread,
+ 485              		.loc 1 59 31 is_stmt 0 view .LVU127
+ 486 000c 0138     		subs	r0, r0, #1
+ 487              	.LVL28:
+  59:../rt-thread/src/scheduler.c ****                                            struct rt_thread,
+ 488              		.loc 1 59 31 view .LVU128
+ 489 000e 53F83000 		ldr	r0, [r3, r0, lsl #3]
+ 490              	.LVL29:
+  62:../rt-thread/src/scheduler.c **** 
+ 491              		.loc 1 62 5 is_stmt 1 view .LVU129
+  64:../rt-thread/src/scheduler.c **** }
+ 492              		.loc 1 64 5 view .LVU130
+  64:../rt-thread/src/scheduler.c **** }
+ 493              		.loc 1 64 5 is_stmt 0 view .LVU131
+ 494              	.LBE32:
+ 495              	.LBE34:
+ 103:../rt-thread/src/scheduler.c **** 
+ 496              		.loc 1 103 5 is_stmt 1 view .LVU132
+ 103:../rt-thread/src/scheduler.c **** 
+ 497              		.loc 1 103 23 is_stmt 0 view .LVU133
+ 498 0012 064B     		ldr	r3, .L28+8
+ 499              	.LBB35:
+ 500              	.LBB33:
+  59:../rt-thread/src/scheduler.c ****                                            struct rt_thread,
+ 501              		.loc 1 59 29 view .LVU134
+ 502 0014 A0F11002 		sub	r2, r0, #16
+ 503              	.LVL30:
+  59:../rt-thread/src/scheduler.c ****                                            struct rt_thread,
+ 504              		.loc 1 59 29 view .LVU135
+ 505              	.LBE33:
+ 506              	.LBE35:
+ 103:../rt-thread/src/scheduler.c **** 
+ 507              		.loc 1 103 23 view .LVU136
+ 508 0018 1A60     		str	r2, [r3]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 18
+
+
+ 106:../rt-thread/src/scheduler.c **** 
+ 509              		.loc 1 106 5 is_stmt 1 view .LVU137
+ 510 001a 0830     		adds	r0, r0, #8
+ 109:../rt-thread/src/scheduler.c **** 
+ 511              		.loc 1 109 1 is_stmt 0 view .LVU138
+ 512 001c BDE80840 		pop	{r3, lr}
+ 513              	.LCFI7:
+ 514              		.cfi_restore 14
+ 515              		.cfi_restore 3
+ 516              		.cfi_def_cfa_offset 0
+ 106:../rt-thread/src/scheduler.c **** 
+ 517              		.loc 1 106 5 view .LVU139
+ 518 0020 FFF7FEBF 		b	rt_hw_context_switch_to
+ 519              	.LVL31:
+ 520              	.L29:
+ 106:../rt-thread/src/scheduler.c **** 
+ 521              		.loc 1 106 5 view .LVU140
+ 522              		.align	2
+ 523              	.L28:
+ 524 0024 00000000 		.word	rt_thread_ready_priority_group
+ 525 0028 00000000 		.word	rt_thread_priority_table
+ 526 002c 00000000 		.word	rt_current_thread
+ 527              		.cfi_endproc
+ 528              	.LFE9:
+ 530              		.section	.text.rt_schedule,"ax",%progbits
+ 531              		.align	1
+ 532              		.global	rt_schedule
+ 533              		.syntax unified
+ 534              		.thumb
+ 535              		.thumb_func
+ 537              	rt_schedule:
+ 538              	.LFB10:
+ 115:../rt-thread/src/scheduler.c ****     rt_base_t level;
+ 539              		.loc 1 115 1 is_stmt 1 view -0
+ 540              		.cfi_startproc
+ 541              		@ args = 0, pretend = 0, frame = 0
+ 542              		@ frame_needed = 0, uses_anonymous_args = 0
+ 116:../rt-thread/src/scheduler.c ****     struct rt_thread *to_thread;
+ 543              		.loc 1 116 5 view .LVU142
+ 117:../rt-thread/src/scheduler.c ****     struct rt_thread *from_thread;
+ 544              		.loc 1 117 5 view .LVU143
+ 118:../rt-thread/src/scheduler.c **** 
+ 545              		.loc 1 118 5 view .LVU144
+ 120:../rt-thread/src/scheduler.c **** 
+ 546              		.loc 1 120 5 view .LVU145
+ 115:../rt-thread/src/scheduler.c ****     rt_base_t level;
+ 547              		.loc 1 115 1 is_stmt 0 view .LVU146
+ 548 0000 70B5     		push	{r4, r5, r6, lr}
+ 549              	.LCFI8:
+ 550              		.cfi_def_cfa_offset 16
+ 551              		.cfi_offset 4, -16
+ 552              		.cfi_offset 5, -12
+ 553              		.cfi_offset 6, -8
+ 554              		.cfi_offset 14, -4
+ 120:../rt-thread/src/scheduler.c **** 
+ 555              		.loc 1 120 13 view .LVU147
+ 556 0002 FFF7FEFF 		bl	rt_hw_interrupt_disable
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 19
+
+
+ 557              	.LVL32:
+ 123:../rt-thread/src/scheduler.c ****     {
+ 558              		.loc 1 123 32 view .LVU148
+ 559 0006 174B     		ldr	r3, .L40
+ 123:../rt-thread/src/scheduler.c ****     {
+ 560              		.loc 1 123 8 view .LVU149
+ 561 0008 B3F90030 		ldrsh	r3, [r3]
+ 120:../rt-thread/src/scheduler.c **** 
+ 562              		.loc 1 120 13 view .LVU150
+ 563 000c 0646     		mov	r6, r0
+ 564              	.LVL33:
+ 123:../rt-thread/src/scheduler.c ****     {
+ 565              		.loc 1 123 5 is_stmt 1 view .LVU151
+ 123:../rt-thread/src/scheduler.c ****     {
+ 566              		.loc 1 123 8 is_stmt 0 view .LVU152
+ 567 000e FBB9     		cbnz	r3, .L31
+ 568              	.LBB39:
+ 125:../rt-thread/src/scheduler.c **** 
+ 569              		.loc 1 125 9 is_stmt 1 view .LVU153
+ 127:../rt-thread/src/scheduler.c ****         {
+ 570              		.loc 1 127 9 view .LVU154
+ 127:../rt-thread/src/scheduler.c ****         {
+ 571              		.loc 1 127 44 is_stmt 0 view .LVU155
+ 572 0010 154B     		ldr	r3, .L40+4
+ 573 0012 1868     		ldr	r0, [r3]
+ 574              	.LVL34:
+ 127:../rt-thread/src/scheduler.c ****         {
+ 575              		.loc 1 127 12 view .LVU156
+ 576 0014 E0B1     		cbz	r0, .L31
+ 129:../rt-thread/src/scheduler.c **** 
+ 577              		.loc 1 129 13 is_stmt 1 view .LVU157
+ 578              	.LVL35:
+ 579              	.LBB40:
+ 580              	.LBI40:
+  46:../rt-thread/src/scheduler.c **** {
+ 581              		.loc 1 46 26 view .LVU158
+ 582              	.LBB41:
+  48:../rt-thread/src/scheduler.c ****     register rt_ubase_t highest_ready_priority;
+ 583              		.loc 1 48 5 view .LVU159
+  49:../rt-thread/src/scheduler.c **** 
+ 584              		.loc 1 49 5 view .LVU160
+  56:../rt-thread/src/scheduler.c **** #endif
+ 585              		.loc 1 56 5 view .LVU161
+  56:../rt-thread/src/scheduler.c **** #endif
+ 586              		.loc 1 56 30 is_stmt 0 view .LVU162
+ 587 0016 FFF7FEFF 		bl	__rt_ffs
+ 588              	.LVL36:
+  59:../rt-thread/src/scheduler.c ****                                            struct rt_thread,
+ 589              		.loc 1 59 31 view .LVU163
+ 590 001a 144A     		ldr	r2, .L40+8
+  56:../rt-thread/src/scheduler.c **** #endif
+ 591              		.loc 1 56 71 discriminator 1 view .LVU164
+ 592 001c 431E     		subs	r3, r0, #1
+ 593              	.LVL37:
+  59:../rt-thread/src/scheduler.c ****                                            struct rt_thread,
+ 594              		.loc 1 59 5 is_stmt 1 view .LVU165
+  59:../rt-thread/src/scheduler.c ****                                            struct rt_thread,
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 20
+
+
+ 595              		.loc 1 59 31 is_stmt 0 view .LVU166
+ 596 001e 52F83350 		ldr	r5, [r2, r3, lsl #3]
+ 597              	.LBE41:
+ 598              	.LBE40:
+ 131:../rt-thread/src/scheduler.c ****             {
+ 599              		.loc 1 131 27 view .LVU167
+ 600 0022 134A     		ldr	r2, .L40+12
+ 601 0024 1468     		ldr	r4, [r2]
+ 602              	.LBB43:
+ 603              	.LBB42:
+  59:../rt-thread/src/scheduler.c ****                                            struct rt_thread,
+ 604              		.loc 1 59 29 view .LVU168
+ 605 0026 A5F11001 		sub	r1, r5, #16
+ 606              	.LVL38:
+  62:../rt-thread/src/scheduler.c **** 
+ 607              		.loc 1 62 5 is_stmt 1 view .LVU169
+  64:../rt-thread/src/scheduler.c **** }
+ 608              		.loc 1 64 5 view .LVU170
+  64:../rt-thread/src/scheduler.c **** }
+ 609              		.loc 1 64 5 is_stmt 0 view .LVU171
+ 610              	.LBE42:
+ 611              	.LBE43:
+ 131:../rt-thread/src/scheduler.c ****             {
+ 612              		.loc 1 131 13 is_stmt 1 view .LVU172
+ 131:../rt-thread/src/scheduler.c ****             {
+ 613              		.loc 1 131 16 is_stmt 0 view .LVU173
+ 614 002a 8C42     		cmp	r4, r1
+ 615 002c 10D0     		beq	.L31
+ 133:../rt-thread/src/scheduler.c ****                 from_thread = rt_current_thread;
+ 616              		.loc 1 133 17 is_stmt 1 view .LVU174
+ 133:../rt-thread/src/scheduler.c ****                 from_thread = rt_current_thread;
+ 617              		.loc 1 133 37 is_stmt 0 view .LVU175
+ 618 002e 1148     		ldr	r0, .L40+16
+ 135:../rt-thread/src/scheduler.c **** 
+ 619              		.loc 1 135 35 view .LVU176
+ 620 0030 1160     		str	r1, [r2]
+ 133:../rt-thread/src/scheduler.c ****                 from_thread = rt_current_thread;
+ 621              		.loc 1 133 39 view .LVU177
+ 622 0032 0370     		strb	r3, [r0]
+ 134:../rt-thread/src/scheduler.c ****                 rt_current_thread = to_thread;
+ 623              		.loc 1 134 17 is_stmt 1 view .LVU178
+ 624              	.LVL39:
+ 135:../rt-thread/src/scheduler.c **** 
+ 625              		.loc 1 135 17 view .LVU179
+ 137:../rt-thread/src/scheduler.c ****                 {
+ 626              		.loc 1 137 17 view .LVU180
+ 137:../rt-thread/src/scheduler.c ****                 {
+ 627              		.loc 1 137 21 is_stmt 0 view .LVU181
+ 628 0034 104B     		ldr	r3, .L40+20
+ 629              	.LVL40:
+ 137:../rt-thread/src/scheduler.c ****                 {
+ 630              		.loc 1 137 21 view .LVU182
+ 631 0036 1B68     		ldr	r3, [r3]
+ 137:../rt-thread/src/scheduler.c ****                 {
+ 632              		.loc 1 137 20 view .LVU183
+ 633 0038 0BB1     		cbz	r3, .L32
+ 139:../rt-thread/src/scheduler.c ****                 }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 21
+
+
+ 634              		.loc 1 139 21 is_stmt 1 view .LVU184
+ 635 003a 2046     		mov	r0, r4
+ 636 003c 9847     		blx	r3
+ 637              	.LVL41:
+ 638              	.L32:
+ 142:../rt-thread/src/scheduler.c ****                 {
+ 639              		.loc 1 142 17 view .LVU185
+ 142:../rt-thread/src/scheduler.c ****                 {
+ 640              		.loc 1 142 53 is_stmt 0 view .LVU186
+ 641 003e 0F4B     		ldr	r3, .L40+24
+ 142:../rt-thread/src/scheduler.c ****                 {
+ 642              		.loc 1 142 20 view .LVU187
+ 643 0040 1B68     		ldr	r3, [r3]
+ 644 0042 05F10801 		add	r1, r5, #8
+ 645 0046 04F11800 		add	r0, r4, #24
+ 646 004a 33B9     		cbnz	r3, .L33
+ 144:../rt-thread/src/scheduler.c ****                                         (rt_ubase_t)&to_thread->sp);
+ 647              		.loc 1 144 21 is_stmt 1 view .LVU188
+ 648 004c FFF7FEFF 		bl	rt_hw_context_switch
+ 649              	.LVL42:
+ 650              	.L31:
+ 144:../rt-thread/src/scheduler.c ****                                         (rt_ubase_t)&to_thread->sp);
+ 651              		.loc 1 144 21 is_stmt 0 view .LVU189
+ 652              	.LBE39:
+ 156:../rt-thread/src/scheduler.c **** }
+ 653              		.loc 1 156 5 is_stmt 1 view .LVU190
+ 654 0050 3046     		mov	r0, r6
+ 157:../rt-thread/src/scheduler.c **** 
+ 655              		.loc 1 157 1 is_stmt 0 view .LVU191
+ 656 0052 BDE87040 		pop	{r4, r5, r6, lr}
+ 657              	.LCFI9:
+ 658              		.cfi_remember_state
+ 659              		.cfi_restore 14
+ 660              		.cfi_restore 6
+ 661              		.cfi_restore 5
+ 662              		.cfi_restore 4
+ 663              		.cfi_def_cfa_offset 0
+ 664              	.LVL43:
+ 156:../rt-thread/src/scheduler.c **** }
+ 665              		.loc 1 156 5 view .LVU192
+ 666 0056 FFF7FEBF 		b	rt_hw_interrupt_enable
+ 667              	.LVL44:
+ 668              	.L33:
+ 669              	.LCFI10:
+ 670              		.cfi_restore_state
+ 671              	.LBB44:
+ 149:../rt-thread/src/scheduler.c ****                     rt_interrupt_to_thread = (rt_ubase_t)&to_thread->sp;
+ 672              		.loc 1 149 21 is_stmt 1 view .LVU193
+ 149:../rt-thread/src/scheduler.c ****                     rt_interrupt_to_thread = (rt_ubase_t)&to_thread->sp;
+ 673              		.loc 1 149 46 is_stmt 0 view .LVU194
+ 674 005a 094B     		ldr	r3, .L40+28
+ 675 005c 1860     		str	r0, [r3]
+ 150:../rt-thread/src/scheduler.c ****                 }
+ 676              		.loc 1 150 21 is_stmt 1 view .LVU195
+ 150:../rt-thread/src/scheduler.c ****                 }
+ 677              		.loc 1 150 44 is_stmt 0 view .LVU196
+ 678 005e 094B     		ldr	r3, .L40+32
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 22
+
+
+ 679 0060 1960     		str	r1, [r3]
+ 680 0062 F5E7     		b	.L31
+ 681              	.L41:
+ 682              		.align	2
+ 683              	.L40:
+ 684 0064 00000000 		.word	rt_scheduler_lock_nest
+ 685 0068 00000000 		.word	rt_thread_ready_priority_group
+ 686 006c 00000000 		.word	rt_thread_priority_table
+ 687 0070 00000000 		.word	rt_current_thread
+ 688 0074 00000000 		.word	rt_current_priority
+ 689 0078 00000000 		.word	rt_scheduler_hook
+ 690 007c 00000000 		.word	rt_thread_switch_interrupt_flag
+ 691 0080 00000000 		.word	rt_interrupt_from_thread
+ 692 0084 00000000 		.word	rt_interrupt_to_thread
+ 693              	.LBE44:
+ 694              		.cfi_endproc
+ 695              	.LFE10:
+ 697              		.section	.text.rt_exit_critical,"ax",%progbits
+ 698              		.align	1
+ 699              		.global	rt_exit_critical
+ 700              		.syntax unified
+ 701              		.thumb
+ 702              		.thumb_func
+ 704              	rt_exit_critical:
+ 705              	.LFB14:
+ 235:../rt-thread/src/scheduler.c ****     register rt_base_t level;
+ 706              		.loc 1 235 1 is_stmt 1 view -0
+ 707              		.cfi_startproc
+ 708              		@ args = 0, pretend = 0, frame = 0
+ 709              		@ frame_needed = 0, uses_anonymous_args = 0
+ 236:../rt-thread/src/scheduler.c **** 
+ 710              		.loc 1 236 5 view .LVU198
+ 238:../rt-thread/src/scheduler.c **** 
+ 711              		.loc 1 238 5 view .LVU199
+ 235:../rt-thread/src/scheduler.c ****     register rt_base_t level;
+ 712              		.loc 1 235 1 is_stmt 0 view .LVU200
+ 713 0000 08B5     		push	{r3, lr}
+ 714              	.LCFI11:
+ 715              		.cfi_def_cfa_offset 8
+ 716              		.cfi_offset 3, -8
+ 717              		.cfi_offset 14, -4
+ 238:../rt-thread/src/scheduler.c **** 
+ 718              		.loc 1 238 13 view .LVU201
+ 719 0002 FFF7FEFF 		bl	rt_hw_interrupt_disable
+ 720              	.LVL45:
+ 240:../rt-thread/src/scheduler.c **** 
+ 721              		.loc 1 240 5 is_stmt 1 view .LVU202
+ 240:../rt-thread/src/scheduler.c **** 
+ 722              		.loc 1 240 27 is_stmt 0 view .LVU203
+ 723 0006 0B4A     		ldr	r2, .L45
+ 724 0008 1388     		ldrh	r3, [r2]
+ 725 000a 013B     		subs	r3, r3, #1
+ 726 000c 1BB2     		sxth	r3, r3
+ 242:../rt-thread/src/scheduler.c ****     {
+ 727              		.loc 1 242 8 view .LVU204
+ 728 000e 002B     		cmp	r3, #0
+ 240:../rt-thread/src/scheduler.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 23
+
+
+ 729              		.loc 1 240 27 view .LVU205
+ 730 0010 1380     		strh	r3, [r2]	@ movhi
+ 242:../rt-thread/src/scheduler.c ****     {
+ 731              		.loc 1 242 5 is_stmt 1 view .LVU206
+ 242:../rt-thread/src/scheduler.c ****     {
+ 732              		.loc 1 242 8 is_stmt 0 view .LVU207
+ 733 0012 0ADC     		bgt	.L43
+ 244:../rt-thread/src/scheduler.c ****         rt_hw_interrupt_enable(level);
+ 734              		.loc 1 244 9 is_stmt 1 view .LVU208
+ 244:../rt-thread/src/scheduler.c ****         rt_hw_interrupt_enable(level);
+ 735              		.loc 1 244 32 is_stmt 0 view .LVU209
+ 736 0014 0023     		movs	r3, #0
+ 737 0016 1380     		strh	r3, [r2]	@ movhi
+ 245:../rt-thread/src/scheduler.c **** 
+ 738              		.loc 1 245 9 is_stmt 1 view .LVU210
+ 739 0018 FFF7FEFF 		bl	rt_hw_interrupt_enable
+ 740              	.LVL46:
+ 247:../rt-thread/src/scheduler.c ****         {
+ 741              		.loc 1 247 9 view .LVU211
+ 247:../rt-thread/src/scheduler.c ****         {
+ 742              		.loc 1 247 13 is_stmt 0 view .LVU212
+ 743 001c 064B     		ldr	r3, .L45+4
+ 247:../rt-thread/src/scheduler.c ****         {
+ 744              		.loc 1 247 12 view .LVU213
+ 745 001e 1B68     		ldr	r3, [r3]
+ 746 0020 3BB1     		cbz	r3, .L42
+ 249:../rt-thread/src/scheduler.c ****         }
+ 747              		.loc 1 249 13 is_stmt 1 view .LVU214
+ 256:../rt-thread/src/scheduler.c **** 
+ 748              		.loc 1 256 1 is_stmt 0 view .LVU215
+ 749 0022 BDE80840 		pop	{r3, lr}
+ 750              	.LCFI12:
+ 751              		.cfi_remember_state
+ 752              		.cfi_restore 14
+ 753              		.cfi_restore 3
+ 754              		.cfi_def_cfa_offset 0
+ 249:../rt-thread/src/scheduler.c ****         }
+ 755              		.loc 1 249 13 view .LVU216
+ 756 0026 FFF7FEBF 		b	rt_schedule
+ 757              	.LVL47:
+ 758              	.L43:
+ 759              	.LCFI13:
+ 760              		.cfi_restore_state
+ 254:../rt-thread/src/scheduler.c ****     }
+ 761              		.loc 1 254 9 is_stmt 1 view .LVU217
+ 256:../rt-thread/src/scheduler.c **** 
+ 762              		.loc 1 256 1 is_stmt 0 view .LVU218
+ 763 002a BDE80840 		pop	{r3, lr}
+ 764              	.LCFI14:
+ 765              		.cfi_remember_state
+ 766              		.cfi_restore 14
+ 767              		.cfi_restore 3
+ 768              		.cfi_def_cfa_offset 0
+ 254:../rt-thread/src/scheduler.c ****     }
+ 769              		.loc 1 254 9 view .LVU219
+ 770 002e FFF7FEBF 		b	rt_hw_interrupt_enable
+ 771              	.LVL48:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 24
+
+
+ 772              	.L42:
+ 773              	.LCFI15:
+ 774              		.cfi_restore_state
+ 256:../rt-thread/src/scheduler.c **** 
+ 775              		.loc 1 256 1 view .LVU220
+ 776 0032 08BD     		pop	{r3, pc}
+ 777              	.L46:
+ 778              		.align	2
+ 779              	.L45:
+ 780 0034 00000000 		.word	rt_scheduler_lock_nest
+ 781 0038 00000000 		.word	rt_current_thread
+ 782              		.cfi_endproc
+ 783              	.LFE14:
+ 785              		.section	.bss.rt_scheduler_hook,"aw",%nobits
+ 786              		.align	2
+ 789              	rt_scheduler_hook:
+ 790 0000 00000000 		.space	4
+ 791              		.global	rt_thread_switch_interrupt_flag
+ 792              		.section	.bss.rt_thread_switch_interrupt_flag,"aw",%nobits
+ 793              		.align	2
+ 796              	rt_thread_switch_interrupt_flag:
+ 797 0000 00000000 		.space	4
+ 798              		.global	rt_interrupt_to_thread
+ 799              		.section	.bss.rt_interrupt_to_thread,"aw",%nobits
+ 800              		.align	2
+ 803              	rt_interrupt_to_thread:
+ 804 0000 00000000 		.space	4
+ 805              		.global	rt_interrupt_from_thread
+ 806              		.section	.bss.rt_interrupt_from_thread,"aw",%nobits
+ 807              		.align	2
+ 810              	rt_interrupt_from_thread:
+ 811 0000 00000000 		.space	4
+ 812              		.section	.bss.rt_scheduler_lock_nest,"aw",%nobits
+ 813              		.align	1
+ 816              	rt_scheduler_lock_nest:
+ 817 0000 0000     		.space	2
+ 818              		.global	rt_current_priority
+ 819              		.section	.bss.rt_current_priority,"aw",%nobits
+ 822              	rt_current_priority:
+ 823 0000 00       		.space	1
+ 824              		.global	rt_current_thread
+ 825              		.section	.bss.rt_current_thread,"aw",%nobits
+ 826              		.align	2
+ 829              	rt_current_thread:
+ 830 0000 00000000 		.space	4
+ 831              		.section	.bss.rt_thread_ready_priority_group,"aw",%nobits
+ 832              		.align	2
+ 835              	rt_thread_ready_priority_group:
+ 836 0000 00000000 		.space	4
+ 837              		.section	.bss.rt_thread_priority_table,"aw",%nobits
+ 838              		.align	2
+ 841              	rt_thread_priority_table:
+ 842 0000 00000000 		.space	256
+ 842      00000000 
+ 842      00000000 
+ 842      00000000 
+ 842      00000000 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 25
+
+
+ 843              		.text
+ 844              	.Letext0:
+ 845              		.file 3 "../rt-thread/include/rtdef.h"
+ 846              		.file 4 "../rt-thread/include/rthw.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s 			page 26
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 scheduler.c
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:21     .text.rt_scheduler_sethook:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:27     .text.rt_scheduler_sethook:00000000 rt_scheduler_sethook
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:44     .text.rt_scheduler_sethook:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:789    .bss.rt_scheduler_hook:00000000 rt_scheduler_hook
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:49     .text.rt_system_scheduler_init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:55     .text.rt_system_scheduler_init:00000000 rt_system_scheduler_init
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:121    .text.rt_system_scheduler_init:00000028 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:816    .bss.rt_scheduler_lock_nest:00000000 rt_scheduler_lock_nest
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:841    .bss.rt_thread_priority_table:00000000 rt_thread_priority_table
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:822    .bss.rt_current_priority:00000000 rt_current_priority
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:829    .bss.rt_current_thread:00000000 rt_current_thread
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:835    .bss.rt_thread_ready_priority_group:00000000 rt_thread_ready_priority_group
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:130    .text.rt_schedule_insert_thread:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:136    .text.rt_schedule_insert_thread:00000000 rt_schedule_insert_thread
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:228    .text.rt_schedule_insert_thread:0000003c $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:234    .text.rt_schedule_remove_thread:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:240    .text.rt_schedule_remove_thread:00000000 rt_schedule_remove_thread
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:332    .text.rt_schedule_remove_thread:00000040 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:338    .text.rt_enter_critical:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:344    .text.rt_enter_critical:00000000 rt_enter_critical
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:381    .text.rt_enter_critical:00000018 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:386    .text.rt_critical_level:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:392    .text.rt_critical_level:00000000 rt_critical_level
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:407    .text.rt_critical_level:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:412    .text.__rt_ffs:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:418    .text.__rt_ffs:00000000 __rt_ffs
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:443    .text.rt_system_scheduler_start:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:449    .text.rt_system_scheduler_start:00000000 rt_system_scheduler_start
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:524    .text.rt_system_scheduler_start:00000024 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:531    .text.rt_schedule:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:537    .text.rt_schedule:00000000 rt_schedule
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:684    .text.rt_schedule:00000064 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:796    .bss.rt_thread_switch_interrupt_flag:00000000 rt_thread_switch_interrupt_flag
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:810    .bss.rt_interrupt_from_thread:00000000 rt_interrupt_from_thread
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:803    .bss.rt_interrupt_to_thread:00000000 rt_interrupt_to_thread
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:698    .text.rt_exit_critical:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:704    .text.rt_exit_critical:00000000 rt_exit_critical
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:780    .text.rt_exit_critical:00000034 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:786    .bss.rt_scheduler_hook:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:793    .bss.rt_thread_switch_interrupt_flag:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:800    .bss.rt_interrupt_to_thread:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:807    .bss.rt_interrupt_from_thread:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:813    .bss.rt_scheduler_lock_nest:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:823    .bss.rt_current_priority:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:826    .bss.rt_current_thread:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:832    .bss.rt_thread_ready_priority_group:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccvYFvzk.s:838    .bss.rt_thread_priority_table:00000000 $d
+
+UNDEFINED SYMBOLS
+rt_hw_interrupt_disable
+rt_hw_interrupt_enable
+rt_hw_context_switch_to
+rt_hw_context_switch

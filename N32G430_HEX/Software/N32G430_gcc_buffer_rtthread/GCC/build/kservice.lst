@@ -1,0 +1,1217 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"kservice.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../rt-thread/src/kservice.c"
+  20              		.section	.text._itoa,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	_itoa:
+  27              	.LVL0:
+  28              	.LFB8:
+   1:../rt-thread/src/kservice.c **** /*
+   2:../rt-thread/src/kservice.c ****  * Copyright (c) 2006-2022, RT-Thread Development Team
+   3:../rt-thread/src/kservice.c ****  *
+   4:../rt-thread/src/kservice.c ****  * SPDX-License-Identifier: Apache-2.0
+   5:../rt-thread/src/kservice.c ****  *
+   6:../rt-thread/src/kservice.c ****  * RT-Thread Console / kprintf
+   7:../rt-thread/src/kservice.c ****  */
+   8:../rt-thread/src/kservice.c **** 
+   9:../rt-thread/src/kservice.c **** #include <rtthread.h>
+  10:../rt-thread/src/kservice.c **** #include <rthw.h>
+  11:../rt-thread/src/kservice.c **** #include <stdarg.h>
+  12:../rt-thread/src/kservice.c **** 
+  13:../rt-thread/src/kservice.c **** #ifdef RT_USING_CONSOLE
+  14:../rt-thread/src/kservice.c **** 
+  15:../rt-thread/src/kservice.c **** /* Forward declarations */
+  16:../rt-thread/src/kservice.c **** static char *_itoa(int value, char *string, int radix);
+  17:../rt-thread/src/kservice.c **** int rt_vsnprintf(char *buf, rt_size_t size, const char *fmt, va_list args);
+  18:../rt-thread/src/kservice.c **** 
+  19:../rt-thread/src/kservice.c **** static char rt_log_buf[RT_CONSOLEBUF_SIZE];
+  20:../rt-thread/src/kservice.c **** 
+  21:../rt-thread/src/kservice.c **** /**
+  22:../rt-thread/src/kservice.c ****  * Console output character (weak, can be overwritten)
+  23:../rt-thread/src/kservice.c ****  */
+  24:../rt-thread/src/kservice.c **** RT_WEAK void rt_hw_console_output(const char *str)
+  25:../rt-thread/src/kservice.c **** {
+  26:../rt-thread/src/kservice.c ****     /* Empty, need to be implemented in board.c */
+  27:../rt-thread/src/kservice.c ****     (void)str;
+  28:../rt-thread/src/kservice.c **** }
+  29:../rt-thread/src/kservice.c **** 
+  30:../rt-thread/src/kservice.c **** /**
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 2
+
+
+  31:../rt-thread/src/kservice.c ****  * Kernel printf
+  32:../rt-thread/src/kservice.c ****  */
+  33:../rt-thread/src/kservice.c **** void rt_kprintf(const char *fmt, ...)
+  34:../rt-thread/src/kservice.c **** {
+  35:../rt-thread/src/kservice.c ****     va_list args;
+  36:../rt-thread/src/kservice.c ****     rt_size_t length;
+  37:../rt-thread/src/kservice.c ****     static char *ptr;
+  38:../rt-thread/src/kservice.c **** 
+  39:../rt-thread/src/kservice.c ****     va_start(args, fmt);
+  40:../rt-thread/src/kservice.c **** 
+  41:../rt-thread/src/kservice.c ****     /* Format string */
+  42:../rt-thread/src/kservice.c ****     length = rt_vsnprintf(rt_log_buf, sizeof(rt_log_buf) - 1, fmt, args);
+  43:../rt-thread/src/kservice.c ****     if (length > RT_CONSOLEBUF_SIZE - 1)
+  44:../rt-thread/src/kservice.c ****         length = RT_CONSOLEBUF_SIZE - 1;
+  45:../rt-thread/src/kservice.c **** 
+  46:../rt-thread/src/kservice.c ****     /* Output to console */
+  47:../rt-thread/src/kservice.c ****     rt_hw_console_output(rt_log_buf);
+  48:../rt-thread/src/kservice.c **** 
+  49:../rt-thread/src/kservice.c ****     va_end(args);
+  50:../rt-thread/src/kservice.c ****     (void)ptr;
+  51:../rt-thread/src/kservice.c **** }
+  52:../rt-thread/src/kservice.c **** 
+  53:../rt-thread/src/kservice.c **** /**
+  54:../rt-thread/src/kservice.c ****  * Simple integer to string
+  55:../rt-thread/src/kservice.c ****  */
+  56:../rt-thread/src/kservice.c **** static char *_itoa(int value, char *string, int radix)
+  57:../rt-thread/src/kservice.c **** {
+  29              		.loc 1 57 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 40
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  58:../rt-thread/src/kservice.c ****     char tmp[33];
+  33              		.loc 1 58 5 view .LVU1
+  59:../rt-thread/src/kservice.c ****     char *tp = tmp;
+  34              		.loc 1 59 5 view .LVU2
+  57:../rt-thread/src/kservice.c ****     char tmp[33];
+  35              		.loc 1 57 1 is_stmt 0 view .LVU3
+  36 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 20
+  39              		.cfi_offset 4, -20
+  40              		.cfi_offset 5, -16
+  41              		.cfi_offset 6, -12
+  42              		.cfi_offset 7, -8
+  43              		.cfi_offset 14, -4
+  60:../rt-thread/src/kservice.c ****     int i;
+  61:../rt-thread/src/kservice.c ****     unsigned v;
+  62:../rt-thread/src/kservice.c ****     int sign;
+  63:../rt-thread/src/kservice.c ****     char *sp;
+  64:../rt-thread/src/kservice.c **** 
+  65:../rt-thread/src/kservice.c ****     if (radix > 36 || radix <= 1)
+  66:../rt-thread/src/kservice.c ****     {
+  67:../rt-thread/src/kservice.c ****         return string;
+  68:../rt-thread/src/kservice.c ****     }
+  69:../rt-thread/src/kservice.c **** 
+  70:../rt-thread/src/kservice.c ****     sign = (radix == 10 && value < 0);
+  44              		.loc 1 70 25 view .LVU4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 3
+
+
+  45 0002 0A2A     		cmp	r2, #10
+  57:../rt-thread/src/kservice.c ****     char tmp[33];
+  46              		.loc 1 57 1 view .LVU5
+  47 0004 0346     		mov	r3, r0
+  48 0006 8BB0     		sub	sp, sp, #44
+  49              	.LCFI1:
+  50              		.cfi_def_cfa_offset 64
+  51              	.LVL1:
+  60:../rt-thread/src/kservice.c ****     int i;
+  52              		.loc 1 60 5 is_stmt 1 view .LVU6
+  61:../rt-thread/src/kservice.c ****     int sign;
+  53              		.loc 1 61 5 view .LVU7
+  62:../rt-thread/src/kservice.c ****     char *sp;
+  54              		.loc 1 62 5 view .LVU8
+  63:../rt-thread/src/kservice.c **** 
+  55              		.loc 1 63 5 view .LVU9
+  65:../rt-thread/src/kservice.c ****     {
+  56              		.loc 1 65 5 view .LVU10
+  57              		.loc 1 70 5 view .LVU11
+  57:../rt-thread/src/kservice.c ****     char tmp[33];
+  58              		.loc 1 57 1 is_stmt 0 view .LVU12
+  59 0008 0846     		mov	r0, r1
+  60              	.LVL2:
+  61              		.loc 1 70 25 view .LVU13
+  62 000a 06D1     		bne	.L2
+  63              		.loc 1 70 25 discriminator 1 view .LVU14
+  64 000c 002B     		cmp	r3, #0
+  65 000e 04DA     		bge	.L2
+  66              	.LVL3:
+  71:../rt-thread/src/kservice.c ****     if (sign)
+  67              		.loc 1 71 5 is_stmt 1 view .LVU15
+  72:../rt-thread/src/kservice.c ****     {
+  73:../rt-thread/src/kservice.c ****         v = -value;
+  68              		.loc 1 73 9 view .LVU16
+  69              		.loc 1 73 13 is_stmt 0 view .LVU17
+  70 0010 5B42     		rsbs	r3, r3, #0
+  71              	.LVL4:
+  70:../rt-thread/src/kservice.c ****     if (sign)
+  72              		.loc 1 70 25 discriminator 3 view .LVU18
+  73 0012 0126     		movs	r6, #1
+  74              	.LVL5:
+  75              	.L3:
+  70:../rt-thread/src/kservice.c ****     if (sign)
+  76              		.loc 1 70 25 discriminator 3 view .LVU19
+  77 0014 01A9     		add	r1, sp, #4
+  78              	.LVL6:
+  65:../rt-thread/src/kservice.c ****     {
+  79              		.loc 1 65 20 view .LVU20
+  80 0016 0D46     		mov	r5, r1
+  81 0018 0EE0     		b	.L6
+  82              	.LVL7:
+  83              	.L2:
+  71:../rt-thread/src/kservice.c ****     {
+  84              		.loc 1 71 5 is_stmt 1 view .LVU21
+  74:../rt-thread/src/kservice.c ****     }
+  75:../rt-thread/src/kservice.c ****     else
+  76:../rt-thread/src/kservice.c ****     {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 4
+
+
+  77:../rt-thread/src/kservice.c ****         v = (unsigned)value;
+  85              		.loc 1 77 9 view .LVU22
+  70:../rt-thread/src/kservice.c ****     if (sign)
+  86              		.loc 1 70 25 is_stmt 0 discriminator 4 view .LVU23
+  87 001a 0026     		movs	r6, #0
+  88 001c FAE7     		b	.L3
+  89              	.LVL8:
+  90              	.L7:
+  78:../rt-thread/src/kservice.c ****     }
+  79:../rt-thread/src/kservice.c **** 
+  80:../rt-thread/src/kservice.c ****     while (v || tp == tmp)
+  81:../rt-thread/src/kservice.c ****     {
+  82:../rt-thread/src/kservice.c ****         i = v % radix;
+  91              		.loc 1 82 9 is_stmt 1 view .LVU24
+  92              		.loc 1 82 15 is_stmt 0 view .LVU25
+  93 001e B3FBF2F4 		udiv	r4, r3, r2
+  94 0022 02FB1437 		mls	r7, r2, r4, r3
+  95              	.LVL9:
+  83:../rt-thread/src/kservice.c ****         v = v / radix;
+  96              		.loc 1 83 9 is_stmt 1 view .LVU26
+  84:../rt-thread/src/kservice.c ****         if (i < 10)
+  97              		.loc 1 84 12 is_stmt 0 view .LVU27
+  98 0026 092F     		cmp	r7, #9
+  83:../rt-thread/src/kservice.c ****         v = v / radix;
+  99              		.loc 1 83 11 view .LVU28
+ 100 0028 2346     		mov	r3, r4
+ 101              	.LVL10:
+ 102              		.loc 1 84 9 is_stmt 1 view .LVU29
+  85:../rt-thread/src/kservice.c ****             *tp++ = i + '0';
+ 103              		.loc 1 85 13 view .LVU30
+ 104              		.loc 1 85 23 is_stmt 0 view .LVU31
+ 105 002a FCB2     		uxtb	r4, r7
+ 106              	.LVL11:
+ 107              		.loc 1 85 23 view .LVU32
+ 108 002c 94BF     		ite	ls
+ 109 002e 3034     		addls	r4, r4, #48
+  86:../rt-thread/src/kservice.c ****         else
+  87:../rt-thread/src/kservice.c ****             *tp++ = i + 'a' - 10;
+ 110              		.loc 1 87 13 is_stmt 1 view .LVU33
+ 111              		.loc 1 87 29 is_stmt 0 view .LVU34
+ 112 0030 5734     		addhi	r4, r4, #87
+ 113 0032 E4B2     		uxtb	r4, r4
+ 114 0034 05F8014B 		strb	r4, [r5], #1
+ 115              	.LVL12:
+ 116              	.L6:
+  80:../rt-thread/src/kservice.c ****     {
+ 117              		.loc 1 80 14 is_stmt 1 view .LVU35
+ 118 0038 002B     		cmp	r3, #0
+ 119 003a F0D1     		bne	.L7
+  80:../rt-thread/src/kservice.c ****     {
+ 120              		.loc 1 80 14 is_stmt 0 discriminator 1 view .LVU36
+ 121 003c 8D42     		cmp	r5, r1
+ 122 003e EED0     		beq	.L7
+  88:../rt-thread/src/kservice.c ****     }
+  89:../rt-thread/src/kservice.c **** 
+  90:../rt-thread/src/kservice.c ****     sp = string;
+ 123              		.loc 1 90 5 is_stmt 1 view .LVU37
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 5
+
+
+ 124              	.LVL13:
+  91:../rt-thread/src/kservice.c **** 
+  92:../rt-thread/src/kservice.c ****     if (sign)
+ 125              		.loc 1 92 5 view .LVU38
+  93:../rt-thread/src/kservice.c ****         *sp++ = '-';
+ 126              		.loc 1 93 12 is_stmt 0 view .LVU39
+ 127 0040 0346     		mov	r3, r0
+ 128              	.LVL14:
+  92:../rt-thread/src/kservice.c ****         *sp++ = '-';
+ 129              		.loc 1 92 8 view .LVU40
+ 130 0042 16B1     		cbz	r6, .L8
+ 131              		.loc 1 93 9 is_stmt 1 view .LVU41
+ 132              	.LVL15:
+ 133              		.loc 1 93 15 is_stmt 0 view .LVU42
+ 134 0044 2D22     		movs	r2, #45
+ 135              	.LVL16:
+ 136              		.loc 1 93 15 view .LVU43
+ 137 0046 03F8012B 		strb	r2, [r3], #1
+ 138              	.LVL17:
+ 139              	.L8:
+ 140              		.loc 1 93 15 view .LVU44
+ 141 004a 5C1E     		subs	r4, r3, #1
+  90:../rt-thread/src/kservice.c **** 
+ 142              		.loc 1 90 8 view .LVU45
+ 143 004c 2A46     		mov	r2, r5
+ 144              	.LVL18:
+ 145              	.L9:
+  94:../rt-thread/src/kservice.c ****     while (tp > tmp)
+ 146              		.loc 1 94 15 is_stmt 1 view .LVU46
+ 147 004e 8A42     		cmp	r2, r1
+ 148 0050 07D8     		bhi	.L10
+ 149              		.loc 1 94 15 is_stmt 0 view .LVU47
+ 150 0052 6A1A     		subs	r2, r5, r1
+ 151              	.LVL19:
+ 152              		.loc 1 94 15 view .LVU48
+ 153 0054 A942     		cmp	r1, r5
+ 154 0056 88BF     		it	hi
+ 155 0058 0022     		movhi	r2, #0
+  95:../rt-thread/src/kservice.c ****         *sp++ = *--tp;
+  96:../rt-thread/src/kservice.c ****     *sp = '\0';
+ 156              		.loc 1 96 5 is_stmt 1 view .LVU49
+ 157              		.loc 1 96 9 is_stmt 0 view .LVU50
+ 158 005a 0021     		movs	r1, #0
+ 159 005c 9954     		strb	r1, [r3, r2]
+  97:../rt-thread/src/kservice.c **** 
+  98:../rt-thread/src/kservice.c ****     return string;
+ 160              		.loc 1 98 5 is_stmt 1 view .LVU51
+  99:../rt-thread/src/kservice.c **** }
+ 161              		.loc 1 99 1 is_stmt 0 view .LVU52
+ 162 005e 0BB0     		add	sp, sp, #44
+ 163              	.LCFI2:
+ 164              		.cfi_remember_state
+ 165              		.cfi_def_cfa_offset 20
+ 166              		@ sp needed
+ 167 0060 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 168              	.LVL20:
+ 169              	.L10:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 6
+
+
+ 170              	.LCFI3:
+ 171              		.cfi_restore_state
+  95:../rt-thread/src/kservice.c ****         *sp++ = *--tp;
+ 172              		.loc 1 95 9 is_stmt 1 view .LVU53
+  95:../rt-thread/src/kservice.c ****         *sp++ = *--tp;
+ 173              		.loc 1 95 15 is_stmt 0 view .LVU54
+ 174 0062 12F8016D 		ldrb	r6, [r2, #-1]!	@ zero_extendqisi2
+ 175              	.LVL21:
+  95:../rt-thread/src/kservice.c ****         *sp++ = *--tp;
+ 176              		.loc 1 95 15 view .LVU55
+ 177 0066 04F8016F 		strb	r6, [r4, #1]!
+ 178              	.LVL22:
+  95:../rt-thread/src/kservice.c ****         *sp++ = *--tp;
+ 179              		.loc 1 95 15 view .LVU56
+ 180 006a F0E7     		b	.L9
+ 181              		.cfi_endproc
+ 182              	.LFE8:
+ 184              		.section	.text.rt_hw_console_output,"ax",%progbits
+ 185              		.align	1
+ 186              		.weak	rt_hw_console_output
+ 187              		.syntax unified
+ 188              		.thumb
+ 189              		.thumb_func
+ 191              	rt_hw_console_output:
+ 192              	.LVL23:
+ 193              	.LFB6:
+  25:../rt-thread/src/kservice.c ****     /* Empty, need to be implemented in board.c */
+ 194              		.loc 1 25 1 is_stmt 1 view -0
+ 195              		.cfi_startproc
+ 196              		@ args = 0, pretend = 0, frame = 0
+ 197              		@ frame_needed = 0, uses_anonymous_args = 0
+ 198              		@ link register save eliminated.
+  27:../rt-thread/src/kservice.c **** }
+ 199              		.loc 1 27 5 view .LVU58
+  28:../rt-thread/src/kservice.c **** 
+ 200              		.loc 1 28 1 is_stmt 0 view .LVU59
+ 201 0000 7047     		bx	lr
+ 202              		.cfi_endproc
+ 203              	.LFE6:
+ 205              		.section	.rodata.rt_vsnprintf.str1.1,"aMS",%progbits,1
+ 206              	.LC0:
+ 207 0000 286E756C 		.ascii	"(null)\000"
+ 207      6C2900
+ 208              		.section	.text.rt_vsnprintf,"ax",%progbits
+ 209              		.align	1
+ 210              		.global	rt_vsnprintf
+ 211              		.syntax unified
+ 212              		.thumb
+ 213              		.thumb_func
+ 215              	rt_vsnprintf:
+ 216              	.LVL24:
+ 217              	.LFB9:
+ 100:../rt-thread/src/kservice.c **** 
+ 101:../rt-thread/src/kservice.c **** /**
+ 102:../rt-thread/src/kservice.c ****  * Simple vsnprintf implementation
+ 103:../rt-thread/src/kservice.c ****  */
+ 104:../rt-thread/src/kservice.c **** int rt_vsnprintf(char *buf, rt_size_t size, const char *fmt, va_list args)
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 7
+
+
+ 105:../rt-thread/src/kservice.c **** {
+ 218              		.loc 1 105 1 is_stmt 1 view -0
+ 219              		.cfi_startproc
+ 220              		@ args = 0, pretend = 0, frame = 16
+ 221              		@ frame_needed = 0, uses_anonymous_args = 0
+ 106:../rt-thread/src/kservice.c ****     char *str, *end;
+ 222              		.loc 1 106 5 view .LVU61
+ 107:../rt-thread/src/kservice.c ****     int ch;
+ 223              		.loc 1 107 5 view .LVU62
+ 108:../rt-thread/src/kservice.c ****     char tmp[12];
+ 224              		.loc 1 108 5 view .LVU63
+ 109:../rt-thread/src/kservice.c **** 
+ 110:../rt-thread/src/kservice.c ****     str = buf;
+ 225              		.loc 1 110 5 view .LVU64
+ 111:../rt-thread/src/kservice.c ****     end = buf + size - 1;
+ 226              		.loc 1 111 5 view .LVU65
+ 105:../rt-thread/src/kservice.c ****     char *str, *end;
+ 227              		.loc 1 105 1 is_stmt 0 view .LVU66
+ 228 0000 2DE9FF41 		push	{r0, r1, r2, r3, r4, r5, r6, r7, r8, lr}
+ 229              	.LCFI4:
+ 230              		.cfi_def_cfa_offset 40
+ 231              		.cfi_offset 4, -24
+ 232              		.cfi_offset 5, -20
+ 233              		.cfi_offset 6, -16
+ 234              		.cfi_offset 7, -12
+ 235              		.cfi_offset 8, -8
+ 236              		.cfi_offset 14, -4
+ 237              	.LVL25:
+ 238              		.loc 1 111 22 view .LVU67
+ 239 0004 0139     		subs	r1, r1, #1
+ 240              	.LVL26:
+ 105:../rt-thread/src/kservice.c ****     char *str, *end;
+ 241              		.loc 1 105 1 view .LVU68
+ 242 0006 0646     		mov	r6, r0
+ 243              		.loc 1 111 9 view .LVU69
+ 244 0008 00EB0108 		add	r8, r0, r1
+ 245              	.LVL27:
+ 112:../rt-thread/src/kservice.c **** 
+ 113:../rt-thread/src/kservice.c ****     while ((ch = *fmt++) != '\0' && str < end)
+ 246              		.loc 1 113 5 is_stmt 1 view .LVU70
+ 110:../rt-thread/src/kservice.c ****     end = buf + size - 1;
+ 247              		.loc 1 110 9 is_stmt 0 view .LVU71
+ 248 000c 0546     		mov	r5, r0
+ 249              	.LVL28:
+ 250              	.L15:
+ 251              		.loc 1 113 34 is_stmt 1 view .LVU72
+ 252              		.loc 1 113 18 is_stmt 0 view .LVU73
+ 253 000e 1178     		ldrb	r1, [r2]	@ zero_extendqisi2
+ 254              	.LVL29:
+ 255              		.loc 1 113 34 view .LVU74
+ 256 0010 09B1     		cbz	r1, .L43
+ 257              		.loc 1 113 34 discriminator 1 view .LVU75
+ 258 0012 4545     		cmp	r5, r8
+ 259 0014 05D3     		bcc	.L42
+ 260              	.L43:
+ 114:../rt-thread/src/kservice.c ****     {
+ 115:../rt-thread/src/kservice.c ****         if (ch != '%')
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 8
+
+
+ 116:../rt-thread/src/kservice.c ****         {
+ 117:../rt-thread/src/kservice.c ****             *str++ = ch;
+ 118:../rt-thread/src/kservice.c ****             continue;
+ 119:../rt-thread/src/kservice.c ****         }
+ 120:../rt-thread/src/kservice.c **** 
+ 121:../rt-thread/src/kservice.c ****         ch = *fmt++;
+ 122:../rt-thread/src/kservice.c ****         switch (ch)
+ 123:../rt-thread/src/kservice.c ****         {
+ 124:../rt-thread/src/kservice.c ****         case 'c':
+ 125:../rt-thread/src/kservice.c ****             *str++ = (char)va_arg(args, int);
+ 126:../rt-thread/src/kservice.c ****             break;
+ 127:../rt-thread/src/kservice.c **** 
+ 128:../rt-thread/src/kservice.c ****         case 's':
+ 129:../rt-thread/src/kservice.c ****         {
+ 130:../rt-thread/src/kservice.c ****             char *s = va_arg(args, char *);
+ 131:../rt-thread/src/kservice.c ****             if (s == RT_NULL)
+ 132:../rt-thread/src/kservice.c ****                 s = "(null)";
+ 133:../rt-thread/src/kservice.c ****             while (*s && str < end)
+ 134:../rt-thread/src/kservice.c ****                 *str++ = *s++;
+ 135:../rt-thread/src/kservice.c ****         }
+ 136:../rt-thread/src/kservice.c ****         break;
+ 137:../rt-thread/src/kservice.c **** 
+ 138:../rt-thread/src/kservice.c ****         case 'd':
+ 139:../rt-thread/src/kservice.c ****         case 'i':
+ 140:../rt-thread/src/kservice.c ****         {
+ 141:../rt-thread/src/kservice.c ****             int val = va_arg(args, int);
+ 142:../rt-thread/src/kservice.c ****             char *p = _itoa(val, tmp, 10);
+ 143:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 144:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 145:../rt-thread/src/kservice.c ****         }
+ 146:../rt-thread/src/kservice.c ****         break;
+ 147:../rt-thread/src/kservice.c **** 
+ 148:../rt-thread/src/kservice.c ****         case 'u':
+ 149:../rt-thread/src/kservice.c ****         {
+ 150:../rt-thread/src/kservice.c ****             unsigned int val = va_arg(args, unsigned int);
+ 151:../rt-thread/src/kservice.c ****             char *p = _itoa(val, tmp, 10);
+ 152:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 153:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 154:../rt-thread/src/kservice.c ****         }
+ 155:../rt-thread/src/kservice.c ****         break;
+ 156:../rt-thread/src/kservice.c **** 
+ 157:../rt-thread/src/kservice.c ****         case 'x':
+ 158:../rt-thread/src/kservice.c ****         case 'X':
+ 159:../rt-thread/src/kservice.c ****         {
+ 160:../rt-thread/src/kservice.c ****             unsigned int val = va_arg(args, unsigned int);
+ 161:../rt-thread/src/kservice.c ****             char *p = _itoa(val, tmp, 16);
+ 162:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 163:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 164:../rt-thread/src/kservice.c ****         }
+ 165:../rt-thread/src/kservice.c ****         break;
+ 166:../rt-thread/src/kservice.c **** 
+ 167:../rt-thread/src/kservice.c ****         case 'p':
+ 168:../rt-thread/src/kservice.c ****         {
+ 169:../rt-thread/src/kservice.c ****             unsigned long val = (unsigned long)va_arg(args, void *);
+ 170:../rt-thread/src/kservice.c ****             char *p = _itoa(val, tmp, 16);
+ 171:../rt-thread/src/kservice.c ****             if (str + 2 < end)
+ 172:../rt-thread/src/kservice.c ****             {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 9
+
+
+ 173:../rt-thread/src/kservice.c ****                 *str++ = '0';
+ 174:../rt-thread/src/kservice.c ****                 *str++ = 'x';
+ 175:../rt-thread/src/kservice.c ****             }
+ 176:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 177:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 178:../rt-thread/src/kservice.c ****         }
+ 179:../rt-thread/src/kservice.c ****         break;
+ 180:../rt-thread/src/kservice.c **** 
+ 181:../rt-thread/src/kservice.c ****         case '%':
+ 182:../rt-thread/src/kservice.c ****             *str++ = '%';
+ 183:../rt-thread/src/kservice.c ****             break;
+ 184:../rt-thread/src/kservice.c **** 
+ 185:../rt-thread/src/kservice.c ****         default:
+ 186:../rt-thread/src/kservice.c ****             *str++ = '%';
+ 187:../rt-thread/src/kservice.c ****             if (str < end)
+ 188:../rt-thread/src/kservice.c ****                 *str++ = ch;
+ 189:../rt-thread/src/kservice.c ****             break;
+ 190:../rt-thread/src/kservice.c ****         }
+ 191:../rt-thread/src/kservice.c ****     }
+ 192:../rt-thread/src/kservice.c **** 
+ 193:../rt-thread/src/kservice.c ****     *str = '\0';
+ 261              		.loc 1 193 5 is_stmt 1 view .LVU76
+ 262              		.loc 1 193 10 is_stmt 0 view .LVU77
+ 263 0016 0023     		movs	r3, #0
+ 264              	.LVL30:
+ 194:../rt-thread/src/kservice.c ****     return str - buf;
+ 265              		.loc 1 194 16 view .LVU78
+ 266 0018 A81B     		subs	r0, r5, r6
+ 193:../rt-thread/src/kservice.c ****     return str - buf;
+ 267              		.loc 1 193 10 view .LVU79
+ 268 001a 2B70     		strb	r3, [r5]
+ 269              		.loc 1 194 5 is_stmt 1 view .LVU80
+ 195:../rt-thread/src/kservice.c **** }
+ 270              		.loc 1 195 1 is_stmt 0 view .LVU81
+ 271 001c 04B0     		add	sp, sp, #16
+ 272              	.LCFI5:
+ 273              		.cfi_remember_state
+ 274              		.cfi_def_cfa_offset 24
+ 275              		@ sp needed
+ 276 001e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 277              	.LVL31:
+ 278              	.L42:
+ 279              	.LCFI6:
+ 280              		.cfi_restore_state
+ 115:../rt-thread/src/kservice.c ****         {
+ 281              		.loc 1 115 9 is_stmt 1 view .LVU82
+ 115:../rt-thread/src/kservice.c ****         {
+ 282              		.loc 1 115 12 is_stmt 0 view .LVU83
+ 283 0022 2529     		cmp	r1, #37
+ 284 0024 02D0     		beq	.L16
+ 113:../rt-thread/src/kservice.c ****     {
+ 285              		.loc 1 113 22 view .LVU84
+ 286 0026 571C     		adds	r7, r2, #1
+ 117:../rt-thread/src/kservice.c ****             continue;
+ 287              		.loc 1 117 13 is_stmt 1 view .LVU85
+ 288              	.LVL32:
+ 289              	.L22:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 10
+
+
+ 182:../rt-thread/src/kservice.c ****             break;
+ 290              		.loc 1 182 13 view .LVU86
+ 182:../rt-thread/src/kservice.c ****             break;
+ 291              		.loc 1 182 17 is_stmt 0 view .LVU87
+ 292 0028 2A46     		mov	r2, r5
+ 293 002a 46E0     		b	.L62
+ 294              	.LVL33:
+ 295              	.L16:
+ 121:../rt-thread/src/kservice.c ****         switch (ch)
+ 296              		.loc 1 121 9 is_stmt 1 view .LVU88
+ 121:../rt-thread/src/kservice.c ****         switch (ch)
+ 297              		.loc 1 121 14 is_stmt 0 view .LVU89
+ 298 002c 5178     		ldrb	r1, [r2, #1]	@ zero_extendqisi2
+ 299              	.LVL34:
+ 122:../rt-thread/src/kservice.c ****         {
+ 300              		.loc 1 122 9 view .LVU90
+ 301 002e 7829     		cmp	r1, #120
+ 121:../rt-thread/src/kservice.c ****         switch (ch)
+ 302              		.loc 1 121 18 view .LVU91
+ 303 0030 02F10207 		add	r7, r2, #2
+ 304              	.LVL35:
+ 122:../rt-thread/src/kservice.c ****         {
+ 305              		.loc 1 122 9 is_stmt 1 view .LVU92
+ 306 0034 08D8     		bhi	.L18
+ 307 0036 6F29     		cmp	r1, #111
+ 308 0038 0FD8     		bhi	.L19
+ 309 003a 6329     		cmp	r1, #99
+ 310 003c 3AD0     		beq	.L20
+ 311 003e 25D8     		bhi	.L21
+ 312 0040 2529     		cmp	r1, #37
+ 313 0042 F1D0     		beq	.L22
+ 314 0044 5829     		cmp	r1, #88
+ 315 0046 63D0     		beq	.L23
+ 316              	.L18:
+ 186:../rt-thread/src/kservice.c ****             if (str < end)
+ 317              		.loc 1 186 13 view .LVU93
+ 186:../rt-thread/src/kservice.c ****             if (str < end)
+ 318              		.loc 1 186 17 is_stmt 0 view .LVU94
+ 319 0048 2A46     		mov	r2, r5
+ 320              	.LVL36:
+ 186:../rt-thread/src/kservice.c ****             if (str < end)
+ 321              		.loc 1 186 20 view .LVU95
+ 322 004a 2520     		movs	r0, #37
+ 323 004c 02F8010B 		strb	r0, [r2], #1
+ 324              	.LVL37:
+ 187:../rt-thread/src/kservice.c ****                 *str++ = ch;
+ 325              		.loc 1 187 13 is_stmt 1 view .LVU96
+ 187:../rt-thread/src/kservice.c ****                 *str++ = ch;
+ 326              		.loc 1 187 16 is_stmt 0 view .LVU97
+ 327 0050 9045     		cmp	r8, r2
+ 328 0052 42D9     		bls	.L17
+ 188:../rt-thread/src/kservice.c ****             break;
+ 329              		.loc 1 188 17 is_stmt 1 view .LVU98
+ 188:../rt-thread/src/kservice.c ****             break;
+ 330              		.loc 1 188 21 is_stmt 0 view .LVU99
+ 331 0054 AA1C     		adds	r2, r5, #2
+ 332              	.LVL38:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 11
+
+
+ 188:../rt-thread/src/kservice.c ****             break;
+ 333              		.loc 1 188 24 view .LVU100
+ 334 0056 6970     		strb	r1, [r5, #1]
+ 335 0058 3FE0     		b	.L17
+ 336              	.LVL39:
+ 337              	.L19:
+ 122:../rt-thread/src/kservice.c ****         {
+ 338              		.loc 1 122 9 view .LVU101
+ 339 005a A1F17002 		sub	r2, r1, #112
+ 340 005e 082A     		cmp	r2, #8
+ 341 0060 F2D8     		bhi	.L18
+ 342 0062 01A0     		adr	r0, .L24
+ 343 0064 50F822F0 		ldr	pc, [r0, r2, lsl #2]
+ 344              		.p2align 2
+ 345              	.L24:
+ 346 0068 35010000 		.word	.L27+1
+ 347 006c 49000000 		.word	.L18+1
+ 348 0070 49000000 		.word	.L18+1
+ 349 0074 C1000000 		.word	.L26+1
+ 350 0078 49000000 		.word	.L18+1
+ 351 007c ED000000 		.word	.L25+1
+ 352 0080 49000000 		.word	.L18+1
+ 353 0084 49000000 		.word	.L18+1
+ 354 0088 11010000 		.word	.L23+1
+ 355              		.p2align 1
+ 356              	.L21:
+ 357 008c 6429     		cmp	r1, #100
+ 358 008e 01D0     		beq	.L28
+ 359 0090 6929     		cmp	r1, #105
+ 360 0092 D9D1     		bne	.L18
+ 361              	.L28:
+ 362              	.LBB2:
+ 141:../rt-thread/src/kservice.c ****             char *p = _itoa(val, tmp, 10);
+ 363              		.loc 1 141 13 is_stmt 1 view .LVU102
+ 141:../rt-thread/src/kservice.c ****             char *p = _itoa(val, tmp, 10);
+ 364              		.loc 1 141 17 is_stmt 0 view .LVU103
+ 365 0094 1C46     		mov	r4, r3
+ 366              	.LVL40:
+ 142:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 367              		.loc 1 142 13 is_stmt 1 view .LVU104
+ 142:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 368              		.loc 1 142 23 is_stmt 0 view .LVU105
+ 369 0096 0A22     		movs	r2, #10
+ 370 0098 54F8040B 		ldr	r0, [r4], #4
+ 371              	.LVL41:
+ 142:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 372              		.loc 1 142 23 view .LVU106
+ 373 009c 01A9     		add	r1, sp, #4
+ 374              	.LVL42:
+ 142:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 375              		.loc 1 142 23 view .LVU107
+ 376 009e FFF7FEFF 		bl	_itoa
+ 377              	.LVL43:
+ 143:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 378              		.loc 1 143 13 is_stmt 1 view .LVU108
+ 143:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 379              		.loc 1 143 19 is_stmt 0 view .LVU109
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 12
+
+
+ 380 00a2 2A46     		mov	r2, r5
+ 381 00a4 0138     		subs	r0, r0, #1
+ 382              	.LVL44:
+ 383              	.L32:
+ 143:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 384              		.loc 1 143 23 is_stmt 1 view .LVU110
+ 143:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 385              		.loc 1 143 20 is_stmt 0 view .LVU111
+ 386 00a6 10F8013F 		ldrb	r3, [r0, #1]!	@ zero_extendqisi2
+ 143:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 387              		.loc 1 143 23 view .LVU112
+ 388 00aa 0BB1     		cbz	r3, .L49
+ 143:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 389              		.loc 1 143 23 discriminator 1 view .LVU113
+ 390 00ac 4245     		cmp	r2, r8
+ 391 00ae 1AD1     		bne	.L33
+ 392              	.LVL45:
+ 393              	.L49:
+ 143:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 394              		.loc 1 143 23 discriminator 1 view .LVU114
+ 395              	.LBE2:
+ 396              	.LBB3:
+ 169:../rt-thread/src/kservice.c ****             char *p = _itoa(val, tmp, 16);
+ 397              		.loc 1 169 48 view .LVU115
+ 398 00b0 2346     		mov	r3, r4
+ 399 00b2 12E0     		b	.L17
+ 400              	.LVL46:
+ 401              	.L20:
+ 169:../rt-thread/src/kservice.c ****             char *p = _itoa(val, tmp, 16);
+ 402              		.loc 1 169 48 view .LVU116
+ 403              	.LBE3:
+ 125:../rt-thread/src/kservice.c ****             break;
+ 404              		.loc 1 125 13 is_stmt 1 view .LVU117
+ 125:../rt-thread/src/kservice.c ****             break;
+ 405              		.loc 1 125 22 is_stmt 0 discriminator 1 view .LVU118
+ 406 00b4 53F8041B 		ldr	r1, [r3], #4
+ 407              	.LVL47:
+ 125:../rt-thread/src/kservice.c ****             break;
+ 408              		.loc 1 125 17 discriminator 1 view .LVU119
+ 409 00b8 2A46     		mov	r2, r5
+ 410              	.LVL48:
+ 411              	.L62:
+ 182:../rt-thread/src/kservice.c ****             break;
+ 412              		.loc 1 182 20 view .LVU120
+ 413 00ba 02F8011B 		strb	r1, [r2], #1
+ 414              	.LVL49:
+ 183:../rt-thread/src/kservice.c **** 
+ 415              		.loc 1 183 13 is_stmt 1 view .LVU121
+ 416 00be 0CE0     		b	.L17
+ 417              	.LVL50:
+ 418              	.L26:
+ 419              	.LBB4:
+ 130:../rt-thread/src/kservice.c ****             if (s == RT_NULL)
+ 420              		.loc 1 130 13 view .LVU122
+ 132:../rt-thread/src/kservice.c ****             while (*s && str < end)
+ 421              		.loc 1 132 19 is_stmt 0 view .LVU123
+ 422 00c0 2949     		ldr	r1, .L63
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 13
+
+
+ 423              	.LVL51:
+ 130:../rt-thread/src/kservice.c ****             if (s == RT_NULL)
+ 424              		.loc 1 130 19 view .LVU124
+ 425 00c2 53F8042B 		ldr	r2, [r3], #4
+ 426              	.LVL52:
+ 131:../rt-thread/src/kservice.c ****                 s = "(null)";
+ 427              		.loc 1 131 13 is_stmt 1 view .LVU125
+ 132:../rt-thread/src/kservice.c ****             while (*s && str < end)
+ 428              		.loc 1 132 19 is_stmt 0 view .LVU126
+ 429 00c6 002A     		cmp	r2, #0
+ 430 00c8 08BF     		it	eq
+ 431 00ca 0A46     		moveq	r2, r1
+ 432 00cc 511E     		subs	r1, r2, #1
+ 433 00ce 2A46     		mov	r2, r5
+ 434              	.LVL53:
+ 435              	.L30:
+ 133:../rt-thread/src/kservice.c ****                 *str++ = *s++;
+ 436              		.loc 1 133 23 is_stmt 1 view .LVU127
+ 133:../rt-thread/src/kservice.c ****                 *str++ = *s++;
+ 437              		.loc 1 133 20 is_stmt 0 view .LVU128
+ 438 00d0 11F8010F 		ldrb	r0, [r1, #1]!	@ zero_extendqisi2
+ 133:../rt-thread/src/kservice.c ****                 *str++ = *s++;
+ 439              		.loc 1 133 23 view .LVU129
+ 440 00d4 08B1     		cbz	r0, .L17
+ 133:../rt-thread/src/kservice.c ****                 *str++ = *s++;
+ 441              		.loc 1 133 23 discriminator 1 view .LVU130
+ 442 00d6 4245     		cmp	r2, r8
+ 443 00d8 02D1     		bne	.L31
+ 444              	.LVL54:
+ 445              	.L17:
+ 133:../rt-thread/src/kservice.c ****                 *str++ = *s++;
+ 446              		.loc 1 133 23 discriminator 1 view .LVU131
+ 447 00da 1546     		mov	r5, r2
+ 448 00dc 3A46     		mov	r2, r7
+ 449              	.LVL55:
+ 133:../rt-thread/src/kservice.c ****                 *str++ = *s++;
+ 450              		.loc 1 133 23 discriminator 1 view .LVU132
+ 451 00de 96E7     		b	.L15
+ 452              	.LVL56:
+ 453              	.L31:
+ 134:../rt-thread/src/kservice.c ****         }
+ 454              		.loc 1 134 17 is_stmt 1 view .LVU133
+ 134:../rt-thread/src/kservice.c ****         }
+ 455              		.loc 1 134 24 is_stmt 0 view .LVU134
+ 456 00e0 02F8010B 		strb	r0, [r2], #1
+ 457              	.LVL57:
+ 134:../rt-thread/src/kservice.c ****         }
+ 458              		.loc 1 134 24 view .LVU135
+ 459 00e4 F4E7     		b	.L30
+ 460              	.LVL58:
+ 461              	.L33:
+ 134:../rt-thread/src/kservice.c ****         }
+ 462              		.loc 1 134 24 view .LVU136
+ 463              	.LBE4:
+ 464              	.LBB5:
+ 144:../rt-thread/src/kservice.c ****         }
+ 465              		.loc 1 144 17 is_stmt 1 view .LVU137
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 14
+
+
+ 144:../rt-thread/src/kservice.c ****         }
+ 466              		.loc 1 144 24 is_stmt 0 view .LVU138
+ 467 00e6 02F8013B 		strb	r3, [r2], #1
+ 468              	.LVL59:
+ 144:../rt-thread/src/kservice.c ****         }
+ 469              		.loc 1 144 24 view .LVU139
+ 470 00ea DCE7     		b	.L32
+ 471              	.LVL60:
+ 472              	.L25:
+ 144:../rt-thread/src/kservice.c ****         }
+ 473              		.loc 1 144 24 view .LVU140
+ 474              	.LBE5:
+ 475              	.LBB6:
+ 150:../rt-thread/src/kservice.c ****             char *p = _itoa(val, tmp, 10);
+ 476              		.loc 1 150 13 is_stmt 1 view .LVU141
+ 150:../rt-thread/src/kservice.c ****             char *p = _itoa(val, tmp, 10);
+ 477              		.loc 1 150 26 is_stmt 0 view .LVU142
+ 478 00ec 1C46     		mov	r4, r3
+ 479              	.LVL61:
+ 151:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 480              		.loc 1 151 13 is_stmt 1 view .LVU143
+ 151:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 481              		.loc 1 151 23 is_stmt 0 view .LVU144
+ 482 00ee 0A22     		movs	r2, #10
+ 483 00f0 54F8040B 		ldr	r0, [r4], #4
+ 484              	.LVL62:
+ 151:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 485              		.loc 1 151 23 view .LVU145
+ 486 00f4 01A9     		add	r1, sp, #4
+ 487              	.LVL63:
+ 151:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 488              		.loc 1 151 23 view .LVU146
+ 489 00f6 FFF7FEFF 		bl	_itoa
+ 490              	.LVL64:
+ 152:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 491              		.loc 1 152 13 is_stmt 1 view .LVU147
+ 152:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 492              		.loc 1 152 19 is_stmt 0 view .LVU148
+ 493 00fa 2A46     		mov	r2, r5
+ 494 00fc 0138     		subs	r0, r0, #1
+ 495              	.LVL65:
+ 496              	.L34:
+ 152:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 497              		.loc 1 152 23 is_stmt 1 view .LVU149
+ 152:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 498              		.loc 1 152 20 is_stmt 0 view .LVU150
+ 499 00fe 10F8013F 		ldrb	r3, [r0, #1]!	@ zero_extendqisi2
+ 152:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 500              		.loc 1 152 23 view .LVU151
+ 501 0102 002B     		cmp	r3, #0
+ 502 0104 D4D0     		beq	.L49
+ 152:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 503              		.loc 1 152 23 discriminator 1 view .LVU152
+ 504 0106 4245     		cmp	r2, r8
+ 505 0108 D2D0     		beq	.L49
+ 153:../rt-thread/src/kservice.c ****         }
+ 506              		.loc 1 153 17 is_stmt 1 view .LVU153
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 15
+
+
+ 507              	.LVL66:
+ 153:../rt-thread/src/kservice.c ****         }
+ 508              		.loc 1 153 24 is_stmt 0 view .LVU154
+ 509 010a 02F8013B 		strb	r3, [r2], #1
+ 510              	.LVL67:
+ 153:../rt-thread/src/kservice.c ****         }
+ 511              		.loc 1 153 24 view .LVU155
+ 512 010e F6E7     		b	.L34
+ 513              	.LVL68:
+ 514              	.L23:
+ 153:../rt-thread/src/kservice.c ****         }
+ 515              		.loc 1 153 24 view .LVU156
+ 516              	.LBE6:
+ 517              	.LBB7:
+ 160:../rt-thread/src/kservice.c ****             char *p = _itoa(val, tmp, 16);
+ 518              		.loc 1 160 13 is_stmt 1 view .LVU157
+ 160:../rt-thread/src/kservice.c ****             char *p = _itoa(val, tmp, 16);
+ 519              		.loc 1 160 26 is_stmt 0 view .LVU158
+ 520 0110 1C46     		mov	r4, r3
+ 521              	.LVL69:
+ 161:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 522              		.loc 1 161 13 is_stmt 1 view .LVU159
+ 161:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 523              		.loc 1 161 23 is_stmt 0 view .LVU160
+ 524 0112 1022     		movs	r2, #16
+ 525 0114 54F8040B 		ldr	r0, [r4], #4
+ 526              	.LVL70:
+ 161:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 527              		.loc 1 161 23 view .LVU161
+ 528 0118 01A9     		add	r1, sp, #4
+ 529              	.LVL71:
+ 161:../rt-thread/src/kservice.c ****             while (*p && str < end)
+ 530              		.loc 1 161 23 view .LVU162
+ 531 011a FFF7FEFF 		bl	_itoa
+ 532              	.LVL72:
+ 162:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 533              		.loc 1 162 13 is_stmt 1 view .LVU163
+ 162:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 534              		.loc 1 162 19 is_stmt 0 view .LVU164
+ 535 011e 2A46     		mov	r2, r5
+ 536 0120 0138     		subs	r0, r0, #1
+ 537              	.LVL73:
+ 538              	.L36:
+ 162:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 539              		.loc 1 162 23 is_stmt 1 view .LVU165
+ 162:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 540              		.loc 1 162 20 is_stmt 0 view .LVU166
+ 541 0122 10F8013F 		ldrb	r3, [r0, #1]!	@ zero_extendqisi2
+ 162:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 542              		.loc 1 162 23 view .LVU167
+ 543 0126 002B     		cmp	r3, #0
+ 544 0128 C2D0     		beq	.L49
+ 162:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 545              		.loc 1 162 23 discriminator 1 view .LVU168
+ 546 012a 4245     		cmp	r2, r8
+ 547 012c C0D0     		beq	.L49
+ 163:../rt-thread/src/kservice.c ****         }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 16
+
+
+ 548              		.loc 1 163 17 is_stmt 1 view .LVU169
+ 549              	.LVL74:
+ 163:../rt-thread/src/kservice.c ****         }
+ 550              		.loc 1 163 24 is_stmt 0 view .LVU170
+ 551 012e 02F8013B 		strb	r3, [r2], #1
+ 552              	.LVL75:
+ 163:../rt-thread/src/kservice.c ****         }
+ 553              		.loc 1 163 24 view .LVU171
+ 554 0132 F6E7     		b	.L36
+ 555              	.LVL76:
+ 556              	.L27:
+ 163:../rt-thread/src/kservice.c ****         }
+ 557              		.loc 1 163 24 view .LVU172
+ 558              	.LBE7:
+ 559              	.LBB8:
+ 169:../rt-thread/src/kservice.c ****             char *p = _itoa(val, tmp, 16);
+ 560              		.loc 1 169 13 is_stmt 1 view .LVU173
+ 169:../rt-thread/src/kservice.c ****             char *p = _itoa(val, tmp, 16);
+ 561              		.loc 1 169 48 is_stmt 0 view .LVU174
+ 562 0134 1C46     		mov	r4, r3
+ 563              	.LVL77:
+ 170:../rt-thread/src/kservice.c ****             if (str + 2 < end)
+ 564              		.loc 1 170 13 is_stmt 1 view .LVU175
+ 170:../rt-thread/src/kservice.c ****             if (str + 2 < end)
+ 565              		.loc 1 170 23 is_stmt 0 view .LVU176
+ 566 0136 1022     		movs	r2, #16
+ 567 0138 54F8040B 		ldr	r0, [r4], #4
+ 568              	.LVL78:
+ 170:../rt-thread/src/kservice.c ****             if (str + 2 < end)
+ 569              		.loc 1 170 23 view .LVU177
+ 570 013c 01A9     		add	r1, sp, #4
+ 571              	.LVL79:
+ 170:../rt-thread/src/kservice.c ****             if (str + 2 < end)
+ 572              		.loc 1 170 23 view .LVU178
+ 573 013e FFF7FEFF 		bl	_itoa
+ 574              	.LVL80:
+ 171:../rt-thread/src/kservice.c ****             {
+ 575              		.loc 1 171 13 is_stmt 1 view .LVU179
+ 171:../rt-thread/src/kservice.c ****             {
+ 576              		.loc 1 171 21 is_stmt 0 view .LVU180
+ 577 0142 AB1C     		adds	r3, r5, #2
+ 171:../rt-thread/src/kservice.c ****             {
+ 578              		.loc 1 171 16 view .LVU181
+ 579 0144 4345     		cmp	r3, r8
+ 580 0146 04D2     		bcs	.L38
+ 173:../rt-thread/src/kservice.c ****                 *str++ = 'x';
+ 581              		.loc 1 173 17 is_stmt 1 view .LVU182
+ 582              	.LVL81:
+ 173:../rt-thread/src/kservice.c ****                 *str++ = 'x';
+ 583              		.loc 1 173 24 is_stmt 0 view .LVU183
+ 584 0148 3022     		movs	r2, #48
+ 585 014a 2A70     		strb	r2, [r5]
+ 174:../rt-thread/src/kservice.c ****             }
+ 586              		.loc 1 174 17 is_stmt 1 view .LVU184
+ 587              	.LVL82:
+ 174:../rt-thread/src/kservice.c ****             }
+ 588              		.loc 1 174 24 is_stmt 0 view .LVU185
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 17
+
+
+ 589 014c 7822     		movs	r2, #120
+ 590 014e 6A70     		strb	r2, [r5, #1]
+ 174:../rt-thread/src/kservice.c ****             }
+ 591              		.loc 1 174 21 view .LVU186
+ 592 0150 1D46     		mov	r5, r3
+ 593              	.LVL83:
+ 594              	.L38:
+ 174:../rt-thread/src/kservice.c ****             }
+ 595              		.loc 1 174 21 view .LVU187
+ 596 0152 0138     		subs	r0, r0, #1
+ 597              	.LVL84:
+ 174:../rt-thread/src/kservice.c ****             }
+ 598              		.loc 1 174 21 view .LVU188
+ 599 0154 2A46     		mov	r2, r5
+ 600              	.LVL85:
+ 601              	.L39:
+ 176:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 602              		.loc 1 176 23 is_stmt 1 view .LVU189
+ 176:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 603              		.loc 1 176 20 is_stmt 0 view .LVU190
+ 604 0156 10F8013F 		ldrb	r3, [r0, #1]!	@ zero_extendqisi2
+ 176:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 605              		.loc 1 176 23 view .LVU191
+ 606 015a 002B     		cmp	r3, #0
+ 607 015c A8D0     		beq	.L49
+ 176:../rt-thread/src/kservice.c ****                 *str++ = *p++;
+ 608              		.loc 1 176 23 discriminator 1 view .LVU192
+ 609 015e 4245     		cmp	r2, r8
+ 610 0160 A6D2     		bcs	.L49
+ 177:../rt-thread/src/kservice.c ****         }
+ 611              		.loc 1 177 17 is_stmt 1 view .LVU193
+ 612              	.LVL86:
+ 177:../rt-thread/src/kservice.c ****         }
+ 613              		.loc 1 177 24 is_stmt 0 view .LVU194
+ 614 0162 02F8013B 		strb	r3, [r2], #1
+ 615              	.LVL87:
+ 177:../rt-thread/src/kservice.c ****         }
+ 616              		.loc 1 177 24 view .LVU195
+ 617 0166 F6E7     		b	.L39
+ 618              	.L64:
+ 619              		.align	2
+ 620              	.L63:
+ 621 0168 00000000 		.word	.LC0
+ 622              	.LBE8:
+ 623              		.cfi_endproc
+ 624              	.LFE9:
+ 626              		.section	.text.rt_kprintf,"ax",%progbits
+ 627              		.align	1
+ 628              		.global	rt_kprintf
+ 629              		.syntax unified
+ 630              		.thumb
+ 631              		.thumb_func
+ 633              	rt_kprintf:
+ 634              	.LVL88:
+ 635              	.LFB7:
+  34:../rt-thread/src/kservice.c ****     va_list args;
+ 636              		.loc 1 34 1 is_stmt 1 view -0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 18
+
+
+ 637              		.cfi_startproc
+ 638              		@ args = 4, pretend = 16, frame = 8
+ 639              		@ frame_needed = 0, uses_anonymous_args = 1
+  35:../rt-thread/src/kservice.c ****     rt_size_t length;
+ 640              		.loc 1 35 5 view .LVU197
+  36:../rt-thread/src/kservice.c ****     static char *ptr;
+ 641              		.loc 1 36 5 view .LVU198
+  37:../rt-thread/src/kservice.c **** 
+ 642              		.loc 1 37 5 view .LVU199
+  39:../rt-thread/src/kservice.c **** 
+ 643              		.loc 1 39 5 view .LVU200
+  34:../rt-thread/src/kservice.c ****     va_list args;
+ 644              		.loc 1 34 1 is_stmt 0 view .LVU201
+ 645 0000 0FB4     		push	{r0, r1, r2, r3}
+ 646              	.LCFI7:
+ 647              		.cfi_def_cfa_offset 16
+ 648              		.cfi_offset 0, -16
+ 649              		.cfi_offset 1, -12
+ 650              		.cfi_offset 2, -8
+ 651              		.cfi_offset 3, -4
+ 652 0002 07B5     		push	{r0, r1, r2, lr}
+ 653              	.LCFI8:
+ 654              		.cfi_def_cfa_offset 32
+ 655              		.cfi_offset 14, -20
+  34:../rt-thread/src/kservice.c ****     va_list args;
+ 656              		.loc 1 34 1 view .LVU202
+ 657 0004 04AB     		add	r3, sp, #16
+  42:../rt-thread/src/kservice.c ****     if (length > RT_CONSOLEBUF_SIZE - 1)
+ 658              		.loc 1 42 14 view .LVU203
+ 659 0006 7F21     		movs	r1, #127
+  34:../rt-thread/src/kservice.c ****     va_list args;
+ 660              		.loc 1 34 1 view .LVU204
+ 661 0008 53F8042B 		ldr	r2, [r3], #4
+  42:../rt-thread/src/kservice.c ****     if (length > RT_CONSOLEBUF_SIZE - 1)
+ 662              		.loc 1 42 14 view .LVU205
+ 663 000c 0548     		ldr	r0, .L66
+  39:../rt-thread/src/kservice.c **** 
+ 664              		.loc 1 39 5 view .LVU206
+ 665 000e 0193     		str	r3, [sp, #4]
+  42:../rt-thread/src/kservice.c ****     if (length > RT_CONSOLEBUF_SIZE - 1)
+ 666              		.loc 1 42 5 is_stmt 1 view .LVU207
+  42:../rt-thread/src/kservice.c ****     if (length > RT_CONSOLEBUF_SIZE - 1)
+ 667              		.loc 1 42 14 is_stmt 0 view .LVU208
+ 668 0010 FFF7FEFF 		bl	rt_vsnprintf
+ 669              	.LVL89:
+  43:../rt-thread/src/kservice.c ****         length = RT_CONSOLEBUF_SIZE - 1;
+ 670              		.loc 1 43 5 is_stmt 1 view .LVU209
+  44:../rt-thread/src/kservice.c **** 
+ 671              		.loc 1 44 9 view .LVU210
+  47:../rt-thread/src/kservice.c **** 
+ 672              		.loc 1 47 5 view .LVU211
+ 673 0014 0348     		ldr	r0, .L66
+ 674 0016 FFF7FEFF 		bl	rt_hw_console_output
+ 675              	.LVL90:
+  49:../rt-thread/src/kservice.c ****     (void)ptr;
+ 676              		.loc 1 49 5 view .LVU212
+  50:../rt-thread/src/kservice.c **** }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 19
+
+
+ 677              		.loc 1 50 5 view .LVU213
+  51:../rt-thread/src/kservice.c **** 
+ 678              		.loc 1 51 1 is_stmt 0 view .LVU214
+ 679 001a 03B0     		add	sp, sp, #12
+ 680              	.LCFI9:
+ 681              		.cfi_def_cfa_offset 20
+ 682              		@ sp needed
+ 683 001c 5DF804EB 		ldr	lr, [sp], #4
+ 684              	.LCFI10:
+ 685              		.cfi_restore 14
+ 686              		.cfi_def_cfa_offset 16
+ 687 0020 04B0     		add	sp, sp, #16
+ 688              	.LCFI11:
+ 689              		.cfi_restore 3
+ 690              		.cfi_restore 2
+ 691              		.cfi_restore 1
+ 692              		.cfi_restore 0
+ 693              		.cfi_def_cfa_offset 0
+ 694 0022 7047     		bx	lr
+ 695              	.L67:
+ 696              		.align	2
+ 697              	.L66:
+ 698 0024 00000000 		.word	rt_log_buf
+ 699              		.cfi_endproc
+ 700              	.LFE7:
+ 702              		.section	.text.rt_snprintf,"ax",%progbits
+ 703              		.align	1
+ 704              		.global	rt_snprintf
+ 705              		.syntax unified
+ 706              		.thumb
+ 707              		.thumb_func
+ 709              	rt_snprintf:
+ 710              	.LVL91:
+ 711              	.LFB10:
+ 196:../rt-thread/src/kservice.c **** 
+ 197:../rt-thread/src/kservice.c **** /**
+ 198:../rt-thread/src/kservice.c ****  * snprintf
+ 199:../rt-thread/src/kservice.c ****  */
+ 200:../rt-thread/src/kservice.c **** int rt_snprintf(char *buf, rt_size_t size, const char *fmt, ...)
+ 201:../rt-thread/src/kservice.c **** {
+ 712              		.loc 1 201 1 is_stmt 1 view -0
+ 713              		.cfi_startproc
+ 714              		@ args = 4, pretend = 8, frame = 8
+ 715              		@ frame_needed = 0, uses_anonymous_args = 1
+ 202:../rt-thread/src/kservice.c ****     int n;
+ 716              		.loc 1 202 5 view .LVU216
+ 203:../rt-thread/src/kservice.c ****     va_list args;
+ 717              		.loc 1 203 5 view .LVU217
+ 204:../rt-thread/src/kservice.c **** 
+ 205:../rt-thread/src/kservice.c ****     va_start(args, fmt);
+ 718              		.loc 1 205 5 view .LVU218
+ 201:../rt-thread/src/kservice.c ****     int n;
+ 719              		.loc 1 201 1 is_stmt 0 view .LVU219
+ 720 0000 0CB4     		push	{r2, r3}
+ 721              	.LCFI12:
+ 722              		.cfi_def_cfa_offset 8
+ 723              		.cfi_offset 2, -8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 20
+
+
+ 724              		.cfi_offset 3, -4
+ 725 0002 07B5     		push	{r0, r1, r2, lr}
+ 726              	.LCFI13:
+ 727              		.cfi_def_cfa_offset 24
+ 728              		.cfi_offset 14, -12
+ 201:../rt-thread/src/kservice.c ****     int n;
+ 729              		.loc 1 201 1 view .LVU220
+ 730 0004 04AB     		add	r3, sp, #16
+ 731 0006 53F8042B 		ldr	r2, [r3], #4
+ 732              		.loc 1 205 5 view .LVU221
+ 733 000a 0193     		str	r3, [sp, #4]
+ 206:../rt-thread/src/kservice.c ****     n = rt_vsnprintf(buf, size, fmt, args);
+ 734              		.loc 1 206 5 is_stmt 1 view .LVU222
+ 735              		.loc 1 206 9 is_stmt 0 view .LVU223
+ 736 000c FFF7FEFF 		bl	rt_vsnprintf
+ 737              	.LVL92:
+ 207:../rt-thread/src/kservice.c ****     va_end(args);
+ 738              		.loc 1 207 5 is_stmt 1 view .LVU224
+ 208:../rt-thread/src/kservice.c **** 
+ 209:../rt-thread/src/kservice.c ****     return n;
+ 739              		.loc 1 209 5 view .LVU225
+ 210:../rt-thread/src/kservice.c **** }
+ 740              		.loc 1 210 1 is_stmt 0 view .LVU226
+ 741 0010 03B0     		add	sp, sp, #12
+ 742              	.LCFI14:
+ 743              		.cfi_def_cfa_offset 12
+ 744              		@ sp needed
+ 745 0012 5DF804EB 		ldr	lr, [sp], #4
+ 746              	.LCFI15:
+ 747              		.cfi_restore 14
+ 748              		.cfi_def_cfa_offset 8
+ 749 0016 02B0     		add	sp, sp, #8
+ 750              	.LCFI16:
+ 751              		.cfi_restore 3
+ 752              		.cfi_restore 2
+ 753              		.cfi_def_cfa_offset 0
+ 754 0018 7047     		bx	lr
+ 755              		.cfi_endproc
+ 756              	.LFE10:
+ 758              		.section	.bss.rt_log_buf,"aw",%nobits
+ 761              	rt_log_buf:
+ 762 0000 00000000 		.space	128
+ 762      00000000 
+ 762      00000000 
+ 762      00000000 
+ 762      00000000 
+ 763              		.text
+ 764              	.Letext0:
+ 765              		.file 2 "../rt-thread/include/rtdef.h"
+ 766              		.file 3 "D:/Tool/arm-gnu-toolchain/lib/gcc/arm-none-eabi/14.2.1/include/stdarg.h"
+ 767              		.file 4 "<built-in>"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s 			page 21
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 kservice.c
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:21     .text._itoa:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:26     .text._itoa:00000000 _itoa
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:185    .text.rt_hw_console_output:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:191    .text.rt_hw_console_output:00000000 rt_hw_console_output
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:209    .text.rt_vsnprintf:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:215    .text.rt_vsnprintf:00000000 rt_vsnprintf
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:346    .text.rt_vsnprintf:00000068 $d
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:355    .text.rt_vsnprintf:0000008c $t
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:621    .text.rt_vsnprintf:00000168 $d
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:627    .text.rt_kprintf:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:633    .text.rt_kprintf:00000000 rt_kprintf
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:698    .text.rt_kprintf:00000024 $d
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:761    .bss.rt_log_buf:00000000 rt_log_buf
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:703    .text.rt_snprintf:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:709    .text.rt_snprintf:00000000 rt_snprintf
+C:\Users\Dawn\AppData\Local\Temp\ccLwNbs1.s:762    .bss.rt_log_buf:00000000 $d
+
+NO UNDEFINED SYMBOLS

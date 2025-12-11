@@ -1,0 +1,1934 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"ipc.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../rt-thread/src/ipc.c"
+  20              		.section	.text.rt_sem_init,"ax",%progbits
+  21              		.align	1
+  22              		.global	rt_sem_init
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	rt_sem_init:
+  28              	.LVL0:
+  29              	.LFB6:
+   1:../rt-thread/src/ipc.c **** /*
+   2:../rt-thread/src/ipc.c ****  * Copyright (c) 2006-2022, RT-Thread Development Team
+   3:../rt-thread/src/ipc.c ****  *
+   4:../rt-thread/src/ipc.c ****  * SPDX-License-Identifier: Apache-2.0
+   5:../rt-thread/src/ipc.c ****  *
+   6:../rt-thread/src/ipc.c ****  * RT-Thread Inter-Process Communication
+   7:../rt-thread/src/ipc.c ****  */
+   8:../rt-thread/src/ipc.c **** 
+   9:../rt-thread/src/ipc.c **** #include <rtthread.h>
+  10:../rt-thread/src/ipc.c **** #include <rthw.h>
+  11:../rt-thread/src/ipc.c **** 
+  12:../rt-thread/src/ipc.c **** #ifdef RT_USING_SEMAPHORE
+  13:../rt-thread/src/ipc.c **** 
+  14:../rt-thread/src/ipc.c **** /**
+  15:../rt-thread/src/ipc.c ****  * Initialize a semaphore
+  16:../rt-thread/src/ipc.c ****  */
+  17:../rt-thread/src/ipc.c **** rt_err_t rt_sem_init(rt_sem_t    sem,
+  18:../rt-thread/src/ipc.c ****                      const char *name,
+  19:../rt-thread/src/ipc.c ****                      rt_uint32_t value,
+  20:../rt-thread/src/ipc.c ****                      rt_uint8_t  flag)
+  21:../rt-thread/src/ipc.c **** {
+  30              		.loc 1 21 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  22:../rt-thread/src/ipc.c ****     RT_ASSERT(sem != RT_NULL);
+  34              		.loc 1 22 5 view .LVU1
+  23:../rt-thread/src/ipc.c **** 
+  24:../rt-thread/src/ipc.c ****     /* Initialize object */
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 2
+
+
+  25:../rt-thread/src/ipc.c ****     rt_object_init(&sem->parent, RT_Object_Class_Semaphore, name);
+  35              		.loc 1 25 5 view .LVU2
+  21:../rt-thread/src/ipc.c ****     RT_ASSERT(sem != RT_NULL);
+  36              		.loc 1 21 1 is_stmt 0 view .LVU3
+  37 0000 70B5     		push	{r4, r5, r6, lr}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 16
+  40              		.cfi_offset 4, -16
+  41              		.cfi_offset 5, -12
+  42              		.cfi_offset 6, -8
+  43              		.cfi_offset 14, -4
+  21:../rt-thread/src/ipc.c ****     RT_ASSERT(sem != RT_NULL);
+  44              		.loc 1 21 1 view .LVU4
+  45 0002 0446     		mov	r4, r0
+  46 0004 1D46     		mov	r5, r3
+  47 0006 1646     		mov	r6, r2
+  48              		.loc 1 25 5 view .LVU5
+  49 0008 0A46     		mov	r2, r1
+  50              	.LVL1:
+  51              		.loc 1 25 5 view .LVU6
+  52 000a 0221     		movs	r1, #2
+  53              	.LVL2:
+  54              		.loc 1 25 5 view .LVU7
+  55 000c FFF7FEFF 		bl	rt_object_init
+  56              	.LVL3:
+  26:../rt-thread/src/ipc.c **** 
+  27:../rt-thread/src/ipc.c ****     /* Initialize suspend list */
+  28:../rt-thread/src/ipc.c ****     rt_list_init(&sem->suspend_thread);
+  57              		.loc 1 28 5 is_stmt 1 view .LVU8
+  58 0010 04F11003 		add	r3, r4, #16
+  59              	.LVL4:
+  60              	.LBB24:
+  61              	.LBI24:
+  62              		.file 2 "../rt-thread/include/rtthread.h"
+   1:../rt-thread/include/rtthread.h **** /*
+   2:../rt-thread/include/rtthread.h ****  * Copyright (c) 2006-2022, RT-Thread Development Team
+   3:../rt-thread/include/rtthread.h ****  *
+   4:../rt-thread/include/rtthread.h ****  * SPDX-License-Identifier: Apache-2.0
+   5:../rt-thread/include/rtthread.h ****  *
+   6:../rt-thread/include/rtthread.h ****  * RT-Thread Nano for N32G430
+   7:../rt-thread/include/rtthread.h ****  */
+   8:../rt-thread/include/rtthread.h **** 
+   9:../rt-thread/include/rtthread.h **** #ifndef __RT_THREAD_H__
+  10:../rt-thread/include/rtthread.h **** #define __RT_THREAD_H__
+  11:../rt-thread/include/rtthread.h **** 
+  12:../rt-thread/include/rtthread.h **** #include <rtdef.h>
+  13:../rt-thread/include/rtthread.h **** #include <rtservice.h>
+  14:../rt-thread/include/rtthread.h **** 
+  15:../rt-thread/include/rtthread.h **** #ifdef __cplusplus
+  16:../rt-thread/include/rtthread.h **** extern "C" {
+  17:../rt-thread/include/rtthread.h **** #endif
+  18:../rt-thread/include/rtthread.h **** 
+  19:../rt-thread/include/rtthread.h **** /* RT-Thread kernel interface */
+  20:../rt-thread/include/rtthread.h **** 
+  21:../rt-thread/include/rtthread.h **** /* Initialization and startup */
+  22:../rt-thread/include/rtthread.h **** void rt_system_tick_init(void);
+  23:../rt-thread/include/rtthread.h **** void rt_system_timer_init(void);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 3
+
+
+  24:../rt-thread/include/rtthread.h **** void rt_system_timer_thread_init(void);
+  25:../rt-thread/include/rtthread.h **** void rt_system_scheduler_init(void);
+  26:../rt-thread/include/rtthread.h **** void rt_system_scheduler_start(void);
+  27:../rt-thread/include/rtthread.h **** 
+  28:../rt-thread/include/rtthread.h **** /* Thread interface */
+  29:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_init(struct rt_thread *thread,
+  30:../rt-thread/include/rtthread.h ****                         const char       *name,
+  31:../rt-thread/include/rtthread.h ****                         void (*entry)(void *parameter),
+  32:../rt-thread/include/rtthread.h ****                         void             *parameter,
+  33:../rt-thread/include/rtthread.h ****                         void             *stack_start,
+  34:../rt-thread/include/rtthread.h ****                         rt_uint32_t       stack_size,
+  35:../rt-thread/include/rtthread.h ****                         rt_uint8_t        priority,
+  36:../rt-thread/include/rtthread.h ****                         rt_uint32_t       tick);
+  37:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_startup(rt_thread_t thread);
+  38:../rt-thread/include/rtthread.h **** rt_thread_t rt_thread_self(void);
+  39:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_yield(void);
+  40:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_delay(rt_tick_t tick);
+  41:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_mdelay(rt_int32_t ms);
+  42:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_suspend(rt_thread_t thread);
+  43:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_resume(rt_thread_t thread);
+  44:../rt-thread/include/rtthread.h **** 
+  45:../rt-thread/include/rtthread.h **** /* Scheduler interface */
+  46:../rt-thread/include/rtthread.h **** void rt_schedule(void);
+  47:../rt-thread/include/rtthread.h **** void rt_enter_critical(void);
+  48:../rt-thread/include/rtthread.h **** void rt_exit_critical(void);
+  49:../rt-thread/include/rtthread.h **** rt_uint16_t rt_critical_level(void);
+  50:../rt-thread/include/rtthread.h **** 
+  51:../rt-thread/include/rtthread.h **** /* Timer interface */
+  52:../rt-thread/include/rtthread.h **** void rt_timer_init(rt_timer_t  timer,
+  53:../rt-thread/include/rtthread.h ****                    const char *name,
+  54:../rt-thread/include/rtthread.h ****                    void (*timeout)(void *parameter),
+  55:../rt-thread/include/rtthread.h ****                    void       *parameter,
+  56:../rt-thread/include/rtthread.h ****                    rt_tick_t   time,
+  57:../rt-thread/include/rtthread.h ****                    rt_uint8_t  flag);
+  58:../rt-thread/include/rtthread.h **** rt_err_t rt_timer_start(rt_timer_t timer);
+  59:../rt-thread/include/rtthread.h **** rt_err_t rt_timer_stop(rt_timer_t timer);
+  60:../rt-thread/include/rtthread.h **** void rt_timer_check(void);
+  61:../rt-thread/include/rtthread.h **** 
+  62:../rt-thread/include/rtthread.h **** /* Tick interface */
+  63:../rt-thread/include/rtthread.h **** void rt_tick_increase(void);
+  64:../rt-thread/include/rtthread.h **** rt_tick_t rt_tick_get(void);
+  65:../rt-thread/include/rtthread.h **** 
+  66:../rt-thread/include/rtthread.h **** /* Interrupt interface */
+  67:../rt-thread/include/rtthread.h **** rt_base_t rt_hw_interrupt_disable(void);
+  68:../rt-thread/include/rtthread.h **** void rt_hw_interrupt_enable(rt_base_t level);
+  69:../rt-thread/include/rtthread.h **** void rt_hw_context_switch(rt_ubase_t from, rt_ubase_t to);
+  70:../rt-thread/include/rtthread.h **** void rt_hw_context_switch_to(rt_ubase_t to);
+  71:../rt-thread/include/rtthread.h **** void rt_hw_context_switch_interrupt(rt_ubase_t from, rt_ubase_t to);
+  72:../rt-thread/include/rtthread.h **** 
+  73:../rt-thread/include/rtthread.h **** /* Hardware interface */
+  74:../rt-thread/include/rtthread.h **** rt_uint8_t *rt_hw_stack_init(void       *entry,
+  75:../rt-thread/include/rtthread.h ****                              void       *parameter,
+  76:../rt-thread/include/rtthread.h ****                              rt_uint8_t *stack_addr,
+  77:../rt-thread/include/rtthread.h ****                              void       *exit);
+  78:../rt-thread/include/rtthread.h **** 
+  79:../rt-thread/include/rtthread.h **** /* Semaphore interface */
+  80:../rt-thread/include/rtthread.h **** #ifdef RT_USING_SEMAPHORE
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 4
+
+
+  81:../rt-thread/include/rtthread.h **** rt_err_t rt_sem_init(rt_sem_t    sem,
+  82:../rt-thread/include/rtthread.h ****                      const char *name,
+  83:../rt-thread/include/rtthread.h ****                      rt_uint32_t value,
+  84:../rt-thread/include/rtthread.h ****                      rt_uint8_t  flag);
+  85:../rt-thread/include/rtthread.h **** rt_err_t rt_sem_take(rt_sem_t sem, rt_int32_t timeout);
+  86:../rt-thread/include/rtthread.h **** rt_err_t rt_sem_trytake(rt_sem_t sem);
+  87:../rt-thread/include/rtthread.h **** rt_err_t rt_sem_release(rt_sem_t sem);
+  88:../rt-thread/include/rtthread.h **** rt_err_t rt_sem_detach(rt_sem_t sem);
+  89:../rt-thread/include/rtthread.h **** #endif
+  90:../rt-thread/include/rtthread.h **** 
+  91:../rt-thread/include/rtthread.h **** /* Mutex interface */
+  92:../rt-thread/include/rtthread.h **** #ifdef RT_USING_MUTEX
+  93:../rt-thread/include/rtthread.h **** rt_err_t rt_mutex_init(rt_mutex_t mutex, const char *name, rt_uint8_t flag);
+  94:../rt-thread/include/rtthread.h **** rt_err_t rt_mutex_take(rt_mutex_t mutex, rt_int32_t timeout);
+  95:../rt-thread/include/rtthread.h **** rt_err_t rt_mutex_release(rt_mutex_t mutex);
+  96:../rt-thread/include/rtthread.h **** rt_err_t rt_mutex_detach(rt_mutex_t mutex);
+  97:../rt-thread/include/rtthread.h **** #endif
+  98:../rt-thread/include/rtthread.h **** 
+  99:../rt-thread/include/rtthread.h **** /* Memory management */
+ 100:../rt-thread/include/rtthread.h **** void *rt_malloc(rt_size_t nbytes);
+ 101:../rt-thread/include/rtthread.h **** void *rt_realloc(void *ptr, rt_size_t nbytes);
+ 102:../rt-thread/include/rtthread.h **** void *rt_calloc(rt_size_t count, rt_size_t size);
+ 103:../rt-thread/include/rtthread.h **** void rt_free(void *ptr);
+ 104:../rt-thread/include/rtthread.h **** void rt_memory_info(rt_uint32_t *total,
+ 105:../rt-thread/include/rtthread.h ****                     rt_uint32_t *used,
+ 106:../rt-thread/include/rtthread.h ****                     rt_uint32_t *max_used);
+ 107:../rt-thread/include/rtthread.h **** 
+ 108:../rt-thread/include/rtthread.h **** /* Console interface */
+ 109:../rt-thread/include/rtthread.h **** void rt_kprintf(const char *fmt, ...);
+ 110:../rt-thread/include/rtthread.h **** void rt_hw_console_output(const char *str);
+ 111:../rt-thread/include/rtthread.h **** 
+ 112:../rt-thread/include/rtthread.h **** /* System startup hook */
+ 113:../rt-thread/include/rtthread.h **** void rt_application_init(void);
+ 114:../rt-thread/include/rtthread.h **** 
+ 115:../rt-thread/include/rtthread.h **** /* Idle thread hook */
+ 116:../rt-thread/include/rtthread.h **** void rt_thread_idle_init(void);
+ 117:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_idle_sethook(void (*hook)(void));
+ 118:../rt-thread/include/rtthread.h **** rt_err_t rt_thread_idle_delhook(void (*hook)(void));
+ 119:../rt-thread/include/rtthread.h **** 
+ 120:../rt-thread/include/rtthread.h **** /* Kernel object interface */
+ 121:../rt-thread/include/rtthread.h **** void rt_object_init(struct rt_object *object,
+ 122:../rt-thread/include/rtthread.h ****                     enum rt_object_class_type type,
+ 123:../rt-thread/include/rtthread.h ****                     const char *name);
+ 124:../rt-thread/include/rtthread.h **** 
+ 125:../rt-thread/include/rtthread.h **** /* List operations */
+ 126:../rt-thread/include/rtthread.h **** rt_inline void rt_list_init(rt_list_t *l)
+  63              		.loc 2 126 16 view .LVU9
+  64              	.LBB25:
+ 127:../rt-thread/include/rtthread.h **** {
+ 128:../rt-thread/include/rtthread.h ****     l->next = l->prev = l;
+  65              		.loc 2 128 5 view .LVU10
+  66              	.LBE25:
+  67              	.LBE24:
+  29:../rt-thread/src/ipc.c **** 
+  30:../rt-thread/src/ipc.c ****     sem->value = value;
+  31:../rt-thread/src/ipc.c ****     sem->parent.flag = flag;
+  68              		.loc 1 31 22 is_stmt 0 view .LVU11
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 5
+
+
+  69 0014 6572     		strb	r5, [r4, #9]
+  70              	.LBB27:
+  71              	.LBB26:
+  72              		.loc 2 128 13 view .LVU12
+  73 0016 C4E90433 		strd	r3, r3, [r4, #16]
+  74              	.LVL5:
+  75              		.loc 2 128 13 view .LVU13
+  76              	.LBE26:
+  77              	.LBE27:
+  30:../rt-thread/src/ipc.c ****     sem->parent.flag = flag;
+  78              		.loc 1 30 5 is_stmt 1 view .LVU14
+  30:../rt-thread/src/ipc.c ****     sem->parent.flag = flag;
+  79              		.loc 1 30 16 is_stmt 0 view .LVU15
+  80 001a 2683     		strh	r6, [r4, #24]	@ movhi
+  81              		.loc 1 31 5 is_stmt 1 view .LVU16
+  32:../rt-thread/src/ipc.c **** 
+  33:../rt-thread/src/ipc.c ****     return RT_EOK;
+  82              		.loc 1 33 5 view .LVU17
+  34:../rt-thread/src/ipc.c **** }
+  83              		.loc 1 34 1 is_stmt 0 view .LVU18
+  84 001c 0020     		movs	r0, #0
+  85 001e 70BD     		pop	{r4, r5, r6, pc}
+  86              		.loc 1 34 1 view .LVU19
+  87              		.cfi_endproc
+  88              	.LFE6:
+  90              		.section	.text.rt_sem_detach,"ax",%progbits
+  91              		.align	1
+  92              		.global	rt_sem_detach
+  93              		.syntax unified
+  94              		.thumb
+  95              		.thumb_func
+  97              	rt_sem_detach:
+  98              	.LVL6:
+  99              	.LFB7:
+  35:../rt-thread/src/ipc.c **** 
+  36:../rt-thread/src/ipc.c **** /**
+  37:../rt-thread/src/ipc.c ****  * Detach a semaphore
+  38:../rt-thread/src/ipc.c ****  */
+  39:../rt-thread/src/ipc.c **** rt_err_t rt_sem_detach(rt_sem_t sem)
+  40:../rt-thread/src/ipc.c **** {
+ 100              		.loc 1 40 1 is_stmt 1 view -0
+ 101              		.cfi_startproc
+ 102              		@ args = 0, pretend = 0, frame = 0
+ 103              		@ frame_needed = 0, uses_anonymous_args = 0
+  41:../rt-thread/src/ipc.c ****     RT_ASSERT(sem != RT_NULL);
+ 104              		.loc 1 41 5 view .LVU21
+  42:../rt-thread/src/ipc.c **** 
+  43:../rt-thread/src/ipc.c ****     /* Wakeup all suspend threads */
+  44:../rt-thread/src/ipc.c ****     while (!rt_list_isempty(&sem->suspend_thread))
+ 105              		.loc 1 44 5 view .LVU22
+  40:../rt-thread/src/ipc.c ****     RT_ASSERT(sem != RT_NULL);
+ 106              		.loc 1 40 1 is_stmt 0 view .LVU23
+ 107 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 108              	.LCFI1:
+ 109              		.cfi_def_cfa_offset 24
+ 110              		.cfi_offset 3, -24
+ 111              		.cfi_offset 4, -20
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 6
+
+
+ 112              		.cfi_offset 5, -16
+ 113              		.cfi_offset 6, -12
+ 114              		.cfi_offset 7, -8
+ 115              		.cfi_offset 14, -4
+  40:../rt-thread/src/ipc.c ****     RT_ASSERT(sem != RT_NULL);
+ 116              		.loc 1 40 1 view .LVU24
+ 117 0002 0446     		mov	r4, r0
+ 118              		.loc 1 44 29 view .LVU25
+ 119 0004 00F11006 		add	r6, r0, #16
+ 120              	.LBB28:
+  45:../rt-thread/src/ipc.c ****     {
+  46:../rt-thread/src/ipc.c ****         struct rt_thread *thread;
+  47:../rt-thread/src/ipc.c ****         register rt_base_t level;
+  48:../rt-thread/src/ipc.c **** 
+  49:../rt-thread/src/ipc.c ****         level = rt_hw_interrupt_disable();
+  50:../rt-thread/src/ipc.c **** 
+  51:../rt-thread/src/ipc.c ****         thread = rt_list_entry(sem->suspend_thread.next,
+  52:../rt-thread/src/ipc.c ****                                struct rt_thread,
+  53:../rt-thread/src/ipc.c ****                                tlist);
+  54:../rt-thread/src/ipc.c ****         thread->error = -RT_ERROR;
+ 121              		.loc 1 54 23 view .LVU26
+ 122 0008 4FF0FF37 		mov	r7, #-1
+ 123              	.LVL7:
+ 124              	.L3:
+ 125              		.loc 1 54 23 view .LVU27
+ 126              	.LBE28:
+  44:../rt-thread/src/ipc.c ****     {
+ 127              		.loc 1 44 12 is_stmt 1 view .LVU28
+ 128              	.LBB29:
+ 129              	.LBI29:
+ 129:../rt-thread/include/rtthread.h **** }
+ 130:../rt-thread/include/rtthread.h **** 
+ 131:../rt-thread/include/rtthread.h **** rt_inline void rt_list_insert_after(rt_list_t *l, rt_list_t *n)
+ 132:../rt-thread/include/rtthread.h **** {
+ 133:../rt-thread/include/rtthread.h ****     l->next->prev = n;
+ 134:../rt-thread/include/rtthread.h ****     n->next = l->next;
+ 135:../rt-thread/include/rtthread.h ****     l->next = n;
+ 136:../rt-thread/include/rtthread.h ****     n->prev = l;
+ 137:../rt-thread/include/rtthread.h **** }
+ 138:../rt-thread/include/rtthread.h **** 
+ 139:../rt-thread/include/rtthread.h **** rt_inline void rt_list_insert_before(rt_list_t *l, rt_list_t *n)
+ 140:../rt-thread/include/rtthread.h **** {
+ 141:../rt-thread/include/rtthread.h ****     l->prev->next = n;
+ 142:../rt-thread/include/rtthread.h ****     n->prev = l->prev;
+ 143:../rt-thread/include/rtthread.h ****     l->prev = n;
+ 144:../rt-thread/include/rtthread.h ****     n->next = l;
+ 145:../rt-thread/include/rtthread.h **** }
+ 146:../rt-thread/include/rtthread.h **** 
+ 147:../rt-thread/include/rtthread.h **** rt_inline void rt_list_remove(rt_list_t *n)
+ 148:../rt-thread/include/rtthread.h **** {
+ 149:../rt-thread/include/rtthread.h ****     n->next->prev = n->prev;
+ 150:../rt-thread/include/rtthread.h ****     n->prev->next = n->next;
+ 151:../rt-thread/include/rtthread.h ****     n->next = n->prev = n;
+ 152:../rt-thread/include/rtthread.h **** }
+ 153:../rt-thread/include/rtthread.h **** 
+ 154:../rt-thread/include/rtthread.h **** rt_inline int rt_list_isempty(const rt_list_t *l)
+ 130              		.loc 2 154 15 view .LVU29
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 7
+
+
+ 131              	.LBB30:
+ 155:../rt-thread/include/rtthread.h **** {
+ 156:../rt-thread/include/rtthread.h ****     return l->next == l;
+ 132              		.loc 2 156 5 view .LVU30
+ 133              		.loc 2 156 5 is_stmt 0 view .LVU31
+ 134              	.LBE30:
+ 135              	.LBE29:
+  44:../rt-thread/src/ipc.c ****     {
+ 136              		.loc 1 44 12 discriminator 1 view .LVU32
+ 137 000c 2369     		ldr	r3, [r4, #16]
+ 138 000e B342     		cmp	r3, r6
+ 139 0010 04D1     		bne	.L4
+  55:../rt-thread/src/ipc.c **** 
+  56:../rt-thread/src/ipc.c ****         rt_thread_resume(thread);
+  57:../rt-thread/src/ipc.c **** 
+  58:../rt-thread/src/ipc.c ****         rt_hw_interrupt_enable(level);
+  59:../rt-thread/src/ipc.c ****     }
+  60:../rt-thread/src/ipc.c **** 
+  61:../rt-thread/src/ipc.c ****     rt_object_detach(&sem->parent);
+ 140              		.loc 1 61 5 is_stmt 1 view .LVU33
+ 141 0012 2046     		mov	r0, r4
+ 142 0014 FFF7FEFF 		bl	rt_object_detach
+ 143              	.LVL8:
+  62:../rt-thread/src/ipc.c **** 
+  63:../rt-thread/src/ipc.c ****     return RT_EOK;
+ 144              		.loc 1 63 5 view .LVU34
+  64:../rt-thread/src/ipc.c **** }
+ 145              		.loc 1 64 1 is_stmt 0 view .LVU35
+ 146 0018 0020     		movs	r0, #0
+ 147 001a F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 148              	.LVL9:
+ 149              	.L4:
+ 150              	.LBB31:
+  46:../rt-thread/src/ipc.c ****         register rt_base_t level;
+ 151              		.loc 1 46 9 is_stmt 1 view .LVU36
+  47:../rt-thread/src/ipc.c **** 
+ 152              		.loc 1 47 9 view .LVU37
+  49:../rt-thread/src/ipc.c **** 
+ 153              		.loc 1 49 9 view .LVU38
+  49:../rt-thread/src/ipc.c **** 
+ 154              		.loc 1 49 17 is_stmt 0 view .LVU39
+ 155 001c FFF7FEFF 		bl	rt_hw_interrupt_disable
+ 156              	.LVL10:
+ 157 0020 0546     		mov	r5, r0
+ 158              	.LVL11:
+  51:../rt-thread/src/ipc.c ****                                struct rt_thread,
+ 159              		.loc 1 51 9 is_stmt 1 view .LVU40
+  51:../rt-thread/src/ipc.c ****                                struct rt_thread,
+ 160              		.loc 1 51 18 is_stmt 0 view .LVU41
+ 161 0022 2069     		ldr	r0, [r4, #16]
+ 162              	.LVL12:
+  54:../rt-thread/src/ipc.c **** 
+ 163              		.loc 1 54 9 is_stmt 1 view .LVU42
+  54:../rt-thread/src/ipc.c **** 
+ 164              		.loc 1 54 23 is_stmt 0 view .LVU43
+ 165 0024 C761     		str	r7, [r0, #28]
+  56:../rt-thread/src/ipc.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 8
+
+
+ 166              		.loc 1 56 9 is_stmt 1 view .LVU44
+ 167 0026 1038     		subs	r0, r0, #16
+ 168              	.LVL13:
+  56:../rt-thread/src/ipc.c **** 
+ 169              		.loc 1 56 9 is_stmt 0 view .LVU45
+ 170 0028 FFF7FEFF 		bl	rt_thread_resume
+ 171              	.LVL14:
+  58:../rt-thread/src/ipc.c ****     }
+ 172              		.loc 1 58 9 is_stmt 1 view .LVU46
+ 173 002c 2846     		mov	r0, r5
+ 174 002e FFF7FEFF 		bl	rt_hw_interrupt_enable
+ 175              	.LVL15:
+ 176 0032 EBE7     		b	.L3
+ 177              	.LBE31:
+ 178              		.cfi_endproc
+ 179              	.LFE7:
+ 181              		.section	.text.rt_sem_take,"ax",%progbits
+ 182              		.align	1
+ 183              		.global	rt_sem_take
+ 184              		.syntax unified
+ 185              		.thumb
+ 186              		.thumb_func
+ 188              	rt_sem_take:
+ 189              	.LVL16:
+ 190              	.LFB8:
+  65:../rt-thread/src/ipc.c **** 
+  66:../rt-thread/src/ipc.c **** /**
+  67:../rt-thread/src/ipc.c ****  * Take a semaphore
+  68:../rt-thread/src/ipc.c ****  */
+  69:../rt-thread/src/ipc.c **** rt_err_t rt_sem_take(rt_sem_t sem, rt_int32_t timeout)
+  70:../rt-thread/src/ipc.c **** {
+ 191              		.loc 1 70 1 view -0
+ 192              		.cfi_startproc
+ 193              		@ args = 0, pretend = 0, frame = 8
+ 194              		@ frame_needed = 0, uses_anonymous_args = 0
+  71:../rt-thread/src/ipc.c ****     register rt_base_t level;
+ 195              		.loc 1 71 5 view .LVU48
+  72:../rt-thread/src/ipc.c ****     struct rt_thread *thread;
+ 196              		.loc 1 72 5 view .LVU49
+  73:../rt-thread/src/ipc.c **** 
+  74:../rt-thread/src/ipc.c ****     RT_ASSERT(sem != RT_NULL);
+ 197              		.loc 1 74 5 view .LVU50
+  75:../rt-thread/src/ipc.c **** 
+  76:../rt-thread/src/ipc.c ****     level = rt_hw_interrupt_disable();
+ 198              		.loc 1 76 5 view .LVU51
+  70:../rt-thread/src/ipc.c ****     register rt_base_t level;
+ 199              		.loc 1 70 1 is_stmt 0 view .LVU52
+ 200 0000 F7B5     		push	{r0, r1, r2, r4, r5, r6, r7, lr}
+ 201              	.LCFI2:
+ 202              		.cfi_def_cfa_offset 32
+ 203              		.cfi_offset 4, -20
+ 204              		.cfi_offset 5, -16
+ 205              		.cfi_offset 6, -12
+ 206              		.cfi_offset 7, -8
+ 207              		.cfi_offset 14, -4
+  70:../rt-thread/src/ipc.c ****     register rt_base_t level;
+ 208              		.loc 1 70 1 view .LVU53
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 9
+
+
+ 209 0002 0546     		mov	r5, r0
+ 210 0004 0191     		str	r1, [sp, #4]
+ 211              		.loc 1 76 13 view .LVU54
+ 212 0006 FFF7FEFF 		bl	rt_hw_interrupt_disable
+ 213              	.LVL17:
+  77:../rt-thread/src/ipc.c **** 
+  78:../rt-thread/src/ipc.c ****     if (sem->value > 0)
+ 214              		.loc 1 78 12 view .LVU55
+ 215 000a 2E8B     		ldrh	r6, [r5, #24]
+  76:../rt-thread/src/ipc.c **** 
+ 216              		.loc 1 76 13 view .LVU56
+ 217 000c 0746     		mov	r7, r0
+ 218              	.LVL18:
+ 219              		.loc 1 78 5 is_stmt 1 view .LVU57
+ 220              		.loc 1 78 8 is_stmt 0 view .LVU58
+ 221 000e 36B1     		cbz	r6, .L6
+  79:../rt-thread/src/ipc.c ****     {
+  80:../rt-thread/src/ipc.c ****         sem->value--;
+ 222              		.loc 1 80 9 is_stmt 1 view .LVU59
+ 223              		.loc 1 80 19 is_stmt 0 view .LVU60
+ 224 0010 013E     		subs	r6, r6, #1
+ 225 0012 2E83     		strh	r6, [r5, #24]	@ movhi
+  81:../rt-thread/src/ipc.c ****         rt_hw_interrupt_enable(level);
+ 226              		.loc 1 81 9 is_stmt 1 view .LVU61
+ 227 0014 FFF7FEFF 		bl	rt_hw_interrupt_enable
+ 228              	.LVL19:
+  82:../rt-thread/src/ipc.c ****     }
+  83:../rt-thread/src/ipc.c ****     else
+  84:../rt-thread/src/ipc.c ****     {
+  85:../rt-thread/src/ipc.c ****         if (timeout == 0)
+  86:../rt-thread/src/ipc.c ****         {
+  87:../rt-thread/src/ipc.c ****             rt_hw_interrupt_enable(level);
+  88:../rt-thread/src/ipc.c ****             return -RT_ETIMEOUT;
+  89:../rt-thread/src/ipc.c ****         }
+  90:../rt-thread/src/ipc.c **** 
+  91:../rt-thread/src/ipc.c ****         thread = rt_thread_self();
+  92:../rt-thread/src/ipc.c **** 
+  93:../rt-thread/src/ipc.c ****         /* Reset error */
+  94:../rt-thread/src/ipc.c ****         thread->error = RT_EOK;
+  95:../rt-thread/src/ipc.c **** 
+  96:../rt-thread/src/ipc.c ****         /* Suspend thread */
+  97:../rt-thread/src/ipc.c ****         rt_thread_suspend(thread);
+  98:../rt-thread/src/ipc.c **** 
+  99:../rt-thread/src/ipc.c ****         /* Insert to suspend list */
+ 100:../rt-thread/src/ipc.c ****         if (sem->parent.flag == RT_IPC_FLAG_FIFO)
+ 101:../rt-thread/src/ipc.c ****         {
+ 102:../rt-thread/src/ipc.c ****             rt_list_insert_before(&sem->suspend_thread, &thread->tlist);
+ 103:../rt-thread/src/ipc.c ****         }
+ 104:../rt-thread/src/ipc.c ****         else
+ 105:../rt-thread/src/ipc.c ****         {
+ 106:../rt-thread/src/ipc.c ****             rt_list_insert_after(&sem->suspend_thread, &thread->tlist);
+ 107:../rt-thread/src/ipc.c ****         }
+ 108:../rt-thread/src/ipc.c **** 
+ 109:../rt-thread/src/ipc.c ****         /* Start timer */
+ 110:../rt-thread/src/ipc.c ****         if (timeout > 0)
+ 111:../rt-thread/src/ipc.c ****         {
+ 112:../rt-thread/src/ipc.c ****             rt_timer_control(&thread->thread_timer,
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 10
+
+
+ 113:../rt-thread/src/ipc.c ****                            RT_TIMER_CTRL_SET_TIME,
+ 114:../rt-thread/src/ipc.c ****                            &timeout);
+ 115:../rt-thread/src/ipc.c ****             rt_timer_start(&thread->thread_timer);
+ 116:../rt-thread/src/ipc.c ****         }
+ 117:../rt-thread/src/ipc.c **** 
+ 118:../rt-thread/src/ipc.c ****         rt_hw_interrupt_enable(level);
+ 119:../rt-thread/src/ipc.c **** 
+ 120:../rt-thread/src/ipc.c ****         /* Do schedule */
+ 121:../rt-thread/src/ipc.c ****         rt_schedule();
+ 122:../rt-thread/src/ipc.c **** 
+ 123:../rt-thread/src/ipc.c ****         if (thread->error != RT_EOK)
+ 124:../rt-thread/src/ipc.c ****         {
+ 125:../rt-thread/src/ipc.c ****             return thread->error;
+ 126:../rt-thread/src/ipc.c ****         }
+ 127:../rt-thread/src/ipc.c ****     }
+ 128:../rt-thread/src/ipc.c **** 
+ 129:../rt-thread/src/ipc.c ****     return RT_EOK;
+ 229              		.loc 1 129 12 is_stmt 0 view .LVU62
+ 230 0018 0020     		movs	r0, #0
+ 231              	.LVL20:
+ 232              	.L5:
+ 130:../rt-thread/src/ipc.c **** }
+ 233              		.loc 1 130 1 view .LVU63
+ 234 001a 03B0     		add	sp, sp, #12
+ 235              	.LCFI3:
+ 236              		.cfi_remember_state
+ 237              		.cfi_def_cfa_offset 20
+ 238              		@ sp needed
+ 239 001c F0BD     		pop	{r4, r5, r6, r7, pc}
+ 240              	.LVL21:
+ 241              	.L6:
+ 242              	.LCFI4:
+ 243              		.cfi_restore_state
+  85:../rt-thread/src/ipc.c ****         {
+ 244              		.loc 1 85 9 is_stmt 1 view .LVU64
+  85:../rt-thread/src/ipc.c ****         {
+ 245              		.loc 1 85 12 is_stmt 0 view .LVU65
+ 246 001e 019B     		ldr	r3, [sp, #4]
+ 247 0020 23B9     		cbnz	r3, .L8
+  87:../rt-thread/src/ipc.c ****             return -RT_ETIMEOUT;
+ 248              		.loc 1 87 13 is_stmt 1 view .LVU66
+ 249 0022 FFF7FEFF 		bl	rt_hw_interrupt_enable
+ 250              	.LVL22:
+  88:../rt-thread/src/ipc.c ****         }
+ 251              		.loc 1 88 13 view .LVU67
+  88:../rt-thread/src/ipc.c ****         }
+ 252              		.loc 1 88 20 is_stmt 0 view .LVU68
+ 253 0026 6FF00100 		mvn	r0, #1
+ 254 002a F6E7     		b	.L5
+ 255              	.LVL23:
+ 256              	.L8:
+  91:../rt-thread/src/ipc.c **** 
+ 257              		.loc 1 91 9 is_stmt 1 view .LVU69
+  91:../rt-thread/src/ipc.c **** 
+ 258              		.loc 1 91 18 is_stmt 0 view .LVU70
+ 259 002c FFF7FEFF 		bl	rt_thread_self
+ 260              	.LVL24:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 11
+
+
+  94:../rt-thread/src/ipc.c **** 
+ 261              		.loc 1 94 23 view .LVU71
+ 262 0030 C662     		str	r6, [r0, #44]
+  91:../rt-thread/src/ipc.c **** 
+ 263              		.loc 1 91 18 view .LVU72
+ 264 0032 0446     		mov	r4, r0
+ 265              	.LVL25:
+  94:../rt-thread/src/ipc.c **** 
+ 266              		.loc 1 94 9 is_stmt 1 view .LVU73
+  97:../rt-thread/src/ipc.c **** 
+ 267              		.loc 1 97 9 view .LVU74
+ 268 0034 FFF7FEFF 		bl	rt_thread_suspend
+ 269              	.LVL26:
+ 100:../rt-thread/src/ipc.c ****         {
+ 270              		.loc 1 100 9 view .LVU75
+ 100:../rt-thread/src/ipc.c ****         {
+ 271              		.loc 1 100 12 is_stmt 0 view .LVU76
+ 272 0038 697A     		ldrb	r1, [r5, #9]	@ zero_extendqisi2
+ 273 003a 04F11003 		add	r3, r4, #16
+ 274 003e 05F11002 		add	r2, r5, #16
+ 275 0042 C1B9     		cbnz	r1, .L9
+ 102:../rt-thread/src/ipc.c ****         }
+ 276              		.loc 1 102 13 is_stmt 1 view .LVU77
+ 277              	.LVL27:
+ 278              	.LBB32:
+ 279              	.LBI32:
+ 139:../rt-thread/include/rtthread.h **** {
+ 280              		.loc 2 139 16 view .LVU78
+ 281              	.LBB33:
+ 141:../rt-thread/include/rtthread.h ****     n->prev = l->prev;
+ 282              		.loc 2 141 5 view .LVU79
+ 141:../rt-thread/include/rtthread.h ****     n->prev = l->prev;
+ 283              		.loc 2 141 6 is_stmt 0 view .LVU80
+ 284 0044 6969     		ldr	r1, [r5, #20]
+ 141:../rt-thread/include/rtthread.h ****     n->prev = l->prev;
+ 285              		.loc 2 141 19 view .LVU81
+ 286 0046 0B60     		str	r3, [r1]
+ 142:../rt-thread/include/rtthread.h ****     l->prev = n;
+ 287              		.loc 2 142 5 is_stmt 1 view .LVU82
+ 142:../rt-thread/include/rtthread.h ****     l->prev = n;
+ 288              		.loc 2 142 13 is_stmt 0 view .LVU83
+ 289 0048 6161     		str	r1, [r4, #20]
+ 143:../rt-thread/include/rtthread.h ****     n->next = l;
+ 290              		.loc 2 143 5 is_stmt 1 view .LVU84
+ 143:../rt-thread/include/rtthread.h ****     n->next = l;
+ 291              		.loc 2 143 13 is_stmt 0 view .LVU85
+ 292 004a 6B61     		str	r3, [r5, #20]
+ 144:../rt-thread/include/rtthread.h **** }
+ 293              		.loc 2 144 5 is_stmt 1 view .LVU86
+ 144:../rt-thread/include/rtthread.h **** }
+ 294              		.loc 2 144 13 is_stmt 0 view .LVU87
+ 295 004c 2261     		str	r2, [r4, #16]
+ 296              	.LVL28:
+ 297              	.L10:
+ 144:../rt-thread/include/rtthread.h **** }
+ 298              		.loc 2 144 13 view .LVU88
+ 299              	.LBE33:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 12
+
+
+ 300              	.LBE32:
+ 110:../rt-thread/src/ipc.c ****         {
+ 301              		.loc 1 110 9 is_stmt 1 view .LVU89
+ 110:../rt-thread/src/ipc.c ****         {
+ 302              		.loc 1 110 12 is_stmt 0 view .LVU90
+ 303 004e 019B     		ldr	r3, [sp, #4]
+ 304 0050 002B     		cmp	r3, #0
+ 305 0052 09DD     		ble	.L11
+ 112:../rt-thread/src/ipc.c ****                            RT_TIMER_CTRL_SET_TIME,
+ 306              		.loc 1 112 13 is_stmt 1 view .LVU91
+ 307 0054 04F13C05 		add	r5, r4, #60
+ 308              	.LVL29:
+ 112:../rt-thread/src/ipc.c ****                            RT_TIMER_CTRL_SET_TIME,
+ 309              		.loc 1 112 13 is_stmt 0 view .LVU92
+ 310 0058 01AA     		add	r2, sp, #4
+ 311              	.LVL30:
+ 112:../rt-thread/src/ipc.c ****                            RT_TIMER_CTRL_SET_TIME,
+ 312              		.loc 1 112 13 view .LVU93
+ 313 005a 0021     		movs	r1, #0
+ 314 005c 2846     		mov	r0, r5
+ 315 005e FFF7FEFF 		bl	rt_timer_control
+ 316              	.LVL31:
+ 115:../rt-thread/src/ipc.c ****         }
+ 317              		.loc 1 115 13 is_stmt 1 view .LVU94
+ 318 0062 2846     		mov	r0, r5
+ 319 0064 FFF7FEFF 		bl	rt_timer_start
+ 320              	.LVL32:
+ 321              	.L11:
+ 118:../rt-thread/src/ipc.c **** 
+ 322              		.loc 1 118 9 view .LVU95
+ 323 0068 3846     		mov	r0, r7
+ 324 006a FFF7FEFF 		bl	rt_hw_interrupt_enable
+ 325              	.LVL33:
+ 121:../rt-thread/src/ipc.c **** 
+ 326              		.loc 1 121 9 view .LVU96
+ 327 006e FFF7FEFF 		bl	rt_schedule
+ 328              	.LVL34:
+ 123:../rt-thread/src/ipc.c ****         {
+ 329              		.loc 1 123 9 view .LVU97
+ 123:../rt-thread/src/ipc.c ****         {
+ 330              		.loc 1 123 19 is_stmt 0 view .LVU98
+ 331 0072 E06A     		ldr	r0, [r4, #44]
+ 332 0074 D1E7     		b	.L5
+ 333              	.LVL35:
+ 334              	.L9:
+ 106:../rt-thread/src/ipc.c ****         }
+ 335              		.loc 1 106 13 is_stmt 1 view .LVU99
+ 336              	.LBB34:
+ 337              	.LBI34:
+ 131:../rt-thread/include/rtthread.h **** {
+ 338              		.loc 2 131 16 view .LVU100
+ 339              	.LBB35:
+ 133:../rt-thread/include/rtthread.h ****     n->next = l->next;
+ 340              		.loc 2 133 5 view .LVU101
+ 133:../rt-thread/include/rtthread.h ****     n->next = l->next;
+ 341              		.loc 2 133 6 is_stmt 0 view .LVU102
+ 342 0076 2969     		ldr	r1, [r5, #16]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 13
+
+
+ 133:../rt-thread/include/rtthread.h ****     n->next = l->next;
+ 343              		.loc 2 133 19 view .LVU103
+ 344 0078 4B60     		str	r3, [r1, #4]
+ 134:../rt-thread/include/rtthread.h ****     l->next = n;
+ 345              		.loc 2 134 5 is_stmt 1 view .LVU104
+ 134:../rt-thread/include/rtthread.h ****     l->next = n;
+ 346              		.loc 2 134 13 is_stmt 0 view .LVU105
+ 347 007a 2161     		str	r1, [r4, #16]
+ 135:../rt-thread/include/rtthread.h ****     n->prev = l;
+ 348              		.loc 2 135 5 is_stmt 1 view .LVU106
+ 135:../rt-thread/include/rtthread.h ****     n->prev = l;
+ 349              		.loc 2 135 13 is_stmt 0 view .LVU107
+ 350 007c 2B61     		str	r3, [r5, #16]
+ 136:../rt-thread/include/rtthread.h **** }
+ 351              		.loc 2 136 5 is_stmt 1 view .LVU108
+ 136:../rt-thread/include/rtthread.h **** }
+ 352              		.loc 2 136 13 is_stmt 0 view .LVU109
+ 353 007e 6261     		str	r2, [r4, #20]
+ 354              	.LVL36:
+ 137:../rt-thread/include/rtthread.h **** 
+ 355              		.loc 2 137 1 view .LVU110
+ 356 0080 E5E7     		b	.L10
+ 357              	.LBE35:
+ 358              	.LBE34:
+ 359              		.cfi_endproc
+ 360              	.LFE8:
+ 362              		.section	.text.rt_sem_trytake,"ax",%progbits
+ 363              		.align	1
+ 364              		.global	rt_sem_trytake
+ 365              		.syntax unified
+ 366              		.thumb
+ 367              		.thumb_func
+ 369              	rt_sem_trytake:
+ 370              	.LVL37:
+ 371              	.LFB9:
+ 131:../rt-thread/src/ipc.c **** 
+ 132:../rt-thread/src/ipc.c **** /**
+ 133:../rt-thread/src/ipc.c ****  * Try to take a semaphore
+ 134:../rt-thread/src/ipc.c ****  */
+ 135:../rt-thread/src/ipc.c **** rt_err_t rt_sem_trytake(rt_sem_t sem)
+ 136:../rt-thread/src/ipc.c **** {
+ 372              		.loc 1 136 1 is_stmt 1 view -0
+ 373              		.cfi_startproc
+ 374              		@ args = 0, pretend = 0, frame = 0
+ 375              		@ frame_needed = 0, uses_anonymous_args = 0
+ 376              		@ link register save eliminated.
+ 137:../rt-thread/src/ipc.c ****     return rt_sem_take(sem, 0);
+ 377              		.loc 1 137 5 view .LVU112
+ 378              		.loc 1 137 12 is_stmt 0 view .LVU113
+ 379 0000 0021     		movs	r1, #0
+ 380 0002 FFF7FEBF 		b	rt_sem_take
+ 381              	.LVL38:
+ 382              		.loc 1 137 12 view .LVU114
+ 383              		.cfi_endproc
+ 384              	.LFE9:
+ 386              		.section	.text.rt_sem_release,"ax",%progbits
+ 387              		.align	1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 14
+
+
+ 388              		.global	rt_sem_release
+ 389              		.syntax unified
+ 390              		.thumb
+ 391              		.thumb_func
+ 393              	rt_sem_release:
+ 394              	.LVL39:
+ 395              	.LFB10:
+ 138:../rt-thread/src/ipc.c **** }
+ 139:../rt-thread/src/ipc.c **** 
+ 140:../rt-thread/src/ipc.c **** /**
+ 141:../rt-thread/src/ipc.c ****  * Release a semaphore
+ 142:../rt-thread/src/ipc.c ****  */
+ 143:../rt-thread/src/ipc.c **** rt_err_t rt_sem_release(rt_sem_t sem)
+ 144:../rt-thread/src/ipc.c **** {
+ 396              		.loc 1 144 1 is_stmt 1 view -0
+ 397              		.cfi_startproc
+ 398              		@ args = 0, pretend = 0, frame = 0
+ 399              		@ frame_needed = 0, uses_anonymous_args = 0
+ 145:../rt-thread/src/ipc.c ****     register rt_base_t level;
+ 400              		.loc 1 145 5 view .LVU116
+ 146:../rt-thread/src/ipc.c ****     register rt_bool_t need_schedule;
+ 401              		.loc 1 146 5 view .LVU117
+ 147:../rt-thread/src/ipc.c **** 
+ 148:../rt-thread/src/ipc.c ****     RT_ASSERT(sem != RT_NULL);
+ 402              		.loc 1 148 5 view .LVU118
+ 149:../rt-thread/src/ipc.c **** 
+ 150:../rt-thread/src/ipc.c ****     need_schedule = RT_FALSE;
+ 403              		.loc 1 150 5 view .LVU119
+ 151:../rt-thread/src/ipc.c **** 
+ 152:../rt-thread/src/ipc.c ****     level = rt_hw_interrupt_disable();
+ 404              		.loc 1 152 5 view .LVU120
+ 144:../rt-thread/src/ipc.c ****     register rt_base_t level;
+ 405              		.loc 1 144 1 is_stmt 0 view .LVU121
+ 406 0000 38B5     		push	{r3, r4, r5, lr}
+ 407              	.LCFI5:
+ 408              		.cfi_def_cfa_offset 16
+ 409              		.cfi_offset 3, -16
+ 410              		.cfi_offset 4, -12
+ 411              		.cfi_offset 5, -8
+ 412              		.cfi_offset 14, -4
+ 144:../rt-thread/src/ipc.c ****     register rt_base_t level;
+ 413              		.loc 1 144 1 view .LVU122
+ 414 0002 0446     		mov	r4, r0
+ 415              		.loc 1 152 13 view .LVU123
+ 416 0004 FFF7FEFF 		bl	rt_hw_interrupt_disable
+ 417              	.LVL40:
+ 418              	.LBB41:
+ 419              	.LBB42:
+ 420              		.loc 2 156 13 view .LVU124
+ 421 0008 2246     		mov	r2, r4
+ 422              	.LBE42:
+ 423              	.LBE41:
+ 424              		.loc 1 152 13 view .LVU125
+ 425 000a 0546     		mov	r5, r0
+ 426              	.LVL41:
+ 153:../rt-thread/src/ipc.c **** 
+ 154:../rt-thread/src/ipc.c ****     if (!rt_list_isempty(&sem->suspend_thread))
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 15
+
+
+ 427              		.loc 1 154 5 is_stmt 1 view .LVU126
+ 428              	.LBB44:
+ 429              	.LBI41:
+ 154:../rt-thread/include/rtthread.h **** {
+ 430              		.loc 2 154 15 view .LVU127
+ 431              	.LBB43:
+ 432              		.loc 2 156 5 view .LVU128
+ 433              		.loc 2 156 13 is_stmt 0 view .LVU129
+ 434 000c 52F8100F 		ldr	r0, [r2, #16]!
+ 435              	.LVL42:
+ 436              		.loc 2 156 13 view .LVU130
+ 437              	.LBE43:
+ 438              	.LBE44:
+ 439              		.loc 1 154 8 discriminator 1 view .LVU131
+ 440 0010 9042     		cmp	r0, r2
+ 441 0012 16D0     		beq	.L14
+ 442              	.LBB45:
+ 155:../rt-thread/src/ipc.c ****     {
+ 156:../rt-thread/src/ipc.c ****         struct rt_thread *thread;
+ 443              		.loc 1 156 9 is_stmt 1 view .LVU132
+ 157:../rt-thread/src/ipc.c **** 
+ 158:../rt-thread/src/ipc.c ****         thread = rt_list_entry(sem->suspend_thread.next,
+ 444              		.loc 1 158 9 view .LVU133
+ 445              	.LVL43:
+ 159:../rt-thread/src/ipc.c ****                                struct rt_thread,
+ 160:../rt-thread/src/ipc.c ****                                tlist);
+ 161:../rt-thread/src/ipc.c **** 
+ 162:../rt-thread/src/ipc.c ****         /* Remove from suspend list */
+ 163:../rt-thread/src/ipc.c ****         rt_list_remove(&thread->tlist);
+ 446              		.loc 1 163 9 view .LVU134
+ 447 0014 0446     		mov	r4, r0
+ 448              	.LVL44:
+ 449              	.LBB46:
+ 450              	.LBI46:
+ 147:../rt-thread/include/rtthread.h **** {
+ 451              		.loc 2 147 16 view .LVU135
+ 452              	.LBB47:
+ 149:../rt-thread/include/rtthread.h ****     n->prev->next = n->next;
+ 453              		.loc 2 149 5 view .LVU136
+ 149:../rt-thread/include/rtthread.h ****     n->prev->next = n->next;
+ 454              		.loc 2 149 22 is_stmt 0 view .LVU137
+ 455 0016 4268     		ldr	r2, [r0, #4]
+ 456              	.LVL45:
+ 149:../rt-thread/include/rtthread.h ****     n->prev->next = n->next;
+ 457              		.loc 2 149 6 view .LVU138
+ 458 0018 54F81019 		ldr	r1, [r4], #-16
+ 459              	.LVL46:
+ 149:../rt-thread/include/rtthread.h ****     n->prev->next = n->next;
+ 460              		.loc 2 149 19 view .LVU139
+ 461 001c 4A60     		str	r2, [r1, #4]
+ 150:../rt-thread/include/rtthread.h ****     n->next = n->prev = n;
+ 462              		.loc 2 150 5 is_stmt 1 view .LVU140
+ 150:../rt-thread/include/rtthread.h ****     n->next = n->prev = n;
+ 463              		.loc 2 150 19 is_stmt 0 view .LVU141
+ 464 001e 1160     		str	r1, [r2]
+ 151:../rt-thread/include/rtthread.h **** }
+ 465              		.loc 2 151 5 is_stmt 1 view .LVU142
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 16
+
+
+ 151:../rt-thread/include/rtthread.h **** }
+ 466              		.loc 2 151 13 is_stmt 0 view .LVU143
+ 467 0020 C0E90000 		strd	r0, r0, [r0]
+ 468              	.LVL47:
+ 151:../rt-thread/include/rtthread.h **** }
+ 469              		.loc 2 151 13 view .LVU144
+ 470              	.LBE47:
+ 471              	.LBE46:
+ 164:../rt-thread/src/ipc.c **** 
+ 165:../rt-thread/src/ipc.c ****         /* Stop timer */
+ 166:../rt-thread/src/ipc.c ****         rt_timer_stop(&thread->thread_timer);
+ 472              		.loc 1 166 9 is_stmt 1 view .LVU145
+ 473 0024 2C30     		adds	r0, r0, #44
+ 474 0026 FFF7FEFF 		bl	rt_timer_stop
+ 475              	.LVL48:
+ 167:../rt-thread/src/ipc.c **** 
+ 168:../rt-thread/src/ipc.c ****         /* Resume thread */
+ 169:../rt-thread/src/ipc.c ****         rt_thread_resume(thread);
+ 476              		.loc 1 169 9 view .LVU146
+ 477 002a 2046     		mov	r0, r4
+ 478 002c FFF7FEFF 		bl	rt_thread_resume
+ 479              	.LVL49:
+ 170:../rt-thread/src/ipc.c **** 
+ 171:../rt-thread/src/ipc.c ****         need_schedule = RT_TRUE;
+ 480              		.loc 1 171 9 view .LVU147
+ 481              		.loc 1 171 23 is_stmt 0 view .LVU148
+ 482 0030 0124     		movs	r4, #1
+ 483              	.LVL50:
+ 484              	.L15:
+ 485              		.loc 1 171 23 view .LVU149
+ 486              	.LBE45:
+ 172:../rt-thread/src/ipc.c ****     }
+ 173:../rt-thread/src/ipc.c ****     else
+ 174:../rt-thread/src/ipc.c ****     {
+ 175:../rt-thread/src/ipc.c ****         if (sem->value < RT_UINT16_MAX)
+ 176:../rt-thread/src/ipc.c ****         {
+ 177:../rt-thread/src/ipc.c ****             sem->value++;
+ 178:../rt-thread/src/ipc.c ****         }
+ 179:../rt-thread/src/ipc.c ****     }
+ 180:../rt-thread/src/ipc.c **** 
+ 181:../rt-thread/src/ipc.c ****     rt_hw_interrupt_enable(level);
+ 487              		.loc 1 181 5 is_stmt 1 view .LVU150
+ 488 0032 2846     		mov	r0, r5
+ 489 0034 FFF7FEFF 		bl	rt_hw_interrupt_enable
+ 490              	.LVL51:
+ 182:../rt-thread/src/ipc.c **** 
+ 183:../rt-thread/src/ipc.c ****     if (need_schedule == RT_TRUE)
+ 491              		.loc 1 183 5 view .LVU151
+ 492              		.loc 1 183 8 is_stmt 0 view .LVU152
+ 493 0038 0CB1     		cbz	r4, .L17
+ 494              	.LVL52:
+ 184:../rt-thread/src/ipc.c ****     {
+ 185:../rt-thread/src/ipc.c ****         rt_schedule();
+ 495              		.loc 1 185 9 is_stmt 1 view .LVU153
+ 496 003a FFF7FEFF 		bl	rt_schedule
+ 497              	.LVL53:
+ 498              	.L17:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 17
+
+
+ 186:../rt-thread/src/ipc.c ****     }
+ 187:../rt-thread/src/ipc.c **** 
+ 188:../rt-thread/src/ipc.c ****     return RT_EOK;
+ 499              		.loc 1 188 5 view .LVU154
+ 189:../rt-thread/src/ipc.c **** }
+ 500              		.loc 1 189 1 is_stmt 0 view .LVU155
+ 501 003e 0020     		movs	r0, #0
+ 502 0040 38BD     		pop	{r3, r4, r5, pc}
+ 503              	.LVL54:
+ 504              	.L14:
+ 175:../rt-thread/src/ipc.c ****         {
+ 505              		.loc 1 175 9 is_stmt 1 view .LVU156
+ 175:../rt-thread/src/ipc.c ****         {
+ 506              		.loc 1 175 16 is_stmt 0 view .LVU157
+ 507 0042 238B     		ldrh	r3, [r4, #24]
+ 175:../rt-thread/src/ipc.c ****         {
+ 508              		.loc 1 175 12 view .LVU158
+ 509 0044 4FF6FF72 		movw	r2, #65535
+ 510 0048 9342     		cmp	r3, r2
+ 177:../rt-thread/src/ipc.c ****         }
+ 511              		.loc 1 177 13 is_stmt 1 view .LVU159
+ 177:../rt-thread/src/ipc.c ****         }
+ 512              		.loc 1 177 23 is_stmt 0 view .LVU160
+ 513 004a 1CBF     		itt	ne
+ 514 004c 0133     		addne	r3, r3, #1
+ 515 004e 2383     		strhne	r3, [r4, #24]	@ movhi
+ 150:../rt-thread/src/ipc.c **** 
+ 516              		.loc 1 150 19 view .LVU161
+ 517 0050 0024     		movs	r4, #0
+ 518              	.LVL55:
+ 150:../rt-thread/src/ipc.c **** 
+ 519              		.loc 1 150 19 view .LVU162
+ 520 0052 EEE7     		b	.L15
+ 521              		.cfi_endproc
+ 522              	.LFE10:
+ 524              		.section	.text.rt_mutex_init,"ax",%progbits
+ 525              		.align	1
+ 526              		.global	rt_mutex_init
+ 527              		.syntax unified
+ 528              		.thumb
+ 529              		.thumb_func
+ 531              	rt_mutex_init:
+ 532              	.LVL56:
+ 533              	.LFB11:
+ 190:../rt-thread/src/ipc.c **** 
+ 191:../rt-thread/src/ipc.c **** #endif /* RT_USING_SEMAPHORE */
+ 192:../rt-thread/src/ipc.c **** 
+ 193:../rt-thread/src/ipc.c **** #ifdef RT_USING_MUTEX
+ 194:../rt-thread/src/ipc.c **** 
+ 195:../rt-thread/src/ipc.c **** /**
+ 196:../rt-thread/src/ipc.c ****  * Initialize a mutex
+ 197:../rt-thread/src/ipc.c ****  */
+ 198:../rt-thread/src/ipc.c **** rt_err_t rt_mutex_init(rt_mutex_t mutex, const char *name, rt_uint8_t flag)
+ 199:../rt-thread/src/ipc.c **** {
+ 534              		.loc 1 199 1 is_stmt 1 view -0
+ 535              		.cfi_startproc
+ 536              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 18
+
+
+ 537              		@ frame_needed = 0, uses_anonymous_args = 0
+ 200:../rt-thread/src/ipc.c ****     RT_ASSERT(mutex != RT_NULL);
+ 538              		.loc 1 200 5 view .LVU164
+ 201:../rt-thread/src/ipc.c **** 
+ 202:../rt-thread/src/ipc.c ****     /* Initialize object */
+ 203:../rt-thread/src/ipc.c ****     rt_object_init(&mutex->parent, RT_Object_Class_Mutex, name);
+ 539              		.loc 1 203 5 view .LVU165
+ 199:../rt-thread/src/ipc.c ****     RT_ASSERT(mutex != RT_NULL);
+ 540              		.loc 1 199 1 is_stmt 0 view .LVU166
+ 541 0000 38B5     		push	{r3, r4, r5, lr}
+ 542              	.LCFI6:
+ 543              		.cfi_def_cfa_offset 16
+ 544              		.cfi_offset 3, -16
+ 545              		.cfi_offset 4, -12
+ 546              		.cfi_offset 5, -8
+ 547              		.cfi_offset 14, -4
+ 199:../rt-thread/src/ipc.c ****     RT_ASSERT(mutex != RT_NULL);
+ 548              		.loc 1 199 1 view .LVU167
+ 549 0002 0446     		mov	r4, r0
+ 550 0004 1546     		mov	r5, r2
+ 551              		.loc 1 203 5 view .LVU168
+ 552 0006 0A46     		mov	r2, r1
+ 553              	.LVL57:
+ 554              		.loc 1 203 5 view .LVU169
+ 555 0008 0321     		movs	r1, #3
+ 556              	.LVL58:
+ 557              		.loc 1 203 5 view .LVU170
+ 558 000a FFF7FEFF 		bl	rt_object_init
+ 559              	.LVL59:
+ 204:../rt-thread/src/ipc.c **** 
+ 205:../rt-thread/src/ipc.c ****     /* Initialize suspend list */
+ 206:../rt-thread/src/ipc.c ****     rt_list_init(&mutex->suspend_thread);
+ 560              		.loc 1 206 5 is_stmt 1 view .LVU171
+ 561 000e 04F11003 		add	r3, r4, #16
+ 562              	.LVL60:
+ 563              	.LBB48:
+ 564              	.LBI48:
+ 126:../rt-thread/include/rtthread.h **** {
+ 565              		.loc 2 126 16 view .LVU172
+ 566              	.LBB49:
+ 128:../rt-thread/include/rtthread.h **** }
+ 567              		.loc 2 128 5 view .LVU173
+ 128:../rt-thread/include/rtthread.h **** }
+ 568              		.loc 2 128 13 is_stmt 0 view .LVU174
+ 569 0012 C4E90433 		strd	r3, r3, [r4, #16]
+ 570              	.LVL61:
+ 128:../rt-thread/include/rtthread.h **** }
+ 571              		.loc 2 128 13 view .LVU175
+ 572              	.LBE49:
+ 573              	.LBE48:
+ 207:../rt-thread/src/ipc.c **** 
+ 208:../rt-thread/src/ipc.c ****     mutex->value = 1;
+ 574              		.loc 1 208 5 is_stmt 1 view .LVU176
+ 209:../rt-thread/src/ipc.c ****     mutex->owner = RT_NULL;
+ 575              		.loc 1 209 5 view .LVU177
+ 210:../rt-thread/src/ipc.c ****     mutex->original_priority = 0xFF;
+ 576              		.loc 1 210 5 view .LVU178
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 19
+
+
+ 211:../rt-thread/src/ipc.c ****     mutex->hold = 0;
+ 577              		.loc 1 211 5 view .LVU179
+ 209:../rt-thread/src/ipc.c ****     mutex->owner = RT_NULL;
+ 578              		.loc 1 209 18 is_stmt 0 view .LVU180
+ 579 0016 034B     		ldr	r3, .L19
+ 212:../rt-thread/src/ipc.c ****     mutex->parent.flag = flag;
+ 580              		.loc 1 212 24 view .LVU181
+ 581 0018 6572     		strb	r5, [r4, #9]
+ 209:../rt-thread/src/ipc.c ****     mutex->original_priority = 0xFF;
+ 582              		.loc 1 209 18 view .LVU182
+ 583 001a 0020     		movs	r0, #0
+ 584 001c C4E90630 		strd	r3, r0, [r4, #24]
+ 585              		.loc 1 212 5 is_stmt 1 view .LVU183
+ 213:../rt-thread/src/ipc.c **** 
+ 214:../rt-thread/src/ipc.c ****     return RT_EOK;
+ 586              		.loc 1 214 5 view .LVU184
+ 215:../rt-thread/src/ipc.c **** }
+ 587              		.loc 1 215 1 is_stmt 0 view .LVU185
+ 588 0020 38BD     		pop	{r3, r4, r5, pc}
+ 589              	.LVL62:
+ 590              	.L20:
+ 591              		.loc 1 215 1 view .LVU186
+ 592 0022 00BF     		.align	2
+ 593              	.L19:
+ 594 0024 0100FF00 		.word	16711681
+ 595              		.cfi_endproc
+ 596              	.LFE11:
+ 598              		.section	.text.rt_mutex_detach,"ax",%progbits
+ 599              		.align	1
+ 600              		.global	rt_mutex_detach
+ 601              		.syntax unified
+ 602              		.thumb
+ 603              		.thumb_func
+ 605              	rt_mutex_detach:
+ 606              	.LVL63:
+ 607              	.LFB12:
+ 216:../rt-thread/src/ipc.c **** 
+ 217:../rt-thread/src/ipc.c **** /**
+ 218:../rt-thread/src/ipc.c ****  * Detach a mutex
+ 219:../rt-thread/src/ipc.c ****  */
+ 220:../rt-thread/src/ipc.c **** rt_err_t rt_mutex_detach(rt_mutex_t mutex)
+ 221:../rt-thread/src/ipc.c **** {
+ 608              		.loc 1 221 1 is_stmt 1 view -0
+ 609              		.cfi_startproc
+ 610              		@ args = 0, pretend = 0, frame = 0
+ 611              		@ frame_needed = 0, uses_anonymous_args = 0
+ 222:../rt-thread/src/ipc.c ****     RT_ASSERT(mutex != RT_NULL);
+ 612              		.loc 1 222 5 view .LVU188
+ 223:../rt-thread/src/ipc.c **** 
+ 224:../rt-thread/src/ipc.c ****     /* Wakeup all suspend threads */
+ 225:../rt-thread/src/ipc.c ****     while (!rt_list_isempty(&mutex->suspend_thread))
+ 613              		.loc 1 225 5 view .LVU189
+ 221:../rt-thread/src/ipc.c ****     RT_ASSERT(mutex != RT_NULL);
+ 614              		.loc 1 221 1 is_stmt 0 view .LVU190
+ 615 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 616              	.LCFI7:
+ 617              		.cfi_def_cfa_offset 24
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 20
+
+
+ 618              		.cfi_offset 3, -24
+ 619              		.cfi_offset 4, -20
+ 620              		.cfi_offset 5, -16
+ 621              		.cfi_offset 6, -12
+ 622              		.cfi_offset 7, -8
+ 623              		.cfi_offset 14, -4
+ 221:../rt-thread/src/ipc.c ****     RT_ASSERT(mutex != RT_NULL);
+ 624              		.loc 1 221 1 view .LVU191
+ 625 0002 0446     		mov	r4, r0
+ 626              		.loc 1 225 29 view .LVU192
+ 627 0004 00F11006 		add	r6, r0, #16
+ 628              	.LBB50:
+ 226:../rt-thread/src/ipc.c ****     {
+ 227:../rt-thread/src/ipc.c ****         struct rt_thread *thread;
+ 228:../rt-thread/src/ipc.c ****         register rt_base_t level;
+ 229:../rt-thread/src/ipc.c **** 
+ 230:../rt-thread/src/ipc.c ****         level = rt_hw_interrupt_disable();
+ 231:../rt-thread/src/ipc.c **** 
+ 232:../rt-thread/src/ipc.c ****         thread = rt_list_entry(mutex->suspend_thread.next,
+ 233:../rt-thread/src/ipc.c ****                                struct rt_thread,
+ 234:../rt-thread/src/ipc.c ****                                tlist);
+ 235:../rt-thread/src/ipc.c ****         thread->error = -RT_ERROR;
+ 629              		.loc 1 235 23 view .LVU193
+ 630 0008 4FF0FF37 		mov	r7, #-1
+ 631              	.LVL64:
+ 632              	.L22:
+ 633              		.loc 1 235 23 view .LVU194
+ 634              	.LBE50:
+ 225:../rt-thread/src/ipc.c ****     {
+ 635              		.loc 1 225 12 is_stmt 1 view .LVU195
+ 636              	.LBB51:
+ 637              	.LBI51:
+ 154:../rt-thread/include/rtthread.h **** {
+ 638              		.loc 2 154 15 view .LVU196
+ 639              	.LBB52:
+ 640              		.loc 2 156 5 view .LVU197
+ 641              		.loc 2 156 5 is_stmt 0 view .LVU198
+ 642              	.LBE52:
+ 643              	.LBE51:
+ 225:../rt-thread/src/ipc.c ****     {
+ 644              		.loc 1 225 12 discriminator 1 view .LVU199
+ 645 000c 2369     		ldr	r3, [r4, #16]
+ 646 000e B342     		cmp	r3, r6
+ 647 0010 04D1     		bne	.L23
+ 236:../rt-thread/src/ipc.c **** 
+ 237:../rt-thread/src/ipc.c ****         rt_thread_resume(thread);
+ 238:../rt-thread/src/ipc.c **** 
+ 239:../rt-thread/src/ipc.c ****         rt_hw_interrupt_enable(level);
+ 240:../rt-thread/src/ipc.c ****     }
+ 241:../rt-thread/src/ipc.c **** 
+ 242:../rt-thread/src/ipc.c ****     rt_object_detach(&mutex->parent);
+ 648              		.loc 1 242 5 is_stmt 1 view .LVU200
+ 649 0012 2046     		mov	r0, r4
+ 650 0014 FFF7FEFF 		bl	rt_object_detach
+ 651              	.LVL65:
+ 243:../rt-thread/src/ipc.c **** 
+ 244:../rt-thread/src/ipc.c ****     return RT_EOK;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 21
+
+
+ 652              		.loc 1 244 5 view .LVU201
+ 245:../rt-thread/src/ipc.c **** }
+ 653              		.loc 1 245 1 is_stmt 0 view .LVU202
+ 654 0018 0020     		movs	r0, #0
+ 655 001a F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 656              	.LVL66:
+ 657              	.L23:
+ 658              	.LBB53:
+ 227:../rt-thread/src/ipc.c ****         register rt_base_t level;
+ 659              		.loc 1 227 9 is_stmt 1 view .LVU203
+ 228:../rt-thread/src/ipc.c **** 
+ 660              		.loc 1 228 9 view .LVU204
+ 230:../rt-thread/src/ipc.c **** 
+ 661              		.loc 1 230 9 view .LVU205
+ 230:../rt-thread/src/ipc.c **** 
+ 662              		.loc 1 230 17 is_stmt 0 view .LVU206
+ 663 001c FFF7FEFF 		bl	rt_hw_interrupt_disable
+ 664              	.LVL67:
+ 665 0020 0546     		mov	r5, r0
+ 666              	.LVL68:
+ 232:../rt-thread/src/ipc.c ****                                struct rt_thread,
+ 667              		.loc 1 232 9 is_stmt 1 view .LVU207
+ 232:../rt-thread/src/ipc.c ****                                struct rt_thread,
+ 668              		.loc 1 232 18 is_stmt 0 view .LVU208
+ 669 0022 2069     		ldr	r0, [r4, #16]
+ 670              	.LVL69:
+ 235:../rt-thread/src/ipc.c **** 
+ 671              		.loc 1 235 9 is_stmt 1 view .LVU209
+ 235:../rt-thread/src/ipc.c **** 
+ 672              		.loc 1 235 23 is_stmt 0 view .LVU210
+ 673 0024 C761     		str	r7, [r0, #28]
+ 237:../rt-thread/src/ipc.c **** 
+ 674              		.loc 1 237 9 is_stmt 1 view .LVU211
+ 675 0026 1038     		subs	r0, r0, #16
+ 676              	.LVL70:
+ 237:../rt-thread/src/ipc.c **** 
+ 677              		.loc 1 237 9 is_stmt 0 view .LVU212
+ 678 0028 FFF7FEFF 		bl	rt_thread_resume
+ 679              	.LVL71:
+ 239:../rt-thread/src/ipc.c ****     }
+ 680              		.loc 1 239 9 is_stmt 1 view .LVU213
+ 681 002c 2846     		mov	r0, r5
+ 682 002e FFF7FEFF 		bl	rt_hw_interrupt_enable
+ 683              	.LVL72:
+ 684 0032 EBE7     		b	.L22
+ 685              	.LBE53:
+ 686              		.cfi_endproc
+ 687              	.LFE12:
+ 689              		.section	.text.rt_mutex_take,"ax",%progbits
+ 690              		.align	1
+ 691              		.global	rt_mutex_take
+ 692              		.syntax unified
+ 693              		.thumb
+ 694              		.thumb_func
+ 696              	rt_mutex_take:
+ 697              	.LVL73:
+ 698              	.LFB13:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 22
+
+
+ 246:../rt-thread/src/ipc.c **** 
+ 247:../rt-thread/src/ipc.c **** /**
+ 248:../rt-thread/src/ipc.c ****  * Take a mutex
+ 249:../rt-thread/src/ipc.c ****  */
+ 250:../rt-thread/src/ipc.c **** rt_err_t rt_mutex_take(rt_mutex_t mutex, rt_int32_t timeout)
+ 251:../rt-thread/src/ipc.c **** {
+ 699              		.loc 1 251 1 view -0
+ 700              		.cfi_startproc
+ 701              		@ args = 0, pretend = 0, frame = 8
+ 702              		@ frame_needed = 0, uses_anonymous_args = 0
+ 252:../rt-thread/src/ipc.c ****     register rt_base_t level;
+ 703              		.loc 1 252 5 view .LVU215
+ 253:../rt-thread/src/ipc.c ****     struct rt_thread *thread;
+ 704              		.loc 1 253 5 view .LVU216
+ 254:../rt-thread/src/ipc.c **** 
+ 255:../rt-thread/src/ipc.c ****     RT_ASSERT(mutex != RT_NULL);
+ 705              		.loc 1 255 5 view .LVU217
+ 256:../rt-thread/src/ipc.c **** 
+ 257:../rt-thread/src/ipc.c ****     thread = rt_thread_self();
+ 706              		.loc 1 257 5 view .LVU218
+ 251:../rt-thread/src/ipc.c ****     register rt_base_t level;
+ 707              		.loc 1 251 1 is_stmt 0 view .LVU219
+ 708 0000 F7B5     		push	{r0, r1, r2, r4, r5, r6, r7, lr}
+ 709              	.LCFI8:
+ 710              		.cfi_def_cfa_offset 32
+ 711              		.cfi_offset 4, -20
+ 712              		.cfi_offset 5, -16
+ 713              		.cfi_offset 6, -12
+ 714              		.cfi_offset 7, -8
+ 715              		.cfi_offset 14, -4
+ 251:../rt-thread/src/ipc.c ****     register rt_base_t level;
+ 716              		.loc 1 251 1 view .LVU220
+ 717 0002 0446     		mov	r4, r0
+ 718 0004 0191     		str	r1, [sp, #4]
+ 719              		.loc 1 257 14 view .LVU221
+ 720 0006 FFF7FEFF 		bl	rt_thread_self
+ 721              	.LVL74:
+ 722              		.loc 1 257 14 view .LVU222
+ 723 000a 0546     		mov	r5, r0
+ 724              	.LVL75:
+ 258:../rt-thread/src/ipc.c **** 
+ 259:../rt-thread/src/ipc.c ****     level = rt_hw_interrupt_disable();
+ 725              		.loc 1 259 5 is_stmt 1 view .LVU223
+ 726              		.loc 1 259 13 is_stmt 0 view .LVU224
+ 727 000c FFF7FEFF 		bl	rt_hw_interrupt_disable
+ 728              	.LVL76:
+ 260:../rt-thread/src/ipc.c **** 
+ 261:../rt-thread/src/ipc.c ****     /* Current thread already own the mutex */
+ 262:../rt-thread/src/ipc.c ****     if (mutex->owner == thread)
+ 729              		.loc 1 262 8 view .LVU225
+ 730 0010 E369     		ldr	r3, [r4, #28]
+ 731 0012 AB42     		cmp	r3, r5
+ 259:../rt-thread/src/ipc.c **** 
+ 732              		.loc 1 259 13 view .LVU226
+ 733 0014 0646     		mov	r6, r0
+ 734              	.LVL77:
+ 735              		.loc 1 262 5 is_stmt 1 view .LVU227
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 23
+
+
+ 736              		.loc 1 262 8 is_stmt 0 view .LVU228
+ 737 0016 07D1     		bne	.L25
+ 263:../rt-thread/src/ipc.c ****     {
+ 264:../rt-thread/src/ipc.c ****         mutex->hold++;
+ 738              		.loc 1 264 9 is_stmt 1 view .LVU229
+ 739              		.loc 1 264 20 is_stmt 0 view .LVU230
+ 740 0018 E37E     		ldrb	r3, [r4, #27]	@ zero_extendqisi2
+ 741 001a 0133     		adds	r3, r3, #1
+ 742              	.L31:
+ 265:../rt-thread/src/ipc.c ****         rt_hw_interrupt_enable(level);
+ 266:../rt-thread/src/ipc.c ****         return RT_EOK;
+ 267:../rt-thread/src/ipc.c ****     }
+ 268:../rt-thread/src/ipc.c **** 
+ 269:../rt-thread/src/ipc.c ****     /* The mutex is available */
+ 270:../rt-thread/src/ipc.c ****     if (mutex->value > 0)
+ 271:../rt-thread/src/ipc.c ****     {
+ 272:../rt-thread/src/ipc.c ****         mutex->value = 0;
+ 273:../rt-thread/src/ipc.c ****         mutex->owner = thread;
+ 274:../rt-thread/src/ipc.c ****         mutex->original_priority = thread->current_priority;
+ 275:../rt-thread/src/ipc.c ****         mutex->hold = 1;
+ 743              		.loc 1 275 21 view .LVU231
+ 744 001c E376     		strb	r3, [r4, #27]
+ 276:../rt-thread/src/ipc.c **** 
+ 277:../rt-thread/src/ipc.c ****         rt_hw_interrupt_enable(level);
+ 745              		.loc 1 277 9 is_stmt 1 view .LVU232
+ 746 001e FFF7FEFF 		bl	rt_hw_interrupt_enable
+ 747              	.LVL78:
+ 278:../rt-thread/src/ipc.c ****         return RT_EOK;
+ 748              		.loc 1 278 9 view .LVU233
+ 266:../rt-thread/src/ipc.c ****     }
+ 749              		.loc 1 266 16 is_stmt 0 view .LVU234
+ 750 0022 0020     		movs	r0, #0
+ 751              	.LVL79:
+ 752              	.L24:
+ 279:../rt-thread/src/ipc.c ****     }
+ 280:../rt-thread/src/ipc.c **** 
+ 281:../rt-thread/src/ipc.c ****     /* No wait */
+ 282:../rt-thread/src/ipc.c ****     if (timeout == 0)
+ 283:../rt-thread/src/ipc.c ****     {
+ 284:../rt-thread/src/ipc.c ****         rt_hw_interrupt_enable(level);
+ 285:../rt-thread/src/ipc.c ****         return -RT_ETIMEOUT;
+ 286:../rt-thread/src/ipc.c ****     }
+ 287:../rt-thread/src/ipc.c **** 
+ 288:../rt-thread/src/ipc.c ****     /* Suspend current thread */
+ 289:../rt-thread/src/ipc.c ****     thread->error = RT_EOK;
+ 290:../rt-thread/src/ipc.c ****     rt_thread_suspend(thread);
+ 291:../rt-thread/src/ipc.c **** 
+ 292:../rt-thread/src/ipc.c ****     /* Insert to suspend list */
+ 293:../rt-thread/src/ipc.c ****     rt_list_insert_before(&mutex->suspend_thread, &thread->tlist);
+ 294:../rt-thread/src/ipc.c **** 
+ 295:../rt-thread/src/ipc.c ****     /* Start timer */
+ 296:../rt-thread/src/ipc.c ****     if (timeout > 0)
+ 297:../rt-thread/src/ipc.c ****     {
+ 298:../rt-thread/src/ipc.c ****         rt_timer_control(&thread->thread_timer,
+ 299:../rt-thread/src/ipc.c ****                        RT_TIMER_CTRL_SET_TIME,
+ 300:../rt-thread/src/ipc.c ****                        &timeout);
+ 301:../rt-thread/src/ipc.c ****         rt_timer_start(&thread->thread_timer);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 24
+
+
+ 302:../rt-thread/src/ipc.c ****     }
+ 303:../rt-thread/src/ipc.c **** 
+ 304:../rt-thread/src/ipc.c ****     rt_hw_interrupt_enable(level);
+ 305:../rt-thread/src/ipc.c **** 
+ 306:../rt-thread/src/ipc.c ****     /* Do schedule */
+ 307:../rt-thread/src/ipc.c ****     rt_schedule();
+ 308:../rt-thread/src/ipc.c **** 
+ 309:../rt-thread/src/ipc.c ****     return thread->error;
+ 310:../rt-thread/src/ipc.c **** }
+ 753              		.loc 1 310 1 view .LVU235
+ 754 0024 03B0     		add	sp, sp, #12
+ 755              	.LCFI9:
+ 756              		.cfi_remember_state
+ 757              		.cfi_def_cfa_offset 20
+ 758              		@ sp needed
+ 759 0026 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 760              	.LVL80:
+ 761              	.L25:
+ 762              	.LCFI10:
+ 763              		.cfi_restore_state
+ 270:../rt-thread/src/ipc.c ****     {
+ 764              		.loc 1 270 5 is_stmt 1 view .LVU236
+ 270:../rt-thread/src/ipc.c ****     {
+ 765              		.loc 1 270 8 is_stmt 0 view .LVU237
+ 766 0028 278B     		ldrh	r7, [r4, #24]
+ 767 002a 3FB1     		cbz	r7, .L27
+ 272:../rt-thread/src/ipc.c ****         mutex->owner = thread;
+ 768              		.loc 1 272 9 is_stmt 1 view .LVU238
+ 272:../rt-thread/src/ipc.c ****         mutex->owner = thread;
+ 769              		.loc 1 272 22 is_stmt 0 view .LVU239
+ 770 002c 0023     		movs	r3, #0
+ 771 002e 2383     		strh	r3, [r4, #24]	@ movhi
+ 273:../rt-thread/src/ipc.c ****         mutex->original_priority = thread->current_priority;
+ 772              		.loc 1 273 9 is_stmt 1 view .LVU240
+ 273:../rt-thread/src/ipc.c ****         mutex->original_priority = thread->current_priority;
+ 773              		.loc 1 273 22 is_stmt 0 view .LVU241
+ 774 0030 E561     		str	r5, [r4, #28]
+ 274:../rt-thread/src/ipc.c ****         mutex->hold = 1;
+ 775              		.loc 1 274 9 is_stmt 1 view .LVU242
+ 274:../rt-thread/src/ipc.c ****         mutex->hold = 1;
+ 776              		.loc 1 274 34 is_stmt 0 view .LVU243
+ 777 0032 95F83130 		ldrb	r3, [r5, #49]	@ zero_extendqisi2
+ 778 0036 A376     		strb	r3, [r4, #26]
+ 275:../rt-thread/src/ipc.c **** 
+ 779              		.loc 1 275 9 is_stmt 1 view .LVU244
+ 275:../rt-thread/src/ipc.c **** 
+ 780              		.loc 1 275 21 is_stmt 0 view .LVU245
+ 781 0038 0123     		movs	r3, #1
+ 782 003a EFE7     		b	.L31
+ 783              	.L27:
+ 282:../rt-thread/src/ipc.c ****     {
+ 784              		.loc 1 282 5 is_stmt 1 view .LVU246
+ 282:../rt-thread/src/ipc.c ****     {
+ 785              		.loc 1 282 8 is_stmt 0 view .LVU247
+ 786 003c 019B     		ldr	r3, [sp, #4]
+ 787 003e 23B9     		cbnz	r3, .L29
+ 284:../rt-thread/src/ipc.c ****         return -RT_ETIMEOUT;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 25
+
+
+ 788              		.loc 1 284 9 is_stmt 1 view .LVU248
+ 789 0040 FFF7FEFF 		bl	rt_hw_interrupt_enable
+ 790              	.LVL81:
+ 285:../rt-thread/src/ipc.c ****     }
+ 791              		.loc 1 285 9 view .LVU249
+ 285:../rt-thread/src/ipc.c ****     }
+ 792              		.loc 1 285 16 is_stmt 0 view .LVU250
+ 793 0044 6FF00100 		mvn	r0, #1
+ 794 0048 ECE7     		b	.L24
+ 795              	.LVL82:
+ 796              	.L29:
+ 289:../rt-thread/src/ipc.c ****     rt_thread_suspend(thread);
+ 797              		.loc 1 289 5 is_stmt 1 view .LVU251
+ 289:../rt-thread/src/ipc.c ****     rt_thread_suspend(thread);
+ 798              		.loc 1 289 19 is_stmt 0 view .LVU252
+ 799 004a EF62     		str	r7, [r5, #44]
+ 290:../rt-thread/src/ipc.c **** 
+ 800              		.loc 1 290 5 is_stmt 1 view .LVU253
+ 801 004c 2846     		mov	r0, r5
+ 802              	.LVL83:
+ 290:../rt-thread/src/ipc.c **** 
+ 803              		.loc 1 290 5 is_stmt 0 view .LVU254
+ 804 004e FFF7FEFF 		bl	rt_thread_suspend
+ 805              	.LVL84:
+ 293:../rt-thread/src/ipc.c **** 
+ 806              		.loc 1 293 5 is_stmt 1 view .LVU255
+ 807              	.LBB54:
+ 808              	.LBB55:
+ 141:../rt-thread/include/rtthread.h ****     n->prev = l->prev;
+ 809              		.loc 2 141 6 is_stmt 0 view .LVU256
+ 810 0052 6269     		ldr	r2, [r4, #20]
+ 811              	.LBE55:
+ 812              	.LBE54:
+ 293:../rt-thread/src/ipc.c **** 
+ 813              		.loc 1 293 5 view .LVU257
+ 814 0054 05F11003 		add	r3, r5, #16
+ 815              	.LVL85:
+ 816              	.LBB58:
+ 817              	.LBI54:
+ 139:../rt-thread/include/rtthread.h **** {
+ 818              		.loc 2 139 16 is_stmt 1 view .LVU258
+ 819              	.LBB56:
+ 141:../rt-thread/include/rtthread.h ****     n->prev = l->prev;
+ 820              		.loc 2 141 5 view .LVU259
+ 141:../rt-thread/include/rtthread.h ****     n->prev = l->prev;
+ 821              		.loc 2 141 19 is_stmt 0 view .LVU260
+ 822 0058 1360     		str	r3, [r2]
+ 142:../rt-thread/include/rtthread.h ****     l->prev = n;
+ 823              		.loc 2 142 5 is_stmt 1 view .LVU261
+ 142:../rt-thread/include/rtthread.h ****     l->prev = n;
+ 824              		.loc 2 142 13 is_stmt 0 view .LVU262
+ 825 005a 6A61     		str	r2, [r5, #20]
+ 143:../rt-thread/include/rtthread.h ****     n->next = l;
+ 826              		.loc 2 143 5 is_stmt 1 view .LVU263
+ 143:../rt-thread/include/rtthread.h ****     n->next = l;
+ 827              		.loc 2 143 13 is_stmt 0 view .LVU264
+ 828 005c 6361     		str	r3, [r4, #20]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 26
+
+
+ 144:../rt-thread/include/rtthread.h **** }
+ 829              		.loc 2 144 5 is_stmt 1 view .LVU265
+ 830              	.LBE56:
+ 831              	.LBE58:
+ 296:../rt-thread/src/ipc.c ****     {
+ 832              		.loc 1 296 8 is_stmt 0 view .LVU266
+ 833 005e 019B     		ldr	r3, [sp, #4]
+ 293:../rt-thread/src/ipc.c **** 
+ 834              		.loc 1 293 5 view .LVU267
+ 835 0060 1034     		adds	r4, r4, #16
+ 836              	.LVL86:
+ 296:../rt-thread/src/ipc.c ****     {
+ 837              		.loc 1 296 8 view .LVU268
+ 838 0062 002B     		cmp	r3, #0
+ 839              	.LBB59:
+ 840              	.LBB57:
+ 144:../rt-thread/include/rtthread.h **** }
+ 841              		.loc 2 144 13 view .LVU269
+ 842 0064 2C61     		str	r4, [r5, #16]
+ 843              	.LVL87:
+ 144:../rt-thread/include/rtthread.h **** }
+ 844              		.loc 2 144 13 view .LVU270
+ 845              	.LBE57:
+ 846              	.LBE59:
+ 296:../rt-thread/src/ipc.c ****     {
+ 847              		.loc 1 296 5 is_stmt 1 view .LVU271
+ 296:../rt-thread/src/ipc.c ****     {
+ 848              		.loc 1 296 8 is_stmt 0 view .LVU272
+ 849 0066 09DD     		ble	.L30
+ 298:../rt-thread/src/ipc.c ****                        RT_TIMER_CTRL_SET_TIME,
+ 850              		.loc 1 298 9 is_stmt 1 view .LVU273
+ 851 0068 05F13C04 		add	r4, r5, #60
+ 852              	.LVL88:
+ 298:../rt-thread/src/ipc.c ****                        RT_TIMER_CTRL_SET_TIME,
+ 853              		.loc 1 298 9 is_stmt 0 view .LVU274
+ 854 006c 01AA     		add	r2, sp, #4
+ 855 006e 3946     		mov	r1, r7
+ 856 0070 2046     		mov	r0, r4
+ 857 0072 FFF7FEFF 		bl	rt_timer_control
+ 858              	.LVL89:
+ 301:../rt-thread/src/ipc.c ****     }
+ 859              		.loc 1 301 9 is_stmt 1 view .LVU275
+ 860 0076 2046     		mov	r0, r4
+ 861 0078 FFF7FEFF 		bl	rt_timer_start
+ 862              	.LVL90:
+ 863              	.L30:
+ 304:../rt-thread/src/ipc.c **** 
+ 864              		.loc 1 304 5 view .LVU276
+ 865 007c 3046     		mov	r0, r6
+ 866 007e FFF7FEFF 		bl	rt_hw_interrupt_enable
+ 867              	.LVL91:
+ 307:../rt-thread/src/ipc.c **** 
+ 868              		.loc 1 307 5 view .LVU277
+ 869 0082 FFF7FEFF 		bl	rt_schedule
+ 870              	.LVL92:
+ 309:../rt-thread/src/ipc.c **** }
+ 871              		.loc 1 309 5 view .LVU278
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 27
+
+
+ 309:../rt-thread/src/ipc.c **** }
+ 872              		.loc 1 309 18 is_stmt 0 view .LVU279
+ 873 0086 E86A     		ldr	r0, [r5, #44]
+ 874 0088 CCE7     		b	.L24
+ 875              		.cfi_endproc
+ 876              	.LFE13:
+ 878              		.section	.text.rt_mutex_release,"ax",%progbits
+ 879              		.align	1
+ 880              		.global	rt_mutex_release
+ 881              		.syntax unified
+ 882              		.thumb
+ 883              		.thumb_func
+ 885              	rt_mutex_release:
+ 886              	.LVL93:
+ 887              	.LFB14:
+ 311:../rt-thread/src/ipc.c **** 
+ 312:../rt-thread/src/ipc.c **** /**
+ 313:../rt-thread/src/ipc.c ****  * Release a mutex
+ 314:../rt-thread/src/ipc.c ****  */
+ 315:../rt-thread/src/ipc.c **** rt_err_t rt_mutex_release(rt_mutex_t mutex)
+ 316:../rt-thread/src/ipc.c **** {
+ 888              		.loc 1 316 1 is_stmt 1 view -0
+ 889              		.cfi_startproc
+ 890              		@ args = 0, pretend = 0, frame = 0
+ 891              		@ frame_needed = 0, uses_anonymous_args = 0
+ 317:../rt-thread/src/ipc.c ****     register rt_base_t level;
+ 892              		.loc 1 317 5 view .LVU281
+ 318:../rt-thread/src/ipc.c ****     struct rt_thread *thread;
+ 893              		.loc 1 318 5 view .LVU282
+ 319:../rt-thread/src/ipc.c ****     rt_bool_t need_schedule;
+ 894              		.loc 1 319 5 view .LVU283
+ 320:../rt-thread/src/ipc.c **** 
+ 321:../rt-thread/src/ipc.c ****     RT_ASSERT(mutex != RT_NULL);
+ 895              		.loc 1 321 5 view .LVU284
+ 322:../rt-thread/src/ipc.c **** 
+ 323:../rt-thread/src/ipc.c ****     need_schedule = RT_FALSE;
+ 896              		.loc 1 323 5 view .LVU285
+ 324:../rt-thread/src/ipc.c **** 
+ 325:../rt-thread/src/ipc.c ****     thread = rt_thread_self();
+ 897              		.loc 1 325 5 view .LVU286
+ 316:../rt-thread/src/ipc.c ****     register rt_base_t level;
+ 898              		.loc 1 316 1 is_stmt 0 view .LVU287
+ 899 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 900              	.LCFI11:
+ 901              		.cfi_def_cfa_offset 24
+ 902              		.cfi_offset 3, -24
+ 903              		.cfi_offset 4, -20
+ 904              		.cfi_offset 5, -16
+ 905              		.cfi_offset 6, -12
+ 906              		.cfi_offset 7, -8
+ 907              		.cfi_offset 14, -4
+ 316:../rt-thread/src/ipc.c ****     register rt_base_t level;
+ 908              		.loc 1 316 1 view .LVU288
+ 909 0002 0446     		mov	r4, r0
+ 910              		.loc 1 325 14 view .LVU289
+ 911 0004 FFF7FEFF 		bl	rt_thread_self
+ 912              	.LVL94:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 28
+
+
+ 913              		.loc 1 325 14 view .LVU290
+ 914 0008 0546     		mov	r5, r0
+ 915              	.LVL95:
+ 326:../rt-thread/src/ipc.c **** 
+ 327:../rt-thread/src/ipc.c ****     level = rt_hw_interrupt_disable();
+ 916              		.loc 1 327 5 is_stmt 1 view .LVU291
+ 917              		.loc 1 327 13 is_stmt 0 view .LVU292
+ 918 000a FFF7FEFF 		bl	rt_hw_interrupt_disable
+ 919              	.LVL96:
+ 328:../rt-thread/src/ipc.c **** 
+ 329:../rt-thread/src/ipc.c ****     /* Not the owner */
+ 330:../rt-thread/src/ipc.c ****     if (mutex->owner != thread)
+ 920              		.loc 1 330 8 view .LVU293
+ 921 000e E369     		ldr	r3, [r4, #28]
+ 922 0010 AB42     		cmp	r3, r5
+ 327:../rt-thread/src/ipc.c **** 
+ 923              		.loc 1 327 13 view .LVU294
+ 924 0012 0646     		mov	r6, r0
+ 925              	.LVL97:
+ 926              		.loc 1 330 5 is_stmt 1 view .LVU295
+ 927              		.loc 1 330 8 is_stmt 0 view .LVU296
+ 928 0014 04D0     		beq	.L33
+ 331:../rt-thread/src/ipc.c ****     {
+ 332:../rt-thread/src/ipc.c ****         rt_hw_interrupt_enable(level);
+ 929              		.loc 1 332 9 is_stmt 1 view .LVU297
+ 930 0016 FFF7FEFF 		bl	rt_hw_interrupt_enable
+ 931              	.LVL98:
+ 333:../rt-thread/src/ipc.c ****         return -RT_ERROR;
+ 932              		.loc 1 333 9 view .LVU298
+ 933              		.loc 1 333 16 is_stmt 0 view .LVU299
+ 934 001a 4FF0FF30 		mov	r0, #-1
+ 935              	.LVL99:
+ 936              	.L32:
+ 334:../rt-thread/src/ipc.c ****     }
+ 335:../rt-thread/src/ipc.c **** 
+ 336:../rt-thread/src/ipc.c ****     /* Decrease hold */
+ 337:../rt-thread/src/ipc.c ****     mutex->hold--;
+ 338:../rt-thread/src/ipc.c **** 
+ 339:../rt-thread/src/ipc.c ****     if (mutex->hold == 0)
+ 340:../rt-thread/src/ipc.c ****     {
+ 341:../rt-thread/src/ipc.c ****         /* Wakeup suspend thread */
+ 342:../rt-thread/src/ipc.c ****         if (!rt_list_isempty(&mutex->suspend_thread))
+ 343:../rt-thread/src/ipc.c ****         {
+ 344:../rt-thread/src/ipc.c ****             struct rt_thread *next_thread;
+ 345:../rt-thread/src/ipc.c **** 
+ 346:../rt-thread/src/ipc.c ****             next_thread = rt_list_entry(mutex->suspend_thread.next,
+ 347:../rt-thread/src/ipc.c ****                                         struct rt_thread,
+ 348:../rt-thread/src/ipc.c ****                                         tlist);
+ 349:../rt-thread/src/ipc.c **** 
+ 350:../rt-thread/src/ipc.c ****             /* Remove from suspend list */
+ 351:../rt-thread/src/ipc.c ****             rt_list_remove(&next_thread->tlist);
+ 352:../rt-thread/src/ipc.c **** 
+ 353:../rt-thread/src/ipc.c ****             /* Stop timer */
+ 354:../rt-thread/src/ipc.c ****             rt_timer_stop(&next_thread->thread_timer);
+ 355:../rt-thread/src/ipc.c **** 
+ 356:../rt-thread/src/ipc.c ****             /* Set new owner */
+ 357:../rt-thread/src/ipc.c ****             mutex->owner = next_thread;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 29
+
+
+ 358:../rt-thread/src/ipc.c ****             mutex->original_priority = next_thread->current_priority;
+ 359:../rt-thread/src/ipc.c ****             mutex->hold = 1;
+ 360:../rt-thread/src/ipc.c **** 
+ 361:../rt-thread/src/ipc.c ****             /* Resume thread */
+ 362:../rt-thread/src/ipc.c ****             rt_thread_resume(next_thread);
+ 363:../rt-thread/src/ipc.c **** 
+ 364:../rt-thread/src/ipc.c ****             need_schedule = RT_TRUE;
+ 365:../rt-thread/src/ipc.c ****         }
+ 366:../rt-thread/src/ipc.c ****         else
+ 367:../rt-thread/src/ipc.c ****         {
+ 368:../rt-thread/src/ipc.c ****             mutex->value = 1;
+ 369:../rt-thread/src/ipc.c ****             mutex->owner = RT_NULL;
+ 370:../rt-thread/src/ipc.c ****             mutex->original_priority = 0xFF;
+ 371:../rt-thread/src/ipc.c ****         }
+ 372:../rt-thread/src/ipc.c ****     }
+ 373:../rt-thread/src/ipc.c **** 
+ 374:../rt-thread/src/ipc.c ****     rt_hw_interrupt_enable(level);
+ 375:../rt-thread/src/ipc.c **** 
+ 376:../rt-thread/src/ipc.c ****     if (need_schedule == RT_TRUE)
+ 377:../rt-thread/src/ipc.c ****     {
+ 378:../rt-thread/src/ipc.c ****         rt_schedule();
+ 379:../rt-thread/src/ipc.c ****     }
+ 380:../rt-thread/src/ipc.c **** 
+ 381:../rt-thread/src/ipc.c ****     return RT_EOK;
+ 382:../rt-thread/src/ipc.c **** }
+ 937              		.loc 1 382 1 view .LVU300
+ 938 001e F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 939              	.LVL100:
+ 940              	.L33:
+ 337:../rt-thread/src/ipc.c **** 
+ 941              		.loc 1 337 5 is_stmt 1 view .LVU301
+ 337:../rt-thread/src/ipc.c **** 
+ 942              		.loc 1 337 16 is_stmt 0 view .LVU302
+ 943 0020 E37E     		ldrb	r3, [r4, #27]	@ zero_extendqisi2
+ 944 0022 013B     		subs	r3, r3, #1
+ 945 0024 DBB2     		uxtb	r3, r3
+ 946 0026 E376     		strb	r3, [r4, #27]
+ 339:../rt-thread/src/ipc.c ****     {
+ 947              		.loc 1 339 5 is_stmt 1 view .LVU303
+ 339:../rt-thread/src/ipc.c ****     {
+ 948              		.loc 1 339 8 is_stmt 0 view .LVU304
+ 949 0028 23BB     		cbnz	r3, .L35
+ 342:../rt-thread/src/ipc.c ****         {
+ 950              		.loc 1 342 9 is_stmt 1 view .LVU305
+ 951              	.LVL101:
+ 952              	.LBB65:
+ 953              	.LBI65:
+ 154:../rt-thread/include/rtthread.h **** {
+ 954              		.loc 2 154 15 view .LVU306
+ 955              	.LBB66:
+ 956              		.loc 2 156 5 view .LVU307
+ 957              		.loc 2 156 13 is_stmt 0 view .LVU308
+ 958 002a 2246     		mov	r2, r4
+ 959 002c 52F8105F 		ldr	r5, [r2, #16]!
+ 960              	.LVL102:
+ 961              		.loc 2 156 13 view .LVU309
+ 962              	.LBE66:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 30
+
+
+ 963              	.LBE65:
+ 342:../rt-thread/src/ipc.c ****         {
+ 964              		.loc 1 342 12 discriminator 1 view .LVU310
+ 965 0030 9542     		cmp	r5, r2
+ 966 0032 1AD0     		beq	.L36
+ 967              	.LBB67:
+ 344:../rt-thread/src/ipc.c **** 
+ 968              		.loc 1 344 13 is_stmt 1 view .LVU311
+ 346:../rt-thread/src/ipc.c ****                                         struct rt_thread,
+ 969              		.loc 1 346 13 view .LVU312
+ 346:../rt-thread/src/ipc.c ****                                         struct rt_thread,
+ 970              		.loc 1 346 25 is_stmt 0 view .LVU313
+ 971 0034 2F46     		mov	r7, r5
+ 972              	.LVL103:
+ 351:../rt-thread/src/ipc.c **** 
+ 973              		.loc 1 351 13 is_stmt 1 view .LVU314
+ 974              	.LBB68:
+ 975              	.LBI68:
+ 147:../rt-thread/include/rtthread.h **** {
+ 976              		.loc 2 147 16 view .LVU315
+ 977              	.LBB69:
+ 149:../rt-thread/include/rtthread.h ****     n->prev->next = n->next;
+ 978              		.loc 2 149 5 view .LVU316
+ 149:../rt-thread/include/rtthread.h ****     n->prev->next = n->next;
+ 979              		.loc 2 149 22 is_stmt 0 view .LVU317
+ 980 0036 6B68     		ldr	r3, [r5, #4]
+ 149:../rt-thread/include/rtthread.h ****     n->prev->next = n->next;
+ 981              		.loc 2 149 6 view .LVU318
+ 982 0038 57F81029 		ldr	r2, [r7], #-16
+ 983              	.LVL104:
+ 149:../rt-thread/include/rtthread.h ****     n->prev->next = n->next;
+ 984              		.loc 2 149 6 view .LVU319
+ 985              	.LBE69:
+ 986              	.LBE68:
+ 354:../rt-thread/src/ipc.c **** 
+ 987              		.loc 1 354 13 view .LVU320
+ 988 003c 05F12C00 		add	r0, r5, #44
+ 989              	.LVL105:
+ 990              	.LBB71:
+ 991              	.LBB70:
+ 149:../rt-thread/include/rtthread.h ****     n->prev->next = n->next;
+ 992              		.loc 2 149 19 view .LVU321
+ 993 0040 5360     		str	r3, [r2, #4]
+ 150:../rt-thread/include/rtthread.h ****     n->next = n->prev = n;
+ 994              		.loc 2 150 5 is_stmt 1 view .LVU322
+ 150:../rt-thread/include/rtthread.h ****     n->next = n->prev = n;
+ 995              		.loc 2 150 19 is_stmt 0 view .LVU323
+ 996 0042 1A60     		str	r2, [r3]
+ 151:../rt-thread/include/rtthread.h **** }
+ 997              		.loc 2 151 5 is_stmt 1 view .LVU324
+ 151:../rt-thread/include/rtthread.h **** }
+ 998              		.loc 2 151 13 is_stmt 0 view .LVU325
+ 999 0044 C5E90055 		strd	r5, r5, [r5]
+ 1000              	.LVL106:
+ 151:../rt-thread/include/rtthread.h **** }
+ 1001              		.loc 2 151 13 view .LVU326
+ 1002              	.LBE70:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 31
+
+
+ 1003              	.LBE71:
+ 354:../rt-thread/src/ipc.c **** 
+ 1004              		.loc 1 354 13 is_stmt 1 view .LVU327
+ 1005 0048 FFF7FEFF 		bl	rt_timer_stop
+ 1006              	.LVL107:
+ 357:../rt-thread/src/ipc.c ****             mutex->original_priority = next_thread->current_priority;
+ 1007              		.loc 1 357 13 view .LVU328
+ 357:../rt-thread/src/ipc.c ****             mutex->original_priority = next_thread->current_priority;
+ 1008              		.loc 1 357 26 is_stmt 0 view .LVU329
+ 1009 004c E761     		str	r7, [r4, #28]
+ 358:../rt-thread/src/ipc.c ****             mutex->hold = 1;
+ 1010              		.loc 1 358 13 is_stmt 1 view .LVU330
+ 358:../rt-thread/src/ipc.c ****             mutex->hold = 1;
+ 1011              		.loc 1 358 38 is_stmt 0 view .LVU331
+ 1012 004e 95F82130 		ldrb	r3, [r5, #33]	@ zero_extendqisi2
+ 1013 0052 A376     		strb	r3, [r4, #26]
+ 359:../rt-thread/src/ipc.c **** 
+ 1014              		.loc 1 359 13 is_stmt 1 view .LVU332
+ 359:../rt-thread/src/ipc.c **** 
+ 1015              		.loc 1 359 25 is_stmt 0 view .LVU333
+ 1016 0054 0125     		movs	r5, #1
+ 1017 0056 E576     		strb	r5, [r4, #27]
+ 362:../rt-thread/src/ipc.c **** 
+ 1018              		.loc 1 362 13 is_stmt 1 view .LVU334
+ 1019 0058 3846     		mov	r0, r7
+ 1020 005a FFF7FEFF 		bl	rt_thread_resume
+ 1021              	.LVL108:
+ 364:../rt-thread/src/ipc.c ****         }
+ 1022              		.loc 1 364 13 view .LVU335
+ 1023              	.L37:
+ 364:../rt-thread/src/ipc.c ****         }
+ 1024              		.loc 1 364 13 is_stmt 0 view .LVU336
+ 1025              	.LBE67:
+ 374:../rt-thread/src/ipc.c **** 
+ 1026              		.loc 1 374 5 is_stmt 1 view .LVU337
+ 1027 005e 3046     		mov	r0, r6
+ 1028 0060 FFF7FEFF 		bl	rt_hw_interrupt_enable
+ 1029              	.LVL109:
+ 376:../rt-thread/src/ipc.c ****     {
+ 1030              		.loc 1 376 5 view .LVU338
+ 376:../rt-thread/src/ipc.c ****     {
+ 1031              		.loc 1 376 8 is_stmt 0 view .LVU339
+ 1032 0064 45B9     		cbnz	r5, .L38
+ 1033              	.LVL110:
+ 1034              	.L39:
+ 381:../rt-thread/src/ipc.c **** }
+ 1035              		.loc 1 381 12 view .LVU340
+ 1036 0066 0020     		movs	r0, #0
+ 1037 0068 D9E7     		b	.L32
+ 1038              	.LVL111:
+ 1039              	.L36:
+ 368:../rt-thread/src/ipc.c ****             mutex->owner = RT_NULL;
+ 1040              		.loc 1 368 13 is_stmt 1 view .LVU341
+ 368:../rt-thread/src/ipc.c ****             mutex->owner = RT_NULL;
+ 1041              		.loc 1 368 26 is_stmt 0 view .LVU342
+ 1042 006a 0122     		movs	r2, #1
+ 369:../rt-thread/src/ipc.c ****             mutex->original_priority = 0xFF;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 32
+
+
+ 1043              		.loc 1 369 26 view .LVU343
+ 1044 006c E361     		str	r3, [r4, #28]
+ 370:../rt-thread/src/ipc.c ****         }
+ 1045              		.loc 1 370 38 view .LVU344
+ 1046 006e FF23     		movs	r3, #255
+ 368:../rt-thread/src/ipc.c ****             mutex->owner = RT_NULL;
+ 1047              		.loc 1 368 26 view .LVU345
+ 1048 0070 2283     		strh	r2, [r4, #24]	@ movhi
+ 369:../rt-thread/src/ipc.c ****             mutex->original_priority = 0xFF;
+ 1049              		.loc 1 369 13 is_stmt 1 view .LVU346
+ 370:../rt-thread/src/ipc.c ****         }
+ 1050              		.loc 1 370 13 view .LVU347
+ 370:../rt-thread/src/ipc.c ****         }
+ 1051              		.loc 1 370 38 is_stmt 0 view .LVU348
+ 1052 0072 A376     		strb	r3, [r4, #26]
+ 1053              	.L35:
+ 323:../rt-thread/src/ipc.c **** 
+ 1054              		.loc 1 323 19 view .LVU349
+ 1055 0074 0025     		movs	r5, #0
+ 1056 0076 F2E7     		b	.L37
+ 1057              	.LVL112:
+ 1058              	.L38:
+ 378:../rt-thread/src/ipc.c ****     }
+ 1059              		.loc 1 378 9 is_stmt 1 view .LVU350
+ 1060 0078 FFF7FEFF 		bl	rt_schedule
+ 1061              	.LVL113:
+ 1062 007c F3E7     		b	.L39
+ 1063              		.cfi_endproc
+ 1064              	.LFE14:
+ 1066              		.text
+ 1067              	.Letext0:
+ 1068              		.file 3 "../rt-thread/include/rtdef.h"
+ 1069              		.file 4 "../rt-thread/include/rthw.h"
+ 1070              		.file 5 "../rt-thread/include/rtservice.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s 			page 33
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 ipc.c
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:21     .text.rt_sem_init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:27     .text.rt_sem_init:00000000 rt_sem_init
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:91     .text.rt_sem_detach:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:97     .text.rt_sem_detach:00000000 rt_sem_detach
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:182    .text.rt_sem_take:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:188    .text.rt_sem_take:00000000 rt_sem_take
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:363    .text.rt_sem_trytake:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:369    .text.rt_sem_trytake:00000000 rt_sem_trytake
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:387    .text.rt_sem_release:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:393    .text.rt_sem_release:00000000 rt_sem_release
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:525    .text.rt_mutex_init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:531    .text.rt_mutex_init:00000000 rt_mutex_init
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:594    .text.rt_mutex_init:00000024 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:599    .text.rt_mutex_detach:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:605    .text.rt_mutex_detach:00000000 rt_mutex_detach
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:690    .text.rt_mutex_take:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:696    .text.rt_mutex_take:00000000 rt_mutex_take
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:879    .text.rt_mutex_release:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2N9P8j.s:885    .text.rt_mutex_release:00000000 rt_mutex_release
+
+UNDEFINED SYMBOLS
+rt_object_init
+rt_object_detach
+rt_hw_interrupt_disable
+rt_thread_resume
+rt_hw_interrupt_enable
+rt_thread_self
+rt_thread_suspend
+rt_timer_control
+rt_timer_start
+rt_schedule
+rt_timer_stop

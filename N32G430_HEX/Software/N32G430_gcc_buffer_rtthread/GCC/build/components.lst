@@ -1,0 +1,140 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccNQwwLg.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"components.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../rt-thread/src/components.c"
+  20              		.section	.text.rtthread_startup,"ax",%progbits
+  21              		.align	1
+  22              		.global	rtthread_startup
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	rtthread_startup:
+  28              	.LFB6:
+   1:../rt-thread/src/components.c **** /*
+   2:../rt-thread/src/components.c ****  * Copyright (c) 2006-2022, RT-Thread Development Team
+   3:../rt-thread/src/components.c ****  *
+   4:../rt-thread/src/components.c ****  * SPDX-License-Identifier: Apache-2.0
+   5:../rt-thread/src/components.c ****  *
+   6:../rt-thread/src/components.c ****  * RT-Thread System Entry
+   7:../rt-thread/src/components.c ****  */
+   8:../rt-thread/src/components.c **** 
+   9:../rt-thread/src/components.c **** #include <rtthread.h>
+  10:../rt-thread/src/components.c **** #include <rthw.h>
+  11:../rt-thread/src/components.c **** 
+  12:../rt-thread/src/components.c **** extern void rt_hw_board_init(void);
+  13:../rt-thread/src/components.c **** extern void rt_application_init(void);
+  14:../rt-thread/src/components.c **** 
+  15:../rt-thread/src/components.c **** /**
+  16:../rt-thread/src/components.c ****  * RT-Thread startup entry
+  17:../rt-thread/src/components.c ****  * Called from Reset_Handler after system initialization
+  18:../rt-thread/src/components.c ****  */
+  19:../rt-thread/src/components.c **** int rtthread_startup(void)
+  20:../rt-thread/src/components.c **** {
+  29              		.loc 1 20 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  21:../rt-thread/src/components.c ****     /* Disable interrupt first */
+  22:../rt-thread/src/components.c ****     rt_hw_interrupt_disable();
+  33              		.loc 1 22 5 view .LVU1
+  20:../rt-thread/src/components.c ****     /* Disable interrupt first */
+  34              		.loc 1 20 1 is_stmt 0 view .LVU2
+  35 0000 08B5     		push	{r3, lr}
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccNQwwLg.s 			page 2
+
+
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 3, -8
+  39              		.cfi_offset 14, -4
+  40              		.loc 1 22 5 view .LVU3
+  41 0002 FFF7FEFF 		bl	rt_hw_interrupt_disable
+  42              	.LVL0:
+  23:../rt-thread/src/components.c **** 
+  24:../rt-thread/src/components.c ****     /* Board level initialization */
+  25:../rt-thread/src/components.c ****     rt_hw_board_init();
+  43              		.loc 1 25 5 is_stmt 1 view .LVU4
+  44 0006 FFF7FEFF 		bl	rt_hw_board_init
+  45              	.LVL1:
+  26:../rt-thread/src/components.c **** 
+  27:../rt-thread/src/components.c ****     /* Timer system initialization */
+  28:../rt-thread/src/components.c ****     rt_system_timer_init();
+  46              		.loc 1 28 5 view .LVU5
+  47 000a FFF7FEFF 		bl	rt_system_timer_init
+  48              	.LVL2:
+  29:../rt-thread/src/components.c **** 
+  30:../rt-thread/src/components.c ****     /* Scheduler initialization */
+  31:../rt-thread/src/components.c ****     rt_system_scheduler_init();
+  49              		.loc 1 31 5 view .LVU6
+  50 000e FFF7FEFF 		bl	rt_system_scheduler_init
+  51              	.LVL3:
+  32:../rt-thread/src/components.c **** 
+  33:../rt-thread/src/components.c ****     /* Initialize idle thread */
+  34:../rt-thread/src/components.c ****     rt_thread_idle_init();
+  52              		.loc 1 34 5 view .LVU7
+  53 0012 FFF7FEFF 		bl	rt_thread_idle_init
+  54              	.LVL4:
+  35:../rt-thread/src/components.c **** 
+  36:../rt-thread/src/components.c ****     /* Initialize application */
+  37:../rt-thread/src/components.c ****     rt_application_init();
+  55              		.loc 1 37 5 view .LVU8
+  56 0016 FFF7FEFF 		bl	rt_application_init
+  57              	.LVL5:
+  38:../rt-thread/src/components.c **** 
+  39:../rt-thread/src/components.c ****     /* Start scheduler */
+  40:../rt-thread/src/components.c ****     rt_system_scheduler_start();
+  58              		.loc 1 40 5 view .LVU9
+  59 001a FFF7FEFF 		bl	rt_system_scheduler_start
+  60              	.LVL6:
+  41:../rt-thread/src/components.c **** 
+  42:../rt-thread/src/components.c ****     /* Never reach here */
+  43:../rt-thread/src/components.c ****     return 0;
+  61              		.loc 1 43 5 view .LVU10
+  44:../rt-thread/src/components.c **** }
+  62              		.loc 1 44 1 is_stmt 0 view .LVU11
+  63 001e 0020     		movs	r0, #0
+  64 0020 08BD     		pop	{r3, pc}
+  65              		.cfi_endproc
+  66              	.LFE6:
+  68              		.text
+  69              	.Letext0:
+  70              		.file 2 "../rt-thread/include/rtthread.h"
+  71              		.file 3 "../rt-thread/include/rtdef.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccNQwwLg.s 			page 3
+
+
+  72              		.file 4 "../rt-thread/include/rthw.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccNQwwLg.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 components.c
+C:\Users\Dawn\AppData\Local\Temp\ccNQwwLg.s:21     .text.rtthread_startup:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccNQwwLg.s:27     .text.rtthread_startup:00000000 rtthread_startup
+
+UNDEFINED SYMBOLS
+rt_hw_interrupt_disable
+rt_hw_board_init
+rt_system_timer_init
+rt_system_scheduler_init
+rt_thread_idle_init
+rt_application_init
+rt_system_scheduler_start

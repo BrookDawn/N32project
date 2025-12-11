@@ -1,0 +1,238 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc1lEXB2.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"cpuport.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../rt-thread/libcpu/arm/cortex-m4/cpuport.c"
+  20              		.section	.text.rt_hw_stack_init,"ax",%progbits
+  21              		.align	1
+  22              		.global	rt_hw_stack_init
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	rt_hw_stack_init:
+  28              	.LVL0:
+  29              	.LFB6:
+   1:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** /*
+   2:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****  * Copyright (c) 2006-2022, RT-Thread Development Team
+   3:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****  *
+   4:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****  * SPDX-License-Identifier: Apache-2.0
+   5:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****  *
+   6:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****  * Cortex-M4 CPU port for RT-Thread (GCC)
+   7:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****  */
+   8:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+   9:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** #include <rtthread.h>
+  10:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** #include <rthw.h>
+  11:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+  12:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** /* Exception return value */
+  13:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** #define EXC_RETURN_PROCESS_STACK    0xFFFFFFFD
+  14:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+  15:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** /* Align macro */
+  16:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** #ifndef RT_ALIGN_DOWN
+  17:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** #define RT_ALIGN_DOWN(size, align)      ((size) & ~((align) - 1))
+  18:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** #endif
+  19:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+  20:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** /* Register structure for context save */
+  21:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** struct exception_stack_frame
+  22:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** {
+  23:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t r0;
+  24:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t r1;
+  25:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t r2;
+  26:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t r3;
+  27:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t r12;
+  28:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t lr;
+  29:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t pc;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc1lEXB2.s 			page 2
+
+
+  30:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t psr;
+  31:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** };
+  32:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+  33:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** struct stack_frame
+  34:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** {
+  35:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** #if defined(__VFP_FP__) && !defined(__SOFTFP__)
+  36:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t flag;
+  37:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** #endif
+  38:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+  39:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     /* r4 ~ r11 register */
+  40:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t r4;
+  41:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t r5;
+  42:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t r6;
+  43:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t r7;
+  44:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t r8;
+  45:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t r9;
+  46:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t r10;
+  47:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint32_t r11;
+  48:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+  49:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     struct exception_stack_frame exception_stack_frame;
+  50:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** };
+  51:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+  52:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** /**
+  53:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****  * Initialize thread stack
+  54:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****  */
+  55:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** rt_uint8_t *rt_hw_stack_init(void       *tentry,
+  56:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****                              void       *parameter,
+  57:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****                              rt_uint8_t *stack_addr,
+  58:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****                              void       *texit)
+  59:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** {
+  30              		.loc 1 59 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  60:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     struct stack_frame *stack_frame;
+  34              		.loc 1 60 5 view .LVU1
+  61:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     rt_uint8_t *stk;
+  35              		.loc 1 61 5 view .LVU2
+  62:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     unsigned long i;
+  36              		.loc 1 62 5 view .LVU3
+  63:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+  64:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stk  = stack_addr + sizeof(rt_ubase_t);
+  37              		.loc 1 64 5 view .LVU4
+  65:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stk  = (rt_uint8_t *)RT_ALIGN_DOWN((rt_ubase_t)stk, 8);
+  38              		.loc 1 65 5 view .LVU5
+  64:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stk  = (rt_uint8_t *)RT_ALIGN_DOWN((rt_ubase_t)stk, 8);
+  39              		.loc 1 64 10 is_stmt 0 view .LVU6
+  40 0000 0432     		adds	r2, r2, #4
+  41              	.LVL1:
+  42              		.loc 1 65 26 view .LVU7
+  43 0002 22F00702 		bic	r2, r2, #7
+  44              	.LVL2:
+  66:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stk -= sizeof(struct stack_frame);
+  45              		.loc 1 66 5 is_stmt 1 view .LVU8
+  59:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     struct stack_frame *stack_frame;
+  46              		.loc 1 59 1 is_stmt 0 view .LVU9
+  47 0006 70B5     		push	{r4, r5, r6, lr}
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc1lEXB2.s 			page 3
+
+
+  48              	.LCFI0:
+  49              		.cfi_def_cfa_offset 16
+  50              		.cfi_offset 4, -16
+  51              		.cfi_offset 5, -12
+  52              		.cfi_offset 6, -8
+  53              		.cfi_offset 14, -4
+  59:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     struct stack_frame *stack_frame;
+  54              		.loc 1 59 1 view .LVU10
+  55 0008 0446     		mov	r4, r0
+  67:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+  68:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame = (struct stack_frame *)stk;
+  69:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+  70:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     /* Init all register to 0xDEADBEEF */
+  71:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     for (i = 0; i < sizeof(struct stack_frame) / sizeof(rt_uint32_t); i++)
+  72:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     {
+  73:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****         ((rt_uint32_t *)stack_frame)[i] = 0xDEADBEEF;
+  56              		.loc 1 73 41 view .LVU11
+  57 000a 0C4E     		ldr	r6, .L4
+  66:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+  58              		.loc 1 66 9 view .LVU12
+  59 000c A2F14400 		sub	r0, r2, #68
+  60              	.LVL3:
+  68:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+  61              		.loc 1 68 5 is_stmt 1 view .LVU13
+  71:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     {
+  62              		.loc 1 71 5 view .LVU14
+  71:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     {
+  63              		.loc 1 71 19 discriminator 1 view .LVU15
+  64 0010 0546     		mov	r5, r0
+  65              	.LVL4:
+  66              	.L2:
+  67              		.loc 1 73 9 view .LVU16
+  68              		.loc 1 73 41 is_stmt 0 view .LVU17
+  69 0012 45F8046B 		str	r6, [r5], #4
+  71:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     {
+  70              		.loc 1 71 72 is_stmt 1 discriminator 3 view .LVU18
+  71:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     {
+  71              		.loc 1 71 19 discriminator 1 view .LVU19
+  72 0016 AA42     		cmp	r2, r5
+  73 0018 FBD1     		bne	.L2
+  74:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     }
+  75:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+  76:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->exception_stack_frame.r0  = (unsigned long)parameter;
+  74              		.loc 1 76 5 view .LVU20
+  77:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->exception_stack_frame.r1  = 0;
+  78:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->exception_stack_frame.r2  = 0;
+  79:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->exception_stack_frame.r3  = 0;
+  80:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->exception_stack_frame.r12 = 0;
+  81:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->exception_stack_frame.lr  = (unsigned long)texit;
+  82:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->exception_stack_frame.pc  = (unsigned long)tentry;
+  75              		.loc 1 82 44 is_stmt 0 view .LVU21
+  76 001a 42E90334 		strd	r3, r4, [r2, #-12]
+  76:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->exception_stack_frame.r1  = 0;
+  77              		.loc 1 76 44 view .LVU22
+  78 001e 42F8201C 		str	r1, [r2, #-32]
+  77:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->exception_stack_frame.r1  = 0;
+  79              		.loc 1 77 5 is_stmt 1 view .LVU23
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc1lEXB2.s 			page 4
+
+
+  83:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->exception_stack_frame.psr = 0x01000000UL;
+  80              		.loc 1 83 44 is_stmt 0 view .LVU24
+  81 0022 4FF08073 		mov	r3, #16777216
+  82              	.LVL5:
+  77:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->exception_stack_frame.r1  = 0;
+  83              		.loc 1 77 44 view .LVU25
+  84 0026 0021     		movs	r1, #0
+  85              	.LVL6:
+  78:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->exception_stack_frame.r3  = 0;
+  86              		.loc 1 78 44 view .LVU26
+  87 0028 42E90711 		strd	r1, r1, [r2, #-28]
+  79:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->exception_stack_frame.r12 = 0;
+  88              		.loc 1 79 5 is_stmt 1 view .LVU27
+  80:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->exception_stack_frame.lr  = (unsigned long)texit;
+  89              		.loc 1 80 44 is_stmt 0 view .LVU28
+  90 002c 42E90511 		strd	r1, r1, [r2, #-20]
+  81:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->exception_stack_frame.pc  = (unsigned long)tentry;
+  91              		.loc 1 81 5 is_stmt 1 view .LVU29
+  92              		.loc 1 83 5 view .LVU30
+  93              		.loc 1 83 44 is_stmt 0 view .LVU31
+  94 0030 42F8043C 		str	r3, [r2, #-4]
+  84:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+  85:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** #if defined(__VFP_FP__) && !defined(__SOFTFP__)
+  86:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     stack_frame->flag = 0;
+  95              		.loc 1 86 5 is_stmt 1 view .LVU32
+  96              		.loc 1 86 23 is_stmt 0 view .LVU33
+  97 0034 42F8441C 		str	r1, [r2, #-68]
+  87:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** #endif
+  88:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** 
+  89:../rt-thread/libcpu/arm/cortex-m4/cpuport.c ****     return stk;
+  98              		.loc 1 89 5 is_stmt 1 view .LVU34
+  90:../rt-thread/libcpu/arm/cortex-m4/cpuport.c **** }
+  99              		.loc 1 90 1 is_stmt 0 view .LVU35
+ 100 0038 70BD     		pop	{r4, r5, r6, pc}
+ 101              	.LVL7:
+ 102              	.L5:
+ 103              		.loc 1 90 1 view .LVU36
+ 104 003a 00BF     		.align	2
+ 105              	.L4:
+ 106 003c EFBEADDE 		.word	-559038737
+ 107              		.cfi_endproc
+ 108              	.LFE6:
+ 110              		.text
+ 111              	.Letext0:
+ 112              		.file 2 "../rt-thread/include/rtdef.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc1lEXB2.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 cpuport.c
+C:\Users\Dawn\AppData\Local\Temp\cc1lEXB2.s:21     .text.rt_hw_stack_init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc1lEXB2.s:27     .text.rt_hw_stack_init:00000000 rt_hw_stack_init
+C:\Users\Dawn\AppData\Local\Temp\cc1lEXB2.s:106    .text.rt_hw_stack_init:0000003c $d
+
+NO UNDEFINED SYMBOLS
