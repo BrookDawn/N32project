@@ -24,7 +24,9 @@ build/n32g430_it.o: ../core/src/n32g430_it.c ../core/inc/n32g430_it.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_usart.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_wwdg.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h \
- ../firmware/n32g430_std_periph_driver/inc/misc.h ../core/inc/main.h
+ ../firmware/n32g430_std_periph_driver/inc/misc.h ../core/inc/main.h \
+ ../rt-thread/include/rtthread.h ../rt-thread/include/rtdef.h \
+ ../rt-thread/bsp/rtconfig.h ../rt-thread/include/rtservice.h
 ../core/inc/n32g430_it.h:
 ../firmware/CMSIS/device/n32g430.h:
 ../firmware/CMSIS/core/core_cm4.h:
@@ -55,3 +57,7 @@ build/n32g430_it.o: ../core/src/n32g430_it.c ../core/inc/n32g430_it.h \
 ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h:
 ../firmware/n32g430_std_periph_driver/inc/misc.h:
 ../core/inc/main.h:
+../rt-thread/include/rtthread.h:
+../rt-thread/include/rtdef.h:
+../rt-thread/bsp/rtconfig.h:
+../rt-thread/include/rtservice.h:

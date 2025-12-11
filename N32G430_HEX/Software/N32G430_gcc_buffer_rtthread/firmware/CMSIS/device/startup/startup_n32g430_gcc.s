@@ -89,8 +89,8 @@ LoopFillZerobss:
   bl  System_Initializes
 /* Call static constructors */
   bl __libc_init_array
-/* Call the application's entry point.*/
-  bl main
+/* Call RT-Thread startup (instead of main) */
+  bl rtthread_startup
 
 LoopForever:
     b LoopForever

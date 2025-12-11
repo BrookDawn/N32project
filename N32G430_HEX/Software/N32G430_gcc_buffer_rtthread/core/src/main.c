@@ -32,127 +32,187 @@
 *\*\copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
 **/
 
+/* RT-Thread include */
+#include <rtthread.h>
+
 /*BSP include*/
 #include "main.h"
 #include "bsp_led.h"
-#include "bsp_delay.h"
 #include "bsp_usart.h"
-
-/*APP include*/
-#include "Buffer.h"
 
 /*RTT include*/
 #include "SEGGER_RTT.h"
 
+/* Thread definitions */
+#define LED_THREAD_STACK_SIZE   256
+#define LED_THREAD_PRIORITY     20
+#define LED_THREAD_TIMESLICE    5
+
+#define UART_THREAD_STACK_SIZE  512
+#define UART_THREAD_PRIORITY    10
+#define UART_THREAD_TIMESLICE   5
+
+/* Thread control blocks */
+static struct rt_thread led_thread;
+static struct rt_thread uart_thread;
+
+/* Thread stacks */
+ALIGN(RT_ALIGN_SIZE)
+static rt_uint8_t led_thread_stack[LED_THREAD_STACK_SIZE];
+ALIGN(RT_ALIGN_SIZE)
+static rt_uint8_t uart_thread_stack[UART_THREAD_STACK_SIZE];
+
+/* Semaphore for UART data */
+static struct rt_semaphore uart_rx_sem;
+
 /**
- *\*\name   main.
- *\*\fun    main function.
- *\*\param  none.
- *\*\return none.
-**/
-int main(void)
+ * LED thread entry
+ * Blinks LEDs periodically
+ */
+static void led_thread_entry(void *parameter)
 {
-	char rx_buffer[128];
-	uint16_t rx_length;
-	uint32_t led_counter = 0;
-	
-	/*RTT初始化*/
-	SEGGER_RTT_Init();
-	SEGGER_RTT_printf(0, "N32G430 USART1 Test Started!\r\n");
-	SEGGER_RTT_printf(0, "Baudrate: 115200\r\n");
-	SEGGER_RTT_printf(0, "Send any character to echo back...\r\n");
+    (void)parameter;
 
-	/* 初始化USART1 */
-	USART1_Init();
+    /* Initialize LEDs */
+    LED_Initialize(LED1_GPIO_PORT, LED1_GPIO_PIN, LED1_GPIO_CLK);
+    LED_Initialize(LED2_GPIO_PORT, LED2_GPIO_PIN | LED3_GPIO_PIN, LED2_GPIO_CLK);
 
-	/* 发送启动信息 */
-	USART1_SendString("N32G430 USART1 Test Started!\r\n");
-	USART1_SendString("Baudrate: 115200\r\n");
-	USART1_SendString("Send any character to echo back...\r\n");
+    /* Turn off all LEDs */
+    LED_Off(LED2_GPIO_PORT, LED1_GPIO_PIN | LED2_GPIO_PIN | LED3_GPIO_PIN);
 
-	/* Initialize Led1~Led3 as output push-pull mode */
-	LED_Initialize(LED1_GPIO_PORT, LED1_GPIO_PIN, LED1_GPIO_CLK);
-	LED_Initialize(LED2_GPIO_PORT, LED2_GPIO_PIN | LED3_GPIO_PIN, LED2_GPIO_CLK);
+    rt_kprintf("LED thread started!\n");
 
-	/* Turn off Led1~Led3 */
-	LED_Off(LED2_GPIO_PORT, LED1_GPIO_PIN | LED2_GPIO_PIN | LED3_GPIO_PIN);
+    while (1)
+    {
+        /* Toggle LED1 */
+        LED_Toggle(LED1_GPIO_PORT, LED1_GPIO_PIN);
+        rt_thread_mdelay(500);
 
-	/* Turn on Led2~Led3 */
-	LED_On(LED2_GPIO_PORT, LED2_GPIO_PIN | LED3_GPIO_PIN);
+        /* Toggle LED2 */
+        LED_Toggle(LED2_GPIO_PORT, LED2_GPIO_PIN);
+        rt_thread_mdelay(500);
 
-	/* Delay 1s */
-	SysTick_Delay_Ms(1000);
-
-	while(1)
-	{
-		/* 检查是否有串口数据 */
-		rx_length = USART1_ReceiveString(rx_buffer, sizeof(rx_buffer));
-		if(rx_length > 0)
-		{
-			/* 回显接收到的数据 */
-			USART1_SendString("Received: ");
-			USART1_SendArray((uint8_t*)rx_buffer, rx_length);
-			USART1_SendString("\r\n");
-
-			/* 发送LED状态信息 */
-			USART1_SendString("LED Status: ");
-			if(GPIO_Output_Pin_Data_Get(LED1_GPIO_PORT, LED1_GPIO_PIN))
-			{
-				USART1_SendString("LED1=ON ");
-			}
-			else
-			{
-				USART1_SendString("LED1=OFF ");
-			}
-
-			if(GPIO_Output_Pin_Data_Get(LED2_GPIO_PORT, LED2_GPIO_PIN))
-			{
-				USART1_SendString("LED2=ON ");
-			}
-			else
-			{
-				USART1_SendString("LED2=OFF ");
-			}
-
-			if(GPIO_Output_Pin_Data_Get(LED3_GPIO_PORT, LED3_GPIO_PIN))
-			{
-				USART1_SendString("LED3=ON\r\n");
-			}
-			else
-			{
-				USART1_SendString("LED3=OFF\r\n");
-			}
-		}
-
-		/* Turn on Led1 */
-		LED1_ON;
-
-		/* Toggle LED2 */
-		LED_Toggle(LED2_GPIO_PORT, LED2_GPIO_PIN);
-
-		/* Delay 1s */
-		SysTick_Delay_Ms(1000);
-
-		/* Toggle LED3 */
-		LED_Toggle(LED3_GPIO_PORT, LED3_GPIO_PIN);
-
-		/* Delay 1s */
-		SysTick_Delay_Ms(1000);
-
-		/* Turn off LED1 */
-		LED1_OFF;
-
-		/* Delay 1s */
-		SysTick_Delay_Ms(1000);
-
-		/* 每10秒发送一次状态信息 */
-		led_counter++;
-		if(led_counter >= 30)
-		{
-			USART1_SendString("System running... LED blinking...\r\n");
-			led_counter = 0;
-		}
-	}
+        /* Toggle LED3 */
+        LED_Toggle(LED3_GPIO_PORT, LED3_GPIO_PIN);
+        rt_thread_mdelay(500);
+    }
 }
 
+/**
+ * UART thread entry
+ * Handles UART receive and echo
+ */
+static void uart_thread_entry(void *parameter)
+{
+    char rx_buffer[128];
+    uint16_t rx_length;
 
+    (void)parameter;
+
+    rt_kprintf("N32G430 RT-Thread Nano Started!\n");
+    rt_kprintf("UART1 Test - Baudrate: 115200\n");
+    rt_kprintf("Send any character to echo back...\n");
+
+    /* Also send to UART directly */
+    USART1_SendString("N32G430 RT-Thread Nano Started!\r\n");
+    USART1_SendString("UART1 Test - Baudrate: 115200\r\n");
+    USART1_SendString("Send any character to echo back...\r\n");
+
+    while (1)
+    {
+        /* Check UART receive buffer */
+        rx_length = USART1_ReceiveString(rx_buffer, sizeof(rx_buffer));
+
+        if (rx_length > 0)
+        {
+            /* Echo received data */
+            USART1_SendString("Received: ");
+            USART1_SendArray((uint8_t*)rx_buffer, rx_length);
+            USART1_SendString("\r\n");
+
+            /* Also output to RTT console */
+            rt_kprintf("Received %d bytes: %s\n", rx_length, rx_buffer);
+
+            /* Print LED status */
+            USART1_SendString("LED Status: ");
+            if (GPIO_Output_Pin_Data_Get(LED1_GPIO_PORT, LED1_GPIO_PIN))
+            {
+                USART1_SendString("LED1=ON ");
+            }
+            else
+            {
+                USART1_SendString("LED1=OFF ");
+            }
+
+            if (GPIO_Output_Pin_Data_Get(LED2_GPIO_PORT, LED2_GPIO_PIN))
+            {
+                USART1_SendString("LED2=ON ");
+            }
+            else
+            {
+                USART1_SendString("LED2=OFF ");
+            }
+
+            if (GPIO_Output_Pin_Data_Get(LED3_GPIO_PORT, LED3_GPIO_PIN))
+            {
+                USART1_SendString("LED3=ON\r\n");
+            }
+            else
+            {
+                USART1_SendString("LED3=OFF\r\n");
+            }
+        }
+
+        /* Delay to prevent busy loop */
+        rt_thread_mdelay(50);
+    }
+}
+
+/**
+ * Main function
+ * Called from RT-Thread main thread
+ */
+int main(void)
+{
+    /* Initialize RTT */
+    SEGGER_RTT_Init();
+    SEGGER_RTT_printf(0, "N32G430 RT-Thread Nano Started!\r\n");
+
+    /* Initialize UART semaphore */
+    rt_sem_init(&uart_rx_sem, "uart_rx", 0, RT_IPC_FLAG_FIFO);
+
+    /* Create LED thread */
+    rt_thread_init(&led_thread,
+                   "led",
+                   led_thread_entry,
+                   RT_NULL,
+                   &led_thread_stack[0],
+                   LED_THREAD_STACK_SIZE,
+                   LED_THREAD_PRIORITY,
+                   LED_THREAD_TIMESLICE);
+    rt_thread_startup(&led_thread);
+
+    /* Create UART thread */
+    rt_thread_init(&uart_thread,
+                   "uart",
+                   uart_thread_entry,
+                   RT_NULL,
+                   &uart_thread_stack[0],
+                   UART_THREAD_STACK_SIZE,
+                   UART_THREAD_PRIORITY,
+                   UART_THREAD_TIMESLICE);
+    rt_thread_startup(&uart_thread);
+
+    rt_kprintf("All threads started!\n");
+
+    /* Main thread can exit or do other tasks */
+    while (1)
+    {
+        /* Keep alive message every 30 seconds */
+        rt_thread_mdelay(30000);
+        rt_kprintf("System running... tick=%d\n", rt_tick_get());
+        USART1_SendString("System running...\r\n");
+    }
+
+    return 0;
+}

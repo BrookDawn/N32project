@@ -8,6 +8,11 @@
 #   2021-11-20
 # ------------------------------------------------
 
+# Shell configuration (comment out for Unix/Linux)
+ifeq ($(OS),Windows_NT)
+SHELL = cmd.exe
+endif
+
 ######################################
 # target
 ######################################
@@ -55,13 +60,19 @@ C_DIRS += ../APP/Src
 C_DIRS += ../RTT/Src
 C_DIRS += ../firmware/CMSIS/device
 C_DIRS += ../firmware/n32g430_std_periph_driver/src
+# RT-Thread sources
+C_DIRS += ../rt-thread/src
+C_DIRS += ../rt-thread/bsp
+C_DIRS += ../rt-thread/libcpu/arm/cortex-m4
 SRC_OBJS_DIRS = $(foreach DIR, $(C_DIRS), $(wildcard $(DIR)/*.c))
 C_SOURCES = $(SRC_OBJS_DIRS)
 
 ######################################
 # ASM sources
 ######################################
-ASM_SOURCES = ../firmware/CMSIS/device/startup/startup_$(TARGET_PLATFORM)_gcc.s
+ASM_SOURCES_s = ../firmware/CMSIS/device/startup/startup_$(TARGET_PLATFORM)_gcc.s
+# RT-Thread context switch assembly
+ASM_SOURCES_S = ../rt-thread/libcpu/arm/cortex-m4/context_gcc.S
 
 ######################################
 # C includes
@@ -72,6 +83,9 @@ C_INCS += ../RTT/Ins
 C_INCS += ../firmware/CMSIS/core
 C_INCS += ../firmware/CMSIS/device
 C_INCS += ../firmware/n32g430_std_periph_driver/inc
+# RT-Thread includes
+C_INCS += ../rt-thread/include
+C_INCS += ../rt-thread/bsp
 
 INCS_OBJS_DIR = $(foreach DIR2, $(C_INCS), $(wildcard $(DIR2)/*.h))
 INCS_OBJS_PATH = $(sort $(dir $(INCS_OBJS_DIR)))
@@ -130,14 +144,20 @@ all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET
 # list of objects
 OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
 vpath %.c $(sort $(dir $(C_SOURCES)))
-# list of ASM program objects
-OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
-vpath %.s $(sort $(dir $(ASM_SOURCES)))
+# list of ASM program objects (.s files)
+OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES_s:.s=.o)))
+vpath %.s $(sort $(dir $(ASM_SOURCES_s)))
+# list of ASM program objects (.S files)
+OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES_S:.S=.o)))
+vpath %.S $(sort $(dir $(ASM_SOURCES_S)))
 
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
 	$(CROSS_COMPILE)gcc $(CFLAGS) $(DEFS) $(C_INCLUDES) $(C_LIBS) -c -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.c=.lst)) $< -o $@
 
 $(BUILD_DIR)/%.o: %.s Makefile | $(BUILD_DIR)
+	$(CROSS_COMPILE)gcc $(CFLAGS) -c $< -o $@
+
+$(BUILD_DIR)/%.o: %.S Makefile | $(BUILD_DIR)
 	$(CROSS_COMPILE)gcc $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile
@@ -151,14 +171,13 @@ $(BUILD_DIR)/$(TARGET).hex: $(BUILD_DIR)/$(TARGET).elf
 	$(CROSS_COMPILE)objcopy -O ihex -S $< $@
 
 $(BUILD_DIR):
-	@-mkdir $@
+	@mkdir $(BUILD_DIR) 2>nul || echo build directory exists
 
-SHELL=cmd.exe
 #######################################
 # clean up
 #######################################
 clean:
-	del $(BUILD_DIR)
+	@rm -rf $(BUILD_DIR) 2>nul || del /s /q $(BUILD_DIR) 2>nul || echo cleaned
 #	@-rm -rf $(BUILD_DIR)
 
 #######################################

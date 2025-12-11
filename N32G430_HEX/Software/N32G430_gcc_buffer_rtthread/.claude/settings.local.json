@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(make clean)",
+      "Bash(if:*)",
+      "Bash(make:*)",
+      "Bash(find:*)",
+      "Bash(while:*)",
+      "Bash(do if grep -q \"&lt;\\|&gt;\\|&amp;\" $f)",
+      "Bash(then echo 'Fixing: $f' sed -i \"s/\\&lt;/</g; s/\\&gt;/>/g; s/\\&amp;/\\&/g\" $f fi done)"
+    ]
+  }
+}
