@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 1
   19:../APP/Src/oled_example.c **** #include "oled_ui.h"
   20:../APP/Src/oled_example.c **** #include "oled_config.h"  /* 包含配置文件 */
   21:../APP/Src/oled_example.c **** #include "i2c.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s 			page 2
 
 
   22:../APP/Src/oled_example.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 1
   76:../APP/Src/oled_example.c ****     
   77:../APP/Src/oled_example.c ****     /* 初始化进度条动画 */
   78:../APP/Src/oled_example.c ****     OLED_UI_AnimInit(&progress_anim, 0.0f, 100.0f, 3000, OLED_Easing_EaseInOutQuad);
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 3
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s 			page 3
 
 
   79:../APP/Src/oled_example.c ****     progress_anim.loop = true;
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 1
  133:../APP/Src/oled_example.c ****     OLED_RefreshDirty(&holed);
  134:../APP/Src/oled_example.c **** }
  135:../APP/Src/oled_example.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s 			page 4
 
 
  136:../APP/Src/oled_example.c **** /**
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 1
   54              		.loc 1 168 9 is_stmt 1 view .LVU6
   55              	.LBB8:
   56              	.LBI8:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 5
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s 			page 5
 
 
   54:../APP/Src/oled_example.c **** {
@@ -255,9 +255,9 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 1
   66              	.LVL0:
   66:../APP/Src/oled_example.c ****     
   67              		.loc 1 66 5 view .LVU9
-  68 0016 6B7E     		ldrb	r3, [r5, #25]	@ zero_extendqisi2
+  68 0016 6B7F     		ldrb	r3, [r5, #29]	@ zero_extendqisi2
   69 0018 0193     		str	r3, [sp, #4]
-  70 001a 2B7E     		ldrb	r3, [r5, #24]	@ zero_extendqisi2
+  70 001a 2B7F     		ldrb	r3, [r5, #28]	@ zero_extendqisi2
   71 001c 5748     		ldr	r0, .L6+16
   72 001e 0093     		str	r3, [sp]
   73 0020 2246     		mov	r2, r4
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 1
   71:../APP/Src/oled_example.c ****     progress_bar.height = 10;
   98              		.loc 1 71 5 view .LVU20
   72:../APP/Src/oled_example.c ****     progress_bar.value = 0;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 6
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s 			page 6
 
 
   99              		.loc 1 72 5 view .LVU21
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 1
  135              		.loc 1 173 5 is_stmt 1 view .LVU37
  136              	.LBB10:
  137              	.LBI10:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 7
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s 			page 7
 
 
  139:../APP/Src/oled_example.c **** {
@@ -418,10 +418,10 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 1
  174 0080 0124     		movs	r4, #1
   89:../APP/Src/oled_example.c ****     
  175              		.loc 1 89 13 view .LVU56
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s 			page 8
 
 
- 176 0082 467E     		ldrb	r6, [r0, #25]	@ zero_extendqisi2
+ 176 0082 467F     		ldrb	r6, [r0, #29]	@ zero_extendqisi2
  177              	.LVL8:
   92:../APP/Src/oled_example.c ****     
  178              		.loc 1 92 5 is_stmt 1 view .LVU57
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 1
  221              	.LVL14:
  107:../APP/Src/oled_example.c ****         OLED_UI_DrawFilledBox(&ui_ctx, 90, 22, 16, 16, 1);
  222              		.loc 1 107 9 is_stmt 1 view .LVU66
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 9
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s 			page 9
 
 
  223 00c8 2C48     		ldr	r0, .L6+16
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 1
  153:../APP/Src/oled_example.c ****     }
  268              		.loc 1 153 9 is_stmt 1 view .LVU76
  153:../APP/Src/oled_example.c ****     }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 10
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s 			page 10
 
 
  269              		.loc 1 153 19 is_stmt 0 view .LVU77
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 1
  123:../APP/Src/oled_example.c ****         OLED_UI_DrawFilledBox(&ui_ctx, 90, 14, 12, 12, 1);
  315              		.loc 1 123 9 is_stmt 1 view .LVU86
  316 0134 3346     		mov	r3, r6
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 11
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s 			page 11
 
 
  317 0136 1148     		ldr	r0, .L6+16
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 1
  363 0194 00000000 		.word	last_tick.0
  364 0198 00000000 		.word	.LC0
  365 019c 0A000000 		.word	.LC1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 12
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s 			page 12
 
 
  366              	.LBE14:
@@ -695,7 +695,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 1
  401              		.section	.bss.holed,"aw",%nobits
  402              		.align	2
  405              	holed:
- 406 0000 00000000 		.space	60
+ 406 0000 00000000 		.space	68
  406      00000000 
  406      00000000 
  406      00000000 
@@ -709,36 +709,40 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 1
  411      00000000 
  412              		.text
  413              	.Letext0:
- 414              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
- 415              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 414              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 415              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
  416              		.file 4 "../firmware/CMSIS/device/n32g430.h"
  417              		.file 5 "../core/inc/hal_compat.h"
- 418              		.file 6 "../core/inc/dma.h"
- 419              		.file 7 "../core/inc/i2c.h"
- 420              		.file 8 "../APP/Inc/oled_driver.h"
- 421              		.file 9 "../APP/Inc/oled_ui.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s 			page 13
+ 418              		.file 6 "../APP/Inc/oled_interface.h"
+ 419              		.file 7 "../APP/Inc/oled_driver.h"
+ 420              		.file 8 "../APP/Inc/oled_ui.h"
+ 421              		.file 9 "../core/inc/dma.h"
+ 422              		.file 10 "../core/inc/i2c.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s 			page 13
+
+
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s 			page 14
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 oled_example.c
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:26     .text.OLED_Example_Main:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:32     .text.OLED_Example_Main:00000000 OLED_Example_Main
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:353    .text.OLED_Example_Main:0000016c $d
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:382    .bss.initialized.1:00000000 initialized.1
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:405    .bss.holed:00000000 holed
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:410    .bss.oled_framebuffer:00000000 oled_framebuffer
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:399    .bss.ui_ctx:00000000 ui_ctx
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:387    .bss.progress_bar:00000000 progress_bar
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:393    .bss.progress_anim:00000000 progress_anim
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:377    .bss.last_tick.0:00000000 last_tick.0
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:374    .bss.last_tick.0:00000000 $d
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:383    .bss.initialized.1:00000000 $d
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:388    .bss.progress_bar:00000000 $d
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:390    .bss.progress_anim:00000000 $d
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:396    .bss.ui_ctx:00000000 $d
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:402    .bss.holed:00000000 $d
-C:\Users\Dawn\AppData\Local\Temp\ccFlp14a.s:411    .bss.oled_framebuffer:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:26     .text.OLED_Example_Main:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:32     .text.OLED_Example_Main:00000000 OLED_Example_Main
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:353    .text.OLED_Example_Main:0000016c $d
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:382    .bss.initialized.1:00000000 initialized.1
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:405    .bss.holed:00000000 holed
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:410    .bss.oled_framebuffer:00000000 oled_framebuffer
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:399    .bss.ui_ctx:00000000 ui_ctx
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:387    .bss.progress_bar:00000000 progress_bar
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:393    .bss.progress_anim:00000000 progress_anim
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:377    .bss.last_tick.0:00000000 last_tick.0
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:374    .bss.last_tick.0:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:383    .bss.initialized.1:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:388    .bss.progress_bar:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:390    .bss.progress_anim:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:396    .bss.ui_ctx:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:402    .bss.holed:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0Oj4Gd.s:411    .bss.oled_framebuffer:00000000 $d
 
 UNDEFINED SYMBOLS
 OLED_InitAuto

@@ -26,8 +26,8 @@ build/main.o: ../core/src/main.c ../core/inc/main.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h \
  ../firmware/n32g430_std_periph_driver/inc/misc.h ../core/inc/bsp_led.h \
  ../core/inc/hal_compat.h ../core/inc/dma.h ../core/inc/hal_compat.h \
- ../core/inc/i2c.h ../core/inc/dma.h ../core/inc/tim.h \
- ../APP/Inc/oled_test_demo.h ../APP/Inc/oled_driver.h
+ ../core/inc/tim.h ../APP/Inc/oled_test_demo.h ../APP/Inc/oled_driver.h \
+ ../APP/Inc/oled_interface.h ../core/inc/spi.h ../core/inc/dma.h
 ../core/inc/main.h:
 ../firmware/CMSIS/device/n32g430.h:
 ../firmware/CMSIS/core/core_cm4.h:
@@ -61,8 +61,9 @@ build/main.o: ../core/src/main.c ../core/inc/main.h \
 ../core/inc/hal_compat.h:
 ../core/inc/dma.h:
 ../core/inc/hal_compat.h:
-../core/inc/i2c.h:
-../core/inc/dma.h:
 ../core/inc/tim.h:
 ../APP/Inc/oled_test_demo.h:
 ../APP/Inc/oled_driver.h:
+../APP/Inc/oled_interface.h:
+../core/inc/spi.h:
+../core/inc/dma.h:

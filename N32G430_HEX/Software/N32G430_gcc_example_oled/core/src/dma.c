@@ -3,6 +3,7 @@
 #include "misc.h"
 
 DMA_HandleTypeDef hdma_i2c1_tx;
+DMA_HandleTypeDef hdma_spi1_tx;
 
 static uint32_t DMA_GetTCFlag(uint8_t channel)
 {
@@ -63,6 +64,37 @@ void MX_DMA_Init(void)
 
     NVIC_InitType NVIC_InitStructure;
     NVIC_InitStructure.NVIC_IRQChannel = DMA_Channel1_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_Initializes(&NVIC_InitStructure);
+}
+
+/**
+ * @brief Initialize DMA for SPI1 TX (DMA Channel 2)
+ */
+void MX_DMA_SPI1_Init(void)
+{
+    NVIC_InitType NVIC_InitStructure;
+
+    RCC_AHB_Peripheral_Clock_Enable(RCC_AHB_PERIPH_DMA);
+
+    DMA_Reset(DMA_CH2);
+    DMA_Channel_Request_Remap(DMA_CH2, DMA_REMAP_SPI1_TX);
+    DMA_Channel_Disable(DMA_CH2);
+    DMA_Interrupts_Disable(DMA_CH2, DMA_INT_TXC | DMA_INT_ERR | DMA_INT_HTX);
+
+    hdma_spi1_tx.Instance = DMA_CH2;
+    hdma_spi1_tx.ChannelIndex = 2;
+    hdma_spi1_tx.RequestID = DMA_REMAP_SPI1_TX;
+    hdma_spi1_tx.State = HAL_DMA_STATE_READY;
+    hdma_spi1_tx.Parent = NULL;
+    hdma_spi1_tx.XferCpltCallback = NULL;
+    hdma_spi1_tx.XferErrorCallback = NULL;
+
+    DMA_Interrupts_Enable(DMA_CH2, DMA_INT_TXC | DMA_INT_ERR);
+
+    NVIC_InitStructure.NVIC_IRQChannel = DMA_Channel2_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;

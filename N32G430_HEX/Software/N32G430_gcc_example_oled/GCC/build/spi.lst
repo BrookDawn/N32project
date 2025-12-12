@@ -1,0 +1,1378 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"spi.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../core/src/spi.c"
+  20              		.section	.text.MX_SPI1_Init,"ax",%progbits
+  21              		.align	1
+  22              		.global	MX_SPI1_Init
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	MX_SPI1_Init:
+  28              	.LFB130:
+   1:../core/src/spi.c **** /**
+   2:../core/src/spi.c ****  * @file spi.c
+   3:../core/src/spi.c ****  * @brief SPI HAL-compatible implementation for OLED display with DMA support.
+   4:../core/src/spi.c ****  */
+   5:../core/src/spi.c **** 
+   6:../core/src/spi.c **** #include "spi.h"
+   7:../core/src/spi.c **** #include "n32g430_rcc.h"
+   8:../core/src/spi.c **** #include "misc.h"
+   9:../core/src/spi.c **** 
+  10:../core/src/spi.c **** #define SPI_TIMEOUT_MS 100U
+  11:../core/src/spi.c **** 
+  12:../core/src/spi.c **** SPI_HandleTypeDef hspi1;
+  13:../core/src/spi.c **** 
+  14:../core/src/spi.c **** static void SPI_DMA_TxCplt(DMA_HandleTypeDef *hdma);
+  15:../core/src/spi.c **** 
+  16:../core/src/spi.c **** /**
+  17:../core/src/spi.c ****  * @brief Initialize SPI1 for OLED
+  18:../core/src/spi.c ****  * @note  PA5: SCK (AF0), PA7: MOSI (AF0)
+  19:../core/src/spi.c ****  *        PA6: RES (GPIO output)
+  20:../core/src/spi.c ****  *        PB0: DC (GPIO output)
+  21:../core/src/spi.c ****  *        PB1: CS (GPIO output)
+  22:../core/src/spi.c ****  */
+  23:../core/src/spi.c **** void MX_SPI1_Init(void)
+  24:../core/src/spi.c **** {
+  29              		.loc 1 24 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 48
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  25:../core/src/spi.c ****     GPIO_InitType GPIO_InitStructure;
+  33              		.loc 1 25 5 view .LVU1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 2
+
+
+  26:../core/src/spi.c ****     SPI_InitType SPI_InitStructure;
+  34              		.loc 1 26 5 view .LVU2
+  27:../core/src/spi.c **** 
+  28:../core/src/spi.c ****     /* Enable GPIO and SPI clocks */
+  29:../core/src/spi.c ****     RCC_AHB_Peripheral_Clock_Enable(RCC_AHB_PERIPH_GPIOA | RCC_AHB_PERIPH_GPIOB);
+  35              		.loc 1 29 5 view .LVU3
+  24:../core/src/spi.c ****     GPIO_InitType GPIO_InitStructure;
+  36              		.loc 1 24 1 is_stmt 0 view .LVU4
+  37 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 20
+  40              		.cfi_offset 4, -20
+  41              		.cfi_offset 5, -16
+  42              		.cfi_offset 6, -12
+  43              		.cfi_offset 7, -8
+  44              		.cfi_offset 14, -4
+  45              		.loc 1 29 5 view .LVU5
+  46 0002 4FF4C070 		mov	r0, #384
+  24:../core/src/spi.c ****     GPIO_InitType GPIO_InitStructure;
+  47              		.loc 1 24 1 view .LVU6
+  48 0006 8DB0     		sub	sp, sp, #52
+  49              	.LCFI1:
+  50              		.cfi_def_cfa_offset 72
+  51              		.loc 1 29 5 view .LVU7
+  52 0008 FFF7FEFF 		bl	RCC_AHB_Peripheral_Clock_Enable
+  53              	.LVL0:
+  30:../core/src/spi.c ****     RCC_APB2_Peripheral_Clock_Enable(RCC_APB2_PERIPH_AFIO | RCC_APB2_PERIPH_SPI1);
+  54              		.loc 1 30 5 is_stmt 1 view .LVU8
+  55 000c 41F20100 		movw	r0, #4097
+  56 0010 FFF7FEFF 		bl	RCC_APB2_Peripheral_Clock_Enable
+  57              	.LVL1:
+  31:../core/src/spi.c **** 
+  32:../core/src/spi.c ****     /* Configure SPI1 pins: PA5 (SCK), PA7 (MOSI) - AF1 for SPI1 */
+  33:../core/src/spi.c ****     GPIO_Structure_Initialize(&GPIO_InitStructure);
+  58              		.loc 1 33 5 view .LVU9
+  59 0014 06A8     		add	r0, sp, #24
+  60 0016 FFF7FEFF 		bl	GPIO_Structure_Initialize
+  61              	.LVL2:
+  34:../core/src/spi.c ****     GPIO_InitStructure.Pin              = GPIO_PIN_5 | GPIO_PIN_7;
+  62              		.loc 1 34 5 view .LVU10
+  35:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Mode        = GPIO_MODE_AF_PP;
+  36:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Pull        = GPIO_NO_PULL;
+  37:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Slew_Rate   = GPIO_SLEW_RATE_FAST;
+  38:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Current     = GPIO_DS_8MA;
+  63              		.loc 1 38 41 is_stmt 0 view .LVU11
+  64 001a 0124     		movs	r4, #1
+  35:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Mode        = GPIO_MODE_AF_PP;
+  65              		.loc 1 35 41 view .LVU12
+  66 001c A023     		movs	r3, #160
+  36:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Slew_Rate   = GPIO_SLEW_RATE_FAST;
+  67              		.loc 1 36 41 view .LVU13
+  68 001e 0025     		movs	r5, #0
+  39:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Alternate   = GPIO_AF1_SPI1;
+  40:../core/src/spi.c ****     GPIO_Peripheral_Initialize(GPIOA, &GPIO_InitStructure);
+  69              		.loc 1 40 5 view .LVU14
+  70 0020 06A9     		add	r1, sp, #24
+  35:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Pull        = GPIO_NO_PULL;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 3
+
+
+  71              		.loc 1 35 41 view .LVU15
+  72 0022 0226     		movs	r6, #2
+  73              		.loc 1 40 5 view .LVU16
+  74 0024 2A48     		ldr	r0, .L2
+  35:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Pull        = GPIO_NO_PULL;
+  75              		.loc 1 35 41 view .LVU17
+  76 0026 CDE90636 		strd	r3, r6, [sp, #24]
+  36:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Slew_Rate   = GPIO_SLEW_RATE_FAST;
+  77              		.loc 1 36 5 is_stmt 1 view .LVU18
+  37:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Current     = GPIO_DS_8MA;
+  78              		.loc 1 37 41 is_stmt 0 view .LVU19
+  79 002a CDE90855 		strd	r5, r5, [sp, #32]
+  38:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Alternate   = GPIO_AF1_SPI1;
+  80              		.loc 1 38 5 is_stmt 1 view .LVU20
+  39:../core/src/spi.c ****     GPIO_Peripheral_Initialize(GPIOA, &GPIO_InitStructure);
+  81              		.loc 1 39 41 is_stmt 0 view .LVU21
+  82 002e CDE90A44 		strd	r4, r4, [sp, #40]
+  83              		.loc 1 40 5 is_stmt 1 view .LVU22
+  84 0032 FFF7FEFF 		bl	GPIO_Peripheral_Initialize
+  85              	.LVL3:
+  41:../core/src/spi.c **** 
+  42:../core/src/spi.c ****     /* Configure RES pin: PA6 (GPIO output) */
+  43:../core/src/spi.c ****     GPIO_Structure_Initialize(&GPIO_InitStructure);
+  86              		.loc 1 43 5 view .LVU23
+  87 0036 06A8     		add	r0, sp, #24
+  88 0038 FFF7FEFF 		bl	GPIO_Structure_Initialize
+  89              	.LVL4:
+  44:../core/src/spi.c ****     GPIO_InitStructure.Pin              = GPIO_PIN_6;
+  90              		.loc 1 44 5 view .LVU24
+  91              		.loc 1 44 41 is_stmt 0 view .LVU25
+  92 003c 4027     		movs	r7, #64
+  45:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Mode        = GPIO_MODE_OUT_PP;
+  46:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Pull        = GPIO_NO_PULL;
+  47:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Slew_Rate   = GPIO_SLEW_RATE_FAST;
+  48:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Current     = GPIO_DS_8MA;
+  49:../core/src/spi.c ****     GPIO_Peripheral_Initialize(GPIOA, &GPIO_InitStructure);
+  93              		.loc 1 49 5 view .LVU26
+  94 003e 06A9     		add	r1, sp, #24
+  95 0040 2348     		ldr	r0, .L2
+  48:../core/src/spi.c ****     GPIO_Peripheral_Initialize(GPIOA, &GPIO_InitStructure);
+  96              		.loc 1 48 41 view .LVU27
+  97 0042 0A94     		str	r4, [sp, #40]
+  45:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Mode        = GPIO_MODE_OUT_PP;
+  98              		.loc 1 45 41 view .LVU28
+  99 0044 CDE90674 		strd	r7, r4, [sp, #24]
+  46:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Slew_Rate   = GPIO_SLEW_RATE_FAST;
+ 100              		.loc 1 46 5 is_stmt 1 view .LVU29
+  47:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Current     = GPIO_DS_8MA;
+ 101              		.loc 1 47 41 is_stmt 0 view .LVU30
+ 102 0048 CDE90855 		strd	r5, r5, [sp, #32]
+  48:../core/src/spi.c ****     GPIO_Peripheral_Initialize(GPIOA, &GPIO_InitStructure);
+ 103              		.loc 1 48 5 is_stmt 1 view .LVU31
+ 104              		.loc 1 49 5 view .LVU32
+ 105 004c FFF7FEFF 		bl	GPIO_Peripheral_Initialize
+ 106              	.LVL5:
+  50:../core/src/spi.c **** 
+  51:../core/src/spi.c ****     /* Configure DC pin: PB0 and CS pin: PB1 (GPIO output) */
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 4
+
+
+  52:../core/src/spi.c ****     GPIO_Structure_Initialize(&GPIO_InitStructure);
+ 107              		.loc 1 52 5 view .LVU33
+ 108 0050 06A8     		add	r0, sp, #24
+ 109 0052 FFF7FEFF 		bl	GPIO_Structure_Initialize
+ 110              	.LVL6:
+  53:../core/src/spi.c ****     GPIO_InitStructure.Pin              = GPIO_PIN_0 | GPIO_PIN_1;
+ 111              		.loc 1 53 5 view .LVU34
+ 112              		.loc 1 53 41 is_stmt 0 view .LVU35
+ 113 0056 0323     		movs	r3, #3
+  54:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Mode        = GPIO_MODE_OUT_PP;
+  55:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Pull        = GPIO_NO_PULL;
+  56:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Slew_Rate   = GPIO_SLEW_RATE_FAST;
+  57:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Current     = GPIO_DS_8MA;
+  58:../core/src/spi.c ****     GPIO_Peripheral_Initialize(GPIOB, &GPIO_InitStructure);
+ 114              		.loc 1 58 5 view .LVU36
+ 115 0058 06A9     		add	r1, sp, #24
+ 116 005a 1E48     		ldr	r0, .L2+4
+  57:../core/src/spi.c ****     GPIO_Peripheral_Initialize(GPIOB, &GPIO_InitStructure);
+ 117              		.loc 1 57 41 view .LVU37
+ 118 005c 0A94     		str	r4, [sp, #40]
+  54:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Mode        = GPIO_MODE_OUT_PP;
+ 119              		.loc 1 54 41 view .LVU38
+ 120 005e CDE90634 		strd	r3, r4, [sp, #24]
+  55:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Slew_Rate   = GPIO_SLEW_RATE_FAST;
+ 121              		.loc 1 55 5 is_stmt 1 view .LVU39
+  56:../core/src/spi.c ****     GPIO_InitStructure.GPIO_Current     = GPIO_DS_8MA;
+ 122              		.loc 1 56 41 is_stmt 0 view .LVU40
+ 123 0062 CDE90855 		strd	r5, r5, [sp, #32]
+  57:../core/src/spi.c ****     GPIO_Peripheral_Initialize(GPIOB, &GPIO_InitStructure);
+ 124              		.loc 1 57 5 is_stmt 1 view .LVU41
+ 125              		.loc 1 58 5 view .LVU42
+ 126 0066 FFF7FEFF 		bl	GPIO_Peripheral_Initialize
+ 127              	.LVL7:
+  59:../core/src/spi.c **** 
+  60:../core/src/spi.c ****     /* Set default pin states */
+  61:../core/src/spi.c ****     OLED_RES_HIGH();   /* RES high (not reset) */
+ 128              		.loc 1 61 5 view .LVU43
+ 129 006a 3946     		mov	r1, r7
+ 130 006c 1848     		ldr	r0, .L2
+ 131 006e FFF7FEFF 		bl	GPIO_Pins_Set
+ 132              	.LVL8:
+  62:../core/src/spi.c ****     OLED_DC_HIGH();    /* DC high (data mode) */
+ 133              		.loc 1 62 5 view .LVU44
+ 134 0072 2146     		mov	r1, r4
+ 135 0074 1748     		ldr	r0, .L2+4
+ 136 0076 FFF7FEFF 		bl	GPIO_Pins_Set
+ 137              	.LVL9:
+  63:../core/src/spi.c ****     OLED_CS_HIGH();    /* CS high (not selected) */
+ 138              		.loc 1 63 5 view .LVU45
+ 139 007a 3146     		mov	r1, r6
+  64:../core/src/spi.c **** 
+  65:../core/src/spi.c ****     /* Reset SPI1 */
+  66:../core/src/spi.c ****     SPI_I2S_Reset(SPI1);
+ 140              		.loc 1 66 5 is_stmt 0 view .LVU46
+ 141 007c 164E     		ldr	r6, .L2+8
+  63:../core/src/spi.c ****     OLED_CS_HIGH();    /* CS high (not selected) */
+ 142              		.loc 1 63 5 view .LVU47
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 5
+
+
+ 143 007e 1548     		ldr	r0, .L2+4
+ 144 0080 FFF7FEFF 		bl	GPIO_Pins_Set
+ 145              	.LVL10:
+ 146              		.loc 1 66 5 is_stmt 1 view .LVU48
+ 147 0084 3046     		mov	r0, r6
+ 148 0086 FFF7FEFF 		bl	SPI_I2S_Reset
+ 149              	.LVL11:
+  67:../core/src/spi.c **** 
+  68:../core/src/spi.c ****     /* Configure SPI1 */
+  69:../core/src/spi.c ****     SPI_Initializes_Structure(&SPI_InitStructure);
+ 150              		.loc 1 69 5 view .LVU49
+ 151 008a 01A8     		add	r0, sp, #4
+ 152 008c FFF7FEFF 		bl	SPI_Initializes_Structure
+ 153              	.LVL12:
+  70:../core/src/spi.c ****     SPI_InitStructure.DataDirection     = SPI_DIR_SINGLELINE_TX;        /* TX only */
+ 154              		.loc 1 70 5 view .LVU50
+  71:../core/src/spi.c ****     SPI_InitStructure.SpiMode           = SPI_MODE_MASTER;              /* Master mode */
+ 155              		.loc 1 71 5 view .LVU51
+  72:../core/src/spi.c ****     SPI_InitStructure.DataLen           = SPI_DATA_SIZE_8BITS;          /* 8-bit data */
+ 156              		.loc 1 72 5 view .LVU52
+  73:../core/src/spi.c ****     SPI_InitStructure.CLKPOL            = SPI_CLKPOL_HIGH;              /* CPOL=1 (SSD1306 Mode 3) 
+ 157              		.loc 1 73 5 view .LVU53
+  74:../core/src/spi.c ****     SPI_InitStructure.CLKPHA            = SPI_CLKPHA_SECOND_EDGE;       /* CPHA=1 (SSD1306 Mode 3) 
+ 158              		.loc 1 74 5 view .LVU54
+  75:../core/src/spi.c ****     SPI_InitStructure.NSS               = SPI_NSS_SOFT;                 /* Software NSS */
+ 159              		.loc 1 75 5 view .LVU55
+  76:../core/src/spi.c ****     SPI_InitStructure.BaudRatePres      = SPI_BR_PRESCALER_2;           /* APB2/2 = fastest */
+ 160              		.loc 1 76 5 view .LVU56
+  77:../core/src/spi.c ****     SPI_InitStructure.FirstBit          = SPI_FB_MSB;                   /* MSB first */
+ 161              		.loc 1 77 5 view .LVU57
+  78:../core/src/spi.c ****     SPI_InitStructure.CRCPoly           = 7;
+ 162              		.loc 1 78 5 view .LVU58
+  72:../core/src/spi.c ****     SPI_InitStructure.CLKPOL            = SPI_CLKPOL_HIGH;              /* CPOL=1 (SSD1306 Mode 3) 
+ 163              		.loc 1 72 41 is_stmt 0 view .LVU59
+ 164 0090 4FF49822 		mov	r2, #311296
+ 165 0094 4FF40033 		mov	r3, #131072
+ 166 0098 CDE90123 		strd	r2, r3, [sp, #4]
+  74:../core/src/spi.c ****     SPI_InitStructure.NSS               = SPI_NSS_SOFT;                 /* Software NSS */
+ 167              		.loc 1 74 41 view .LVU60
+ 168 009c 0F4B     		ldr	r3, .L2+12
+  79:../core/src/spi.c ****     SPI_Initializes(SPI1, &SPI_InitStructure);
+ 169              		.loc 1 79 5 view .LVU61
+ 170 009e 01A9     		add	r1, sp, #4
+  76:../core/src/spi.c ****     SPI_InitStructure.FirstBit          = SPI_FB_MSB;                   /* MSB first */
+ 171              		.loc 1 76 41 view .LVU62
+ 172 00a0 CDE90335 		strd	r3, r5, [sp, #12]
+ 173              		.loc 1 79 5 view .LVU63
+ 174 00a4 3046     		mov	r0, r6
+  78:../core/src/spi.c ****     SPI_Initializes(SPI1, &SPI_InitStructure);
+ 175              		.loc 1 78 41 view .LVU64
+ 176 00a6 0723     		movs	r3, #7
+ 177 00a8 ADF81430 		strh	r3, [sp, #20]	@ movhi
+ 178              		.loc 1 79 5 is_stmt 1 view .LVU65
+ 179 00ac FFF7FEFF 		bl	SPI_Initializes
+ 180              	.LVL13:
+  80:../core/src/spi.c **** 
+  81:../core/src/spi.c ****     /* Set internal NSS high to prevent mode fault */
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 6
+
+
+  82:../core/src/spi.c ****     SPI_Set_Nss_Level(SPI1, SPI_NSS_HIGH);
+ 181              		.loc 1 82 5 view .LVU66
+ 182 00b0 4FF48071 		mov	r1, #256
+ 183 00b4 3046     		mov	r0, r6
+ 184 00b6 FFF7FEFF 		bl	SPI_Set_Nss_Level
+ 185              	.LVL14:
+  83:../core/src/spi.c **** 
+  84:../core/src/spi.c ****     /* Enable SPI1 */
+  85:../core/src/spi.c ****     SPI_ON(SPI1);
+ 186              		.loc 1 85 5 view .LVU67
+ 187 00ba 3046     		mov	r0, r6
+ 188 00bc FFF7FEFF 		bl	SPI_ON
+ 189              	.LVL15:
+  86:../core/src/spi.c **** 
+  87:../core/src/spi.c ****     /* Initialize SPI handle */
+  88:../core/src/spi.c ****     hspi1.Instance          = SPI1;
+ 190              		.loc 1 88 5 view .LVU68
+ 191              		.loc 1 88 29 is_stmt 0 view .LVU69
+ 192 00c0 074B     		ldr	r3, .L2+16
+  89:../core/src/spi.c ****     hspi1.State             = HAL_SPI_STATE_READY;
+  90:../core/src/spi.c ****     hspi1.hdmatx            = &hdma_spi1_tx;
+ 193              		.loc 1 90 29 view .LVU70
+ 194 00c2 084A     		ldr	r2, .L2+20
+  88:../core/src/spi.c ****     hspi1.State             = HAL_SPI_STATE_READY;
+ 195              		.loc 1 88 29 view .LVU71
+ 196 00c4 1E60     		str	r6, [r3]
+  89:../core/src/spi.c ****     hspi1.State             = HAL_SPI_STATE_READY;
+ 197              		.loc 1 89 5 is_stmt 1 view .LVU72
+  89:../core/src/spi.c ****     hspi1.State             = HAL_SPI_STATE_READY;
+ 198              		.loc 1 89 29 is_stmt 0 view .LVU73
+ 199 00c6 1C71     		strb	r4, [r3, #4]
+ 200              		.loc 1 90 5 is_stmt 1 view .LVU74
+ 201              		.loc 1 90 29 is_stmt 0 view .LVU75
+ 202 00c8 9A60     		str	r2, [r3, #8]
+  91:../core/src/spi.c ****     hspi1.hdmatx->Parent    = &hspi1;
+ 203              		.loc 1 91 5 is_stmt 1 view .LVU76
+ 204              		.loc 1 91 29 is_stmt 0 view .LVU77
+ 205 00ca D360     		str	r3, [r2, #12]
+  92:../core/src/spi.c **** }
+ 206              		.loc 1 92 1 view .LVU78
+ 207 00cc 0DB0     		add	sp, sp, #52
+ 208              	.LCFI2:
+ 209              		.cfi_def_cfa_offset 20
+ 210              		@ sp needed
+ 211 00ce F0BD     		pop	{r4, r5, r6, r7, pc}
+ 212              	.L3:
+ 213              		.align	2
+ 214              	.L2:
+ 215 00d0 00340240 		.word	1073886208
+ 216 00d4 00380240 		.word	1073887232
+ 217 00d8 00300140 		.word	1073819648
+ 218 00dc 01000002 		.word	33554433
+ 219 00e0 00000000 		.word	hspi1
+ 220 00e4 00000000 		.word	hdma_spi1_tx
+ 221              		.cfi_endproc
+ 222              	.LFE130:
+ 224              		.section	.text.HAL_SPI_DeInit,"ax",%progbits
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 7
+
+
+ 225              		.align	1
+ 226              		.global	HAL_SPI_DeInit
+ 227              		.syntax unified
+ 228              		.thumb
+ 229              		.thumb_func
+ 231              	HAL_SPI_DeInit:
+ 232              	.LVL16:
+ 233              	.LFB131:
+  93:../core/src/spi.c **** 
+  94:../core/src/spi.c **** /**
+  95:../core/src/spi.c ****  * @brief Deinitialize SPI
+  96:../core/src/spi.c ****  */
+  97:../core/src/spi.c **** void HAL_SPI_DeInit(SPI_HandleTypeDef *hspi)
+  98:../core/src/spi.c **** {
+ 234              		.loc 1 98 1 is_stmt 1 view -0
+ 235              		.cfi_startproc
+ 236              		@ args = 0, pretend = 0, frame = 0
+ 237              		@ frame_needed = 0, uses_anonymous_args = 0
+  99:../core/src/spi.c ****     if (hspi == NULL || hspi->Instance == NULL)
+ 238              		.loc 1 99 5 view .LVU80
+  98:../core/src/spi.c ****     if (hspi == NULL || hspi->Instance == NULL)
+ 239              		.loc 1 98 1 is_stmt 0 view .LVU81
+ 240 0000 10B5     		push	{r4, lr}
+ 241              	.LCFI3:
+ 242              		.cfi_def_cfa_offset 8
+ 243              		.cfi_offset 4, -8
+ 244              		.cfi_offset 14, -4
+ 245              		.loc 1 99 8 view .LVU82
+ 246 0002 0446     		mov	r4, r0
+ 247 0004 40B1     		cbz	r0, .L4
+ 248              		.loc 1 99 29 discriminator 1 view .LVU83
+ 249 0006 0068     		ldr	r0, [r0]
+ 250              	.LVL17:
+ 251              		.loc 1 99 22 discriminator 1 view .LVU84
+ 252 0008 30B1     		cbz	r0, .L4
+ 100:../core/src/spi.c ****     {
+ 101:../core/src/spi.c ****         return;
+ 102:../core/src/spi.c ****     }
+ 103:../core/src/spi.c **** 
+ 104:../core/src/spi.c ****     SPI_OFF(hspi->Instance);
+ 253              		.loc 1 104 5 is_stmt 1 view .LVU85
+ 254 000a FFF7FEFF 		bl	SPI_OFF
+ 255              	.LVL18:
+ 105:../core/src/spi.c ****     SPI_I2S_Reset(hspi->Instance);
+ 256              		.loc 1 105 5 view .LVU86
+ 257 000e 2068     		ldr	r0, [r4]
+ 258 0010 FFF7FEFF 		bl	SPI_I2S_Reset
+ 259              	.LVL19:
+ 106:../core/src/spi.c ****     hspi->State = HAL_SPI_STATE_RESET;
+ 260              		.loc 1 106 5 view .LVU87
+ 261              		.loc 1 106 17 is_stmt 0 view .LVU88
+ 262 0014 0023     		movs	r3, #0
+ 263 0016 2371     		strb	r3, [r4, #4]
+ 264              	.L4:
+ 107:../core/src/spi.c **** }
+ 265              		.loc 1 107 1 view .LVU89
+ 266 0018 10BD     		pop	{r4, pc}
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 8
+
+
+ 267              		.loc 1 107 1 view .LVU90
+ 268              		.cfi_endproc
+ 269              	.LFE131:
+ 271              		.section	.text.HAL_SPI_Transmit,"ax",%progbits
+ 272              		.align	1
+ 273              		.global	HAL_SPI_Transmit
+ 274              		.syntax unified
+ 275              		.thumb
+ 276              		.thumb_func
+ 278              	HAL_SPI_Transmit:
+ 279              	.LVL20:
+ 280              	.LFB132:
+ 108:../core/src/spi.c **** 
+ 109:../core/src/spi.c **** /**
+ 110:../core/src/spi.c ****  * @brief Blocking SPI transmit
+ 111:../core/src/spi.c ****  */
+ 112:../core/src/spi.c **** HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi,
+ 113:../core/src/spi.c ****                                    uint8_t *pData,
+ 114:../core/src/spi.c ****                                    uint16_t Size,
+ 115:../core/src/spi.c ****                                    uint32_t Timeout)
+ 116:../core/src/spi.c **** {
+ 281              		.loc 1 116 1 is_stmt 1 view -0
+ 282              		.cfi_startproc
+ 283              		@ args = 0, pretend = 0, frame = 0
+ 284              		@ frame_needed = 0, uses_anonymous_args = 0
+ 117:../core/src/spi.c ****     uint32_t tick_start;
+ 285              		.loc 1 117 5 view .LVU92
+ 118:../core/src/spi.c **** 
+ 119:../core/src/spi.c ****     if (hspi == NULL || pData == NULL || Size == 0)
+ 286              		.loc 1 119 5 view .LVU93
+ 116:../core/src/spi.c ****     uint32_t tick_start;
+ 287              		.loc 1 116 1 is_stmt 0 view .LVU94
+ 288 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 289              	.LCFI4:
+ 290              		.cfi_def_cfa_offset 24
+ 291              		.cfi_offset 4, -24
+ 292              		.cfi_offset 5, -20
+ 293              		.cfi_offset 6, -16
+ 294              		.cfi_offset 7, -12
+ 295              		.cfi_offset 8, -8
+ 296              		.cfi_offset 14, -4
+ 116:../core/src/spi.c ****     uint32_t tick_start;
+ 297              		.loc 1 116 1 view .LVU95
+ 298 0004 0D46     		mov	r5, r1
+ 299 0006 1646     		mov	r6, r2
+ 300 0008 9846     		mov	r8, r3
+ 301              		.loc 1 119 8 view .LVU96
+ 302 000a 0446     		mov	r4, r0
+ 303 000c 78B3     		cbz	r0, .L22
+ 304              		.loc 1 119 22 discriminator 1 view .LVU97
+ 305 000e 71B3     		cbz	r1, .L22
+ 306              		.loc 1 119 39 discriminator 2 view .LVU98
+ 307 0010 6AB3     		cbz	r2, .L22
+ 120:../core/src/spi.c ****     {
+ 121:../core/src/spi.c ****         return HAL_ERROR;
+ 122:../core/src/spi.c ****     }
+ 123:../core/src/spi.c ****     if (hspi->State != HAL_SPI_STATE_READY)
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 9
+
+
+ 308              		.loc 1 123 5 is_stmt 1 view .LVU99
+ 309              		.loc 1 123 8 is_stmt 0 view .LVU100
+ 310 0012 0379     		ldrb	r3, [r0, #4]	@ zero_extendqisi2
+ 311              	.LVL21:
+ 312              		.loc 1 123 8 view .LVU101
+ 313 0014 012B     		cmp	r3, #1
+ 314 0016 2CD1     		bne	.L23
+ 124:../core/src/spi.c ****     {
+ 125:../core/src/spi.c ****         return HAL_BUSY;
+ 126:../core/src/spi.c ****     }
+ 127:../core/src/spi.c **** 
+ 128:../core/src/spi.c ****     hspi->State = HAL_SPI_STATE_BUSY_TX;
+ 315              		.loc 1 128 5 is_stmt 1 view .LVU102
+ 316              		.loc 1 128 17 is_stmt 0 view .LVU103
+ 317 0018 1223     		movs	r3, #18
+ 318 001a 0371     		strb	r3, [r0, #4]
+ 129:../core/src/spi.c ****     tick_start = HAL_GetTick();
+ 319              		.loc 1 129 5 is_stmt 1 view .LVU104
+ 320              		.loc 1 129 18 is_stmt 0 view .LVU105
+ 321 001c FFF7FEFF 		bl	HAL_GetTick
+ 322              	.LVL22:
+ 323              		.loc 1 129 18 view .LVU106
+ 324 0020 2E44     		add	r6, r6, r5
+ 325              	.LVL23:
+ 326              		.loc 1 129 18 view .LVU107
+ 327 0022 0746     		mov	r7, r0
+ 328              	.LVL24:
+ 130:../core/src/spi.c **** 
+ 131:../core/src/spi.c ****     for (uint16_t i = 0; i < Size; i++)
+ 329              		.loc 1 131 5 is_stmt 1 view .LVU108
+ 330              	.LBB2:
+ 331              		.loc 1 131 10 view .LVU109
+ 332              		.loc 1 131 28 discriminator 1 view .LVU110
+ 333              	.L15:
+ 132:../core/src/spi.c ****     {
+ 133:../core/src/spi.c ****         /* Wait for TX buffer empty */
+ 134:../core/src/spi.c ****         while (SPI_I2S_Flag_Status_Get(hspi->Instance, SPI_I2S_FLAG_TE) == RESET)
+ 334              		.loc 1 134 73 view .LVU111
+ 335              		.loc 1 134 16 is_stmt 0 view .LVU112
+ 336 0024 2068     		ldr	r0, [r4]
+ 337 0026 0221     		movs	r1, #2
+ 338 0028 FFF7FEFF 		bl	SPI_I2S_Flag_Status_Get
+ 339              	.LVL25:
+ 340              		.loc 1 134 73 discriminator 1 view .LVU113
+ 341 002c 80B1     		cbz	r0, .L16
+ 135:../core/src/spi.c ****         {
+ 136:../core/src/spi.c ****             if ((HAL_GetTick() - tick_start) >= Timeout)
+ 137:../core/src/spi.c ****             {
+ 138:../core/src/spi.c ****                 hspi->State = HAL_SPI_STATE_ERROR;
+ 139:../core/src/spi.c ****                 return HAL_TIMEOUT;
+ 140:../core/src/spi.c ****             }
+ 141:../core/src/spi.c ****         }
+ 142:../core/src/spi.c ****         SPI_I2S_Data_Transmit(hspi->Instance, pData[i]);
+ 342              		.loc 1 142 9 is_stmt 1 view .LVU114
+ 343 002e 15F8011B 		ldrb	r1, [r5], #1	@ zero_extendqisi2
+ 344 0032 2068     		ldr	r0, [r4]
+ 345 0034 FFF7FEFF 		bl	SPI_I2S_Data_Transmit
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 10
+
+
+ 346              	.LVL26:
+ 131:../core/src/spi.c ****     {
+ 347              		.loc 1 131 37 discriminator 2 view .LVU115
+ 131:../core/src/spi.c ****     {
+ 348              		.loc 1 131 28 discriminator 1 view .LVU116
+ 349 0038 B542     		cmp	r5, r6
+ 350 003a F3D1     		bne	.L15
+ 351              	.L17:
+ 352              	.LBE2:
+ 143:../core/src/spi.c ****     }
+ 144:../core/src/spi.c **** 
+ 145:../core/src/spi.c ****     /* Wait for transmission complete (BUSY flag clear) */
+ 146:../core/src/spi.c ****     while (SPI_I2S_Flag_Status_Get(hspi->Instance, SPI_I2S_FLAG_BUSY) == SET)
+ 353              		.loc 1 146 71 view .LVU117
+ 354              		.loc 1 146 12 is_stmt 0 view .LVU118
+ 355 003c 2068     		ldr	r0, [r4]
+ 356 003e 8021     		movs	r1, #128
+ 357 0040 FFF7FEFF 		bl	SPI_I2S_Flag_Status_Get
+ 358              	.LVL27:
+ 359              		.loc 1 146 71 discriminator 1 view .LVU119
+ 360 0044 0128     		cmp	r0, #1
+ 361 0046 0CD0     		beq	.L19
+ 147:../core/src/spi.c ****     {
+ 148:../core/src/spi.c ****         if ((HAL_GetTick() - tick_start) >= Timeout)
+ 149:../core/src/spi.c ****         {
+ 150:../core/src/spi.c ****             hspi->State = HAL_SPI_STATE_ERROR;
+ 151:../core/src/spi.c ****             return HAL_TIMEOUT;
+ 152:../core/src/spi.c ****         }
+ 153:../core/src/spi.c ****     }
+ 154:../core/src/spi.c **** 
+ 155:../core/src/spi.c ****     hspi->State = HAL_SPI_STATE_READY;
+ 362              		.loc 1 155 5 is_stmt 1 view .LVU120
+ 363              		.loc 1 155 17 is_stmt 0 view .LVU121
+ 364 0048 0123     		movs	r3, #1
+ 365 004a 2371     		strb	r3, [r4, #4]
+ 156:../core/src/spi.c ****     return HAL_OK;
+ 366              		.loc 1 156 5 is_stmt 1 view .LVU122
+ 367              		.loc 1 156 12 is_stmt 0 view .LVU123
+ 368 004c 0020     		movs	r0, #0
+ 369 004e 06E0     		b	.L13
+ 370              	.LVL28:
+ 371              	.L16:
+ 372              	.LBB3:
+ 136:../core/src/spi.c ****             {
+ 373              		.loc 1 136 13 is_stmt 1 view .LVU124
+ 136:../core/src/spi.c ****             {
+ 374              		.loc 1 136 18 is_stmt 0 view .LVU125
+ 375 0050 FFF7FEFF 		bl	HAL_GetTick
+ 376              	.LVL29:
+ 136:../core/src/spi.c ****             {
+ 377              		.loc 1 136 32 discriminator 1 view .LVU126
+ 378 0054 C01B     		subs	r0, r0, r7
+ 136:../core/src/spi.c ****             {
+ 379              		.loc 1 136 16 discriminator 1 view .LVU127
+ 380 0056 4045     		cmp	r0, r8
+ 381 0058 E4D3     		bcc	.L15
+ 382              	.L18:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 11
+
+
+ 138:../core/src/spi.c ****                 return HAL_TIMEOUT;
+ 383              		.loc 1 138 17 is_stmt 1 view .LVU128
+ 138:../core/src/spi.c ****                 return HAL_TIMEOUT;
+ 384              		.loc 1 138 29 is_stmt 0 view .LVU129
+ 385 005a 0320     		movs	r0, #3
+ 386 005c 2071     		strb	r0, [r4, #4]
+ 139:../core/src/spi.c ****             }
+ 387              		.loc 1 139 17 is_stmt 1 view .LVU130
+ 388              	.LVL30:
+ 389              	.L13:
+ 139:../core/src/spi.c ****             }
+ 390              		.loc 1 139 17 is_stmt 0 view .LVU131
+ 391              	.LBE3:
+ 157:../core/src/spi.c **** }
+ 392              		.loc 1 157 1 view .LVU132
+ 393 005e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 394              	.LVL31:
+ 395              	.L19:
+ 148:../core/src/spi.c ****         {
+ 396              		.loc 1 148 9 is_stmt 1 view .LVU133
+ 148:../core/src/spi.c ****         {
+ 397              		.loc 1 148 14 is_stmt 0 view .LVU134
+ 398 0062 FFF7FEFF 		bl	HAL_GetTick
+ 399              	.LVL32:
+ 148:../core/src/spi.c ****         {
+ 400              		.loc 1 148 28 discriminator 1 view .LVU135
+ 401 0066 C01B     		subs	r0, r0, r7
+ 148:../core/src/spi.c ****         {
+ 402              		.loc 1 148 12 discriminator 1 view .LVU136
+ 403 0068 4045     		cmp	r0, r8
+ 404 006a E7D3     		bcc	.L17
+ 405 006c F5E7     		b	.L18
+ 406              	.LVL33:
+ 407              	.L22:
+ 121:../core/src/spi.c ****     }
+ 408              		.loc 1 121 16 view .LVU137
+ 409 006e 0120     		movs	r0, #1
+ 410              	.LVL34:
+ 121:../core/src/spi.c ****     }
+ 411              		.loc 1 121 16 view .LVU138
+ 412 0070 F5E7     		b	.L13
+ 413              	.LVL35:
+ 414              	.L23:
+ 125:../core/src/spi.c ****     }
+ 415              		.loc 1 125 16 view .LVU139
+ 416 0072 0220     		movs	r0, #2
+ 417              	.LVL36:
+ 125:../core/src/spi.c ****     }
+ 418              		.loc 1 125 16 view .LVU140
+ 419 0074 F3E7     		b	.L13
+ 420              		.cfi_endproc
+ 421              	.LFE132:
+ 423              		.section	.text.HAL_SPI_Transmit_DMA,"ax",%progbits
+ 424              		.align	1
+ 425              		.global	HAL_SPI_Transmit_DMA
+ 426              		.syntax unified
+ 427              		.thumb
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 12
+
+
+ 428              		.thumb_func
+ 430              	HAL_SPI_Transmit_DMA:
+ 431              	.LVL37:
+ 432              	.LFB133:
+ 158:../core/src/spi.c **** 
+ 159:../core/src/spi.c **** /**
+ 160:../core/src/spi.c ****  * @brief DMA SPI transmit
+ 161:../core/src/spi.c ****  */
+ 162:../core/src/spi.c **** HAL_StatusTypeDef HAL_SPI_Transmit_DMA(SPI_HandleTypeDef *hspi,
+ 163:../core/src/spi.c ****                                        uint8_t *pData,
+ 164:../core/src/spi.c ****                                        uint16_t Size)
+ 165:../core/src/spi.c **** {
+ 433              		.loc 1 165 1 is_stmt 1 view -0
+ 434              		.cfi_startproc
+ 435              		@ args = 0, pretend = 0, frame = 48
+ 436              		@ frame_needed = 0, uses_anonymous_args = 0
+ 166:../core/src/spi.c ****     DMA_InitType DMA_InitStructure;
+ 437              		.loc 1 166 5 view .LVU142
+ 167:../core/src/spi.c **** 
+ 168:../core/src/spi.c ****     if (hspi == NULL || hspi->hdmatx == NULL || pData == NULL || Size == 0)
+ 438              		.loc 1 168 5 view .LVU143
+ 165:../core/src/spi.c ****     DMA_InitType DMA_InitStructure;
+ 439              		.loc 1 165 1 is_stmt 0 view .LVU144
+ 440 0000 70B5     		push	{r4, r5, r6, lr}
+ 441              	.LCFI5:
+ 442              		.cfi_def_cfa_offset 16
+ 443              		.cfi_offset 4, -16
+ 444              		.cfi_offset 5, -12
+ 445              		.cfi_offset 6, -8
+ 446              		.cfi_offset 14, -4
+ 447 0002 0E46     		mov	r6, r1
+ 448 0004 8CB0     		sub	sp, sp, #48
+ 449              	.LCFI6:
+ 450              		.cfi_def_cfa_offset 64
+ 165:../core/src/spi.c ****     DMA_InitType DMA_InitStructure;
+ 451              		.loc 1 165 1 view .LVU145
+ 452 0006 1446     		mov	r4, r2
+ 453              		.loc 1 168 8 view .LVU146
+ 454 0008 0546     		mov	r5, r0
+ 455 000a 0028     		cmp	r0, #0
+ 456 000c 40D0     		beq	.L31
+ 457              		.loc 1 168 29 discriminator 1 view .LVU147
+ 458 000e 8368     		ldr	r3, [r0, #8]
+ 459              		.loc 1 168 22 discriminator 1 view .LVU148
+ 460 0010 002B     		cmp	r3, #0
+ 461 0012 3DD0     		beq	.L31
+ 462              		.loc 1 168 46 discriminator 2 view .LVU149
+ 463 0014 0029     		cmp	r1, #0
+ 464 0016 3BD0     		beq	.L31
+ 465              		.loc 1 168 63 discriminator 3 view .LVU150
+ 466 0018 002A     		cmp	r2, #0
+ 467 001a 39D0     		beq	.L31
+ 169:../core/src/spi.c ****     {
+ 170:../core/src/spi.c ****         return HAL_ERROR;
+ 171:../core/src/spi.c ****     }
+ 172:../core/src/spi.c ****     if (hspi->State != HAL_SPI_STATE_READY)
+ 468              		.loc 1 172 5 is_stmt 1 view .LVU151
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 13
+
+
+ 469              		.loc 1 172 8 is_stmt 0 view .LVU152
+ 470 001c 0279     		ldrb	r2, [r0, #4]	@ zero_extendqisi2
+ 471              	.LVL38:
+ 472              		.loc 1 172 8 view .LVU153
+ 473 001e 012A     		cmp	r2, #1
+ 474 0020 38D1     		bne	.L32
+ 173:../core/src/spi.c ****     {
+ 174:../core/src/spi.c ****         return HAL_BUSY;
+ 175:../core/src/spi.c ****     }
+ 176:../core/src/spi.c **** 
+ 177:../core/src/spi.c ****     hspi->State = HAL_SPI_STATE_BUSY_TX;
+ 475              		.loc 1 177 5 is_stmt 1 view .LVU154
+ 476              		.loc 1 177 17 is_stmt 0 view .LVU155
+ 477 0022 1222     		movs	r2, #18
+ 478 0024 0271     		strb	r2, [r0, #4]
+ 178:../core/src/spi.c ****     hspi->pBuffPtr = pData;
+ 479              		.loc 1 178 5 is_stmt 1 view .LVU156
+ 480              		.loc 1 178 20 is_stmt 0 view .LVU157
+ 481 0026 C160     		str	r1, [r0, #12]
+ 179:../core/src/spi.c ****     hspi->XferSize = Size;
+ 482              		.loc 1 179 5 is_stmt 1 view .LVU158
+ 483              		.loc 1 179 20 is_stmt 0 view .LVU159
+ 484 0028 0482     		strh	r4, [r0, #16]	@ movhi
+ 180:../core/src/spi.c **** 
+ 181:../core/src/spi.c ****     /* Configure DMA */
+ 182:../core/src/spi.c ****     DMA_Channel_Disable(hspi->hdmatx->Instance);
+ 485              		.loc 1 182 5 is_stmt 1 view .LVU160
+ 486 002a 1868     		ldr	r0, [r3]
+ 487              	.LVL39:
+ 488              		.loc 1 182 5 is_stmt 0 view .LVU161
+ 489 002c FFF7FEFF 		bl	DMA_Channel_Disable
+ 490              	.LVL40:
+ 183:../core/src/spi.c ****     DMA_Structure_Initializes(&DMA_InitStructure);
+ 491              		.loc 1 183 5 is_stmt 1 view .LVU162
+ 492 0030 01A8     		add	r0, sp, #4
+ 493 0032 FFF7FEFF 		bl	DMA_Structure_Initializes
+ 494              	.LVL41:
+ 184:../core/src/spi.c ****     DMA_InitStructure.PeriphAddr = (uint32_t)&hspi->Instance->DAT;
+ 495              		.loc 1 184 5 view .LVU163
+ 496              		.loc 1 184 46 is_stmt 0 view .LVU164
+ 497 0036 2B68     		ldr	r3, [r5]
+ 498 0038 0C33     		adds	r3, r3, #12
+ 185:../core/src/spi.c ****     DMA_InitStructure.MemAddr = (uint32_t)pData;
+ 499              		.loc 1 185 31 view .LVU165
+ 500 003a CDE90136 		strd	r3, r6, [sp, #4]
+ 186:../core/src/spi.c ****     DMA_InitStructure.Direction = DMA_DIR_PERIPH_DST;
+ 501              		.loc 1 186 5 is_stmt 1 view .LVU166
+ 502              		.loc 1 186 33 is_stmt 0 view .LVU167
+ 503 003e 1023     		movs	r3, #16
+ 187:../core/src/spi.c ****     DMA_InitStructure.BufSize = Size;
+ 504              		.loc 1 187 31 view .LVU168
+ 505 0040 CDE90334 		strd	r3, r4, [sp, #12]
+ 188:../core/src/spi.c ****     DMA_InitStructure.PeriphInc = DMA_PERIPH_INC_MODE_DISABLE;
+ 506              		.loc 1 188 5 is_stmt 1 view .LVU169
+ 189:../core/src/spi.c ****     DMA_InitStructure.MemoryInc = DMA_MEM_INC_MODE_ENABLE;
+ 507              		.loc 1 189 33 is_stmt 0 view .LVU170
+ 508 0044 0024     		movs	r4, #0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 14
+
+
+ 509              	.LVL42:
+ 510              		.loc 1 189 33 view .LVU171
+ 511 0046 8023     		movs	r3, #128
+ 512 0048 CDE90543 		strd	r4, r3, [sp, #20]
+ 190:../core/src/spi.c ****     DMA_InitStructure.PeriphDataSize = DMA_PERIPH_DATA_WIDTH_BYTE;
+ 513              		.loc 1 190 5 is_stmt 1 view .LVU172
+ 191:../core/src/spi.c ****     DMA_InitStructure.MemDataSize = DMA_MEM_DATA_WIDTH_BYTE;
+ 192:../core/src/spi.c ****     DMA_InitStructure.CircularMode = DMA_CIRCULAR_MODE_DISABLE;
+ 193:../core/src/spi.c ****     DMA_InitStructure.Priority = DMA_CH_PRIORITY_HIGH;
+ 514              		.loc 1 193 32 is_stmt 0 view .LVU173
+ 515 004c 4FF40053 		mov	r3, #8192
+ 194:../core/src/spi.c ****     DMA_InitStructure.Mem2Mem = DMA_MEM2MEM_DISABLE;
+ 516              		.loc 1 194 31 view .LVU174
+ 517 0050 CDE90A34 		strd	r3, r4, [sp, #40]
+ 195:../core/src/spi.c ****     DMA_Initializes(hspi->hdmatx->Instance, &DMA_InitStructure);
+ 518              		.loc 1 195 5 view .LVU175
+ 519 0054 AB68     		ldr	r3, [r5, #8]
+ 192:../core/src/spi.c ****     DMA_InitStructure.Priority = DMA_CH_PRIORITY_HIGH;
+ 520              		.loc 1 192 36 view .LVU176
+ 521 0056 0994     		str	r4, [sp, #36]
+ 522              		.loc 1 195 5 view .LVU177
+ 523 0058 1868     		ldr	r0, [r3]
+ 524 005a 01A9     		add	r1, sp, #4
+ 191:../core/src/spi.c ****     DMA_InitStructure.CircularMode = DMA_CIRCULAR_MODE_DISABLE;
+ 525              		.loc 1 191 35 view .LVU178
+ 526 005c CDE90744 		strd	r4, r4, [sp, #28]
+ 192:../core/src/spi.c ****     DMA_InitStructure.Priority = DMA_CH_PRIORITY_HIGH;
+ 527              		.loc 1 192 5 is_stmt 1 view .LVU179
+ 193:../core/src/spi.c ****     DMA_InitStructure.Mem2Mem = DMA_MEM2MEM_DISABLE;
+ 528              		.loc 1 193 5 view .LVU180
+ 529              		.loc 1 195 5 view .LVU181
+ 530 0060 FFF7FEFF 		bl	DMA_Initializes
+ 531              	.LVL43:
+ 196:../core/src/spi.c **** 
+ 197:../core/src/spi.c ****     hspi->hdmatx->Parent = hspi;
+ 532              		.loc 1 197 5 view .LVU182
+ 533              		.loc 1 197 9 is_stmt 0 view .LVU183
+ 534 0064 AB68     		ldr	r3, [r5, #8]
+ 198:../core/src/spi.c ****     hspi->hdmatx->State = HAL_DMA_STATE_BUSY;
+ 199:../core/src/spi.c ****     hspi->hdmatx->XferCpltCallback = SPI_DMA_TxCplt;
+ 535              		.loc 1 199 36 view .LVU184
+ 536 0066 0C4A     		ldr	r2, .L33
+ 200:../core/src/spi.c ****     hspi->hdmatx->XferErrorCallback = NULL;
+ 201:../core/src/spi.c **** 
+ 202:../core/src/spi.c ****     /* Enable DMA interrupts and channel */
+ 203:../core/src/spi.c ****     DMA_Interrupts_Enable(hspi->hdmatx->Instance, DMA_INT_TXC | DMA_INT_ERR);
+ 537              		.loc 1 203 5 view .LVU185
+ 538 0068 1868     		ldr	r0, [r3]
+ 197:../core/src/spi.c ****     hspi->hdmatx->State = HAL_DMA_STATE_BUSY;
+ 539              		.loc 1 197 26 view .LVU186
+ 540 006a DD60     		str	r5, [r3, #12]
+ 198:../core/src/spi.c ****     hspi->hdmatx->State = HAL_DMA_STATE_BUSY;
+ 541              		.loc 1 198 5 is_stmt 1 view .LVU187
+ 198:../core/src/spi.c ****     hspi->hdmatx->State = HAL_DMA_STATE_BUSY;
+ 542              		.loc 1 198 25 is_stmt 0 view .LVU188
+ 543 006c 0226     		movs	r6, #2
+ 544              	.LVL44:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 15
+
+
+ 200:../core/src/spi.c ****     hspi->hdmatx->XferErrorCallback = NULL;
+ 545              		.loc 1 200 37 view .LVU189
+ 546 006e C3E90424 		strd	r2, r4, [r3, #16]
+ 547              		.loc 1 203 5 view .LVU190
+ 548 0072 0A21     		movs	r1, #10
+ 198:../core/src/spi.c ****     hspi->hdmatx->State = HAL_DMA_STATE_BUSY;
+ 549              		.loc 1 198 25 view .LVU191
+ 550 0074 1E71     		strb	r6, [r3, #4]
+ 199:../core/src/spi.c ****     hspi->hdmatx->XferErrorCallback = NULL;
+ 551              		.loc 1 199 5 is_stmt 1 view .LVU192
+ 552              		.loc 1 203 5 view .LVU193
+ 553 0076 FFF7FEFF 		bl	DMA_Interrupts_Enable
+ 554              	.LVL45:
+ 204:../core/src/spi.c ****     DMA_Channel_Enable(hspi->hdmatx->Instance);
+ 555              		.loc 1 204 5 view .LVU194
+ 556 007a AB68     		ldr	r3, [r5, #8]
+ 557 007c 1868     		ldr	r0, [r3]
+ 558 007e FFF7FEFF 		bl	DMA_Channel_Enable
+ 559              	.LVL46:
+ 205:../core/src/spi.c **** 
+ 206:../core/src/spi.c ****     /* Enable SPI DMA TX request */
+ 207:../core/src/spi.c ****     SPI_I2S_DMA_Transfer_Enable(hspi->Instance, SPI_I2S_DMA_TX);
+ 560              		.loc 1 207 5 view .LVU195
+ 561 0082 2868     		ldr	r0, [r5]
+ 562 0084 3146     		mov	r1, r6
+ 563 0086 FFF7FEFF 		bl	SPI_I2S_DMA_Transfer_Enable
+ 564              	.LVL47:
+ 208:../core/src/spi.c **** 
+ 209:../core/src/spi.c ****     return HAL_OK;
+ 565              		.loc 1 209 5 view .LVU196
+ 566              		.loc 1 209 12 is_stmt 0 view .LVU197
+ 567 008a 2046     		mov	r0, r4
+ 568              	.L27:
+ 210:../core/src/spi.c **** }
+ 569              		.loc 1 210 1 view .LVU198
+ 570 008c 0CB0     		add	sp, sp, #48
+ 571              	.LCFI7:
+ 572              		.cfi_remember_state
+ 573              		.cfi_def_cfa_offset 16
+ 574              		@ sp needed
+ 575 008e 70BD     		pop	{r4, r5, r6, pc}
+ 576              	.LVL48:
+ 577              	.L31:
+ 578              	.LCFI8:
+ 579              		.cfi_restore_state
+ 170:../core/src/spi.c ****     }
+ 580              		.loc 1 170 16 view .LVU199
+ 581 0090 0120     		movs	r0, #1
+ 582              	.LVL49:
+ 170:../core/src/spi.c ****     }
+ 583              		.loc 1 170 16 view .LVU200
+ 584 0092 FBE7     		b	.L27
+ 585              	.LVL50:
+ 586              	.L32:
+ 174:../core/src/spi.c ****     }
+ 587              		.loc 1 174 16 view .LVU201
+ 588 0094 0220     		movs	r0, #2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 16
+
+
+ 589              	.LVL51:
+ 174:../core/src/spi.c ****     }
+ 590              		.loc 1 174 16 view .LVU202
+ 591 0096 F9E7     		b	.L27
+ 592              	.L34:
+ 593              		.align	2
+ 594              	.L33:
+ 595 0098 00000000 		.word	SPI_DMA_TxCplt
+ 596              		.cfi_endproc
+ 597              	.LFE133:
+ 599              		.section	.text.HAL_SPI_TxCpltCallback,"ax",%progbits
+ 600              		.align	1
+ 601              		.weak	HAL_SPI_TxCpltCallback
+ 602              		.syntax unified
+ 603              		.thumb
+ 604              		.thumb_func
+ 606              	HAL_SPI_TxCpltCallback:
+ 607              	.LVL52:
+ 608              	.LFB135:
+ 211:../core/src/spi.c **** 
+ 212:../core/src/spi.c **** /**
+ 213:../core/src/spi.c ****  * @brief DMA TX complete callback
+ 214:../core/src/spi.c ****  */
+ 215:../core/src/spi.c **** static void SPI_DMA_TxCplt(DMA_HandleTypeDef *hdma)
+ 216:../core/src/spi.c **** {
+ 217:../core/src/spi.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)hdma->Parent;
+ 218:../core/src/spi.c ****     if (hspi == NULL)
+ 219:../core/src/spi.c ****     {
+ 220:../core/src/spi.c ****         return;
+ 221:../core/src/spi.c ****     }
+ 222:../core/src/spi.c **** 
+ 223:../core/src/spi.c ****     /* Wait for SPI transmission complete */
+ 224:../core/src/spi.c ****     uint32_t tick_start = HAL_GetTick();
+ 225:../core/src/spi.c ****     while (SPI_I2S_Flag_Status_Get(hspi->Instance, SPI_I2S_FLAG_BUSY) == SET)
+ 226:../core/src/spi.c ****     {
+ 227:../core/src/spi.c ****         if ((HAL_GetTick() - tick_start) >= SPI_TIMEOUT_MS)
+ 228:../core/src/spi.c ****         {
+ 229:../core/src/spi.c ****             break;
+ 230:../core/src/spi.c ****         }
+ 231:../core/src/spi.c ****     }
+ 232:../core/src/spi.c **** 
+ 233:../core/src/spi.c ****     /* Disable SPI DMA TX request */
+ 234:../core/src/spi.c ****     SPI_I2S_DMA_Transfer_Disable(hspi->Instance, SPI_I2S_DMA_TX);
+ 235:../core/src/spi.c ****     DMA_Channel_Disable(hdma->Instance);
+ 236:../core/src/spi.c **** 
+ 237:../core/src/spi.c ****     hdma->State = HAL_DMA_STATE_READY;
+ 238:../core/src/spi.c ****     hspi->State = HAL_SPI_STATE_READY;
+ 239:../core/src/spi.c ****     HAL_SPI_TxCpltCallback(hspi);
+ 240:../core/src/spi.c **** }
+ 241:../core/src/spi.c **** 
+ 242:../core/src/spi.c **** /**
+ 243:../core/src/spi.c ****  * @brief SPI TX complete callback (weak)
+ 244:../core/src/spi.c ****  */
+ 245:../core/src/spi.c **** __attribute__((weak)) void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
+ 246:../core/src/spi.c **** {
+ 609              		.loc 1 246 1 is_stmt 1 view -0
+ 610              		.cfi_startproc
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 17
+
+
+ 611              		@ args = 0, pretend = 0, frame = 0
+ 612              		@ frame_needed = 0, uses_anonymous_args = 0
+ 613              		@ link register save eliminated.
+ 247:../core/src/spi.c ****     (void)hspi;
+ 614              		.loc 1 247 5 view .LVU204
+ 248:../core/src/spi.c **** }
+ 615              		.loc 1 248 1 is_stmt 0 view .LVU205
+ 616 0000 7047     		bx	lr
+ 617              		.cfi_endproc
+ 618              	.LFE135:
+ 620              		.section	.text.SPI_DMA_TxCplt,"ax",%progbits
+ 621              		.align	1
+ 622              		.syntax unified
+ 623              		.thumb
+ 624              		.thumb_func
+ 626              	SPI_DMA_TxCplt:
+ 627              	.LVL53:
+ 628              	.LFB134:
+ 216:../core/src/spi.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)hdma->Parent;
+ 629              		.loc 1 216 1 is_stmt 1 view -0
+ 630              		.cfi_startproc
+ 631              		@ args = 0, pretend = 0, frame = 0
+ 632              		@ frame_needed = 0, uses_anonymous_args = 0
+ 217:../core/src/spi.c ****     if (hspi == NULL)
+ 633              		.loc 1 217 5 view .LVU207
+ 216:../core/src/spi.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)hdma->Parent;
+ 634              		.loc 1 216 1 is_stmt 0 view .LVU208
+ 635 0000 70B5     		push	{r4, r5, r6, lr}
+ 636              	.LCFI9:
+ 637              		.cfi_def_cfa_offset 16
+ 638              		.cfi_offset 4, -16
+ 639              		.cfi_offset 5, -12
+ 640              		.cfi_offset 6, -8
+ 641              		.cfi_offset 14, -4
+ 217:../core/src/spi.c ****     if (hspi == NULL)
+ 642              		.loc 1 217 24 view .LVU209
+ 643 0002 C468     		ldr	r4, [r0, #12]
+ 644              	.LVL54:
+ 218:../core/src/spi.c ****     {
+ 645              		.loc 1 218 5 is_stmt 1 view .LVU210
+ 216:../core/src/spi.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)hdma->Parent;
+ 646              		.loc 1 216 1 is_stmt 0 view .LVU211
+ 647 0004 0546     		mov	r5, r0
+ 218:../core/src/spi.c ****     {
+ 648              		.loc 1 218 8 view .LVU212
+ 649 0006 D4B1     		cbz	r4, .L36
+ 224:../core/src/spi.c ****     while (SPI_I2S_Flag_Status_Get(hspi->Instance, SPI_I2S_FLAG_BUSY) == SET)
+ 650              		.loc 1 224 5 is_stmt 1 view .LVU213
+ 224:../core/src/spi.c ****     while (SPI_I2S_Flag_Status_Get(hspi->Instance, SPI_I2S_FLAG_BUSY) == SET)
+ 651              		.loc 1 224 27 is_stmt 0 view .LVU214
+ 652 0008 FFF7FEFF 		bl	HAL_GetTick
+ 653              	.LVL55:
+ 224:../core/src/spi.c ****     while (SPI_I2S_Flag_Status_Get(hspi->Instance, SPI_I2S_FLAG_BUSY) == SET)
+ 654              		.loc 1 224 27 view .LVU215
+ 655 000c 0646     		mov	r6, r0
+ 656              	.LVL56:
+ 225:../core/src/spi.c ****     {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 18
+
+
+ 657              		.loc 1 225 5 is_stmt 1 view .LVU216
+ 658              	.L38:
+ 225:../core/src/spi.c ****     {
+ 659              		.loc 1 225 71 view .LVU217
+ 225:../core/src/spi.c ****     {
+ 660              		.loc 1 225 12 is_stmt 0 view .LVU218
+ 661 000e 2068     		ldr	r0, [r4]
+ 662 0010 8021     		movs	r1, #128
+ 663 0012 FFF7FEFF 		bl	SPI_I2S_Flag_Status_Get
+ 664              	.LVL57:
+ 225:../core/src/spi.c ****     {
+ 665              		.loc 1 225 71 discriminator 1 view .LVU219
+ 666 0016 0128     		cmp	r0, #1
+ 667 0018 04D1     		bne	.L40
+ 227:../core/src/spi.c ****         {
+ 668              		.loc 1 227 9 is_stmt 1 view .LVU220
+ 227:../core/src/spi.c ****         {
+ 669              		.loc 1 227 14 is_stmt 0 view .LVU221
+ 670 001a FFF7FEFF 		bl	HAL_GetTick
+ 671              	.LVL58:
+ 227:../core/src/spi.c ****         {
+ 672              		.loc 1 227 28 discriminator 1 view .LVU222
+ 673 001e 801B     		subs	r0, r0, r6
+ 227:../core/src/spi.c ****         {
+ 674              		.loc 1 227 12 discriminator 1 view .LVU223
+ 675 0020 6328     		cmp	r0, #99
+ 676 0022 F4D9     		bls	.L38
+ 677              	.L40:
+ 234:../core/src/spi.c ****     DMA_Channel_Disable(hdma->Instance);
+ 678              		.loc 1 234 5 is_stmt 1 view .LVU224
+ 679 0024 2068     		ldr	r0, [r4]
+ 680 0026 0221     		movs	r1, #2
+ 681 0028 FFF7FEFF 		bl	SPI_I2S_DMA_Transfer_Disable
+ 682              	.LVL59:
+ 235:../core/src/spi.c **** 
+ 683              		.loc 1 235 5 view .LVU225
+ 684 002c 2868     		ldr	r0, [r5]
+ 685 002e FFF7FEFF 		bl	DMA_Channel_Disable
+ 686              	.LVL60:
+ 237:../core/src/spi.c ****     hspi->State = HAL_SPI_STATE_READY;
+ 687              		.loc 1 237 5 view .LVU226
+ 237:../core/src/spi.c ****     hspi->State = HAL_SPI_STATE_READY;
+ 688              		.loc 1 237 17 is_stmt 0 view .LVU227
+ 689 0032 0123     		movs	r3, #1
+ 690 0034 2B71     		strb	r3, [r5, #4]
+ 238:../core/src/spi.c ****     HAL_SPI_TxCpltCallback(hspi);
+ 691              		.loc 1 238 5 is_stmt 1 view .LVU228
+ 239:../core/src/spi.c **** }
+ 692              		.loc 1 239 5 is_stmt 0 view .LVU229
+ 693 0036 2046     		mov	r0, r4
+ 238:../core/src/spi.c ****     HAL_SPI_TxCpltCallback(hspi);
+ 694              		.loc 1 238 17 view .LVU230
+ 695 0038 2371     		strb	r3, [r4, #4]
+ 239:../core/src/spi.c **** }
+ 696              		.loc 1 239 5 is_stmt 1 view .LVU231
+ 697 003a FFF7FEFF 		bl	HAL_SPI_TxCpltCallback
+ 698              	.LVL61:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 19
+
+
+ 699              	.L36:
+ 240:../core/src/spi.c **** 
+ 700              		.loc 1 240 1 is_stmt 0 view .LVU232
+ 701 003e 70BD     		pop	{r4, r5, r6, pc}
+ 240:../core/src/spi.c **** 
+ 702              		.loc 1 240 1 view .LVU233
+ 703              		.cfi_endproc
+ 704              	.LFE134:
+ 706              		.section	.text.OLED_SPI_Reset,"ax",%progbits
+ 707              		.align	1
+ 708              		.global	OLED_SPI_Reset
+ 709              		.syntax unified
+ 710              		.thumb
+ 711              		.thumb_func
+ 713              	OLED_SPI_Reset:
+ 714              	.LFB136:
+ 249:../core/src/spi.c **** 
+ 250:../core/src/spi.c **** /* OLED SPI control functions */
+ 251:../core/src/spi.c **** 
+ 252:../core/src/spi.c **** /**
+ 253:../core/src/spi.c ****  * @brief Reset OLED display
+ 254:../core/src/spi.c ****  */
+ 255:../core/src/spi.c **** void OLED_SPI_Reset(void)
+ 256:../core/src/spi.c **** {
+ 715              		.loc 1 256 1 is_stmt 1 view -0
+ 716              		.cfi_startproc
+ 717              		@ args = 0, pretend = 0, frame = 0
+ 718              		@ frame_needed = 0, uses_anonymous_args = 0
+ 257:../core/src/spi.c ****     OLED_RES_LOW();
+ 719              		.loc 1 257 5 view .LVU235
+ 256:../core/src/spi.c ****     OLED_RES_LOW();
+ 720              		.loc 1 256 1 is_stmt 0 view .LVU236
+ 721 0000 08B5     		push	{r3, lr}
+ 722              	.LCFI10:
+ 723              		.cfi_def_cfa_offset 8
+ 724              		.cfi_offset 3, -8
+ 725              		.cfi_offset 14, -4
+ 726              		.loc 1 257 5 view .LVU237
+ 727 0002 4021     		movs	r1, #64
+ 728 0004 0748     		ldr	r0, .L46
+ 729 0006 FFF7FEFF 		bl	GPIO_Pins_Reset
+ 730              	.LVL62:
+ 258:../core/src/spi.c ****     HAL_Delay(10);
+ 731              		.loc 1 258 5 is_stmt 1 view .LVU238
+ 732 000a 0A20     		movs	r0, #10
+ 733 000c FFF7FEFF 		bl	HAL_Delay
+ 734              	.LVL63:
+ 259:../core/src/spi.c ****     OLED_RES_HIGH();
+ 735              		.loc 1 259 5 view .LVU239
+ 736 0010 0448     		ldr	r0, .L46
+ 737 0012 4021     		movs	r1, #64
+ 738 0014 FFF7FEFF 		bl	GPIO_Pins_Set
+ 739              	.LVL64:
+ 260:../core/src/spi.c ****     HAL_Delay(10);
+ 740              		.loc 1 260 5 view .LVU240
+ 261:../core/src/spi.c **** }
+ 741              		.loc 1 261 1 is_stmt 0 view .LVU241
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 20
+
+
+ 742 0018 BDE80840 		pop	{r3, lr}
+ 743              	.LCFI11:
+ 744              		.cfi_restore 14
+ 745              		.cfi_restore 3
+ 746              		.cfi_def_cfa_offset 0
+ 260:../core/src/spi.c ****     HAL_Delay(10);
+ 747              		.loc 1 260 5 view .LVU242
+ 748 001c 0A20     		movs	r0, #10
+ 749 001e FFF7FEBF 		b	HAL_Delay
+ 750              	.LVL65:
+ 751              	.L47:
+ 752 0022 00BF     		.align	2
+ 753              	.L46:
+ 754 0024 00340240 		.word	1073886208
+ 755              		.cfi_endproc
+ 756              	.LFE136:
+ 758              		.section	.text.OLED_SPI_SetDC_Cmd,"ax",%progbits
+ 759              		.align	1
+ 760              		.global	OLED_SPI_SetDC_Cmd
+ 761              		.syntax unified
+ 762              		.thumb
+ 763              		.thumb_func
+ 765              	OLED_SPI_SetDC_Cmd:
+ 766              	.LFB137:
+ 262:../core/src/spi.c **** 
+ 263:../core/src/spi.c **** /**
+ 264:../core/src/spi.c ****  * @brief Set DC pin low for command mode
+ 265:../core/src/spi.c ****  */
+ 266:../core/src/spi.c **** void OLED_SPI_SetDC_Cmd(void)
+ 267:../core/src/spi.c **** {
+ 767              		.loc 1 267 1 is_stmt 1 view -0
+ 768              		.cfi_startproc
+ 769              		@ args = 0, pretend = 0, frame = 0
+ 770              		@ frame_needed = 0, uses_anonymous_args = 0
+ 771              		@ link register save eliminated.
+ 268:../core/src/spi.c ****     OLED_DC_LOW();
+ 772              		.loc 1 268 5 view .LVU244
+ 773 0000 0148     		ldr	r0, .L49
+ 774 0002 0121     		movs	r1, #1
+ 775 0004 FFF7FEBF 		b	GPIO_Pins_Reset
+ 776              	.LVL66:
+ 777              	.L50:
+ 778              		.align	2
+ 779              	.L49:
+ 780 0008 00380240 		.word	1073887232
+ 781              		.cfi_endproc
+ 782              	.LFE137:
+ 784              		.section	.text.OLED_SPI_SetDC_Data,"ax",%progbits
+ 785              		.align	1
+ 786              		.global	OLED_SPI_SetDC_Data
+ 787              		.syntax unified
+ 788              		.thumb
+ 789              		.thumb_func
+ 791              	OLED_SPI_SetDC_Data:
+ 792              	.LFB138:
+ 269:../core/src/spi.c **** }
+ 270:../core/src/spi.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 21
+
+
+ 271:../core/src/spi.c **** /**
+ 272:../core/src/spi.c ****  * @brief Set DC pin high for data mode
+ 273:../core/src/spi.c ****  */
+ 274:../core/src/spi.c **** void OLED_SPI_SetDC_Data(void)
+ 275:../core/src/spi.c **** {
+ 793              		.loc 1 275 1 view -0
+ 794              		.cfi_startproc
+ 795              		@ args = 0, pretend = 0, frame = 0
+ 796              		@ frame_needed = 0, uses_anonymous_args = 0
+ 797              		@ link register save eliminated.
+ 276:../core/src/spi.c ****     OLED_DC_HIGH();
+ 798              		.loc 1 276 5 view .LVU246
+ 799 0000 0148     		ldr	r0, .L52
+ 800 0002 0121     		movs	r1, #1
+ 801 0004 FFF7FEBF 		b	GPIO_Pins_Set
+ 802              	.LVL67:
+ 803              	.L53:
+ 804              		.align	2
+ 805              	.L52:
+ 806 0008 00380240 		.word	1073887232
+ 807              		.cfi_endproc
+ 808              	.LFE138:
+ 810              		.section	.text.OLED_SPI_CS_Enable,"ax",%progbits
+ 811              		.align	1
+ 812              		.global	OLED_SPI_CS_Enable
+ 813              		.syntax unified
+ 814              		.thumb
+ 815              		.thumb_func
+ 817              	OLED_SPI_CS_Enable:
+ 818              	.LFB139:
+ 277:../core/src/spi.c **** }
+ 278:../core/src/spi.c **** 
+ 279:../core/src/spi.c **** /**
+ 280:../core/src/spi.c ****  * @brief Enable CS (active low)
+ 281:../core/src/spi.c ****  */
+ 282:../core/src/spi.c **** void OLED_SPI_CS_Enable(void)
+ 283:../core/src/spi.c **** {
+ 819              		.loc 1 283 1 view -0
+ 820              		.cfi_startproc
+ 821              		@ args = 0, pretend = 0, frame = 0
+ 822              		@ frame_needed = 0, uses_anonymous_args = 0
+ 823              		@ link register save eliminated.
+ 284:../core/src/spi.c ****     OLED_CS_LOW();
+ 824              		.loc 1 284 5 view .LVU248
+ 825 0000 0148     		ldr	r0, .L55
+ 826 0002 0221     		movs	r1, #2
+ 827 0004 FFF7FEBF 		b	GPIO_Pins_Reset
+ 828              	.LVL68:
+ 829              	.L56:
+ 830              		.align	2
+ 831              	.L55:
+ 832 0008 00380240 		.word	1073887232
+ 833              		.cfi_endproc
+ 834              	.LFE139:
+ 836              		.section	.text.OLED_SPI_CS_Disable,"ax",%progbits
+ 837              		.align	1
+ 838              		.global	OLED_SPI_CS_Disable
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 22
+
+
+ 839              		.syntax unified
+ 840              		.thumb
+ 841              		.thumb_func
+ 843              	OLED_SPI_CS_Disable:
+ 844              	.LFB140:
+ 285:../core/src/spi.c **** }
+ 286:../core/src/spi.c **** 
+ 287:../core/src/spi.c **** /**
+ 288:../core/src/spi.c ****  * @brief Disable CS
+ 289:../core/src/spi.c ****  */
+ 290:../core/src/spi.c **** void OLED_SPI_CS_Disable(void)
+ 291:../core/src/spi.c **** {
+ 845              		.loc 1 291 1 view -0
+ 846              		.cfi_startproc
+ 847              		@ args = 0, pretend = 0, frame = 0
+ 848              		@ frame_needed = 0, uses_anonymous_args = 0
+ 849              		@ link register save eliminated.
+ 292:../core/src/spi.c ****     OLED_CS_HIGH();
+ 850              		.loc 1 292 5 view .LVU250
+ 851 0000 0148     		ldr	r0, .L58
+ 852 0002 0221     		movs	r1, #2
+ 853 0004 FFF7FEBF 		b	GPIO_Pins_Set
+ 854              	.LVL69:
+ 855              	.L59:
+ 856              		.align	2
+ 857              	.L58:
+ 858 0008 00380240 		.word	1073887232
+ 859              		.cfi_endproc
+ 860              	.LFE140:
+ 862              		.global	hspi1
+ 863              		.section	.bss.hspi1,"aw",%nobits
+ 864              		.align	2
+ 867              	hspi1:
+ 868 0000 00000000 		.space	20
+ 868      00000000 
+ 868      00000000 
+ 868      00000000 
+ 868      00000000 
+ 869              		.text
+ 870              	.Letext0:
+ 871              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 872              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 873              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 874              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_dma.h"
+ 875              		.file 6 "../firmware/n32g430_std_periph_driver/inc/n32g430_gpio.h"
+ 876              		.file 7 "../firmware/n32g430_std_periph_driver/inc/n32g430_spi.h"
+ 877              		.file 8 "../core/inc/hal_compat.h"
+ 878              		.file 9 "../core/inc/dma.h"
+ 879              		.file 10 "../core/inc/spi.h"
+ 880              		.file 11 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 23
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 spi.c
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:21     .text.MX_SPI1_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:27     .text.MX_SPI1_Init:00000000 MX_SPI1_Init
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:215    .text.MX_SPI1_Init:000000d0 $d
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:867    .bss.hspi1:00000000 hspi1
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:225    .text.HAL_SPI_DeInit:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:231    .text.HAL_SPI_DeInit:00000000 HAL_SPI_DeInit
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:272    .text.HAL_SPI_Transmit:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:278    .text.HAL_SPI_Transmit:00000000 HAL_SPI_Transmit
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:424    .text.HAL_SPI_Transmit_DMA:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:430    .text.HAL_SPI_Transmit_DMA:00000000 HAL_SPI_Transmit_DMA
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:595    .text.HAL_SPI_Transmit_DMA:00000098 $d
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:626    .text.SPI_DMA_TxCplt:00000000 SPI_DMA_TxCplt
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:600    .text.HAL_SPI_TxCpltCallback:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:606    .text.HAL_SPI_TxCpltCallback:00000000 HAL_SPI_TxCpltCallback
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:621    .text.SPI_DMA_TxCplt:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:707    .text.OLED_SPI_Reset:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:713    .text.OLED_SPI_Reset:00000000 OLED_SPI_Reset
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:754    .text.OLED_SPI_Reset:00000024 $d
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:759    .text.OLED_SPI_SetDC_Cmd:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:765    .text.OLED_SPI_SetDC_Cmd:00000000 OLED_SPI_SetDC_Cmd
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:780    .text.OLED_SPI_SetDC_Cmd:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:785    .text.OLED_SPI_SetDC_Data:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:791    .text.OLED_SPI_SetDC_Data:00000000 OLED_SPI_SetDC_Data
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:806    .text.OLED_SPI_SetDC_Data:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:811    .text.OLED_SPI_CS_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:817    .text.OLED_SPI_CS_Enable:00000000 OLED_SPI_CS_Enable
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:832    .text.OLED_SPI_CS_Enable:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:837    .text.OLED_SPI_CS_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:843    .text.OLED_SPI_CS_Disable:00000000 OLED_SPI_CS_Disable
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:858    .text.OLED_SPI_CS_Disable:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s:864    .bss.hspi1:00000000 $d
+
+UNDEFINED SYMBOLS
+RCC_AHB_Peripheral_Clock_Enable
+RCC_APB2_Peripheral_Clock_Enable
+GPIO_Structure_Initialize
+GPIO_Peripheral_Initialize
+GPIO_Pins_Set
+SPI_I2S_Reset
+SPI_Initializes_Structure
+SPI_Initializes
+SPI_Set_Nss_Level
+SPI_ON
+hdma_spi1_tx
+SPI_OFF
+HAL_GetTick
+SPI_I2S_Flag_Status_Get
+SPI_I2S_Data_Transmit
+DMA_Channel_Disable
+DMA_Structure_Initializes
+DMA_Initializes
+DMA_Interrupts_Enable
+DMA_Channel_Enable
+SPI_I2S_DMA_Transfer_Enable
+SPI_I2S_DMA_Transfer_Disable
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cchMbxxx.s 			page 24
+
+
+GPIO_Pins_Reset
+HAL_Delay

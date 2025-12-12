@@ -38,6 +38,7 @@
 #include "hal_compat.h"
 #include "dma.h"
 #include "tim.h"
+#include "spi.h"
 
 
 /******************************************************************************/
@@ -169,6 +170,17 @@ void DMA_Channel1_IRQHandler(void)
 void TIM4_IRQHandler(void)
 {
     HAL_TIM_IRQHandler(&htim4);
+}
+
+/**
+ *\*\name   DMA_Channel2_IRQHandler.
+ *\*\fun    Handle DMA1 channel 2 interrupt (SPI1 TX).
+ *\*\param  none.
+ *\*\return none.
+ */
+void DMA_Channel2_IRQHandler(void)
+{
+    HAL_DMA_IRQHandler(&hdma_spi1_tx);
 }
 
 

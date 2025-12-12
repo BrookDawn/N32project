@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfIKI61.s 			page 1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxAXWyu.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfIKI61.s 			page 1
   28:../core/src/main.c **** /**
   29:../core/src/main.c **** *\*\file main.c
   30:../core/src/main.c **** *\*\author Nations
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfIKI61.s 			page 2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxAXWyu.s 			page 2
 
 
   31:../core/src/main.c **** *\*\version v1.0.0
@@ -69,121 +69,124 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfIKI61.s 			page 1
   36:../core/src/main.c **** #include "bsp_led.h"
   37:../core/src/main.c **** #include "hal_compat.h"
   38:../core/src/main.c **** #include "dma.h"
-  39:../core/src/main.c **** #include "i2c.h"
-  40:../core/src/main.c **** #include "tim.h"
-  41:../core/src/main.c **** #include "oled_test_demo.h"
-  42:../core/src/main.c **** 
-  43:../core/src/main.c **** /**
-  44:../core/src/main.c ****  *\*\name   main.
-  45:../core/src/main.c ****  *\*\fun    main function.
-  46:../core/src/main.c ****  *\*\param  none.
-  47:../core/src/main.c ****  *\*\return none.
-  48:../core/src/main.c **** **/
-  49:../core/src/main.c **** int main(void)
-  50:../core/src/main.c **** {
-  29              		.loc 1 50 1 view -0
+  39:../core/src/main.c **** #include "tim.h"
+  40:../core/src/main.c **** #include "oled_test_demo.h"
+  41:../core/src/main.c **** 
+  42:../core/src/main.c **** /* Define to use SPI OLED, undefine to use I2C OLED */
+  43:../core/src/main.c **** #define OLED_USE_SPI_INTERFACE
+  44:../core/src/main.c **** 
+  45:../core/src/main.c **** #ifdef OLED_USE_SPI_INTERFACE
+  46:../core/src/main.c **** #include "spi.h"
+  47:../core/src/main.c **** #else
+  48:../core/src/main.c **** #include "i2c.h"
+  49:../core/src/main.c **** #endif
+  50:../core/src/main.c **** 
+  51:../core/src/main.c **** /**
+  52:../core/src/main.c ****  *\*\name   main.
+  53:../core/src/main.c ****  *\*\fun    main function.
+  54:../core/src/main.c ****  *\*\param  none.
+  55:../core/src/main.c ****  *\*\return none.
+  56:../core/src/main.c **** **/
+  57:../core/src/main.c **** int main(void)
+  58:../core/src/main.c **** {
+  29              		.loc 1 58 1 view -0
   30              		.cfi_startproc
   31              		@ Volatile: function does not return.
   32              		@ args = 0, pretend = 0, frame = 0
   33              		@ frame_needed = 0, uses_anonymous_args = 0
-  51:../core/src/main.c ****     HAL_InitTick();
-  34              		.loc 1 51 5 view .LVU1
-  50:../core/src/main.c ****     HAL_InitTick();
-  35              		.loc 1 50 1 is_stmt 0 view .LVU2
+  59:../core/src/main.c ****     HAL_InitTick();
+  34              		.loc 1 59 5 view .LVU1
+  58:../core/src/main.c ****     HAL_InitTick();
+  35              		.loc 1 58 1 is_stmt 0 view .LVU2
   36 0000 08B5     		push	{r3, lr}
   37              	.LCFI0:
   38              		.cfi_def_cfa_offset 8
   39              		.cfi_offset 3, -8
   40              		.cfi_offset 14, -4
-  41              		.loc 1 51 5 view .LVU3
+  41              		.loc 1 59 5 view .LVU3
   42 0002 FFF7FEFF 		bl	HAL_InitTick
   43              	.LVL0:
-  52:../core/src/main.c **** 
-  53:../core/src/main.c ****     /* Initialize LEDs for simple status indication */
-  54:../core/src/main.c ****     LED_Initialize(LED1_GPIO_PORT, LED1_GPIO_PIN, LED1_GPIO_CLK);
-  44              		.loc 1 54 5 is_stmt 1 view .LVU4
-  45 0006 0C48     		ldr	r0, .L3
+  60:../core/src/main.c **** 
+  61:../core/src/main.c ****     /* Initialize LEDs for simple status indication */
+  62:../core/src/main.c ****     LED_Initialize(LED1_GPIO_PORT, LED1_GPIO_PIN, LED1_GPIO_CLK);
+  44              		.loc 1 62 5 is_stmt 1 view .LVU4
+  45 0006 0A48     		ldr	r0, .L3
   46 0008 8022     		movs	r2, #128
   47 000a 0221     		movs	r1, #2
   48 000c FFF7FEFF 		bl	LED_Initialize
   49              	.LVL1:
-  55:../core/src/main.c ****     LED_Initialize(LED2_GPIO_PORT, LED2_GPIO_PIN | LED3_GPIO_PIN, LED2_GPIO_CLK);
-  50              		.loc 1 55 5 view .LVU5
+  63:../core/src/main.c ****     LED_Initialize(LED2_GPIO_PORT, LED2_GPIO_PIN | LED3_GPIO_PIN, LED2_GPIO_CLK);
+  50              		.loc 1 63 5 view .LVU5
   51 0010 8022     		movs	r2, #128
-  52 0012 0948     		ldr	r0, .L3
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxAXWyu.s 			page 3
+
+
+  52 0012 0748     		ldr	r0, .L3
   53 0014 0C21     		movs	r1, #12
   54 0016 FFF7FEFF 		bl	LED_Initialize
   55              	.LVL2:
-  56:../core/src/main.c ****     LED_Off(LED2_GPIO_PORT, LED1_GPIO_PIN | LED2_GPIO_PIN | LED3_GPIO_PIN);
-  56              		.loc 1 56 5 view .LVU6
-  57 001a 0748     		ldr	r0, .L3
+  64:../core/src/main.c ****     LED_Off(LED2_GPIO_PORT, LED1_GPIO_PIN | LED2_GPIO_PIN | LED3_GPIO_PIN);
+  56              		.loc 1 64 5 view .LVU6
+  57 001a 0548     		ldr	r0, .L3
   58 001c 0E21     		movs	r1, #14
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfIKI61.s 			page 3
-
-
   59 001e FFF7FEFF 		bl	LED_Off
   60              	.LVL3:
-  57:../core/src/main.c **** 
-  58:../core/src/main.c ****     MX_DMA_Init();
-  61              		.loc 1 58 5 view .LVU7
-  62 0022 FFF7FEFF 		bl	MX_DMA_Init
+  65:../core/src/main.c **** 
+  66:../core/src/main.c **** #ifdef OLED_USE_SPI_INTERFACE
+  67:../core/src/main.c ****     /* SPI mode initialization is done in OLED_TestDemo_Init */
+  68:../core/src/main.c **** #else
+  69:../core/src/main.c ****     MX_DMA_Init();
+  70:../core/src/main.c ****     MX_I2C1_Init();
+  71:../core/src/main.c **** #endif
+  72:../core/src/main.c **** 
+  73:../core/src/main.c ****     MX_TIM4_Init();
+  61              		.loc 1 73 5 view .LVU7
+  62 0022 FFF7FEFF 		bl	MX_TIM4_Init
   63              	.LVL4:
-  59:../core/src/main.c ****     MX_I2C1_Init();
-  64              		.loc 1 59 5 view .LVU8
-  65 0026 FFF7FEFF 		bl	MX_I2C1_Init
+  74:../core/src/main.c ****     OLED_TestDemo_Init();
+  64              		.loc 1 74 5 view .LVU8
+  65 0026 FFF7FEFF 		bl	OLED_TestDemo_Init
   66              	.LVL5:
-  60:../core/src/main.c ****     MX_TIM4_Init();
-  67              		.loc 1 60 5 view .LVU9
-  68 002a FFF7FEFF 		bl	MX_TIM4_Init
-  69              	.LVL6:
-  61:../core/src/main.c ****     OLED_TestDemo_Init();
-  70              		.loc 1 61 5 view .LVU10
-  71 002e FFF7FEFF 		bl	OLED_TestDemo_Init
-  72              	.LVL7:
-  73              	.L2:
-  62:../core/src/main.c **** 
-  63:../core/src/main.c ****     while(1)
-  74              		.loc 1 63 5 view .LVU11
-  64:../core/src/main.c ****     {
-  65:../core/src/main.c ****         OLED_TestDemo_Main();
-  75              		.loc 1 65 9 discriminator 1 view .LVU12
-  76 0032 FFF7FEFF 		bl	OLED_TestDemo_Main
-  77              	.LVL8:
-  63:../core/src/main.c ****     {
-  78              		.loc 1 63 10 view .LVU13
-  79 0036 FCE7     		b	.L2
-  80              	.L4:
-  81              		.align	2
-  82              	.L3:
-  83 0038 00340240 		.word	1073886208
-  84              		.cfi_endproc
-  85              	.LFE130:
-  87              		.text
-  88              	.Letext0:
-  89              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
-  90              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
-  91              		.file 4 "../firmware/CMSIS/device/n32g430.h"
-  92              		.file 5 "../APP/Inc/oled_test_demo.h"
-  93              		.file 6 "../core/inc/tim.h"
-  94              		.file 7 "../core/inc/i2c.h"
-  95              		.file 8 "../core/inc/dma.h"
-  96              		.file 9 "../core/inc/bsp_led.h"
-  97              		.file 10 "../core/inc/hal_compat.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccfIKI61.s 			page 4
+  67              	.L2:
+  75:../core/src/main.c **** 
+  76:../core/src/main.c ****     while(1)
+  68              		.loc 1 76 5 view .LVU9
+  77:../core/src/main.c ****     {
+  78:../core/src/main.c ****         OLED_TestDemo_Main();
+  69              		.loc 1 78 9 discriminator 1 view .LVU10
+  70 002a FFF7FEFF 		bl	OLED_TestDemo_Main
+  71              	.LVL6:
+  76:../core/src/main.c ****     {
+  72              		.loc 1 76 10 view .LVU11
+  73 002e FCE7     		b	.L2
+  74              	.L4:
+  75              		.align	2
+  76              	.L3:
+  77 0030 00340240 		.word	1073886208
+  78              		.cfi_endproc
+  79              	.LFE130:
+  81              		.text
+  82              	.Letext0:
+  83              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+  84              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+  85              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+  86              		.file 5 "../APP/Inc/oled_test_demo.h"
+  87              		.file 6 "../core/inc/tim.h"
+  88              		.file 7 "../core/inc/bsp_led.h"
+  89              		.file 8 "../core/inc/hal_compat.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccxAXWyu.s 			page 4
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\Dawn\AppData\Local\Temp\ccfIKI61.s:21     .text.startup.main:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccfIKI61.s:27     .text.startup.main:00000000 main
-C:\Users\Dawn\AppData\Local\Temp\ccfIKI61.s:83     .text.startup.main:00000038 $d
+C:\Users\Dawn\AppData\Local\Temp\ccxAXWyu.s:21     .text.startup.main:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccxAXWyu.s:27     .text.startup.main:00000000 main
+C:\Users\Dawn\AppData\Local\Temp\ccxAXWyu.s:77     .text.startup.main:00000030 $d
 
 UNDEFINED SYMBOLS
 HAL_InitTick
 LED_Initialize
 LED_Off
-MX_DMA_Init
-MX_I2C1_Init
 MX_TIM4_Init
 OLED_TestDemo_Init
 OLED_TestDemo_Main

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
   27:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
   28:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
   29:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\file n32g430_tim.c
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 2
 
 
   30:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\author Nations
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
   70:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     {
   71:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         RCC_APB1_Peripheral_Reset(RCC_APB1_PERIPH_TIM5);
   72:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 3
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 3
 
 
   73:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     else if (TIMx == TIM6)
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
   79              	.LVL7:
   67:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
   80              		.loc 1 67 9 is_stmt 0 view .LVU16
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 4
 
 
   81 002c F3E7     		b	.L10
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  123              		.align	2
  124              	.L11:
  125 0050 002C0140 		.word	1073818624
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 5
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 5
 
 
  126 0054 00040040 		.word	1073742848
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  155              		.loc 1 109 16 is_stmt 0 view .LVU35
  156 0002 23F07003 		bic	r3, r3, #112
  157              	.LVL17:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 6
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 6
 
 
  110:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Set the Counter Mode */
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  191              		.loc 1 132 16 is_stmt 0 view .LVU46
  192 0002 23F44013 		bic	r3, r3, #3145728
  193              	.LVL21:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 7
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 7
 
 
  133:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Set the Counter Mode */
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  234              		.global	TIM_Asymmetric_Disable
  235              		.syntax unified
  236              		.thumb
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 8
 
 
  237              		.thumb_func
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  176:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **/
  177:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void TIM_Base_Auto_Reload_Set(TIM_Module* TIMx, uint16_t auto_reload)
  178:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 9
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 9
 
 
  268              		.loc 1 178 1 is_stmt 1 view -0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  304              		.section	.text.TIM_Base_Reload_Mode_Set,"ax",%progbits
  305              		.align	1
  306              		.global	TIM_Base_Reload_Mode_Set
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 10
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 10
 
 
  307              		.syntax unified
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  227:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM8
  228:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   repeat_cnt
  229:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - [0,255]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 11
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 11
 
 
  230:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\return  none
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  366              	.LBB106:
  367              	.LBB107:
  257:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     {
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 12
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 12
 
 
  258:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         TIMx->CTRL1 |= TIM_CH1_SEL;
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  269:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM2
  270:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   channel_selection:
  271:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **\           - 1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 13
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 13
 
 
  272:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **\             CH2 is from LSE
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  443 000c 23F48053 		bic	r3, r3, #4096
  444 0010 FAE7     		b	.L28
  445              		.cfi_endproc
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 14
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 14
 
 
  446              	.LFE140:
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  483              	.LBE120:
  484              	.LBE121:
  305:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 15
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 15
 
 
  306:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     else
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  517              	.LBE125:
  518              	.LBE124:
  325:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     if(channel_selection)
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 16
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 16
 
 
  519              		.loc 1 325 7 view .LVU117
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  344:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **\           - 1
  345:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **\             OCrefClear is from ETR
  346:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **\           - 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 17
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 17
 
 
  347:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **\             OCrefClear is from COMP
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  591 0010 FAE7     		b	.L40
  592              		.cfi_endproc
  593              	.LFE143:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 18
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 18
 
 
  595              		.section	.text.TIM_Base_Struct_Initialize,"ax",%progbits
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  407:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     {
  408:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         TIM_Base_Channel1(TIMx, TIM_TimeBaseInitStruct->CapCh1Sel);
  409:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 19
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 19
 
 
  410:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     else 
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  619              		.loc 1 449 5 view .LVU148
  450:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     TIM_TimeBaseInitStruct->CapEtrSelFromTscEn  = false;    
  620              		.loc 1 450 5 view .LVU149
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 20
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 20
 
 
  440:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     TIM_TimeBaseInitStruct->ClkDiv    = TIM_CLK_DIV1;
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  463:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\return  none
  464:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **/
  465:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void TIM_Base_Count_Set(TIM_Module* TIMx, uint16_t count)
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 21
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 21
 
 
  466:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  692              	.LFE147:
  694              		.section	.text.TIM_Auto_Reload_Get,"ax",%progbits
  695              		.align	1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 22
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 22
 
 
  696              		.global	TIM_Auto_Reload_Get
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  510:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM3
  511:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM4
  512:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM5
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 23
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 23
 
 
  513:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM6
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  759              		.loc 1 538 5 view .LVU178
  760              		.loc 1 538 9 is_stmt 0 view .LVU179
  761 0000 0368     		ldr	r3, [r0]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 24
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 24
 
 
  762              		.loc 1 538 17 view .LVU180
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  801              		.thumb_func
  803              	TIM_Output_Channel1_Preload_Set:
  804              	.LVL54:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 25
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 25
 
 
  805              	.LFB152:
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  832 000e 7047     		bx	lr
  833              		.cfi_endproc
  834              	.LFE152:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 26
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 26
 
 
  836              		.section	.text.TIM_Output_Channel2_Preload_Set,"ax",%progbits
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  867              	.LVL63:
  868              		.loc 1 607 16 view .LVU208
  869 000e 9BB2     		uxth	r3, r3
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 27
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 27
 
 
  870              	.LVL64:
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  901 0002 4FF6F773 		movw	r3, #65527
  902 0006 1340     		ands	r3, r3, r2
  903              	.LVL67:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 28
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 28
 
 
  633:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Enable or Disable the Output Compare Preload feature */
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  935              	.LVL70:
  658:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Reset the OC1PE Bit */
  659:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     temp_value &= (uint16_t) ~((uint16_t)TIM_OC4_PRELOAD_MASK);
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 29
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 29
 
 
  936              		.loc 1 659 5 is_stmt 1 view .LVU227
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  970              		.loc 1 680 5 view .LVU236
  971              		.loc 1 680 16 is_stmt 0 view .LVU237
  972 0000 B0F85430 		ldrh	r3, [r0, #84]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 30
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 30
 
 
  973              	.LVL74:
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1009              		.loc 1 700 5 view .LVU247
  701:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
  702:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     temp_value = TIMx->CCMOD3;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 31
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 31
 
 
  1010              		.loc 1 702 5 view .LVU248
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1047              		.loc 1 721 1 is_stmt 1 view -0
  1048              		.cfi_startproc
  1049              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 32
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 32
 
 
  1050              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1087              		.thumb_func
  1089              	TIM_Output_Channel8_Preload_Set:
  1090              	.LVL85:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 33
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 33
 
 
  1091              	.LFB159:
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  753:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
  1118              		.loc 1 753 9 is_stmt 1 view .LVU284
  753:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 34
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 34
 
 
  1119              		.loc 1 753 13 is_stmt 0 view .LVU285
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  780:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     else
  781:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     {
  782:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         /* none */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 35
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 35
 
 
  783:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1187              		.loc 1 800 5 view .LVU302
  1188              		.loc 1 800 9 is_stmt 0 view .LVU303
  1189 0000 0368     		ldr	r3, [r0]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 36
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 36
 
 
  1190              		.loc 1 800 17 view .LVU304
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1229              		.thumb_func
  1231              	TIM_Update_Event_Enable:
  1232              	.LVL89:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 37
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 37
 
 
  1233              	.LFB163:
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  848:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **/
  849:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void TIM_Update_Event_Disable(TIM_Module* TIMx)
  850:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 38
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 38
 
 
  1260              		.loc 1 850 1 is_stmt 1 view -0
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  875:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     {
  876:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         /* Set the URS Bit */
  877:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         TIMx->CTRL1 |= TIM_UPRS_REGULAR;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 39
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 39
 
 
  1292              		.loc 1 877 13 is_stmt 0 view .LVU323
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  901:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_EVT_SRC_CC4       Timer Capture Compare 4 Event source
  902:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_EVT_SRC_COM       Timer COM event source
  903:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_EVT_SRC_TRIG      Timer Trigger Event source
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 40
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 40
 
 
  904:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_EVT_SRC_BREAK     Timer Break event source
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1357              		.section	.text.TIM_Commutation_Event_Disable,"ax",%progbits
  1358              		.align	1
  1359              		.global	TIM_Commutation_Event_Disable
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 41
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 41
 
 
  1360              		.syntax unified
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1394              		.cfi_startproc
  1395              		@ args = 0, pretend = 0, frame = 0
  1396              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 42
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 42
 
 
  1397              		@ link register save eliminated.
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1440              		.thumb_func
  1442              	TIM_Compare1_Set:
  1443              	.LVL96:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 43
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 43
 
 
  1444              	.LFB171:
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1479              	.LFB172:
  984:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
  985:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 44
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 44
 
 
  986:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\name    TIM_Compare2_Set
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1007:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\name    TIM_Compare3_Set
 1008:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\fun     Sets the TIMx Capture compare3 Register value
 1009:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIMx:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 45
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 45
 
 
 1010:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM1
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1031:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM1
 1032:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM2
 1033:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM3
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 46
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 46
 
 
 1034:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM4
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1055:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - [0,0xffff]
 1056:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **/
 1057:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void TIM_Compare5_Set(TIM_Module* TIMx, uint16_t compare5)
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 47
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 47
 
 
 1058:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1625              		.thumb
  1626              		.thumb_func
  1628              	TIM_Compare7_Set:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 48
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 48
 
 
  1629              	.LVL114:
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1657              		@ frame_needed = 0, uses_anonymous_args = 0
  1658              		@ link register save eliminated.
 1103:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     TIMx->CCDAT8 = compare8;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 49
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 49
 
 
  1659              		.loc 1 1103 5 view .LVU405
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1121:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
 1122:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\name    TIM_Compare1_D_Set
 1123:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\fun     Sets the CCDDAT1[16:31] in TIM1_CCDAT1 register
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 50
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 50
 
 
 1124:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIMx
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1145:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - [0,0xffff]
 1146:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\return  none
 1147:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\note    only for TIM1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 51
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 51
 
 
 1148:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **/
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1770              		.loc 1 1168 1 is_stmt 1 view -0
  1771              		.cfi_startproc
  1772              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 52
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 52
 
 
  1773              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1810              		.loc 1 1187 5 view .LVU443
  1811              		.loc 1 1187 14 is_stmt 0 view .LVU444
  1812 0000 036C     		ldr	r3, [r0, #64]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 53
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 53
 
 
  1813              	.LVL130:
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1848              	.LVL134:
 1209:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
  1849              		.loc 1 1209 1 view .LVU455
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 54
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 54
 
 
  1850 0002 80B2     		uxth	r0, r0
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1228:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
 1229:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
 1230:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\name    TIM_Compare_Capture3_Get 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 55
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 55
 
 
 1231:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\fun     Get the TIMx Compare3 Register value
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1915              		.loc 1 1261 1 is_stmt 1 view -0
  1916              		.cfi_startproc
  1917              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 56
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 56
 
 
  1918              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1959              		.thumb
  1960              		.thumb_func
  1962              	TIM_Compare_Capture6_Get:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 57
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 57
 
 
  1963              	.LVL143:
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  1993              		@ frame_needed = 0, uses_anonymous_args = 0
  1994              		@ link register save eliminated.
 1304:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     return TIMx->CCDAT7;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 58
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 58
 
 
  1995              		.loc 1 1304 5 view .LVU477
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  2038              	.LVL149:
  2039              	.LFB192:
 1320:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 59
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 59
 
 
 1321:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  2070              		.loc 1 1346 5 view .LVU489
  2071              		.loc 1 1346 28 is_stmt 0 view .LVU490
  2072 0000 406B     		ldr	r0, [r0, #52]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 60
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 60
 
 
  2073              	.LVL152:
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1363:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
 1364:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\name    TIM_Compare_Capture3_D_Get
 1365:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\fun     Gets the CCDDAT3[16:31] in TIMx_CCDAT3 register
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 61
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 61
 
 
 1366:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIMx：
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  2148              	.LVL158:
 1389:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
  2149              		.loc 1 1389 1 view .LVU503
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 62
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 62
 
 
  2150 0002 000C     		lsrs	r0, r0, #16
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  2175              		.loc 1 1420 5 is_stmt 1 view .LVU508
  2176              		.loc 1 1420 16 is_stmt 0 view .LVU509
  2177 0002 23F07003 		bic	r3, r3, #112
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 63
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 63
 
 
  2178              	.LVL161:
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1450:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **/
 1451:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void Input_Channel1_Config(TIM_Module* TIMx, uint16_t input_channel_polarity, 
 1452:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****                                uint16_t input_channel_selection, uint16_t input_channel_filter)
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 64
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 64
 
 
 1453:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  2244              		.loc 1 1461 17 view .LVU532
  2245 001a 240C     		lsrs	r4, r4, #16
  2246              	.LVL170:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 65
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 65
 
 
 1462:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1467:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         temp_ccen |= (uint32_t)(input_channel_polarity | (uint32_t)TIM_CC1EN);
  2282              		.loc 1 1467 9 is_stmt 1 view .LVU545
 1467:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         temp_ccen |= (uint32_t)(input_channel_polarity | (uint32_t)TIM_CC1EN);
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 66
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 66
 
 
  2283              		.loc 1 1467 19 is_stmt 0 view .LVU546
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1485:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIMx:
 1486:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM1
 1487:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM2
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 67
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 67
 
 
 1488:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM3
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  2352              	.LVL180:
 1514:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     temp_value = (uint32_t)(input_channel_polarity << 4);
  2353              		.loc 1 1514 5 is_stmt 1 view .LVU569
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 68
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 68
 
 
 1515:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Select the Input and set the filter */
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  2394 003c 9842     		cmp	r0, r3
  2395 003e 07D0     		beq	.L117
  2396              		.loc 1 1520 78 discriminator 4 view .LVU588
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 69
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 69
 
 
  2397 0040 03F58063 		add	r3, r3, #1024
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1530:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
  2432              		.loc 1 1530 9 is_stmt 1 view .LVU602
 1530:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 70
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 70
 
 
  2433              		.loc 1 1530 22 is_stmt 0 view .LVU603
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1565:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     uint16_t temp_ccmod2 = 0;
  2460              		.loc 1 1565 5 view .LVU606
 1566:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     uint32_t temp_ccen = 0, temp_value = 0;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 71
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 71
 
 
  2461              		.loc 1 1566 5 view .LVU607
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  2500              		.loc 1 1571 16 view .LVU623
  2501 001e 4FEA0126 		lsl	r6, r1, #8
  2502              	.LVL198:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 72
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 72
 
 
 1573:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     temp_ccmod2 |= (uint16_t)(input_channel_selection | (uint16_t)(input_channel_filter << (uint16_
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1586:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         temp_ccen |= (uint32_t)(input_channel_polarity | (uint32_t)TIM_CC3EN);
 1587:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
 1588:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 73
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 73
 
 
 1589:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Write to TIMx CCMOD2 and CCEN registers */
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1602:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM5
 1603:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM8
 1604:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   input_channel_polarity The Input Polarity.
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 74
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 74
 
 
 1605:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\  This parameter can be one of the following values:
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1629:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     temp_ccmod2 &= (uint16_t)((uint16_t)(~(uint16_t)TIM_IC4_SELECTION_MASK) & ((uint16_t) ~((uint16
  2611              		.loc 1 1629 17 is_stmt 0 view .LVU661
  2612 000e 24F44074 		bic	r4, r4, #768
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 75
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 75
 
 
  2613              	.LVL210:
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  2644              		.loc 1 1633 24 discriminator 1 view .LVU677
  2645 002e 02F50062 		add	r2, r2, #2048
  2646 0032 9042     		cmp	r0, r2
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 76
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 76
 
 
  2647 0034 0ED0     		beq	.L135
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1643:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
  2685              		.loc 1 1643 22 is_stmt 0 view .LVU693
  2686 0060 41F48051 		orr	r1, r1, #4096
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 77
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 77
 
 
  2687              	.LVL218:
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  2721              		.loc 1 1669 16 view .LVU700
  2722 0006 1B04     		lsls	r3, r3, #16
  2723 0008 1B0C     		lsrs	r3, r3, #16
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 78
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 78
 
 
  2724              	.LVL222:
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  2753              		@ frame_needed = 0, uses_anonymous_args = 0
  2754              		@ link register save eliminated.
 1697:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Reset the ETRPSC Bits */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 79
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 79
 
 
 1698:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     uint16_t temp_value = TIMx->SMCTRL;
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1720:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **/
 1721:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void TIM_External_Trigger_Polarity_Set(TIM_Module* TIMx,
 1722:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****                                        uint16_t external_trigger_polarity)
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 80
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 80
 
 
 1723:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  2833              	.LVL232:
  2834              	.LFB205:
 1733:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 81
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 81
 
 
 1734:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  2867              	.LVL234:
  2868              	.LFB144:
  380:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     if (TIMx != TIM6)
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 82
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 82
 
 
  2869              		.loc 1 380 1 is_stmt 1 view -0
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  111:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Write to TIMx CTRL1 register */
  2910              		.loc 1 111 5 is_stmt 1 view .LVU751
  111:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Write to TIMx CTRL1 register */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 83
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 83
 
 
  2911              		.loc 1 111 16 is_stmt 0 view .LVU752
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  2951              	.LVL245:
  198:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
  2952              		.loc 1 198 15 view .LVU767
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 84
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 84
 
 
  2953              	.LBE147:
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  2993              		.loc 1 406 5 is_stmt 1 view .LVU781
  406:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     {
  2994              		.loc 1 406 8 is_stmt 0 view .LVU782
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 85
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 85
 
 
  2995 003c 154B     		ldr	r3, .L161
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  3036              		.loc 1 424 7 is_stmt 0 view .LVU795
  3037 0076 B2F1804F 		cmp	r2, #1073741824
  3038 007a 0AD1     		bne	.L150
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 86
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 86
 
 
  3039              	.LVL254:
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1760:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
 1761:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\name    TIM_Internal_Clock_Set.
 1762:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\fun     Configures the TIMx internal Clock
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 87
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 87
 
 
 1763:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIMx:
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1791:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_IC_PSC_DIV2    capture is done once every 2 events
 1792:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_IC_PSC_DIV4    capture is done once every 4 events
 1793:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_IC_PSC_DIV8    capture is done once every 8 events
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 88
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 88
 
 
 1794:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\return  none
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1815:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_IC_PSC_DIV2    capture is done once every 2 events
 1816:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_IC_PSC_DIV4    capture is done once every 4 events
 1817:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_IC_PSC_DIV8    capture is done once every 8 events
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 89
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 89
 
 
 1818:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\return  none
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1838:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_IC_PSC_DIV1    no prescaler
 1839:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_IC_PSC_DIV2    capture is done once every 2 events
 1840:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_IC_PSC_DIV4    capture is done once every 4 events
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 90
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 90
 
 
 1841:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_IC_PSC_DIV8    capture is done once every 8 events
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1861:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIM_input_capture_prescaler 
 1862:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_IC_PSC_DIV1    no prescaler
 1863:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_IC_PSC_DIV2    capture is done once every 2 events
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 91
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 91
 
 
 1864:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_IC_PSC_DIV4    capture is done once every 4 events
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1886:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_TRIG_SEL_IN_TR0    Internal Trigger 0
 1887:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_TRIG_SEL_IN_TR1    Internal Trigger 1
 1888:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_TRIG_SEL_IN_TR2    Internal Trigger 2
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 92
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 92
 
 
 1889:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_TRIG_SEL_IN_TR3    Internal Trigger 3
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1897:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Select the External clock mode1 */
 1898:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     TIMx->SMCTRL |= TIM_SLAVE_MODE_EXT1;
  3289              		.loc 1 1898 5 is_stmt 1 view .LVU855
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 93
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 93
 
 
  3290              		.loc 1 1898 9 is_stmt 0 view .LVU856
@@ -5578,7 +5578,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1926:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Configure the Timer Input Clock Source */
  3316              		.loc 1 1926 1 is_stmt 0 view .LVU861
  3317 0000 38B5     		push	{r3, r4, r5, lr}
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 94
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 94
 
 
  3318              	.LCFI7:
@@ -5638,7 +5638,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  3353              		.loc 1 1420 16 is_stmt 0 view .LVU875
  3354 0016 23F07003 		bic	r3, r3, #112
  3355              	.LVL277:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 95
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 95
 
 
 1420:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Set the Input Trigger source */
@@ -5698,7 +5698,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1942:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
 1943:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\name    TIM_External_Clock_Mode1_Set.
 1944:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\fun     Configures the External clock Mode1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 96
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 96
 
 
 1945:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIMx:
@@ -5758,7 +5758,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  3425              		.loc 1 1971 5 is_stmt 0 view .LVU896
  3426 000c FFF7FEFF 		bl	TIM_External_Trigger_Polarity_Set
  3427              	.LVL287:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 97
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 97
 
 
 1972:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     TIM_External_Trigger_Prescaler_Set(TIMx, external_trigger_prescaler);
@@ -5818,7 +5818,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 1981:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     temp_value &= (uint16_t)(~((uint16_t)TIM_TRIG_SEL_MASK));
  3462              		.loc 1 1981 5 view .LVU913
  3463 0020 23F07003 		bic	r3, r3, #112
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 98
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 98
 
 
  3464              	.LVL294:
@@ -5878,7 +5878,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2010:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****                                   uint16_t external_trigger_prescaler,
 2011:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****                                   uint16_t external_trigger_polarity,
 2012:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****                                   uint16_t external_trigger_filter)
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 99
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 99
 
 
 2013:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
@@ -5938,7 +5938,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  3532              		.loc 1 1699 16 view .LVU935
  3533 0016 1B04     		lsls	r3, r3, #16
  3534 0018 1B0C     		lsrs	r3, r3, #16
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 100
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 100
 
 
  3535              	.LVL304:
@@ -5998,7 +5998,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2036:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_SLAVE_MODE_GATED    The counter clock is enabled when the trigger signal (TRGI)
 2037:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_SLAVE_MODE_TRIG     The counter starts at a rising edge of the trigger TRGI.
 2038:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_SLAVE_MODE_EXT1     Rising edges of the selected trigger (TRGI) clock the count
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 101
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 101
 
 
 2039:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\return  none
@@ -6058,7 +6058,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2060:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_MASTER_SLAVE_MODE_ENABLE    synchronization between the current timer
 2061:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\                                            and its slaves (through TRGO).
 2062:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_MASTER_SLAVE_MODE_DISABLE   No action
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 102
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 102
 
 
 2063:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\return  none
@@ -6118,7 +6118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2084:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM5
 2085:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM6
 2086:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM8
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 103
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 103
 
 
 2087:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIM_TRGOSource
@@ -6178,7 +6178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  3672              	.LVL311:
  3673              	.LFB218:
 2110:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 104
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 104
 
 
 2111:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
@@ -6238,7 +6238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  3709 0002 23F40043 		bic	r3, r3, #32768
  3710 0006 4360     		str	r3, [r0, #4]
 2132:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 105
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 105
 
 
  3711              		.loc 1 2132 1 view .LVU979
@@ -6298,7 +6298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2150:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\return  none
 2151:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **/
 2152:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void TIM_OC7REF_Trigger_To_ADC_Disable(TIM_Module* TIMx)
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 106
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 106
 
 
 2153:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
@@ -6358,7 +6358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  3794              		.section	.text.TIM_OC8REF_Trigger_To_ADC_Disable,"ax",%progbits
  3795              		.align	1
  3796              		.global	TIM_OC8REF_Trigger_To_ADC_Disable
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 107
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 107
 
 
  3797              		.syntax unified
@@ -6418,7 +6418,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  3833              		@ frame_needed = 0, uses_anonymous_args = 0
  3834              		@ link register save eliminated.
 2189:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     TIMx->CTRL2 |= TIM_OCREF9_TRIGGER_TO_ADC_ENABLE;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 108
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 108
 
 
  3835              		.loc 1 2189 5 view .LVU1001
@@ -6478,7 +6478,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  3881              	.LFB226:
 2202:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
 2203:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 109
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 109
 
 
 2204:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
@@ -6538,7 +6538,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2226:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
 2227:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
 2228:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*name TIM_Input_Struct_Initialize
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 110
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 110
 
 
 2229:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\fun     Initialize the TIM_ICInitStruct
@@ -6598,7 +6598,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  3951              	.LFB228:
 2249:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
 2250:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 111
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 111
 
 
 2251:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\name    TIM_Input_Channel_Initialize
@@ -6658,7 +6658,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2272:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     else if (TIM_ICInitStruct->Channel == TIM_CH_2)
 2273:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     {
 2274:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         /* TI2 Configuration */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 112
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 112
 
 
 2275:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         Input_Channel2_Config(TIMx, TIM_ICInitStruct->IcPolarity, TIM_ICInitStruct->IcSelection, TI
@@ -6718,7 +6718,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4012              		.cfi_restore 5
  4013              		.cfi_restore 4
  4014              		.cfi_restore 3
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 113
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 113
 
 
  4015              		.cfi_def_cfa_offset 0
@@ -6778,7 +6778,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4061              	.LVL334:
 2291:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
  4062              		.loc 1 2291 9 view .LVU1058
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 114
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 114
 
 
  4063 004a FFF7FEBF 		b	TIM_Input_Capture4_Prescaler_Set
@@ -6838,7 +6838,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2312:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     uint16_t input_channel_opposite_polarity  = TIM_IC_POLARITY_RISING;
  4095              		.loc 1 2312 1 view .LVU1064
  4096 0002 0C46     		mov	r4, r1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 115
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 115
 
 
  4097              		.loc 1 2316 25 view .LVU1065
@@ -6898,7 +6898,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2337:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         /* Set the Input Capture Prescaler value */
 2338:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         TIM_Input_Capture1_Prescaler_Set(TIMx, TIM_ICInitStruct->IcPrescaler);
  4125              		.loc 1 2338 9 view .LVU1075
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 116
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 116
 
 
  4126 0024 E488     		ldrh	r4, [r4, #6]
@@ -6958,7 +6958,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4161              	.LVL346:
 2349:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         /* TI1 Configuration */
  4162              		.loc 1 2349 9 view .LVU1082
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 117
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 117
 
 
  4163 0046 E488     		ldrh	r4, [r4, #6]
@@ -7018,7 +7018,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2367:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM5
 2368:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM8
 2369:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   output_channel_polarity:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 118
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 118
 
 
 2370:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **\           - TIM_OC_POLARITY_LOW
@@ -7078,7 +7078,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4234 0010 0162     		str	r1, [r0, #32]
 2393:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
  4235              		.loc 1 2393 1 view .LVU1100
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 119
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 119
 
 
  4236 0012 10BD     		pop	{r4, pc}
@@ -7138,7 +7138,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4268              		.loc 1 2416 16 view .LVU1107
  4269 0008 23EA0403 		bic	r3, r3, r4
  4270              	.LVL359:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 120
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 120
 
 
 2417:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
@@ -7198,7 +7198,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4299              		@ frame_needed = 0, uses_anonymous_args = 0
  4300              		@ link register save eliminated.
 2445:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     TIMx->CCEN |= (uint32_t)(TIM_CAP_CMP_ENABLE << channel);
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 121
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 121
 
 
  4301              		.loc 1 2445 5 view .LVU1115
@@ -7258,7 +7258,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4333              		.loc 1 2469 51 view .LVU1123
  4334 0002 0122     		movs	r2, #1
  4335 0004 8A40     		lsls	r2, r2, r1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 122
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 122
 
 
  4336              		.loc 1 2469 16 view .LVU1124
@@ -7318,7 +7318,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4374              		.align	1
  4375              		.global	TIM_Capture_Compare_Ch_N_Disable
  4376              		.syntax unified
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 123
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 123
 
 
  4377              		.thumb
@@ -7378,7 +7378,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2511:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
 2512:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
 2513:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\name    TIM_CCEN_Status_Get
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 124
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 124
 
 
 2514:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\fun     Checks whether the specified TIM flag is set or not.
@@ -7438,7 +7438,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4429              	.LFE236:
  4431              		.section	.text.TIM_Output_Channel_Mode_Set,"ax",%progbits
  4432              		.align	1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 125
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 125
 
 
  4433              		.global	TIM_Output_Channel_Mode_Set
@@ -7498,7 +7498,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4451 0002 9340     		lsls	r3, r3, r2
 2580:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     uint32_t temp  = 0;
  4452              		.loc 1 2580 1 view .LVU1149
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 126
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 126
 
 
  4453 0004 30B5     		push	{r4, r5, lr}
@@ -7558,7 +7558,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4490 0024 1359     		ldr	r3, [r2, r4]
  4491              		.loc 1 2600 31 is_stmt 0 view .LVU1166
  4492 0026 0B43     		orrs	r3, r3, r1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 127
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 127
 
 
  4493 0028 1351     		str	r3, [r2, r4]
@@ -7618,7 +7618,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4525              		.cfi_endproc
  4526              	.LFE237:
  4528              		.section	.text.TIM_Forced_Output_Channel1_Set,"ax",%progbits
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 128
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 128
 
 
  4529              		.align	1
@@ -7678,7 +7678,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4559              	.LVL381:
 2638:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Write to TIMx CCMOD1 register */
 2639:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     TIMx->CCMOD1 = temp_value;    
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 129
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 129
 
 
  4560              		.loc 1 2639 5 is_stmt 1 view .LVU1188
@@ -7738,7 +7738,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4592              		.loc 1 2663 16 view .LVU1197
  4593 0006 1B04     		lsls	r3, r3, #16
  4594 0008 1B0C     		lsrs	r3, r3, #16
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 130
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 130
 
 
  4595              	.LVL385:
@@ -7798,7 +7798,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2688:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Check the parameters */
 2689:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     temp_value = TIMx->CCMOD2;
  4627              		.loc 1 2689 5 view .LVU1206
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 131
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 131
 
 
  4628              		.loc 1 2689 22 is_stmt 0 view .LVU1207
@@ -7858,7 +7858,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4659              		.cfi_startproc
  4660              		@ args = 0, pretend = 0, frame = 0
  4661              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 132
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 132
 
 
  4662              		@ link register save eliminated.
@@ -7918,7 +7918,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2736:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **/
 2737:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void TIM_Forced_Output_Channel5_Set(TIM_Module* TIMx, uint16_t TIM_forced_action)
 2738:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 133
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 133
 
 
  4696              		.loc 1 2738 1 is_stmt 1 view -0
@@ -7978,7 +7978,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2755:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM8
 2756:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIM_forced_action:
 2757:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_FORCED_ACTION_ACTIVE Force active level on OC6REF
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 134
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 134
 
 
 2758:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_FORCED_ACTION_INACTIVE Force inactive level on OC6REF.
@@ -8038,7 +8038,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4777              	.LVL407:
  4778              	.LFB244:
 2773:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 135
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 135
 
 
 2774:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
@@ -8098,7 +8098,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4806              		.cfi_endproc
  4807              	.LFE244:
  4809              		.section	.text.TIM_Output_Channel2_Fast_Set,"ax",%progbits
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 136
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 136
 
 
  4810              		.align	1
@@ -8158,7 +8158,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4840              	.LVL416:
  4841              		.loc 1 2825 16 view .LVU1272
  4842 000e 9BB2     		uxth	r3, r3
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 137
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 137
 
 
  4843              	.LVL417:
@@ -8218,7 +8218,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4873              		.loc 1 2851 16 is_stmt 0 view .LVU1281
  4874 0002 4FF6FB73 		movw	r3, #65531
  4875 0006 1340     		ands	r3, r3, r2
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 138
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 138
 
 
  4876              	.LVL420:
@@ -8278,7 +8278,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4906              		.loc 1 2877 22 is_stmt 0 view .LVU1290
  4907 0000 C269     		ldr	r2, [r0, #28]
  4908              	.LVL423:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 139
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 139
 
 
 2878:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Reset the OC1FE Bit */
@@ -8338,7 +8338,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4942              		.loc 1 2899 5 view .LVU1299
 2900:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Get the TIMx CCMOD1 register value */
 2901:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     temp_value = TIMx->CCMOD3;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 140
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 140
 
 
  4943              		.loc 1 2901 5 view .LVU1300
@@ -8398,7 +8398,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  4978              		.cfi_startproc
  4979              		@ args = 0, pretend = 0, frame = 0
  4980              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 141
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 141
 
 
  4981              		@ link register save eliminated.
@@ -8458,7 +8458,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2940:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM3
 2941:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM4
 2942:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM5
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 142
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 142
 
 
 2943:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM8
@@ -8518,7 +8518,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  5055              		.thumb_func
  5057              	TIM_Output_Channel2_Reference_Clear:
  5058              	.LVL442:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 143
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 143
 
 
  5059              	.LFB251:
@@ -8578,7 +8578,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2992:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
  5084              		.loc 1 2992 1 view .LVU1346
  5085 000e 7047     		bx	lr
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 144
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 144
 
 
  5086              		.cfi_endproc
@@ -8638,7 +8638,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3020:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Write to TIMx CCMOD2 register */
 3021:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     TIMx->CCMOD2 = temp_value;    
  5115              		.loc 1 3021 5 view .LVU1354
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 145
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 145
 
 
  5116              		.loc 1 3021 18 is_stmt 0 view .LVU1355
@@ -8698,7 +8698,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  5146              		.loc 1 3047 5 is_stmt 1 view .LVU1362
  5147              		.loc 1 3047 16 is_stmt 0 view .LVU1363
  5148 0002 C3F30E03 		ubfx	r3, r3, #0, #15
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 146
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 146
 
 
  5149              	.LVL453:
@@ -8758,7 +8758,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  5182              	.LVL456:
 3070:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
 3071:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Reset the OC1CE Bit */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 147
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 147
 
 
 3072:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     temp_value &= (uint16_t) ~((uint16_t)TIM_OC5_CLEAR_MASK);
@@ -8818,7 +8818,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  5218              		.loc 1 3092 5 view .LVU1382
 3093:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Check the parameters */
 3094:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 148
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 148
 
 
 3095:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     temp_value = TIMx->CCMOD3;
@@ -8878,7 +8878,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3118:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **/
 3119:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void TIM_Output_Channel1_Initialize(TIM_Module* TIMx, OCInitType* TIM_OCInitStruct)
 3120:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 149
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 149
 
 
  5252              		.loc 1 3120 1 is_stmt 1 view -0
@@ -8938,7 +8938,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3131:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     temp_value1 = TIMx->CCMOD1;
  5289              		.loc 1 3131 5 is_stmt 1 view .LVU1406
  5290              		.loc 1 3131 17 is_stmt 0 view .LVU1407
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 150
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 150
 
 
  5291 000c 038B     		ldrh	r3, [r0, #24]
@@ -8998,7 +8998,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  5329 001e 25F00205 		bic	r5, r5, #2
  5330              	.LVL473:
 2389:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 151
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 151
 
 
  5331              		.loc 1 2389 5 is_stmt 1 view .LVU1422
@@ -9058,7 +9058,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3148:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     {
 3149:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         TIM_Capture_Compare_Ch_Disable(TIMx, TIM_CH_1);
 3150:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 152
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 152
 
 
 3151:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
@@ -9118,7 +9118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  5407              		.loc 1 2421 16 view .LVU1450
  5408              	.LBE177:
  5409              	.LBE178:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 153
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 153
 
 
 3156:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
@@ -9178,7 +9178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  5438              		.loc 1 3168 9 is_stmt 1 view .LVU1461
  5439              	.LVL486:
 3169:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 154
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 154
 
 
  5440              		.loc 1 3169 9 view .LVU1462
@@ -9238,7 +9238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  5477              		.loc 1 2469 9 is_stmt 0 view .LVU1479
  5478 0070 046A     		ldr	r4, [r0, #32]
 2469:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 155
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 155
 
 
  5479              		.loc 1 2469 16 view .LVU1480
@@ -9298,7 +9298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3198:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - Refer to the definition of OCInitType.
 3199:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\return  none
 3200:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **/
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 156
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 156
 
 
 3201:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void TIM_Output_Channel2_Initialize(TIM_Module* TIMx, OCInitType* TIM_OCInitStruct)
@@ -9358,7 +9358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3211:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
 3212:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Get the TIMx CCMOD1 register value */
 3213:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     temp_value1 = TIMx->CCMOD1;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 157
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 157
 
 
  5554              		.loc 1 3213 5 is_stmt 1 view .LVU1500
@@ -9418,7 +9418,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  5588 002a 4C88     		ldrh	r4, [r1, #2]
 3220:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
  5589              		.loc 1 3220 17 view .LVU1515
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 158
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 158
 
 
  5590 002c 9BB2     		uxth	r3, r3
@@ -9478,7 +9478,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3228:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
 3229:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     else
 3230:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     {
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 159
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 159
 
 
 3231:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         TIM_Capture_Compare_Ch_Disable(TIMx, TIM_CH_2);
@@ -9538,7 +9538,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  5667              	.LVL508:
 2421:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
  5668              		.loc 1 2421 16 view .LVU1546
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 160
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 160
 
 
  5669              	.LBE201:
@@ -9598,7 +9598,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  5700              		.loc 1 3254 65 is_stmt 0 view .LVU1558
  5701 0060 8C89     		ldrh	r4, [r1, #12]
 3251:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         temp_value2 &= (uint32_t)(~((uint32_t)TIM_OC2N_IDLE_STATE_MASK));
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 161
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 161
 
 
  5702              		.loc 1 3251 21 view .LVU1559
@@ -9658,7 +9658,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  5739              		.loc 1 2469 9 is_stmt 0 view .LVU1576
  5740 007a 046A     		ldr	r4, [r0, #32]
 2469:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 162
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 162
 
 
  5741              		.loc 1 2469 16 view .LVU1577
@@ -9718,7 +9718,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3280:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\              - Refer to the definition of OCInitType.
 3281:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\return  none
 3282:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **/
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 163
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 163
 
 
 3283:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void TIM_Output_Channel3_Initialize(TIM_Module* TIMx, OCInitType* TIM_OCInitStruct)
@@ -9778,7 +9778,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3293:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
 3294:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Get the TIMx CCMOD2 register value */
 3295:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     temp_value1 = TIMx->CCMOD2;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 164
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 164
 
 
  5816              		.loc 1 3295 5 is_stmt 1 view .LVU1597
@@ -9838,7 +9838,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2392:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
  5851              		.loc 1 2392 16 is_stmt 0 view .LVU1614
  5852 0024 0262     		str	r2, [r0, #32]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 165
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 165
 
 
  5853              	.LVL528:
@@ -9898,7 +9898,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  5888              		.loc 1 3315 24 discriminator 1 view .LVU1627
  5889 0038 02F50062 		add	r2, r2, #2048
  5890 003c 9042     		cmp	r0, r2
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 166
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 166
 
 
  5891 003e 14D1     		bne	.L249
@@ -9958,7 +9958,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3322:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         {
 3323:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****             TIM_Capture_Compare_Ch_N_Enable(TIMx, TIM_CH_3);
  5929              		.loc 1 3323 13 is_stmt 1 view .LVU1642
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 167
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 167
 
 
  5930              	.LVL537:
@@ -10018,7 +10018,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  5965 0064 CA89     		ldrh	r2, [r1, #14]
  5966              		.loc 1 3335 21 view .LVU1657
  5967 0066 43EA0213 		orr	r3, r3, r2, lsl #4
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 168
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 168
 
 
  5968              	.LVL542:
@@ -10078,7 +10078,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6003              		.loc 1 3327 13 is_stmt 1 view .LVU1672
  6004              	.LBB231:
  6005              	.LBI227:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 169
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 169
 
 
 2507:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
@@ -10138,7 +10138,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6038              		.loc 1 3366 5 view .LVU1679
 3367:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
 3368:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Disable the Channel 4， Reset the CC4EN Bit */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 170
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 170
 
 
 3369:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     TIM_Capture_Compare_Ch_Disable(TIMx, TIM_CH_4);
@@ -10198,7 +10198,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6075              		.loc 1 3379 5 view .LVU1693
 3380:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
 3381:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Select the Output Compare Mode */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 171
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 171
 
 
 3382:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     temp_value1 |= (uint16_t)(TIM_OCInitStruct->OcMode << 8);
@@ -10258,7 +10258,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6112              		.loc 1 2392 16 view .LVU1710
  6113              	.LBE237:
  6114              	.LBE236:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 172
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 172
 
 
 3385:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
@@ -10318,7 +10318,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6148              	.LBB243:
  6149              	.LBI243:
 2412:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 173
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 173
 
 
  6150              		.loc 1 2412 6 view .LVU1723
@@ -10378,7 +10378,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6188              		.loc 1 2487 5 view .LVU1738
 2487:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
  6189              		.loc 1 2487 9 is_stmt 0 view .LVU1739
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 174
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 174
 
 
  6190 004e 026A     		ldr	r2, [r0, #32]
@@ -10438,7 +10438,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3422:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         /* Set the Output Idle state */
 3423:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         temp_value2 |= (uint32_t)(TIM_OCInitStruct->OcIdleState << 6);
 3424:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 175
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 175
 
 
 3425:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     else
@@ -10498,7 +10498,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6256              	.LBE252:
 3408:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         }
  6257              		.loc 1 3408 13 is_stmt 1 view .LVU1767
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 176
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 176
 
 
  6258              	.LBB253:
@@ -10558,7 +10558,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6300              		.global	TIM_Output_Channel5_Initialize
  6301              		.syntax unified
  6302              		.thumb
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 177
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 177
 
 
  6303              		.thumb_func
@@ -10618,7 +10618,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 2469:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
  6335              		.loc 1 2469 16 view .LVU1790
  6336 0008 0362     		str	r3, [r0, #32]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 178
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 178
 
 
  6337              	.LVL580:
@@ -10678,7 +10678,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6370              		.loc 1 2384 5 view .LVU1805
 2384:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Clear the CCxEN bit */
  6371              		.loc 1 2384 14 is_stmt 0 view .LVU1806
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 179
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 179
 
 
  6372 001e 046A     		ldr	r4, [r0, #32]
@@ -10738,7 +10738,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6409              	.LBB262:
  6410              	.LBB263:
 2469:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 180
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 180
 
 
  6411              		.loc 1 2469 16 view .LVU1822
@@ -10798,7 +10798,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6442              		.loc 1 3497 5 is_stmt 1 view .LVU1835
  6443              		.loc 1 3497 36 is_stmt 0 view .LVU1836
  6444 0054 CB88     		ldrh	r3, [r1, #6]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 181
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 181
 
 
  6445              	.LVL594:
@@ -10858,7 +10858,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3511:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void TIM_Output_Channel6_Initialize(TIM_Module* TIMx, OCInitType* TIM_OCInitStruct)
 3512:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
  6483              		.loc 1 3512 1 is_stmt 1 view -0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 182
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 182
 
 
  6484              		.cfi_startproc
@@ -10918,7 +10918,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6520              		.loc 1 3523 5 is_stmt 1 view .LVU1857
  6521              		.loc 1 3523 17 is_stmt 0 view .LVU1858
  6522 000c B0F85430 		ldrh	r3, [r0, #84]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 183
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 183
 
 
  6523              	.LVL600:
@@ -10978,7 +10978,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3531:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
  6557              		.loc 1 3531 5 is_stmt 1 view .LVU1872
  6558              	.LBB273:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 184
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 184
 
 
  6559              	.LBI270:
@@ -11038,7 +11038,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3542:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
 3543:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     if ((TIMx == TIM1) || (TIMx == TIM8))
  6594              		.loc 1 3543 5 is_stmt 1 view .LVU1888
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 185
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 185
 
 
  6595              		.loc 1 3543 8 is_stmt 0 view .LVU1889
@@ -11098,7 +11098,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6631              	.L276:
 3540:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
  6632              		.loc 1 3540 9 is_stmt 1 view .LVU1904
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 186
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 186
 
 
  6633              	.LBB279:
@@ -11158,7 +11158,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6672 0008 6FEA5343 		mvn	r3, r3, lsr #17
  6673 000c 9BB2     		uxth	r3, r3
  6674 000e A0F84430 		strh	r3, [r0, #68]	@ movhi
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 187
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 187
 
 
 3574:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
@@ -11218,7 +11218,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3591:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void TIM_Output_Channel_Struct_Initialize(OCInitType* TIM_OCInitStruct)
 3592:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
  6716              		.loc 1 3592 1 is_stmt 1 view -0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 188
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 188
 
 
  6717              		.cfi_startproc
@@ -11278,7 +11278,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3605:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
 3606:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\name    TIM_Lock_Up_Break_Enable.
 3607:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIMx:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 189
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 189
 
 
 3608:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM1
@@ -11338,7 +11338,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6798              		.loc 1 3626 1 view .LVU1946
  6799 0008 7047     		bx	lr
  6800              		.cfi_endproc
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 190
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 190
 
 
  6801              	.LFE266:
@@ -11398,7 +11398,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3647:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
  6839              		.loc 1 3647 1 is_stmt 1 view -0
  6840              		.cfi_startproc
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 191
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 191
 
 
  6841              		@ args = 0, pretend = 0, frame = 0
@@ -11458,7 +11458,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6878 0002 19B1     		cbz	r1, .L291
  6879              	.LVL620:
  6880              	.LBB285:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 192
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 192
 
 
  6881              	.LBI282:
@@ -11518,7 +11518,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6916              		@ args = 0, pretend = 0, frame = 0
  6917              		@ frame_needed = 0, uses_anonymous_args = 0
  6918              		@ link register save eliminated.
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 193
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 193
 
 
 3684:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     /* Set the Lock level, the Break enable Bit and the Ploarity, the OSSR State,
@@ -11578,7 +11578,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  6957              	.LBB302:
  6958              	.LBB303:
  6959              	.LBB304:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 194
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 194
 
 
 3665:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
@@ -11638,7 +11638,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3710:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     if(TIM_BDTRInitStruct->PvdBreakEn)
  6991              		.loc 1 3710 5 is_stmt 1 view .LVU1991
  6992              		.loc 1 3710 7 is_stmt 0 view .LVU1992
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 195
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 195
 
 
  6993 0038 0B7C     		ldrb	r3, [r1, #16]	@ zero_extendqisi2
@@ -11698,7 +11698,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  7029              	.LBB305:
 3665:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
  7030              		.loc 1 3665 9 view .LVU2005
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 196
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 196
 
 
 3665:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
@@ -11758,7 +11758,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  7071              		.cfi_endproc
  7072              	.LFE270:
  7074              		.section	.text.TIM_Break_And_Dead_Time_Struct_Initialize,"ax",%progbits
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 197
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 197
 
 
  7075              		.align	1
@@ -11818,7 +11818,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3733:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     TIM_BDTRInitStruct->Break           = TIM_BREAK_IN_DISABLE;
  7106              		.loc 1 3733 41 view .LVU2034
  7107 0008 C380     		strh	r3, [r0, #6]	@ movhi
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 198
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 198
 
 
 3734:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     TIM_BDTRInitStruct->BreakPolarity   = TIM_BREAK_POLARITY_LOW;
@@ -11878,7 +11878,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3767:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void TIM_Interrupt_Enable(TIM_Module* TIMx, uint16_t TIM_IT)
 3768:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
  7133              		.loc 1 3768 1 is_stmt 1 view -0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 199
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 199
 
 
  7134              		.cfi_startproc
@@ -11938,7 +11938,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  7160              		.loc 1 3798 1 is_stmt 1 view -0
  7161              		.cfi_startproc
  7162              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 200
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 200
 
 
  7163              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -11998,7 +11998,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3826:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     uint32_t interrupt_status = 0x0, interrupt_enable = 0x0;
  7192              		.loc 1 3826 5 view .LVU2052
 3827:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 201
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 201
 
 
 3828:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     interrupt_status = TIMx->STS & TIM_IT;
@@ -12058,7 +12058,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3841:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
 3842:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\name    TIM_Interrupt_Pending_Bit_Clear
 3843:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIMx:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 202
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 202
 
 
 3844:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM1
@@ -12118,7 +12118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 3880:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM6
 3881:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM8
 3882:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIM_IT
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 203
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 203
 
 
 3883:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\This parameter can be one of the following values:
@@ -12178,7 +12178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  7277              		.thumb
  7278              		.thumb_func
  7280              	TIM_Flag_Clear:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 204
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 204
 
 
  7281              	.LVL643:
@@ -12238,7 +12238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  7300              		.align	1
  7301              		.global	TIM_Dma_Config
  7302              		.syntax unified
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 205
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 205
 
 
  7303              		.thumb
@@ -12298,7 +12298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 4000:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\         - TIM_DMABURST_LENGTH_5TRANSFERS
 4001:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\         - TIM_DMABURST_LENGTH_6TRANSFERS
 4002:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\         - TIM_DMABURST_LENGTH_7TRANSFERS
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 206
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 206
 
 
 4003:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\         - TIM_DMABURST_LENGTH_8TRANSFERS
@@ -12358,7 +12358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  7334              		.cfi_startproc
 4034:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
 4035:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\name    TIM_Dma_Enable
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 207
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 207
 
 
 4036:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIMx:
@@ -12418,7 +12418,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 4070:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_DMA_CC2       TIM Capture Compare 2 DMA source
 4071:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_DMA_CC3       TIM Capture Compare 3 DMA source
 4072:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_DMA_CC4       TIM Capture Compare 4 DMA source
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 208
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 208
 
 
 4073:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM_DMA_COM       TIM Commutation DMA source
@@ -12478,7 +12478,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 4096:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
  7390              		.loc 1 4096 1 view .LVU2087
  7391 0008 7047     		bx	lr
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 209
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 209
 
 
  7392              		.cfi_endproc
@@ -12538,7 +12538,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 4116:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIMx:
 4117:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM1
 4118:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM2
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 210
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 210
 
 
 4119:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM3
@@ -12598,7 +12598,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 4149:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     temp_value3 = TIMx->CCEN;
  7454              		.loc 1 4149 5 is_stmt 1 view .LVU2102
  7455              		.loc 1 4149 17 is_stmt 0 view .LVU2103
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 211
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 211
 
 
  7456 0006 066A     		ldr	r6, [r0, #32]
@@ -12658,7 +12658,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  7490              		.loc 1 4156 5 is_stmt 1 view .LVU2118
 4157:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
  7491              		.loc 1 4157 5 view .LVU2119
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 212
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 212
 
 
 4157:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
@@ -12718,7 +12718,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 4183:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
  7525              		.loc 1 4183 1 is_stmt 1 view -0
  7526              		.cfi_startproc
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 213
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 213
 
 
  7527              		@ args = 0, pretend = 0, frame = 0
@@ -12778,7 +12778,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  7565              		.loc 1 4196 22 is_stmt 0 view .LVU2149
  7566 002c 0367     		str	r3, [r0, #112]
  7567              	.L319:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 214
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 214
 
 
 4197:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     }
@@ -12838,7 +12838,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  7596 0000 4B88     		ldrh	r3, [r1, #2]
 4223:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****                              TIM_FilterInitStruct->WindowSize << (uint32_t)(TIM_FILTER_WSIZE_OFFSET
  7597              		.loc 1 4223 50 view .LVU2156
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 215
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 215
 
 
  7598 0002 0A88     		ldrh	r2, [r1]
@@ -12898,7 +12898,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  7640              		.align	1
  7641              		.global	TIM_Channel3_Filter_Config
  7642              		.syntax unified
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 216
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 216
 
 
  7643              		.thumb
@@ -12958,7 +12958,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  7670 0010 43EA0203 		orr	r3, r3, r2
  7671              	.LVL666:
  7672              		.loc 1 4260 5 is_stmt 1 view .LVU2181
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 217
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 217
 
 
  7673              		.loc 1 4260 8 is_stmt 0 view .LVU2182
@@ -13018,7 +13018,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 4279:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\return  none
 4280:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** **/
 4281:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void TIM_Channel4_Filter_Config(TIM_Module* TIMx, TIM_FilterInitType* TIM_FilterInitStruct)
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 218
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 218
 
 
 4282:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
@@ -13078,7 +13078,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 4294:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     {
 4295:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****         TIMx->C4FILT = temp_value;
  7750              		.loc 1 4295 9 is_stmt 1 view .LVU2205
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 219
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 219
 
 
  7751              		.loc 1 4295 22 is_stmt 0 view .LVU2206
@@ -13138,7 +13138,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 4322:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****                              TIM_FilterInitStruct->Prescaler);
 4323:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
 4324:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     if ((TIMx == TIM1) || (TIMx == TIM8))
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 220
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 220
 
 
  7781              		.loc 1 4324 5 view .LVU2212
@@ -13198,7 +13198,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  7823              	TIM_Channel1_Filter_Enable:
  7824              	.LVL670:
  7825              	.LFB289:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 221
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 221
 
 
 4333:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
@@ -13258,7 +13258,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 4359:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c ****     TIMx->C1FILT &= (uint32_t)(~TIM_FILTER_ENABLE);
  7856              		.loc 1 4359 5 view .LVU2229
  7857              		.loc 1 4359 18 is_stmt 0 view .LVU2230
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 222
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 222
 
 
  7858 0000 036F     		ldr	r3, [r0, #112]
@@ -13318,7 +13318,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 4375:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** 
 4376:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** /**
 4377:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\name    TIM_Channel2_Filter_Disable
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 223
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 223
 
 
 4378:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIMx:
@@ -13378,7 +13378,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  7933 0000 836F     		ldr	r3, [r0, #120]
  7934 0002 43F48033 		orr	r3, r3, #65536
  7935 0006 8367     		str	r3, [r0, #120]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 224
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 224
 
 
 4402:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
@@ -13438,7 +13438,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 4420:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\param   TIMx:
 4421:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM2
 4422:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM3
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 225
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 225
 
 
 4423:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** *\*\          - TIM4
@@ -13498,7 +13498,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 4444:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** }
  8011              		.loc 1 4444 1 view .LVU2255
  8012 0008 7047     		bx	lr
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 226
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 226
 
 
  8013              		.cfi_endproc
@@ -13558,7 +13558,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
 4465:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** void TIM_Break_Filter_Disable(TIM_Module * TIMx)
 4466:../firmware/n32g430_std_periph_driver/src/n32g430_tim.c **** {
  8051              		.loc 1 4466 1 is_stmt 1 view -0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 227
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 227
 
 
  8052              		.cfi_startproc
@@ -13578,389 +13578,389 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 1
  8064              	.LFE298:
  8066              		.text
  8067              	.Letext0:
- 8068              		.file 2 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
- 8069              		.file 3 "D:/Tools/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 8068              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 8069              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
  8070              		.file 4 "../firmware/CMSIS/device/n32g430.h"
  8071              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_tim.h"
  8072              		.file 6 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 228
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 228
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 n32g430_tim.c
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:21     .text.TIM_Reset:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:27     .text.TIM_Reset:00000000 TIM_Reset
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:125    .text.TIM_Reset:00000050 $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:135    .text.TIM_Base_Count_Mode_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:141    .text.TIM_Base_Count_Mode_Set:00000000 TIM_Base_Count_Mode_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:171    .text.TIM_Base_Center_Aligned_Mode_OC4_7_8_9_Trigger_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:177    .text.TIM_Base_Center_Aligned_Mode_OC4_7_8_9_Trigger_Set:00000000 TIM_Base_Center_Aligned_Mode_OC4_7_8_9_Trigger_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:207    .text.TIM_Asymmetric_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:213    .text.TIM_Asymmetric_Enable:00000000 TIM_Asymmetric_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:233    .text.TIM_Asymmetric_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:239    .text.TIM_Asymmetric_Disable:00000000 TIM_Asymmetric_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:259    .text.TIM_Base_Auto_Reload_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:265    .text.TIM_Base_Auto_Reload_Set:00000000 TIM_Base_Auto_Reload_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:282    .text.TIM_Base_Prescaler_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:288    .text.TIM_Base_Prescaler_Set:00000000 TIM_Base_Prescaler_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:305    .text.TIM_Base_Reload_Mode_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:311    .text.TIM_Base_Reload_Mode_Set:00000000 TIM_Base_Reload_Mode_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:328    .text.TIM_Base_Repeat_Count_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:334    .text.TIM_Base_Repeat_Count_Set:00000000 TIM_Base_Repeat_Count_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:351    .text.TIM_Base_Channel1:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:357    .text.TIM_Base_Channel1:00000000 TIM_Base_Channel1
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:400    .text.TIM_Base_Channel2:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:406    .text.TIM_Base_Channel2:00000000 TIM_Base_Channel2
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:449    .text.TIM_Base_Channel3:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:455    .text.TIM_Base_Channel3:00000000 TIM_Base_Channel3
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:498    .text.TIM_Base_Channel4:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:504    .text.TIM_Base_Channel4:00000000 TIM_Base_Channel4
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:547    .text.TIM_Base_OCrefClear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:553    .text.TIM_Base_OCrefClear:00000000 TIM_Base_OCrefClear
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:596    .text.TIM_Base_Struct_Initialize:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:602    .text.TIM_Base_Struct_Initialize:00000000 TIM_Base_Struct_Initialize
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:647    .text.TIM_Base_Count_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:653    .text.TIM_Base_Count_Set:00000000 TIM_Base_Count_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:670    .text.TIM_Base_Count_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:676    .text.TIM_Base_Count_Get:00000000 TIM_Base_Count_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:695    .text.TIM_Auto_Reload_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:701    .text.TIM_Auto_Reload_Get:00000000 TIM_Auto_Reload_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:720    .text.TIM_Base_Prescaler_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:726    .text.TIM_Base_Prescaler_Get:00000000 TIM_Base_Prescaler_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:745    .text.TIM_On:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:751    .text.TIM_On:00000000 TIM_On
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:771    .text.TIM_Off:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:777    .text.TIM_Off:00000000 TIM_Off
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:797    .text.TIM_Output_Channel1_Preload_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:803    .text.TIM_Output_Channel1_Preload_Set:00000000 TIM_Output_Channel1_Preload_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:837    .text.TIM_Output_Channel2_Preload_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:843    .text.TIM_Output_Channel2_Preload_Set:00000000 TIM_Output_Channel2_Preload_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:880    .text.TIM_Output_Channel3_Preload_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:886    .text.TIM_Output_Channel3_Preload_Set:00000000 TIM_Output_Channel3_Preload_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:917    .text.TIM_Output_Channel4_Preload_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:923    .text.TIM_Output_Channel4_Preload_Set:00000000 TIM_Output_Channel4_Preload_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:955    .text.TIM_Output_Channel5_Preload_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:961    .text.TIM_Output_Channel5_Preload_Set:00000000 TIM_Output_Channel5_Preload_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:995    .text.TIM_Output_Channel6_Preload_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1001   .text.TIM_Output_Channel6_Preload_Set:00000000 TIM_Output_Channel6_Preload_Set
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 229
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:21     .text.TIM_Reset:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:27     .text.TIM_Reset:00000000 TIM_Reset
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:125    .text.TIM_Reset:00000050 $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:135    .text.TIM_Base_Count_Mode_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:141    .text.TIM_Base_Count_Mode_Set:00000000 TIM_Base_Count_Mode_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:171    .text.TIM_Base_Center_Aligned_Mode_OC4_7_8_9_Trigger_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:177    .text.TIM_Base_Center_Aligned_Mode_OC4_7_8_9_Trigger_Set:00000000 TIM_Base_Center_Aligned_Mode_OC4_7_8_9_Trigger_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:207    .text.TIM_Asymmetric_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:213    .text.TIM_Asymmetric_Enable:00000000 TIM_Asymmetric_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:233    .text.TIM_Asymmetric_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:239    .text.TIM_Asymmetric_Disable:00000000 TIM_Asymmetric_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:259    .text.TIM_Base_Auto_Reload_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:265    .text.TIM_Base_Auto_Reload_Set:00000000 TIM_Base_Auto_Reload_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:282    .text.TIM_Base_Prescaler_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:288    .text.TIM_Base_Prescaler_Set:00000000 TIM_Base_Prescaler_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:305    .text.TIM_Base_Reload_Mode_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:311    .text.TIM_Base_Reload_Mode_Set:00000000 TIM_Base_Reload_Mode_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:328    .text.TIM_Base_Repeat_Count_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:334    .text.TIM_Base_Repeat_Count_Set:00000000 TIM_Base_Repeat_Count_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:351    .text.TIM_Base_Channel1:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:357    .text.TIM_Base_Channel1:00000000 TIM_Base_Channel1
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:400    .text.TIM_Base_Channel2:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:406    .text.TIM_Base_Channel2:00000000 TIM_Base_Channel2
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:449    .text.TIM_Base_Channel3:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:455    .text.TIM_Base_Channel3:00000000 TIM_Base_Channel3
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:498    .text.TIM_Base_Channel4:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:504    .text.TIM_Base_Channel4:00000000 TIM_Base_Channel4
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:547    .text.TIM_Base_OCrefClear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:553    .text.TIM_Base_OCrefClear:00000000 TIM_Base_OCrefClear
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:596    .text.TIM_Base_Struct_Initialize:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:602    .text.TIM_Base_Struct_Initialize:00000000 TIM_Base_Struct_Initialize
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:647    .text.TIM_Base_Count_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:653    .text.TIM_Base_Count_Set:00000000 TIM_Base_Count_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:670    .text.TIM_Base_Count_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:676    .text.TIM_Base_Count_Get:00000000 TIM_Base_Count_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:695    .text.TIM_Auto_Reload_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:701    .text.TIM_Auto_Reload_Get:00000000 TIM_Auto_Reload_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:720    .text.TIM_Base_Prescaler_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:726    .text.TIM_Base_Prescaler_Get:00000000 TIM_Base_Prescaler_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:745    .text.TIM_On:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:751    .text.TIM_On:00000000 TIM_On
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:771    .text.TIM_Off:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:777    .text.TIM_Off:00000000 TIM_Off
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:797    .text.TIM_Output_Channel1_Preload_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:803    .text.TIM_Output_Channel1_Preload_Set:00000000 TIM_Output_Channel1_Preload_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:837    .text.TIM_Output_Channel2_Preload_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:843    .text.TIM_Output_Channel2_Preload_Set:00000000 TIM_Output_Channel2_Preload_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:880    .text.TIM_Output_Channel3_Preload_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:886    .text.TIM_Output_Channel3_Preload_Set:00000000 TIM_Output_Channel3_Preload_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:917    .text.TIM_Output_Channel4_Preload_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:923    .text.TIM_Output_Channel4_Preload_Set:00000000 TIM_Output_Channel4_Preload_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:955    .text.TIM_Output_Channel5_Preload_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:961    .text.TIM_Output_Channel5_Preload_Set:00000000 TIM_Output_Channel5_Preload_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:995    .text.TIM_Output_Channel6_Preload_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1001   .text.TIM_Output_Channel6_Preload_Set:00000000 TIM_Output_Channel6_Preload_Set
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 229
 
 
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1038   .text.TIM_Output_Channel7_Preload_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1044   .text.TIM_Output_Channel7_Preload_Set:00000000 TIM_Output_Channel7_Preload_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1083   .text.TIM_Output_Channel8_Preload_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1089   .text.TIM_Output_Channel8_Preload_Set:00000000 TIM_Output_Channel8_Preload_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1128   .text.TIM_Output_Channel9_Preload_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1134   .text.TIM_Output_Channel9_Preload_Set:00000000 TIM_Output_Channel9_Preload_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1173   .text.TIM_Auto_Reload_Preload_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1179   .text.TIM_Auto_Reload_Preload_Enable:00000000 TIM_Auto_Reload_Preload_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1199   .text.TIM_Auto_Reload_Preload_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1205   .text.TIM_Auto_Reload_Preload_Disable:00000000 TIM_Auto_Reload_Preload_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1225   .text.TIM_Update_Event_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1231   .text.TIM_Update_Event_Enable:00000000 TIM_Update_Event_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1251   .text.TIM_Update_Event_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1257   .text.TIM_Update_Event_Disable:00000000 TIM_Update_Event_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1277   .text.TIM_Update_Request_Source_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1283   .text.TIM_Update_Request_Source_Set:00000000 TIM_Update_Request_Source_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1313   .text.TIM_Event_Generate:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1319   .text.TIM_Event_Generate:00000000 TIM_Event_Generate
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1332   .text.TIM_Commutation_Event_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1338   .text.TIM_Commutation_Event_Enable:00000000 TIM_Commutation_Event_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1358   .text.TIM_Commutation_Event_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1364   .text.TIM_Commutation_Event_Disable:00000000 TIM_Commutation_Event_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1384   .text.TIM_Capture_Compare_Control_Preload_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1390   .text.TIM_Capture_Compare_Control_Preload_Enable:00000000 TIM_Capture_Compare_Control_Preload_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1410   .text.TIM_Capture_Compare_Control_Preload_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1416   .text.TIM_Capture_Compare_Control_Preload_Disable:00000000 TIM_Capture_Compare_Control_Preload_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1436   .text.TIM_Compare1_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1442   .text.TIM_Compare1_Set:00000000 TIM_Compare1_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1471   .text.TIM_Compare2_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1477   .text.TIM_Compare2_Set:00000000 TIM_Compare2_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1506   .text.TIM_Compare3_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1512   .text.TIM_Compare3_Set:00000000 TIM_Compare3_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1541   .text.TIM_Compare4_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1547   .text.TIM_Compare4_Set:00000000 TIM_Compare4_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1576   .text.TIM_Compare5_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1582   .text.TIM_Compare5_Set:00000000 TIM_Compare5_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1599   .text.TIM_Compare6_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1605   .text.TIM_Compare6_Set:00000000 TIM_Compare6_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1622   .text.TIM_Compare7_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1628   .text.TIM_Compare7_Set:00000000 TIM_Compare7_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1645   .text.TIM_Compare8_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1651   .text.TIM_Compare8_Set:00000000 TIM_Compare8_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1668   .text.TIM_Compare9_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1674   .text.TIM_Compare9_Set:00000000 TIM_Compare9_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1691   .text.TIM_Compare1_D_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1697   .text.TIM_Compare1_D_Set:00000000 TIM_Compare1_D_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1726   .text.TIM_Compare2_D_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1732   .text.TIM_Compare2_D_Set:00000000 TIM_Compare2_D_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1761   .text.TIM_Compare3_D_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1767   .text.TIM_Compare3_D_Set:00000000 TIM_Compare3_D_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1796   .text.TIM_Compare4_D_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1802   .text.TIM_Compare4_D_Set:00000000 TIM_Compare4_D_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1831   .text.TIM_Compare_Capture1_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1837   .text.TIM_Compare_Capture1_Get:00000000 TIM_Compare_Capture1_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1856   .text.TIM_Compare_Capture2_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1862   .text.TIM_Compare_Capture2_Get:00000000 TIM_Compare_Capture2_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1881   .text.TIM_Compare_Capture3_Get:00000000 $t
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 230
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1038   .text.TIM_Output_Channel7_Preload_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1044   .text.TIM_Output_Channel7_Preload_Set:00000000 TIM_Output_Channel7_Preload_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1083   .text.TIM_Output_Channel8_Preload_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1089   .text.TIM_Output_Channel8_Preload_Set:00000000 TIM_Output_Channel8_Preload_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1128   .text.TIM_Output_Channel9_Preload_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1134   .text.TIM_Output_Channel9_Preload_Set:00000000 TIM_Output_Channel9_Preload_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1173   .text.TIM_Auto_Reload_Preload_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1179   .text.TIM_Auto_Reload_Preload_Enable:00000000 TIM_Auto_Reload_Preload_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1199   .text.TIM_Auto_Reload_Preload_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1205   .text.TIM_Auto_Reload_Preload_Disable:00000000 TIM_Auto_Reload_Preload_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1225   .text.TIM_Update_Event_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1231   .text.TIM_Update_Event_Enable:00000000 TIM_Update_Event_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1251   .text.TIM_Update_Event_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1257   .text.TIM_Update_Event_Disable:00000000 TIM_Update_Event_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1277   .text.TIM_Update_Request_Source_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1283   .text.TIM_Update_Request_Source_Set:00000000 TIM_Update_Request_Source_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1313   .text.TIM_Event_Generate:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1319   .text.TIM_Event_Generate:00000000 TIM_Event_Generate
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1332   .text.TIM_Commutation_Event_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1338   .text.TIM_Commutation_Event_Enable:00000000 TIM_Commutation_Event_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1358   .text.TIM_Commutation_Event_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1364   .text.TIM_Commutation_Event_Disable:00000000 TIM_Commutation_Event_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1384   .text.TIM_Capture_Compare_Control_Preload_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1390   .text.TIM_Capture_Compare_Control_Preload_Enable:00000000 TIM_Capture_Compare_Control_Preload_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1410   .text.TIM_Capture_Compare_Control_Preload_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1416   .text.TIM_Capture_Compare_Control_Preload_Disable:00000000 TIM_Capture_Compare_Control_Preload_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1436   .text.TIM_Compare1_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1442   .text.TIM_Compare1_Set:00000000 TIM_Compare1_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1471   .text.TIM_Compare2_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1477   .text.TIM_Compare2_Set:00000000 TIM_Compare2_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1506   .text.TIM_Compare3_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1512   .text.TIM_Compare3_Set:00000000 TIM_Compare3_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1541   .text.TIM_Compare4_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1547   .text.TIM_Compare4_Set:00000000 TIM_Compare4_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1576   .text.TIM_Compare5_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1582   .text.TIM_Compare5_Set:00000000 TIM_Compare5_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1599   .text.TIM_Compare6_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1605   .text.TIM_Compare6_Set:00000000 TIM_Compare6_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1622   .text.TIM_Compare7_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1628   .text.TIM_Compare7_Set:00000000 TIM_Compare7_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1645   .text.TIM_Compare8_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1651   .text.TIM_Compare8_Set:00000000 TIM_Compare8_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1668   .text.TIM_Compare9_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1674   .text.TIM_Compare9_Set:00000000 TIM_Compare9_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1691   .text.TIM_Compare1_D_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1697   .text.TIM_Compare1_D_Set:00000000 TIM_Compare1_D_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1726   .text.TIM_Compare2_D_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1732   .text.TIM_Compare2_D_Set:00000000 TIM_Compare2_D_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1761   .text.TIM_Compare3_D_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1767   .text.TIM_Compare3_D_Set:00000000 TIM_Compare3_D_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1796   .text.TIM_Compare4_D_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1802   .text.TIM_Compare4_D_Set:00000000 TIM_Compare4_D_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1831   .text.TIM_Compare_Capture1_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1837   .text.TIM_Compare_Capture1_Get:00000000 TIM_Compare_Capture1_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1856   .text.TIM_Compare_Capture2_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1862   .text.TIM_Compare_Capture2_Get:00000000 TIM_Compare_Capture2_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1881   .text.TIM_Compare_Capture3_Get:00000000 $t
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 230
 
 
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1887   .text.TIM_Compare_Capture3_Get:00000000 TIM_Compare_Capture3_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1906   .text.TIM_Compare_Capture4_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1912   .text.TIM_Compare_Capture4_Get:00000000 TIM_Compare_Capture4_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1931   .text.TIM_Compare_Capture5_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1937   .text.TIM_Compare_Capture5_Get:00000000 TIM_Compare_Capture5_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1956   .text.TIM_Compare_Capture6_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1962   .text.TIM_Compare_Capture6_Get:00000000 TIM_Compare_Capture6_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1981   .text.TIM_Compare_Capture7_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:1987   .text.TIM_Compare_Capture7_Get:00000000 TIM_Compare_Capture7_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2006   .text.TIM_Compare_Capture8_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2012   .text.TIM_Compare_Capture8_Get:00000000 TIM_Compare_Capture8_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2031   .text.TIM_Compare_Capture9_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2037   .text.TIM_Compare_Capture9_Get:00000000 TIM_Compare_Capture9_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2056   .text.TIM_Compare_Capture1_D_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2062   .text.TIM_Compare_Capture1_D_Get:00000000 TIM_Compare_Capture1_D_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2081   .text.TIM_Compare_Capture2_D_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2087   .text.TIM_Compare_Capture2_D_Get:00000000 TIM_Compare_Capture2_D_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2106   .text.TIM_Compare_Capture3_D_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2112   .text.TIM_Compare_Capture3_D_Get:00000000 TIM_Compare_Capture3_D_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2131   .text.TIM_Compare_Capture4_D_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2137   .text.TIM_Compare_Capture4_D_Get:00000000 TIM_Compare_Capture4_D_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2156   .text.TIM_Trigger_Source_Select:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2162   .text.TIM_Trigger_Source_Select:00000000 TIM_Trigger_Source_Select
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2196   .text.Input_Channel1_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2202   .text.Input_Channel1_Config:00000000 Input_Channel1_Config
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2311   .text.Input_Channel1_Config:00000060 $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2316   .text.Input_Channel2_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2322   .text.Input_Channel2_Config:00000000 Input_Channel2_Config
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2442   .text.Input_Channel2_Config:0000006c $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2447   .text.Input_Channel3_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2453   .text.Input_Channel3_Config:00000000 Input_Channel3_Config
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2568   .text.Input_Channel3_Config:00000068 $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2573   .text.Input_Channel4_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2579   .text.Input_Channel4_Config:00000000 Input_Channel4_Config
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2694   .text.Input_Channel4_Config:00000068 $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2699   .text.TIM_External_Trigger_Filter_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2705   .text.TIM_External_Trigger_Filter_Set:00000000 TIM_External_Trigger_Filter_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2741   .text.TIM_External_Trigger_Prescaler_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2747   .text.TIM_External_Trigger_Prescaler_Set:00000000 TIM_External_Trigger_Prescaler_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2780   .text.TIM_External_Trigger_Polarity_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2786   .text.TIM_External_Trigger_Polarity_Set:00000000 TIM_External_Trigger_Polarity_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2826   .text.TIM_Clock_Division_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2832   .text.TIM_Clock_Division_Set:00000000 TIM_Clock_Division_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2860   .text.TIM_Base_Initialize:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:2866   .text.TIM_Base_Initialize:00000000 TIM_Base_Initialize
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3071   .text.TIM_Base_Initialize:00000094 $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3077   .text.TIM_Internal_Clock_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3083   .text.TIM_Internal_Clock_Set:00000000 TIM_Internal_Clock_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3105   .text.TIM_Input_Capture1_Prescaler_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3111   .text.TIM_Input_Capture1_Prescaler_Set:00000000 TIM_Input_Capture1_Prescaler_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3140   .text.TIM_Input_Capture2_Prescaler_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3146   .text.TIM_Input_Capture2_Prescaler_Set:00000000 TIM_Input_Capture2_Prescaler_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3176   .text.TIM_Input_Capture3_Prescaler_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3182   .text.TIM_Input_Capture3_Prescaler_Set:00000000 TIM_Input_Capture3_Prescaler_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3212   .text.TIM_Input_Capture4_Prescaler_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3218   .text.TIM_Input_Capture4_Prescaler_Set:00000000 TIM_Input_Capture4_Prescaler_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3246   .text.TIM_Internal_Trig_To_Ext_Set:00000000 $t
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 231
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1887   .text.TIM_Compare_Capture3_Get:00000000 TIM_Compare_Capture3_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1906   .text.TIM_Compare_Capture4_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1912   .text.TIM_Compare_Capture4_Get:00000000 TIM_Compare_Capture4_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1931   .text.TIM_Compare_Capture5_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1937   .text.TIM_Compare_Capture5_Get:00000000 TIM_Compare_Capture5_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1956   .text.TIM_Compare_Capture6_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1962   .text.TIM_Compare_Capture6_Get:00000000 TIM_Compare_Capture6_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1981   .text.TIM_Compare_Capture7_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:1987   .text.TIM_Compare_Capture7_Get:00000000 TIM_Compare_Capture7_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2006   .text.TIM_Compare_Capture8_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2012   .text.TIM_Compare_Capture8_Get:00000000 TIM_Compare_Capture8_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2031   .text.TIM_Compare_Capture9_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2037   .text.TIM_Compare_Capture9_Get:00000000 TIM_Compare_Capture9_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2056   .text.TIM_Compare_Capture1_D_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2062   .text.TIM_Compare_Capture1_D_Get:00000000 TIM_Compare_Capture1_D_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2081   .text.TIM_Compare_Capture2_D_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2087   .text.TIM_Compare_Capture2_D_Get:00000000 TIM_Compare_Capture2_D_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2106   .text.TIM_Compare_Capture3_D_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2112   .text.TIM_Compare_Capture3_D_Get:00000000 TIM_Compare_Capture3_D_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2131   .text.TIM_Compare_Capture4_D_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2137   .text.TIM_Compare_Capture4_D_Get:00000000 TIM_Compare_Capture4_D_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2156   .text.TIM_Trigger_Source_Select:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2162   .text.TIM_Trigger_Source_Select:00000000 TIM_Trigger_Source_Select
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2196   .text.Input_Channel1_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2202   .text.Input_Channel1_Config:00000000 Input_Channel1_Config
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2311   .text.Input_Channel1_Config:00000060 $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2316   .text.Input_Channel2_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2322   .text.Input_Channel2_Config:00000000 Input_Channel2_Config
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2442   .text.Input_Channel2_Config:0000006c $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2447   .text.Input_Channel3_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2453   .text.Input_Channel3_Config:00000000 Input_Channel3_Config
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2568   .text.Input_Channel3_Config:00000068 $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2573   .text.Input_Channel4_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2579   .text.Input_Channel4_Config:00000000 Input_Channel4_Config
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2694   .text.Input_Channel4_Config:00000068 $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2699   .text.TIM_External_Trigger_Filter_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2705   .text.TIM_External_Trigger_Filter_Set:00000000 TIM_External_Trigger_Filter_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2741   .text.TIM_External_Trigger_Prescaler_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2747   .text.TIM_External_Trigger_Prescaler_Set:00000000 TIM_External_Trigger_Prescaler_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2780   .text.TIM_External_Trigger_Polarity_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2786   .text.TIM_External_Trigger_Polarity_Set:00000000 TIM_External_Trigger_Polarity_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2826   .text.TIM_Clock_Division_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2832   .text.TIM_Clock_Division_Set:00000000 TIM_Clock_Division_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2860   .text.TIM_Base_Initialize:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:2866   .text.TIM_Base_Initialize:00000000 TIM_Base_Initialize
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3071   .text.TIM_Base_Initialize:00000094 $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3077   .text.TIM_Internal_Clock_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3083   .text.TIM_Internal_Clock_Set:00000000 TIM_Internal_Clock_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3105   .text.TIM_Input_Capture1_Prescaler_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3111   .text.TIM_Input_Capture1_Prescaler_Set:00000000 TIM_Input_Capture1_Prescaler_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3140   .text.TIM_Input_Capture2_Prescaler_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3146   .text.TIM_Input_Capture2_Prescaler_Set:00000000 TIM_Input_Capture2_Prescaler_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3176   .text.TIM_Input_Capture3_Prescaler_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3182   .text.TIM_Input_Capture3_Prescaler_Set:00000000 TIM_Input_Capture3_Prescaler_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3212   .text.TIM_Input_Capture4_Prescaler_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3218   .text.TIM_Input_Capture4_Prescaler_Set:00000000 TIM_Input_Capture4_Prescaler_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3246   .text.TIM_Internal_Trig_To_Ext_Set:00000000 $t
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 231
 
 
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3252   .text.TIM_Internal_Trig_To_Ext_Set:00000000 TIM_Internal_Trig_To_Ext_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3302   .text.TIM_Trigger_As_External_Clock:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3308   .text.TIM_Trigger_As_External_Clock:00000000 TIM_Trigger_As_External_Clock
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3391   .text.TIM_External_Clock_Mode1_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3397   .text.TIM_External_Clock_Mode1_Set:00000000 TIM_External_Clock_Mode1_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3483   .text.TIM_External_Clock_Mode2_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3489   .text.TIM_External_Clock_Mode2_Set:00000000 TIM_External_Clock_Mode2_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3560   .text.TIM_Slave_Mode_Select:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3566   .text.TIM_Slave_Mode_Select:00000000 TIM_Slave_Mode_Select
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3595   .text.TIM_Master_Slave_Mode_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3601   .text.TIM_Master_Slave_Mode_Set:00000000 TIM_Master_Slave_Mode_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3630   .text.TIM_Output_Trigger_Select:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3636   .text.TIM_Output_Trigger_Select:00000000 TIM_Output_Trigger_Select
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3665   .text.TIM_OC4REF_Trigger_To_ADC_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3671   .text.TIM_OC4REF_Trigger_To_ADC_Enable:00000000 TIM_OC4REF_Trigger_To_ADC_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3691   .text.TIM_OC4REF_Trigger_To_ADC_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3697   .text.TIM_OC4REF_Trigger_To_ADC_Disable:00000000 TIM_OC4REF_Trigger_To_ADC_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3717   .text.TIM_OC7REF_Trigger_To_ADC_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3723   .text.TIM_OC7REF_Trigger_To_ADC_Enable:00000000 TIM_OC7REF_Trigger_To_ADC_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3743   .text.TIM_OC7REF_Trigger_To_ADC_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3749   .text.TIM_OC7REF_Trigger_To_ADC_Disable:00000000 TIM_OC7REF_Trigger_To_ADC_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3769   .text.TIM_OC8REF_Trigger_To_ADC_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3775   .text.TIM_OC8REF_Trigger_To_ADC_Enable:00000000 TIM_OC8REF_Trigger_To_ADC_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3795   .text.TIM_OC8REF_Trigger_To_ADC_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3801   .text.TIM_OC8REF_Trigger_To_ADC_Disable:00000000 TIM_OC8REF_Trigger_To_ADC_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3821   .text.TIM_OC9REF_Trigger_To_ADC_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3827   .text.TIM_OC9REF_Trigger_To_ADC_Enable:00000000 TIM_OC9REF_Trigger_To_ADC_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3847   .text.TIM_OC9REF_Trigger_To_ADC_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3853   .text.TIM_OC9REF_Trigger_To_ADC_Disable:00000000 TIM_OC9REF_Trigger_To_ADC_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3873   .text.TIM_One_Pulse_Mode_Select:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3879   .text.TIM_One_Pulse_Mode_Select:00000000 TIM_One_Pulse_Mode_Select
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3907   .text.TIM_Input_Struct_Initialize:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3913   .text.TIM_Input_Struct_Initialize:00000000 TIM_Input_Struct_Initialize
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3943   .text.TIM_Input_Channel_Initialize:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:3949   .text.TIM_Input_Channel_Initialize:00000000 TIM_Input_Channel_Initialize
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4069   .text.TIM_PWM_Input_Channel_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4075   .text.TIM_PWM_Input_Channel_Config:00000000 TIM_PWM_Input_Channel_Config
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4195   .text.TIM_Output_Channel_Polarity_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4201   .text.TIM_Output_Channel_Polarity_Set:00000000 TIM_Output_Channel_Polarity_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4241   .text.TIM_Output_Channel_N_Polarity_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4247   .text.TIM_Output_Channel_N_Polarity_Set:00000000 TIM_Output_Channel_N_Polarity_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4287   .text.TIM_Capture_Compare_Ch_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4293   .text.TIM_Capture_Compare_Ch_Enable:00000000 TIM_Capture_Compare_Ch_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4316   .text.TIM_Capture_Compare_Ch_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4322   .text.TIM_Capture_Compare_Ch_Disable:00000000 TIM_Capture_Compare_Ch_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4345   .text.TIM_Capture_Compare_Ch_N_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4351   .text.TIM_Capture_Compare_Ch_N_Enable:00000000 TIM_Capture_Compare_Ch_N_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4374   .text.TIM_Capture_Compare_Ch_N_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4380   .text.TIM_Capture_Compare_Ch_N_Disable:00000000 TIM_Capture_Compare_Ch_N_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4403   .text.TIM_CCEN_Status_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4409   .text.TIM_CCEN_Status_Get:00000000 TIM_CCEN_Status_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4432   .text.TIM_Output_Channel_Mode_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4438   .text.TIM_Output_Channel_Mode_Set:00000000 TIM_Output_Channel_Mode_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4529   .text.TIM_Forced_Output_Channel1_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4535   .text.TIM_Forced_Output_Channel1_Set:00000000 TIM_Forced_Output_Channel1_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4569   .text.TIM_Forced_Output_Channel2_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4575   .text.TIM_Forced_Output_Channel2_Set:00000000 TIM_Forced_Output_Channel2_Set
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 232
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3252   .text.TIM_Internal_Trig_To_Ext_Set:00000000 TIM_Internal_Trig_To_Ext_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3302   .text.TIM_Trigger_As_External_Clock:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3308   .text.TIM_Trigger_As_External_Clock:00000000 TIM_Trigger_As_External_Clock
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3391   .text.TIM_External_Clock_Mode1_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3397   .text.TIM_External_Clock_Mode1_Set:00000000 TIM_External_Clock_Mode1_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3483   .text.TIM_External_Clock_Mode2_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3489   .text.TIM_External_Clock_Mode2_Set:00000000 TIM_External_Clock_Mode2_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3560   .text.TIM_Slave_Mode_Select:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3566   .text.TIM_Slave_Mode_Select:00000000 TIM_Slave_Mode_Select
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3595   .text.TIM_Master_Slave_Mode_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3601   .text.TIM_Master_Slave_Mode_Set:00000000 TIM_Master_Slave_Mode_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3630   .text.TIM_Output_Trigger_Select:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3636   .text.TIM_Output_Trigger_Select:00000000 TIM_Output_Trigger_Select
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3665   .text.TIM_OC4REF_Trigger_To_ADC_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3671   .text.TIM_OC4REF_Trigger_To_ADC_Enable:00000000 TIM_OC4REF_Trigger_To_ADC_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3691   .text.TIM_OC4REF_Trigger_To_ADC_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3697   .text.TIM_OC4REF_Trigger_To_ADC_Disable:00000000 TIM_OC4REF_Trigger_To_ADC_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3717   .text.TIM_OC7REF_Trigger_To_ADC_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3723   .text.TIM_OC7REF_Trigger_To_ADC_Enable:00000000 TIM_OC7REF_Trigger_To_ADC_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3743   .text.TIM_OC7REF_Trigger_To_ADC_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3749   .text.TIM_OC7REF_Trigger_To_ADC_Disable:00000000 TIM_OC7REF_Trigger_To_ADC_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3769   .text.TIM_OC8REF_Trigger_To_ADC_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3775   .text.TIM_OC8REF_Trigger_To_ADC_Enable:00000000 TIM_OC8REF_Trigger_To_ADC_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3795   .text.TIM_OC8REF_Trigger_To_ADC_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3801   .text.TIM_OC8REF_Trigger_To_ADC_Disable:00000000 TIM_OC8REF_Trigger_To_ADC_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3821   .text.TIM_OC9REF_Trigger_To_ADC_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3827   .text.TIM_OC9REF_Trigger_To_ADC_Enable:00000000 TIM_OC9REF_Trigger_To_ADC_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3847   .text.TIM_OC9REF_Trigger_To_ADC_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3853   .text.TIM_OC9REF_Trigger_To_ADC_Disable:00000000 TIM_OC9REF_Trigger_To_ADC_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3873   .text.TIM_One_Pulse_Mode_Select:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3879   .text.TIM_One_Pulse_Mode_Select:00000000 TIM_One_Pulse_Mode_Select
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3907   .text.TIM_Input_Struct_Initialize:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3913   .text.TIM_Input_Struct_Initialize:00000000 TIM_Input_Struct_Initialize
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3943   .text.TIM_Input_Channel_Initialize:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:3949   .text.TIM_Input_Channel_Initialize:00000000 TIM_Input_Channel_Initialize
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4069   .text.TIM_PWM_Input_Channel_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4075   .text.TIM_PWM_Input_Channel_Config:00000000 TIM_PWM_Input_Channel_Config
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4195   .text.TIM_Output_Channel_Polarity_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4201   .text.TIM_Output_Channel_Polarity_Set:00000000 TIM_Output_Channel_Polarity_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4241   .text.TIM_Output_Channel_N_Polarity_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4247   .text.TIM_Output_Channel_N_Polarity_Set:00000000 TIM_Output_Channel_N_Polarity_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4287   .text.TIM_Capture_Compare_Ch_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4293   .text.TIM_Capture_Compare_Ch_Enable:00000000 TIM_Capture_Compare_Ch_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4316   .text.TIM_Capture_Compare_Ch_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4322   .text.TIM_Capture_Compare_Ch_Disable:00000000 TIM_Capture_Compare_Ch_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4345   .text.TIM_Capture_Compare_Ch_N_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4351   .text.TIM_Capture_Compare_Ch_N_Enable:00000000 TIM_Capture_Compare_Ch_N_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4374   .text.TIM_Capture_Compare_Ch_N_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4380   .text.TIM_Capture_Compare_Ch_N_Disable:00000000 TIM_Capture_Compare_Ch_N_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4403   .text.TIM_CCEN_Status_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4409   .text.TIM_CCEN_Status_Get:00000000 TIM_CCEN_Status_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4432   .text.TIM_Output_Channel_Mode_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4438   .text.TIM_Output_Channel_Mode_Set:00000000 TIM_Output_Channel_Mode_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4529   .text.TIM_Forced_Output_Channel1_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4535   .text.TIM_Forced_Output_Channel1_Set:00000000 TIM_Forced_Output_Channel1_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4569   .text.TIM_Forced_Output_Channel2_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4575   .text.TIM_Forced_Output_Channel2_Set:00000000 TIM_Forced_Output_Channel2_Set
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 232
 
 
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4612   .text.TIM_Forced_Output_Channel3_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4618   .text.TIM_Forced_Output_Channel3_Set:00000000 TIM_Forced_Output_Channel3_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4649   .text.TIM_Forced_Output_Channel4_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4655   .text.TIM_Forced_Output_Channel4_Set:00000000 TIM_Forced_Output_Channel4_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4687   .text.TIM_Forced_Output_Channel5_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4693   .text.TIM_Forced_Output_Channel5_Set:00000000 TIM_Forced_Output_Channel5_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4727   .text.TIM_Forced_Output_Channel6_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4733   .text.TIM_Forced_Output_Channel6_Set:00000000 TIM_Forced_Output_Channel6_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4770   .text.TIM_Output_Channel1_Fast_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4776   .text.TIM_Output_Channel1_Fast_Set:00000000 TIM_Output_Channel1_Fast_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4810   .text.TIM_Output_Channel2_Fast_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4816   .text.TIM_Output_Channel2_Fast_Set:00000000 TIM_Output_Channel2_Fast_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4853   .text.TIM_Output_Channel3_Fast_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4859   .text.TIM_Output_Channel3_Fast_Set:00000000 TIM_Output_Channel3_Fast_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4890   .text.TIM_Output_Channel4_Fast_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4896   .text.TIM_Output_Channel4_Fast_Set:00000000 TIM_Output_Channel4_Fast_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4928   .text.TIM_Output_Channel5_Fast_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4934   .text.TIM_Output_Channel5_Fast_Set:00000000 TIM_Output_Channel5_Fast_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4968   .text.TIM_Output_Channel6_Fast_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:4974   .text.TIM_Output_Channel6_Fast_Set:00000000 TIM_Output_Channel6_Fast_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5011   .text.TIM_Output_Channel1_Reference_Clear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5017   .text.TIM_Output_Channel1_Reference_Clear:00000000 TIM_Output_Channel1_Reference_Clear
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5051   .text.TIM_Output_Channel2_Reference_Clear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5057   .text.TIM_Output_Channel2_Reference_Clear:00000000 TIM_Output_Channel2_Reference_Clear
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5090   .text.TIM_Output_Channel3_Reference_Clear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5096   .text.TIM_Output_Channel3_Reference_Clear:00000000 TIM_Output_Channel3_Reference_Clear
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5127   .text.TIM_Output_Channel4_Reference_Clear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5133   .text.TIM_Output_Channel4_Reference_Clear:00000000 TIM_Output_Channel4_Reference_Clear
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5164   .text.TIM_Output_Channel5_Reference_Clear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5170   .text.TIM_Output_Channel5_Reference_Clear:00000000 TIM_Output_Channel5_Reference_Clear
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5204   .text.TIM_Output_Channel6_Reference_Clear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5210   .text.TIM_Output_Channel6_Reference_Clear:00000000 TIM_Output_Channel6_Reference_Clear
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5243   .text.TIM_Output_Channel1_Initialize:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5249   .text.TIM_Output_Channel1_Initialize:00000000 TIM_Output_Channel1_Initialize
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5501   .text.TIM_Output_Channel1_Initialize:00000080 $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5508   .text.TIM_Output_Channel2_Initialize:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5514   .text.TIM_Output_Channel2_Initialize:00000000 TIM_Output_Channel2_Initialize
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5763   .text.TIM_Output_Channel2_Initialize:0000008c $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5770   .text.TIM_Output_Channel3_Initialize:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:5776   .text.TIM_Output_Channel3_Initialize:00000000 TIM_Output_Channel3_Initialize
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6017   .text.TIM_Output_Channel3_Initialize:00000084 $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6024   .text.TIM_Output_Channel4_Initialize:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6030   .text.TIM_Output_Channel4_Initialize:00000000 TIM_Output_Channel4_Initialize
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6293   .text.TIM_Output_Channel4_Initialize:00000094 $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6299   .text.TIM_Output_Channel5_Initialize:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6305   .text.TIM_Output_Channel5_Initialize:00000000 TIM_Output_Channel5_Initialize
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6467   .text.TIM_Output_Channel5_Initialize:00000064 $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6474   .text.TIM_Output_Channel6_Initialize:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6480   .text.TIM_Output_Channel6_Initialize:00000000 TIM_Output_Channel6_Initialize
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6646   .text.TIM_Output_Channel6_Initialize:00000068 $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6653   .text.TIM_PWM_Output_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6659   .text.TIM_PWM_Output_Enable:00000000 TIM_PWM_Output_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6681   .text.TIM_PWM_Output_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6687   .text.TIM_PWM_Output_Disable:00000000 TIM_PWM_Output_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6707   .text.TIM_Output_Channel_Struct_Initialize:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6713   .text.TIM_Output_Channel_Struct_Initialize:00000000 TIM_Output_Channel_Struct_Initialize
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6752   .text.TIM_Lock_Up_Break_Enable:00000000 $t
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 233
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4612   .text.TIM_Forced_Output_Channel3_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4618   .text.TIM_Forced_Output_Channel3_Set:00000000 TIM_Forced_Output_Channel3_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4649   .text.TIM_Forced_Output_Channel4_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4655   .text.TIM_Forced_Output_Channel4_Set:00000000 TIM_Forced_Output_Channel4_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4687   .text.TIM_Forced_Output_Channel5_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4693   .text.TIM_Forced_Output_Channel5_Set:00000000 TIM_Forced_Output_Channel5_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4727   .text.TIM_Forced_Output_Channel6_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4733   .text.TIM_Forced_Output_Channel6_Set:00000000 TIM_Forced_Output_Channel6_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4770   .text.TIM_Output_Channel1_Fast_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4776   .text.TIM_Output_Channel1_Fast_Set:00000000 TIM_Output_Channel1_Fast_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4810   .text.TIM_Output_Channel2_Fast_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4816   .text.TIM_Output_Channel2_Fast_Set:00000000 TIM_Output_Channel2_Fast_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4853   .text.TIM_Output_Channel3_Fast_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4859   .text.TIM_Output_Channel3_Fast_Set:00000000 TIM_Output_Channel3_Fast_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4890   .text.TIM_Output_Channel4_Fast_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4896   .text.TIM_Output_Channel4_Fast_Set:00000000 TIM_Output_Channel4_Fast_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4928   .text.TIM_Output_Channel5_Fast_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4934   .text.TIM_Output_Channel5_Fast_Set:00000000 TIM_Output_Channel5_Fast_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4968   .text.TIM_Output_Channel6_Fast_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:4974   .text.TIM_Output_Channel6_Fast_Set:00000000 TIM_Output_Channel6_Fast_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5011   .text.TIM_Output_Channel1_Reference_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5017   .text.TIM_Output_Channel1_Reference_Clear:00000000 TIM_Output_Channel1_Reference_Clear
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5051   .text.TIM_Output_Channel2_Reference_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5057   .text.TIM_Output_Channel2_Reference_Clear:00000000 TIM_Output_Channel2_Reference_Clear
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5090   .text.TIM_Output_Channel3_Reference_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5096   .text.TIM_Output_Channel3_Reference_Clear:00000000 TIM_Output_Channel3_Reference_Clear
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5127   .text.TIM_Output_Channel4_Reference_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5133   .text.TIM_Output_Channel4_Reference_Clear:00000000 TIM_Output_Channel4_Reference_Clear
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5164   .text.TIM_Output_Channel5_Reference_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5170   .text.TIM_Output_Channel5_Reference_Clear:00000000 TIM_Output_Channel5_Reference_Clear
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5204   .text.TIM_Output_Channel6_Reference_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5210   .text.TIM_Output_Channel6_Reference_Clear:00000000 TIM_Output_Channel6_Reference_Clear
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5243   .text.TIM_Output_Channel1_Initialize:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5249   .text.TIM_Output_Channel1_Initialize:00000000 TIM_Output_Channel1_Initialize
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5501   .text.TIM_Output_Channel1_Initialize:00000080 $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5508   .text.TIM_Output_Channel2_Initialize:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5514   .text.TIM_Output_Channel2_Initialize:00000000 TIM_Output_Channel2_Initialize
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5763   .text.TIM_Output_Channel2_Initialize:0000008c $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5770   .text.TIM_Output_Channel3_Initialize:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:5776   .text.TIM_Output_Channel3_Initialize:00000000 TIM_Output_Channel3_Initialize
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6017   .text.TIM_Output_Channel3_Initialize:00000084 $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6024   .text.TIM_Output_Channel4_Initialize:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6030   .text.TIM_Output_Channel4_Initialize:00000000 TIM_Output_Channel4_Initialize
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6293   .text.TIM_Output_Channel4_Initialize:00000094 $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6299   .text.TIM_Output_Channel5_Initialize:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6305   .text.TIM_Output_Channel5_Initialize:00000000 TIM_Output_Channel5_Initialize
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6467   .text.TIM_Output_Channel5_Initialize:00000064 $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6474   .text.TIM_Output_Channel6_Initialize:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6480   .text.TIM_Output_Channel6_Initialize:00000000 TIM_Output_Channel6_Initialize
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6646   .text.TIM_Output_Channel6_Initialize:00000068 $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6653   .text.TIM_PWM_Output_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6659   .text.TIM_PWM_Output_Enable:00000000 TIM_PWM_Output_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6681   .text.TIM_PWM_Output_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6687   .text.TIM_PWM_Output_Disable:00000000 TIM_PWM_Output_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6707   .text.TIM_Output_Channel_Struct_Initialize:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6713   .text.TIM_Output_Channel_Struct_Initialize:00000000 TIM_Output_Channel_Struct_Initialize
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6752   .text.TIM_Lock_Up_Break_Enable:00000000 $t
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 233
 
 
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6758   .text.TIM_Lock_Up_Break_Enable:00000000 TIM_Lock_Up_Break_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6778   .text.TIM_Lock_Up_Break_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6784   .text.TIM_Lock_Up_Break_Disable:00000000 TIM_Lock_Up_Break_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6804   .text.TIM_Pvd_Break_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6810   .text.TIM_Pvd_Break_Enable:00000000 TIM_Pvd_Break_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6830   .text.TIM_Pvd_Break_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6836   .text.TIM_Pvd_Break_Disable:00000000 TIM_Pvd_Break_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6856   .text.TIM_IOM_Comp_Break:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6862   .text.TIM_IOM_Comp_Break:00000000 TIM_IOM_Comp_Break
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6905   .text.TIM_Break_And_Dead_Time_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:6911   .text.TIM_Break_And_Dead_Time_Set:00000000 TIM_Break_And_Dead_Time_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7075   .text.TIM_Break_And_Dead_Time_Struct_Initialize:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7081   .text.TIM_Break_And_Dead_Time_Struct_Initialize:00000000 TIM_Break_And_Dead_Time_Struct_Initialize
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7124   .text.TIM_Interrupt_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7130   .text.TIM_Interrupt_Enable:00000000 TIM_Interrupt_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7151   .text.TIM_Interrupt_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7157   .text.TIM_Interrupt_Disable:00000000 TIM_Interrupt_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7178   .text.TIM_Interrupt_Status_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7184   .text.TIM_Interrupt_Status_Get:00000000 TIM_Interrupt_Status_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7225   .text.TIM_Interrupt_Status_Clear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7231   .text.TIM_Interrupt_Status_Clear:00000000 TIM_Interrupt_Status_Clear
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7245   .text.TIM_Flag_Status_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7251   .text.TIM_Flag_Status_Get:00000000 TIM_Flag_Status_Get
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7274   .text.TIM_Flag_Clear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7280   .text.TIM_Flag_Clear:00000000 TIM_Flag_Clear
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7300   .text.TIM_Dma_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7306   .text.TIM_Dma_Config:00000000 TIM_Dma_Config
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7326   .text.TIM_Dma_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7332   .text.TIM_Dma_Enable:00000000 TIM_Dma_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7348   .text.TIM_Dma_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7354   .text.TIM_Dma_Disable:00000000 TIM_Dma_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7370   .text.TIM_Hall_Sensor_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7376   .text.TIM_Hall_Sensor_Enable:00000000 TIM_Hall_Sensor_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7396   .text.TIM_Hall_Sensor_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7402   .text.TIM_Hall_Sensor_Disable:00000000 TIM_Hall_Sensor_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7422   .text.TIM_Encoder_Interface_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7428   .text.TIM_Encoder_Interface_Set:00000000 TIM_Encoder_Interface_Set
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7516   .text.TIM_Channel1_Filter_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7522   .text.TIM_Channel1_Filter_Config:00000000 TIM_Channel1_Filter_Config
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7573   .text.TIM_Channel1_Filter_Config:00000030 $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7578   .text.TIM_Channel2_Filter_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7584   .text.TIM_Channel2_Filter_Config:00000000 TIM_Channel2_Filter_Config
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7635   .text.TIM_Channel2_Filter_Config:00000030 $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7640   .text.TIM_Channel3_Filter_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7646   .text.TIM_Channel3_Filter_Config:00000000 TIM_Channel3_Filter_Config
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7697   .text.TIM_Channel3_Filter_Config:00000030 $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7702   .text.TIM_Channel4_Filter_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7708   .text.TIM_Channel4_Filter_Config:00000000 TIM_Channel4_Filter_Config
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7759   .text.TIM_Channel4_Filter_Config:00000030 $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7764   .text.TIM_Break_Filter_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7770   .text.TIM_Break_Filter_Config:00000000 TIM_Break_Filter_Config
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7812   .text.TIM_Break_Filter_Config:00000020 $d
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7817   .text.TIM_Channel1_Filter_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7823   .text.TIM_Channel1_Filter_Enable:00000000 TIM_Channel1_Filter_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7842   .text.TIM_Channel1_Filter_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7848   .text.TIM_Channel1_Filter_Disable:00000000 TIM_Channel1_Filter_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7867   .text.TIM_Channel2_Filter_Enable:00000000 $t
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s 			page 234
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6758   .text.TIM_Lock_Up_Break_Enable:00000000 TIM_Lock_Up_Break_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6778   .text.TIM_Lock_Up_Break_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6784   .text.TIM_Lock_Up_Break_Disable:00000000 TIM_Lock_Up_Break_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6804   .text.TIM_Pvd_Break_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6810   .text.TIM_Pvd_Break_Enable:00000000 TIM_Pvd_Break_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6830   .text.TIM_Pvd_Break_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6836   .text.TIM_Pvd_Break_Disable:00000000 TIM_Pvd_Break_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6856   .text.TIM_IOM_Comp_Break:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6862   .text.TIM_IOM_Comp_Break:00000000 TIM_IOM_Comp_Break
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6905   .text.TIM_Break_And_Dead_Time_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:6911   .text.TIM_Break_And_Dead_Time_Set:00000000 TIM_Break_And_Dead_Time_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7075   .text.TIM_Break_And_Dead_Time_Struct_Initialize:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7081   .text.TIM_Break_And_Dead_Time_Struct_Initialize:00000000 TIM_Break_And_Dead_Time_Struct_Initialize
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7124   .text.TIM_Interrupt_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7130   .text.TIM_Interrupt_Enable:00000000 TIM_Interrupt_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7151   .text.TIM_Interrupt_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7157   .text.TIM_Interrupt_Disable:00000000 TIM_Interrupt_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7178   .text.TIM_Interrupt_Status_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7184   .text.TIM_Interrupt_Status_Get:00000000 TIM_Interrupt_Status_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7225   .text.TIM_Interrupt_Status_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7231   .text.TIM_Interrupt_Status_Clear:00000000 TIM_Interrupt_Status_Clear
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7245   .text.TIM_Flag_Status_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7251   .text.TIM_Flag_Status_Get:00000000 TIM_Flag_Status_Get
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7274   .text.TIM_Flag_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7280   .text.TIM_Flag_Clear:00000000 TIM_Flag_Clear
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7300   .text.TIM_Dma_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7306   .text.TIM_Dma_Config:00000000 TIM_Dma_Config
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7326   .text.TIM_Dma_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7332   .text.TIM_Dma_Enable:00000000 TIM_Dma_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7348   .text.TIM_Dma_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7354   .text.TIM_Dma_Disable:00000000 TIM_Dma_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7370   .text.TIM_Hall_Sensor_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7376   .text.TIM_Hall_Sensor_Enable:00000000 TIM_Hall_Sensor_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7396   .text.TIM_Hall_Sensor_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7402   .text.TIM_Hall_Sensor_Disable:00000000 TIM_Hall_Sensor_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7422   .text.TIM_Encoder_Interface_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7428   .text.TIM_Encoder_Interface_Set:00000000 TIM_Encoder_Interface_Set
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7516   .text.TIM_Channel1_Filter_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7522   .text.TIM_Channel1_Filter_Config:00000000 TIM_Channel1_Filter_Config
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7573   .text.TIM_Channel1_Filter_Config:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7578   .text.TIM_Channel2_Filter_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7584   .text.TIM_Channel2_Filter_Config:00000000 TIM_Channel2_Filter_Config
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7635   .text.TIM_Channel2_Filter_Config:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7640   .text.TIM_Channel3_Filter_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7646   .text.TIM_Channel3_Filter_Config:00000000 TIM_Channel3_Filter_Config
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7697   .text.TIM_Channel3_Filter_Config:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7702   .text.TIM_Channel4_Filter_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7708   .text.TIM_Channel4_Filter_Config:00000000 TIM_Channel4_Filter_Config
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7759   .text.TIM_Channel4_Filter_Config:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7764   .text.TIM_Break_Filter_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7770   .text.TIM_Break_Filter_Config:00000000 TIM_Break_Filter_Config
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7812   .text.TIM_Break_Filter_Config:00000020 $d
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7817   .text.TIM_Channel1_Filter_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7823   .text.TIM_Channel1_Filter_Enable:00000000 TIM_Channel1_Filter_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7842   .text.TIM_Channel1_Filter_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7848   .text.TIM_Channel1_Filter_Disable:00000000 TIM_Channel1_Filter_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7867   .text.TIM_Channel2_Filter_Enable:00000000 $t
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s 			page 234
 
 
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7873   .text.TIM_Channel2_Filter_Enable:00000000 TIM_Channel2_Filter_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7892   .text.TIM_Channel2_Filter_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7898   .text.TIM_Channel2_Filter_Disable:00000000 TIM_Channel2_Filter_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7917   .text.TIM_Channel3_Filter_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7923   .text.TIM_Channel3_Filter_Enable:00000000 TIM_Channel3_Filter_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7942   .text.TIM_Channel3_Filter_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7948   .text.TIM_Channel3_Filter_Disable:00000000 TIM_Channel3_Filter_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7967   .text.TIM_Channel4_Filter_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7973   .text.TIM_Channel4_Filter_Enable:00000000 TIM_Channel4_Filter_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7992   .text.TIM_Channel4_Filter_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:7998   .text.TIM_Channel4_Filter_Disable:00000000 TIM_Channel4_Filter_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:8017   .text.TIM_Break_Filter_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:8023   .text.TIM_Break_Filter_Enable:00000000 TIM_Break_Filter_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:8042   .text.TIM_Break_Filter_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccvlHhl9.s:8048   .text.TIM_Break_Filter_Disable:00000000 TIM_Break_Filter_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7873   .text.TIM_Channel2_Filter_Enable:00000000 TIM_Channel2_Filter_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7892   .text.TIM_Channel2_Filter_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7898   .text.TIM_Channel2_Filter_Disable:00000000 TIM_Channel2_Filter_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7917   .text.TIM_Channel3_Filter_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7923   .text.TIM_Channel3_Filter_Enable:00000000 TIM_Channel3_Filter_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7942   .text.TIM_Channel3_Filter_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7948   .text.TIM_Channel3_Filter_Disable:00000000 TIM_Channel3_Filter_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7967   .text.TIM_Channel4_Filter_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7973   .text.TIM_Channel4_Filter_Enable:00000000 TIM_Channel4_Filter_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7992   .text.TIM_Channel4_Filter_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:7998   .text.TIM_Channel4_Filter_Disable:00000000 TIM_Channel4_Filter_Disable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:8017   .text.TIM_Break_Filter_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:8023   .text.TIM_Break_Filter_Enable:00000000 TIM_Break_Filter_Enable
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:8042   .text.TIM_Break_Filter_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccri0Uc9.s:8048   .text.TIM_Break_Filter_Disable:00000000 TIM_Break_Filter_Disable
 
 UNDEFINED SYMBOLS
 RCC_APB2_Peripheral_Reset

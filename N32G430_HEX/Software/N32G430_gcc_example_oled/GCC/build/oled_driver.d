@@ -24,8 +24,10 @@ build/oled_driver.o: ../APP/Src/oled_driver.c ../APP/Inc/oled_driver.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_usart.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_wwdg.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h \
- ../firmware/n32g430_std_periph_driver/inc/misc.h ../core/inc/i2c.h \
- ../core/inc/hal_compat.h ../core/inc/dma.h ../APP/Inc/oled_font.h
+ ../firmware/n32g430_std_periph_driver/inc/misc.h \
+ ../APP/Inc/oled_interface.h ../core/inc/hal_compat.h \
+ ../APP/Inc/oled_font.h ../core/inc/i2c.h ../core/inc/hal_compat.h \
+ ../core/inc/dma.h
 ../APP/Inc/oled_driver.h:
 ../core/inc/main.h:
 ../firmware/CMSIS/device/n32g430.h:
@@ -56,7 +58,9 @@ build/oled_driver.o: ../APP/Src/oled_driver.c ../APP/Inc/oled_driver.h \
 ../firmware/n32g430_std_periph_driver/inc/n32g430_wwdg.h:
 ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h:
 ../firmware/n32g430_std_periph_driver/inc/misc.h:
+../APP/Inc/oled_interface.h:
+../core/inc/hal_compat.h:
+../APP/Inc/oled_font.h:
 ../core/inc/i2c.h:
 ../core/inc/hal_compat.h:
 ../core/inc/dma.h:
-../APP/Inc/oled_font.h:
