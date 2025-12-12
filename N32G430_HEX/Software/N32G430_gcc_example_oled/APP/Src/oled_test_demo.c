@@ -3,7 +3,9 @@
   ******************************************************************************
   * @file    oled_test_demo.c
   * @brief   0.96寸OLED完整测试Demo，包含所有UI动画元素顺序演示
-  * @note    适用于SSD1306 128x64，使用I2C1 (PB6/PB7)
+  * @note    适用于SSD1306 128x64
+  *          I2C模式: PB8/PB9 (I2C1)
+  *          SPI模式: PA5 SCK, PA7 MOSI, PA6 RES, PB0 DC, PB1 CS
   ******************************************************************************
   * @attention
   *
@@ -17,12 +19,21 @@
 /* Includes ------------------------------------------------------------------*/
 #include "oled_test_demo.h"
 #include "oled_driver.h"
+#include "oled_interface.h"
 #include "oled_ui.h"
-#include "i2c.h"
 #include "dma.h"
 #include "tim.h"
 #include <string.h>
 #include <stdio.h>
+
+/* Define OLED_USE_SPI_INTERFACE to use SPI mode, otherwise use I2C */
+#define OLED_USE_SPI_INTERFACE
+
+#ifdef OLED_USE_SPI_INTERFACE
+#include "spi.h"
+#else
+#include "i2c.h"
+#endif
 
 /* Private defines -----------------------------------------------------------*/
 #define DEMO_SCENE_DURATION    3000  /* 每个场景持续时间（毫秒） */
@@ -35,6 +46,10 @@ static uint8_t oled_framebuffer[128 * 64 / 8];
 /* OLED句柄和UI上下文 */
 OLED_HandleTypeDef holed;  /* 改为非静态，供中断回调使用 */
 static OLED_UIContext_t ui_ctx;
+
+#ifdef OLED_USE_SPI_INTERFACE
+static OLED_Interface_t spi_iface;  /* SPI接口 */
+#endif
 
 /* 演示场景枚举 */
 typedef enum {
@@ -82,12 +97,52 @@ static void OLED_TestDemo_Scene_EasingDemo(void);
 static void OLED_TestDemo_Scene_ComplexUI(void);
 static void OLED_TestDemo_Scene_End(void);
 static void OLED_TestDemo_SwitchScene(void);
-static HAL_StatusTypeDef OLED_TestDemo_PrepareI2CDMA(void);
 static uint32_t GetMicrosecond(void);
 static void DrawLoopTime(void);
 
 /* Private functions ---------------------------------------------------------*/
 
+#ifdef OLED_USE_SPI_INTERFACE
+/**
+  * @brief  确保DMA和SPI已经按正确顺序初始化
+  * @retval HAL状态
+  */
+static HAL_StatusTypeDef OLED_TestDemo_PrepareSPIDMA(void)
+{
+#if !OLED_USE_I2C_DMA
+    return HAL_OK;
+#else
+    bool need_dma_init = !__HAL_RCC_DMA1_IS_CLK_ENABLED();
+
+    if (need_dma_init)
+    {
+        MX_DMA_SPI1_Init();
+    }
+
+    if (hspi1.State == HAL_SPI_STATE_RESET ||
+        hspi1.hdmatx == NULL ||
+        hspi1.hdmatx->State == HAL_DMA_STATE_RESET)
+    {
+        MX_DMA_SPI1_Init();
+        MX_SPI1_Init();
+    }
+    else if (hspi1.State == HAL_SPI_STATE_ERROR)
+    {
+        HAL_SPI_DeInit(&hspi1);
+        MX_SPI1_Init();
+    }
+
+    if (hspi1.State == HAL_SPI_STATE_READY &&
+        hspi1.hdmatx != NULL &&
+        hspi1.hdmatx->State != HAL_DMA_STATE_RESET)
+    {
+        return HAL_OK;
+    }
+
+    return HAL_ERROR;
+#endif
+}
+#else
 /**
   * @brief  确保DMA和I2C已经按正确顺序初始化
   * @retval HAL状态
@@ -132,6 +187,7 @@ static HAL_StatusTypeDef OLED_TestDemo_PrepareI2CDMA(void)
     return HAL_ERROR;
 #endif
 }
+#endif
 
 /**
   * @brief  初始化测试Demo
@@ -140,27 +196,43 @@ void OLED_TestDemo_Init(void)
 {
     OLED_Config_t config;
     HAL_StatusTypeDef bus_status;
-    
+
     /* 配置0.96寸SSD1306 128x64 */
     config = (OLED_Config_t)OLED_CONFIG_096_SSD1306_128X64;
 
-    /* 确保DMA先于I2C初始化，避免I2C DMA句柄未准备好 */
+#ifdef OLED_USE_SPI_INTERFACE
+    /* SPI模式：初始化DMA和SPI */
+    bus_status = OLED_TestDemo_PrepareSPIDMA();
+    if (bus_status != HAL_OK)
+    {
+        demo_initialized = false;
+        return;
+    }
+
+    /* 初始化SPI接口 */
+    OLED_Interface_InitSPI(&spi_iface, &hspi1, true);
+
+    /* 使用新接口初始化OLED驱动 */
+    OLED_InitWithInterface(&holed, &spi_iface, &config, oled_framebuffer);
+#else
+    /* I2C模式：初始化DMA和I2C */
     bus_status = OLED_TestDemo_PrepareI2CDMA();
     if (bus_status != HAL_OK)
     {
         demo_initialized = false;
         return;
     }
-    
-    /* 初始化OLED驱动 */
+
+    /* 初始化OLED驱动 (legacy I2C mode) */
     OLED_Init(&holed, &hi2c1, OLED_I2C_ADDR_0x78, &config, oled_framebuffer);
-    
+#endif
+
     /* 再次确保显示打开 */
     OLED_SetDisplayOn(&holed, true);
-    
+
     /* 初始化UI上下文 */
     OLED_UI_Begin(&ui_ctx, &holed, 0, 0, 128, 64);
-    
+
     /* 初始化进度条 */
     progress_bar.x = 10;
     progress_bar.y = 50;
@@ -169,14 +241,18 @@ void OLED_TestDemo_Init(void)
     progress_bar.value = 0;
     progress_bar.border_color = 1;
     progress_bar.fill_color = 1;
-    
+
     /* 初始化滚动文本 */
+#ifdef OLED_USE_SPI_INTERFACE
+    OLED_UI_InitScrollText(&scroll_text, 0, 56, "SPI OLED Demo - Hardware DMA", 2);
+#else
     OLED_UI_InitScrollText(&scroll_text, 0, 56, "OLED Test Demo - All UI Elements Animation", 2);
-    
+#endif
+
     demo_initialized = true;
     current_scene = DEMO_SCENE_START;
     scene_start_time = HAL_GetTick();
-    
+
     /* 启动TIM4用于时间测量 */
     HAL_TIM_Base_Start_IT(&htim4);
     demo_cycle_time_ms = 0;
@@ -397,7 +473,11 @@ static void OLED_TestDemo_SwitchScene(void)
 static void OLED_TestDemo_Scene_Start(void)
 {
     OLED_UI_DrawStr(&ui_ctx, 20, 20, "OLED Test", 1);
-    OLED_UI_DrawStr(&ui_ctx, 15, 35, "Demo Start", 1);
+#ifdef OLED_USE_SPI_INTERFACE
+    OLED_UI_DrawStr(&ui_ctx, 15, 35, "SPI + DMA", 1);
+#else
+    OLED_UI_DrawStr(&ui_ctx, 15, 35, "I2C + DMA", 1);
+#endif
     OLED_UI_DrawStr(&ui_ctx, 10, 50, "0.96\" SSD1306", 1);
 }
 
@@ -749,6 +829,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     }
 }
 
+#ifdef OLED_USE_SPI_INTERFACE
+void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
+{
+    if (hspi == &hspi1)
+    {
+        /* SPI DMA传输完成后释放CS */
+        OLED_SPI_CS_Disable();
+        OLED_DMATxCpltCallback(&holed);
+    }
+}
+#else
 void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
     if (hi2c == &hi2c1)
@@ -756,5 +847,6 @@ void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c)
         OLED_DMATxCpltCallback(&holed);
     }
 }
+#endif
 
 /* USER CODE END 1 */

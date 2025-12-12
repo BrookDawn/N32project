@@ -22,7 +22,7 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "i2c.h"
+#include "oled_interface.h"
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -108,7 +108,8 @@ typedef struct {
 } OLED_DrawContext_t;
 
 /**
-  * @brief  底层硬件接口函数指针结构体
+  * @brief  底层硬件接口函数指针结构体 (legacy - for backward compatibility)
+  * @note   New code should use OLED_Interface_t from oled_interface.h
   */
 typedef struct {
     /**
@@ -118,7 +119,7 @@ typedef struct {
       * @retval HAL状态
       */
     HAL_StatusTypeDef (*send_cmd)(OLED_HandleTypeDef *holed, uint8_t cmd);
-    
+
     /**
       * @brief  发送数据函数指针
       * @param  holed: OLED句柄指针
@@ -127,7 +128,7 @@ typedef struct {
       * @retval HAL状态
       */
     HAL_StatusTypeDef (*send_data)(OLED_HandleTypeDef *holed, uint8_t *data, uint16_t len);
-    
+
     /**
       * @brief  延时函数指针
       * @param  delay: 延时时间（毫秒）
@@ -140,34 +141,38 @@ typedef struct {
   */
 typedef struct OLED_HandleTypeDef {
     /* 硬件接口 */
-    OLED_HWInterface_t hw;           /* 硬件接口函数指针 */
-    I2C_HandleTypeDef *hi2c;         /* I2C句柄 */
+    OLED_HWInterface_t hw;           /* 硬件接口函数指针 (legacy) */
+    OLED_Interface_t *iface;         /* 新的抽象硬件接口 */
+
+    /* I2C specific (legacy) */
+    void *hi2c;                      /* I2C/SPI 句柄 (void* for flexibility) */
     uint8_t i2c_addr;                /* I2C地址 */
-    
+
     /* 屏幕配置 */
     OLED_Config_t config;             /* 屏幕配置 */
-    
+
     /* 显示参数 */
     uint8_t width;                   /* 屏幕宽度（像素） */
     uint8_t height;                  /* 屏幕高度（像素） */
     uint8_t pages;                   /* 页数（高度/8） */
     OLED_DirectionTypeDef direction; /* 显示方向 */
-    
+
     /* 帧缓冲区 */
     uint8_t *framebuffer;            /* 帧缓冲区指针 */
     uint16_t framebuffer_size;       /* 帧缓冲区大小 */
-    
+
     /* 脏矩形跟踪 */
     OLED_DirtyRegion_t dirty_region; /* 脏矩形区域 */
     bool full_refresh;                /* 是否需要全屏刷新 */
-    
+
     /* 绘制上下文 */
     OLED_DrawContext_t draw_ctx;     /* 当前绘制上下文 */
     OLED_RefreshJob_t refresh_job;   /* DMA刷新任务状态 */
-    
+
     /* 状态标志 */
     bool is_initialized;              /* 是否已初始化 */
     bool dma_busy;                    /* DMA是否忙碌 */
+    bool use_new_interface;           /* 是否使用新接口 */
 } OLED_HandleTypeDef;
 
 /* Exported constants --------------------------------------------------------*/
@@ -241,7 +246,20 @@ typedef struct OLED_HandleTypeDef {
 /* Exported functions prototypes ---------------------------------------------*/
 
 /**
-  * @brief  初始化OLED驱动（使用配置结构体）
+  * @brief  初始化OLED驱动（使用新的抽象接口）
+  * @param  holed: OLED句柄指针
+  * @param  iface: 硬件接口指针 (I2C或SPI)
+  * @param  config: 屏幕配置结构体指针
+  * @param  framebuffer: 帧缓冲区指针（外部提供，大小应为width*height/8）
+  * @retval HAL状态
+  */
+HAL_StatusTypeDef OLED_InitWithInterface(OLED_HandleTypeDef *holed,
+                                         OLED_Interface_t *iface,
+                                         const OLED_Config_t *config,
+                                         uint8_t *framebuffer);
+
+/**
+  * @brief  初始化OLED驱动（使用配置结构体） - 保持向后兼容
   * @param  holed: OLED句柄指针
   * @param  hi2c: I2C句柄指针
   * @param  i2c_addr: I2C地址
@@ -249,8 +267,8 @@ typedef struct OLED_HandleTypeDef {
   * @param  framebuffer: 帧缓冲区指针（外部提供，大小应为width*height/8）
   * @retval HAL状态
   */
-HAL_StatusTypeDef OLED_Init(OLED_HandleTypeDef *holed, 
-                            I2C_HandleTypeDef *hi2c, 
+HAL_StatusTypeDef OLED_Init(OLED_HandleTypeDef *holed,
+                            void *hi2c,
                             uint8_t i2c_addr,
                             const OLED_Config_t *config,
                             uint8_t *framebuffer);
@@ -264,8 +282,8 @@ HAL_StatusTypeDef OLED_Init(OLED_HandleTypeDef *holed,
   * @retval HAL状态
   * @note   此函数使用预编译宏OLED_CHIP_TYPE和OLED_SIZE_TYPE
   */
-HAL_StatusTypeDef OLED_InitAuto(OLED_HandleTypeDef *holed, 
-                                 I2C_HandleTypeDef *hi2c, 
+HAL_StatusTypeDef OLED_InitAuto(OLED_HandleTypeDef *holed,
+                                 void *hi2c,
                                  uint8_t i2c_addr,
                                  uint8_t *framebuffer);
 

@@ -36,9 +36,17 @@
 #include "bsp_led.h"
 #include "hal_compat.h"
 #include "dma.h"
-#include "i2c.h"
 #include "tim.h"
 #include "oled_test_demo.h"
+
+/* Define to use SPI OLED, undefine to use I2C OLED */
+#define OLED_USE_SPI_INTERFACE
+
+#ifdef OLED_USE_SPI_INTERFACE
+#include "spi.h"
+#else
+#include "i2c.h"
+#endif
 
 /**
  *\*\name   main.
@@ -55,8 +63,13 @@ int main(void)
     LED_Initialize(LED2_GPIO_PORT, LED2_GPIO_PIN | LED3_GPIO_PIN, LED2_GPIO_CLK);
     LED_Off(LED2_GPIO_PORT, LED1_GPIO_PIN | LED2_GPIO_PIN | LED3_GPIO_PIN);
 
+#ifdef OLED_USE_SPI_INTERFACE
+    /* SPI mode initialization is done in OLED_TestDemo_Init */
+#else
     MX_DMA_Init();
     MX_I2C1_Init();
+#endif
+
     MX_TIM4_Init();
     OLED_TestDemo_Init();
 

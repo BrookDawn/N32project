@@ -26,7 +26,7 @@ build/n32g430_it.o: ../core/src/n32g430_it.c ../core/inc/n32g430_it.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h \
  ../firmware/n32g430_std_periph_driver/inc/misc.h ../core/inc/main.h \
  ../core/inc/hal_compat.h ../core/inc/dma.h ../core/inc/hal_compat.h \
- ../core/inc/tim.h
+ ../core/inc/tim.h ../core/inc/spi.h ../core/inc/dma.h
 ../core/inc/n32g430_it.h:
 ../firmware/CMSIS/device/n32g430.h:
 ../firmware/CMSIS/core/core_cm4.h:
@@ -61,3 +61,5 @@ build/n32g430_it.o: ../core/src/n32g430_it.c ../core/inc/n32g430_it.h \
 ../core/inc/dma.h:
 ../core/inc/hal_compat.h:
 ../core/inc/tim.h:
+../core/inc/spi.h:
+../core/inc/dma.h:

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(make clean)",
+      "Bash(if exist build rmdir /s /q build)",
+      "Bash(make)",
+      "Bash(make:*)"
+    ]
+  }
+}

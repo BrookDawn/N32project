@@ -25,9 +25,11 @@ build/oled_test_demo.o: ../APP/Src/oled_test_demo.c \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_usart.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_wwdg.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h \
- ../firmware/n32g430_std_periph_driver/inc/misc.h ../core/inc/i2c.h \
- ../core/inc/hal_compat.h ../core/inc/dma.h ../APP/Inc/oled_driver.h \
- ../APP/Inc/oled_ui.h ../core/inc/dma.h ../core/inc/tim.h
+ ../firmware/n32g430_std_periph_driver/inc/misc.h \
+ ../APP/Inc/oled_interface.h ../core/inc/hal_compat.h \
+ ../APP/Inc/oled_driver.h ../APP/Inc/oled_interface.h \
+ ../APP/Inc/oled_ui.h ../core/inc/dma.h ../core/inc/hal_compat.h \
+ ../core/inc/tim.h ../core/inc/spi.h ../core/inc/dma.h
 ../APP/Inc/oled_test_demo.h:
 ../APP/Inc/oled_driver.h:
 ../core/inc/main.h:
@@ -59,10 +61,13 @@ build/oled_test_demo.o: ../APP/Src/oled_test_demo.c \
 ../firmware/n32g430_std_periph_driver/inc/n32g430_wwdg.h:
 ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h:
 ../firmware/n32g430_std_periph_driver/inc/misc.h:
-../core/inc/i2c.h:
+../APP/Inc/oled_interface.h:
 ../core/inc/hal_compat.h:
-../core/inc/dma.h:
 ../APP/Inc/oled_driver.h:
+../APP/Inc/oled_interface.h:
 ../APP/Inc/oled_ui.h:
 ../core/inc/dma.h:
+../core/inc/hal_compat.h:
 ../core/inc/tim.h:
+../core/inc/spi.h:
+../core/inc/dma.h:

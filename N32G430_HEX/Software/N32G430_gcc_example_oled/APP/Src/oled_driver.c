@@ -16,6 +16,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "oled_driver.h"
 #include "oled_font.h"
+#include "i2c.h"
 #include <string.h>
 
 /* Private defines -----------------------------------------------------------*/
@@ -25,6 +26,9 @@
 /* Private variables ---------------------------------------------------------*/
 static uint8_t oled_cmd_buffer[2];    /* 命令缓冲区：控制字节 + 命令字节 */
 static uint8_t oled_data_buffer[129]; /* 数据缓冲区：控制字节 + 128字节数据 */
+
+/* Internal I2C interface for legacy API */
+static OLED_Interface_t internal_i2c_iface;
 
 /* Private function prototypes -----------------------------------------------*/
 static HAL_StatusTypeDef OLED_SendCmd_Blocking(OLED_HandleTypeDef *holed, uint8_t cmd);
@@ -54,6 +58,60 @@ static HAL_StatusTypeDef OLED_WaitRefreshComplete(OLED_HandleTypeDef *holed, uin
 /* Private functions ---------------------------------------------------------*/
 
 /**
+  * @brief  使用新接口发送命令
+  * @param  holed: OLED句柄指针
+  * @param  cmd: 命令字节
+  * @retval HAL状态
+  */
+static HAL_StatusTypeDef OLED_SendCmd_Iface(OLED_HandleTypeDef *holed, uint8_t cmd)
+{
+    if (holed == NULL || holed->iface == NULL || holed->iface->send_cmd == NULL)
+    {
+        return HAL_ERROR;
+    }
+
+    /* 等待之前的DMA传输完成 */
+    OLED_WaitDMAComplete(holed, 100);
+
+    return holed->iface->send_cmd(holed->iface, cmd);
+}
+
+/**
+  * @brief  使用新接口发送数据
+  * @param  holed: OLED句柄指针
+  * @param  data: 数据缓冲区
+  * @param  len: 数据长度
+  * @retval HAL状态
+  */
+static HAL_StatusTypeDef OLED_SendData_Iface(OLED_HandleTypeDef *holed, uint8_t *data, uint16_t len)
+{
+    if (holed == NULL || holed->iface == NULL || data == NULL)
+    {
+        return HAL_ERROR;
+    }
+
+    /* 等待之前的DMA传输完成 */
+    OLED_WaitDMAComplete(holed, 100);
+
+    if (holed->iface->send_data_dma != NULL)
+    {
+        holed->dma_busy = true;
+        HAL_StatusTypeDef status = holed->iface->send_data_dma(holed->iface, data, len);
+        if (status != HAL_OK)
+        {
+            holed->dma_busy = false;
+        }
+        return status;
+    }
+    else if (holed->iface->send_data != NULL)
+    {
+        return holed->iface->send_data(holed->iface, data, len);
+    }
+
+    return HAL_ERROR;
+}
+
+/**
   * @brief  通过DMA发送命令
   * @param  holed: OLED句柄指针
   * @param  cmd: 命令字节
@@ -68,21 +126,31 @@ static HAL_StatusTypeDef OLED_WaitRefreshComplete(OLED_HandleTypeDef *holed, uin
 static HAL_StatusTypeDef OLED_SendCmd_Blocking(OLED_HandleTypeDef *holed, uint8_t cmd)
 {
     HAL_StatusTypeDef status;
-    
+    I2C_HandleTypeDef *hi2c;
+
+    /* 如果使用新接口，调用新的发送函数 */
+    if (holed->use_new_interface && holed->iface != NULL)
+    {
+        return OLED_SendCmd_Iface(holed, cmd);
+    }
+
+    /* Legacy I2C code */
     if (holed == NULL || holed->hi2c == NULL)
     {
         return HAL_ERROR;
     }
-    
+
+    hi2c = (I2C_HandleTypeDef *)holed->hi2c;
+
     /* 等待之前的DMA传输完成 */
     OLED_WaitDMAComplete(holed, 100);
-    
+
     oled_cmd_buffer[0] = OLED_CMD_MODE;
     oled_cmd_buffer[1] = cmd;
-    
+
     /* 使用阻塞方式发送 */
-    status = HAL_I2C_Master_Transmit(holed->hi2c, holed->i2c_addr, oled_cmd_buffer, 2, 100);
-    
+    status = HAL_I2C_Master_Transmit(hi2c, holed->i2c_addr, oled_cmd_buffer, 2, 100);
+
     return status;
 }
 
@@ -98,22 +166,32 @@ static HAL_StatusTypeDef OLED_SendData_DMA(OLED_HandleTypeDef *holed, uint8_t *d
 {
     HAL_StatusTypeDef status = HAL_ERROR;
     bool dma_ready = false;
-    
+    I2C_HandleTypeDef *hi2c;
+
+    /* 如果使用新接口，调用新的发送函数 */
+    if (holed->use_new_interface && holed->iface != NULL)
+    {
+        return OLED_SendData_Iface(holed, data, len);
+    }
+
+    /* Legacy I2C code */
     if (holed == NULL || holed->hi2c == NULL || data == NULL)
     {
         return HAL_ERROR;
     }
-    
+
+    hi2c = (I2C_HandleTypeDef *)holed->hi2c;
+
     /* 等待之前的DMA传输完成 */
     OLED_WaitDMAComplete(holed, 100);
-    
+
     if (len > 128) len = 128;
-    
+
     oled_data_buffer[0] = OLED_DATA_MODE;
     memcpy(&oled_data_buffer[1], data, len);
 
-    if (holed->hi2c->hdmatx != NULL &&
-        holed->hi2c->hdmatx->State != HAL_DMA_STATE_RESET &&
+    if (hi2c->hdmatx != NULL &&
+        hi2c->hdmatx->State != HAL_DMA_STATE_RESET &&
         __HAL_RCC_DMA1_IS_CLK_ENABLED())
     {
         dma_ready = true;
@@ -125,14 +203,14 @@ static HAL_StatusTypeDef OLED_SendData_DMA(OLED_HandleTypeDef *holed, uint8_t *d
     }
 
     holed->dma_busy = true;
-    status = HAL_I2C_Master_Transmit_DMA(holed->hi2c, holed->i2c_addr, oled_data_buffer, len + 1);
-    
+    status = HAL_I2C_Master_Transmit_DMA(hi2c, holed->i2c_addr, oled_data_buffer, len + 1);
+
     /* 如果启动DMA失败，清除busy标志 */
     if (status != HAL_OK)
     {
         holed->dma_busy = false;
     }
-    
+
     return status;
 }
 #else
@@ -146,11 +224,21 @@ static HAL_StatusTypeDef OLED_SendData_DMA(OLED_HandleTypeDef *holed, uint8_t *d
 static HAL_StatusTypeDef OLED_SendData_Blocking(OLED_HandleTypeDef *holed, uint8_t *data, uint16_t len)
 {
     HAL_StatusTypeDef status;
+    I2C_HandleTypeDef *hi2c;
 
+    /* 如果使用新接口，调用新的发送函数 */
+    if (holed->use_new_interface && holed->iface != NULL)
+    {
+        return OLED_SendData_Iface(holed, data, len);
+    }
+
+    /* Legacy I2C code */
     if (holed == NULL || holed->hi2c == NULL || data == NULL)
     {
         return HAL_ERROR;
     }
+
+    hi2c = (I2C_HandleTypeDef *)holed->hi2c;
 
     if (len > 128)
     {
@@ -160,7 +248,7 @@ static HAL_StatusTypeDef OLED_SendData_Blocking(OLED_HandleTypeDef *holed, uint8
     oled_data_buffer[0] = OLED_DATA_MODE;
     memcpy(&oled_data_buffer[1], data, len);
 
-    status = HAL_I2C_Master_Transmit(holed->hi2c, holed->i2c_addr, oled_data_buffer, len + 1, 200);
+    status = HAL_I2C_Master_Transmit(hi2c, holed->i2c_addr, oled_data_buffer, len + 1, 200);
     return status;
 }
 #endif
@@ -187,29 +275,65 @@ static void OLED_WaitDMAComplete(OLED_HandleTypeDef *holed, uint32_t timeout)
     return;
 #else
     uint32_t start_tick = HAL_GetTick();
-    
-    if (holed == NULL || holed->hi2c == NULL)
+    I2C_HandleTypeDef *hi2c;
+
+    if (holed == NULL)
     {
         return;
     }
-    
+
+    /* 如果使用新接口，检查新接口的忙状态 */
+    if (holed->use_new_interface && holed->iface != NULL)
+    {
+        if (holed->iface->is_dma_busy == NULL)
+        {
+            holed->dma_busy = false;
+            return;
+        }
+
+        /* 等待DMA传输完成或超时 */
+        while (holed->dma_busy)
+        {
+            if (!holed->iface->is_dma_busy(holed->iface))
+            {
+                holed->dma_busy = false;
+                break;
+            }
+
+            if (HAL_GetTick() - start_tick >= timeout)
+            {
+                holed->dma_busy = false;
+                break;
+            }
+        }
+        return;
+    }
+
+    /* Legacy I2C code */
+    if (holed->hi2c == NULL)
+    {
+        return;
+    }
+
+    hi2c = (I2C_HandleTypeDef *)holed->hi2c;
+
     /* 如果I2C状态已经是READY，直接清除busy标志 */
-    if (holed->hi2c->State == HAL_I2C_STATE_READY)
+    if (hi2c->State == HAL_I2C_STATE_READY)
     {
         holed->dma_busy = false;
         return;
     }
-    
+
     /* 等待DMA传输完成或超时 */
     while (holed->dma_busy)
     {
         /* 检查I2C状态 */
-        if (holed->hi2c->State == HAL_I2C_STATE_READY)
+        if (hi2c->State == HAL_I2C_STATE_READY)
         {
             holed->dma_busy = false;
             break;
         }
-        
+
         if (HAL_GetTick() - start_tick >= timeout)
         {
             /* 超时，强制清除busy标志 */
@@ -401,7 +525,115 @@ static HAL_StatusTypeDef OLED_Init_SH1106(OLED_HandleTypeDef *holed)
 }
 
 /**
-  * @brief  初始化OLED驱动（使用配置结构体）
+  * @brief  初始化OLED驱动（使用新的抽象接口）
+  * @param  holed: OLED句柄指针
+  * @param  iface: 硬件接口指针 (I2C或SPI)
+  * @param  config: 屏幕配置结构体指针
+  * @param  framebuffer: 帧缓冲区指针（外部提供，大小应为width*height/8）
+  * @retval HAL状态
+  */
+HAL_StatusTypeDef OLED_InitWithInterface(OLED_HandleTypeDef *holed,
+                                         OLED_Interface_t *iface,
+                                         const OLED_Config_t *config,
+                                         uint8_t *framebuffer)
+{
+    HAL_StatusTypeDef status;
+
+    if (holed == NULL || iface == NULL || config == NULL || framebuffer == NULL)
+    {
+        return HAL_ERROR;
+    }
+
+    /* 标记使用新接口 */
+    holed->use_new_interface = true;
+    holed->iface = iface;
+
+    /* 初始化硬件接口函数指针 (legacy) */
+    holed->hw.send_cmd = OLED_SendCmd_Blocking;
+#if OLED_USE_I2C_DMA
+    holed->hw.send_data = OLED_SendData_DMA;
+#else
+    holed->hw.send_data = OLED_SendData_Blocking;
+#endif
+    holed->hw.delay_ms = OLED_DelayMs;
+
+    /* 保存配置 */
+    holed->config = *config;
+
+    /* 初始化基本参数 */
+    holed->hi2c = iface->handle;
+    holed->i2c_addr = iface->i2c_addr;
+    holed->width = config->width;
+    holed->height = config->height;
+    holed->pages = config->height / 8;
+    holed->direction = OLED_DIRECTION_NORMAL;
+    holed->framebuffer = framebuffer;
+    holed->framebuffer_size = config->width * holed->pages;
+    holed->is_initialized = false;
+    holed->dma_busy = false;
+    holed->full_refresh = true;
+#if OLED_USE_I2C_DMA
+    memset(&holed->refresh_job, 0, sizeof(holed->refresh_job));
+#endif
+
+    /* 重置脏矩形区域 */
+    OLED_ResetDirtyRegion(holed);
+
+    /* 初始化绘制上下文 */
+    holed->draw_ctx.x = 0;
+    holed->draw_ctx.y = 0;
+    holed->draw_ctx.font_width = 6;
+    holed->draw_ctx.font_height = 8;
+    holed->draw_ctx.color = 1;
+
+    /* 如果接口提供reset函数（SPI模式），调用硬件复位 */
+    if (iface->reset != NULL)
+    {
+        iface->reset(iface);
+    }
+
+    /* 等待就绪 */
+    holed->hw.delay_ms(100);
+
+    /* 根据芯片类型调用不同的初始化函数 */
+    if (config->chip_type == OLED_TYPE_SSD1306)
+    {
+        status = OLED_Init_SSD1306(holed);
+    }
+    else if (config->chip_type == OLED_TYPE_SH1106)
+    {
+        status = OLED_Init_SH1106(holed);
+    }
+    else
+    {
+        return HAL_ERROR;
+    }
+
+    if (status == HAL_OK)
+    {
+        /* 清空帧缓冲区 */
+        OLED_Clear(holed);
+        holed->is_initialized = true;
+
+        /* 刷新屏幕（清空显存，避免花屏） */
+        OLED_Refresh(holed);
+    }
+    else
+    {
+        /* 即使初始化失败，也尝试标记为初始化，以便后续重试 */
+        holed->is_initialized = true;
+    }
+
+    holed->hw.delay_ms(100);
+
+    /* 强制打开显示，确保屏幕点亮 */
+    OLED_SetDisplayOn(holed, true);
+
+    return status;
+}
+
+/**
+  * @brief  初始化OLED驱动（使用配置结构体） - 向后兼容
   * @param  holed: OLED句柄指针
   * @param  hi2c: I2C句柄指针
   * @param  i2c_addr: I2C地址
@@ -409,19 +641,23 @@ static HAL_StatusTypeDef OLED_Init_SH1106(OLED_HandleTypeDef *holed)
   * @param  framebuffer: 帧缓冲区指针（外部提供，大小应为width*height/8）
   * @retval HAL状态
   */
-HAL_StatusTypeDef OLED_Init(OLED_HandleTypeDef *holed, 
-                            I2C_HandleTypeDef *hi2c, 
+HAL_StatusTypeDef OLED_Init(OLED_HandleTypeDef *holed,
+                            void *hi2c,
                             uint8_t i2c_addr,
                             const OLED_Config_t *config,
                             uint8_t *framebuffer)
 {
     HAL_StatusTypeDef status;
-    
+
     if (holed == NULL || hi2c == NULL || config == NULL || framebuffer == NULL)
     {
         return HAL_ERROR;
     }
-    
+
+    /* 使用旧的Legacy模式 */
+    holed->use_new_interface = false;
+    holed->iface = NULL;
+
     /* 初始化硬件接口函数指针 */
     holed->hw.send_cmd = OLED_SendCmd_Blocking;
 #if OLED_USE_I2C_DMA
@@ -430,10 +666,10 @@ HAL_StatusTypeDef OLED_Init(OLED_HandleTypeDef *holed,
     holed->hw.send_data = OLED_SendData_Blocking;
 #endif
     holed->hw.delay_ms = OLED_DelayMs;
-    
+
     /* 保存配置 */
     holed->config = *config;
-    
+
     /* 初始化基本参数 */
     holed->hi2c = hi2c;
     holed->i2c_addr = i2c_addr;
@@ -449,20 +685,20 @@ HAL_StatusTypeDef OLED_Init(OLED_HandleTypeDef *holed,
 #if OLED_USE_I2C_DMA
     memset(&holed->refresh_job, 0, sizeof(holed->refresh_job));
 #endif
-    
+
     /* 重置脏矩形区域 */
     OLED_ResetDirtyRegion(holed);
-    
+
     /* 初始化绘制上下文 */
     holed->draw_ctx.x = 0;
     holed->draw_ctx.y = 0;
     holed->draw_ctx.font_width = 6;
     holed->draw_ctx.font_height = 8;
     holed->draw_ctx.color = 1;
-    
+
     /* 等待I2C就绪 */
     holed->hw.delay_ms(100);
-    
+
     /* 根据芯片类型调用不同的初始化函数 */
     if (config->chip_type == OLED_TYPE_SSD1306)
     {
@@ -476,13 +712,13 @@ HAL_StatusTypeDef OLED_Init(OLED_HandleTypeDef *holed,
     {
         return HAL_ERROR;
     }
-    
+
     if (status == HAL_OK)
     {
         /* 清空帧缓冲区 */
         OLED_Clear(holed);
         holed->is_initialized = true;
-        
+
         /* 刷新屏幕（清空显存，避免花屏） */
         OLED_Refresh(holed);
     }
@@ -491,12 +727,12 @@ HAL_StatusTypeDef OLED_Init(OLED_HandleTypeDef *holed,
         /* 即使初始化失败，也尝试标记为初始化，以便后续重试 */
         holed->is_initialized = true;
     }
-    
+
     holed->hw.delay_ms(100);
-    
+
     /* 强制打开显示，确保屏幕点亮 */
     OLED_SetDisplayOn(holed, true);
-    
+
     return status;
 }
 
@@ -509,8 +745,8 @@ HAL_StatusTypeDef OLED_Init(OLED_HandleTypeDef *holed,
   * @retval HAL状态
   * @note   此函数使用预编译宏OLED_CHIP_TYPE和OLED_SIZE_TYPE
   */
-HAL_StatusTypeDef OLED_InitAuto(OLED_HandleTypeDef *holed, 
-                                 I2C_HandleTypeDef *hi2c, 
+HAL_StatusTypeDef OLED_InitAuto(OLED_HandleTypeDef *holed,
+                                 void *hi2c,
                                  uint8_t i2c_addr,
                                  uint8_t *framebuffer)
 {
@@ -1510,17 +1746,44 @@ bool OLED_IsDMAReady(OLED_HandleTypeDef *holed)
     (void)holed;
     return true;
 #else
-    if (holed == NULL || holed->hi2c == NULL)
+    I2C_HandleTypeDef *hi2c;
+
+    if (holed == NULL)
     {
         return true;
     }
-    
-    if (holed->hi2c->State == HAL_I2C_STATE_READY)
+
+    /* 如果使用新接口，检查新接口的忙状态 */
+    if (holed->use_new_interface && holed->iface != NULL)
+    {
+        if (holed->iface->is_dma_busy == NULL)
+        {
+            holed->dma_busy = false;
+            return true;
+        }
+
+        if (!holed->iface->is_dma_busy(holed->iface))
+        {
+            holed->dma_busy = false;
+            return true;
+        }
+        return false;
+    }
+
+    /* Legacy I2C code */
+    if (holed->hi2c == NULL)
+    {
+        return true;
+    }
+
+    hi2c = (I2C_HandleTypeDef *)holed->hi2c;
+
+    if (hi2c->State == HAL_I2C_STATE_READY)
     {
         holed->dma_busy = false;
         return true;
     }
-    
+
     return false;
 #endif
 }
