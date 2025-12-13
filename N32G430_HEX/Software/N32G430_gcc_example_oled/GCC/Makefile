@@ -38,6 +38,19 @@ DEFS += -DN32G430
 DEFS += -DUSE_STDPERIPH_DRIVER
 
 ######################################
+# Display device selection
+# Use DISPLAY=lcd or DISPLAY=oled to select
+# Default: oled
+######################################
+DISPLAY ?= oled
+
+ifeq ($(DISPLAY), lcd)
+DEFS += -DDISPLAY_USE_LCD
+else
+DEFS += -DDISPLAY_USE_OLED
+endif
+
+######################################
 # Algo libs
 ######################################
 USELIB = 0
@@ -51,9 +64,16 @@ CROSS_COMPILE = arm-none-eabi-
 # C sources
 ######################################
 C_DIRS = ../core/src
-C_DIRS += ../APP/Src
 C_DIRS += ../firmware/CMSIS/device
 C_DIRS += ../firmware/n32g430_std_periph_driver/src
+
+# Add display-specific sources
+ifeq ($(DISPLAY), lcd)
+C_DIRS += ../APP/LCD/Src
+else
+C_DIRS += ../APP/OLED/Src
+endif
+
 SRC_OBJS_DIRS = $(foreach DIR, $(C_DIRS), $(wildcard $(DIR)/*.c))
 C_SOURCES = $(SRC_OBJS_DIRS)
 
@@ -66,10 +86,17 @@ ASM_SOURCES = ../firmware/CMSIS/device/startup/startup_$(TARGET_PLATFORM)_gcc.s
 # C includes
 ######################################
 C_INCS = ../core/inc
-C_INCS += ../APP/Inc
 C_INCS += ../firmware/CMSIS/core
 C_INCS += ../firmware/CMSIS/device
 C_INCS += ../firmware/n32g430_std_periph_driver/inc
+
+# Add display-specific includes
+ifeq ($(DISPLAY), lcd)
+C_INCS += ../APP/LCD/Inc
+else
+C_INCS += ../APP/OLED/Inc
+endif
+
 INCS_OBJS_DIR = $(foreach DIR2, $(C_INCS), $(wildcard $(DIR2)/*.h))
 INCS_OBJS_PATH = $(sort $(dir $(INCS_OBJS_DIR)))
 C_INCLUDES = $(addprefix -I,$(INCS_OBJS_PATH))
@@ -180,5 +207,14 @@ download:
 
 debug:
 	@$(JK_DPATH)JLinkGDBServer.exe -select USB -device $(CHIP_TYPE) -if SWD -speed auto -noir -LocalhostOnly
+
+#######################################
+# Build targets for OLED and LCD
+#######################################
+oled:
+	$(MAKE) DISPLAY=oled
+
+lcd:
+	$(MAKE) DISPLAY=lcd
 
 # *** EOF ***

@@ -4,6 +4,7 @@
 
 DMA_HandleTypeDef hdma_i2c1_tx;
 DMA_HandleTypeDef hdma_spi1_tx;
+DMA_HandleTypeDef hdma_tim2_ch4;
 
 static uint32_t DMA_GetTCFlag(uint8_t channel)
 {
@@ -96,6 +97,37 @@ void MX_DMA_SPI1_Init(void)
 
     NVIC_InitStructure.NVIC_IRQChannel = DMA_Channel2_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_Initializes(&NVIC_InitStructure);
+}
+
+/**
+ * @brief Initialize DMA for TIM2_CH4 (DMA Channel 5)
+ */
+void MX_DMA_TIM2_CH4_Init(void)
+{
+    NVIC_InitType NVIC_InitStructure;
+
+    RCC_AHB_Peripheral_Clock_Enable(RCC_AHB_PERIPH_DMA);
+
+    DMA_Reset(DMA_CH5);
+    DMA_Channel_Request_Remap(DMA_CH5, DMA_REMAP_TIM2_UP);
+    DMA_Channel_Disable(DMA_CH5);
+    DMA_Interrupts_Disable(DMA_CH5, DMA_INT_TXC | DMA_INT_ERR | DMA_INT_HTX);
+
+    hdma_tim2_ch4.Instance = DMA_CH5;
+    hdma_tim2_ch4.ChannelIndex = 5;
+    hdma_tim2_ch4.RequestID = DMA_REMAP_TIM2_UP;
+    hdma_tim2_ch4.State = HAL_DMA_STATE_READY;
+    hdma_tim2_ch4.Parent = NULL;
+    hdma_tim2_ch4.XferCpltCallback = NULL;
+    hdma_tim2_ch4.XferErrorCallback = NULL;
+
+    DMA_Interrupts_Enable(DMA_CH5, DMA_INT_TXC | DMA_INT_ERR);
+
+    NVIC_InitStructure.NVIC_IRQChannel = DMA_Channel5_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Initializes(&NVIC_InitStructure);

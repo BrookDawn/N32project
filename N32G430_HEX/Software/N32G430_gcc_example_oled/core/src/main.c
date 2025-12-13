@@ -37,16 +37,17 @@
 #include "hal_compat.h"
 #include "dma.h"
 #include "tim.h"
-#include "oled_test_demo.h"
+#include "display_config.h"
 
-/* Define to use SPI OLED, undefine to use I2C OLED */
-#define OLED_USE_SPI_INTERFACE
-
-#ifdef OLED_USE_SPI_INTERFACE
-#include "spi.h"
+/* Include display-specific headers based on configuration */
+#ifdef DISPLAY_USE_LCD
+#include "lcd_menu_demo.h"  /* Menu demo mode */
+// #include "button_test_demo.h"  /* Button test mode (for debugging) */
 #else
-#include "i2c.h"
+#include "oled_test_demo.h"
 #endif
+
+#include "spi.h"
 
 /**
  *\*\name   main.
@@ -63,20 +64,22 @@ int main(void)
     LED_Initialize(LED2_GPIO_PORT, LED2_GPIO_PIN | LED3_GPIO_PIN, LED2_GPIO_CLK);
     LED_Off(LED2_GPIO_PORT, LED1_GPIO_PIN | LED2_GPIO_PIN | LED3_GPIO_PIN);
 
-#ifdef OLED_USE_SPI_INTERFACE
-    /* SPI mode initialization is done in OLED_TestDemo_Init */
-#else
-    MX_DMA_Init();
-    MX_I2C1_Init();
-#endif
-
     MX_TIM4_Init();
+#ifdef DISPLAY_USE_LCD
+    /* Menu demo initialization */
+    LCD_MenuDemo_Init();
+
+    while(1)
+    {
+        LCD_MenuDemo_Main();
+    }
+#else
+    /* OLED test demo initialization */
     OLED_TestDemo_Init();
 
     while(1)
     {
         OLED_TestDemo_Main();
     }
+#endif
 }
-
-

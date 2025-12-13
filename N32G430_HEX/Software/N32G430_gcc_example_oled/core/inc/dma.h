@@ -30,9 +30,11 @@ typedef struct __DMA_HandleTypeDef
 
 extern DMA_HandleTypeDef hdma_i2c1_tx;
 extern DMA_HandleTypeDef hdma_spi1_tx;
+extern DMA_HandleTypeDef hdma_tim2_ch4;
 
 void MX_DMA_Init(void);
 void MX_DMA_SPI1_Init(void);
+void MX_DMA_TIM2_CH4_Init(void);
 void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma);
 
 #ifdef __cplusplus

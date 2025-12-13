@@ -24,7 +24,8 @@ build/spi.o: ../core/src/spi.c ../core/inc/spi.h ../core/inc/hal_compat.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_usart.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_wwdg.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h \
- ../firmware/n32g430_std_periph_driver/inc/misc.h ../core/inc/dma.h
+ ../firmware/n32g430_std_periph_driver/inc/misc.h ../core/inc/dma.h \
+ ../core/inc/display_config.h
 ../core/inc/spi.h:
 ../core/inc/hal_compat.h:
 ../firmware/CMSIS/device/n32g430.h:
@@ -56,3 +57,4 @@ build/spi.o: ../core/src/spi.c ../core/inc/spi.h ../core/inc/hal_compat.h \
 ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h:
 ../firmware/n32g430_std_periph_driver/inc/misc.h:
 ../core/inc/dma.h:
+../core/inc/display_config.h:

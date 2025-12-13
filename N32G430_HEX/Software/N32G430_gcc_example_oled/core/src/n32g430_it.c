@@ -40,6 +40,10 @@
 #include "tim.h"
 #include "spi.h"
 
+#ifdef DISPLAY_USE_LCD
+#include "button.h"
+#endif
+
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Exceptions Handlers                         */
@@ -182,6 +186,30 @@ void DMA_Channel2_IRQHandler(void)
 {
     HAL_DMA_IRQHandler(&hdma_spi1_tx);
 }
+
+#ifdef DISPLAY_USE_LCD
+/**
+ *\*\name   TIM2_IRQHandler.
+ *\*\fun    Handle TIM2 global interrupt (Button sampling).
+ *\*\param  none.
+ *\*\return none.
+ */
+void TIM2_IRQHandler(void)
+{
+    Button_TIM2_IRQHandler();
+}
+
+/**
+ *\*\name   DMA_Channel5_IRQHandler.
+ *\*\fun    Handle DMA1 channel 5 interrupt (TIM2_CH4 button sampling).
+ *\*\param  none.
+ *\*\return none.
+ */
+void DMA_Channel5_IRQHandler(void)
+{
+    Button_DMA_IRQHandler();
+}
+#endif
 
 
 

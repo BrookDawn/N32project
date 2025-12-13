@@ -1,6 +1,7 @@
-build/oled_example.o: ../APP/Src/oled_example.c ../APP/Inc/oled_driver.h \
- ../core/inc/main.h ../firmware/CMSIS/device/n32g430.h \
- ../firmware/CMSIS/core/core_cm4.h ../firmware/CMSIS/core/cmsis_version.h \
+build/lcd_interface.o: ../APP/LCD/Src/lcd_interface.c \
+ ../APP/LCD/Inc/lcd_interface.h ../core/inc/hal_compat.h \
+ ../firmware/CMSIS/device/n32g430.h ../firmware/CMSIS/core/core_cm4.h \
+ ../firmware/CMSIS/core/cmsis_version.h \
  ../firmware/CMSIS/core/cmsis_compiler.h \
  ../firmware/CMSIS/core/cmsis_gcc.h ../firmware/CMSIS/core/mpu_armv7.h \
  ../firmware/CMSIS/device/system_n32g430.h \
@@ -24,12 +25,10 @@ build/oled_example.o: ../APP/Src/oled_example.c ../APP/Inc/oled_driver.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_usart.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_wwdg.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h \
- ../firmware/n32g430_std_periph_driver/inc/misc.h \
- ../APP/Inc/oled_interface.h ../core/inc/hal_compat.h \
- ../APP/Inc/oled_ui.h ../APP/Inc/oled_driver.h ../APP/Inc/oled_config.h \
- ../core/inc/i2c.h ../core/inc/hal_compat.h ../core/inc/dma.h
-../APP/Inc/oled_driver.h:
-../core/inc/main.h:
+ ../firmware/n32g430_std_periph_driver/inc/misc.h ../core/inc/spi.h \
+ ../core/inc/hal_compat.h ../core/inc/dma.h ../core/inc/display_config.h
+../APP/LCD/Inc/lcd_interface.h:
+../core/inc/hal_compat.h:
 ../firmware/CMSIS/device/n32g430.h:
 ../firmware/CMSIS/core/core_cm4.h:
 ../firmware/CMSIS/core/cmsis_version.h:
@@ -58,11 +57,7 @@ build/oled_example.o: ../APP/Src/oled_example.c ../APP/Inc/oled_driver.h \
 ../firmware/n32g430_std_periph_driver/inc/n32g430_wwdg.h:
 ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h:
 ../firmware/n32g430_std_periph_driver/inc/misc.h:
-../APP/Inc/oled_interface.h:
-../core/inc/hal_compat.h:
-../APP/Inc/oled_ui.h:
-../APP/Inc/oled_driver.h:
-../APP/Inc/oled_config.h:
-../core/inc/i2c.h:
+../core/inc/spi.h:
 ../core/inc/hal_compat.h:
 ../core/inc/dma.h:
+../core/inc/display_config.h:
