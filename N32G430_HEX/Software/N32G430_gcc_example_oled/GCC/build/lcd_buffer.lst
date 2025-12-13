@@ -1,0 +1,1597 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lcd_buffer.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../APP/LCD/Src/lcd_buffer.c"
+  20              		.section	.text.LCD_Buffer_Init,"ax",%progbits
+  21              		.align	1
+  22              		.global	LCD_Buffer_Init
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	LCD_Buffer_Init:
+  28              	.LFB132:
+   1:../APP/LCD/Src/lcd_buffer.c **** /**
+   2:../APP/LCD/Src/lcd_buffer.c ****  * @file lcd_buffer.c
+   3:../APP/LCD/Src/lcd_buffer.c ****  * @brief LCD buffering implementation with DMA acceleration (optimized for low RAM)
+   4:../APP/LCD/Src/lcd_buffer.c ****  */
+   5:../APP/LCD/Src/lcd_buffer.c **** 
+   6:../APP/LCD/Src/lcd_buffer.c **** #include "lcd_buffer.h"
+   7:../APP/LCD/Src/lcd_buffer.c **** #include "lcd_init.h"
+   8:../APP/LCD/Src/lcd_buffer.c **** #include "spi.h"
+   9:../APP/LCD/Src/lcd_buffer.c **** #include <string.h>
+  10:../APP/LCD/Src/lcd_buffer.c **** 
+  11:../APP/LCD/Src/lcd_buffer.c **** /* Partial buffer allocation (1/4 screen to fit in 32KB RAM) */
+  12:../APP/LCD/Src/lcd_buffer.c **** #define BUFFER_HEIGHT (LCD_H / 4)
+  13:../APP/LCD/Src/lcd_buffer.c **** static uint16_t buffer0[LCD_W * BUFFER_HEIGHT] __attribute__((aligned(4)));
+  14:../APP/LCD/Src/lcd_buffer.c **** 
+  15:../APP/LCD/Src/lcd_buffer.c **** /* LCD buffer context */
+  16:../APP/LCD/Src/lcd_buffer.c **** static LCD_BufferContext_t lcd_ctx = {
+  17:../APP/LCD/Src/lcd_buffer.c ****     .framebuffer = (uint8_t *)buffer0,
+  18:../APP/LCD/Src/lcd_buffer.c ****     .display_buffer = (uint8_t *)buffer0,
+  19:../APP/LCD/Src/lcd_buffer.c ****     .width = LCD_W,
+  20:../APP/LCD/Src/lcd_buffer.c ****     .height = LCD_H,
+  21:../APP/LCD/Src/lcd_buffer.c ****     .transfer_complete = true,
+  22:../APP/LCD/Src/lcd_buffer.c ****     .is_busy = false
+  23:../APP/LCD/Src/lcd_buffer.c **** };
+  24:../APP/LCD/Src/lcd_buffer.c **** 
+  25:../APP/LCD/Src/lcd_buffer.c **** /* Private helper functions */
+  26:../APP/LCD/Src/lcd_buffer.c **** static inline void swap_uint16(uint16_t *a, uint16_t *b) {
+  27:../APP/LCD/Src/lcd_buffer.c ****     uint16_t temp = *a;
+  28:../APP/LCD/Src/lcd_buffer.c ****     *a = *b;
+  29:../APP/LCD/Src/lcd_buffer.c ****     *b = temp;
+  30:../APP/LCD/Src/lcd_buffer.c **** }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 2
+
+
+  31:../APP/LCD/Src/lcd_buffer.c **** 
+  32:../APP/LCD/Src/lcd_buffer.c **** static inline uint16_t abs_int(int x) {
+  33:../APP/LCD/Src/lcd_buffer.c ****     return (x < 0) ? -x : x;
+  34:../APP/LCD/Src/lcd_buffer.c **** }
+  35:../APP/LCD/Src/lcd_buffer.c **** 
+  36:../APP/LCD/Src/lcd_buffer.c **** /**
+  37:../APP/LCD/Src/lcd_buffer.c ****  * @brief Initialize LCD buffering system
+  38:../APP/LCD/Src/lcd_buffer.c ****  */
+  39:../APP/LCD/Src/lcd_buffer.c **** HAL_StatusTypeDef LCD_Buffer_Init(void)
+  40:../APP/LCD/Src/lcd_buffer.c **** {
+  29              		.loc 1 40 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  41:../APP/LCD/Src/lcd_buffer.c ****     lcd_ctx.framebuffer = (uint8_t *)buffer0;
+  33              		.loc 1 41 5 view .LVU1
+  40:../APP/LCD/Src/lcd_buffer.c ****     lcd_ctx.framebuffer = (uint8_t *)buffer0;
+  34              		.loc 1 40 1 is_stmt 0 view .LVU2
+  35 0000 10B5     		push	{r4, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 4, -8
+  39              		.cfi_offset 14, -4
+  40              		.loc 1 41 25 view .LVU3
+  41 0002 074B     		ldr	r3, .L2
+  42 0004 0748     		ldr	r0, .L2+4
+  42:../APP/LCD/Src/lcd_buffer.c ****     lcd_ctx.display_buffer = (uint8_t *)buffer0;
+  43:../APP/LCD/Src/lcd_buffer.c ****     lcd_ctx.transfer_complete = true;
+  44:../APP/LCD/Src/lcd_buffer.c ****     lcd_ctx.is_busy = false;
+  43              		.loc 1 44 21 view .LVU4
+  44 0006 0024     		movs	r4, #0
+  43:../APP/LCD/Src/lcd_buffer.c ****     lcd_ctx.is_busy = false;
+  45              		.loc 1 43 31 view .LVU5
+  46 0008 0122     		movs	r2, #1
+  47 000a 1A73     		strb	r2, [r3, #12]
+  45:../APP/LCD/Src/lcd_buffer.c **** 
+  46:../APP/LCD/Src/lcd_buffer.c ****     /* Clear buffer */
+  47:../APP/LCD/Src/lcd_buffer.c ****     memset(buffer0, 0x00, sizeof(buffer0));
+  48              		.loc 1 47 5 view .LVU6
+  49 000c 2146     		mov	r1, r4
+  50 000e 4FF42052 		mov	r2, #10240
+  42:../APP/LCD/Src/lcd_buffer.c ****     lcd_ctx.transfer_complete = true;
+  51              		.loc 1 42 28 view .LVU7
+  52 0012 C3E90000 		strd	r0, r0, [r3]
+  43:../APP/LCD/Src/lcd_buffer.c ****     lcd_ctx.is_busy = false;
+  53              		.loc 1 43 5 is_stmt 1 view .LVU8
+  44:../APP/LCD/Src/lcd_buffer.c **** 
+  54              		.loc 1 44 5 view .LVU9
+  44:../APP/LCD/Src/lcd_buffer.c **** 
+  55              		.loc 1 44 21 is_stmt 0 view .LVU10
+  56 0016 5C73     		strb	r4, [r3, #13]
+  57              		.loc 1 47 5 is_stmt 1 view .LVU11
+  58 0018 FFF7FEFF 		bl	memset
+  59              	.LVL0:
+  48:../APP/LCD/Src/lcd_buffer.c **** 
+  49:../APP/LCD/Src/lcd_buffer.c ****     return HAL_OK;
+  60              		.loc 1 49 5 view .LVU12
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 3
+
+
+  50:../APP/LCD/Src/lcd_buffer.c **** }
+  61              		.loc 1 50 1 is_stmt 0 view .LVU13
+  62 001c 2046     		mov	r0, r4
+  63 001e 10BD     		pop	{r4, pc}
+  64              	.L3:
+  65              		.align	2
+  66              	.L2:
+  67 0020 00000000 		.word	lcd_ctx
+  68 0024 00000000 		.word	buffer0
+  69              		.cfi_endproc
+  70              	.LFE132:
+  72              		.section	.text.LCD_Buffer_GetFramebuffer,"ax",%progbits
+  73              		.align	1
+  74              		.global	LCD_Buffer_GetFramebuffer
+  75              		.syntax unified
+  76              		.thumb
+  77              		.thumb_func
+  79              	LCD_Buffer_GetFramebuffer:
+  80              	.LFB133:
+  51:../APP/LCD/Src/lcd_buffer.c **** 
+  52:../APP/LCD/Src/lcd_buffer.c **** /**
+  53:../APP/LCD/Src/lcd_buffer.c ****  * @brief Get current framebuffer pointer
+  54:../APP/LCD/Src/lcd_buffer.c ****  */
+  55:../APP/LCD/Src/lcd_buffer.c **** uint16_t* LCD_Buffer_GetFramebuffer(void)
+  56:../APP/LCD/Src/lcd_buffer.c **** {
+  81              		.loc 1 56 1 is_stmt 1 view -0
+  82              		.cfi_startproc
+  83              		@ args = 0, pretend = 0, frame = 0
+  84              		@ frame_needed = 0, uses_anonymous_args = 0
+  85              		@ link register save eliminated.
+  57:../APP/LCD/Src/lcd_buffer.c ****     return (uint16_t *)lcd_ctx.framebuffer;
+  86              		.loc 1 57 5 view .LVU15
+  58:../APP/LCD/Src/lcd_buffer.c **** }
+  87              		.loc 1 58 1 is_stmt 0 view .LVU16
+  88 0000 014B     		ldr	r3, .L5
+  89 0002 1868     		ldr	r0, [r3]
+  90 0004 7047     		bx	lr
+  91              	.L6:
+  92 0006 00BF     		.align	2
+  93              	.L5:
+  94 0008 00000000 		.word	lcd_ctx
+  95              		.cfi_endproc
+  96              	.LFE133:
+  98              		.section	.text.LCD_Buffer_WaitComplete,"ax",%progbits
+  99              		.align	1
+ 100              		.global	LCD_Buffer_WaitComplete
+ 101              		.syntax unified
+ 102              		.thumb
+ 103              		.thumb_func
+ 105              	LCD_Buffer_WaitComplete:
+ 106              	.LFB136:
+  59:../APP/LCD/Src/lcd_buffer.c **** 
+  60:../APP/LCD/Src/lcd_buffer.c **** /**
+  61:../APP/LCD/Src/lcd_buffer.c ****  * @brief Send buffer to LCD via DMA
+  62:../APP/LCD/Src/lcd_buffer.c ****  */
+  63:../APP/LCD/Src/lcd_buffer.c **** static HAL_StatusTypeDef LCD_Buffer_TransferDMA(uint16_t *buffer, uint32_t size)
+  64:../APP/LCD/Src/lcd_buffer.c **** {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 4
+
+
+  65:../APP/LCD/Src/lcd_buffer.c ****     HAL_StatusTypeDef status;
+  66:../APP/LCD/Src/lcd_buffer.c **** 
+  67:../APP/LCD/Src/lcd_buffer.c ****     /* Set address window to full screen */
+  68:../APP/LCD/Src/lcd_buffer.c ****     LCD_Address_Set(0, 0, LCD_W - 1, LCD_H - 1);
+  69:../APP/LCD/Src/lcd_buffer.c **** 
+  70:../APP/LCD/Src/lcd_buffer.c ****     /* Prepare for data transmission */
+  71:../APP/LCD/Src/lcd_buffer.c ****     LCD_CS_Clr();
+  72:../APP/LCD/Src/lcd_buffer.c ****     LCD_DC_Set();
+  73:../APP/LCD/Src/lcd_buffer.c **** 
+  74:../APP/LCD/Src/lcd_buffer.c ****     /* Start DMA transfer */
+  75:../APP/LCD/Src/lcd_buffer.c ****     status = HAL_SPI_Transmit_DMA(&hspi1, (uint8_t *)buffer, size);
+  76:../APP/LCD/Src/lcd_buffer.c **** 
+  77:../APP/LCD/Src/lcd_buffer.c ****     if (status != HAL_OK) {
+  78:../APP/LCD/Src/lcd_buffer.c ****         LCD_CS_Set();
+  79:../APP/LCD/Src/lcd_buffer.c ****         return status;
+  80:../APP/LCD/Src/lcd_buffer.c ****     }
+  81:../APP/LCD/Src/lcd_buffer.c **** 
+  82:../APP/LCD/Src/lcd_buffer.c ****     lcd_ctx.transfer_complete = false;
+  83:../APP/LCD/Src/lcd_buffer.c ****     lcd_ctx.is_busy = true;
+  84:../APP/LCD/Src/lcd_buffer.c **** 
+  85:../APP/LCD/Src/lcd_buffer.c ****     return HAL_OK;
+  86:../APP/LCD/Src/lcd_buffer.c **** }
+  87:../APP/LCD/Src/lcd_buffer.c **** 
+  88:../APP/LCD/Src/lcd_buffer.c **** /**
+  89:../APP/LCD/Src/lcd_buffer.c ****  * @brief Swap buffers and trigger DMA transfer (Direct mode - no swap)
+  90:../APP/LCD/Src/lcd_buffer.c ****  */
+  91:../APP/LCD/Src/lcd_buffer.c **** HAL_StatusTypeDef LCD_Buffer_SwapBuffers(void)
+  92:../APP/LCD/Src/lcd_buffer.c **** {
+  93:../APP/LCD/Src/lcd_buffer.c ****     HAL_StatusTypeDef status;
+  94:../APP/LCD/Src/lcd_buffer.c **** 
+  95:../APP/LCD/Src/lcd_buffer.c ****     /* Wait for previous transfer to complete */
+  96:../APP/LCD/Src/lcd_buffer.c ****     LCD_Buffer_WaitComplete();
+  97:../APP/LCD/Src/lcd_buffer.c **** 
+  98:../APP/LCD/Src/lcd_buffer.c ****     /* Transfer full screen buffer to LCD via DMA (in chunks) */
+  99:../APP/LCD/Src/lcd_buffer.c ****     /* For now, use blocking transfer to avoid complexity */
+ 100:../APP/LCD/Src/lcd_buffer.c ****     LCD_Address_Set(0, 0, LCD_W - 1, LCD_H - 1);
+ 101:../APP/LCD/Src/lcd_buffer.c ****     LCD_CS_Clr();
+ 102:../APP/LCD/Src/lcd_buffer.c ****     LCD_DC_Set();
+ 103:../APP/LCD/Src/lcd_buffer.c **** 
+ 104:../APP/LCD/Src/lcd_buffer.c ****     /* Send full screen using repeated buffer writes */
+ 105:../APP/LCD/Src/lcd_buffer.c ****     uint32_t total_pixels = LCD_W * LCD_H;
+ 106:../APP/LCD/Src/lcd_buffer.c ****     uint32_t pixels_per_chunk = LCD_W * BUFFER_HEIGHT;
+ 107:../APP/LCD/Src/lcd_buffer.c **** 
+ 108:../APP/LCD/Src/lcd_buffer.c ****     for (uint32_t chunk = 0; chunk < (LCD_H / BUFFER_HEIGHT); chunk++) {
+ 109:../APP/LCD/Src/lcd_buffer.c ****         status = HAL_SPI_Transmit_DMA(&hspi1, (uint8_t *)lcd_ctx.framebuffer, pixels_per_chunk * 2)
+ 110:../APP/LCD/Src/lcd_buffer.c ****         if (status != HAL_OK) {
+ 111:../APP/LCD/Src/lcd_buffer.c ****             LCD_CS_Set();
+ 112:../APP/LCD/Src/lcd_buffer.c ****             return status;
+ 113:../APP/LCD/Src/lcd_buffer.c ****         }
+ 114:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_WaitComplete();
+ 115:../APP/LCD/Src/lcd_buffer.c ****     }
+ 116:../APP/LCD/Src/lcd_buffer.c **** 
+ 117:../APP/LCD/Src/lcd_buffer.c ****     LCD_CS_Set();
+ 118:../APP/LCD/Src/lcd_buffer.c ****     return HAL_OK;
+ 119:../APP/LCD/Src/lcd_buffer.c **** }
+ 120:../APP/LCD/Src/lcd_buffer.c **** 
+ 121:../APP/LCD/Src/lcd_buffer.c **** /**
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 5
+
+
+ 122:../APP/LCD/Src/lcd_buffer.c ****  * @brief Wait for DMA transfer to complete
+ 123:../APP/LCD/Src/lcd_buffer.c ****  */
+ 124:../APP/LCD/Src/lcd_buffer.c **** void LCD_Buffer_WaitComplete(void)
+ 125:../APP/LCD/Src/lcd_buffer.c **** {
+ 107              		.loc 1 125 1 is_stmt 1 view -0
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111              		@ link register save eliminated.
+ 126:../APP/LCD/Src/lcd_buffer.c ****     while (lcd_ctx.is_busy) {
+ 112              		.loc 1 126 5 view .LVU18
+ 113              		.loc 1 126 19 is_stmt 0 view .LVU19
+ 114 0000 024A     		ldr	r2, .L10
+ 115              	.L8:
+ 116              		.loc 1 126 12 is_stmt 1 view .LVU20
+ 117              		.loc 1 126 19 is_stmt 0 view .LVU21
+ 118 0002 537B     		ldrb	r3, [r2, #13]	@ zero_extendqisi2
+ 119              		.loc 1 126 12 view .LVU22
+ 120 0004 03B9     		cbnz	r3, .L9
+ 127:../APP/LCD/Src/lcd_buffer.c ****         /* Wait for DMA to finish */
+ 128:../APP/LCD/Src/lcd_buffer.c ****         __NOP();
+ 129:../APP/LCD/Src/lcd_buffer.c ****     }
+ 130:../APP/LCD/Src/lcd_buffer.c **** }
+ 121              		.loc 1 130 1 view .LVU23
+ 122 0006 7047     		bx	lr
+ 123              	.L9:
+ 128:../APP/LCD/Src/lcd_buffer.c ****     }
+ 124              		.loc 1 128 9 is_stmt 1 view .LVU24
+ 125              		.syntax unified
+ 126              	@ 128 "../APP/LCD/Src/lcd_buffer.c" 1
+ 127 0008 00BF     		nop
+ 128              	@ 0 "" 2
+ 129              		.thumb
+ 130              		.syntax unified
+ 131 000a FAE7     		b	.L8
+ 132              	.L11:
+ 133              		.align	2
+ 134              	.L10:
+ 135 000c 00000000 		.word	lcd_ctx
+ 136              		.cfi_endproc
+ 137              	.LFE136:
+ 139              		.section	.text.LCD_Buffer_SwapBuffers,"ax",%progbits
+ 140              		.align	1
+ 141              		.global	LCD_Buffer_SwapBuffers
+ 142              		.syntax unified
+ 143              		.thumb
+ 144              		.thumb_func
+ 146              	LCD_Buffer_SwapBuffers:
+ 147              	.LFB135:
+  92:../APP/LCD/Src/lcd_buffer.c ****     HAL_StatusTypeDef status;
+ 148              		.loc 1 92 1 view -0
+ 149              		.cfi_startproc
+ 150              		@ args = 0, pretend = 0, frame = 0
+ 151              		@ frame_needed = 0, uses_anonymous_args = 0
+  93:../APP/LCD/Src/lcd_buffer.c **** 
+ 152              		.loc 1 93 5 view .LVU26
+  96:../APP/LCD/Src/lcd_buffer.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 6
+
+
+ 153              		.loc 1 96 5 view .LVU27
+  92:../APP/LCD/Src/lcd_buffer.c ****     HAL_StatusTypeDef status;
+ 154              		.loc 1 92 1 is_stmt 0 view .LVU28
+ 155 0000 70B5     		push	{r4, r5, r6, lr}
+ 156              	.LCFI1:
+ 157              		.cfi_def_cfa_offset 16
+ 158              		.cfi_offset 4, -16
+ 159              		.cfi_offset 5, -12
+ 160              		.cfi_offset 6, -8
+ 161              		.cfi_offset 14, -4
+ 100:../APP/LCD/Src/lcd_buffer.c ****     LCD_CS_Clr();
+ 162              		.loc 1 100 5 view .LVU29
+ 163 0002 0021     		movs	r1, #0
+  96:../APP/LCD/Src/lcd_buffer.c **** 
+ 164              		.loc 1 96 5 view .LVU30
+ 165 0004 FFF7FEFF 		bl	LCD_Buffer_WaitComplete
+ 166              	.LVL1:
+ 100:../APP/LCD/Src/lcd_buffer.c ****     LCD_CS_Clr();
+ 167              		.loc 1 100 5 is_stmt 1 view .LVU31
+ 168 0008 0846     		mov	r0, r1
+ 169 000a 7F23     		movs	r3, #127
+ 170 000c 9F22     		movs	r2, #159
+ 171 000e FFF7FEFF 		bl	LCD_Address_Set
+ 172              	.LVL2:
+ 101:../APP/LCD/Src/lcd_buffer.c ****     LCD_DC_Set();
+ 173              		.loc 1 101 5 view .LVU32
+ 174 0012 0E48     		ldr	r0, .L18
+ 175              	.LBB7:
+ 109:../APP/LCD/Src/lcd_buffer.c ****         if (status != HAL_OK) {
+ 176              		.loc 1 109 18 is_stmt 0 view .LVU33
+ 177 0014 0E4E     		ldr	r6, .L18+4
+ 178              	.LBE7:
+ 101:../APP/LCD/Src/lcd_buffer.c ****     LCD_DC_Set();
+ 179              		.loc 1 101 5 view .LVU34
+ 180 0016 0221     		movs	r1, #2
+ 181 0018 FFF7FEFF 		bl	GPIO_Pins_Reset
+ 182              	.LVL3:
+ 102:../APP/LCD/Src/lcd_buffer.c **** 
+ 183              		.loc 1 102 5 is_stmt 1 view .LVU35
+ 184 001c 0B48     		ldr	r0, .L18
+ 185 001e 0121     		movs	r1, #1
+ 186 0020 FFF7FEFF 		bl	GPIO_Pins_Set
+ 187              	.LVL4:
+ 105:../APP/LCD/Src/lcd_buffer.c ****     uint32_t pixels_per_chunk = LCD_W * BUFFER_HEIGHT;
+ 188              		.loc 1 105 5 view .LVU36
+ 106:../APP/LCD/Src/lcd_buffer.c **** 
+ 189              		.loc 1 106 5 view .LVU37
+ 108:../APP/LCD/Src/lcd_buffer.c ****         status = HAL_SPI_Transmit_DMA(&hspi1, (uint8_t *)lcd_ctx.framebuffer, pixels_per_chunk * 2)
+ 190              		.loc 1 108 5 view .LVU38
+ 191              	.LBB8:
+ 108:../APP/LCD/Src/lcd_buffer.c ****         status = HAL_SPI_Transmit_DMA(&hspi1, (uint8_t *)lcd_ctx.framebuffer, pixels_per_chunk * 2)
+ 192              		.loc 1 108 10 view .LVU39
+ 108:../APP/LCD/Src/lcd_buffer.c ****         status = HAL_SPI_Transmit_DMA(&hspi1, (uint8_t *)lcd_ctx.framebuffer, pixels_per_chunk * 2)
+ 193              		.loc 1 108 36 discriminator 1 view .LVU40
+ 194              	.LBE8:
+ 102:../APP/LCD/Src/lcd_buffer.c **** 
+ 195              		.loc 1 102 5 is_stmt 0 view .LVU41
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 7
+
+
+ 196 0024 0425     		movs	r5, #4
+ 197              	.LVL5:
+ 198              	.L14:
+ 199              	.LBB9:
+ 109:../APP/LCD/Src/lcd_buffer.c ****         if (status != HAL_OK) {
+ 200              		.loc 1 109 9 is_stmt 1 view .LVU42
+ 109:../APP/LCD/Src/lcd_buffer.c ****         if (status != HAL_OK) {
+ 201              		.loc 1 109 18 is_stmt 0 view .LVU43
+ 202 0026 3168     		ldr	r1, [r6]
+ 203 0028 0A48     		ldr	r0, .L18+8
+ 204 002a 4FF42052 		mov	r2, #10240
+ 205 002e FFF7FEFF 		bl	HAL_SPI_Transmit_DMA
+ 206              	.LVL6:
+ 110:../APP/LCD/Src/lcd_buffer.c ****             LCD_CS_Set();
+ 207              		.loc 1 110 9 is_stmt 1 view .LVU44
+ 110:../APP/LCD/Src/lcd_buffer.c ****             LCD_CS_Set();
+ 208              		.loc 1 110 12 is_stmt 0 view .LVU45
+ 209 0032 0446     		mov	r4, r0
+ 210 0034 18B9     		cbnz	r0, .L15
+ 114:../APP/LCD/Src/lcd_buffer.c ****     }
+ 211              		.loc 1 114 9 is_stmt 1 view .LVU46
+ 212 0036 FFF7FEFF 		bl	LCD_Buffer_WaitComplete
+ 213              	.LVL7:
+ 108:../APP/LCD/Src/lcd_buffer.c ****         status = HAL_SPI_Transmit_DMA(&hspi1, (uint8_t *)lcd_ctx.framebuffer, pixels_per_chunk * 2)
+ 214              		.loc 1 108 68 discriminator 2 view .LVU47
+ 108:../APP/LCD/Src/lcd_buffer.c ****         status = HAL_SPI_Transmit_DMA(&hspi1, (uint8_t *)lcd_ctx.framebuffer, pixels_per_chunk * 2)
+ 215              		.loc 1 108 36 discriminator 1 view .LVU48
+ 216 003a 013D     		subs	r5, r5, #1
+ 217              	.LVL8:
+ 108:../APP/LCD/Src/lcd_buffer.c ****         status = HAL_SPI_Transmit_DMA(&hspi1, (uint8_t *)lcd_ctx.framebuffer, pixels_per_chunk * 2)
+ 218              		.loc 1 108 36 is_stmt 0 discriminator 1 view .LVU49
+ 219 003c F3D1     		bne	.L14
+ 220              	.LVL9:
+ 221              	.L15:
+ 111:../APP/LCD/Src/lcd_buffer.c ****             return status;
+ 222              		.loc 1 111 13 is_stmt 1 view .LVU50
+ 223 003e 0348     		ldr	r0, .L18
+ 224              	.LVL10:
+ 111:../APP/LCD/Src/lcd_buffer.c ****             return status;
+ 225              		.loc 1 111 13 is_stmt 0 view .LVU51
+ 226 0040 0221     		movs	r1, #2
+ 227 0042 FFF7FEFF 		bl	GPIO_Pins_Set
+ 228              	.LVL11:
+ 112:../APP/LCD/Src/lcd_buffer.c ****         }
+ 229              		.loc 1 112 13 is_stmt 1 view .LVU52
+ 230              	.LBE9:
+ 119:../APP/LCD/Src/lcd_buffer.c **** 
+ 231              		.loc 1 119 1 is_stmt 0 view .LVU53
+ 232 0046 2046     		mov	r0, r4
+ 233 0048 70BD     		pop	{r4, r5, r6, pc}
+ 234              	.LVL12:
+ 235              	.L19:
+ 119:../APP/LCD/Src/lcd_buffer.c **** 
+ 236              		.loc 1 119 1 view .LVU54
+ 237 004a 00BF     		.align	2
+ 238              	.L18:
+ 239 004c 00380240 		.word	1073887232
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 8
+
+
+ 240 0050 00000000 		.word	lcd_ctx
+ 241 0054 00000000 		.word	hspi1
+ 242              		.cfi_endproc
+ 243              	.LFE135:
+ 245              		.section	.text.LCD_Buffer_IsBusy,"ax",%progbits
+ 246              		.align	1
+ 247              		.global	LCD_Buffer_IsBusy
+ 248              		.syntax unified
+ 249              		.thumb
+ 250              		.thumb_func
+ 252              	LCD_Buffer_IsBusy:
+ 253              	.LFB137:
+ 131:../APP/LCD/Src/lcd_buffer.c **** 
+ 132:../APP/LCD/Src/lcd_buffer.c **** /**
+ 133:../APP/LCD/Src/lcd_buffer.c ****  * @brief Check if DMA is busy
+ 134:../APP/LCD/Src/lcd_buffer.c ****  */
+ 135:../APP/LCD/Src/lcd_buffer.c **** bool LCD_Buffer_IsBusy(void)
+ 136:../APP/LCD/Src/lcd_buffer.c **** {
+ 254              		.loc 1 136 1 is_stmt 1 view -0
+ 255              		.cfi_startproc
+ 256              		@ args = 0, pretend = 0, frame = 0
+ 257              		@ frame_needed = 0, uses_anonymous_args = 0
+ 258              		@ link register save eliminated.
+ 137:../APP/LCD/Src/lcd_buffer.c ****     return lcd_ctx.is_busy;
+ 259              		.loc 1 137 5 view .LVU56
+ 260              		.loc 1 137 19 is_stmt 0 view .LVU57
+ 261 0000 014B     		ldr	r3, .L21
+ 262 0002 587B     		ldrb	r0, [r3, #13]	@ zero_extendqisi2
+ 138:../APP/LCD/Src/lcd_buffer.c **** }
+ 263              		.loc 1 138 1 view .LVU58
+ 264 0004 7047     		bx	lr
+ 265              	.L22:
+ 266 0006 00BF     		.align	2
+ 267              	.L21:
+ 268 0008 00000000 		.word	lcd_ctx
+ 269              		.cfi_endproc
+ 270              	.LFE137:
+ 272              		.section	.text.LCD_Buffer_DMAComplete,"ax",%progbits
+ 273              		.align	1
+ 274              		.global	LCD_Buffer_DMAComplete
+ 275              		.syntax unified
+ 276              		.thumb
+ 277              		.thumb_func
+ 279              	LCD_Buffer_DMAComplete:
+ 280              	.LFB138:
+ 139:../APP/LCD/Src/lcd_buffer.c **** 
+ 140:../APP/LCD/Src/lcd_buffer.c **** /**
+ 141:../APP/LCD/Src/lcd_buffer.c ****  * @brief DMA transfer complete callback
+ 142:../APP/LCD/Src/lcd_buffer.c ****  */
+ 143:../APP/LCD/Src/lcd_buffer.c **** void LCD_Buffer_DMAComplete(void)
+ 144:../APP/LCD/Src/lcd_buffer.c **** {
+ 281              		.loc 1 144 1 is_stmt 1 view -0
+ 282              		.cfi_startproc
+ 283              		@ args = 0, pretend = 0, frame = 0
+ 284              		@ frame_needed = 0, uses_anonymous_args = 0
+ 145:../APP/LCD/Src/lcd_buffer.c ****     LCD_CS_Set();
+ 285              		.loc 1 145 5 view .LVU60
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 9
+
+
+ 144:../APP/LCD/Src/lcd_buffer.c ****     LCD_CS_Set();
+ 286              		.loc 1 144 1 is_stmt 0 view .LVU61
+ 287 0000 08B5     		push	{r3, lr}
+ 288              	.LCFI2:
+ 289              		.cfi_def_cfa_offset 8
+ 290              		.cfi_offset 3, -8
+ 291              		.cfi_offset 14, -4
+ 292              		.loc 1 145 5 view .LVU62
+ 293 0002 0548     		ldr	r0, .L24
+ 294 0004 0221     		movs	r1, #2
+ 295 0006 FFF7FEFF 		bl	GPIO_Pins_Set
+ 296              	.LVL13:
+ 146:../APP/LCD/Src/lcd_buffer.c ****     lcd_ctx.transfer_complete = true;
+ 297              		.loc 1 146 5 is_stmt 1 view .LVU63
+ 298              		.loc 1 146 31 is_stmt 0 view .LVU64
+ 299 000a 044B     		ldr	r3, .L24+4
+ 300 000c 0122     		movs	r2, #1
+ 301 000e 1A73     		strb	r2, [r3, #12]
+ 147:../APP/LCD/Src/lcd_buffer.c ****     lcd_ctx.is_busy = false;
+ 302              		.loc 1 147 5 is_stmt 1 view .LVU65
+ 303              		.loc 1 147 21 is_stmt 0 view .LVU66
+ 304 0010 0022     		movs	r2, #0
+ 305 0012 5A73     		strb	r2, [r3, #13]
+ 148:../APP/LCD/Src/lcd_buffer.c **** }
+ 306              		.loc 1 148 1 view .LVU67
+ 307 0014 08BD     		pop	{r3, pc}
+ 308              	.L25:
+ 309 0016 00BF     		.align	2
+ 310              	.L24:
+ 311 0018 00380240 		.word	1073887232
+ 312 001c 00000000 		.word	lcd_ctx
+ 313              		.cfi_endproc
+ 314              	.LFE138:
+ 316              		.section	.text.LCD_Buffer_Clear,"ax",%progbits
+ 317              		.align	1
+ 318              		.global	LCD_Buffer_Clear
+ 319              		.syntax unified
+ 320              		.thumb
+ 321              		.thumb_func
+ 323              	LCD_Buffer_Clear:
+ 324              	.LVL14:
+ 325              	.LFB139:
+ 149:../APP/LCD/Src/lcd_buffer.c **** 
+ 150:../APP/LCD/Src/lcd_buffer.c **** /**
+ 151:../APP/LCD/Src/lcd_buffer.c ****  * @brief Clear framebuffer with solid color (optimized for partial buffer)
+ 152:../APP/LCD/Src/lcd_buffer.c ****  */
+ 153:../APP/LCD/Src/lcd_buffer.c **** void LCD_Buffer_Clear(uint16_t color)
+ 154:../APP/LCD/Src/lcd_buffer.c **** {
+ 326              		.loc 1 154 1 is_stmt 1 view -0
+ 327              		.cfi_startproc
+ 328              		@ args = 0, pretend = 0, frame = 0
+ 329              		@ frame_needed = 0, uses_anonymous_args = 0
+ 330              		@ link register save eliminated.
+ 155:../APP/LCD/Src/lcd_buffer.c ****     uint16_t *fb = (uint16_t *)lcd_ctx.framebuffer;
+ 331              		.loc 1 155 5 view .LVU69
+ 332              		.loc 1 155 15 is_stmt 0 view .LVU70
+ 333 0000 054B     		ldr	r3, .L29
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 10
+
+
+ 334 0002 1B68     		ldr	r3, [r3]
+ 335              	.LVL15:
+ 156:../APP/LCD/Src/lcd_buffer.c ****     uint32_t pixels_in_buffer = LCD_W * BUFFER_HEIGHT;
+ 336              		.loc 1 156 5 is_stmt 1 view .LVU71
+ 157:../APP/LCD/Src/lcd_buffer.c **** 
+ 158:../APP/LCD/Src/lcd_buffer.c ****     for (uint32_t i = 0; i < pixels_in_buffer; i++) {
+ 337              		.loc 1 158 5 view .LVU72
+ 338              	.LBB10:
+ 339              		.loc 1 158 10 view .LVU73
+ 340              		.loc 1 158 28 discriminator 1 view .LVU74
+ 341 0004 9A1E     		subs	r2, r3, #2
+ 342 0006 03F51F53 		add	r3, r3, #10176
+ 343              	.LVL16:
+ 344              		.loc 1 158 28 is_stmt 0 discriminator 1 view .LVU75
+ 345 000a 3E33     		adds	r3, r3, #62
+ 346              	.LVL17:
+ 347              	.L27:
+ 159:../APP/LCD/Src/lcd_buffer.c ****         fb[i] = color;
+ 348              		.loc 1 159 9 is_stmt 1 view .LVU76
+ 349              		.loc 1 159 15 is_stmt 0 view .LVU77
+ 350 000c 22F8020F 		strh	r0, [r2, #2]!	@ movhi
+ 158:../APP/LCD/Src/lcd_buffer.c ****         fb[i] = color;
+ 351              		.loc 1 158 49 is_stmt 1 discriminator 3 view .LVU78
+ 158:../APP/LCD/Src/lcd_buffer.c ****         fb[i] = color;
+ 352              		.loc 1 158 28 discriminator 1 view .LVU79
+ 353 0010 9A42     		cmp	r2, r3
+ 354 0012 FBD1     		bne	.L27
+ 158:../APP/LCD/Src/lcd_buffer.c ****         fb[i] = color;
+ 355              		.loc 1 158 28 is_stmt 0 discriminator 1 view .LVU80
+ 356              	.LBE10:
+ 160:../APP/LCD/Src/lcd_buffer.c ****     }
+ 161:../APP/LCD/Src/lcd_buffer.c **** }
+ 357              		.loc 1 161 1 view .LVU81
+ 358 0014 7047     		bx	lr
+ 359              	.L30:
+ 360 0016 00BF     		.align	2
+ 361              	.L29:
+ 362 0018 00000000 		.word	lcd_ctx
+ 363              		.cfi_endproc
+ 364              	.LFE139:
+ 366              		.section	.text.LCD_Buffer_FillRect,"ax",%progbits
+ 367              		.align	1
+ 368              		.global	LCD_Buffer_FillRect
+ 369              		.syntax unified
+ 370              		.thumb
+ 371              		.thumb_func
+ 373              	LCD_Buffer_FillRect:
+ 374              	.LVL18:
+ 375              	.LFB140:
+ 162:../APP/LCD/Src/lcd_buffer.c **** 
+ 163:../APP/LCD/Src/lcd_buffer.c **** /**
+ 164:../APP/LCD/Src/lcd_buffer.c ****  * @brief Fast fill rectangle
+ 165:../APP/LCD/Src/lcd_buffer.c ****  */
+ 166:../APP/LCD/Src/lcd_buffer.c **** void LCD_Buffer_FillRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
+ 167:../APP/LCD/Src/lcd_buffer.c **** {
+ 376              		.loc 1 167 1 is_stmt 1 view -0
+ 377              		.cfi_startproc
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 11
+
+
+ 378              		@ args = 4, pretend = 0, frame = 0
+ 379              		@ frame_needed = 0, uses_anonymous_args = 0
+ 168:../APP/LCD/Src/lcd_buffer.c ****     if (x >= LCD_W || y >= LCD_H) return;
+ 380              		.loc 1 168 5 view .LVU83
+ 167:../APP/LCD/Src/lcd_buffer.c ****     if (x >= LCD_W || y >= LCD_H) return;
+ 381              		.loc 1 167 1 is_stmt 0 view .LVU84
+ 382 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 383              	.LCFI3:
+ 384              		.cfi_def_cfa_offset 20
+ 385              		.cfi_offset 4, -20
+ 386              		.cfi_offset 5, -16
+ 387              		.cfi_offset 6, -12
+ 388              		.cfi_offset 7, -8
+ 389              		.cfi_offset 14, -4
+ 390              		.loc 1 168 8 view .LVU85
+ 391 0002 9F28     		cmp	r0, #159
+ 167:../APP/LCD/Src/lcd_buffer.c ****     if (x >= LCD_W || y >= LCD_H) return;
+ 392              		.loc 1 167 1 view .LVU86
+ 393 0004 BDF81470 		ldrh	r7, [sp, #20]
+ 394              		.loc 1 168 8 view .LVU87
+ 395 0008 1AD8     		bhi	.L31
+ 396              		.loc 1 168 20 discriminator 2 view .LVU88
+ 397 000a 7F29     		cmp	r1, #127
+ 398 000c 18D8     		bhi	.L31
+ 169:../APP/LCD/Src/lcd_buffer.c **** 
+ 170:../APP/LCD/Src/lcd_buffer.c ****     /* Clip to screen bounds */
+ 171:../APP/LCD/Src/lcd_buffer.c ****     if (x + w > LCD_W) w = LCD_W - x;
+ 399              		.loc 1 171 5 is_stmt 1 view .LVU89
+ 400              		.loc 1 171 11 is_stmt 0 view .LVU90
+ 401 000e 8418     		adds	r4, r0, r2
+ 402              		.loc 1 171 8 view .LVU91
+ 403 0010 A02C     		cmp	r4, #160
+ 404              		.loc 1 171 24 is_stmt 1 discriminator 1 view .LVU92
+ 405              		.loc 1 171 26 is_stmt 0 discriminator 1 view .LVU93
+ 406 0012 C8BF     		it	gt
+ 407 0014 C0F1A002 		rsbgt	r2, r0, #160
+ 408              	.LVL19:
+ 172:../APP/LCD/Src/lcd_buffer.c ****     if (y + h > LCD_H) h = LCD_H - y;
+ 409              		.loc 1 172 11 view .LVU94
+ 410 0018 03EB0104 		add	r4, r3, r1
+ 171:../APP/LCD/Src/lcd_buffer.c ****     if (y + h > LCD_H) h = LCD_H - y;
+ 411              		.loc 1 171 26 discriminator 1 view .LVU95
+ 412 001c C8BF     		it	gt
+ 413 001e 92B2     		uxthgt	r2, r2
+ 414              	.LVL20:
+ 415              		.loc 1 172 5 is_stmt 1 view .LVU96
+ 416              		.loc 1 172 8 is_stmt 0 view .LVU97
+ 417 0020 802C     		cmp	r4, #128
+ 418              		.loc 1 172 24 is_stmt 1 discriminator 1 view .LVU98
+ 173:../APP/LCD/Src/lcd_buffer.c **** 
+ 174:../APP/LCD/Src/lcd_buffer.c ****     uint16_t *fb = (uint16_t *)lcd_ctx.framebuffer;
+ 419              		.loc 1 174 15 is_stmt 0 view .LVU99
+ 420 0022 0F4C     		ldr	r4, .L40
+ 172:../APP/LCD/Src/lcd_buffer.c **** 
+ 421              		.loc 1 172 26 discriminator 1 view .LVU100
+ 422 0024 C8BF     		it	gt
+ 423 0026 C1F18003 		rsbgt	r3, r1, #128
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 12
+
+
+ 424              	.LVL21:
+ 425              		.loc 1 174 15 view .LVU101
+ 426 002a 2668     		ldr	r6, [r4]
+ 427 002c 4FF0A004 		mov	r4, #160
+ 428 0030 11FB0401 		smlabb	r1, r1, r4, r0
+ 429              	.LVL22:
+ 172:../APP/LCD/Src/lcd_buffer.c **** 
+ 430              		.loc 1 172 26 discriminator 1 view .LVU102
+ 431 0034 C8BF     		it	gt
+ 432 0036 9BB2     		uxthgt	r3, r3
+ 433              	.LVL23:
+ 434              		.loc 1 174 5 is_stmt 1 view .LVU103
+ 175:../APP/LCD/Src/lcd_buffer.c **** 
+ 176:../APP/LCD/Src/lcd_buffer.c ****     for (uint16_t row = 0; row < h; row++) {
+ 435              		.loc 1 176 5 view .LVU104
+ 436              	.LBB11:
+ 437              		.loc 1 176 10 view .LVU105
+ 438              		.loc 1 176 5 is_stmt 0 view .LVU106
+ 439 0038 0020     		movs	r0, #0
+ 440              	.LVL24:
+ 441              	.L36:
+ 442              		.loc 1 176 32 is_stmt 1 discriminator 1 view .LVU107
+ 443 003a 84B2     		uxth	r4, r0
+ 444 003c A342     		cmp	r3, r4
+ 445 003e 00D8     		bhi	.L39
+ 446              	.LVL25:
+ 447              	.L31:
+ 448              		.loc 1 176 32 is_stmt 0 discriminator 1 view .LVU108
+ 449              	.LBE11:
+ 177:../APP/LCD/Src/lcd_buffer.c ****         uint16_t *line = &fb[(y + row) * LCD_W + x];
+ 178:../APP/LCD/Src/lcd_buffer.c ****         for (uint16_t col = 0; col < w; col++) {
+ 179:../APP/LCD/Src/lcd_buffer.c ****             line[col] = color;
+ 180:../APP/LCD/Src/lcd_buffer.c ****         }
+ 181:../APP/LCD/Src/lcd_buffer.c ****     }
+ 182:../APP/LCD/Src/lcd_buffer.c **** }
+ 450              		.loc 1 182 1 view .LVU109
+ 451 0040 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 452              	.LVL26:
+ 453              	.L39:
+ 454              	.LBB16:
+ 455              	.LBB12:
+ 177:../APP/LCD/Src/lcd_buffer.c ****         uint16_t *line = &fb[(y + row) * LCD_W + x];
+ 456              		.loc 1 177 9 is_stmt 1 view .LVU110
+ 178:../APP/LCD/Src/lcd_buffer.c ****             line[col] = color;
+ 457              		.loc 1 178 9 view .LVU111
+ 458              	.LBB13:
+ 178:../APP/LCD/Src/lcd_buffer.c ****             line[col] = color;
+ 459              		.loc 1 178 14 view .LVU112
+ 178:../APP/LCD/Src/lcd_buffer.c ****             line[col] = color;
+ 460              		.loc 1 178 14 is_stmt 0 view .LVU113
+ 461 0042 06EB4105 		add	r5, r6, r1, lsl #1
+ 178:../APP/LCD/Src/lcd_buffer.c ****             line[col] = color;
+ 462              		.loc 1 178 9 view .LVU114
+ 463 0046 0024     		movs	r4, #0
+ 464              	.LVL27:
+ 465              	.L37:
+ 178:../APP/LCD/Src/lcd_buffer.c ****             line[col] = color;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 13
+
+
+ 466              		.loc 1 178 36 is_stmt 1 discriminator 1 view .LVU115
+ 467 0048 1FFA84FC 		uxth	ip, r4
+ 468 004c 6245     		cmp	r2, ip
+ 469 004e 02D8     		bhi	.L38
+ 470              	.LBE13:
+ 471              	.LBE12:
+ 176:../APP/LCD/Src/lcd_buffer.c ****         uint16_t *line = &fb[(y + row) * LCD_W + x];
+ 472              		.loc 1 176 40 discriminator 2 view .LVU116
+ 473              	.LVL28:
+ 176:../APP/LCD/Src/lcd_buffer.c ****         uint16_t *line = &fb[(y + row) * LCD_W + x];
+ 474              		.loc 1 176 40 is_stmt 0 discriminator 2 view .LVU117
+ 475 0050 0130     		adds	r0, r0, #1
+ 476              	.LVL29:
+ 176:../APP/LCD/Src/lcd_buffer.c ****         uint16_t *line = &fb[(y + row) * LCD_W + x];
+ 477              		.loc 1 176 40 discriminator 2 view .LVU118
+ 478 0052 A031     		adds	r1, r1, #160
+ 479              	.LVL30:
+ 176:../APP/LCD/Src/lcd_buffer.c ****         uint16_t *line = &fb[(y + row) * LCD_W + x];
+ 480              		.loc 1 176 40 discriminator 2 view .LVU119
+ 481 0054 F1E7     		b	.L36
+ 482              	.LVL31:
+ 483              	.L38:
+ 484              	.LBB15:
+ 485              	.LBB14:
+ 179:../APP/LCD/Src/lcd_buffer.c ****         }
+ 486              		.loc 1 179 13 is_stmt 1 view .LVU120
+ 179:../APP/LCD/Src/lcd_buffer.c ****         }
+ 487              		.loc 1 179 23 is_stmt 0 view .LVU121
+ 488 0056 25F8027B 		strh	r7, [r5], #2	@ movhi
+ 178:../APP/LCD/Src/lcd_buffer.c ****             line[col] = color;
+ 489              		.loc 1 178 44 is_stmt 1 discriminator 3 view .LVU122
+ 490              	.LVL32:
+ 178:../APP/LCD/Src/lcd_buffer.c ****             line[col] = color;
+ 491              		.loc 1 178 44 is_stmt 0 discriminator 3 view .LVU123
+ 492 005a 0134     		adds	r4, r4, #1
+ 493              	.LVL33:
+ 178:../APP/LCD/Src/lcd_buffer.c ****             line[col] = color;
+ 494              		.loc 1 178 44 discriminator 3 view .LVU124
+ 495 005c F4E7     		b	.L37
+ 496              	.L41:
+ 497 005e 00BF     		.align	2
+ 498              	.L40:
+ 499 0060 00000000 		.word	lcd_ctx
+ 500              	.LBE14:
+ 501              	.LBE15:
+ 502              	.LBE16:
+ 503              		.cfi_endproc
+ 504              	.LFE140:
+ 506              		.section	.text.LCD_Buffer_DrawPixel,"ax",%progbits
+ 507              		.align	1
+ 508              		.global	LCD_Buffer_DrawPixel
+ 509              		.syntax unified
+ 510              		.thumb
+ 511              		.thumb_func
+ 513              	LCD_Buffer_DrawPixel:
+ 514              	.LVL34:
+ 515              	.LFB141:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 14
+
+
+ 183:../APP/LCD/Src/lcd_buffer.c **** 
+ 184:../APP/LCD/Src/lcd_buffer.c **** /**
+ 185:../APP/LCD/Src/lcd_buffer.c ****  * @brief Draw pixel (clip to buffer region)
+ 186:../APP/LCD/Src/lcd_buffer.c ****  */
+ 187:../APP/LCD/Src/lcd_buffer.c **** void LCD_Buffer_DrawPixel(uint16_t x, uint16_t y, uint16_t color)
+ 188:../APP/LCD/Src/lcd_buffer.c **** {
+ 516              		.loc 1 188 1 is_stmt 1 view -0
+ 517              		.cfi_startproc
+ 518              		@ args = 0, pretend = 0, frame = 0
+ 519              		@ frame_needed = 0, uses_anonymous_args = 0
+ 520              		@ link register save eliminated.
+ 189:../APP/LCD/Src/lcd_buffer.c ****     if (x >= LCD_W || y >= BUFFER_HEIGHT) return;
+ 521              		.loc 1 189 5 view .LVU126
+ 522              		.loc 1 189 8 is_stmt 0 view .LVU127
+ 523 0000 9F28     		cmp	r0, #159
+ 524 0002 08D8     		bhi	.L42
+ 525              		.loc 1 189 20 discriminator 2 view .LVU128
+ 526 0004 1F29     		cmp	r1, #31
+ 527 0006 06D8     		bhi	.L42
+ 528              	.LVL35:
+ 529              	.LBB19:
+ 530              	.LBI19:
+ 187:../APP/LCD/Src/lcd_buffer.c **** {
+ 531              		.loc 1 187 6 is_stmt 1 view .LVU129
+ 532              	.LBB20:
+ 190:../APP/LCD/Src/lcd_buffer.c **** 
+ 191:../APP/LCD/Src/lcd_buffer.c ****     uint16_t *fb = (uint16_t *)lcd_ctx.framebuffer;
+ 533              		.loc 1 191 5 view .LVU130
+ 192:../APP/LCD/Src/lcd_buffer.c ****     fb[y * LCD_W + x] = color;
+ 534              		.loc 1 192 5 view .LVU131
+ 535              		.loc 1 192 18 is_stmt 0 view .LVU132
+ 536 0008 A023     		movs	r3, #160
+ 537 000a 11FB0301 		smlabb	r1, r1, r3, r0
+ 538              	.LVL36:
+ 539              		.loc 1 192 23 view .LVU133
+ 540 000e 024B     		ldr	r3, .L44
+ 541              		.loc 1 192 23 view .LVU134
+ 542 0010 1B68     		ldr	r3, [r3]
+ 543              	.LVL37:
+ 544              		.loc 1 192 23 view .LVU135
+ 545 0012 23F81120 		strh	r2, [r3, r1, lsl #1]	@ movhi
+ 546              	.LVL38:
+ 547              	.L42:
+ 548              		.loc 1 192 23 view .LVU136
+ 549              	.LBE20:
+ 550              	.LBE19:
+ 193:../APP/LCD/Src/lcd_buffer.c **** }
+ 551              		.loc 1 193 1 view .LVU137
+ 552 0016 7047     		bx	lr
+ 553              	.L45:
+ 554              		.align	2
+ 555              	.L44:
+ 556 0018 00000000 		.word	lcd_ctx
+ 557              		.cfi_endproc
+ 558              	.LFE141:
+ 560              		.section	.text.LCD_Buffer_DrawLine,"ax",%progbits
+ 561              		.align	1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 15
+
+
+ 562              		.global	LCD_Buffer_DrawLine
+ 563              		.syntax unified
+ 564              		.thumb
+ 565              		.thumb_func
+ 567              	LCD_Buffer_DrawLine:
+ 568              	.LVL39:
+ 569              	.LFB142:
+ 194:../APP/LCD/Src/lcd_buffer.c **** 
+ 195:../APP/LCD/Src/lcd_buffer.c **** /**
+ 196:../APP/LCD/Src/lcd_buffer.c ****  * @brief Draw line (Bresenham algorithm)
+ 197:../APP/LCD/Src/lcd_buffer.c ****  */
+ 198:../APP/LCD/Src/lcd_buffer.c **** void LCD_Buffer_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color)
+ 199:../APP/LCD/Src/lcd_buffer.c **** {
+ 570              		.loc 1 199 1 is_stmt 1 view -0
+ 571              		.cfi_startproc
+ 572              		@ args = 4, pretend = 0, frame = 8
+ 573              		@ frame_needed = 0, uses_anonymous_args = 0
+ 200:../APP/LCD/Src/lcd_buffer.c ****     int dx = abs_int(x2 - x1);
+ 574              		.loc 1 200 5 view .LVU139
+ 199:../APP/LCD/Src/lcd_buffer.c ****     int dx = abs_int(x2 - x1);
+ 575              		.loc 1 199 1 is_stmt 0 view .LVU140
+ 576 0000 2DE9F74F 		push	{r0, r1, r2, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 577              	.LCFI4:
+ 578              		.cfi_def_cfa_offset 48
+ 579              		.cfi_offset 4, -36
+ 580              		.cfi_offset 5, -32
+ 581              		.cfi_offset 6, -28
+ 582              		.cfi_offset 7, -24
+ 583              		.cfi_offset 8, -20
+ 584              		.cfi_offset 9, -16
+ 585              		.cfi_offset 10, -12
+ 586              		.cfi_offset 11, -8
+ 587              		.cfi_offset 14, -4
+ 199:../APP/LCD/Src/lcd_buffer.c ****     int dx = abs_int(x2 - x1);
+ 588              		.loc 1 199 1 view .LVU141
+ 589 0004 9046     		mov	r8, r2
+ 590              	.LVL40:
+ 591              	.LBB21:
+ 592              	.LBI21:
+  32:../APP/LCD/Src/lcd_buffer.c ****     return (x < 0) ? -x : x;
+ 593              		.loc 1 32 24 is_stmt 1 view .LVU142
+ 594              	.LBB22:
+  33:../APP/LCD/Src/lcd_buffer.c **** }
+ 595              		.loc 1 33 5 view .LVU143
+ 596              	.LBE22:
+ 597              	.LBE21:
+ 598              		.loc 1 200 14 is_stmt 0 view .LVU144
+ 599 0006 A8EB0006 		sub	r6, r8, r0
+ 201:../APP/LCD/Src/lcd_buffer.c ****     int dy = abs_int(y2 - y1);
+ 600              		.loc 1 201 14 view .LVU145
+ 601 000a 5F1A     		subs	r7, r3, r1
+ 602              	.LBB24:
+ 603              	.LBB23:
+  33:../APP/LCD/Src/lcd_buffer.c **** }
+ 604              		.loc 1 33 25 view .LVU146
+ 605 000c 002E     		cmp	r6, #0
+ 606 000e B8BF     		it	lt
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 16
+
+
+ 607 0010 7642     		rsblt	r6, r6, #0
+ 608              	.LVL41:
+  33:../APP/LCD/Src/lcd_buffer.c **** }
+ 609              		.loc 1 33 25 view .LVU147
+ 610              	.LBE23:
+ 611              	.LBE24:
+ 612              		.loc 1 201 5 is_stmt 1 view .LVU148
+ 613              	.LBB25:
+ 614              	.LBI25:
+  32:../APP/LCD/Src/lcd_buffer.c ****     return (x < 0) ? -x : x;
+ 615              		.loc 1 32 24 view .LVU149
+ 616              	.LBB26:
+  33:../APP/LCD/Src/lcd_buffer.c **** }
+ 617              		.loc 1 33 5 view .LVU150
+  33:../APP/LCD/Src/lcd_buffer.c **** }
+ 618              		.loc 1 33 25 is_stmt 0 view .LVU151
+ 619 0012 002F     		cmp	r7, #0
+ 620 0014 B8BF     		it	lt
+ 621 0016 7F42     		rsblt	r7, r7, #0
+ 622              	.LVL42:
+  33:../APP/LCD/Src/lcd_buffer.c **** }
+ 623              		.loc 1 33 25 view .LVU152
+ 624              	.LBE26:
+ 625              	.LBE25:
+ 202:../APP/LCD/Src/lcd_buffer.c ****     int sx = (x1 < x2) ? 1 : -1;
+ 626              		.loc 1 202 5 is_stmt 1 view .LVU153
+ 199:../APP/LCD/Src/lcd_buffer.c ****     int dx = abs_int(x2 - x1);
+ 627              		.loc 1 199 1 is_stmt 0 view .LVU154
+ 628 0018 BDF83020 		ldrh	r2, [sp, #48]
+ 629              	.LVL43:
+ 199:../APP/LCD/Src/lcd_buffer.c ****     int dx = abs_int(x2 - x1);
+ 630              		.loc 1 199 1 view .LVU155
+ 631 001c 9946     		mov	r9, r3
+ 632 001e 0C46     		mov	r4, r1
+ 633              		.loc 1 202 28 discriminator 1 view .LVU156
+ 634 0020 8045     		cmp	r8, r0
+ 635 0022 94BF     		ite	ls
+ 636 0024 4FF0FF3B 		movls	fp, #-1
+ 637 0028 4FF0010B 		movhi	fp, #1
+ 638              	.LVL44:
+ 203:../APP/LCD/Src/lcd_buffer.c ****     int sy = (y1 < y2) ? 1 : -1;
+ 639              		.loc 1 203 5 is_stmt 1 view .LVU157
+ 640              		.loc 1 203 28 is_stmt 0 discriminator 1 view .LVU158
+ 641 002c 8B42     		cmp	r3, r1
+ 642 002e 94BF     		ite	ls
+ 643 0030 4FF0FF33 		movls	r3, #-1
+ 644 0034 0123     		movhi	r3, #1
+ 645              	.LVL45:
+ 204:../APP/LCD/Src/lcd_buffer.c ****     int err = dx - dy;
+ 646              		.loc 1 204 5 is_stmt 1 view .LVU159
+ 647              		.loc 1 204 9 is_stmt 0 view .LVU160
+ 648 0036 F51B     		subs	r5, r6, r7
+ 649              	.LBB27:
+ 205:../APP/LCD/Src/lcd_buffer.c **** 
+ 206:../APP/LCD/Src/lcd_buffer.c ****     while (1) {
+ 207:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x1, y1, color);
+ 208:../APP/LCD/Src/lcd_buffer.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 17
+
+
+ 209:../APP/LCD/Src/lcd_buffer.c ****         if (x1 == x2 && y1 == y2) break;
+ 210:../APP/LCD/Src/lcd_buffer.c **** 
+ 211:../APP/LCD/Src/lcd_buffer.c ****         int e2 = 2 * err;
+ 212:../APP/LCD/Src/lcd_buffer.c ****         if (e2 > -dy) {
+ 650              		.loc 1 212 18 view .LVU161
+ 651 0038 C7F1000A 		rsb	r10, r7, #0
+ 652              	.LVL46:
+ 653              	.L49:
+ 207:../APP/LCD/Src/lcd_buffer.c **** 
+ 654              		.loc 1 207 9 view .LVU162
+ 655 003c 2146     		mov	r1, r4
+ 656 003e 0193     		str	r3, [sp, #4]
+ 657              	.LVL47:
+ 207:../APP/LCD/Src/lcd_buffer.c **** 
+ 658              		.loc 1 207 9 view .LVU163
+ 659              	.LBE27:
+ 206:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x1, y1, color);
+ 660              		.loc 1 206 5 is_stmt 1 view .LVU164
+ 661              	.LBB28:
+ 207:../APP/LCD/Src/lcd_buffer.c **** 
+ 662              		.loc 1 207 9 view .LVU165
+ 663 0040 FFF7FEFF 		bl	LCD_Buffer_DrawPixel
+ 664              	.LVL48:
+ 209:../APP/LCD/Src/lcd_buffer.c **** 
+ 665              		.loc 1 209 9 view .LVU166
+ 209:../APP/LCD/Src/lcd_buffer.c **** 
+ 666              		.loc 1 209 12 is_stmt 0 view .LVU167
+ 667 0044 4045     		cmp	r0, r8
+ 668 0046 019B     		ldr	r3, [sp, #4]
+ 669 0048 01D1     		bne	.L50
+ 209:../APP/LCD/Src/lcd_buffer.c **** 
+ 670              		.loc 1 209 22 discriminator 1 view .LVU168
+ 671 004a 4C45     		cmp	r4, r9
+ 672 004c 0DD0     		beq	.L46
+ 673              	.L50:
+ 211:../APP/LCD/Src/lcd_buffer.c ****         if (e2 > -dy) {
+ 674              		.loc 1 211 9 is_stmt 1 view .LVU169
+ 675              		.loc 1 212 12 is_stmt 0 view .LVU170
+ 676 004e BAEB450F 		cmp	r10, r5, lsl #1
+ 211:../APP/LCD/Src/lcd_buffer.c ****         if (e2 > -dy) {
+ 677              		.loc 1 211 13 view .LVU171
+ 678 0052 4FEA4501 		lsl	r1, r5, #1
+ 679              	.LVL49:
+ 680              		.loc 1 212 9 is_stmt 1 view .LVU172
+ 213:../APP/LCD/Src/lcd_buffer.c ****             err -= dy;
+ 681              		.loc 1 213 13 view .LVU173
+ 214:../APP/LCD/Src/lcd_buffer.c ****             x1 += sx;
+ 682              		.loc 1 214 16 is_stmt 0 view .LVU174
+ 683 0056 BEBF     		ittt	lt
+ 684 0058 5844     		addlt	r0, r0, fp
+ 685              	.LVL50:
+ 213:../APP/LCD/Src/lcd_buffer.c ****             err -= dy;
+ 686              		.loc 1 213 17 view .LVU175
+ 687 005a ED1B     		sublt	r5, r5, r7
+ 688              	.LVL51:
+ 689              		.loc 1 214 13 is_stmt 1 view .LVU176
+ 690              		.loc 1 214 16 is_stmt 0 view .LVU177
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 18
+
+
+ 691 005c 80B2     		uxthlt	r0, r0
+ 692              	.LVL52:
+ 215:../APP/LCD/Src/lcd_buffer.c ****         }
+ 216:../APP/LCD/Src/lcd_buffer.c ****         if (e2 < dx) {
+ 693              		.loc 1 216 9 is_stmt 1 view .LVU178
+ 694              		.loc 1 216 12 is_stmt 0 view .LVU179
+ 695 005e B142     		cmp	r1, r6
+ 696 0060 ECDA     		bge	.L49
+ 217:../APP/LCD/Src/lcd_buffer.c ****             err += dx;
+ 697              		.loc 1 217 13 is_stmt 1 view .LVU180
+ 218:../APP/LCD/Src/lcd_buffer.c ****             y1 += sy;
+ 698              		.loc 1 218 16 is_stmt 0 view .LVU181
+ 699 0062 1C44     		add	r4, r4, r3
+ 700              	.LVL53:
+ 217:../APP/LCD/Src/lcd_buffer.c ****             err += dx;
+ 701              		.loc 1 217 17 view .LVU182
+ 702 0064 3544     		add	r5, r5, r6
+ 703              	.LVL54:
+ 704              		.loc 1 218 13 is_stmt 1 view .LVU183
+ 705              		.loc 1 218 16 is_stmt 0 view .LVU184
+ 706 0066 A4B2     		uxth	r4, r4
+ 707              	.LVL55:
+ 708              		.loc 1 218 16 view .LVU185
+ 709 0068 E8E7     		b	.L49
+ 710              	.LVL56:
+ 711              	.L46:
+ 712              		.loc 1 218 16 view .LVU186
+ 713              	.LBE28:
+ 219:../APP/LCD/Src/lcd_buffer.c ****         }
+ 220:../APP/LCD/Src/lcd_buffer.c ****     }
+ 221:../APP/LCD/Src/lcd_buffer.c **** }
+ 714              		.loc 1 221 1 view .LVU187
+ 715 006a 03B0     		add	sp, sp, #12
+ 716              	.LCFI5:
+ 717              		.cfi_def_cfa_offset 36
+ 718              		@ sp needed
+ 719 006c BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 720              		.loc 1 221 1 view .LVU188
+ 721              		.cfi_endproc
+ 722              	.LFE142:
+ 724              		.section	.text.LCD_Buffer_DrawCircle,"ax",%progbits
+ 725              		.align	1
+ 726              		.global	LCD_Buffer_DrawCircle
+ 727              		.syntax unified
+ 728              		.thumb
+ 729              		.thumb_func
+ 731              	LCD_Buffer_DrawCircle:
+ 732              	.LVL57:
+ 733              	.LFB143:
+ 222:../APP/LCD/Src/lcd_buffer.c **** 
+ 223:../APP/LCD/Src/lcd_buffer.c **** /**
+ 224:../APP/LCD/Src/lcd_buffer.c ****  * @brief Draw circle outline (midpoint algorithm)
+ 225:../APP/LCD/Src/lcd_buffer.c ****  */
+ 226:../APP/LCD/Src/lcd_buffer.c **** void LCD_Buffer_DrawCircle(uint16_t x0, uint16_t y0, uint16_t r, uint16_t color)
+ 227:../APP/LCD/Src/lcd_buffer.c **** {
+ 734              		.loc 1 227 1 is_stmt 1 view -0
+ 735              		.cfi_startproc
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 19
+
+
+ 736              		@ args = 0, pretend = 0, frame = 16
+ 737              		@ frame_needed = 0, uses_anonymous_args = 0
+ 738              		.loc 1 227 1 is_stmt 0 view .LVU190
+ 739 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 740              	.LCFI6:
+ 741              		.cfi_def_cfa_offset 36
+ 742              		.cfi_offset 4, -36
+ 743              		.cfi_offset 5, -32
+ 744              		.cfi_offset 6, -28
+ 745              		.cfi_offset 7, -24
+ 746              		.cfi_offset 8, -20
+ 747              		.cfi_offset 9, -16
+ 748              		.cfi_offset 10, -12
+ 749              		.cfi_offset 11, -8
+ 750              		.cfi_offset 14, -4
+ 228:../APP/LCD/Src/lcd_buffer.c ****     int x = r;
+ 229:../APP/LCD/Src/lcd_buffer.c ****     int y = 0;
+ 230:../APP/LCD/Src/lcd_buffer.c ****     int err = 0;
+ 751              		.loc 1 230 9 view .LVU191
+ 752 0004 0026     		movs	r6, #0
+ 227:../APP/LCD/Src/lcd_buffer.c ****     int x = r;
+ 753              		.loc 1 227 1 view .LVU192
+ 754 0006 1746     		mov	r7, r2
+ 228:../APP/LCD/Src/lcd_buffer.c ****     int x = r;
+ 755              		.loc 1 228 5 is_stmt 1 view .LVU193
+ 756              	.LVL58:
+ 229:../APP/LCD/Src/lcd_buffer.c ****     int err = 0;
+ 757              		.loc 1 229 5 view .LVU194
+ 758              		.loc 1 230 5 view .LVU195
+ 231:../APP/LCD/Src/lcd_buffer.c **** 
+ 232:../APP/LCD/Src/lcd_buffer.c ****     while (x >= y) {
+ 759              		.loc 1 232 5 view .LVU196
+ 760              		.loc 1 232 14 view .LVU197
+ 227:../APP/LCD/Src/lcd_buffer.c ****     int x = r;
+ 761              		.loc 1 227 1 is_stmt 0 view .LVU198
+ 762 0008 85B0     		sub	sp, sp, #20
+ 763              	.LCFI7:
+ 764              		.cfi_def_cfa_offset 56
+ 227:../APP/LCD/Src/lcd_buffer.c ****     int x = r;
+ 765              		.loc 1 227 1 view .LVU199
+ 766 000a 8146     		mov	r9, r0
+ 767 000c 8A46     		mov	r10, r1
+ 768 000e 1A46     		mov	r2, r3
+ 769              	.LVL59:
+ 229:../APP/LCD/Src/lcd_buffer.c ****     int err = 0;
+ 770              		.loc 1 229 9 view .LVU200
+ 771 0010 B046     		mov	r8, r6
+ 772              	.LVL60:
+ 773              	.L59:
+ 233:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x0 + x, y0 + y, color);
+ 774              		.loc 1 233 9 is_stmt 1 view .LVU201
+ 775 0012 19FA87F3 		uxtah	r3, r9, r7
+ 776 0016 9BB2     		uxth	r3, r3
+ 777 0018 0093     		str	r3, [sp]
+ 778 001a 1AFA88F3 		uxtah	r3, r10, r8
+ 779 001e 9BB2     		uxth	r3, r3
+ 780 0020 1FFA88F4 		uxth	r4, r8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 20
+
+
+ 781 0024 1946     		mov	r1, r3
+ 782 0026 0098     		ldr	r0, [sp]
+ 783 0028 0393     		str	r3, [sp, #12]
+ 784 002a BDB2     		uxth	r5, r7
+ 785 002c FFF7FEFF 		bl	LCD_Buffer_DrawPixel
+ 786              	.LVL61:
+ 234:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x0 + y, y0 + x, color);
+ 787              		.loc 1 234 9 view .LVU202
+ 788 0030 04EB0901 		add	r1, r4, r9
+ 789 0034 8BB2     		uxth	r3, r1
+ 235:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x0 - y, y0 + x, color);
+ 790              		.loc 1 235 9 is_stmt 0 view .LVU203
+ 791 0036 A9EB040B 		sub	fp, r9, r4
+ 234:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x0 + y, y0 + x, color);
+ 792              		.loc 1 234 9 view .LVU204
+ 793 003a 05EB0A01 		add	r1, r5, r10
+ 794 003e 1846     		mov	r0, r3
+ 795 0040 89B2     		uxth	r1, r1
+ 796              		.loc 1 235 9 view .LVU205
+ 797 0042 1FFA8BFB 		uxth	fp, fp
+ 234:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x0 + y, y0 + x, color);
+ 798              		.loc 1 234 9 view .LVU206
+ 799 0046 0193     		str	r3, [sp, #4]
+ 800 0048 0291     		str	r1, [sp, #8]
+ 801 004a FFF7FEFF 		bl	LCD_Buffer_DrawPixel
+ 802              	.LVL62:
+ 803              		.loc 1 235 9 is_stmt 1 view .LVU207
+ 804 004e 0299     		ldr	r1, [sp, #8]
+ 805 0050 5846     		mov	r0, fp
+ 806 0052 FFF7FEFF 		bl	LCD_Buffer_DrawPixel
+ 807              	.LVL63:
+ 236:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x0 - x, y0 + y, color);
+ 808              		.loc 1 236 9 view .LVU208
+ 809 0056 039B     		ldr	r3, [sp, #12]
+ 810 0058 A9EB0500 		sub	r0, r9, r5
+ 237:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x0 - x, y0 - y, color);
+ 811              		.loc 1 237 9 is_stmt 0 view .LVU209
+ 812 005c AAEB0404 		sub	r4, r10, r4
+ 236:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x0 - x, y0 + y, color);
+ 813              		.loc 1 236 9 view .LVU210
+ 814 0060 1946     		mov	r1, r3
+ 815 0062 80B2     		uxth	r0, r0
+ 816              		.loc 1 237 9 view .LVU211
+ 817 0064 A4B2     		uxth	r4, r4
+ 238:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x0 - y, y0 - x, color);
+ 818              		.loc 1 238 9 view .LVU212
+ 819 0066 AAEB0505 		sub	r5, r10, r5
+ 236:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x0 - x, y0 + y, color);
+ 820              		.loc 1 236 9 view .LVU213
+ 821 006a FFF7FEFF 		bl	LCD_Buffer_DrawPixel
+ 822              	.LVL64:
+ 237:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x0 - x, y0 - y, color);
+ 823              		.loc 1 237 9 is_stmt 1 view .LVU214
+ 824              		.loc 1 238 9 is_stmt 0 view .LVU215
+ 825 006e ADB2     		uxth	r5, r5
+ 237:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x0 - x, y0 - y, color);
+ 826              		.loc 1 237 9 view .LVU216
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 21
+
+
+ 827 0070 2146     		mov	r1, r4
+ 828 0072 FFF7FEFF 		bl	LCD_Buffer_DrawPixel
+ 829              	.LVL65:
+ 830              		.loc 1 238 9 is_stmt 1 view .LVU217
+ 831 0076 2946     		mov	r1, r5
+ 832 0078 5846     		mov	r0, fp
+ 833 007a FFF7FEFF 		bl	LCD_Buffer_DrawPixel
+ 834              	.LVL66:
+ 239:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x0 + y, y0 - x, color);
+ 835              		.loc 1 239 9 view .LVU218
+ 836 007e 0198     		ldr	r0, [sp, #4]
+ 837 0080 2946     		mov	r1, r5
+ 838 0082 FFF7FEFF 		bl	LCD_Buffer_DrawPixel
+ 839              	.LVL67:
+ 240:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x0 + x, y0 - y, color);
+ 840              		.loc 1 240 9 view .LVU219
+ 841 0086 0098     		ldr	r0, [sp]
+ 842 0088 2146     		mov	r1, r4
+ 843 008a FFF7FEFF 		bl	LCD_Buffer_DrawPixel
+ 844              	.LVL68:
+ 241:../APP/LCD/Src/lcd_buffer.c **** 
+ 242:../APP/LCD/Src/lcd_buffer.c ****         if (err <= 0) {
+ 845              		.loc 1 242 9 view .LVU220
+ 846              		.loc 1 242 12 is_stmt 0 view .LVU221
+ 847 008e 002E     		cmp	r6, #0
+ 848 0090 06DC     		bgt	.L57
+ 243:../APP/LCD/Src/lcd_buffer.c ****             y += 1;
+ 849              		.loc 1 243 13 is_stmt 1 view .LVU222
+ 850              		.loc 1 243 15 is_stmt 0 view .LVU223
+ 851 0092 08F10108 		add	r8, r8, #1
+ 852              	.LVL69:
+ 244:../APP/LCD/Src/lcd_buffer.c ****             err += 2 * y + 1;
+ 853              		.loc 1 244 13 is_stmt 1 view .LVU224
+ 854              		.loc 1 244 26 is_stmt 0 view .LVU225
+ 855 0096 06EB4806 		add	r6, r6, r8, lsl #1
+ 856              	.LVL70:
+ 857              		.loc 1 244 17 view .LVU226
+ 858 009a 0136     		adds	r6, r6, #1
+ 859              	.LVL71:
+ 245:../APP/LCD/Src/lcd_buffer.c ****         }
+ 246:../APP/LCD/Src/lcd_buffer.c ****         if (err > 0) {
+ 860              		.loc 1 246 9 is_stmt 1 view .LVU227
+ 861              		.loc 1 246 12 is_stmt 0 view .LVU228
+ 862 009c 002E     		cmp	r6, #0
+ 863 009e 03DD     		ble	.L58
+ 864              	.L57:
+ 865              	.LVL72:
+ 247:../APP/LCD/Src/lcd_buffer.c ****             x -= 1;
+ 866              		.loc 1 247 13 is_stmt 1 view .LVU229
+ 867              		.loc 1 247 15 is_stmt 0 view .LVU230
+ 868 00a0 013F     		subs	r7, r7, #1
+ 869              	.LVL73:
+ 248:../APP/LCD/Src/lcd_buffer.c ****             err -= 2 * x + 1;
+ 870              		.loc 1 248 13 is_stmt 1 view .LVU231
+ 871              		.loc 1 248 22 is_stmt 0 view .LVU232
+ 872 00a2 7B00     		lsls	r3, r7, #1
+ 873              		.loc 1 248 26 view .LVU233
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 22
+
+
+ 874 00a4 0133     		adds	r3, r3, #1
+ 875              		.loc 1 248 17 view .LVU234
+ 876 00a6 F61A     		subs	r6, r6, r3
+ 877              	.L58:
+ 878              	.LVL74:
+ 232:../APP/LCD/Src/lcd_buffer.c ****         LCD_Buffer_DrawPixel(x0 + x, y0 + y, color);
+ 879              		.loc 1 232 14 is_stmt 1 view .LVU235
+ 880 00a8 B845     		cmp	r8, r7
+ 881 00aa B2DD     		ble	.L59
+ 249:../APP/LCD/Src/lcd_buffer.c ****         }
+ 250:../APP/LCD/Src/lcd_buffer.c ****     }
+ 251:../APP/LCD/Src/lcd_buffer.c **** }
+ 882              		.loc 1 251 1 is_stmt 0 view .LVU236
+ 883 00ac 05B0     		add	sp, sp, #20
+ 884              	.LCFI8:
+ 885              		.cfi_def_cfa_offset 36
+ 886              		@ sp needed
+ 887 00ae BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 888              		.loc 1 251 1 view .LVU237
+ 889              		.cfi_endproc
+ 890              	.LFE143:
+ 892              		.section	.text.LCD_Buffer_FillCircle,"ax",%progbits
+ 893              		.align	1
+ 894              		.global	LCD_Buffer_FillCircle
+ 895              		.syntax unified
+ 896              		.thumb
+ 897              		.thumb_func
+ 899              	LCD_Buffer_FillCircle:
+ 900              	.LVL75:
+ 901              	.LFB144:
+ 252:../APP/LCD/Src/lcd_buffer.c **** 
+ 253:../APP/LCD/Src/lcd_buffer.c **** /**
+ 254:../APP/LCD/Src/lcd_buffer.c ****  * @brief Fill circle (scanline algorithm)
+ 255:../APP/LCD/Src/lcd_buffer.c ****  */
+ 256:../APP/LCD/Src/lcd_buffer.c **** void LCD_Buffer_FillCircle(uint16_t x0, uint16_t y0, uint16_t r, uint16_t color)
+ 257:../APP/LCD/Src/lcd_buffer.c **** {
+ 902              		.loc 1 257 1 is_stmt 1 view -0
+ 903              		.cfi_startproc
+ 904              		@ args = 0, pretend = 0, frame = 0
+ 905              		@ frame_needed = 0, uses_anonymous_args = 0
+ 906              		.loc 1 257 1 is_stmt 0 view .LVU239
+ 907 0000 2DE9F84F 		push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 908              	.LCFI9:
+ 909              		.cfi_def_cfa_offset 40
+ 910              		.cfi_offset 3, -40
+ 911              		.cfi_offset 4, -36
+ 912              		.cfi_offset 5, -32
+ 913              		.cfi_offset 6, -28
+ 914              		.cfi_offset 7, -24
+ 915              		.cfi_offset 8, -20
+ 916              		.cfi_offset 9, -16
+ 917              		.cfi_offset 10, -12
+ 918              		.cfi_offset 11, -8
+ 919              		.cfi_offset 14, -4
+ 258:../APP/LCD/Src/lcd_buffer.c ****     int x = r;
+ 259:../APP/LCD/Src/lcd_buffer.c ****     int y = 0;
+ 260:../APP/LCD/Src/lcd_buffer.c ****     int err = 0;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 23
+
+
+ 920              		.loc 1 260 9 view .LVU240
+ 921 0004 0025     		movs	r5, #0
+ 257:../APP/LCD/Src/lcd_buffer.c ****     int x = r;
+ 922              		.loc 1 257 1 view .LVU241
+ 923 0006 1446     		mov	r4, r2
+ 258:../APP/LCD/Src/lcd_buffer.c ****     int x = r;
+ 924              		.loc 1 258 5 is_stmt 1 view .LVU242
+ 925              	.LVL76:
+ 259:../APP/LCD/Src/lcd_buffer.c ****     int err = 0;
+ 926              		.loc 1 259 5 view .LVU243
+ 927              		.loc 1 260 5 view .LVU244
+ 261:../APP/LCD/Src/lcd_buffer.c **** 
+ 262:../APP/LCD/Src/lcd_buffer.c ****     while (x >= y) {
+ 928              		.loc 1 262 5 view .LVU245
+ 929              		.loc 1 262 14 view .LVU246
+ 257:../APP/LCD/Src/lcd_buffer.c ****     int x = r;
+ 930              		.loc 1 257 1 is_stmt 0 view .LVU247
+ 931 0008 0746     		mov	r7, r0
+ 932 000a 8846     		mov	r8, r1
+ 933 000c 1A46     		mov	r2, r3
+ 934              	.LVL77:
+ 259:../APP/LCD/Src/lcd_buffer.c ****     int err = 0;
+ 935              		.loc 1 259 9 view .LVU248
+ 936 000e 2E46     		mov	r6, r5
+ 937              	.LVL78:
+ 938              	.L68:
+ 263:../APP/LCD/Src/lcd_buffer.c ****         /* Draw horizontal lines for each scanline */
+ 264:../APP/LCD/Src/lcd_buffer.c ****         for (int i = x0 - x; i <= x0 + x; i++) {
+ 939              		.loc 1 264 9 is_stmt 1 view .LVU249
+ 940              	.LBB29:
+ 941              		.loc 1 264 14 view .LVU250
+ 265:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 + y, color);
+ 942              		.loc 1 265 13 is_stmt 0 view .LVU251
+ 943 0010 18FA86F9 		uxtah	r9, r8, r6
+ 264:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 + y, color);
+ 944              		.loc 1 264 18 view .LVU252
+ 945 0014 A7EB040B 		sub	fp, r7, r4
+ 946              	.LVL79:
+ 947              		.loc 1 265 13 view .LVU253
+ 948 0018 1FFA86FA 		uxth	r10, r6
+ 949 001c 1FFA89F9 		uxth	r9, r9
+ 950              	.LVL80:
+ 951              	.L62:
+ 264:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 + y, color);
+ 952              		.loc 1 264 32 is_stmt 1 discriminator 1 view .LVU254
+ 264:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 + y, color);
+ 953              		.loc 1 264 38 is_stmt 0 discriminator 1 view .LVU255
+ 954 0020 3B19     		adds	r3, r7, r4
+ 264:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 + y, color);
+ 955              		.loc 1 264 32 discriminator 1 view .LVU256
+ 956 0022 5B45     		cmp	r3, fp
+ 957 0024 1ADA     		bge	.L63
+ 958              	.LBE29:
+ 266:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 - y, color);
+ 267:../APP/LCD/Src/lcd_buffer.c ****         }
+ 268:../APP/LCD/Src/lcd_buffer.c ****         for (int i = x0 - y; i <= x0 + y; i++) {
+ 959              		.loc 1 268 9 is_stmt 1 view .LVU257
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 24
+
+
+ 960              	.LBB30:
+ 961              		.loc 1 268 14 view .LVU258
+ 269:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 + x, color);
+ 962              		.loc 1 269 13 is_stmt 0 view .LVU259
+ 963 0026 18FA84F9 		uxtah	r9, r8, r4
+ 268:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 + x, color);
+ 964              		.loc 1 268 18 view .LVU260
+ 965 002a A7EB060B 		sub	fp, r7, r6
+ 966              	.LVL81:
+ 967              		.loc 1 269 13 view .LVU261
+ 968 002e 1FFA84FA 		uxth	r10, r4
+ 969 0032 1FFA89F9 		uxth	r9, r9
+ 970              	.LVL82:
+ 971              	.L64:
+ 268:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 + x, color);
+ 972              		.loc 1 268 32 is_stmt 1 discriminator 1 view .LVU262
+ 268:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 + x, color);
+ 973              		.loc 1 268 38 is_stmt 0 discriminator 1 view .LVU263
+ 974 0036 BB19     		adds	r3, r7, r6
+ 268:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 + x, color);
+ 975              		.loc 1 268 32 discriminator 1 view .LVU264
+ 976 0038 5B45     		cmp	r3, fp
+ 977 003a 1CDA     		bge	.L65
+ 978              	.LBE30:
+ 270:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 - x, color);
+ 271:../APP/LCD/Src/lcd_buffer.c ****         }
+ 272:../APP/LCD/Src/lcd_buffer.c **** 
+ 273:../APP/LCD/Src/lcd_buffer.c ****         if (err <= 0) {
+ 979              		.loc 1 273 9 is_stmt 1 view .LVU265
+ 980              		.loc 1 273 12 is_stmt 0 view .LVU266
+ 981 003c 002D     		cmp	r5, #0
+ 982 003e 05DC     		bgt	.L66
+ 274:../APP/LCD/Src/lcd_buffer.c ****             y += 1;
+ 983              		.loc 1 274 13 is_stmt 1 view .LVU267
+ 984              		.loc 1 274 15 is_stmt 0 view .LVU268
+ 985 0040 0136     		adds	r6, r6, #1
+ 986              	.LVL83:
+ 275:../APP/LCD/Src/lcd_buffer.c ****             err += 2 * y + 1;
+ 987              		.loc 1 275 13 is_stmt 1 view .LVU269
+ 988              		.loc 1 275 26 is_stmt 0 view .LVU270
+ 989 0042 05EB4605 		add	r5, r5, r6, lsl #1
+ 990              	.LVL84:
+ 991              		.loc 1 275 17 view .LVU271
+ 992 0046 0135     		adds	r5, r5, #1
+ 993              	.LVL85:
+ 276:../APP/LCD/Src/lcd_buffer.c ****         }
+ 277:../APP/LCD/Src/lcd_buffer.c ****         if (err > 0) {
+ 994              		.loc 1 277 9 is_stmt 1 view .LVU272
+ 995              		.loc 1 277 12 is_stmt 0 view .LVU273
+ 996 0048 002D     		cmp	r5, #0
+ 997 004a 03DD     		ble	.L67
+ 998              	.L66:
+ 999              	.LVL86:
+ 278:../APP/LCD/Src/lcd_buffer.c ****             x -= 1;
+ 1000              		.loc 1 278 13 is_stmt 1 view .LVU274
+ 1001              		.loc 1 278 15 is_stmt 0 view .LVU275
+ 1002 004c 013C     		subs	r4, r4, #1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 25
+
+
+ 1003              	.LVL87:
+ 279:../APP/LCD/Src/lcd_buffer.c ****             err -= 2 * x + 1;
+ 1004              		.loc 1 279 13 is_stmt 1 view .LVU276
+ 1005              		.loc 1 279 22 is_stmt 0 view .LVU277
+ 1006 004e 6300     		lsls	r3, r4, #1
+ 1007              		.loc 1 279 26 view .LVU278
+ 1008 0050 0133     		adds	r3, r3, #1
+ 1009              		.loc 1 279 17 view .LVU279
+ 1010 0052 ED1A     		subs	r5, r5, r3
+ 1011              	.L67:
+ 1012              	.LVL88:
+ 262:../APP/LCD/Src/lcd_buffer.c ****         /* Draw horizontal lines for each scanline */
+ 1013              		.loc 1 262 14 is_stmt 1 view .LVU280
+ 1014 0054 A642     		cmp	r6, r4
+ 1015 0056 DBDD     		ble	.L68
+ 280:../APP/LCD/Src/lcd_buffer.c ****         }
+ 281:../APP/LCD/Src/lcd_buffer.c ****     }
+ 282:../APP/LCD/Src/lcd_buffer.c **** }
+ 1016              		.loc 1 282 1 is_stmt 0 view .LVU281
+ 1017 0058 BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1018              	.LVL89:
+ 1019              	.L63:
+ 1020              	.LBB31:
+ 265:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 - y, color);
+ 1021              		.loc 1 265 13 is_stmt 1 view .LVU282
+ 1022 005c 1FFA8BF0 		uxth	r0, fp
+ 1023 0060 4946     		mov	r1, r9
+ 1024 0062 FFF7FEFF 		bl	LCD_Buffer_DrawPixel
+ 1025              	.LVL90:
+ 266:../APP/LCD/Src/lcd_buffer.c ****         }
+ 1026              		.loc 1 266 13 view .LVU283
+ 1027 0066 A8EB0A01 		sub	r1, r8, r10
+ 1028 006a 89B2     		uxth	r1, r1
+ 1029 006c FFF7FEFF 		bl	LCD_Buffer_DrawPixel
+ 1030              	.LVL91:
+ 264:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 + y, color);
+ 1031              		.loc 1 264 44 discriminator 3 view .LVU284
+ 1032 0070 0BF1010B 		add	fp, fp, #1
+ 1033              	.LVL92:
+ 264:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 + y, color);
+ 1034              		.loc 1 264 44 is_stmt 0 discriminator 3 view .LVU285
+ 1035 0074 D4E7     		b	.L62
+ 1036              	.LVL93:
+ 1037              	.L65:
+ 264:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 + y, color);
+ 1038              		.loc 1 264 44 discriminator 3 view .LVU286
+ 1039              	.LBE31:
+ 1040              	.LBB32:
+ 269:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 - x, color);
+ 1041              		.loc 1 269 13 is_stmt 1 view .LVU287
+ 1042 0076 1FFA8BF0 		uxth	r0, fp
+ 1043 007a 4946     		mov	r1, r9
+ 1044 007c FFF7FEFF 		bl	LCD_Buffer_DrawPixel
+ 1045              	.LVL94:
+ 270:../APP/LCD/Src/lcd_buffer.c ****         }
+ 1046              		.loc 1 270 13 view .LVU288
+ 1047 0080 A8EB0A01 		sub	r1, r8, r10
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 26
+
+
+ 1048 0084 89B2     		uxth	r1, r1
+ 1049 0086 FFF7FEFF 		bl	LCD_Buffer_DrawPixel
+ 1050              	.LVL95:
+ 268:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 + x, color);
+ 1051              		.loc 1 268 44 discriminator 3 view .LVU289
+ 1052 008a 0BF1010B 		add	fp, fp, #1
+ 1053              	.LVL96:
+ 268:../APP/LCD/Src/lcd_buffer.c ****             LCD_Buffer_DrawPixel(i, y0 + x, color);
+ 1054              		.loc 1 268 44 is_stmt 0 discriminator 3 view .LVU290
+ 1055 008e D2E7     		b	.L64
+ 1056              	.LBE32:
+ 1057              		.cfi_endproc
+ 1058              	.LFE144:
+ 1060              		.section	.data.lcd_ctx,"aw"
+ 1061              		.align	2
+ 1064              	lcd_ctx:
+ 1065 0000 00000000 		.word	buffer0
+ 1066 0004 00000000 		.word	buffer0
+ 1067 0008 A000     		.short	160
+ 1068 000a 8000     		.short	128
+ 1069 000c 01       		.byte	1
+ 1070 000d 00       		.byte	0
+ 1071 000e 0000     		.space	2
+ 1072              		.section	.bss.buffer0,"aw",%nobits
+ 1073              		.align	2
+ 1076              	buffer0:
+ 1077 0000 00000000 		.space	10240
+ 1077      00000000 
+ 1077      00000000 
+ 1077      00000000 
+ 1077      00000000 
+ 1078              		.text
+ 1079              	.Letext0:
+ 1080              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 1081              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 1082              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 1083              		.file 5 "../core/inc/hal_compat.h"
+ 1084              		.file 6 "../core/inc/dma.h"
+ 1085              		.file 7 "../core/inc/spi.h"
+ 1086              		.file 8 "../APP/LCD/Inc/lcd_buffer.h"
+ 1087              		.file 9 "../firmware/n32g430_std_periph_driver/inc/n32g430_gpio.h"
+ 1088              		.file 10 "../APP/LCD/Inc/lcd_init.h"
+ 1089              		.file 11 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/string.h"
+ 1090              		.file 12 "<built-in>"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s 			page 27
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lcd_buffer.c
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:21     .text.LCD_Buffer_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:27     .text.LCD_Buffer_Init:00000000 LCD_Buffer_Init
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:67     .text.LCD_Buffer_Init:00000020 $d
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:1064   .data.lcd_ctx:00000000 lcd_ctx
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:1076   .bss.buffer0:00000000 buffer0
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:73     .text.LCD_Buffer_GetFramebuffer:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:79     .text.LCD_Buffer_GetFramebuffer:00000000 LCD_Buffer_GetFramebuffer
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:94     .text.LCD_Buffer_GetFramebuffer:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:99     .text.LCD_Buffer_WaitComplete:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:105    .text.LCD_Buffer_WaitComplete:00000000 LCD_Buffer_WaitComplete
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:135    .text.LCD_Buffer_WaitComplete:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:140    .text.LCD_Buffer_SwapBuffers:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:146    .text.LCD_Buffer_SwapBuffers:00000000 LCD_Buffer_SwapBuffers
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:239    .text.LCD_Buffer_SwapBuffers:0000004c $d
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:246    .text.LCD_Buffer_IsBusy:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:252    .text.LCD_Buffer_IsBusy:00000000 LCD_Buffer_IsBusy
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:268    .text.LCD_Buffer_IsBusy:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:273    .text.LCD_Buffer_DMAComplete:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:279    .text.LCD_Buffer_DMAComplete:00000000 LCD_Buffer_DMAComplete
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:311    .text.LCD_Buffer_DMAComplete:00000018 $d
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:317    .text.LCD_Buffer_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:323    .text.LCD_Buffer_Clear:00000000 LCD_Buffer_Clear
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:362    .text.LCD_Buffer_Clear:00000018 $d
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:367    .text.LCD_Buffer_FillRect:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:373    .text.LCD_Buffer_FillRect:00000000 LCD_Buffer_FillRect
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:499    .text.LCD_Buffer_FillRect:00000060 $d
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:507    .text.LCD_Buffer_DrawPixel:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:513    .text.LCD_Buffer_DrawPixel:00000000 LCD_Buffer_DrawPixel
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:556    .text.LCD_Buffer_DrawPixel:00000018 $d
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:561    .text.LCD_Buffer_DrawLine:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:567    .text.LCD_Buffer_DrawLine:00000000 LCD_Buffer_DrawLine
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:725    .text.LCD_Buffer_DrawCircle:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:731    .text.LCD_Buffer_DrawCircle:00000000 LCD_Buffer_DrawCircle
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:893    .text.LCD_Buffer_FillCircle:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:899    .text.LCD_Buffer_FillCircle:00000000 LCD_Buffer_FillCircle
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:1061   .data.lcd_ctx:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccHWPfDa.s:1073   .bss.buffer0:00000000 $d
+
+UNDEFINED SYMBOLS
+memset
+LCD_Address_Set
+GPIO_Pins_Reset
+GPIO_Pins_Set
+HAL_SPI_Transmit_DMA
+hspi1

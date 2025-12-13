@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 1
   28:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** /**
   29:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\file n32g430_crc.c
   30:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\author Nations
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s 			page 2
 
 
   31:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\version v1.0.0
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 1
   58:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\          - data word(32-bit) to compute its CRC
   59:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  32-bit CRC
   60:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 3
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s 			page 3
 
 
   61:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** uint32_t CRC32_Calculate(uint32_t data)
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 1
   80:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     uint32_t index = 0;
   95              		.loc 1 80 5 view .LVU11
   81:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s 			page 4
 
 
   82:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     for (index = 0; index < buf_len; index++)
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 1
   96:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
   97:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** uint32_t CRC32_Get(void)
   98:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 5
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s 			page 5
 
 
  134              		.loc 1 98 1 view -0
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 1
  174 0006 00BF     		.align	2
  175              	.L16:
  176 0008 00300240 		.word	1073885184
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 6
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s 			page 6
 
 
  177              		.cfi_endproc
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 1
  133:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** *\*\return  16-bit CRC
  134:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** **/
  135:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** uint16_t CRC16_Calculate(uint8_t data)
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 7
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s 			page 7
 
 
  136:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** {
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 1
  154:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     uint32_t index = 0;
  255              		.loc 1 154 5 view .LVU41
  155:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     CRC->CRC16D = 0x00;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s 			page 8
 
 
  256              		.loc 1 155 5 view .LVU42
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 1
  300              	CRC16_Set:
  301              	.LVL12:
  302              	.LFB138:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 9
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s 			page 9
 
 
  164:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c **** 
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 1
  335              		.loc 1 187 5 view .LVU59
  336              		.loc 1 187 16 is_stmt 0 view .LVU60
  337 0000 014B     		ldr	r3, .L33
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 10
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s 			page 10
 
 
  338 0002 988A     		ldrh	r0, [r3, #20]
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 1
  383              		.thumb
  384              		.thumb_func
  386              	CRC16_Big_Endian_Format_Set:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 11
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s 			page 11
 
 
  387              	.LFB141:
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 1
  220:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     CRC->CRC16CTRL |= CRC_CRC16_VALUE_CLEAR;
  423              		.loc 1 220 5 view .LVU73
  424              		.loc 1 220 8 is_stmt 0 view .LVU74
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 12
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s 			page 12
 
 
  425 0000 024A     		ldr	r2, .L42
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 1
  470              		.align	1
  471              		.global	CRC_LRC_Set
  472              		.syntax unified
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 13
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s 			page 13
 
 
  473              		.thumb
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 1
  508              		@ args = 0, pretend = 0, frame = 0
  509              		@ frame_needed = 0, uses_anonymous_args = 0
  510              		@ link register save eliminated.
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 14
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s 			page 14
 
 
  255:../firmware/n32g430_std_periph_driver/src/n32g430_crc.c ****     /* Returns the LRC check value */
@@ -801,58 +801,58 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 1
  526              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
  527              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
  528              		.file 4 "../firmware/CMSIS/device/n32g430.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s 			page 15
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s 			page 15
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 n32g430_crc.c
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:21     .text.CRC32_Reset:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:27     .text.CRC32_Reset:00000000 CRC32_Reset
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:44     .text.CRC32_Reset:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:49     .text.CRC32_Calculate:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:55     .text.CRC32_Calculate:00000000 CRC32_Calculate
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:76     .text.CRC32_Calculate:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:81     .text.CRC32_Buffer_Calculate:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:87     .text.CRC32_Buffer_Calculate:00000000 CRC32_Buffer_Calculate
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:121    .text.CRC32_Buffer_Calculate:00000018 $d
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:126    .text.CRC32_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:132    .text.CRC32_Get:00000000 CRC32_Get
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:148    .text.CRC32_Get:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:153    .text.CRC32_Independent_Data_Save:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:159    .text.CRC32_Independent_Data_Save:00000000 CRC32_Independent_Data_Save
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:176    .text.CRC32_Independent_Data_Save:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:181    .text.CRC32_Independent_Data_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:187    .text.CRC32_Independent_Data_Get:00000000 CRC32_Independent_Data_Get
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:203    .text.CRC32_Independent_Data_Get:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:208    .text.CRC16_Calculate:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:214    .text.CRC16_Calculate:00000000 CRC16_Calculate
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:236    .text.CRC16_Calculate:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:241    .text.CRC16_Buffer_Calculate:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:247    .text.CRC16_Buffer_Calculate:00000000 CRC16_Buffer_Calculate
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:289    .text.CRC16_Buffer_Calculate:0000001c $d
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:294    .text.CRC16_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:300    .text.CRC16_Set:00000000 CRC16_Set
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:317    .text.CRC16_Set:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:322    .text.CRC16_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:328    .text.CRC16_Get:00000000 CRC16_Get
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:345    .text.CRC16_Get:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:350    .text.CRC16_Little_Endian_Format_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:356    .text.CRC16_Little_Endian_Format_Set:00000000 CRC16_Little_Endian_Format_Set
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:375    .text.CRC16_Little_Endian_Format_Set:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:380    .text.CRC16_Big_Endian_Format_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:386    .text.CRC16_Big_Endian_Format_Set:00000000 CRC16_Big_Endian_Format_Set
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:405    .text.CRC16_Big_Endian_Format_Set:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:410    .text.CRC16_Value_Clean_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:416    .text.CRC16_Value_Clean_Enable:00000000 CRC16_Value_Clean_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:435    .text.CRC16_Value_Clean_Enable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:440    .text.CRC16_Value_Clean_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:446    .text.CRC16_Value_Clean_Disable:00000000 CRC16_Value_Clean_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:465    .text.CRC16_Value_Clean_Disable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:470    .text.CRC_LRC_Set:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:476    .text.CRC_LRC_Set:00000000 CRC_LRC_Set
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:493    .text.CRC_LRC_Set:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:498    .text.CRC_LRC_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:504    .text.CRC_LRC_Get:00000000 CRC_LRC_Get
-C:\Users\Dawn\AppData\Local\Temp\ccAk60bf.s:520    .text.CRC_LRC_Get:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:21     .text.CRC32_Reset:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:27     .text.CRC32_Reset:00000000 CRC32_Reset
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:44     .text.CRC32_Reset:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:49     .text.CRC32_Calculate:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:55     .text.CRC32_Calculate:00000000 CRC32_Calculate
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:76     .text.CRC32_Calculate:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:81     .text.CRC32_Buffer_Calculate:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:87     .text.CRC32_Buffer_Calculate:00000000 CRC32_Buffer_Calculate
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:121    .text.CRC32_Buffer_Calculate:00000018 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:126    .text.CRC32_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:132    .text.CRC32_Get:00000000 CRC32_Get
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:148    .text.CRC32_Get:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:153    .text.CRC32_Independent_Data_Save:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:159    .text.CRC32_Independent_Data_Save:00000000 CRC32_Independent_Data_Save
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:176    .text.CRC32_Independent_Data_Save:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:181    .text.CRC32_Independent_Data_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:187    .text.CRC32_Independent_Data_Get:00000000 CRC32_Independent_Data_Get
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:203    .text.CRC32_Independent_Data_Get:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:208    .text.CRC16_Calculate:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:214    .text.CRC16_Calculate:00000000 CRC16_Calculate
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:236    .text.CRC16_Calculate:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:241    .text.CRC16_Buffer_Calculate:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:247    .text.CRC16_Buffer_Calculate:00000000 CRC16_Buffer_Calculate
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:289    .text.CRC16_Buffer_Calculate:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:294    .text.CRC16_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:300    .text.CRC16_Set:00000000 CRC16_Set
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:317    .text.CRC16_Set:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:322    .text.CRC16_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:328    .text.CRC16_Get:00000000 CRC16_Get
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:345    .text.CRC16_Get:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:350    .text.CRC16_Little_Endian_Format_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:356    .text.CRC16_Little_Endian_Format_Set:00000000 CRC16_Little_Endian_Format_Set
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:375    .text.CRC16_Little_Endian_Format_Set:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:380    .text.CRC16_Big_Endian_Format_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:386    .text.CRC16_Big_Endian_Format_Set:00000000 CRC16_Big_Endian_Format_Set
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:405    .text.CRC16_Big_Endian_Format_Set:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:410    .text.CRC16_Value_Clean_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:416    .text.CRC16_Value_Clean_Enable:00000000 CRC16_Value_Clean_Enable
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:435    .text.CRC16_Value_Clean_Enable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:440    .text.CRC16_Value_Clean_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:446    .text.CRC16_Value_Clean_Disable:00000000 CRC16_Value_Clean_Disable
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:465    .text.CRC16_Value_Clean_Disable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:470    .text.CRC_LRC_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:476    .text.CRC_LRC_Set:00000000 CRC_LRC_Set
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:493    .text.CRC_LRC_Set:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:498    .text.CRC_LRC_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:504    .text.CRC_LRC_Get:00000000 CRC_LRC_Get
+C:\Users\Dawn\AppData\Local\Temp\cc0YhnJd.s:520    .text.CRC_LRC_Get:00000008 $d
 
 NO UNDEFINED SYMBOLS

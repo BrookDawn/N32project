@@ -1,0 +1,1216 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lcd_init.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../APP/LCD/Src/lcd_init.c"
+  20              		.section	.text.LCD_GPIO_Init,"ax",%progbits
+  21              		.align	1
+  22              		.global	LCD_GPIO_Init
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	LCD_GPIO_Init:
+  28              	.LFB130:
+   1:../APP/LCD/Src/lcd_init.c **** /**
+   2:../APP/LCD/Src/lcd_init.c ****  * @file lcd_init.c
+   3:../APP/LCD/Src/lcd_init.c ****  * @brief LCD ST7735S initialization - using SPI1 hardware interface
+   4:../APP/LCD/Src/lcd_init.c ****  */
+   5:../APP/LCD/Src/lcd_init.c **** 
+   6:../APP/LCD/Src/lcd_init.c **** #include "lcd_init.h"
+   7:../APP/LCD/Src/lcd_init.c **** #include "main.h"
+   8:../APP/LCD/Src/lcd_init.c **** 
+   9:../APP/LCD/Src/lcd_init.c **** /**
+  10:../APP/LCD/Src/lcd_init.c ****  * @brief LCD GPIO initialization (handled by MX_SPI1_Init)
+  11:../APP/LCD/Src/lcd_init.c ****  */
+  12:../APP/LCD/Src/lcd_init.c **** void LCD_GPIO_Init(void)
+  13:../APP/LCD/Src/lcd_init.c **** {
+  29              		.loc 1 13 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  14:../APP/LCD/Src/lcd_init.c ****     /* GPIO initialization is done in MX_SPI1_Init() */
+  15:../APP/LCD/Src/lcd_init.c **** }
+  34              		.loc 1 15 1 view .LVU1
+  35 0000 7047     		bx	lr
+  36              		.cfi_endproc
+  37              	.LFE130:
+  39              		.section	.text.LCD_Writ_Bus,"ax",%progbits
+  40              		.align	1
+  41              		.global	LCD_Writ_Bus
+  42              		.syntax unified
+  43              		.thumb
+  44              		.thumb_func
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 2
+
+
+  46              	LCD_Writ_Bus:
+  47              	.LVL0:
+  48              	.LFB131:
+  16:../APP/LCD/Src/lcd_init.c **** 
+  17:../APP/LCD/Src/lcd_init.c **** /**
+  18:../APP/LCD/Src/lcd_init.c ****  * @brief Write a byte via SPI1 hardware
+  19:../APP/LCD/Src/lcd_init.c ****  * @param dat: data byte to send
+  20:../APP/LCD/Src/lcd_init.c ****  * @note CS should be controlled by caller, not here
+  21:../APP/LCD/Src/lcd_init.c ****  */
+  22:../APP/LCD/Src/lcd_init.c **** void LCD_Writ_Bus(u8 dat)
+  23:../APP/LCD/Src/lcd_init.c **** {
+  49              		.loc 1 23 1 view -0
+  50              		.cfi_startproc
+  51              		@ args = 0, pretend = 0, frame = 8
+  52              		@ frame_needed = 0, uses_anonymous_args = 0
+  24:../APP/LCD/Src/lcd_init.c ****     HAL_SPI_Transmit(&hspi1, &dat, 1, 100);
+  53              		.loc 1 24 5 view .LVU3
+  23:../APP/LCD/Src/lcd_init.c ****     HAL_SPI_Transmit(&hspi1, &dat, 1, 100);
+  54              		.loc 1 23 1 is_stmt 0 view .LVU4
+  55 0000 07B5     		push	{r0, r1, r2, lr}
+  56              	.LCFI0:
+  57              		.cfi_def_cfa_offset 16
+  58              		.cfi_offset 14, -4
+  59              		.loc 1 24 5 view .LVU5
+  60 0002 6423     		movs	r3, #100
+  23:../APP/LCD/Src/lcd_init.c ****     HAL_SPI_Transmit(&hspi1, &dat, 1, 100);
+  61              		.loc 1 23 1 view .LVU6
+  62 0004 8DF80700 		strb	r0, [sp, #7]
+  63              		.loc 1 24 5 view .LVU7
+  64 0008 0122     		movs	r2, #1
+  65 000a 0DF10701 		add	r1, sp, #7
+  66 000e 0348     		ldr	r0, .L3
+  67              	.LVL1:
+  68              		.loc 1 24 5 view .LVU8
+  69 0010 FFF7FEFF 		bl	HAL_SPI_Transmit
+  70              	.LVL2:
+  25:../APP/LCD/Src/lcd_init.c **** }
+  71              		.loc 1 25 1 view .LVU9
+  72 0014 03B0     		add	sp, sp, #12
+  73              	.LCFI1:
+  74              		.cfi_def_cfa_offset 4
+  75              		@ sp needed
+  76 0016 5DF804FB 		ldr	pc, [sp], #4
+  77              	.L4:
+  78 001a 00BF     		.align	2
+  79              	.L3:
+  80 001c 00000000 		.word	hspi1
+  81              		.cfi_endproc
+  82              	.LFE131:
+  84              		.section	.text.LCD_WR_DATA8,"ax",%progbits
+  85              		.align	1
+  86              		.global	LCD_WR_DATA8
+  87              		.syntax unified
+  88              		.thumb
+  89              		.thumb_func
+  91              	LCD_WR_DATA8:
+  92              	.LVL3:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 3
+
+
+  93              	.LFB132:
+  26:../APP/LCD/Src/lcd_init.c **** 
+  27:../APP/LCD/Src/lcd_init.c **** /**
+  28:../APP/LCD/Src/lcd_init.c ****  * @brief Write 8-bit data
+  29:../APP/LCD/Src/lcd_init.c ****  * @param dat: data byte
+  30:../APP/LCD/Src/lcd_init.c ****  */
+  31:../APP/LCD/Src/lcd_init.c **** void LCD_WR_DATA8(u8 dat)
+  32:../APP/LCD/Src/lcd_init.c **** {
+  94              		.loc 1 32 1 is_stmt 1 view -0
+  95              		.cfi_startproc
+  96              		@ args = 0, pretend = 0, frame = 0
+  97              		@ frame_needed = 0, uses_anonymous_args = 0
+  33:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Clr();
+  98              		.loc 1 33 5 view .LVU11
+  32:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Clr();
+  99              		.loc 1 32 1 is_stmt 0 view .LVU12
+ 100 0000 10B5     		push	{r4, lr}
+ 101              	.LCFI2:
+ 102              		.cfi_def_cfa_offset 8
+ 103              		.cfi_offset 4, -8
+ 104              		.cfi_offset 14, -4
+ 105              		.loc 1 33 5 view .LVU13
+ 106 0002 0221     		movs	r1, #2
+  32:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Clr();
+ 107              		.loc 1 32 1 view .LVU14
+ 108 0004 0446     		mov	r4, r0
+ 109              		.loc 1 33 5 view .LVU15
+ 110 0006 0848     		ldr	r0, .L6
+ 111              	.LVL4:
+ 112              		.loc 1 33 5 view .LVU16
+ 113 0008 FFF7FEFF 		bl	GPIO_Pins_Reset
+ 114              	.LVL5:
+  34:../APP/LCD/Src/lcd_init.c ****     LCD_DC_Set();
+ 115              		.loc 1 34 5 is_stmt 1 view .LVU17
+ 116 000c 0121     		movs	r1, #1
+ 117 000e 0648     		ldr	r0, .L6
+ 118 0010 FFF7FEFF 		bl	GPIO_Pins_Set
+ 119              	.LVL6:
+  35:../APP/LCD/Src/lcd_init.c ****     LCD_Writ_Bus(dat);
+ 120              		.loc 1 35 5 view .LVU18
+ 121 0014 2046     		mov	r0, r4
+ 122 0016 FFF7FEFF 		bl	LCD_Writ_Bus
+ 123              	.LVL7:
+  36:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Set();
+ 124              		.loc 1 36 5 view .LVU19
+  37:../APP/LCD/Src/lcd_init.c **** }
+ 125              		.loc 1 37 1 is_stmt 0 view .LVU20
+ 126 001a BDE81040 		pop	{r4, lr}
+ 127              	.LCFI3:
+ 128              		.cfi_restore 14
+ 129              		.cfi_restore 4
+ 130              		.cfi_def_cfa_offset 0
+ 131              	.LVL8:
+  36:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Set();
+ 132              		.loc 1 36 5 view .LVU21
+ 133 001e 0248     		ldr	r0, .L6
+ 134 0020 0221     		movs	r1, #2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 4
+
+
+ 135 0022 FFF7FEBF 		b	GPIO_Pins_Set
+ 136              	.LVL9:
+ 137              	.L7:
+ 138 0026 00BF     		.align	2
+ 139              	.L6:
+ 140 0028 00380240 		.word	1073887232
+ 141              		.cfi_endproc
+ 142              	.LFE132:
+ 144              		.section	.text.LCD_WR_DATA,"ax",%progbits
+ 145              		.align	1
+ 146              		.global	LCD_WR_DATA
+ 147              		.syntax unified
+ 148              		.thumb
+ 149              		.thumb_func
+ 151              	LCD_WR_DATA:
+ 152              	.LVL10:
+ 153              	.LFB133:
+  38:../APP/LCD/Src/lcd_init.c **** 
+  39:../APP/LCD/Src/lcd_init.c **** /**
+  40:../APP/LCD/Src/lcd_init.c ****  * @brief Write 16-bit data (high byte first)
+  41:../APP/LCD/Src/lcd_init.c ****  * @param dat: 16-bit data
+  42:../APP/LCD/Src/lcd_init.c ****  */
+  43:../APP/LCD/Src/lcd_init.c **** void LCD_WR_DATA(u16 dat)
+  44:../APP/LCD/Src/lcd_init.c **** {
+ 154              		.loc 1 44 1 is_stmt 1 view -0
+ 155              		.cfi_startproc
+ 156              		@ args = 0, pretend = 0, frame = 0
+ 157              		@ frame_needed = 0, uses_anonymous_args = 0
+  45:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Clr();
+ 158              		.loc 1 45 5 view .LVU23
+  44:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Clr();
+ 159              		.loc 1 44 1 is_stmt 0 view .LVU24
+ 160 0000 10B5     		push	{r4, lr}
+ 161              	.LCFI4:
+ 162              		.cfi_def_cfa_offset 8
+ 163              		.cfi_offset 4, -8
+ 164              		.cfi_offset 14, -4
+ 165              		.loc 1 45 5 view .LVU25
+ 166 0002 0221     		movs	r1, #2
+  44:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Clr();
+ 167              		.loc 1 44 1 view .LVU26
+ 168 0004 0446     		mov	r4, r0
+ 169              		.loc 1 45 5 view .LVU27
+ 170 0006 0948     		ldr	r0, .L9
+ 171              	.LVL11:
+ 172              		.loc 1 45 5 view .LVU28
+ 173 0008 FFF7FEFF 		bl	GPIO_Pins_Reset
+ 174              	.LVL12:
+  46:../APP/LCD/Src/lcd_init.c ****     LCD_DC_Set();
+ 175              		.loc 1 46 5 is_stmt 1 view .LVU29
+ 176 000c 0121     		movs	r1, #1
+ 177 000e 0748     		ldr	r0, .L9
+ 178 0010 FFF7FEFF 		bl	GPIO_Pins_Set
+ 179              	.LVL13:
+  47:../APP/LCD/Src/lcd_init.c ****     LCD_Writ_Bus(dat >> 8);
+ 180              		.loc 1 47 5 view .LVU30
+ 181 0014 200A     		lsrs	r0, r4, #8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 5
+
+
+ 182 0016 FFF7FEFF 		bl	LCD_Writ_Bus
+ 183              	.LVL14:
+  48:../APP/LCD/Src/lcd_init.c ****     LCD_Writ_Bus(dat);
+ 184              		.loc 1 48 5 view .LVU31
+ 185 001a E0B2     		uxtb	r0, r4
+ 186 001c FFF7FEFF 		bl	LCD_Writ_Bus
+ 187              	.LVL15:
+  49:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Set();
+ 188              		.loc 1 49 5 view .LVU32
+  50:../APP/LCD/Src/lcd_init.c **** }
+ 189              		.loc 1 50 1 is_stmt 0 view .LVU33
+ 190 0020 BDE81040 		pop	{r4, lr}
+ 191              	.LCFI5:
+ 192              		.cfi_restore 14
+ 193              		.cfi_restore 4
+ 194              		.cfi_def_cfa_offset 0
+ 195              	.LVL16:
+  49:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Set();
+ 196              		.loc 1 49 5 view .LVU34
+ 197 0024 0148     		ldr	r0, .L9
+ 198 0026 0221     		movs	r1, #2
+ 199 0028 FFF7FEBF 		b	GPIO_Pins_Set
+ 200              	.LVL17:
+ 201              	.L10:
+ 202              		.align	2
+ 203              	.L9:
+ 204 002c 00380240 		.word	1073887232
+ 205              		.cfi_endproc
+ 206              	.LFE133:
+ 208              		.section	.text.LCD_WR_DATA_DMA,"ax",%progbits
+ 209              		.align	1
+ 210              		.global	LCD_WR_DATA_DMA
+ 211              		.syntax unified
+ 212              		.thumb
+ 213              		.thumb_func
+ 215              	LCD_WR_DATA_DMA:
+ 216              	.LVL18:
+ 217              	.LFB134:
+  51:../APP/LCD/Src/lcd_init.c **** 
+  52:../APP/LCD/Src/lcd_init.c **** /**
+  53:../APP/LCD/Src/lcd_init.c ****  * @brief Write data buffer via DMA (blocking with yield)
+  54:../APP/LCD/Src/lcd_init.c ****  * @param data: pointer to data buffer
+  55:../APP/LCD/Src/lcd_init.c ****  * @param len: data length in bytes
+  56:../APP/LCD/Src/lcd_init.c ****  */
+  57:../APP/LCD/Src/lcd_init.c **** void LCD_WR_DATA_DMA(u8 *data, u16 len)
+  58:../APP/LCD/Src/lcd_init.c **** {
+ 218              		.loc 1 58 1 is_stmt 1 view -0
+ 219              		.cfi_startproc
+ 220              		@ args = 0, pretend = 0, frame = 0
+ 221              		@ frame_needed = 0, uses_anonymous_args = 0
+  59:../APP/LCD/Src/lcd_init.c ****     extern DMA_HandleTypeDef hdma_spi1_tx;
+ 222              		.loc 1 59 5 view .LVU36
+  60:../APP/LCD/Src/lcd_init.c **** 
+  61:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Clr();
+ 223              		.loc 1 61 5 view .LVU37
+  58:../APP/LCD/Src/lcd_init.c ****     extern DMA_HandleTypeDef hdma_spi1_tx;
+ 224              		.loc 1 58 1 is_stmt 0 view .LVU38
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 6
+
+
+ 225 0000 38B5     		push	{r3, r4, r5, lr}
+ 226              	.LCFI6:
+ 227              		.cfi_def_cfa_offset 16
+ 228              		.cfi_offset 3, -16
+ 229              		.cfi_offset 4, -12
+ 230              		.cfi_offset 5, -8
+ 231              		.cfi_offset 14, -4
+  58:../APP/LCD/Src/lcd_init.c ****     extern DMA_HandleTypeDef hdma_spi1_tx;
+ 232              		.loc 1 58 1 view .LVU39
+ 233 0002 0446     		mov	r4, r0
+ 234 0004 0D46     		mov	r5, r1
+ 235              		.loc 1 61 5 view .LVU40
+ 236 0006 1248     		ldr	r0, .L16
+ 237              	.LVL19:
+ 238              		.loc 1 61 5 view .LVU41
+ 239 0008 0221     		movs	r1, #2
+ 240              	.LVL20:
+ 241              		.loc 1 61 5 view .LVU42
+ 242 000a FFF7FEFF 		bl	GPIO_Pins_Reset
+ 243              	.LVL21:
+  62:../APP/LCD/Src/lcd_init.c ****     LCD_DC_Set();
+ 244              		.loc 1 62 5 is_stmt 1 view .LVU43
+ 245 000e 1048     		ldr	r0, .L16
+ 246 0010 0121     		movs	r1, #1
+ 247 0012 FFF7FEFF 		bl	GPIO_Pins_Set
+ 248              	.LVL22:
+  63:../APP/LCD/Src/lcd_init.c ****     HAL_SPI_Transmit_DMA(&hspi1, data, len);
+ 249              		.loc 1 63 5 view .LVU44
+ 250 0016 2A46     		mov	r2, r5
+ 251 0018 2146     		mov	r1, r4
+ 252 001a 0E48     		ldr	r0, .L16+4
+  64:../APP/LCD/Src/lcd_init.c **** 
+  65:../APP/LCD/Src/lcd_init.c ****     /* Wait for DMA transfer to complete, but yield to allow interrupts */
+  66:../APP/LCD/Src/lcd_init.c ****     uint32_t timeout = HAL_GetTick() + 100;  /* 100ms timeout */
+  67:../APP/LCD/Src/lcd_init.c ****     while (hdma_spi1_tx.State != HAL_DMA_STATE_READY) {
+ 253              		.loc 1 67 24 is_stmt 0 view .LVU45
+ 254 001c 0E4D     		ldr	r5, .L16+8
+ 255              	.LVL23:
+  63:../APP/LCD/Src/lcd_init.c ****     HAL_SPI_Transmit_DMA(&hspi1, data, len);
+ 256              		.loc 1 63 5 view .LVU46
+ 257 001e FFF7FEFF 		bl	HAL_SPI_Transmit_DMA
+ 258              	.LVL24:
+  66:../APP/LCD/Src/lcd_init.c ****     while (hdma_spi1_tx.State != HAL_DMA_STATE_READY) {
+ 259              		.loc 1 66 5 is_stmt 1 view .LVU47
+  66:../APP/LCD/Src/lcd_init.c ****     while (hdma_spi1_tx.State != HAL_DMA_STATE_READY) {
+ 260              		.loc 1 66 24 is_stmt 0 view .LVU48
+ 261 0022 FFF7FEFF 		bl	HAL_GetTick
+ 262              	.LVL25:
+  66:../APP/LCD/Src/lcd_init.c ****     while (hdma_spi1_tx.State != HAL_DMA_STATE_READY) {
+ 263              		.loc 1 66 14 discriminator 1 view .LVU49
+ 264 0026 00F16404 		add	r4, r0, #100
+ 265              	.LVL26:
+ 266              		.loc 1 67 5 is_stmt 1 view .LVU50
+ 267              	.L12:
+ 268              		.loc 1 67 31 view .LVU51
+ 269 002a 2B79     		ldrb	r3, [r5, #4]	@ zero_extendqisi2
+ 270 002c 012B     		cmp	r3, #1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 7
+
+
+ 271 002e 03D0     		beq	.L15
+  68:../APP/LCD/Src/lcd_init.c ****         /* Check timeout to prevent infinite loop */
+  69:../APP/LCD/Src/lcd_init.c ****         if (HAL_GetTick() > timeout) {
+ 272              		.loc 1 69 9 view .LVU52
+ 273              		.loc 1 69 13 is_stmt 0 view .LVU53
+ 274 0030 FFF7FEFF 		bl	HAL_GetTick
+ 275              	.LVL27:
+ 276              		.loc 1 69 12 discriminator 1 view .LVU54
+ 277 0034 A042     		cmp	r0, r4
+ 278 0036 05D9     		bls	.L13
+ 279              	.L15:
+  70:../APP/LCD/Src/lcd_init.c ****             break;
+  71:../APP/LCD/Src/lcd_init.c ****         }
+  72:../APP/LCD/Src/lcd_init.c ****         /* Small delay to allow other interrupts (like TIM2) to run */
+  73:../APP/LCD/Src/lcd_init.c ****         __NOP();
+  74:../APP/LCD/Src/lcd_init.c ****         __NOP();
+  75:../APP/LCD/Src/lcd_init.c ****         __NOP();
+  76:../APP/LCD/Src/lcd_init.c ****         __NOP();
+  77:../APP/LCD/Src/lcd_init.c ****     }
+  78:../APP/LCD/Src/lcd_init.c **** 
+  79:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Set();
+ 280              		.loc 1 79 5 is_stmt 1 view .LVU55
+  80:../APP/LCD/Src/lcd_init.c **** }
+ 281              		.loc 1 80 1 is_stmt 0 view .LVU56
+ 282 0038 BDE83840 		pop	{r3, r4, r5, lr}
+ 283              	.LCFI7:
+ 284              		.cfi_remember_state
+ 285              		.cfi_restore 14
+ 286              		.cfi_restore 5
+ 287              		.cfi_restore 4
+ 288              		.cfi_restore 3
+ 289              		.cfi_def_cfa_offset 0
+ 290              	.LVL28:
+  79:../APP/LCD/Src/lcd_init.c **** }
+ 291              		.loc 1 79 5 view .LVU57
+ 292 003c 0448     		ldr	r0, .L16
+ 293 003e 0221     		movs	r1, #2
+ 294 0040 FFF7FEBF 		b	GPIO_Pins_Set
+ 295              	.LVL29:
+ 296              	.L13:
+ 297              	.LCFI8:
+ 298              		.cfi_restore_state
+  73:../APP/LCD/Src/lcd_init.c ****         __NOP();
+ 299              		.loc 1 73 9 is_stmt 1 view .LVU58
+ 300              		.syntax unified
+ 301              	@ 73 "../APP/LCD/Src/lcd_init.c" 1
+ 302 0044 00BF     		nop
+ 303              	@ 0 "" 2
+  74:../APP/LCD/Src/lcd_init.c ****         __NOP();
+ 304              		.loc 1 74 9 view .LVU59
+ 305              	@ 74 "../APP/LCD/Src/lcd_init.c" 1
+ 306 0046 00BF     		nop
+ 307              	@ 0 "" 2
+  75:../APP/LCD/Src/lcd_init.c ****         __NOP();
+ 308              		.loc 1 75 9 view .LVU60
+ 309              	@ 75 "../APP/LCD/Src/lcd_init.c" 1
+ 310 0048 00BF     		nop
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 8
+
+
+ 311              	@ 0 "" 2
+  76:../APP/LCD/Src/lcd_init.c ****     }
+ 312              		.loc 1 76 9 view .LVU61
+ 313              	@ 76 "../APP/LCD/Src/lcd_init.c" 1
+ 314 004a 00BF     		nop
+ 315              	@ 0 "" 2
+ 316              		.thumb
+ 317              		.syntax unified
+ 318 004c EDE7     		b	.L12
+ 319              	.L17:
+ 320 004e 00BF     		.align	2
+ 321              	.L16:
+ 322 0050 00380240 		.word	1073887232
+ 323 0054 00000000 		.word	hspi1
+ 324 0058 00000000 		.word	hdma_spi1_tx
+ 325              		.cfi_endproc
+ 326              	.LFE134:
+ 328              		.section	.text.LCD_WR_REG,"ax",%progbits
+ 329              		.align	1
+ 330              		.global	LCD_WR_REG
+ 331              		.syntax unified
+ 332              		.thumb
+ 333              		.thumb_func
+ 335              	LCD_WR_REG:
+ 336              	.LVL30:
+ 337              	.LFB135:
+  81:../APP/LCD/Src/lcd_init.c **** 
+  82:../APP/LCD/Src/lcd_init.c **** /**
+  83:../APP/LCD/Src/lcd_init.c ****  * @brief Write command byte
+  84:../APP/LCD/Src/lcd_init.c ****  * @param dat: command byte
+  85:../APP/LCD/Src/lcd_init.c ****  */
+  86:../APP/LCD/Src/lcd_init.c **** void LCD_WR_REG(u8 dat)
+  87:../APP/LCD/Src/lcd_init.c **** {
+ 338              		.loc 1 87 1 view -0
+ 339              		.cfi_startproc
+ 340              		@ args = 0, pretend = 0, frame = 0
+ 341              		@ frame_needed = 0, uses_anonymous_args = 0
+  88:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Clr();
+ 342              		.loc 1 88 5 view .LVU63
+  87:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Clr();
+ 343              		.loc 1 87 1 is_stmt 0 view .LVU64
+ 344 0000 10B5     		push	{r4, lr}
+ 345              	.LCFI9:
+ 346              		.cfi_def_cfa_offset 8
+ 347              		.cfi_offset 4, -8
+ 348              		.cfi_offset 14, -4
+ 349              		.loc 1 88 5 view .LVU65
+ 350 0002 0221     		movs	r1, #2
+  87:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Clr();
+ 351              		.loc 1 87 1 view .LVU66
+ 352 0004 0446     		mov	r4, r0
+ 353              		.loc 1 88 5 view .LVU67
+ 354 0006 0A48     		ldr	r0, .L19
+ 355              	.LVL31:
+ 356              		.loc 1 88 5 view .LVU68
+ 357 0008 FFF7FEFF 		bl	GPIO_Pins_Reset
+ 358              	.LVL32:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 9
+
+
+  89:../APP/LCD/Src/lcd_init.c ****     LCD_DC_Clr();
+ 359              		.loc 1 89 5 is_stmt 1 view .LVU69
+ 360 000c 0121     		movs	r1, #1
+ 361 000e 0848     		ldr	r0, .L19
+ 362 0010 FFF7FEFF 		bl	GPIO_Pins_Reset
+ 363              	.LVL33:
+  90:../APP/LCD/Src/lcd_init.c ****     LCD_Writ_Bus(dat);
+ 364              		.loc 1 90 5 view .LVU70
+ 365 0014 2046     		mov	r0, r4
+ 366 0016 FFF7FEFF 		bl	LCD_Writ_Bus
+ 367              	.LVL34:
+  91:../APP/LCD/Src/lcd_init.c ****     LCD_DC_Set();
+ 368              		.loc 1 91 5 view .LVU71
+ 369 001a 0548     		ldr	r0, .L19
+ 370 001c 0121     		movs	r1, #1
+ 371 001e FFF7FEFF 		bl	GPIO_Pins_Set
+ 372              	.LVL35:
+  92:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Set();
+ 373              		.loc 1 92 5 view .LVU72
+  93:../APP/LCD/Src/lcd_init.c **** }
+ 374              		.loc 1 93 1 is_stmt 0 view .LVU73
+ 375 0022 BDE81040 		pop	{r4, lr}
+ 376              	.LCFI10:
+ 377              		.cfi_restore 14
+ 378              		.cfi_restore 4
+ 379              		.cfi_def_cfa_offset 0
+ 380              	.LVL36:
+  92:../APP/LCD/Src/lcd_init.c ****     LCD_CS_Set();
+ 381              		.loc 1 92 5 view .LVU74
+ 382 0026 0248     		ldr	r0, .L19
+ 383 0028 0221     		movs	r1, #2
+ 384 002a FFF7FEBF 		b	GPIO_Pins_Set
+ 385              	.LVL37:
+ 386              	.L20:
+ 387 002e 00BF     		.align	2
+ 388              	.L19:
+ 389 0030 00380240 		.word	1073887232
+ 390              		.cfi_endproc
+ 391              	.LFE135:
+ 393              		.section	.text.LCD_Address_Set,"ax",%progbits
+ 394              		.align	1
+ 395              		.global	LCD_Address_Set
+ 396              		.syntax unified
+ 397              		.thumb
+ 398              		.thumb_func
+ 400              	LCD_Address_Set:
+ 401              	.LVL38:
+ 402              	.LFB136:
+  94:../APP/LCD/Src/lcd_init.c **** 
+  95:../APP/LCD/Src/lcd_init.c **** /**
+  96:../APP/LCD/Src/lcd_init.c ****  * @brief Set display address window
+  97:../APP/LCD/Src/lcd_init.c ****  * @param x1,y1: start coordinates
+  98:../APP/LCD/Src/lcd_init.c ****  * @param x2,y2: end coordinates
+  99:../APP/LCD/Src/lcd_init.c ****  */
+ 100:../APP/LCD/Src/lcd_init.c **** void LCD_Address_Set(u16 x1, u16 y1, u16 x2, u16 y2)
+ 101:../APP/LCD/Src/lcd_init.c **** {
+ 403              		.loc 1 101 1 is_stmt 1 view -0
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 10
+
+
+ 404              		.cfi_startproc
+ 405              		@ args = 0, pretend = 0, frame = 0
+ 406              		@ frame_needed = 0, uses_anonymous_args = 0
+ 102:../APP/LCD/Src/lcd_init.c ****     if(USE_HORIZONTAL == 0)
+ 407              		.loc 1 102 5 view .LVU76
+ 103:../APP/LCD/Src/lcd_init.c ****     {
+ 104:../APP/LCD/Src/lcd_init.c ****         LCD_WR_REG(0x2a);
+ 105:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(x1 + 2);
+ 106:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(x2 + 2);
+ 107:../APP/LCD/Src/lcd_init.c ****         LCD_WR_REG(0x2b);
+ 108:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(y1 + 1);
+ 109:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(y2 + 1);
+ 110:../APP/LCD/Src/lcd_init.c ****         LCD_WR_REG(0x2c);
+ 111:../APP/LCD/Src/lcd_init.c ****     }
+ 112:../APP/LCD/Src/lcd_init.c ****     else if(USE_HORIZONTAL == 1)
+ 408              		.loc 1 112 10 view .LVU77
+ 113:../APP/LCD/Src/lcd_init.c ****     {
+ 114:../APP/LCD/Src/lcd_init.c ****         LCD_WR_REG(0x2a);
+ 115:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(x1 + 2);
+ 116:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(x2 + 2);
+ 117:../APP/LCD/Src/lcd_init.c ****         LCD_WR_REG(0x2b);
+ 118:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(y1 + 1);
+ 119:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(y2 + 1);
+ 120:../APP/LCD/Src/lcd_init.c ****         LCD_WR_REG(0x2c);
+ 121:../APP/LCD/Src/lcd_init.c ****     }
+ 122:../APP/LCD/Src/lcd_init.c ****     else if(USE_HORIZONTAL == 2)
+ 409              		.loc 1 122 10 view .LVU78
+ 123:../APP/LCD/Src/lcd_init.c ****     {
+ 124:../APP/LCD/Src/lcd_init.c ****         LCD_WR_REG(0x2a);
+ 125:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(x1 + 1);
+ 126:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(x2 + 1);
+ 127:../APP/LCD/Src/lcd_init.c ****         LCD_WR_REG(0x2b);
+ 128:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(y1 + 2);
+ 129:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(y2 + 2);
+ 130:../APP/LCD/Src/lcd_init.c ****         LCD_WR_REG(0x2c);
+ 131:../APP/LCD/Src/lcd_init.c ****     }
+ 132:../APP/LCD/Src/lcd_init.c ****     else
+ 133:../APP/LCD/Src/lcd_init.c ****     {
+ 134:../APP/LCD/Src/lcd_init.c ****         LCD_WR_REG(0x2a);
+ 410              		.loc 1 134 9 view .LVU79
+ 101:../APP/LCD/Src/lcd_init.c ****     if(USE_HORIZONTAL == 0)
+ 411              		.loc 1 101 1 is_stmt 0 view .LVU80
+ 412 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 413              	.LCFI11:
+ 414              		.cfi_def_cfa_offset 24
+ 415              		.cfi_offset 3, -24
+ 416              		.cfi_offset 4, -20
+ 417              		.cfi_offset 5, -16
+ 418              		.cfi_offset 6, -12
+ 419              		.cfi_offset 7, -8
+ 420              		.cfi_offset 14, -4
+ 101:../APP/LCD/Src/lcd_init.c ****     if(USE_HORIZONTAL == 0)
+ 421              		.loc 1 101 1 view .LVU81
+ 422 0002 0746     		mov	r7, r0
+ 423              		.loc 1 134 9 view .LVU82
+ 424 0004 2A20     		movs	r0, #42
+ 425              	.LVL39:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 11
+
+
+ 101:../APP/LCD/Src/lcd_init.c ****     if(USE_HORIZONTAL == 0)
+ 426              		.loc 1 101 1 view .LVU83
+ 427 0006 0D46     		mov	r5, r1
+ 428 0008 1646     		mov	r6, r2
+ 429 000a 1C46     		mov	r4, r3
+ 430              		.loc 1 134 9 view .LVU84
+ 431 000c FFF7FEFF 		bl	LCD_WR_REG
+ 432              	.LVL40:
+ 135:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(x1 + 1);
+ 433              		.loc 1 135 9 is_stmt 1 view .LVU85
+ 434 0010 781C     		adds	r0, r7, #1
+ 435 0012 80B2     		uxth	r0, r0
+ 436 0014 FFF7FEFF 		bl	LCD_WR_DATA
+ 437              	.LVL41:
+ 136:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(x2 + 1);
+ 438              		.loc 1 136 9 view .LVU86
+ 439 0018 701C     		adds	r0, r6, #1
+ 440 001a 80B2     		uxth	r0, r0
+ 441 001c FFF7FEFF 		bl	LCD_WR_DATA
+ 442              	.LVL42:
+ 137:../APP/LCD/Src/lcd_init.c ****         LCD_WR_REG(0x2b);
+ 443              		.loc 1 137 9 view .LVU87
+ 444 0020 2B20     		movs	r0, #43
+ 445 0022 FFF7FEFF 		bl	LCD_WR_REG
+ 446              	.LVL43:
+ 138:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(y1 + 2);
+ 447              		.loc 1 138 9 view .LVU88
+ 448 0026 A81C     		adds	r0, r5, #2
+ 449 0028 80B2     		uxth	r0, r0
+ 450 002a FFF7FEFF 		bl	LCD_WR_DATA
+ 451              	.LVL44:
+ 139:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA(y2 + 2);
+ 452              		.loc 1 139 9 view .LVU89
+ 453 002e A01C     		adds	r0, r4, #2
+ 454 0030 80B2     		uxth	r0, r0
+ 455 0032 FFF7FEFF 		bl	LCD_WR_DATA
+ 456              	.LVL45:
+ 140:../APP/LCD/Src/lcd_init.c ****         LCD_WR_REG(0x2c);
+ 457              		.loc 1 140 9 view .LVU90
+ 141:../APP/LCD/Src/lcd_init.c ****     }
+ 142:../APP/LCD/Src/lcd_init.c **** }
+ 458              		.loc 1 142 1 is_stmt 0 view .LVU91
+ 459 0036 BDE8F840 		pop	{r3, r4, r5, r6, r7, lr}
+ 460              	.LCFI12:
+ 461              		.cfi_restore 14
+ 462              		.cfi_restore 7
+ 463              		.cfi_restore 6
+ 464              		.cfi_restore 5
+ 465              		.cfi_restore 4
+ 466              		.cfi_restore 3
+ 467              		.cfi_def_cfa_offset 0
+ 468              	.LVL46:
+ 140:../APP/LCD/Src/lcd_init.c ****         LCD_WR_REG(0x2c);
+ 469              		.loc 1 140 9 view .LVU92
+ 470 003a 2C20     		movs	r0, #44
+ 471 003c FFF7FEBF 		b	LCD_WR_REG
+ 472              	.LVL47:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 12
+
+
+ 473              		.cfi_endproc
+ 474              	.LFE136:
+ 476              		.section	.text.LCD_Init,"ax",%progbits
+ 477              		.align	1
+ 478              		.global	LCD_Init
+ 479              		.syntax unified
+ 480              		.thumb
+ 481              		.thumb_func
+ 483              	LCD_Init:
+ 484              	.LFB137:
+ 143:../APP/LCD/Src/lcd_init.c **** 
+ 144:../APP/LCD/Src/lcd_init.c **** /**
+ 145:../APP/LCD/Src/lcd_init.c ****  * @brief Initialize LCD (ST7735S)
+ 146:../APP/LCD/Src/lcd_init.c ****  */
+ 147:../APP/LCD/Src/lcd_init.c **** void LCD_Init(void)
+ 148:../APP/LCD/Src/lcd_init.c **** {
+ 485              		.loc 1 148 1 is_stmt 1 view -0
+ 486              		.cfi_startproc
+ 487              		@ args = 0, pretend = 0, frame = 0
+ 488              		@ frame_needed = 0, uses_anonymous_args = 0
+ 149:../APP/LCD/Src/lcd_init.c ****     /* Hardware reset */
+ 150:../APP/LCD/Src/lcd_init.c ****     LCD_RES_Clr();
+ 489              		.loc 1 150 5 view .LVU94
+ 148:../APP/LCD/Src/lcd_init.c ****     /* Hardware reset */
+ 490              		.loc 1 148 1 is_stmt 0 view .LVU95
+ 491 0000 08B5     		push	{r3, lr}
+ 492              	.LCFI13:
+ 493              		.cfi_def_cfa_offset 8
+ 494              		.cfi_offset 3, -8
+ 495              		.cfi_offset 14, -4
+ 496              		.loc 1 150 5 view .LVU96
+ 497 0002 4021     		movs	r1, #64
+ 498 0004 7B48     		ldr	r0, .L23
+ 499 0006 FFF7FEFF 		bl	GPIO_Pins_Reset
+ 500              	.LVL48:
+ 151:../APP/LCD/Src/lcd_init.c ****     HAL_Delay(100);
+ 501              		.loc 1 151 5 is_stmt 1 view .LVU97
+ 502 000a 6420     		movs	r0, #100
+ 503 000c FFF7FEFF 		bl	HAL_Delay
+ 504              	.LVL49:
+ 152:../APP/LCD/Src/lcd_init.c ****     LCD_RES_Set();
+ 505              		.loc 1 152 5 view .LVU98
+ 506 0010 4021     		movs	r1, #64
+ 507 0012 7848     		ldr	r0, .L23
+ 508 0014 FFF7FEFF 		bl	GPIO_Pins_Set
+ 509              	.LVL50:
+ 153:../APP/LCD/Src/lcd_init.c ****     HAL_Delay(100);
+ 510              		.loc 1 153 5 view .LVU99
+ 511 0018 6420     		movs	r0, #100
+ 512 001a FFF7FEFF 		bl	HAL_Delay
+ 513              	.LVL51:
+ 154:../APP/LCD/Src/lcd_init.c **** 
+ 155:../APP/LCD/Src/lcd_init.c ****     /* Turn on backlight */
+ 156:../APP/LCD/Src/lcd_init.c ****     LCD_BLK_Set();
+ 514              		.loc 1 156 5 view .LVU100
+ 515 001e 4FF48061 		mov	r1, #1024
+ 516 0022 7548     		ldr	r0, .L23+4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 13
+
+
+ 517 0024 FFF7FEFF 		bl	GPIO_Pins_Reset
+ 518              	.LVL52:
+ 157:../APP/LCD/Src/lcd_init.c ****     HAL_Delay(100);
+ 519              		.loc 1 157 5 view .LVU101
+ 520 0028 6420     		movs	r0, #100
+ 521 002a FFF7FEFF 		bl	HAL_Delay
+ 522              	.LVL53:
+ 158:../APP/LCD/Src/lcd_init.c **** 
+ 159:../APP/LCD/Src/lcd_init.c ****     /* ST7735S initialization sequence */
+ 160:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0x11);  /* Sleep out */
+ 523              		.loc 1 160 5 view .LVU102
+ 524 002e 1120     		movs	r0, #17
+ 525 0030 FFF7FEFF 		bl	LCD_WR_REG
+ 526              	.LVL54:
+ 161:../APP/LCD/Src/lcd_init.c ****     HAL_Delay(120);
+ 527              		.loc 1 161 5 view .LVU103
+ 528 0034 7820     		movs	r0, #120
+ 529 0036 FFF7FEFF 		bl	HAL_Delay
+ 530              	.LVL55:
+ 162:../APP/LCD/Src/lcd_init.c **** 
+ 163:../APP/LCD/Src/lcd_init.c ****     /* Frame Rate */
+ 164:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0xB1);
+ 531              		.loc 1 164 5 view .LVU104
+ 532 003a B120     		movs	r0, #177
+ 533 003c FFF7FEFF 		bl	LCD_WR_REG
+ 534              	.LVL56:
+ 165:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x05);
+ 535              		.loc 1 165 5 view .LVU105
+ 536 0040 0520     		movs	r0, #5
+ 537 0042 FFF7FEFF 		bl	LCD_WR_DATA8
+ 538              	.LVL57:
+ 166:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x3C);
+ 539              		.loc 1 166 5 view .LVU106
+ 540 0046 3C20     		movs	r0, #60
+ 541 0048 FFF7FEFF 		bl	LCD_WR_DATA8
+ 542              	.LVL58:
+ 167:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x3C);
+ 543              		.loc 1 167 5 view .LVU107
+ 544 004c 3C20     		movs	r0, #60
+ 545 004e FFF7FEFF 		bl	LCD_WR_DATA8
+ 546              	.LVL59:
+ 168:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0xB2);
+ 547              		.loc 1 168 5 view .LVU108
+ 548 0052 B220     		movs	r0, #178
+ 549 0054 FFF7FEFF 		bl	LCD_WR_REG
+ 550              	.LVL60:
+ 169:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x05);
+ 551              		.loc 1 169 5 view .LVU109
+ 552 0058 0520     		movs	r0, #5
+ 553 005a FFF7FEFF 		bl	LCD_WR_DATA8
+ 554              	.LVL61:
+ 170:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x3C);
+ 555              		.loc 1 170 5 view .LVU110
+ 556 005e 3C20     		movs	r0, #60
+ 557 0060 FFF7FEFF 		bl	LCD_WR_DATA8
+ 558              	.LVL62:
+ 171:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x3C);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 14
+
+
+ 559              		.loc 1 171 5 view .LVU111
+ 560 0064 3C20     		movs	r0, #60
+ 561 0066 FFF7FEFF 		bl	LCD_WR_DATA8
+ 562              	.LVL63:
+ 172:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0xB3);
+ 563              		.loc 1 172 5 view .LVU112
+ 564 006a B320     		movs	r0, #179
+ 565 006c FFF7FEFF 		bl	LCD_WR_REG
+ 566              	.LVL64:
+ 173:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x05);
+ 567              		.loc 1 173 5 view .LVU113
+ 568 0070 0520     		movs	r0, #5
+ 569 0072 FFF7FEFF 		bl	LCD_WR_DATA8
+ 570              	.LVL65:
+ 174:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x3C);
+ 571              		.loc 1 174 5 view .LVU114
+ 572 0076 3C20     		movs	r0, #60
+ 573 0078 FFF7FEFF 		bl	LCD_WR_DATA8
+ 574              	.LVL66:
+ 175:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x3C);
+ 575              		.loc 1 175 5 view .LVU115
+ 576 007c 3C20     		movs	r0, #60
+ 577 007e FFF7FEFF 		bl	LCD_WR_DATA8
+ 578              	.LVL67:
+ 176:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x05);
+ 579              		.loc 1 176 5 view .LVU116
+ 580 0082 0520     		movs	r0, #5
+ 581 0084 FFF7FEFF 		bl	LCD_WR_DATA8
+ 582              	.LVL68:
+ 177:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x3C);
+ 583              		.loc 1 177 5 view .LVU117
+ 584 0088 3C20     		movs	r0, #60
+ 585 008a FFF7FEFF 		bl	LCD_WR_DATA8
+ 586              	.LVL69:
+ 178:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x3C);
+ 587              		.loc 1 178 5 view .LVU118
+ 588 008e 3C20     		movs	r0, #60
+ 589 0090 FFF7FEFF 		bl	LCD_WR_DATA8
+ 590              	.LVL70:
+ 179:../APP/LCD/Src/lcd_init.c **** 
+ 180:../APP/LCD/Src/lcd_init.c ****     /* Dot inversion */
+ 181:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0xB4);
+ 591              		.loc 1 181 5 view .LVU119
+ 592 0094 B420     		movs	r0, #180
+ 593 0096 FFF7FEFF 		bl	LCD_WR_REG
+ 594              	.LVL71:
+ 182:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x03);
+ 595              		.loc 1 182 5 view .LVU120
+ 596 009a 0320     		movs	r0, #3
+ 597 009c FFF7FEFF 		bl	LCD_WR_DATA8
+ 598              	.LVL72:
+ 183:../APP/LCD/Src/lcd_init.c **** 
+ 184:../APP/LCD/Src/lcd_init.c ****     /* Power Sequence */
+ 185:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0xC0);
+ 599              		.loc 1 185 5 view .LVU121
+ 600 00a0 C020     		movs	r0, #192
+ 601 00a2 FFF7FEFF 		bl	LCD_WR_REG
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 15
+
+
+ 602              	.LVL73:
+ 186:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x28);
+ 603              		.loc 1 186 5 view .LVU122
+ 604 00a6 2820     		movs	r0, #40
+ 605 00a8 FFF7FEFF 		bl	LCD_WR_DATA8
+ 606              	.LVL74:
+ 187:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x08);
+ 607              		.loc 1 187 5 view .LVU123
+ 608 00ac 0820     		movs	r0, #8
+ 609 00ae FFF7FEFF 		bl	LCD_WR_DATA8
+ 610              	.LVL75:
+ 188:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x04);
+ 611              		.loc 1 188 5 view .LVU124
+ 612 00b2 0420     		movs	r0, #4
+ 613 00b4 FFF7FEFF 		bl	LCD_WR_DATA8
+ 614              	.LVL76:
+ 189:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0xC1);
+ 615              		.loc 1 189 5 view .LVU125
+ 616 00b8 C120     		movs	r0, #193
+ 617 00ba FFF7FEFF 		bl	LCD_WR_REG
+ 618              	.LVL77:
+ 190:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0xC0);
+ 619              		.loc 1 190 5 view .LVU126
+ 620 00be C020     		movs	r0, #192
+ 621 00c0 FFF7FEFF 		bl	LCD_WR_DATA8
+ 622              	.LVL78:
+ 191:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0xC2);
+ 623              		.loc 1 191 5 view .LVU127
+ 624 00c4 C220     		movs	r0, #194
+ 625 00c6 FFF7FEFF 		bl	LCD_WR_REG
+ 626              	.LVL79:
+ 192:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x0D);
+ 627              		.loc 1 192 5 view .LVU128
+ 628 00ca 0D20     		movs	r0, #13
+ 629 00cc FFF7FEFF 		bl	LCD_WR_DATA8
+ 630              	.LVL80:
+ 193:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x00);
+ 631              		.loc 1 193 5 view .LVU129
+ 632 00d0 0020     		movs	r0, #0
+ 633 00d2 FFF7FEFF 		bl	LCD_WR_DATA8
+ 634              	.LVL81:
+ 194:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0xC3);
+ 635              		.loc 1 194 5 view .LVU130
+ 636 00d6 C320     		movs	r0, #195
+ 637 00d8 FFF7FEFF 		bl	LCD_WR_REG
+ 638              	.LVL82:
+ 195:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x8D);
+ 639              		.loc 1 195 5 view .LVU131
+ 640 00dc 8D20     		movs	r0, #141
+ 641 00de FFF7FEFF 		bl	LCD_WR_DATA8
+ 642              	.LVL83:
+ 196:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x2A);
+ 643              		.loc 1 196 5 view .LVU132
+ 644 00e2 2A20     		movs	r0, #42
+ 645 00e4 FFF7FEFF 		bl	LCD_WR_DATA8
+ 646              	.LVL84:
+ 197:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0xC4);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 16
+
+
+ 647              		.loc 1 197 5 view .LVU133
+ 648 00e8 C420     		movs	r0, #196
+ 649 00ea FFF7FEFF 		bl	LCD_WR_REG
+ 650              	.LVL85:
+ 198:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x8D);
+ 651              		.loc 1 198 5 view .LVU134
+ 652 00ee 8D20     		movs	r0, #141
+ 653 00f0 FFF7FEFF 		bl	LCD_WR_DATA8
+ 654              	.LVL86:
+ 199:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0xEE);
+ 655              		.loc 1 199 5 view .LVU135
+ 656 00f4 EE20     		movs	r0, #238
+ 657 00f6 FFF7FEFF 		bl	LCD_WR_DATA8
+ 658              	.LVL87:
+ 200:../APP/LCD/Src/lcd_init.c **** 
+ 201:../APP/LCD/Src/lcd_init.c ****     /* VCOM */
+ 202:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0xC5);
+ 659              		.loc 1 202 5 view .LVU136
+ 660 00fa C520     		movs	r0, #197
+ 661 00fc FFF7FEFF 		bl	LCD_WR_REG
+ 662              	.LVL88:
+ 203:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x1A);
+ 663              		.loc 1 203 5 view .LVU137
+ 664 0100 1A20     		movs	r0, #26
+ 665 0102 FFF7FEFF 		bl	LCD_WR_DATA8
+ 666              	.LVL89:
+ 204:../APP/LCD/Src/lcd_init.c **** 
+ 205:../APP/LCD/Src/lcd_init.c ****     /* MX, MY, RGB mode */
+ 206:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0x36);
+ 667              		.loc 1 206 5 view .LVU138
+ 668 0106 3620     		movs	r0, #54
+ 669 0108 FFF7FEFF 		bl	LCD_WR_REG
+ 670              	.LVL90:
+ 207:../APP/LCD/Src/lcd_init.c ****     if(USE_HORIZONTAL == 0)
+ 671              		.loc 1 207 5 view .LVU139
+ 208:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA8(0x00);
+ 209:../APP/LCD/Src/lcd_init.c ****     else if(USE_HORIZONTAL == 1)
+ 672              		.loc 1 209 10 view .LVU140
+ 210:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA8(0xC0);
+ 211:../APP/LCD/Src/lcd_init.c ****     else if(USE_HORIZONTAL == 2)
+ 673              		.loc 1 211 10 view .LVU141
+ 212:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA8(0x70);
+ 213:../APP/LCD/Src/lcd_init.c ****     else
+ 214:../APP/LCD/Src/lcd_init.c ****         LCD_WR_DATA8(0xA0);
+ 674              		.loc 1 214 9 view .LVU142
+ 675 010c A020     		movs	r0, #160
+ 676 010e FFF7FEFF 		bl	LCD_WR_DATA8
+ 677              	.LVL91:
+ 215:../APP/LCD/Src/lcd_init.c **** 
+ 216:../APP/LCD/Src/lcd_init.c ****     /* Gamma Sequence */
+ 217:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0xE0);
+ 678              		.loc 1 217 5 view .LVU143
+ 679 0112 E020     		movs	r0, #224
+ 680 0114 FFF7FEFF 		bl	LCD_WR_REG
+ 681              	.LVL92:
+ 218:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x04);
+ 682              		.loc 1 218 5 view .LVU144
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 17
+
+
+ 683 0118 0420     		movs	r0, #4
+ 684 011a FFF7FEFF 		bl	LCD_WR_DATA8
+ 685              	.LVL93:
+ 219:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x22);
+ 686              		.loc 1 219 5 view .LVU145
+ 687 011e 2220     		movs	r0, #34
+ 688 0120 FFF7FEFF 		bl	LCD_WR_DATA8
+ 689              	.LVL94:
+ 220:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x07);
+ 690              		.loc 1 220 5 view .LVU146
+ 691 0124 0720     		movs	r0, #7
+ 692 0126 FFF7FEFF 		bl	LCD_WR_DATA8
+ 693              	.LVL95:
+ 221:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x0A);
+ 694              		.loc 1 221 5 view .LVU147
+ 695 012a 0A20     		movs	r0, #10
+ 696 012c FFF7FEFF 		bl	LCD_WR_DATA8
+ 697              	.LVL96:
+ 222:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x2E);
+ 698              		.loc 1 222 5 view .LVU148
+ 699 0130 2E20     		movs	r0, #46
+ 700 0132 FFF7FEFF 		bl	LCD_WR_DATA8
+ 701              	.LVL97:
+ 223:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x30);
+ 702              		.loc 1 223 5 view .LVU149
+ 703 0136 3020     		movs	r0, #48
+ 704 0138 FFF7FEFF 		bl	LCD_WR_DATA8
+ 705              	.LVL98:
+ 224:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x25);
+ 706              		.loc 1 224 5 view .LVU150
+ 707 013c 2520     		movs	r0, #37
+ 708 013e FFF7FEFF 		bl	LCD_WR_DATA8
+ 709              	.LVL99:
+ 225:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x2A);
+ 710              		.loc 1 225 5 view .LVU151
+ 711 0142 2A20     		movs	r0, #42
+ 712 0144 FFF7FEFF 		bl	LCD_WR_DATA8
+ 713              	.LVL100:
+ 226:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x28);
+ 714              		.loc 1 226 5 view .LVU152
+ 715 0148 2820     		movs	r0, #40
+ 716 014a FFF7FEFF 		bl	LCD_WR_DATA8
+ 717              	.LVL101:
+ 227:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x26);
+ 718              		.loc 1 227 5 view .LVU153
+ 719 014e 2620     		movs	r0, #38
+ 720 0150 FFF7FEFF 		bl	LCD_WR_DATA8
+ 721              	.LVL102:
+ 228:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x2E);
+ 722              		.loc 1 228 5 view .LVU154
+ 723 0154 2E20     		movs	r0, #46
+ 724 0156 FFF7FEFF 		bl	LCD_WR_DATA8
+ 725              	.LVL103:
+ 229:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x3A);
+ 726              		.loc 1 229 5 view .LVU155
+ 727 015a 3A20     		movs	r0, #58
+ 728 015c FFF7FEFF 		bl	LCD_WR_DATA8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 18
+
+
+ 729              	.LVL104:
+ 230:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x00);
+ 730              		.loc 1 230 5 view .LVU156
+ 731 0160 0020     		movs	r0, #0
+ 732 0162 FFF7FEFF 		bl	LCD_WR_DATA8
+ 733              	.LVL105:
+ 231:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x01);
+ 734              		.loc 1 231 5 view .LVU157
+ 735 0166 0120     		movs	r0, #1
+ 736 0168 FFF7FEFF 		bl	LCD_WR_DATA8
+ 737              	.LVL106:
+ 232:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x03);
+ 738              		.loc 1 232 5 view .LVU158
+ 739 016c 0320     		movs	r0, #3
+ 740 016e FFF7FEFF 		bl	LCD_WR_DATA8
+ 741              	.LVL107:
+ 233:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x13);
+ 742              		.loc 1 233 5 view .LVU159
+ 743 0172 1320     		movs	r0, #19
+ 744 0174 FFF7FEFF 		bl	LCD_WR_DATA8
+ 745              	.LVL108:
+ 234:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0xE1);
+ 746              		.loc 1 234 5 view .LVU160
+ 747 0178 E120     		movs	r0, #225
+ 748 017a FFF7FEFF 		bl	LCD_WR_REG
+ 749              	.LVL109:
+ 235:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x04);
+ 750              		.loc 1 235 5 view .LVU161
+ 751 017e 0420     		movs	r0, #4
+ 752 0180 FFF7FEFF 		bl	LCD_WR_DATA8
+ 753              	.LVL110:
+ 236:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x16);
+ 754              		.loc 1 236 5 view .LVU162
+ 755 0184 1620     		movs	r0, #22
+ 756 0186 FFF7FEFF 		bl	LCD_WR_DATA8
+ 757              	.LVL111:
+ 237:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x06);
+ 758              		.loc 1 237 5 view .LVU163
+ 759 018a 0620     		movs	r0, #6
+ 760 018c FFF7FEFF 		bl	LCD_WR_DATA8
+ 761              	.LVL112:
+ 238:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x0D);
+ 762              		.loc 1 238 5 view .LVU164
+ 763 0190 0D20     		movs	r0, #13
+ 764 0192 FFF7FEFF 		bl	LCD_WR_DATA8
+ 765              	.LVL113:
+ 239:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x2D);
+ 766              		.loc 1 239 5 view .LVU165
+ 767 0196 2D20     		movs	r0, #45
+ 768 0198 FFF7FEFF 		bl	LCD_WR_DATA8
+ 769              	.LVL114:
+ 240:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x26);
+ 770              		.loc 1 240 5 view .LVU166
+ 771 019c 2620     		movs	r0, #38
+ 772 019e FFF7FEFF 		bl	LCD_WR_DATA8
+ 773              	.LVL115:
+ 241:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x23);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 19
+
+
+ 774              		.loc 1 241 5 view .LVU167
+ 775 01a2 2320     		movs	r0, #35
+ 776 01a4 FFF7FEFF 		bl	LCD_WR_DATA8
+ 777              	.LVL116:
+ 242:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x27);
+ 778              		.loc 1 242 5 view .LVU168
+ 779 01a8 2720     		movs	r0, #39
+ 780 01aa FFF7FEFF 		bl	LCD_WR_DATA8
+ 781              	.LVL117:
+ 243:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x27);
+ 782              		.loc 1 243 5 view .LVU169
+ 783 01ae 2720     		movs	r0, #39
+ 784 01b0 FFF7FEFF 		bl	LCD_WR_DATA8
+ 785              	.LVL118:
+ 244:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x25);
+ 786              		.loc 1 244 5 view .LVU170
+ 787 01b4 2520     		movs	r0, #37
+ 788 01b6 FFF7FEFF 		bl	LCD_WR_DATA8
+ 789              	.LVL119:
+ 245:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x2D);
+ 790              		.loc 1 245 5 view .LVU171
+ 791 01ba 2D20     		movs	r0, #45
+ 792 01bc FFF7FEFF 		bl	LCD_WR_DATA8
+ 793              	.LVL120:
+ 246:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x3B);
+ 794              		.loc 1 246 5 view .LVU172
+ 795 01c0 3B20     		movs	r0, #59
+ 796 01c2 FFF7FEFF 		bl	LCD_WR_DATA8
+ 797              	.LVL121:
+ 247:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x00);
+ 798              		.loc 1 247 5 view .LVU173
+ 799 01c6 0020     		movs	r0, #0
+ 800 01c8 FFF7FEFF 		bl	LCD_WR_DATA8
+ 801              	.LVL122:
+ 248:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x01);
+ 802              		.loc 1 248 5 view .LVU174
+ 803 01cc 0120     		movs	r0, #1
+ 804 01ce FFF7FEFF 		bl	LCD_WR_DATA8
+ 805              	.LVL123:
+ 249:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x04);
+ 806              		.loc 1 249 5 view .LVU175
+ 807 01d2 0420     		movs	r0, #4
+ 808 01d4 FFF7FEFF 		bl	LCD_WR_DATA8
+ 809              	.LVL124:
+ 250:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x13);
+ 810              		.loc 1 250 5 view .LVU176
+ 811 01d8 1320     		movs	r0, #19
+ 812 01da FFF7FEFF 		bl	LCD_WR_DATA8
+ 813              	.LVL125:
+ 251:../APP/LCD/Src/lcd_init.c **** 
+ 252:../APP/LCD/Src/lcd_init.c ****     /* 65k color mode */
+ 253:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0x3A);
+ 814              		.loc 1 253 5 view .LVU177
+ 815 01de 3A20     		movs	r0, #58
+ 816 01e0 FFF7FEFF 		bl	LCD_WR_REG
+ 817              	.LVL126:
+ 254:../APP/LCD/Src/lcd_init.c ****     LCD_WR_DATA8(0x05);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 20
+
+
+ 818              		.loc 1 254 5 view .LVU178
+ 819 01e4 0520     		movs	r0, #5
+ 820 01e6 FFF7FEFF 		bl	LCD_WR_DATA8
+ 821              	.LVL127:
+ 255:../APP/LCD/Src/lcd_init.c **** 
+ 256:../APP/LCD/Src/lcd_init.c ****     /* Display on */
+ 257:../APP/LCD/Src/lcd_init.c ****     LCD_WR_REG(0x29);
+ 822              		.loc 1 257 5 view .LVU179
+ 258:../APP/LCD/Src/lcd_init.c **** }
+ 823              		.loc 1 258 1 is_stmt 0 view .LVU180
+ 824 01ea BDE80840 		pop	{r3, lr}
+ 825              	.LCFI14:
+ 826              		.cfi_restore 14
+ 827              		.cfi_restore 3
+ 828              		.cfi_def_cfa_offset 0
+ 257:../APP/LCD/Src/lcd_init.c **** }
+ 829              		.loc 1 257 5 view .LVU181
+ 830 01ee 2920     		movs	r0, #41
+ 831 01f0 FFF7FEBF 		b	LCD_WR_REG
+ 832              	.LVL128:
+ 833              	.L24:
+ 834              		.align	2
+ 835              	.L23:
+ 836 01f4 00340240 		.word	1073886208
+ 837 01f8 00380240 		.word	1073887232
+ 838              		.cfi_endproc
+ 839              	.LFE137:
+ 841              		.text
+ 842              	.Letext0:
+ 843              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 844              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 845              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 846              		.file 5 "../core/inc/hal_compat.h"
+ 847              		.file 6 "../core/inc/dma.h"
+ 848              		.file 7 "../core/inc/spi.h"
+ 849              		.file 8 "../firmware/n32g430_std_periph_driver/inc/n32g430_gpio.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s 			page 21
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lcd_init.c
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:21     .text.LCD_GPIO_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:27     .text.LCD_GPIO_Init:00000000 LCD_GPIO_Init
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:40     .text.LCD_Writ_Bus:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:46     .text.LCD_Writ_Bus:00000000 LCD_Writ_Bus
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:80     .text.LCD_Writ_Bus:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:85     .text.LCD_WR_DATA8:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:91     .text.LCD_WR_DATA8:00000000 LCD_WR_DATA8
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:140    .text.LCD_WR_DATA8:00000028 $d
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:145    .text.LCD_WR_DATA:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:151    .text.LCD_WR_DATA:00000000 LCD_WR_DATA
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:204    .text.LCD_WR_DATA:0000002c $d
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:209    .text.LCD_WR_DATA_DMA:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:215    .text.LCD_WR_DATA_DMA:00000000 LCD_WR_DATA_DMA
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:322    .text.LCD_WR_DATA_DMA:00000050 $d
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:329    .text.LCD_WR_REG:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:335    .text.LCD_WR_REG:00000000 LCD_WR_REG
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:389    .text.LCD_WR_REG:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:394    .text.LCD_Address_Set:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:400    .text.LCD_Address_Set:00000000 LCD_Address_Set
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:477    .text.LCD_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:483    .text.LCD_Init:00000000 LCD_Init
+C:\Users\Dawn\AppData\Local\Temp\cc8Fr1hc.s:836    .text.LCD_Init:000001f4 $d
+
+UNDEFINED SYMBOLS
+HAL_SPI_Transmit
+hspi1
+GPIO_Pins_Reset
+GPIO_Pins_Set
+HAL_SPI_Transmit_DMA
+HAL_GetTick
+hdma_spi1_tx
+HAL_Delay

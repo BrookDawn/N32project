@@ -1,0 +1,872 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"button_test_demo.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../APP/LCD/Src/button_test_demo.c"
+  20              		.section	.text.uart_print,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	uart_print:
+  27              	.LVL0:
+  28              	.LFB133:
+   1:../APP/LCD/Src/button_test_demo.c **** /**
+   2:../APP/LCD/Src/button_test_demo.c ****  * @file button_test_simple.c
+   3:../APP/LCD/Src/button_test_demo.c ****  * @brief Simplified button test - only key events to UART
+   4:../APP/LCD/Src/button_test_demo.c ****  */
+   5:../APP/LCD/Src/button_test_demo.c **** 
+   6:../APP/LCD/Src/button_test_demo.c **** #include "button_test_demo.h"
+   7:../APP/LCD/Src/button_test_demo.c **** #include "button.h"
+   8:../APP/LCD/Src/button_test_demo.c **** #include "lcd_init.h"
+   9:../APP/LCD/Src/button_test_demo.c **** #include "lcd.h"
+  10:../APP/LCD/Src/button_test_demo.c **** #include "spi.h"
+  11:../APP/LCD/Src/button_test_demo.c **** #include "dma.h"
+  12:../APP/LCD/Src/button_test_demo.c **** #include "bsp_usart.h"
+  13:../APP/LCD/Src/button_test_demo.c **** #include "hal_compat.h"
+  14:../APP/LCD/Src/button_test_demo.c **** #include "n32g430_gpio.h"
+  15:../APP/LCD/Src/button_test_demo.c **** #include <stdio.h>
+  16:../APP/LCD/Src/button_test_demo.c **** #include <stdarg.h>
+  17:../APP/LCD/Src/button_test_demo.c **** #include <string.h>
+  18:../APP/LCD/Src/button_test_demo.c **** 
+  19:../APP/LCD/Src/button_test_demo.c **** /* Statistics */
+  20:../APP/LCD/Src/button_test_demo.c **** static uint32_t press_count = 0;
+  21:../APP/LCD/Src/button_test_demo.c **** static uint32_t long_press_count = 0;
+  22:../APP/LCD/Src/button_test_demo.c **** static uint32_t release_count = 0;
+  23:../APP/LCD/Src/button_test_demo.c **** 
+  24:../APP/LCD/Src/button_test_demo.c **** /**
+  25:../APP/LCD/Src/button_test_demo.c ****  * @brief UART print (simplified)
+  26:../APP/LCD/Src/button_test_demo.c ****  */
+  27:../APP/LCD/Src/button_test_demo.c **** static void uart_print(const char *str)
+  28:../APP/LCD/Src/button_test_demo.c **** {
+  29              		.loc 1 28 1 view -0
+  30              		.cfi_startproc
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s 			page 2
+
+
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  29:../APP/LCD/Src/button_test_demo.c ****     while (*str) {
+  33              		.loc 1 29 5 view .LVU1
+  28:../APP/LCD/Src/button_test_demo.c ****     while (*str) {
+  34              		.loc 1 28 1 is_stmt 0 view .LVU2
+  35 0000 10B5     		push	{r4, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 4, -8
+  39              		.cfi_offset 14, -4
+  40 0002 441E     		subs	r4, r0, #1
+  41              	.LVL1:
+  42              	.L2:
+  43              		.loc 1 29 12 is_stmt 1 view .LVU3
+  44 0004 14F8013F 		ldrb	r3, [r4, #1]!	@ zero_extendqisi2
+  45              	.LVL2:
+  46              		.loc 1 29 12 is_stmt 0 view .LVU4
+  47 0008 03B9     		cbnz	r3, .L3
+  30:../APP/LCD/Src/button_test_demo.c ****         while (USART_Flag_Status_Get(USART1, USART_FLAG_TXDE) == RESET);
+  31:../APP/LCD/Src/button_test_demo.c ****         USART_Data_Send(USART1, *str++);
+  32:../APP/LCD/Src/button_test_demo.c ****     }
+  33:../APP/LCD/Src/button_test_demo.c **** }
+  48              		.loc 1 33 1 view .LVU5
+  49 000a 10BD     		pop	{r4, pc}
+  50              	.LVL3:
+  51              	.L3:
+  30:../APP/LCD/Src/button_test_demo.c ****         while (USART_Flag_Status_Get(USART1, USART_FLAG_TXDE) == RESET);
+  52              		.loc 1 30 63 is_stmt 1 discriminator 1 view .LVU6
+  30:../APP/LCD/Src/button_test_demo.c ****         while (USART_Flag_Status_Get(USART1, USART_FLAG_TXDE) == RESET);
+  53              		.loc 1 30 16 is_stmt 0 discriminator 1 view .LVU7
+  54 000c 0548     		ldr	r0, .L7
+  55 000e 8021     		movs	r1, #128
+  56 0010 FFF7FEFF 		bl	USART_Flag_Status_Get
+  57              	.LVL4:
+  30:../APP/LCD/Src/button_test_demo.c ****         while (USART_Flag_Status_Get(USART1, USART_FLAG_TXDE) == RESET);
+  58              		.loc 1 30 63 discriminator 1 view .LVU8
+  59 0014 0028     		cmp	r0, #0
+  60 0016 F9D0     		beq	.L3
+  31:../APP/LCD/Src/button_test_demo.c ****     }
+  61              		.loc 1 31 9 is_stmt 1 view .LVU9
+  62              	.LVL5:
+  31:../APP/LCD/Src/button_test_demo.c ****     }
+  63              		.loc 1 31 9 is_stmt 0 view .LVU10
+  64 0018 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+  65 001a 0248     		ldr	r0, .L7
+  66 001c FFF7FEFF 		bl	USART_Data_Send
+  67              	.LVL6:
+  68 0020 F0E7     		b	.L2
+  69              	.L8:
+  70 0022 00BF     		.align	2
+  71              	.L7:
+  72 0024 00380140 		.word	1073821696
+  73              		.cfi_endproc
+  74              	.LFE133:
+  76              		.section	.rodata.ButtonTest_Init.str1.1,"aMS",%progbits,1
+  77              	.LC0:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s 			page 3
+
+
+  78 0000 4B657920 		.ascii	"Key Test\000"
+  78      54657374 
+  78      00
+  79              	.LC1:
+  80 0009 50423131 		.ascii	"PB11: Button\000"
+  80      3A204275 
+  80      74746F6E 
+  80      00
+  81              	.LC2:
+  82 0016 53686F72 		.ascii	"Short: <70ms\000"
+  82      743A203C 
+  82      37306D73 
+  82      00
+  83              	.LC3:
+  84 0023 4C6F6E67 		.ascii	"Long:  >=70ms\000"
+  84      3A20203E 
+  84      3D37306D 
+  84      7300
+  85              	.LC4:
+  86 0031 43686563 		.ascii	"Check UART1\000"
+  86      6B205541 
+  86      52543100 
+  87              	.LC5:
+  88 003d 31313532 		.ascii	"115200 bps\000"
+  88      30302062 
+  88      707300
+  89              	.LC6:
+  90 0048 0D0A3D3D 		.ascii	"\015\012=== Button Test ===\015\012\000"
+  90      3D204275 
+  90      74746F6E 
+  90      20546573 
+  90      74203D3D 
+  91              	.LC7:
+  92 0060 53616D70 		.ascii	"Sample: 30ms, Threshold: 0.7\015\012\000"
+  92      6C653A20 
+  92      33306D73 
+  92      2C205468 
+  92      72657368 
+  93              	.LC8:
+  94 007f 4C6F6E67 		.ascii	"Long press: 70ms\015\012\000"
+  94      20707265 
+  94      73733A20 
+  94      37306D73 
+  94      0D0A00
+  95              	.LC9:
+  96 0092 496E6974 		.ascii	"Initializing button...\015\012\000"
+  96      69616C69 
+  96      7A696E67 
+  96      20627574 
+  96      746F6E2E 
+  97              	.LC10:
+  98 00ab 42757474 		.ascii	"Button_Init() done\015\012\000"
+  98      6F6E5F49 
+  98      6E697428 
+  98      2920646F 
+  98      6E650D0A 
+  99              	.LC11:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s 			page 4
+
+
+ 100 00c0 42757474 		.ascii	"Button_StartSampling() done\015\012\000"
+ 100      6F6E5F53 
+ 100      74617274 
+ 100      53616D70 
+ 100      6C696E67 
+ 101              	.LC12:
+ 102 00de 52656164 		.ascii	"Ready! Press PB11...\015\012\015\012\000"
+ 102      79212050 
+ 102      72657373 
+ 102      20504231 
+ 102      312E2E2E 
+ 103              		.section	.text.ButtonTest_Init,"ax",%progbits
+ 104              		.align	1
+ 105              		.global	ButtonTest_Init
+ 106              		.syntax unified
+ 107              		.thumb
+ 108              		.thumb_func
+ 110              	ButtonTest_Init:
+ 111              	.LFB134:
+  34:../APP/LCD/Src/button_test_demo.c **** 
+  35:../APP/LCD/Src/button_test_demo.c **** /**
+  36:../APP/LCD/Src/button_test_demo.c ****  * @brief Initialize button test
+  37:../APP/LCD/Src/button_test_demo.c ****  */
+  38:../APP/LCD/Src/button_test_demo.c **** void ButtonTest_Init(void)
+  39:../APP/LCD/Src/button_test_demo.c **** {
+ 112              		.loc 1 39 1 is_stmt 1 view -0
+ 113              		.cfi_startproc
+ 114              		@ args = 0, pretend = 0, frame = 0
+ 115              		@ frame_needed = 0, uses_anonymous_args = 0
+  40:../APP/LCD/Src/button_test_demo.c ****     /* Initialize hardware */
+  41:../APP/LCD/Src/button_test_demo.c ****     USART1_Init();          /* Initialize UART1 first! */
+ 116              		.loc 1 41 5 view .LVU12
+  39:../APP/LCD/Src/button_test_demo.c ****     /* Initialize hardware */
+ 117              		.loc 1 39 1 is_stmt 0 view .LVU13
+ 118 0000 30B5     		push	{r4, r5, lr}
+ 119              	.LCFI1:
+ 120              		.cfi_def_cfa_offset 12
+ 121              		.cfi_offset 4, -12
+ 122              		.cfi_offset 5, -8
+ 123              		.cfi_offset 14, -4
+ 124 0002 85B0     		sub	sp, sp, #20
+ 125              	.LCFI2:
+ 126              		.cfi_def_cfa_offset 32
+  42:../APP/LCD/Src/button_test_demo.c ****     MX_DMA_SPI1_Init();
+  43:../APP/LCD/Src/button_test_demo.c ****     MX_SPI1_Init();
+  44:../APP/LCD/Src/button_test_demo.c ****     LCD_Init();
+  45:../APP/LCD/Src/button_test_demo.c ****     LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 127              		.loc 1 45 5 view .LVU14
+ 128 0004 0024     		movs	r4, #0
+  41:../APP/LCD/Src/button_test_demo.c ****     MX_DMA_SPI1_Init();
+ 129              		.loc 1 41 5 view .LVU15
+ 130 0006 FFF7FEFF 		bl	USART1_Init
+ 131              	.LVL7:
+  42:../APP/LCD/Src/button_test_demo.c ****     MX_DMA_SPI1_Init();
+ 132              		.loc 1 42 5 is_stmt 1 view .LVU16
+  46:../APP/LCD/Src/button_test_demo.c **** 
+  47:../APP/LCD/Src/button_test_demo.c ****     /* Title */
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s 			page 5
+
+
+  48:../APP/LCD/Src/button_test_demo.c ****     LCD_Fill(0, 0, LCD_W, 25, BLUE);
+ 133              		.loc 1 48 5 is_stmt 0 view .LVU17
+ 134 000a 1F25     		movs	r5, #31
+  42:../APP/LCD/Src/button_test_demo.c ****     MX_SPI1_Init();
+ 135              		.loc 1 42 5 view .LVU18
+ 136 000c FFF7FEFF 		bl	MX_DMA_SPI1_Init
+ 137              	.LVL8:
+  43:../APP/LCD/Src/button_test_demo.c ****     LCD_Init();
+ 138              		.loc 1 43 5 is_stmt 1 view .LVU19
+ 139 0010 FFF7FEFF 		bl	MX_SPI1_Init
+ 140              	.LVL9:
+  44:../APP/LCD/Src/button_test_demo.c ****     LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 141              		.loc 1 44 5 view .LVU20
+ 142 0014 FFF7FEFF 		bl	LCD_Init
+ 143              	.LVL10:
+  45:../APP/LCD/Src/button_test_demo.c **** 
+ 144              		.loc 1 45 5 view .LVU21
+ 145 0018 2146     		mov	r1, r4
+ 146 001a 2046     		mov	r0, r4
+ 147 001c 0094     		str	r4, [sp]
+ 148 001e 8023     		movs	r3, #128
+ 149 0020 A022     		movs	r2, #160
+ 150 0022 FFF7FEFF 		bl	LCD_Fill
+ 151              	.LVL11:
+ 152              		.loc 1 48 5 view .LVU22
+ 153 0026 0095     		str	r5, [sp]
+ 154 0028 2146     		mov	r1, r4
+ 155 002a 2046     		mov	r0, r4
+ 156 002c 1923     		movs	r3, #25
+ 157 002e A022     		movs	r2, #160
+ 158 0030 FFF7FEFF 		bl	LCD_Fill
+ 159              	.LVL12:
+  49:../APP/LCD/Src/button_test_demo.c ****     LCD_ShowString(20, 5, (const u8 *)"Key Test", WHITE, BLUE, 16, 0);
+ 160              		.loc 1 49 5 view .LVU23
+ 161 0034 1023     		movs	r3, #16
+ 162 0036 CDE90053 		strd	r5, r3, [sp]
+ 163 003a 2B4A     		ldr	r2, .L10
+ 164 003c 0294     		str	r4, [sp, #8]
+  50:../APP/LCD/Src/button_test_demo.c **** 
+  51:../APP/LCD/Src/button_test_demo.c ****     /* Instructions */
+  52:../APP/LCD/Src/button_test_demo.c ****     LCD_ShowString(5, 35, (const u8 *)"PB11: Button", CYAN, BLACK, 12, 0);
+ 165              		.loc 1 52 5 is_stmt 0 view .LVU24
+ 166 003e 0C25     		movs	r5, #12
+  49:../APP/LCD/Src/button_test_demo.c ****     LCD_ShowString(20, 5, (const u8 *)"Key Test", WHITE, BLUE, 16, 0);
+ 167              		.loc 1 49 5 view .LVU25
+ 168 0040 4FF6FF73 		movw	r3, #65535
+ 169 0044 0521     		movs	r1, #5
+ 170 0046 1420     		movs	r0, #20
+ 171 0048 FFF7FEFF 		bl	LCD_ShowString
+ 172              	.LVL13:
+ 173              		.loc 1 52 5 is_stmt 1 view .LVU26
+ 174 004c CDE90045 		strd	r4, r5, [sp]
+ 175 0050 264A     		ldr	r2, .L10+4
+ 176 0052 0294     		str	r4, [sp, #8]
+ 177 0054 47F6FF73 		movw	r3, #32767
+ 178 0058 2321     		movs	r1, #35
+ 179 005a 0520     		movs	r0, #5
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s 			page 6
+
+
+ 180 005c FFF7FEFF 		bl	LCD_ShowString
+ 181              	.LVL14:
+  53:../APP/LCD/Src/button_test_demo.c ****     LCD_ShowString(5, 55, (const u8 *)"Short: <70ms", WHITE, BLACK, 12, 0);
+ 182              		.loc 1 53 5 view .LVU27
+ 183 0060 CDE90154 		strd	r5, r4, [sp, #4]
+ 184 0064 224A     		ldr	r2, .L10+8
+ 185 0066 0094     		str	r4, [sp]
+ 186 0068 4FF6FF73 		movw	r3, #65535
+ 187 006c 3721     		movs	r1, #55
+ 188 006e 0520     		movs	r0, #5
+ 189 0070 FFF7FEFF 		bl	LCD_ShowString
+ 190              	.LVL15:
+  54:../APP/LCD/Src/button_test_demo.c ****     LCD_ShowString(5, 75, (const u8 *)"Long:  >=70ms", YELLOW, BLACK, 12, 0);
+ 191              		.loc 1 54 5 view .LVU28
+ 192 0074 CDE90154 		strd	r5, r4, [sp, #4]
+ 193 0078 1E4A     		ldr	r2, .L10+12
+ 194 007a 0094     		str	r4, [sp]
+ 195 007c 4FF6E073 		movw	r3, #65504
+ 196 0080 4B21     		movs	r1, #75
+ 197 0082 0520     		movs	r0, #5
+ 198 0084 FFF7FEFF 		bl	LCD_ShowString
+ 199              	.LVL16:
+  55:../APP/LCD/Src/button_test_demo.c ****     LCD_ShowString(5, 100, (const u8 *)"Check UART1", GREEN, BLACK, 12, 0);
+ 200              		.loc 1 55 5 view .LVU29
+ 201 0088 CDE90154 		strd	r5, r4, [sp, #4]
+ 202 008c 1A4A     		ldr	r2, .L10+16
+ 203 008e 0094     		str	r4, [sp]
+ 204 0090 4FF4FC63 		mov	r3, #2016
+ 205 0094 6421     		movs	r1, #100
+ 206 0096 0520     		movs	r0, #5
+ 207 0098 FFF7FEFF 		bl	LCD_ShowString
+ 208              	.LVL17:
+  56:../APP/LCD/Src/button_test_demo.c ****     LCD_ShowString(5, 120, (const u8 *)"115200 bps", GREEN, BLACK, 12, 0);
+ 209              		.loc 1 56 5 view .LVU30
+ 210 009c 174A     		ldr	r2, .L10+20
+ 211 009e 0094     		str	r4, [sp]
+ 212 00a0 4FF4FC63 		mov	r3, #2016
+ 213 00a4 7821     		movs	r1, #120
+ 214 00a6 CDE90154 		strd	r5, r4, [sp, #4]
+ 215 00aa 0520     		movs	r0, #5
+ 216 00ac FFF7FEFF 		bl	LCD_ShowString
+ 217              	.LVL18:
+  57:../APP/LCD/Src/button_test_demo.c **** 
+  58:../APP/LCD/Src/button_test_demo.c ****     /* UART startup */
+  59:../APP/LCD/Src/button_test_demo.c ****     uart_print("\r\n=== Button Test ===\r\n");
+ 218              		.loc 1 59 5 view .LVU31
+ 219 00b0 1348     		ldr	r0, .L10+24
+ 220 00b2 FFF7FEFF 		bl	uart_print
+ 221              	.LVL19:
+  60:../APP/LCD/Src/button_test_demo.c ****     uart_print("Sample: 30ms, Threshold: 0.7\r\n");
+ 222              		.loc 1 60 5 view .LVU32
+ 223 00b6 1348     		ldr	r0, .L10+28
+ 224 00b8 FFF7FEFF 		bl	uart_print
+ 225              	.LVL20:
+  61:../APP/LCD/Src/button_test_demo.c ****     uart_print("Long press: 70ms\r\n");
+ 226              		.loc 1 61 5 view .LVU33
+ 227 00bc 1248     		ldr	r0, .L10+32
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s 			page 7
+
+
+ 228 00be FFF7FEFF 		bl	uart_print
+ 229              	.LVL21:
+  62:../APP/LCD/Src/button_test_demo.c ****     uart_print("Initializing button...\r\n");
+ 230              		.loc 1 62 5 view .LVU34
+ 231 00c2 1248     		ldr	r0, .L10+36
+ 232 00c4 FFF7FEFF 		bl	uart_print
+ 233              	.LVL22:
+  63:../APP/LCD/Src/button_test_demo.c **** 
+  64:../APP/LCD/Src/button_test_demo.c ****     /* Initialize button */
+  65:../APP/LCD/Src/button_test_demo.c ****     Button_Init();
+ 234              		.loc 1 65 5 view .LVU35
+ 235 00c8 FFF7FEFF 		bl	Button_Init
+ 236              	.LVL23:
+  66:../APP/LCD/Src/button_test_demo.c ****     uart_print("Button_Init() done\r\n");
+ 237              		.loc 1 66 5 view .LVU36
+ 238 00cc 1048     		ldr	r0, .L10+40
+ 239 00ce FFF7FEFF 		bl	uart_print
+ 240              	.LVL24:
+  67:../APP/LCD/Src/button_test_demo.c **** 
+  68:../APP/LCD/Src/button_test_demo.c ****     Button_StartSampling();
+ 241              		.loc 1 68 5 view .LVU37
+ 242 00d2 FFF7FEFF 		bl	Button_StartSampling
+ 243              	.LVL25:
+  69:../APP/LCD/Src/button_test_demo.c ****     uart_print("Button_StartSampling() done\r\n");
+ 244              		.loc 1 69 5 view .LVU38
+ 245 00d6 0F48     		ldr	r0, .L10+44
+ 246 00d8 FFF7FEFF 		bl	uart_print
+ 247              	.LVL26:
+  70:../APP/LCD/Src/button_test_demo.c ****     uart_print("Ready! Press PB11...\r\n\r\n");
+ 248              		.loc 1 70 5 view .LVU39
+ 249 00dc 0E48     		ldr	r0, .L10+48
+  71:../APP/LCD/Src/button_test_demo.c **** }
+ 250              		.loc 1 71 1 is_stmt 0 view .LVU40
+ 251 00de 05B0     		add	sp, sp, #20
+ 252              	.LCFI3:
+ 253              		.cfi_def_cfa_offset 12
+ 254              		@ sp needed
+ 255 00e0 BDE83040 		pop	{r4, r5, lr}
+ 256              	.LCFI4:
+ 257              		.cfi_restore 14
+ 258              		.cfi_restore 5
+ 259              		.cfi_restore 4
+ 260              		.cfi_def_cfa_offset 0
+  70:../APP/LCD/Src/button_test_demo.c ****     uart_print("Ready! Press PB11...\r\n\r\n");
+ 261              		.loc 1 70 5 view .LVU41
+ 262 00e4 FFF7FEBF 		b	uart_print
+ 263              	.LVL27:
+ 264              	.L11:
+ 265              		.align	2
+ 266              	.L10:
+ 267 00e8 00000000 		.word	.LC0
+ 268 00ec 09000000 		.word	.LC1
+ 269 00f0 16000000 		.word	.LC2
+ 270 00f4 23000000 		.word	.LC3
+ 271 00f8 31000000 		.word	.LC4
+ 272 00fc 3D000000 		.word	.LC5
+ 273 0100 48000000 		.word	.LC6
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s 			page 8
+
+
+ 274 0104 60000000 		.word	.LC7
+ 275 0108 7F000000 		.word	.LC8
+ 276 010c 92000000 		.word	.LC9
+ 277 0110 AB000000 		.word	.LC10
+ 278 0114 C0000000 		.word	.LC11
+ 279 0118 DE000000 		.word	.LC12
+ 280              		.cfi_endproc
+ 281              	.LFE134:
+ 283              		.section	.rodata.ButtonTest_Main.str1.1,"aMS",%progbits,1
+ 284              	.LC13:
+ 285 0000 5B444542 		.ascii	"[DEBUG] PB11 state: %d\015\012\000"
+ 285      55475D20 
+ 285      50423131 
+ 285      20737461 
+ 285      74653A20 
+ 286              	.LC14:
+ 287 0019 5B256C75 		.ascii	"[%lu] SHORT PRESS #%lu\015\012\000"
+ 287      5D205348 
+ 287      4F525420 
+ 287      50524553 
+ 287      53202325 
+ 288              	.LC15:
+ 289 0032 5B256C75 		.ascii	"[%lu] LONG PRESS #%lu\015\012\000"
+ 289      5D204C4F 
+ 289      4E472050 
+ 289      52455353 
+ 289      2023256C 
+ 290              	.LC16:
+ 291 004a 5B256C75 		.ascii	"[%lu] RELEASE #%lu\015\012\015\012\000"
+ 291      5D205245 
+ 291      4C454153 
+ 291      45202325 
+ 291      6C750D0A 
+ 292              		.section	.text.ButtonTest_Main,"ax",%progbits
+ 293              		.align	1
+ 294              		.global	ButtonTest_Main
+ 295              		.syntax unified
+ 296              		.thumb
+ 297              		.thumb_func
+ 299              	ButtonTest_Main:
+ 300              	.LFB135:
+  72:../APP/LCD/Src/button_test_demo.c **** 
+  73:../APP/LCD/Src/button_test_demo.c **** /**
+  74:../APP/LCD/Src/button_test_demo.c ****  * @brief Main test loop
+  75:../APP/LCD/Src/button_test_demo.c ****  */
+  76:../APP/LCD/Src/button_test_demo.c **** void ButtonTest_Main(void)
+  77:../APP/LCD/Src/button_test_demo.c **** {
+ 301              		.loc 1 77 1 is_stmt 1 view -0
+ 302              		.cfi_startproc
+ 303              		@ args = 0, pretend = 0, frame = 64
+ 304              		@ frame_needed = 0, uses_anonymous_args = 0
+  78:../APP/LCD/Src/button_test_demo.c ****     ButtonEvent_t event = Button_GetEvent();
+ 305              		.loc 1 78 5 view .LVU43
+  77:../APP/LCD/Src/button_test_demo.c ****     ButtonEvent_t event = Button_GetEvent();
+ 306              		.loc 1 77 1 is_stmt 0 view .LVU44
+ 307 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 308              	.LCFI5:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s 			page 9
+
+
+ 309              		.cfi_def_cfa_offset 24
+ 310              		.cfi_offset 4, -24
+ 311              		.cfi_offset 5, -20
+ 312              		.cfi_offset 6, -16
+ 313              		.cfi_offset 7, -12
+ 314              		.cfi_offset 8, -8
+ 315              		.cfi_offset 14, -4
+ 316 0004 92B0     		sub	sp, sp, #72
+ 317              	.LCFI6:
+ 318              		.cfi_def_cfa_offset 96
+ 319              		.loc 1 78 27 view .LVU45
+ 320 0006 FFF7FEFF 		bl	Button_GetEvent
+ 321              	.LVL28:
+  79:../APP/LCD/Src/button_test_demo.c ****     char msg[64];
+  80:../APP/LCD/Src/button_test_demo.c **** 
+  81:../APP/LCD/Src/button_test_demo.c ****     /* Debug: read PB11 state directly */
+  82:../APP/LCD/Src/button_test_demo.c ****     static uint32_t last_debug_time = 0;
+  83:../APP/LCD/Src/button_test_demo.c ****     static uint8_t last_pin_state = 1;
+  84:../APP/LCD/Src/button_test_demo.c ****     uint32_t current_time = HAL_GetTick();
+  85:../APP/LCD/Src/button_test_demo.c **** 
+  86:../APP/LCD/Src/button_test_demo.c ****     if (current_time - last_debug_time >= 1000) {
+ 322              		.loc 1 86 22 view .LVU46
+ 323 000a 364E     		ldr	r6, .L19
+  78:../APP/LCD/Src/button_test_demo.c ****     char msg[64];
+ 324              		.loc 1 78 27 view .LVU47
+ 325 000c 0446     		mov	r4, r0
+ 326              	.LVL29:
+  79:../APP/LCD/Src/button_test_demo.c ****     char msg[64];
+ 327              		.loc 1 79 5 is_stmt 1 view .LVU48
+  82:../APP/LCD/Src/button_test_demo.c ****     static uint8_t last_pin_state = 1;
+ 328              		.loc 1 82 5 view .LVU49
+  83:../APP/LCD/Src/button_test_demo.c ****     uint32_t current_time = HAL_GetTick();
+ 329              		.loc 1 83 5 view .LVU50
+  84:../APP/LCD/Src/button_test_demo.c **** 
+ 330              		.loc 1 84 5 view .LVU51
+  84:../APP/LCD/Src/button_test_demo.c **** 
+ 331              		.loc 1 84 29 is_stmt 0 view .LVU52
+ 332 000e FFF7FEFF 		bl	HAL_GetTick
+ 333              	.LVL30:
+ 334              		.loc 1 86 22 view .LVU53
+ 335 0012 3368     		ldr	r3, [r6]
+ 336 0014 C31A     		subs	r3, r0, r3
+ 337              		.loc 1 86 8 view .LVU54
+ 338 0016 B3F57A7F 		cmp	r3, #1000
+  84:../APP/LCD/Src/button_test_demo.c **** 
+ 339              		.loc 1 84 29 view .LVU55
+ 340 001a 0546     		mov	r5, r0
+ 341              	.LVL31:
+ 342              		.loc 1 86 5 is_stmt 1 view .LVU56
+ 343              		.loc 1 86 8 is_stmt 0 view .LVU57
+ 344 001c 12D3     		bcc	.L13
+ 345              	.LBB2:
+  87:../APP/LCD/Src/button_test_demo.c ****         GPIO_Module *gpio = GPIOB;
+ 346              		.loc 1 87 9 is_stmt 1 view .LVU58
+ 347              	.LVL32:
+  88:../APP/LCD/Src/button_test_demo.c ****         uint8_t pin_state = (gpio->PID & (1 << 11)) ? 1 : 0;
+ 348              		.loc 1 88 9 view .LVU59
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s 			page 10
+
+
+ 349              		.loc 1 88 34 is_stmt 0 view .LVU60
+ 350 001e 324B     		ldr	r3, .L19+4
+  89:../APP/LCD/Src/button_test_demo.c **** 
+  90:../APP/LCD/Src/button_test_demo.c ****         if (pin_state != last_pin_state) {
+ 351              		.loc 1 90 23 view .LVU61
+ 352 0020 324F     		ldr	r7, .L19+8
+  88:../APP/LCD/Src/button_test_demo.c ****         uint8_t pin_state = (gpio->PID & (1 << 11)) ? 1 : 0;
+ 353              		.loc 1 88 34 view .LVU62
+ 354 0022 1A69     		ldr	r2, [r3, #16]
+ 355              		.loc 1 90 12 view .LVU63
+ 356 0024 3B78     		ldrb	r3, [r7]	@ zero_extendqisi2
+  88:../APP/LCD/Src/button_test_demo.c ****         uint8_t pin_state = (gpio->PID & (1 << 11)) ? 1 : 0;
+ 357              		.loc 1 88 57 view .LVU64
+ 358 0026 C2F3C028 		ubfx	r8, r2, #11, #1
+ 359              		.loc 1 90 12 view .LVU65
+ 360 002a 4345     		cmp	r3, r8
+  88:../APP/LCD/Src/button_test_demo.c ****         uint8_t pin_state = (gpio->PID & (1 << 11)) ? 1 : 0;
+ 361              		.loc 1 88 57 view .LVU66
+ 362 002c 4246     		mov	r2, r8
+ 363              	.LVL33:
+ 364              		.loc 1 90 9 is_stmt 1 view .LVU67
+ 365              		.loc 1 90 12 is_stmt 0 view .LVU68
+ 366 002e 08D0     		beq	.L14
+  91:../APP/LCD/Src/button_test_demo.c ****             sprintf(msg, "[DEBUG] PB11 state: %d\r\n", pin_state);
+ 367              		.loc 1 91 13 is_stmt 1 view .LVU69
+ 368 0030 2F49     		ldr	r1, .L19+12
+ 369 0032 02A8     		add	r0, sp, #8
+ 370              	.LVL34:
+ 371              		.loc 1 91 13 is_stmt 0 view .LVU70
+ 372 0034 FFF7FEFF 		bl	sprintf
+ 373              	.LVL35:
+  92:../APP/LCD/Src/button_test_demo.c ****             uart_print(msg);
+ 374              		.loc 1 92 13 is_stmt 1 view .LVU71
+ 375 0038 02A8     		add	r0, sp, #8
+ 376 003a FFF7FEFF 		bl	uart_print
+ 377              	.LVL36:
+  93:../APP/LCD/Src/button_test_demo.c ****             last_pin_state = pin_state;
+ 378              		.loc 1 93 13 view .LVU72
+ 379              		.loc 1 93 28 is_stmt 0 view .LVU73
+ 380 003e 87F80080 		strb	r8, [r7]
+ 381              	.L14:
+  94:../APP/LCD/Src/button_test_demo.c ****         }
+  95:../APP/LCD/Src/button_test_demo.c ****         last_debug_time = current_time;
+ 382              		.loc 1 95 9 is_stmt 1 view .LVU74
+ 383              		.loc 1 95 25 is_stmt 0 view .LVU75
+ 384 0042 3560     		str	r5, [r6]
+ 385              	.LVL37:
+ 386              	.L13:
+ 387              		.loc 1 95 25 view .LVU76
+ 388              	.LBE2:
+  96:../APP/LCD/Src/button_test_demo.c ****     }
+  97:../APP/LCD/Src/button_test_demo.c **** 
+  98:../APP/LCD/Src/button_test_demo.c ****     if (event == BUTTON_EVENT_PRESS) {
+ 389              		.loc 1 98 5 is_stmt 1 view .LVU77
+ 390              		.loc 1 98 8 is_stmt 0 view .LVU78
+ 391 0044 012C     		cmp	r4, #1
+ 392 0046 27D1     		bne	.L15
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s 			page 11
+
+
+  99:../APP/LCD/Src/button_test_demo.c ****         press_count++;
+ 393              		.loc 1 99 9 is_stmt 1 view .LVU79
+ 394              		.loc 1 99 20 is_stmt 0 view .LVU80
+ 395 0048 2A4C     		ldr	r4, .L19+16
+ 396              	.LVL38:
+ 397              		.loc 1 99 20 view .LVU81
+ 398 004a 2368     		ldr	r3, [r4]
+ 399 004c 0133     		adds	r3, r3, #1
+ 400 004e 2360     		str	r3, [r4]
+ 100:../APP/LCD/Src/button_test_demo.c ****         sprintf(msg, "[%lu] SHORT PRESS #%lu\r\n", HAL_GetTick(), press_count);
+ 401              		.loc 1 100 9 is_stmt 1 view .LVU82
+ 402 0050 FFF7FEFF 		bl	HAL_GetTick
+ 403              	.LVL39:
+ 404              		.loc 1 100 9 is_stmt 0 discriminator 1 view .LVU83
+ 405 0054 2368     		ldr	r3, [r4]
+ 406 0056 2849     		ldr	r1, .L19+20
+ 407              		.loc 1 100 9 view .LVU84
+ 408 0058 0246     		mov	r2, r0
+ 409              		.loc 1 100 9 discriminator 1 view .LVU85
+ 410 005a 02A8     		add	r0, sp, #8
+ 411 005c FFF7FEFF 		bl	sprintf
+ 412              	.LVL40:
+ 101:../APP/LCD/Src/button_test_demo.c ****         uart_print(msg);
+ 413              		.loc 1 101 9 is_stmt 1 view .LVU86
+ 414 0060 02A8     		add	r0, sp, #8
+ 415 0062 FFF7FEFF 		bl	uart_print
+ 416              	.LVL41:
+ 102:../APP/LCD/Src/button_test_demo.c **** 
+ 103:../APP/LCD/Src/button_test_demo.c ****         /* Visual feedback */
+ 104:../APP/LCD/Src/button_test_demo.c ****         LCD_Fill(0, 140, LCD_W, 160, GREEN);
+ 417              		.loc 1 104 9 view .LVU87
+ 418 0066 4FF4FC63 		mov	r3, #2016
+ 419              	.L18:
+ 105:../APP/LCD/Src/button_test_demo.c ****         HAL_Delay(50);
+ 106:../APP/LCD/Src/button_test_demo.c ****         LCD_Fill(0, 140, LCD_W, 160, BLACK);
+ 107:../APP/LCD/Src/button_test_demo.c **** 
+ 108:../APP/LCD/Src/button_test_demo.c ****     } else if (event == BUTTON_EVENT_LONG_PRESS) {
+ 109:../APP/LCD/Src/button_test_demo.c ****         long_press_count++;
+ 110:../APP/LCD/Src/button_test_demo.c ****         sprintf(msg, "[%lu] LONG PRESS #%lu\r\n", HAL_GetTick(), long_press_count);
+ 111:../APP/LCD/Src/button_test_demo.c ****         uart_print(msg);
+ 112:../APP/LCD/Src/button_test_demo.c **** 
+ 113:../APP/LCD/Src/button_test_demo.c ****         /* Visual feedback */
+ 114:../APP/LCD/Src/button_test_demo.c ****         LCD_Fill(0, 140, LCD_W, 160, YELLOW);
+ 420              		.loc 1 114 9 is_stmt 0 view .LVU88
+ 421 006a 0093     		str	r3, [sp]
+ 422 006c A023     		movs	r3, #160
+ 423 006e 1A46     		mov	r2, r3
+ 424 0070 8C21     		movs	r1, #140
+ 425 0072 0020     		movs	r0, #0
+ 426 0074 FFF7FEFF 		bl	LCD_Fill
+ 427              	.LVL42:
+ 115:../APP/LCD/Src/button_test_demo.c ****         HAL_Delay(50);
+ 428              		.loc 1 115 9 is_stmt 1 view .LVU89
+ 429 0078 3220     		movs	r0, #50
+ 430 007a FFF7FEFF 		bl	HAL_Delay
+ 431              	.LVL43:
+ 116:../APP/LCD/Src/button_test_demo.c ****         LCD_Fill(0, 140, LCD_W, 160, BLACK);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s 			page 12
+
+
+ 432              		.loc 1 116 9 view .LVU90
+ 433 007e 0020     		movs	r0, #0
+ 434 0080 A023     		movs	r3, #160
+ 435 0082 0090     		str	r0, [sp]
+ 436 0084 1A46     		mov	r2, r3
+ 437 0086 8C21     		movs	r1, #140
+ 438 0088 FFF7FEFF 		bl	LCD_Fill
+ 439              	.LVL44:
+ 440              	.L16:
+ 117:../APP/LCD/Src/button_test_demo.c **** 
+ 118:../APP/LCD/Src/button_test_demo.c ****     } else if (event == BUTTON_EVENT_RELEASE) {
+ 119:../APP/LCD/Src/button_test_demo.c ****         release_count++;
+ 120:../APP/LCD/Src/button_test_demo.c ****         sprintf(msg, "[%lu] RELEASE #%lu\r\n\r\n", HAL_GetTick(), release_count);
+ 121:../APP/LCD/Src/button_test_demo.c ****         uart_print(msg);
+ 122:../APP/LCD/Src/button_test_demo.c ****     }
+ 123:../APP/LCD/Src/button_test_demo.c **** 
+ 124:../APP/LCD/Src/button_test_demo.c ****     HAL_Delay(5);
+ 441              		.loc 1 124 5 view .LVU91
+ 442 008c 0520     		movs	r0, #5
+ 443 008e FFF7FEFF 		bl	HAL_Delay
+ 444              	.LVL45:
+ 125:../APP/LCD/Src/button_test_demo.c **** }
+ 445              		.loc 1 125 1 is_stmt 0 view .LVU92
+ 446 0092 12B0     		add	sp, sp, #72
+ 447              	.LCFI7:
+ 448              		.cfi_remember_state
+ 449              		.cfi_def_cfa_offset 24
+ 450              		@ sp needed
+ 451 0094 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 452              	.LVL46:
+ 453              	.L15:
+ 454              	.LCFI8:
+ 455              		.cfi_restore_state
+ 108:../APP/LCD/Src/button_test_demo.c ****         long_press_count++;
+ 456              		.loc 1 108 12 is_stmt 1 view .LVU93
+ 108:../APP/LCD/Src/button_test_demo.c ****         long_press_count++;
+ 457              		.loc 1 108 15 is_stmt 0 view .LVU94
+ 458 0098 032C     		cmp	r4, #3
+ 459 009a 11D1     		bne	.L17
+ 109:../APP/LCD/Src/button_test_demo.c ****         sprintf(msg, "[%lu] LONG PRESS #%lu\r\n", HAL_GetTick(), long_press_count);
+ 460              		.loc 1 109 9 is_stmt 1 view .LVU95
+ 109:../APP/LCD/Src/button_test_demo.c ****         sprintf(msg, "[%lu] LONG PRESS #%lu\r\n", HAL_GetTick(), long_press_count);
+ 461              		.loc 1 109 25 is_stmt 0 view .LVU96
+ 462 009c 174C     		ldr	r4, .L19+24
+ 463              	.LVL47:
+ 109:../APP/LCD/Src/button_test_demo.c ****         sprintf(msg, "[%lu] LONG PRESS #%lu\r\n", HAL_GetTick(), long_press_count);
+ 464              		.loc 1 109 25 view .LVU97
+ 465 009e 2368     		ldr	r3, [r4]
+ 466 00a0 0133     		adds	r3, r3, #1
+ 467 00a2 2360     		str	r3, [r4]
+ 110:../APP/LCD/Src/button_test_demo.c ****         uart_print(msg);
+ 468              		.loc 1 110 9 is_stmt 1 view .LVU98
+ 469 00a4 FFF7FEFF 		bl	HAL_GetTick
+ 470              	.LVL48:
+ 110:../APP/LCD/Src/button_test_demo.c ****         uart_print(msg);
+ 471              		.loc 1 110 9 is_stmt 0 discriminator 1 view .LVU99
+ 472 00a8 2368     		ldr	r3, [r4]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s 			page 13
+
+
+ 473 00aa 1549     		ldr	r1, .L19+28
+ 110:../APP/LCD/Src/button_test_demo.c ****         uart_print(msg);
+ 474              		.loc 1 110 9 view .LVU100
+ 475 00ac 0246     		mov	r2, r0
+ 110:../APP/LCD/Src/button_test_demo.c ****         uart_print(msg);
+ 476              		.loc 1 110 9 discriminator 1 view .LVU101
+ 477 00ae 02A8     		add	r0, sp, #8
+ 478 00b0 FFF7FEFF 		bl	sprintf
+ 479              	.LVL49:
+ 111:../APP/LCD/Src/button_test_demo.c **** 
+ 480              		.loc 1 111 9 is_stmt 1 view .LVU102
+ 481 00b4 02A8     		add	r0, sp, #8
+ 482 00b6 FFF7FEFF 		bl	uart_print
+ 483              	.LVL50:
+ 114:../APP/LCD/Src/button_test_demo.c ****         HAL_Delay(50);
+ 484              		.loc 1 114 9 view .LVU103
+ 485 00ba 4FF6E073 		movw	r3, #65504
+ 486 00be D4E7     		b	.L18
+ 487              	.LVL51:
+ 488              	.L17:
+ 118:../APP/LCD/Src/button_test_demo.c ****         release_count++;
+ 489              		.loc 1 118 12 view .LVU104
+ 118:../APP/LCD/Src/button_test_demo.c ****         release_count++;
+ 490              		.loc 1 118 15 is_stmt 0 view .LVU105
+ 491 00c0 022C     		cmp	r4, #2
+ 492 00c2 E3D1     		bne	.L16
+ 119:../APP/LCD/Src/button_test_demo.c ****         sprintf(msg, "[%lu] RELEASE #%lu\r\n\r\n", HAL_GetTick(), release_count);
+ 493              		.loc 1 119 9 is_stmt 1 view .LVU106
+ 119:../APP/LCD/Src/button_test_demo.c ****         sprintf(msg, "[%lu] RELEASE #%lu\r\n\r\n", HAL_GetTick(), release_count);
+ 494              		.loc 1 119 22 is_stmt 0 view .LVU107
+ 495 00c4 0F4C     		ldr	r4, .L19+32
+ 496              	.LVL52:
+ 119:../APP/LCD/Src/button_test_demo.c ****         sprintf(msg, "[%lu] RELEASE #%lu\r\n\r\n", HAL_GetTick(), release_count);
+ 497              		.loc 1 119 22 view .LVU108
+ 498 00c6 2368     		ldr	r3, [r4]
+ 499 00c8 0133     		adds	r3, r3, #1
+ 500 00ca 2360     		str	r3, [r4]
+ 120:../APP/LCD/Src/button_test_demo.c ****         uart_print(msg);
+ 501              		.loc 1 120 9 is_stmt 1 view .LVU109
+ 502 00cc FFF7FEFF 		bl	HAL_GetTick
+ 503              	.LVL53:
+ 120:../APP/LCD/Src/button_test_demo.c ****         uart_print(msg);
+ 504              		.loc 1 120 9 is_stmt 0 discriminator 1 view .LVU110
+ 505 00d0 2368     		ldr	r3, [r4]
+ 506 00d2 0D49     		ldr	r1, .L19+36
+ 120:../APP/LCD/Src/button_test_demo.c ****         uart_print(msg);
+ 507              		.loc 1 120 9 view .LVU111
+ 508 00d4 0246     		mov	r2, r0
+ 120:../APP/LCD/Src/button_test_demo.c ****         uart_print(msg);
+ 509              		.loc 1 120 9 discriminator 1 view .LVU112
+ 510 00d6 02A8     		add	r0, sp, #8
+ 511 00d8 FFF7FEFF 		bl	sprintf
+ 512              	.LVL54:
+ 121:../APP/LCD/Src/button_test_demo.c ****     }
+ 513              		.loc 1 121 9 is_stmt 1 view .LVU113
+ 514 00dc 02A8     		add	r0, sp, #8
+ 515 00de FFF7FEFF 		bl	uart_print
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s 			page 14
+
+
+ 516              	.LVL55:
+ 517 00e2 D3E7     		b	.L16
+ 518              	.L20:
+ 519              		.align	2
+ 520              	.L19:
+ 521 00e4 00000000 		.word	last_debug_time.1
+ 522 00e8 00380240 		.word	1073887232
+ 523 00ec 00000000 		.word	last_pin_state.0
+ 524 00f0 00000000 		.word	.LC13
+ 525 00f4 00000000 		.word	press_count
+ 526 00f8 19000000 		.word	.LC14
+ 527 00fc 00000000 		.word	long_press_count
+ 528 0100 32000000 		.word	.LC15
+ 529 0104 00000000 		.word	release_count
+ 530 0108 4A000000 		.word	.LC16
+ 531              		.cfi_endproc
+ 532              	.LFE135:
+ 534              		.section	.data.last_pin_state.0,"aw"
+ 537              	last_pin_state.0:
+ 538 0000 01       		.byte	1
+ 539              		.section	.bss.last_debug_time.1,"aw",%nobits
+ 540              		.align	2
+ 543              	last_debug_time.1:
+ 544 0000 00000000 		.space	4
+ 545              		.section	.bss.release_count,"aw",%nobits
+ 546              		.align	2
+ 549              	release_count:
+ 550 0000 00000000 		.space	4
+ 551              		.section	.bss.long_press_count,"aw",%nobits
+ 552              		.align	2
+ 555              	long_press_count:
+ 556 0000 00000000 		.space	4
+ 557              		.section	.bss.press_count,"aw",%nobits
+ 558              		.align	2
+ 561              	press_count:
+ 562 0000 00000000 		.space	4
+ 563              		.text
+ 564              	.Letext0:
+ 565              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 566              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 567              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 568              		.file 5 "../core/inc/button.h"
+ 569              		.file 6 "../core/inc/hal_compat.h"
+ 570              		.file 7 "../firmware/n32g430_std_periph_driver/inc/n32g430_usart.h"
+ 571              		.file 8 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/stdio.h"
+ 572              		.file 9 "../APP/LCD/Inc/lcd.h"
+ 573              		.file 10 "../APP/LCD/Inc/lcd_init.h"
+ 574              		.file 11 "../core/inc/spi.h"
+ 575              		.file 12 "../core/inc/dma.h"
+ 576              		.file 13 "../core/inc/bsp_usart.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 button_test_demo.c
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:21     .text.uart_print:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:26     .text.uart_print:00000000 uart_print
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:72     .text.uart_print:00000024 $d
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:104    .text.ButtonTest_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:110    .text.ButtonTest_Init:00000000 ButtonTest_Init
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:267    .text.ButtonTest_Init:000000e8 $d
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:293    .text.ButtonTest_Main:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:299    .text.ButtonTest_Main:00000000 ButtonTest_Main
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:521    .text.ButtonTest_Main:000000e4 $d
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:543    .bss.last_debug_time.1:00000000 last_debug_time.1
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:537    .data.last_pin_state.0:00000000 last_pin_state.0
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:561    .bss.press_count:00000000 press_count
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:555    .bss.long_press_count:00000000 long_press_count
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:549    .bss.release_count:00000000 release_count
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:540    .bss.last_debug_time.1:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:546    .bss.release_count:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:552    .bss.long_press_count:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccIkMZxW.s:558    .bss.press_count:00000000 $d
+
+UNDEFINED SYMBOLS
+USART_Flag_Status_Get
+USART_Data_Send
+USART1_Init
+MX_DMA_SPI1_Init
+MX_SPI1_Init
+LCD_Init
+LCD_Fill
+LCD_ShowString
+Button_Init
+Button_StartSampling
+Button_GetEvent
+HAL_GetTick
+sprintf
+HAL_Delay

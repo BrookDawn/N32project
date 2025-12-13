@@ -1,0 +1,922 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"button.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../core/src/button.c"
+  20              		.section	.text.Button_Init,"ax",%progbits
+  21              		.align	1
+  22              		.global	Button_Init
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	Button_Init:
+  28              	.LFB133:
+   1:../core/src/button.c **** /**
+   2:../core/src/button.c ****  * @file button.c
+   3:../core/src/button.c ****  * @brief Button input capture with DMA debouncing implementation
+   4:../core/src/button.c ****  */
+   5:../core/src/button.c **** 
+   6:../core/src/button.c **** #include "button.h"
+   7:../core/src/button.c **** #include "n32g430_tim.h"
+   8:../core/src/button.c **** #include "n32g430_dma.h"
+   9:../core/src/button.c **** #include "n32g430_rcc.h"
+  10:../core/src/button.c **** #include "n32g430_gpio.h"
+  11:../core/src/button.c **** #include "misc.h"
+  12:../core/src/button.c **** #include "dma.h"
+  13:../core/src/button.c **** #include <stdio.h>
+  14:../core/src/button.c **** 
+  15:../core/src/button.c **** /* Button context - export for debug */
+  16:../core/src/button.c **** ButtonContext_t button_ctx = {0};
+  17:../core/src/button.c **** 
+  18:../core/src/button.c **** /**
+  19:../core/src/button.c ****  * @brief Initialize button input capture with software sampling
+  20:../core/src/button.c ****  */
+  21:../core/src/button.c **** void Button_Init(void)
+  22:../core/src/button.c **** {
+  29              		.loc 1 22 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 48
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  23:../core/src/button.c ****     GPIO_InitType GPIO_InitStructure;
+  33              		.loc 1 23 5 view .LVU1
+  24:../core/src/button.c ****     TIM_TimeBaseInitType TIM_TimeBaseStructure;
+  34              		.loc 1 24 5 view .LVU2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 2
+
+
+  25:../core/src/button.c ****     NVIC_InitType NVIC_InitStructure;
+  35              		.loc 1 25 5 view .LVU3
+  26:../core/src/button.c **** 
+  27:../core/src/button.c ****     /* Enable clocks */
+  28:../core/src/button.c ****     RCC_AHB_Peripheral_Clock_Enable(RCC_AHB_PERIPH_GPIOB);
+  36              		.loc 1 28 5 view .LVU4
+  22:../core/src/button.c ****     GPIO_InitType GPIO_InitStructure;
+  37              		.loc 1 22 1 is_stmt 0 view .LVU5
+  38 0000 30B5     		push	{r4, r5, lr}
+  39              	.LCFI0:
+  40              		.cfi_def_cfa_offset 12
+  41              		.cfi_offset 4, -12
+  42              		.cfi_offset 5, -8
+  43              		.cfi_offset 14, -4
+  44              		.loc 1 28 5 view .LVU6
+  45 0002 4FF48070 		mov	r0, #256
+  22:../core/src/button.c ****     GPIO_InitType GPIO_InitStructure;
+  46              		.loc 1 22 1 view .LVU7
+  47 0006 8DB0     		sub	sp, sp, #52
+  48              	.LCFI1:
+  49              		.cfi_def_cfa_offset 64
+  50              		.loc 1 28 5 view .LVU8
+  51 0008 FFF7FEFF 		bl	RCC_AHB_Peripheral_Clock_Enable
+  52              	.LVL0:
+  29:../core/src/button.c ****     RCC_APB1_Peripheral_Clock_Enable(RCC_APB1_PERIPH_TIM2);
+  53              		.loc 1 29 5 is_stmt 1 view .LVU9
+  54 000c 0120     		movs	r0, #1
+  55 000e FFF7FEFF 		bl	RCC_APB1_Peripheral_Clock_Enable
+  56              	.LVL1:
+  30:../core/src/button.c **** 
+  31:../core/src/button.c ****     /* Configure PB11 as GPIO input (not using TIM2_CH4 alternate function) */
+  32:../core/src/button.c ****     GPIO_Structure_Initialize(&GPIO_InitStructure);
+  57              		.loc 1 32 5 view .LVU10
+  58 0012 06A8     		add	r0, sp, #24
+  59 0014 FFF7FEFF 		bl	GPIO_Structure_Initialize
+  60              	.LVL2:
+  33:../core/src/button.c ****     GPIO_InitStructure.Pin              = GPIO_PIN_11;
+  61              		.loc 1 33 5 view .LVU11
+  34:../core/src/button.c ****     GPIO_InitStructure.GPIO_Mode        = GPIO_MODE_INPUT;
+  62              		.loc 1 34 41 is_stmt 0 view .LVU12
+  63 0018 0024     		movs	r4, #0
+  64 001a 4FF40063 		mov	r3, #2048
+  35:../core/src/button.c ****     GPIO_InitStructure.GPIO_Pull        = GPIO_PULL_UP;  /* Pull-up for active low button */
+  36:../core/src/button.c ****     GPIO_Peripheral_Initialize(GPIOB, &GPIO_InitStructure);
+  65              		.loc 1 36 5 view .LVU13
+  66 001e 06A9     		add	r1, sp, #24
+  35:../core/src/button.c ****     GPIO_InitStructure.GPIO_Pull        = GPIO_PULL_UP;  /* Pull-up for active low button */
+  67              		.loc 1 35 41 view .LVU14
+  68 0020 0125     		movs	r5, #1
+  69              		.loc 1 36 5 view .LVU15
+  70 0022 1448     		ldr	r0, .L2
+  35:../core/src/button.c ****     GPIO_InitStructure.GPIO_Pull        = GPIO_PULL_UP;  /* Pull-up for active low button */
+  71              		.loc 1 35 41 view .LVU16
+  72 0024 0895     		str	r5, [sp, #32]
+  34:../core/src/button.c ****     GPIO_InitStructure.GPIO_Mode        = GPIO_MODE_INPUT;
+  73              		.loc 1 34 41 view .LVU17
+  74 0026 CDE90634 		strd	r3, r4, [sp, #24]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 3
+
+
+  35:../core/src/button.c ****     GPIO_InitStructure.GPIO_Pull        = GPIO_PULL_UP;  /* Pull-up for active low button */
+  75              		.loc 1 35 5 is_stmt 1 view .LVU18
+  76              		.loc 1 36 5 view .LVU19
+  77 002a FFF7FEFF 		bl	GPIO_Peripheral_Initialize
+  78              	.LVL3:
+  37:../core/src/button.c **** 
+  38:../core/src/button.c ****     /* Configure TIM2 time base - sample at 1kHz */
+  39:../core/src/button.c ****     TIM_Base_Struct_Initialize(&TIM_TimeBaseStructure);
+  79              		.loc 1 39 5 view .LVU20
+  80 002e 02A8     		add	r0, sp, #8
+  81 0030 FFF7FEFF 		bl	TIM_Base_Struct_Initialize
+  82              	.LVL4:
+  40:../core/src/button.c ****     TIM_TimeBaseStructure.Period    = 999;              /* 1ms period (128MHz/128/1000 = 1kHz) */
+  83              		.loc 1 40 5 view .LVU21
+  41:../core/src/button.c ****     TIM_TimeBaseStructure.Prescaler = 127;           /* 128MHz / 128 = 1MHz */
+  84              		.loc 1 41 5 view .LVU22
+  42:../core/src/button.c ****     TIM_TimeBaseStructure.ClkDiv    = 0;
+  85              		.loc 1 42 5 view .LVU23
+  43:../core/src/button.c ****     TIM_TimeBaseStructure.CntMode   = TIM_CNT_MODE_UP;
+  86              		.loc 1 43 5 view .LVU24
+  40:../core/src/button.c ****     TIM_TimeBaseStructure.Prescaler = 127;           /* 128MHz / 128 = 1MHz */
+  87              		.loc 1 40 37 is_stmt 0 view .LVU25
+  88 0034 7F22     		movs	r2, #127
+  89 0036 40F2E733 		movw	r3, #999
+  44:../core/src/button.c ****     TIM_Base_Initialize(TIM2, &TIM_TimeBaseStructure);
+  90              		.loc 1 44 5 view .LVU26
+  91 003a 02A9     		add	r1, sp, #8
+  92 003c 4FF08040 		mov	r0, #1073741824
+  40:../core/src/button.c ****     TIM_TimeBaseStructure.Prescaler = 127;           /* 128MHz / 128 = 1MHz */
+  93              		.loc 1 40 37 view .LVU27
+  94 0040 CDE90223 		strd	r2, r3, [sp, #8]
+  95              		.loc 1 44 5 is_stmt 1 view .LVU28
+  96 0044 FFF7FEFF 		bl	TIM_Base_Initialize
+  97              	.LVL5:
+  45:../core/src/button.c **** 
+  46:../core/src/button.c ****     /* Enable TIM2 update interrupt for periodic sampling */
+  47:../core/src/button.c ****     TIM_Interrupt_Enable(TIM2, TIM_INT_UPDATE);
+  98              		.loc 1 47 5 view .LVU29
+  99 0048 2946     		mov	r1, r5
+ 100 004a 4FF08040 		mov	r0, #1073741824
+ 101 004e FFF7FEFF 		bl	TIM_Interrupt_Enable
+ 102              	.LVL6:
+  48:../core/src/button.c **** 
+  49:../core/src/button.c ****     /* Configure NVIC for TIM2 - Higher priority than DMA to ensure sampling */
+  50:../core/src/button.c ****     NVIC_InitStructure.NVIC_IRQChannel                      = TIM2_IRQn;
+ 103              		.loc 1 50 5 view .LVU30
+  51:../core/src/button.c ****     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority    = 0;  /* Highest priority! */
+ 104              		.loc 1 51 5 view .LVU31
+  52:../core/src/button.c ****     NVIC_InitStructure.NVIC_IRQChannelSubPriority           = 0;
+ 105              		.loc 1 52 5 view .LVU32
+  53:../core/src/button.c ****     NVIC_InitStructure.NVIC_IRQChannelCmd                   = ENABLE;
+ 106              		.loc 1 53 5 view .LVU33
+  50:../core/src/button.c ****     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority    = 0;  /* Highest priority! */
+ 107              		.loc 1 50 61 is_stmt 0 view .LVU34
+ 108 0052 094B     		ldr	r3, .L2+4
+ 109 0054 0193     		str	r3, [sp, #4]
+  54:../core/src/button.c ****     NVIC_Initializes(&NVIC_InitStructure);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 4
+
+
+ 110              		.loc 1 54 5 is_stmt 1 view .LVU35
+ 111 0056 01A8     		add	r0, sp, #4
+ 112 0058 FFF7FEFF 		bl	NVIC_Initializes
+ 113              	.LVL7:
+  55:../core/src/button.c **** 
+  56:../core/src/button.c ****     /* Initialize button context */
+  57:../core/src/button.c ****     button_ctx.capture_complete     = false;
+ 114              		.loc 1 57 5 view .LVU36
+ 115              		.loc 1 57 37 is_stmt 0 view .LVU37
+ 116 005c 074B     		ldr	r3, .L2+8
+  58:../core/src/button.c ****     button_ctx.is_pressed           = false;
+  59:../core/src/button.c ****     button_ctx.long_press_triggered = false;
+  60:../core/src/button.c ****     button_ctx.pending_event        = BUTTON_EVENT_NONE;
+  61:../core/src/button.c ****     button_ctx.last_event_time      = 0;
+  62:../core/src/button.c ****     button_ctx.press_start_time     = 0;
+  63:../core/src/button.c ****     button_ctx.sample_index         = 0;
+  64:../core/src/button.c **** 
+  65:../core/src/button.c ****     /* Start timer */
+  66:../core/src/button.c ****     TIM_On(TIM2);
+ 117              		.loc 1 66 5 view .LVU38
+ 118 005e 4FF08040 		mov	r0, #1073741824
+  62:../core/src/button.c ****     button_ctx.sample_index         = 0;
+ 119              		.loc 1 62 37 view .LVU39
+ 120 0062 C3E91044 		strd	r4, r4, [r3, #64]
+  57:../core/src/button.c ****     button_ctx.is_pressed           = false;
+ 121              		.loc 1 57 37 view .LVU40
+ 122 0066 83F83C40 		strb	r4, [r3, #60]
+  58:../core/src/button.c ****     button_ctx.is_pressed           = false;
+ 123              		.loc 1 58 5 is_stmt 1 view .LVU41
+  59:../core/src/button.c ****     button_ctx.pending_event        = BUTTON_EVENT_NONE;
+ 124              		.loc 1 59 5 view .LVU42
+  60:../core/src/button.c ****     button_ctx.last_event_time      = 0;
+ 125              		.loc 1 60 5 view .LVU43
+  61:../core/src/button.c ****     button_ctx.press_start_time     = 0;
+ 126              		.loc 1 61 5 view .LVU44
+  62:../core/src/button.c ****     button_ctx.sample_index         = 0;
+ 127              		.loc 1 62 5 view .LVU45
+  63:../core/src/button.c **** 
+ 128              		.loc 1 63 5 view .LVU46
+  58:../core/src/button.c ****     button_ctx.long_press_triggered = false;
+ 129              		.loc 1 58 37 is_stmt 0 view .LVU47
+ 130 006a 9C64     		str	r4, [r3, #72]
+ 131              		.loc 1 66 5 is_stmt 1 view .LVU48
+ 132 006c FFF7FEFF 		bl	TIM_On
+ 133              	.LVL8:
+  67:../core/src/button.c **** }
+ 134              		.loc 1 67 1 is_stmt 0 view .LVU49
+ 135 0070 0DB0     		add	sp, sp, #52
+ 136              	.LCFI2:
+ 137              		.cfi_def_cfa_offset 12
+ 138              		@ sp needed
+ 139 0072 30BD     		pop	{r4, r5, pc}
+ 140              	.L3:
+ 141              		.align	2
+ 142              	.L2:
+ 143 0074 00380240 		.word	1073887232
+ 144 0078 1B000001 		.word	16777243
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 5
+
+
+ 145 007c 00000000 		.word	button_ctx
+ 146              		.cfi_endproc
+ 147              	.LFE133:
+ 149              		.section	.text.Button_StartSampling,"ax",%progbits
+ 150              		.align	1
+ 151              		.global	Button_StartSampling
+ 152              		.syntax unified
+ 153              		.thumb
+ 154              		.thumb_func
+ 156              	Button_StartSampling:
+ 157              	.LFB134:
+  68:../core/src/button.c **** 
+  69:../core/src/button.c **** /**
+  70:../core/src/button.c ****  * @brief Start button sampling
+  71:../core/src/button.c ****  */
+  72:../core/src/button.c **** void Button_StartSampling(void)
+  73:../core/src/button.c **** {
+ 158              		.loc 1 73 1 is_stmt 1 view -0
+ 159              		.cfi_startproc
+ 160              		@ args = 0, pretend = 0, frame = 0
+ 161              		@ frame_needed = 0, uses_anonymous_args = 0
+ 162              		@ link register save eliminated.
+  74:../core/src/button.c ****     button_ctx.sample_index = 0;
+ 163              		.loc 1 74 5 view .LVU51
+ 164              		.loc 1 74 29 is_stmt 0 view .LVU52
+ 165 0000 034B     		ldr	r3, .L5
+ 166 0002 0022     		movs	r2, #0
+ 167 0004 83F84B20 		strb	r2, [r3, #75]
+  75:../core/src/button.c ****     button_ctx.capture_complete = false;
+ 168              		.loc 1 75 5 is_stmt 1 view .LVU53
+ 169              		.loc 1 75 33 is_stmt 0 view .LVU54
+ 170 0008 83F83C20 		strb	r2, [r3, #60]
+  76:../core/src/button.c **** }
+ 171              		.loc 1 76 1 view .LVU55
+ 172 000c 7047     		bx	lr
+ 173              	.L6:
+ 174 000e 00BF     		.align	2
+ 175              	.L5:
+ 176 0010 00000000 		.word	button_ctx
+ 177              		.cfi_endproc
+ 178              	.LFE134:
+ 180              		.section	.text.Button_StopSampling,"ax",%progbits
+ 181              		.align	1
+ 182              		.global	Button_StopSampling
+ 183              		.syntax unified
+ 184              		.thumb
+ 185              		.thumb_func
+ 187              	Button_StopSampling:
+ 188              	.LFB135:
+  77:../core/src/button.c **** 
+  78:../core/src/button.c **** /**
+  79:../core/src/button.c ****  * @brief Stop button sampling
+  80:../core/src/button.c ****  */
+  81:../core/src/button.c **** void Button_StopSampling(void)
+  82:../core/src/button.c **** {
+ 189              		.loc 1 82 1 is_stmt 1 view -0
+ 190              		.cfi_startproc
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 6
+
+
+ 191              		@ args = 0, pretend = 0, frame = 0
+ 192              		@ frame_needed = 0, uses_anonymous_args = 0
+ 193              		@ link register save eliminated.
+  83:../core/src/button.c ****     /* Nothing to do - just stop incrementing sample_index */
+  84:../core/src/button.c **** }
+ 194              		.loc 1 84 1 view .LVU57
+ 195 0000 7047     		bx	lr
+ 196              		.cfi_endproc
+ 197              	.LFE135:
+ 199              		.section	.text.Button_GetEvent,"ax",%progbits
+ 200              		.align	1
+ 201              		.global	Button_GetEvent
+ 202              		.syntax unified
+ 203              		.thumb
+ 204              		.thumb_func
+ 206              	Button_GetEvent:
+ 207              	.LFB137:
+  85:../core/src/button.c **** 
+  86:../core/src/button.c **** /**
+  87:../core/src/button.c ****  * @brief Process debounce buffer and detect button state
+  88:../core/src/button.c ****  */
+  89:../core/src/button.c **** static bool Button_ProcessSamples(void)
+  90:../core/src/button.c **** {
+  91:../core/src/button.c ****     uint8_t zero_count = 0;
+  92:../core/src/button.c **** 
+  93:../core/src/button.c ****     /* Count number of zeros (button pressed = GPIO low = 0) */
+  94:../core/src/button.c ****     for (uint8_t i = 0; i < BUTTON_SAMPLE_SIZE; i++) {
+  95:../core/src/button.c ****         if (button_ctx.sample_buffer[i] == 0) {  /* 0 = button pressed */
+  96:../core/src/button.c ****             zero_count++;
+  97:../core/src/button.c ****         }
+  98:../core/src/button.c ****     }
+  99:../core/src/button.c **** 
+ 100:../core/src/button.c ****     /* Button is pressed if zeros exceed threshold */
+ 101:../core/src/button.c ****     return (zero_count >= BUTTON_PRESS_THRESHOLD);
+ 102:../core/src/button.c **** }
+ 103:../core/src/button.c **** 
+ 104:../core/src/button.c **** /**
+ 105:../core/src/button.c ****  * @brief Get button event (call from main loop)
+ 106:../core/src/button.c ****  */
+ 107:../core/src/button.c **** ButtonEvent_t Button_GetEvent(void)
+ 108:../core/src/button.c **** {
+ 208              		.loc 1 108 1 view -0
+ 209              		.cfi_startproc
+ 210              		@ args = 0, pretend = 0, frame = 0
+ 211              		@ frame_needed = 0, uses_anonymous_args = 0
+ 109:../core/src/button.c ****     uint32_t current_time = HAL_GetTick();
+ 212              		.loc 1 109 5 view .LVU59
+ 108:../core/src/button.c ****     uint32_t current_time = HAL_GetTick();
+ 213              		.loc 1 108 1 is_stmt 0 view .LVU60
+ 214 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 215              	.LCFI3:
+ 216              		.cfi_def_cfa_offset 24
+ 217              		.cfi_offset 3, -24
+ 218              		.cfi_offset 4, -20
+ 219              		.cfi_offset 5, -16
+ 220              		.cfi_offset 6, -12
+ 221              		.cfi_offset 7, -8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 7
+
+
+ 222              		.cfi_offset 14, -4
+ 223              		.loc 1 109 29 view .LVU61
+ 224 0002 FFF7FEFF 		bl	HAL_GetTick
+ 225              	.LVL9:
+ 110:../core/src/button.c ****     ButtonEvent_t event = button_ctx.pending_event;
+ 226              		.loc 1 110 19 view .LVU62
+ 227 0006 1F4B     		ldr	r3, .L22
+ 111:../core/src/button.c **** 
+ 112:../core/src/button.c ****     /* Clear pending event */
+ 113:../core/src/button.c ****     button_ctx.pending_event = BUTTON_EVENT_NONE;
+ 114:../core/src/button.c **** 
+ 115:../core/src/button.c ****     /* Check for long press if button is currently pressed */
+ 116:../core/src/button.c ****     if (button_ctx.is_pressed && !button_ctx.long_press_triggered) {
+ 228              		.loc 1 116 19 view .LVU63
+ 229 0008 93F84860 		ldrb	r6, [r3, #72]	@ zero_extendqisi2
+ 113:../core/src/button.c **** 
+ 230              		.loc 1 113 30 view .LVU64
+ 231 000c 0022     		movs	r2, #0
+ 109:../core/src/button.c ****     ButtonEvent_t event = button_ctx.pending_event;
+ 232              		.loc 1 109 29 view .LVU65
+ 233 000e 0446     		mov	r4, r0
+ 234              	.LVL10:
+ 110:../core/src/button.c **** 
+ 235              		.loc 1 110 5 is_stmt 1 view .LVU66
+ 110:../core/src/button.c **** 
+ 236              		.loc 1 110 19 is_stmt 0 view .LVU67
+ 237 0010 93F84A00 		ldrb	r0, [r3, #74]	@ zero_extendqisi2
+ 238              	.LVL11:
+ 113:../core/src/button.c **** 
+ 239              		.loc 1 113 5 is_stmt 1 view .LVU68
+ 113:../core/src/button.c **** 
+ 240              		.loc 1 113 30 is_stmt 0 view .LVU69
+ 241 0014 83F84A20 		strb	r2, [r3, #74]
+ 242              		.loc 1 116 5 is_stmt 1 view .LVU70
+ 243              		.loc 1 116 8 is_stmt 0 view .LVU71
+ 244 0018 5EB1     		cbz	r6, .L9
+ 245              		.loc 1 116 31 discriminator 1 view .LVU72
+ 246 001a 93F84920 		ldrb	r2, [r3, #73]	@ zero_extendqisi2
+ 247 001e 42B9     		cbnz	r2, .L9
+ 248              	.LBB7:
+ 117:../core/src/button.c ****         uint32_t press_duration = current_time - button_ctx.press_start_time;
+ 249              		.loc 1 117 9 is_stmt 1 view .LVU73
+ 250              	.LVL12:
+ 118:../core/src/button.c ****         if (press_duration >= BUTTON_LONG_PRESS_SAMPLES) {
+ 251              		.loc 1 118 9 view .LVU74
+ 117:../core/src/button.c ****         uint32_t press_duration = current_time - button_ctx.press_start_time;
+ 252              		.loc 1 117 18 is_stmt 0 view .LVU75
+ 253 0020 5A6C     		ldr	r2, [r3, #68]
+ 254 0022 A21A     		subs	r2, r4, r2
+ 255              	.LVL13:
+ 256              		.loc 1 118 12 view .LVU76
+ 257 0024 452A     		cmp	r2, #69
+ 258 0026 04D9     		bls	.L9
+ 119:../core/src/button.c ****             button_ctx.long_press_triggered = true;
+ 259              		.loc 1 119 13 is_stmt 1 view .LVU77
+ 260              		.loc 1 119 45 is_stmt 0 view .LVU78
+ 261 0028 0122     		movs	r2, #1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 8
+
+
+ 262              	.LVL14:
+ 263              		.loc 1 119 45 view .LVU79
+ 264 002a 83F84920 		strb	r2, [r3, #73]
+ 120:../core/src/button.c ****             event = BUTTON_EVENT_LONG_PRESS;
+ 265              		.loc 1 120 13 is_stmt 1 view .LVU80
+ 266              	.LVL15:
+ 121:../core/src/button.c ****             return event;
+ 267              		.loc 1 121 13 view .LVU81
+ 268              		.loc 1 121 20 is_stmt 0 view .LVU82
+ 269 002e 0320     		movs	r0, #3
+ 270              	.LVL16:
+ 271              	.L10:
+ 272              		.loc 1 121 20 view .LVU83
+ 273              	.LBE7:
+ 122:../core/src/button.c ****         }
+ 123:../core/src/button.c ****     }
+ 124:../core/src/button.c **** 
+ 125:../core/src/button.c ****     /* Process DMA buffer if capture complete */
+ 126:../core/src/button.c ****     if (button_ctx.capture_complete) {
+ 127:../core/src/button.c ****         button_ctx.capture_complete = false;
+ 128:../core/src/button.c **** 
+ 129:../core/src/button.c ****         /* Check debounce timer */
+ 130:../core/src/button.c ****         if ((current_time - button_ctx.last_event_time) >= BUTTON_DEBOUNCE_MS) {
+ 131:../core/src/button.c ****             bool new_state = Button_ProcessSamples();
+ 132:../core/src/button.c **** 
+ 133:../core/src/button.c ****             /* Detect state change */
+ 134:../core/src/button.c ****             if (new_state != button_ctx.is_pressed) {
+ 135:../core/src/button.c ****                 button_ctx.is_pressed = new_state;
+ 136:../core/src/button.c ****                 button_ctx.last_event_time = current_time;
+ 137:../core/src/button.c **** 
+ 138:../core/src/button.c ****                 if (new_state) {
+ 139:../core/src/button.c ****                     /* Button pressed */
+ 140:../core/src/button.c ****                     button_ctx.press_start_time = current_time;
+ 141:../core/src/button.c ****                     button_ctx.long_press_triggered = false;
+ 142:../core/src/button.c ****                     event = BUTTON_EVENT_PRESS;
+ 143:../core/src/button.c ****                 } else {
+ 144:../core/src/button.c ****                     /* Button released */
+ 145:../core/src/button.c ****                     event = BUTTON_EVENT_RELEASE;
+ 146:../core/src/button.c ****                 }
+ 147:../core/src/button.c ****             }
+ 148:../core/src/button.c ****         }
+ 149:../core/src/button.c **** 
+ 150:../core/src/button.c ****         /* Restart sampling for next button event */
+ 151:../core/src/button.c ****         Button_StartSampling();
+ 152:../core/src/button.c ****     }
+ 153:../core/src/button.c **** 
+ 154:../core/src/button.c ****     return event;
+ 155:../core/src/button.c **** }
+ 274              		.loc 1 155 1 view .LVU84
+ 275 0030 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 276              	.LVL17:
+ 277              	.L9:
+ 126:../core/src/button.c ****         button_ctx.capture_complete = false;
+ 278              		.loc 1 126 5 is_stmt 1 view .LVU85
+ 126:../core/src/button.c ****         button_ctx.capture_complete = false;
+ 279              		.loc 1 126 19 is_stmt 0 view .LVU86
+ 280 0032 93F83C20 		ldrb	r2, [r3, #60]	@ zero_extendqisi2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 9
+
+
+ 126:../core/src/button.c ****         button_ctx.capture_complete = false;
+ 281              		.loc 1 126 8 view .LVU87
+ 282 0036 002A     		cmp	r2, #0
+ 283 0038 FAD0     		beq	.L10
+ 127:../core/src/button.c **** 
+ 284              		.loc 1 127 9 is_stmt 1 view .LVU88
+ 130:../core/src/button.c ****             bool new_state = Button_ProcessSamples();
+ 285              		.loc 1 130 27 is_stmt 0 view .LVU89
+ 286 003a 196C     		ldr	r1, [r3, #64]
+ 287 003c 611A     		subs	r1, r4, r1
+ 127:../core/src/button.c **** 
+ 288              		.loc 1 127 37 view .LVU90
+ 289 003e 0022     		movs	r2, #0
+ 130:../core/src/button.c ****             bool new_state = Button_ProcessSamples();
+ 290              		.loc 1 130 12 view .LVU91
+ 291 0040 3129     		cmp	r1, #49
+ 127:../core/src/button.c **** 
+ 292              		.loc 1 127 37 view .LVU92
+ 293 0042 83F83C20 		strb	r2, [r3, #60]
+ 130:../core/src/button.c ****             bool new_state = Button_ProcessSamples();
+ 294              		.loc 1 130 9 is_stmt 1 view .LVU93
+ 130:../core/src/button.c ****             bool new_state = Button_ProcessSamples();
+ 295              		.loc 1 130 12 is_stmt 0 view .LVU94
+ 296 0046 1AD9     		bls	.L11
+ 297 0048 0E4D     		ldr	r5, .L22
+ 298 004a 1E21     		movs	r1, #30
+ 299              	.L13:
+ 300              	.LVL18:
+ 301              	.LBB8:
+ 302              	.LBB9:
+ 303              	.LBB10:
+ 304              	.LBB11:
+  95:../core/src/button.c ****             zero_count++;
+ 305              		.loc 1 95 9 is_stmt 1 view .LVU95
+  95:../core/src/button.c ****             zero_count++;
+ 306              		.loc 1 95 37 is_stmt 0 view .LVU96
+ 307 004c 35F8027B 		ldrh	r7, [r5], #2
+  95:../core/src/button.c ****             zero_count++;
+ 308              		.loc 1 95 12 view .LVU97
+ 309 0050 0FB9     		cbnz	r7, .L12
+  96:../core/src/button.c ****         }
+ 310              		.loc 1 96 13 is_stmt 1 view .LVU98
+  96:../core/src/button.c ****         }
+ 311              		.loc 1 96 23 is_stmt 0 view .LVU99
+ 312 0052 0132     		adds	r2, r2, #1
+ 313              	.LVL19:
+  96:../core/src/button.c ****         }
+ 314              		.loc 1 96 23 view .LVU100
+ 315 0054 D2B2     		uxtb	r2, r2
+ 316              	.LVL20:
+ 317              	.L12:
+  94:../core/src/button.c ****         if (button_ctx.sample_buffer[i] == 0) {  /* 0 = button pressed */
+ 318              		.loc 1 94 50 is_stmt 1 discriminator 2 view .LVU101
+  94:../core/src/button.c ****         if (button_ctx.sample_buffer[i] == 0) {  /* 0 = button pressed */
+ 319              		.loc 1 94 27 discriminator 1 view .LVU102
+ 320 0056 0139     		subs	r1, r1, #1
+ 321              	.LVL21:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 10
+
+
+  94:../core/src/button.c ****         if (button_ctx.sample_buffer[i] == 0) {  /* 0 = button pressed */
+ 322              		.loc 1 94 27 is_stmt 0 discriminator 1 view .LVU103
+ 323 0058 11F0FF01 		ands	r1, r1, #255
+ 324              	.LVL22:
+  94:../core/src/button.c ****         if (button_ctx.sample_buffer[i] == 0) {  /* 0 = button pressed */
+ 325              		.loc 1 94 27 discriminator 1 view .LVU104
+ 326 005c F6D1     		bne	.L13
+ 327              	.LBE11:
+ 101:../core/src/button.c **** }
+ 328              		.loc 1 101 5 is_stmt 1 view .LVU105
+ 101:../core/src/button.c **** }
+ 329              		.loc 1 101 24 is_stmt 0 view .LVU106
+ 330 005e 142A     		cmp	r2, #20
+ 331 0060 94BF     		ite	ls
+ 332 0062 0025     		movls	r5, #0
+ 333 0064 0125     		movhi	r5, #1
+ 334              	.LVL23:
+ 101:../core/src/button.c **** }
+ 335              		.loc 1 101 24 view .LVU107
+ 336              	.LBE10:
+ 337              	.LBE9:
+ 134:../core/src/button.c ****                 button_ctx.is_pressed = new_state;
+ 338              		.loc 1 134 13 is_stmt 1 view .LVU108
+ 134:../core/src/button.c ****                 button_ctx.is_pressed = new_state;
+ 339              		.loc 1 134 16 is_stmt 0 view .LVU109
+ 340 0066 AE42     		cmp	r6, r5
+ 341 0068 09D0     		beq	.L11
+ 135:../core/src/button.c ****                 button_ctx.last_event_time = current_time;
+ 342              		.loc 1 135 17 is_stmt 1 view .LVU110
+ 138:../core/src/button.c ****                     /* Button pressed */
+ 343              		.loc 1 138 20 is_stmt 0 view .LVU111
+ 344 006a 142A     		cmp	r2, #20
+ 135:../core/src/button.c ****                 button_ctx.last_event_time = current_time;
+ 345              		.loc 1 135 39 view .LVU112
+ 346 006c 83F84850 		strb	r5, [r3, #72]
+ 136:../core/src/button.c **** 
+ 347              		.loc 1 136 17 is_stmt 1 view .LVU113
+ 136:../core/src/button.c **** 
+ 348              		.loc 1 136 44 is_stmt 0 view .LVU114
+ 349 0070 1C64     		str	r4, [r3, #64]
+ 138:../core/src/button.c ****                     /* Button pressed */
+ 350              		.loc 1 138 17 is_stmt 1 view .LVU115
+ 140:../core/src/button.c ****                     button_ctx.long_press_triggered = false;
+ 351              		.loc 1 140 21 view .LVU116
+ 140:../core/src/button.c ****                     button_ctx.long_press_triggered = false;
+ 352              		.loc 1 140 49 is_stmt 0 view .LVU117
+ 353 0072 83BF     		ittte	hi
+ 354 0074 5C64     		strhi	r4, [r3, #68]
+ 141:../core/src/button.c ****                     event = BUTTON_EVENT_PRESS;
+ 355              		.loc 1 141 21 is_stmt 1 view .LVU118
+ 141:../core/src/button.c ****                     event = BUTTON_EVENT_PRESS;
+ 356              		.loc 1 141 53 is_stmt 0 view .LVU119
+ 357 0076 83F84910 		strbhi	r1, [r3, #73]
+ 142:../core/src/button.c ****                 } else {
+ 358              		.loc 1 142 21 is_stmt 1 view .LVU120
+ 359              	.LVL24:
+ 142:../core/src/button.c ****                 } else {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 11
+
+
+ 360              		.loc 1 142 27 is_stmt 0 view .LVU121
+ 361 007a 0120     		movhi	r0, #1
+ 145:../core/src/button.c ****                 }
+ 362              		.loc 1 145 27 view .LVU122
+ 363 007c 0220     		movls	r0, #2
+ 364              	.LVL25:
+ 365              	.L11:
+ 145:../core/src/button.c ****                 }
+ 366              		.loc 1 145 27 view .LVU123
+ 367              	.LBE8:
+ 151:../core/src/button.c ****     }
+ 368              		.loc 1 151 9 is_stmt 1 view .LVU124
+ 369 007e FFF7FEFF 		bl	Button_StartSampling
+ 370              	.LVL26:
+ 371 0082 D5E7     		b	.L10
+ 372              	.L23:
+ 373              		.align	2
+ 374              	.L22:
+ 375 0084 00000000 		.word	button_ctx
+ 376              		.cfi_endproc
+ 377              	.LFE137:
+ 379              		.section	.text.Button_IsPressed,"ax",%progbits
+ 380              		.align	1
+ 381              		.global	Button_IsPressed
+ 382              		.syntax unified
+ 383              		.thumb
+ 384              		.thumb_func
+ 386              	Button_IsPressed:
+ 387              	.LFB138:
+ 156:../core/src/button.c **** 
+ 157:../core/src/button.c **** /**
+ 158:../core/src/button.c ****  * @brief Get current button state
+ 159:../core/src/button.c ****  */
+ 160:../core/src/button.c **** bool Button_IsPressed(void)
+ 161:../core/src/button.c **** {
+ 388              		.loc 1 161 1 view -0
+ 389              		.cfi_startproc
+ 390              		@ args = 0, pretend = 0, frame = 0
+ 391              		@ frame_needed = 0, uses_anonymous_args = 0
+ 392              		@ link register save eliminated.
+ 162:../core/src/button.c ****     return button_ctx.is_pressed;
+ 393              		.loc 1 162 5 view .LVU126
+ 163:../core/src/button.c **** }
+ 394              		.loc 1 163 1 is_stmt 0 view .LVU127
+ 395 0000 014B     		ldr	r3, .L25
+ 396 0002 93F84800 		ldrb	r0, [r3, #72]	@ zero_extendqisi2
+ 397 0006 7047     		bx	lr
+ 398              	.L26:
+ 399              		.align	2
+ 400              	.L25:
+ 401 0008 00000000 		.word	button_ctx
+ 402              		.cfi_endproc
+ 403              	.LFE138:
+ 405              		.section	.rodata.Button_GetDebugInfo.str1.1,"aMS",%progbits,1
+ 406              	.LC0:
+ 407 0000 5B42544E 		.ascii	"[BTN] Idx:%d Flg:%d Pressed:%d\000"
+ 407      5D204964 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 12
+
+
+ 407      783A2564 
+ 407      20466C67 
+ 407      3A256420 
+ 408              		.section	.text.Button_GetDebugInfo,"ax",%progbits
+ 409              		.align	1
+ 410              		.global	Button_GetDebugInfo
+ 411              		.syntax unified
+ 412              		.thumb
+ 413              		.thumb_func
+ 415              	Button_GetDebugInfo:
+ 416              	.LVL27:
+ 417              	.LFB139:
+ 164:../core/src/button.c **** 
+ 165:../core/src/button.c **** /**
+ 166:../core/src/button.c ****  * @brief Get button debug info (for diagnostics)
+ 167:../core/src/button.c ****  * @param info_buf: buffer to store debug info string
+ 168:../core/src/button.c ****  * @param buf_size: size of buffer
+ 169:../core/src/button.c ****  */
+ 170:../core/src/button.c **** void Button_GetDebugInfo(char *info_buf, uint16_t buf_size)
+ 171:../core/src/button.c **** {
+ 418              		.loc 1 171 1 is_stmt 1 view -0
+ 419              		.cfi_startproc
+ 420              		@ args = 0, pretend = 0, frame = 0
+ 421              		@ frame_needed = 0, uses_anonymous_args = 0
+ 172:../core/src/button.c ****     if (info_buf && buf_size > 0) {
+ 422              		.loc 1 172 5 view .LVU129
+ 171:../core/src/button.c ****     if (info_buf && buf_size > 0) {
+ 423              		.loc 1 171 1 is_stmt 0 view .LVU130
+ 424 0000 13B5     		push	{r0, r1, r4, lr}
+ 425              	.LCFI4:
+ 426              		.cfi_def_cfa_offset 16
+ 427              		.cfi_offset 4, -8
+ 428              		.cfi_offset 14, -4
+ 429              		.loc 1 172 8 view .LVU131
+ 430 0002 60B1     		cbz	r0, .L27
+ 431              		.loc 1 172 18 discriminator 1 view .LVU132
+ 432 0004 59B1     		cbz	r1, .L27
+ 173:../core/src/button.c ****         snprintf(info_buf, buf_size,
+ 433              		.loc 1 173 9 is_stmt 1 view .LVU133
+ 174:../core/src/button.c ****                 "[BTN] Idx:%d Flg:%d Pressed:%d",
+ 175:../core/src/button.c ****                 button_ctx.sample_index,
+ 176:../core/src/button.c ****                 button_ctx.capture_complete ? 1 : 0,
+ 434              		.loc 1 176 27 is_stmt 0 view .LVU134
+ 435 0006 074B     		ldr	r3, .L35
+ 436 0008 93F83C20 		ldrb	r2, [r3, #60]	@ zero_extendqisi2
+ 173:../core/src/button.c ****         snprintf(info_buf, buf_size,
+ 437              		.loc 1 173 9 view .LVU135
+ 438 000c 93F84840 		ldrb	r4, [r3, #72]	@ zero_extendqisi2
+ 439 0010 CDE90024 		strd	r2, r4, [sp]
+ 440 0014 044A     		ldr	r2, .L35+4
+ 441 0016 93F84B30 		ldrb	r3, [r3, #75]	@ zero_extendqisi2
+ 442 001a FFF7FEFF 		bl	snprintf
+ 443              	.LVL28:
+ 444              	.L27:
+ 177:../core/src/button.c ****                 button_ctx.is_pressed ? 1 : 0);
+ 178:../core/src/button.c ****     }
+ 179:../core/src/button.c **** }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 13
+
+
+ 445              		.loc 1 179 1 view .LVU136
+ 446 001e 02B0     		add	sp, sp, #8
+ 447              	.LCFI5:
+ 448              		.cfi_def_cfa_offset 8
+ 449              		@ sp needed
+ 450 0020 10BD     		pop	{r4, pc}
+ 451              	.L36:
+ 452 0022 00BF     		.align	2
+ 453              	.L35:
+ 454 0024 00000000 		.word	button_ctx
+ 455 0028 00000000 		.word	.LC0
+ 456              		.cfi_endproc
+ 457              	.LFE139:
+ 459              		.section	.text.Button_TIM2_IRQHandler,"ax",%progbits
+ 460              		.align	1
+ 461              		.global	Button_TIM2_IRQHandler
+ 462              		.syntax unified
+ 463              		.thumb
+ 464              		.thumb_func
+ 466              	Button_TIM2_IRQHandler:
+ 467              	.LFB140:
+ 180:../core/src/button.c **** 
+ 181:../core/src/button.c **** /**
+ 182:../core/src/button.c ****  * @brief TIM2 update interrupt handler - Sample GPIO every 1ms
+ 183:../core/src/button.c ****  */
+ 184:../core/src/button.c **** void Button_TIM2_IRQHandler(void)
+ 185:../core/src/button.c **** {
+ 468              		.loc 1 185 1 is_stmt 1 view -0
+ 469              		.cfi_startproc
+ 470              		@ args = 0, pretend = 0, frame = 0
+ 471              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186:../core/src/button.c ****     if (TIM_Interrupt_Status_Get(TIM2, TIM_INT_UPDATE) != RESET) {
+ 472              		.loc 1 186 5 view .LVU138
+ 185:../core/src/button.c ****     if (TIM_Interrupt_Status_Get(TIM2, TIM_INT_UPDATE) != RESET) {
+ 473              		.loc 1 185 1 is_stmt 0 view .LVU139
+ 474 0000 08B5     		push	{r3, lr}
+ 475              	.LCFI6:
+ 476              		.cfi_def_cfa_offset 8
+ 477              		.cfi_offset 3, -8
+ 478              		.cfi_offset 14, -4
+ 479              		.loc 1 186 9 view .LVU140
+ 480 0002 0121     		movs	r1, #1
+ 481 0004 4FF08040 		mov	r0, #1073741824
+ 482 0008 FFF7FEFF 		bl	TIM_Interrupt_Status_Get
+ 483              	.LVL29:
+ 484              		.loc 1 186 8 discriminator 1 view .LVU141
+ 485 000c C0B1     		cbz	r0, .L37
+ 187:../core/src/button.c ****         TIM_Interrupt_Status_Clear(TIM2, TIM_INT_UPDATE);
+ 486              		.loc 1 187 9 is_stmt 1 view .LVU142
+ 487 000e 0121     		movs	r1, #1
+ 488 0010 4FF08040 		mov	r0, #1073741824
+ 489 0014 FFF7FEFF 		bl	TIM_Interrupt_Status_Clear
+ 490              	.LVL30:
+ 188:../core/src/button.c **** 
+ 189:../core/src/button.c ****         /* Sample GPIO state if we're still collecting samples */
+ 190:../core/src/button.c ****         if (button_ctx.sample_index < BUTTON_SAMPLE_SIZE) {
+ 491              		.loc 1 190 9 view .LVU143
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 14
+
+
+ 492              		.loc 1 190 23 is_stmt 0 view .LVU144
+ 493 0018 0A4A     		ldr	r2, .L41
+ 494 001a 92F84B30 		ldrb	r3, [r2, #75]	@ zero_extendqisi2
+ 495              		.loc 1 190 12 view .LVU145
+ 496 001e 1D2B     		cmp	r3, #29
+ 497 0020 0ED8     		bhi	.L37
+ 191:../core/src/button.c ****             /* Read PB11 state (1 = not pressed, 0 = pressed) */
+ 192:../core/src/button.c ****             button_ctx.sample_buffer[button_ctx.sample_index] = (GPIOB->PID >> 11) & 0x1;
+ 498              		.loc 1 192 13 is_stmt 1 view .LVU146
+ 499              		.loc 1 192 71 is_stmt 0 view .LVU147
+ 500 0022 0949     		ldr	r1, .L41+4
+ 501 0024 0969     		ldr	r1, [r1, #16]
+ 502              		.loc 1 192 84 view .LVU148
+ 503 0026 C1F3C021 		ubfx	r1, r1, #11, #1
+ 504              		.loc 1 192 63 view .LVU149
+ 505 002a 22F81310 		strh	r1, [r2, r3, lsl #1]	@ movhi
+ 193:../core/src/button.c ****             button_ctx.sample_index++;
+ 506              		.loc 1 193 13 is_stmt 1 view .LVU150
+ 507              		.loc 1 193 36 is_stmt 0 view .LVU151
+ 508 002e 0133     		adds	r3, r3, #1
+ 509 0030 DBB2     		uxtb	r3, r3
+ 194:../core/src/button.c **** 
+ 195:../core/src/button.c ****             /* Check if buffer is full */
+ 196:../core/src/button.c ****             if (button_ctx.sample_index >= BUTTON_SAMPLE_SIZE) {
+ 510              		.loc 1 196 16 view .LVU152
+ 511 0032 1E2B     		cmp	r3, #30
+ 193:../core/src/button.c ****             button_ctx.sample_index++;
+ 512              		.loc 1 193 36 view .LVU153
+ 513 0034 82F84B30 		strb	r3, [r2, #75]
+ 514              		.loc 1 196 13 is_stmt 1 view .LVU154
+ 197:../core/src/button.c ****                 button_ctx.capture_complete = true;
+ 515              		.loc 1 197 17 view .LVU155
+ 516              		.loc 1 197 45 is_stmt 0 view .LVU156
+ 517 0038 04BF     		itt	eq
+ 518 003a 0123     		moveq	r3, #1
+ 519 003c 82F83C30 		strbeq	r3, [r2, #60]
+ 520              	.L37:
+ 198:../core/src/button.c ****             }
+ 199:../core/src/button.c ****         }
+ 200:../core/src/button.c ****     }
+ 201:../core/src/button.c **** }
+ 521              		.loc 1 201 1 view .LVU157
+ 522 0040 08BD     		pop	{r3, pc}
+ 523              	.L42:
+ 524 0042 00BF     		.align	2
+ 525              	.L41:
+ 526 0044 00000000 		.word	button_ctx
+ 527 0048 00380240 		.word	1073887232
+ 528              		.cfi_endproc
+ 529              	.LFE140:
+ 531              		.section	.text.Button_DMA_IRQHandler,"ax",%progbits
+ 532              		.align	1
+ 533              		.global	Button_DMA_IRQHandler
+ 534              		.syntax unified
+ 535              		.thumb
+ 536              		.thumb_func
+ 538              	Button_DMA_IRQHandler:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 15
+
+
+ 539              	.LFB143:
+ 540              		.cfi_startproc
+ 202:../core/src/button.c **** 
+ 203:../core/src/button.c **** /**
+ 204:../core/src/button.c ****  * @brief DMA transfer complete callback (not used in software sampling mode)
+ 205:../core/src/button.c ****  */
+ 206:../core/src/button.c **** void Button_DMA_IRQHandler(void)
+ 541              		.loc 1 206 6 is_stmt 1 view -0
+ 542              		@ args = 0, pretend = 0, frame = 0
+ 543              		@ frame_needed = 0, uses_anonymous_args = 0
+ 544              		@ link register save eliminated.
+ 545 0000 7047     		bx	lr
+ 546              		.cfi_endproc
+ 547              	.LFE143:
+ 549              		.global	button_ctx
+ 550              		.section	.bss.button_ctx,"aw",%nobits
+ 551              		.align	2
+ 554              	button_ctx:
+ 555 0000 00000000 		.space	76
+ 555      00000000 
+ 555      00000000 
+ 555      00000000 
+ 555      00000000 
+ 556              		.text
+ 557              	.Letext0:
+ 558              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 559              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 560              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 561              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_gpio.h"
+ 562              		.file 6 "../firmware/n32g430_std_periph_driver/inc/n32g430_tim.h"
+ 563              		.file 7 "../firmware/n32g430_std_periph_driver/inc/misc.h"
+ 564              		.file 8 "../core/inc/button.h"
+ 565              		.file 9 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/stdio.h"
+ 566              		.file 10 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
+ 567              		.file 11 "../core/inc/hal_compat.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s 			page 16
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 button.c
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:21     .text.Button_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:27     .text.Button_Init:00000000 Button_Init
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:143    .text.Button_Init:00000074 $d
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:554    .bss.button_ctx:00000000 button_ctx
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:150    .text.Button_StartSampling:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:156    .text.Button_StartSampling:00000000 Button_StartSampling
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:176    .text.Button_StartSampling:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:181    .text.Button_StopSampling:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:187    .text.Button_StopSampling:00000000 Button_StopSampling
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:200    .text.Button_GetEvent:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:206    .text.Button_GetEvent:00000000 Button_GetEvent
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:375    .text.Button_GetEvent:00000084 $d
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:380    .text.Button_IsPressed:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:386    .text.Button_IsPressed:00000000 Button_IsPressed
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:401    .text.Button_IsPressed:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:409    .text.Button_GetDebugInfo:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:415    .text.Button_GetDebugInfo:00000000 Button_GetDebugInfo
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:454    .text.Button_GetDebugInfo:00000024 $d
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:460    .text.Button_TIM2_IRQHandler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:466    .text.Button_TIM2_IRQHandler:00000000 Button_TIM2_IRQHandler
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:526    .text.Button_TIM2_IRQHandler:00000044 $d
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:532    .text.Button_DMA_IRQHandler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:538    .text.Button_DMA_IRQHandler:00000000 Button_DMA_IRQHandler
+C:\Users\Dawn\AppData\Local\Temp\ccq14dGm.s:551    .bss.button_ctx:00000000 $d
+
+UNDEFINED SYMBOLS
+RCC_AHB_Peripheral_Clock_Enable
+RCC_APB1_Peripheral_Clock_Enable
+GPIO_Structure_Initialize
+GPIO_Peripheral_Initialize
+TIM_Base_Struct_Initialize
+TIM_Base_Initialize
+TIM_Interrupt_Enable
+NVIC_Initializes
+TIM_On
+HAL_GetTick
+snprintf
+TIM_Interrupt_Status_Get
+TIM_Interrupt_Status_Clear

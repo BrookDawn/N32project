@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s 			page 1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -34,165 +34,166 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s 			page 1
    4:../core/src/dma.c **** 
    5:../core/src/dma.c **** DMA_HandleTypeDef hdma_i2c1_tx;
    6:../core/src/dma.c **** DMA_HandleTypeDef hdma_spi1_tx;
-   7:../core/src/dma.c **** 
-   8:../core/src/dma.c **** static uint32_t DMA_GetTCFlag(uint8_t channel)
-   9:../core/src/dma.c **** {
-  10:../core/src/dma.c ****     static const uint32_t tc_flags[] = {
-  11:../core/src/dma.c ****         0,
-  12:../core/src/dma.c ****         DMA_CH1_INT_TXC,
-  13:../core/src/dma.c ****         DMA_CH2_INT_TXC,
-  14:../core/src/dma.c ****         DMA_CH3_INT_TXC,
-  15:../core/src/dma.c ****         DMA_CH4_INT_TXC,
-  16:../core/src/dma.c ****         DMA_CH5_INT_TXC,
-  17:../core/src/dma.c ****         DMA_CH6_INT_TXC,
-  18:../core/src/dma.c ****         DMA_CH7_INT_TXC,
-  19:../core/src/dma.c ****         DMA_CH8_INT_TXC};
-  20:../core/src/dma.c ****     if (channel < sizeof(tc_flags) / sizeof(tc_flags[0]))
-  21:../core/src/dma.c ****     {
-  22:../core/src/dma.c ****         return tc_flags[channel];
-  23:../core/src/dma.c ****     }
-  24:../core/src/dma.c ****     return 0;
-  25:../core/src/dma.c **** }
-  26:../core/src/dma.c **** 
-  27:../core/src/dma.c **** static uint32_t DMA_GetERRFlag(uint8_t channel)
-  28:../core/src/dma.c **** {
-  29:../core/src/dma.c ****     static const uint32_t err_flags[] = {
-  30:../core/src/dma.c ****         0,
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s 			page 2
+   7:../core/src/dma.c **** DMA_HandleTypeDef hdma_tim2_ch4;
+   8:../core/src/dma.c **** 
+   9:../core/src/dma.c **** static uint32_t DMA_GetTCFlag(uint8_t channel)
+  10:../core/src/dma.c **** {
+  11:../core/src/dma.c ****     static const uint32_t tc_flags[] = {
+  12:../core/src/dma.c ****         0,
+  13:../core/src/dma.c ****         DMA_CH1_INT_TXC,
+  14:../core/src/dma.c ****         DMA_CH2_INT_TXC,
+  15:../core/src/dma.c ****         DMA_CH3_INT_TXC,
+  16:../core/src/dma.c ****         DMA_CH4_INT_TXC,
+  17:../core/src/dma.c ****         DMA_CH5_INT_TXC,
+  18:../core/src/dma.c ****         DMA_CH6_INT_TXC,
+  19:../core/src/dma.c ****         DMA_CH7_INT_TXC,
+  20:../core/src/dma.c ****         DMA_CH8_INT_TXC};
+  21:../core/src/dma.c ****     if (channel < sizeof(tc_flags) / sizeof(tc_flags[0]))
+  22:../core/src/dma.c ****     {
+  23:../core/src/dma.c ****         return tc_flags[channel];
+  24:../core/src/dma.c ****     }
+  25:../core/src/dma.c ****     return 0;
+  26:../core/src/dma.c **** }
+  27:../core/src/dma.c **** 
+  28:../core/src/dma.c **** static uint32_t DMA_GetERRFlag(uint8_t channel)
+  29:../core/src/dma.c **** {
+  30:../core/src/dma.c ****     static const uint32_t err_flags[] = {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s 			page 2
 
 
-  31:../core/src/dma.c ****         DMA_CH1_INT_ERR,
-  32:../core/src/dma.c ****         DMA_CH2_INT_ERR,
-  33:../core/src/dma.c ****         DMA_CH3_INT_ERR,
-  34:../core/src/dma.c ****         DMA_CH4_INT_ERR,
-  35:../core/src/dma.c ****         DMA_CH5_INT_ERR,
-  36:../core/src/dma.c ****         DMA_CH6_INT_ERR,
-  37:../core/src/dma.c ****         DMA_CH7_INT_ERR,
-  38:../core/src/dma.c ****         DMA_CH8_INT_ERR};
-  39:../core/src/dma.c ****     if (channel < sizeof(err_flags) / sizeof(err_flags[0]))
-  40:../core/src/dma.c ****     {
-  41:../core/src/dma.c ****         return err_flags[channel];
-  42:../core/src/dma.c ****     }
-  43:../core/src/dma.c ****     return 0;
-  44:../core/src/dma.c **** }
-  45:../core/src/dma.c **** 
-  46:../core/src/dma.c **** void MX_DMA_Init(void)
-  47:../core/src/dma.c **** {
-  29              		.loc 1 47 1 view -0
+  31:../core/src/dma.c ****         0,
+  32:../core/src/dma.c ****         DMA_CH1_INT_ERR,
+  33:../core/src/dma.c ****         DMA_CH2_INT_ERR,
+  34:../core/src/dma.c ****         DMA_CH3_INT_ERR,
+  35:../core/src/dma.c ****         DMA_CH4_INT_ERR,
+  36:../core/src/dma.c ****         DMA_CH5_INT_ERR,
+  37:../core/src/dma.c ****         DMA_CH6_INT_ERR,
+  38:../core/src/dma.c ****         DMA_CH7_INT_ERR,
+  39:../core/src/dma.c ****         DMA_CH8_INT_ERR};
+  40:../core/src/dma.c ****     if (channel < sizeof(err_flags) / sizeof(err_flags[0]))
+  41:../core/src/dma.c ****     {
+  42:../core/src/dma.c ****         return err_flags[channel];
+  43:../core/src/dma.c ****     }
+  44:../core/src/dma.c ****     return 0;
+  45:../core/src/dma.c **** }
+  46:../core/src/dma.c **** 
+  47:../core/src/dma.c **** void MX_DMA_Init(void)
+  48:../core/src/dma.c **** {
+  29              		.loc 1 48 1 view -0
   30              		.cfi_startproc
   31              		@ args = 0, pretend = 0, frame = 8
   32              		@ frame_needed = 0, uses_anonymous_args = 0
+  49:../core/src/dma.c ****     RCC_AHB_Peripheral_Clock_Enable(RCC_AHB_PERIPH_DMA);
+  33              		.loc 1 49 5 view .LVU1
   48:../core/src/dma.c ****     RCC_AHB_Peripheral_Clock_Enable(RCC_AHB_PERIPH_DMA);
-  33              		.loc 1 48 5 view .LVU1
-  47:../core/src/dma.c ****     RCC_AHB_Peripheral_Clock_Enable(RCC_AHB_PERIPH_DMA);
-  34              		.loc 1 47 1 is_stmt 0 view .LVU2
+  34              		.loc 1 48 1 is_stmt 0 view .LVU2
   35 0000 13B5     		push	{r0, r1, r4, lr}
   36              	.LCFI0:
   37              		.cfi_def_cfa_offset 16
   38              		.cfi_offset 4, -8
   39              		.cfi_offset 14, -4
-  49:../core/src/dma.c **** 
-  50:../core/src/dma.c ****     DMA_Reset(DMA_CH1);
-  40              		.loc 1 50 5 view .LVU3
+  50:../core/src/dma.c **** 
+  51:../core/src/dma.c ****     DMA_Reset(DMA_CH1);
+  40              		.loc 1 51 5 view .LVU3
   41 0002 144C     		ldr	r4, .L2
-  48:../core/src/dma.c **** 
-  42              		.loc 1 48 5 view .LVU4
+  49:../core/src/dma.c **** 
+  42              		.loc 1 49 5 view .LVU4
   43 0004 0120     		movs	r0, #1
   44 0006 FFF7FEFF 		bl	RCC_AHB_Peripheral_Clock_Enable
   45              	.LVL0:
-  46              		.loc 1 50 5 is_stmt 1 view .LVU5
+  46              		.loc 1 51 5 is_stmt 1 view .LVU5
   47 000a 2046     		mov	r0, r4
   48 000c FFF7FEFF 		bl	DMA_Reset
   49              	.LVL1:
-  51:../core/src/dma.c ****     DMA_Channel_Request_Remap(DMA_CH1, DMA_REMAP_I2C1_TX);
-  50              		.loc 1 51 5 view .LVU6
+  52:../core/src/dma.c ****     DMA_Channel_Request_Remap(DMA_CH1, DMA_REMAP_I2C1_TX);
+  50              		.loc 1 52 5 view .LVU6
   51 0010 0D21     		movs	r1, #13
   52 0012 2046     		mov	r0, r4
   53 0014 FFF7FEFF 		bl	DMA_Channel_Request_Remap
   54              	.LVL2:
-  52:../core/src/dma.c ****     DMA_Channel_Disable(DMA_CH1);
-  55              		.loc 1 52 5 view .LVU7
+  53:../core/src/dma.c ****     DMA_Channel_Disable(DMA_CH1);
+  55              		.loc 1 53 5 view .LVU7
   56 0018 2046     		mov	r0, r4
   57 001a FFF7FEFF 		bl	DMA_Channel_Disable
   58              	.LVL3:
-  53:../core/src/dma.c ****     DMA_Interrupts_Disable(DMA_CH1, DMA_INT_TXC | DMA_INT_ERR | DMA_INT_HTX);
-  59              		.loc 1 53 5 view .LVU8
+  54:../core/src/dma.c ****     DMA_Interrupts_Disable(DMA_CH1, DMA_INT_TXC | DMA_INT_ERR | DMA_INT_HTX);
+  59              		.loc 1 54 5 view .LVU8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s 			page 3
+
+
   60 001e 2046     		mov	r0, r4
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s 			page 3
-
-
   61 0020 0E21     		movs	r1, #14
   62 0022 FFF7FEFF 		bl	DMA_Interrupts_Disable
   63              	.LVL4:
-  54:../core/src/dma.c **** 
-  55:../core/src/dma.c ****     hdma_i2c1_tx.Instance = DMA_CH1;
-  64              		.loc 1 55 5 view .LVU9
-  56:../core/src/dma.c ****     hdma_i2c1_tx.ChannelIndex = 1;
-  65              		.loc 1 56 5 view .LVU10
-  57:../core/src/dma.c ****     hdma_i2c1_tx.RequestID = DMA_REMAP_I2C1_TX;
-  66              		.loc 1 57 5 view .LVU11
-  67              		.loc 1 57 28 is_stmt 0 view .LVU12
+  55:../core/src/dma.c **** 
+  56:../core/src/dma.c ****     hdma_i2c1_tx.Instance = DMA_CH1;
+  64              		.loc 1 56 5 view .LVU9
+  57:../core/src/dma.c ****     hdma_i2c1_tx.ChannelIndex = 1;
+  65              		.loc 1 57 5 view .LVU10
+  58:../core/src/dma.c ****     hdma_i2c1_tx.RequestID = DMA_REMAP_I2C1_TX;
+  66              		.loc 1 58 5 view .LVU11
+  67              		.loc 1 58 28 is_stmt 0 view .LVU12
   68 0026 0C4B     		ldr	r3, .L2+4
   69 0028 0D22     		movs	r2, #13
   70 002a 9A60     		str	r2, [r3, #8]
-  58:../core/src/dma.c ****     hdma_i2c1_tx.State = HAL_DMA_STATE_READY;
-  71              		.loc 1 58 5 is_stmt 1 view .LVU13
-  72              		.loc 1 58 24 is_stmt 0 view .LVU14
+  59:../core/src/dma.c ****     hdma_i2c1_tx.State = HAL_DMA_STATE_READY;
+  71              		.loc 1 59 5 is_stmt 1 view .LVU13
+  72              		.loc 1 59 24 is_stmt 0 view .LVU14
   73 002c 40F20112 		movw	r2, #257
   74 0030 9A80     		strh	r2, [r3, #4]	@ movhi
-  59:../core/src/dma.c ****     hdma_i2c1_tx.Parent = NULL;
-  75              		.loc 1 59 5 is_stmt 1 view .LVU15
-  60:../core/src/dma.c ****     hdma_i2c1_tx.XferCpltCallback = NULL;
-  61:../core/src/dma.c ****     hdma_i2c1_tx.XferErrorCallback = NULL;
-  62:../core/src/dma.c **** 
-  63:../core/src/dma.c ****     DMA_Interrupts_Enable(DMA_CH1, DMA_INT_TXC | DMA_INT_ERR);
-  76              		.loc 1 63 5 is_stmt 0 view .LVU16
+  60:../core/src/dma.c ****     hdma_i2c1_tx.Parent = NULL;
+  75              		.loc 1 60 5 is_stmt 1 view .LVU15
+  61:../core/src/dma.c ****     hdma_i2c1_tx.XferCpltCallback = NULL;
+  62:../core/src/dma.c ****     hdma_i2c1_tx.XferErrorCallback = NULL;
+  63:../core/src/dma.c **** 
+  64:../core/src/dma.c ****     DMA_Interrupts_Enable(DMA_CH1, DMA_INT_TXC | DMA_INT_ERR);
+  76              		.loc 1 64 5 is_stmt 0 view .LVU16
   77 0032 0A21     		movs	r1, #10
-  59:../core/src/dma.c ****     hdma_i2c1_tx.Parent = NULL;
-  78              		.loc 1 59 25 view .LVU17
+  60:../core/src/dma.c ****     hdma_i2c1_tx.Parent = NULL;
+  78              		.loc 1 60 25 view .LVU17
   79 0034 0022     		movs	r2, #0
-  80              		.loc 1 63 5 view .LVU18
+  80              		.loc 1 64 5 view .LVU18
   81 0036 2046     		mov	r0, r4
-  60:../core/src/dma.c ****     hdma_i2c1_tx.XferCpltCallback = NULL;
-  82              		.loc 1 60 35 view .LVU19
+  61:../core/src/dma.c ****     hdma_i2c1_tx.XferCpltCallback = NULL;
+  82              		.loc 1 61 35 view .LVU19
   83 0038 C3E90322 		strd	r2, r2, [r3, #12]
-  61:../core/src/dma.c **** 
-  84              		.loc 1 61 5 is_stmt 1 view .LVU20
-  61:../core/src/dma.c **** 
-  85              		.loc 1 61 36 is_stmt 0 view .LVU21
+  62:../core/src/dma.c **** 
+  84              		.loc 1 62 5 is_stmt 1 view .LVU20
+  62:../core/src/dma.c **** 
+  85              		.loc 1 62 36 is_stmt 0 view .LVU21
   86 003c 5A61     		str	r2, [r3, #20]
-  87              		.loc 1 63 5 is_stmt 1 view .LVU22
-  55:../core/src/dma.c ****     hdma_i2c1_tx.ChannelIndex = 1;
-  88              		.loc 1 55 27 is_stmt 0 view .LVU23
+  87              		.loc 1 64 5 is_stmt 1 view .LVU22
+  56:../core/src/dma.c ****     hdma_i2c1_tx.ChannelIndex = 1;
+  88              		.loc 1 56 27 is_stmt 0 view .LVU23
   89 003e 1C60     		str	r4, [r3]
-  90              		.loc 1 63 5 view .LVU24
+  90              		.loc 1 64 5 view .LVU24
   91 0040 FFF7FEFF 		bl	DMA_Interrupts_Enable
   92              	.LVL5:
-  64:../core/src/dma.c **** 
-  65:../core/src/dma.c ****     NVIC_InitType NVIC_InitStructure;
-  93              		.loc 1 65 5 is_stmt 1 view .LVU25
-  66:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannel = DMA_Channel1_IRQn;
-  94              		.loc 1 66 5 view .LVU26
+  65:../core/src/dma.c **** 
+  66:../core/src/dma.c ****     NVIC_InitType NVIC_InitStructure;
+  93              		.loc 1 66 5 is_stmt 1 view .LVU25
+  67:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannel = DMA_Channel1_IRQn;
+  94              		.loc 1 67 5 view .LVU26
+  68:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+  95              		.loc 1 68 5 view .LVU27
+  69:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  96              		.loc 1 69 5 view .LVU28
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s 			page 4
+
+
+  70:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  97              		.loc 1 70 5 view .LVU29
   67:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
-  95              		.loc 1 67 5 view .LVU27
-  68:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-  96              		.loc 1 68 5 view .LVU28
-  69:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s 			page 4
-
-
-  97              		.loc 1 69 5 view .LVU29
-  66:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
-  98              		.loc 1 66 40 is_stmt 0 view .LVU30
+  98              		.loc 1 67 40 is_stmt 0 view .LVU30
   99 0044 054B     		ldr	r3, .L2+8
  100 0046 0193     		str	r3, [sp, #4]
-  70:../core/src/dma.c ****     NVIC_Initializes(&NVIC_InitStructure);
- 101              		.loc 1 70 5 is_stmt 1 view .LVU31
+  71:../core/src/dma.c ****     NVIC_Initializes(&NVIC_InitStructure);
+ 101              		.loc 1 71 5 is_stmt 1 view .LVU31
  102 0048 01A8     		add	r0, sp, #4
  103 004a FFF7FEFF 		bl	NVIC_Initializes
  104              	.LVL6:
-  71:../core/src/dma.c **** }
- 105              		.loc 1 71 1 is_stmt 0 view .LVU32
+  72:../core/src/dma.c **** }
+ 105              		.loc 1 72 1 is_stmt 0 view .LVU32
  106 004e 02B0     		add	sp, sp, #8
  107              	.LCFI1:
  108              		.cfi_def_cfa_offset 8
@@ -214,128 +215,128 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s 			page 1
  125              		.thumb_func
  127              	MX_DMA_SPI1_Init:
  128              	.LFB133:
-  72:../core/src/dma.c **** 
-  73:../core/src/dma.c **** /**
-  74:../core/src/dma.c ****  * @brief Initialize DMA for SPI1 TX (DMA Channel 2)
-  75:../core/src/dma.c ****  */
-  76:../core/src/dma.c **** void MX_DMA_SPI1_Init(void)
-  77:../core/src/dma.c **** {
- 129              		.loc 1 77 1 is_stmt 1 view -0
+  73:../core/src/dma.c **** 
+  74:../core/src/dma.c **** /**
+  75:../core/src/dma.c ****  * @brief Initialize DMA for SPI1 TX (DMA Channel 2)
+  76:../core/src/dma.c ****  */
+  77:../core/src/dma.c **** void MX_DMA_SPI1_Init(void)
+  78:../core/src/dma.c **** {
+ 129              		.loc 1 78 1 is_stmt 1 view -0
  130              		.cfi_startproc
  131              		@ args = 0, pretend = 0, frame = 8
  132              		@ frame_needed = 0, uses_anonymous_args = 0
+  79:../core/src/dma.c ****     NVIC_InitType NVIC_InitStructure;
+ 133              		.loc 1 79 5 view .LVU34
+  80:../core/src/dma.c **** 
+  81:../core/src/dma.c ****     RCC_AHB_Peripheral_Clock_Enable(RCC_AHB_PERIPH_DMA);
+ 134              		.loc 1 81 5 view .LVU35
   78:../core/src/dma.c ****     NVIC_InitType NVIC_InitStructure;
- 133              		.loc 1 78 5 view .LVU34
-  79:../core/src/dma.c **** 
-  80:../core/src/dma.c ****     RCC_AHB_Peripheral_Clock_Enable(RCC_AHB_PERIPH_DMA);
- 134              		.loc 1 80 5 view .LVU35
-  77:../core/src/dma.c ****     NVIC_InitType NVIC_InitStructure;
- 135              		.loc 1 77 1 is_stmt 0 view .LVU36
+ 135              		.loc 1 78 1 is_stmt 0 view .LVU36
  136 0000 13B5     		push	{r0, r1, r4, lr}
  137              	.LCFI2:
  138              		.cfi_def_cfa_offset 16
  139              		.cfi_offset 4, -8
  140              		.cfi_offset 14, -4
-  81:../core/src/dma.c **** 
-  82:../core/src/dma.c ****     DMA_Reset(DMA_CH2);
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s 			page 5
+  82:../core/src/dma.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s 			page 5
 
 
- 141              		.loc 1 82 5 view .LVU37
+  83:../core/src/dma.c ****     DMA_Reset(DMA_CH2);
+ 141              		.loc 1 83 5 view .LVU37
  142 0002 144C     		ldr	r4, .L5
-  80:../core/src/dma.c **** 
- 143              		.loc 1 80 5 view .LVU38
+  81:../core/src/dma.c **** 
+ 143              		.loc 1 81 5 view .LVU38
  144 0004 0120     		movs	r0, #1
  145 0006 FFF7FEFF 		bl	RCC_AHB_Peripheral_Clock_Enable
  146              	.LVL7:
- 147              		.loc 1 82 5 is_stmt 1 view .LVU39
+ 147              		.loc 1 83 5 is_stmt 1 view .LVU39
  148 000a 2046     		mov	r0, r4
  149 000c FFF7FEFF 		bl	DMA_Reset
  150              	.LVL8:
-  83:../core/src/dma.c ****     DMA_Channel_Request_Remap(DMA_CH2, DMA_REMAP_SPI1_TX);
- 151              		.loc 1 83 5 view .LVU40
+  84:../core/src/dma.c ****     DMA_Channel_Request_Remap(DMA_CH2, DMA_REMAP_SPI1_TX);
+ 151              		.loc 1 84 5 view .LVU40
  152 0010 0921     		movs	r1, #9
  153 0012 2046     		mov	r0, r4
  154 0014 FFF7FEFF 		bl	DMA_Channel_Request_Remap
  155              	.LVL9:
-  84:../core/src/dma.c ****     DMA_Channel_Disable(DMA_CH2);
- 156              		.loc 1 84 5 view .LVU41
+  85:../core/src/dma.c ****     DMA_Channel_Disable(DMA_CH2);
+ 156              		.loc 1 85 5 view .LVU41
  157 0018 2046     		mov	r0, r4
  158 001a FFF7FEFF 		bl	DMA_Channel_Disable
  159              	.LVL10:
-  85:../core/src/dma.c ****     DMA_Interrupts_Disable(DMA_CH2, DMA_INT_TXC | DMA_INT_ERR | DMA_INT_HTX);
- 160              		.loc 1 85 5 view .LVU42
+  86:../core/src/dma.c ****     DMA_Interrupts_Disable(DMA_CH2, DMA_INT_TXC | DMA_INT_ERR | DMA_INT_HTX);
+ 160              		.loc 1 86 5 view .LVU42
  161 001e 2046     		mov	r0, r4
  162 0020 0E21     		movs	r1, #14
  163 0022 FFF7FEFF 		bl	DMA_Interrupts_Disable
  164              	.LVL11:
-  86:../core/src/dma.c **** 
-  87:../core/src/dma.c ****     hdma_spi1_tx.Instance = DMA_CH2;
- 165              		.loc 1 87 5 view .LVU43
-  88:../core/src/dma.c ****     hdma_spi1_tx.ChannelIndex = 2;
- 166              		.loc 1 88 5 view .LVU44
-  89:../core/src/dma.c ****     hdma_spi1_tx.RequestID = DMA_REMAP_SPI1_TX;
- 167              		.loc 1 89 5 view .LVU45
- 168              		.loc 1 89 28 is_stmt 0 view .LVU46
+  87:../core/src/dma.c **** 
+  88:../core/src/dma.c ****     hdma_spi1_tx.Instance = DMA_CH2;
+ 165              		.loc 1 88 5 view .LVU43
+  89:../core/src/dma.c ****     hdma_spi1_tx.ChannelIndex = 2;
+ 166              		.loc 1 89 5 view .LVU44
+  90:../core/src/dma.c ****     hdma_spi1_tx.RequestID = DMA_REMAP_SPI1_TX;
+ 167              		.loc 1 90 5 view .LVU45
+ 168              		.loc 1 90 28 is_stmt 0 view .LVU46
  169 0026 0C4B     		ldr	r3, .L5+4
  170 0028 0922     		movs	r2, #9
  171 002a 9A60     		str	r2, [r3, #8]
-  90:../core/src/dma.c ****     hdma_spi1_tx.State = HAL_DMA_STATE_READY;
- 172              		.loc 1 90 5 is_stmt 1 view .LVU47
- 173              		.loc 1 90 24 is_stmt 0 view .LVU48
+  91:../core/src/dma.c ****     hdma_spi1_tx.State = HAL_DMA_STATE_READY;
+ 172              		.loc 1 91 5 is_stmt 1 view .LVU47
+ 173              		.loc 1 91 24 is_stmt 0 view .LVU48
  174 002c 40F20122 		movw	r2, #513
  175 0030 9A80     		strh	r2, [r3, #4]	@ movhi
-  91:../core/src/dma.c ****     hdma_spi1_tx.Parent = NULL;
- 176              		.loc 1 91 5 is_stmt 1 view .LVU49
-  92:../core/src/dma.c ****     hdma_spi1_tx.XferCpltCallback = NULL;
-  93:../core/src/dma.c ****     hdma_spi1_tx.XferErrorCallback = NULL;
-  94:../core/src/dma.c **** 
-  95:../core/src/dma.c ****     DMA_Interrupts_Enable(DMA_CH2, DMA_INT_TXC | DMA_INT_ERR);
- 177              		.loc 1 95 5 is_stmt 0 view .LVU50
+  92:../core/src/dma.c ****     hdma_spi1_tx.Parent = NULL;
+ 176              		.loc 1 92 5 is_stmt 1 view .LVU49
+  93:../core/src/dma.c ****     hdma_spi1_tx.XferCpltCallback = NULL;
+  94:../core/src/dma.c ****     hdma_spi1_tx.XferErrorCallback = NULL;
+  95:../core/src/dma.c **** 
+  96:../core/src/dma.c ****     DMA_Interrupts_Enable(DMA_CH2, DMA_INT_TXC | DMA_INT_ERR);
+ 177              		.loc 1 96 5 is_stmt 0 view .LVU50
  178 0032 0A21     		movs	r1, #10
-  91:../core/src/dma.c ****     hdma_spi1_tx.Parent = NULL;
- 179              		.loc 1 91 25 view .LVU51
+  92:../core/src/dma.c ****     hdma_spi1_tx.Parent = NULL;
+ 179              		.loc 1 92 25 view .LVU51
  180 0034 0022     		movs	r2, #0
- 181              		.loc 1 95 5 view .LVU52
+ 181              		.loc 1 96 5 view .LVU52
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s 			page 6
+
+
  182 0036 2046     		mov	r0, r4
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s 			page 6
-
-
-  92:../core/src/dma.c ****     hdma_spi1_tx.XferCpltCallback = NULL;
- 183              		.loc 1 92 35 view .LVU53
+  93:../core/src/dma.c ****     hdma_spi1_tx.XferCpltCallback = NULL;
+ 183              		.loc 1 93 35 view .LVU53
  184 0038 C3E90322 		strd	r2, r2, [r3, #12]
-  93:../core/src/dma.c **** 
- 185              		.loc 1 93 5 is_stmt 1 view .LVU54
-  93:../core/src/dma.c **** 
- 186              		.loc 1 93 36 is_stmt 0 view .LVU55
+  94:../core/src/dma.c **** 
+ 185              		.loc 1 94 5 is_stmt 1 view .LVU54
+  94:../core/src/dma.c **** 
+ 186              		.loc 1 94 36 is_stmt 0 view .LVU55
  187 003c 5A61     		str	r2, [r3, #20]
- 188              		.loc 1 95 5 is_stmt 1 view .LVU56
-  87:../core/src/dma.c ****     hdma_spi1_tx.ChannelIndex = 2;
- 189              		.loc 1 87 27 is_stmt 0 view .LVU57
+ 188              		.loc 1 96 5 is_stmt 1 view .LVU56
+  88:../core/src/dma.c ****     hdma_spi1_tx.ChannelIndex = 2;
+ 189              		.loc 1 88 27 is_stmt 0 view .LVU57
  190 003e 1C60     		str	r4, [r3]
- 191              		.loc 1 95 5 view .LVU58
+ 191              		.loc 1 96 5 view .LVU58
  192 0040 FFF7FEFF 		bl	DMA_Interrupts_Enable
  193              	.LVL12:
-  96:../core/src/dma.c **** 
-  97:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannel = DMA_Channel2_IRQn;
- 194              		.loc 1 97 5 is_stmt 1 view .LVU59
+  97:../core/src/dma.c **** 
+  98:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannel = DMA_Channel2_IRQn;
+ 194              		.loc 1 98 5 is_stmt 1 view .LVU59
+  99:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+ 195              		.loc 1 99 5 view .LVU60
+ 100:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+ 196              		.loc 1 100 5 view .LVU61
+ 101:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+ 197              		.loc 1 101 5 view .LVU62
   98:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
- 195              		.loc 1 98 5 view .LVU60
-  99:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
- 196              		.loc 1 99 5 view .LVU61
- 100:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
- 197              		.loc 1 100 5 view .LVU62
-  97:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
- 198              		.loc 1 97 40 is_stmt 0 view .LVU63
+ 198              		.loc 1 98 40 is_stmt 0 view .LVU63
  199 0044 054B     		ldr	r3, .L5+8
  200 0046 0193     		str	r3, [sp, #4]
- 101:../core/src/dma.c ****     NVIC_Initializes(&NVIC_InitStructure);
- 201              		.loc 1 101 5 is_stmt 1 view .LVU64
+ 102:../core/src/dma.c ****     NVIC_Initializes(&NVIC_InitStructure);
+ 201              		.loc 1 102 5 is_stmt 1 view .LVU64
  202 0048 01A8     		add	r0, sp, #4
  203 004a FFF7FEFF 		bl	NVIC_Initializes
  204              	.LVL13:
- 102:../core/src/dma.c **** }
- 205              		.loc 1 102 1 is_stmt 0 view .LVU65
+ 103:../core/src/dma.c **** }
+ 205              		.loc 1 103 1 is_stmt 0 view .LVU65
  206 004e 02B0     		add	sp, sp, #8
  207              	.LCFI3:
  208              		.cfi_def_cfa_offset 8
@@ -349,287 +350,444 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s 			page 1
  216 005c 0C010001 		.word	16777484
  217              		.cfi_endproc
  218              	.LFE133:
- 220              		.section	.text.HAL_DMA_IRQHandler,"ax",%progbits
+ 220              		.section	.text.MX_DMA_TIM2_CH4_Init,"ax",%progbits
  221              		.align	1
- 222              		.global	HAL_DMA_IRQHandler
+ 222              		.global	MX_DMA_TIM2_CH4_Init
  223              		.syntax unified
  224              		.thumb
  225              		.thumb_func
- 227              	HAL_DMA_IRQHandler:
- 228              	.LVL14:
- 229              	.LFB134:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s 			page 7
+ 227              	MX_DMA_TIM2_CH4_Init:
+ 228              	.LFB134:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s 			page 7
 
 
- 103:../core/src/dma.c **** 
- 104:../core/src/dma.c **** void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
- 105:../core/src/dma.c **** {
- 230              		.loc 1 105 1 is_stmt 1 view -0
- 231              		.cfi_startproc
- 232              		@ args = 0, pretend = 0, frame = 0
- 233              		@ frame_needed = 0, uses_anonymous_args = 0
- 106:../core/src/dma.c ****     uint32_t tc_flag = DMA_GetTCFlag(hdma->ChannelIndex);
- 234              		.loc 1 106 5 view .LVU67
- 105:../core/src/dma.c ****     uint32_t tc_flag = DMA_GetTCFlag(hdma->ChannelIndex);
- 235              		.loc 1 105 1 is_stmt 0 view .LVU68
- 236 0000 70B5     		push	{r4, r5, r6, lr}
+ 104:../core/src/dma.c **** 
+ 105:../core/src/dma.c **** /**
+ 106:../core/src/dma.c ****  * @brief Initialize DMA for TIM2_CH4 (DMA Channel 5)
+ 107:../core/src/dma.c ****  */
+ 108:../core/src/dma.c **** void MX_DMA_TIM2_CH4_Init(void)
+ 109:../core/src/dma.c **** {
+ 229              		.loc 1 109 1 is_stmt 1 view -0
+ 230              		.cfi_startproc
+ 231              		@ args = 0, pretend = 0, frame = 8
+ 232              		@ frame_needed = 0, uses_anonymous_args = 0
+ 110:../core/src/dma.c ****     NVIC_InitType NVIC_InitStructure;
+ 233              		.loc 1 110 5 view .LVU67
+ 111:../core/src/dma.c **** 
+ 112:../core/src/dma.c ****     RCC_AHB_Peripheral_Clock_Enable(RCC_AHB_PERIPH_DMA);
+ 234              		.loc 1 112 5 view .LVU68
+ 109:../core/src/dma.c ****     NVIC_InitType NVIC_InitStructure;
+ 235              		.loc 1 109 1 is_stmt 0 view .LVU69
+ 236 0000 13B5     		push	{r0, r1, r4, lr}
  237              	.LCFI4:
  238              		.cfi_def_cfa_offset 16
- 239              		.cfi_offset 4, -16
- 240              		.cfi_offset 5, -12
- 241              		.cfi_offset 6, -8
- 242              		.cfi_offset 14, -4
- 243              		.loc 1 106 24 view .LVU69
- 244 0002 4379     		ldrb	r3, [r0, #5]	@ zero_extendqisi2
- 245              	.LVL15:
- 246              	.LBB6:
- 247              	.LBI6:
-   8:../core/src/dma.c **** {
- 248              		.loc 1 8 17 is_stmt 1 view .LVU70
- 249              	.LBB7:
-  10:../core/src/dma.c ****         0,
- 250              		.loc 1 10 5 view .LVU71
-  20:../core/src/dma.c ****     {
- 251              		.loc 1 20 5 view .LVU72
-  20:../core/src/dma.c ****     {
- 252              		.loc 1 20 8 is_stmt 0 view .LVU73
- 253 0004 082B     		cmp	r3, #8
- 254              	.LBE7:
- 255              	.LBE6:
- 105:../core/src/dma.c ****     uint32_t tc_flag = DMA_GetTCFlag(hdma->ChannelIndex);
- 256              		.loc 1 105 1 view .LVU74
- 257 0006 0446     		mov	r4, r0
- 258              	.LBB9:
- 259              	.LBB8:
-  20:../core/src/dma.c ****     {
- 260              		.loc 1 20 8 view .LVU75
- 261 0008 27D8     		bhi	.L7
-  22:../core/src/dma.c ****     }
- 262              		.loc 1 22 9 is_stmt 1 view .LVU76
-  22:../core/src/dma.c ****     }
- 263              		.loc 1 22 24 is_stmt 0 view .LVU77
- 264 000a 144A     		ldr	r2, .L29
- 265 000c 52F82360 		ldr	r6, [r2, r3, lsl #2]
- 266              	.LVL16:
-  22:../core/src/dma.c ****     }
- 267              		.loc 1 22 24 view .LVU78
- 268              	.LBE8:
- 269              	.LBE9:
- 107:../core/src/dma.c ****     uint32_t err_flag = DMA_GetERRFlag(hdma->ChannelIndex);
- 270              		.loc 1 107 5 is_stmt 1 view .LVU79
- 271              	.LBB10:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s 			page 8
-
-
- 272              	.LBI10:
-  27:../core/src/dma.c **** {
- 273              		.loc 1 27 17 view .LVU80
- 274              	.LBB11:
-  29:../core/src/dma.c ****         0,
- 275              		.loc 1 29 5 view .LVU81
-  39:../core/src/dma.c ****     {
- 276              		.loc 1 39 5 view .LVU82
-  41:../core/src/dma.c ****     }
- 277              		.loc 1 41 9 view .LVU83
-  41:../core/src/dma.c ****     }
- 278              		.loc 1 41 25 is_stmt 0 view .LVU84
- 279 0010 134A     		ldr	r2, .L29+4
- 280 0012 52F82350 		ldr	r5, [r2, r3, lsl #2]
- 281              	.LVL17:
-  41:../core/src/dma.c ****     }
- 282              		.loc 1 41 25 view .LVU85
- 283              	.LBE11:
- 284              	.LBE10:
- 108:../core/src/dma.c **** 
- 109:../core/src/dma.c ****     if (tc_flag && DMA_Interrupt_Status_Get(DMA, tc_flag) != RESET)
- 285              		.loc 1 109 5 is_stmt 1 view .LVU86
- 286              		.loc 1 109 8 is_stmt 0 view .LVU87
- 287 0016 76B1     		cbz	r6, .L11
- 288              		.loc 1 109 20 discriminator 1 view .LVU88
- 289 0018 1248     		ldr	r0, .L29+8
- 290              	.LVL18:
- 291              		.loc 1 109 20 discriminator 1 view .LVU89
- 292 001a 3146     		mov	r1, r6
- 293 001c FFF7FEFF 		bl	DMA_Interrupt_Status_Get
- 294              	.LVL19:
- 295              		.loc 1 109 17 discriminator 1 view .LVU90
- 296 0020 48B1     		cbz	r0, .L11
- 110:../core/src/dma.c ****     {
- 111:../core/src/dma.c ****         DMA_Interrupt_Status_Clear(DMA, tc_flag);
- 297              		.loc 1 111 9 is_stmt 1 view .LVU91
- 298 0022 1048     		ldr	r0, .L29+8
- 299 0024 3146     		mov	r1, r6
- 300 0026 FFF7FEFF 		bl	DMA_Interrupt_Status_Clear
- 301              	.LVL20:
- 112:../core/src/dma.c ****         hdma->State = HAL_DMA_STATE_READY;
- 302              		.loc 1 112 9 view .LVU92
- 303              		.loc 1 112 21 is_stmt 0 view .LVU93
- 304 002a 0123     		movs	r3, #1
- 305 002c 2371     		strb	r3, [r4, #4]
- 113:../core/src/dma.c ****         if (hdma->XferCpltCallback)
- 306              		.loc 1 113 9 is_stmt 1 view .LVU94
- 307              		.loc 1 113 17 is_stmt 0 view .LVU95
- 308 002e 2369     		ldr	r3, [r4, #16]
- 309              		.loc 1 113 12 view .LVU96
- 310 0030 0BB1     		cbz	r3, .L11
- 114:../core/src/dma.c ****         {
- 115:../core/src/dma.c ****             hdma->XferCpltCallback(hdma);
- 311              		.loc 1 115 13 is_stmt 1 view .LVU97
- 312 0032 2046     		mov	r0, r4
- 313 0034 9847     		blx	r3
- 314              	.LVL21:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s 			page 9
-
-
- 315              	.L11:
- 116:../core/src/dma.c ****         }
- 117:../core/src/dma.c ****     }
+ 239              		.cfi_offset 4, -8
+ 240              		.cfi_offset 14, -4
+ 113:../core/src/dma.c **** 
+ 114:../core/src/dma.c ****     DMA_Reset(DMA_CH5);
+ 241              		.loc 1 114 5 view .LVU70
+ 242 0002 144C     		ldr	r4, .L8
+ 112:../core/src/dma.c **** 
+ 243              		.loc 1 112 5 view .LVU71
+ 244 0004 0120     		movs	r0, #1
+ 245 0006 FFF7FEFF 		bl	RCC_AHB_Peripheral_Clock_Enable
+ 246              	.LVL14:
+ 247              		.loc 1 114 5 is_stmt 1 view .LVU72
+ 248 000a 2046     		mov	r0, r4
+ 249 000c FFF7FEFF 		bl	DMA_Reset
+ 250              	.LVL15:
+ 115:../core/src/dma.c ****     DMA_Channel_Request_Remap(DMA_CH5, DMA_REMAP_TIM2_UP);
+ 251              		.loc 1 115 5 view .LVU73
+ 252 0010 1A21     		movs	r1, #26
+ 253 0012 2046     		mov	r0, r4
+ 254 0014 FFF7FEFF 		bl	DMA_Channel_Request_Remap
+ 255              	.LVL16:
+ 116:../core/src/dma.c ****     DMA_Channel_Disable(DMA_CH5);
+ 256              		.loc 1 116 5 view .LVU74
+ 257 0018 2046     		mov	r0, r4
+ 258 001a FFF7FEFF 		bl	DMA_Channel_Disable
+ 259              	.LVL17:
+ 117:../core/src/dma.c ****     DMA_Interrupts_Disable(DMA_CH5, DMA_INT_TXC | DMA_INT_ERR | DMA_INT_HTX);
+ 260              		.loc 1 117 5 view .LVU75
+ 261 001e 2046     		mov	r0, r4
+ 262 0020 0E21     		movs	r1, #14
+ 263 0022 FFF7FEFF 		bl	DMA_Interrupts_Disable
+ 264              	.LVL18:
  118:../core/src/dma.c **** 
- 119:../core/src/dma.c ****     if (err_flag && DMA_Interrupt_Status_Get(DMA, err_flag) != RESET)
- 316              		.loc 1 119 5 view .LVU98
- 317              		.loc 1 119 8 is_stmt 0 view .LVU99
- 318 0036 85B1     		cbz	r5, .L7
- 319              		.loc 1 119 21 discriminator 1 view .LVU100
- 320 0038 0A48     		ldr	r0, .L29+8
- 321 003a 2946     		mov	r1, r5
- 322 003c FFF7FEFF 		bl	DMA_Interrupt_Status_Get
- 323              	.LVL22:
- 324              		.loc 1 119 18 discriminator 1 view .LVU101
- 325 0040 58B1     		cbz	r0, .L7
- 120:../core/src/dma.c ****     {
- 121:../core/src/dma.c ****         DMA_Interrupt_Status_Clear(DMA, err_flag);
- 326              		.loc 1 121 9 is_stmt 1 view .LVU102
- 327 0042 0848     		ldr	r0, .L29+8
- 328 0044 2946     		mov	r1, r5
- 329 0046 FFF7FEFF 		bl	DMA_Interrupt_Status_Clear
- 330              	.LVL23:
- 122:../core/src/dma.c ****         hdma->State = HAL_DMA_STATE_ERROR;
- 331              		.loc 1 122 9 view .LVU103
- 332              		.loc 1 122 21 is_stmt 0 view .LVU104
- 333 004a 0323     		movs	r3, #3
- 334 004c 2371     		strb	r3, [r4, #4]
- 123:../core/src/dma.c ****         if (hdma->XferErrorCallback)
- 335              		.loc 1 123 9 is_stmt 1 view .LVU105
- 336              		.loc 1 123 17 is_stmt 0 view .LVU106
- 337 004e 6369     		ldr	r3, [r4, #20]
- 338              		.loc 1 123 12 view .LVU107
- 339 0050 1BB1     		cbz	r3, .L7
- 124:../core/src/dma.c ****         {
- 125:../core/src/dma.c ****             hdma->XferErrorCallback(hdma);
- 340              		.loc 1 125 13 is_stmt 1 view .LVU108
- 341 0052 2046     		mov	r0, r4
- 126:../core/src/dma.c ****         }
- 127:../core/src/dma.c ****     }
- 128:../core/src/dma.c **** }
- 342              		.loc 1 128 1 is_stmt 0 view .LVU109
- 343 0054 BDE87040 		pop	{r4, r5, r6, lr}
- 344              	.LCFI5:
- 345              		.cfi_remember_state
- 346              		.cfi_restore 14
- 347              		.cfi_restore 6
- 348              		.cfi_restore 5
- 349              		.cfi_restore 4
- 350              		.cfi_def_cfa_offset 0
- 351              	.LVL24:
- 125:../core/src/dma.c ****         }
- 352              		.loc 1 125 13 view .LVU110
- 353 0058 1847     		bx	r3	@ indirect register sibling call
- 354              	.LVL25:
- 355              	.L7:
- 356              	.LCFI6:
- 357              		.cfi_restore_state
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s 			page 10
+ 119:../core/src/dma.c ****     hdma_tim2_ch4.Instance = DMA_CH5;
+ 265              		.loc 1 119 5 view .LVU76
+ 120:../core/src/dma.c ****     hdma_tim2_ch4.ChannelIndex = 5;
+ 266              		.loc 1 120 5 view .LVU77
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s 			page 8
 
 
- 358              		.loc 1 128 1 view .LVU111
- 359 005a 70BD     		pop	{r4, r5, r6, pc}
- 360              	.LVL26:
- 361              	.L30:
- 362              		.loc 1 128 1 view .LVU112
- 363              		.align	2
- 364              	.L29:
- 365 005c 00000000 		.word	tc_flags.1
- 366 0060 00000000 		.word	err_flags.0
- 367 0064 00000240 		.word	1073872896
- 368              		.cfi_endproc
- 369              	.LFE134:
- 371              		.section	.rodata.err_flags.0,"a"
- 372              		.align	2
- 375              	err_flags.0:
- 376 0000 00000000 		.word	0
- 377 0004 08000000 		.word	8
- 378 0008 80000000 		.word	128
- 379 000c 00080000 		.word	2048
- 380 0010 00800000 		.word	32768
- 381 0014 00000800 		.word	524288
- 382 0018 00008000 		.word	8388608
- 383 001c 00000008 		.word	134217728
- 384 0020 00000080 		.word	-2147483648
- 385              		.section	.rodata.tc_flags.1,"a"
- 386              		.align	2
- 389              	tc_flags.1:
- 390 0000 00000000 		.word	0
- 391 0004 02000000 		.word	2
- 392 0008 20000000 		.word	32
- 393 000c 00020000 		.word	512
- 394 0010 00200000 		.word	8192
- 395 0014 00000200 		.word	131072
- 396 0018 00002000 		.word	2097152
- 397 001c 00000002 		.word	33554432
- 398 0020 00000020 		.word	536870912
- 399              		.global	hdma_spi1_tx
- 400              		.section	.bss.hdma_spi1_tx,"aw",%nobits
- 401              		.align	2
- 404              	hdma_spi1_tx:
- 405 0000 00000000 		.space	24
- 405      00000000 
- 405      00000000 
- 405      00000000 
- 405      00000000 
- 406              		.global	hdma_i2c1_tx
- 407              		.section	.bss.hdma_i2c1_tx,"aw",%nobits
- 408              		.align	2
- 411              	hdma_i2c1_tx:
- 412 0000 00000000 		.space	24
- 412      00000000 
- 412      00000000 
- 412      00000000 
- 412      00000000 
- 413              		.text
- 414              	.Letext0:
- 415              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s 			page 11
+ 121:../core/src/dma.c ****     hdma_tim2_ch4.RequestID = DMA_REMAP_TIM2_UP;
+ 267              		.loc 1 121 5 view .LVU78
+ 268              		.loc 1 121 29 is_stmt 0 view .LVU79
+ 269 0026 0C4B     		ldr	r3, .L8+4
+ 270 0028 1A22     		movs	r2, #26
+ 271 002a 9A60     		str	r2, [r3, #8]
+ 122:../core/src/dma.c ****     hdma_tim2_ch4.State = HAL_DMA_STATE_READY;
+ 272              		.loc 1 122 5 is_stmt 1 view .LVU80
+ 273              		.loc 1 122 25 is_stmt 0 view .LVU81
+ 274 002c 40F20152 		movw	r2, #1281
+ 275 0030 9A80     		strh	r2, [r3, #4]	@ movhi
+ 123:../core/src/dma.c ****     hdma_tim2_ch4.Parent = NULL;
+ 276              		.loc 1 123 5 is_stmt 1 view .LVU82
+ 124:../core/src/dma.c ****     hdma_tim2_ch4.XferCpltCallback = NULL;
+ 125:../core/src/dma.c ****     hdma_tim2_ch4.XferErrorCallback = NULL;
+ 126:../core/src/dma.c **** 
+ 127:../core/src/dma.c ****     DMA_Interrupts_Enable(DMA_CH5, DMA_INT_TXC | DMA_INT_ERR);
+ 277              		.loc 1 127 5 is_stmt 0 view .LVU83
+ 278 0032 0A21     		movs	r1, #10
+ 123:../core/src/dma.c ****     hdma_tim2_ch4.Parent = NULL;
+ 279              		.loc 1 123 26 view .LVU84
+ 280 0034 0022     		movs	r2, #0
+ 281              		.loc 1 127 5 view .LVU85
+ 282 0036 2046     		mov	r0, r4
+ 124:../core/src/dma.c ****     hdma_tim2_ch4.XferCpltCallback = NULL;
+ 283              		.loc 1 124 36 view .LVU86
+ 284 0038 C3E90322 		strd	r2, r2, [r3, #12]
+ 125:../core/src/dma.c **** 
+ 285              		.loc 1 125 5 is_stmt 1 view .LVU87
+ 125:../core/src/dma.c **** 
+ 286              		.loc 1 125 37 is_stmt 0 view .LVU88
+ 287 003c 5A61     		str	r2, [r3, #20]
+ 288              		.loc 1 127 5 is_stmt 1 view .LVU89
+ 119:../core/src/dma.c ****     hdma_tim2_ch4.ChannelIndex = 5;
+ 289              		.loc 1 119 28 is_stmt 0 view .LVU90
+ 290 003e 1C60     		str	r4, [r3]
+ 291              		.loc 1 127 5 view .LVU91
+ 292 0040 FFF7FEFF 		bl	DMA_Interrupts_Enable
+ 293              	.LVL19:
+ 128:../core/src/dma.c **** 
+ 129:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannel = DMA_Channel5_IRQn;
+ 294              		.loc 1 129 5 is_stmt 1 view .LVU92
+ 130:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
+ 295              		.loc 1 130 5 view .LVU93
+ 131:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+ 296              		.loc 1 131 5 view .LVU94
+ 132:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+ 297              		.loc 1 132 5 view .LVU95
+ 129:../core/src/dma.c ****     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
+ 298              		.loc 1 129 40 is_stmt 0 view .LVU96
+ 299 0044 054B     		ldr	r3, .L8+8
+ 300 0046 0193     		str	r3, [sp, #4]
+ 133:../core/src/dma.c ****     NVIC_Initializes(&NVIC_InitStructure);
+ 301              		.loc 1 133 5 is_stmt 1 view .LVU97
+ 302 0048 01A8     		add	r0, sp, #4
+ 303 004a FFF7FEFF 		bl	NVIC_Initializes
+ 304              	.LVL20:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s 			page 9
 
 
- 416              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
- 417              		.file 4 "../firmware/CMSIS/device/n32g430.h"
- 418              		.file 5 "../firmware/n32g430_std_periph_driver/inc/misc.h"
- 419              		.file 6 "../core/inc/hal_compat.h"
- 420              		.file 7 "../core/inc/dma.h"
- 421              		.file 8 "../firmware/n32g430_std_periph_driver/inc/n32g430_dma.h"
- 422              		.file 9 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s 			page 12
+ 134:../core/src/dma.c **** }
+ 305              		.loc 1 134 1 is_stmt 0 view .LVU98
+ 306 004e 02B0     		add	sp, sp, #8
+ 307              	.LCFI5:
+ 308              		.cfi_def_cfa_offset 8
+ 309              		@ sp needed
+ 310 0050 10BD     		pop	{r4, pc}
+ 311              	.L9:
+ 312 0052 00BF     		.align	2
+ 313              	.L8:
+ 314 0054 58000240 		.word	1073872984
+ 315 0058 00000000 		.word	hdma_tim2_ch4
+ 316 005c 0F020001 		.word	16777743
+ 317              		.cfi_endproc
+ 318              	.LFE134:
+ 320              		.section	.text.HAL_DMA_IRQHandler,"ax",%progbits
+ 321              		.align	1
+ 322              		.global	HAL_DMA_IRQHandler
+ 323              		.syntax unified
+ 324              		.thumb
+ 325              		.thumb_func
+ 327              	HAL_DMA_IRQHandler:
+ 328              	.LVL21:
+ 329              	.LFB135:
+ 135:../core/src/dma.c **** 
+ 136:../core/src/dma.c **** void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
+ 137:../core/src/dma.c **** {
+ 330              		.loc 1 137 1 is_stmt 1 view -0
+ 331              		.cfi_startproc
+ 332              		@ args = 0, pretend = 0, frame = 0
+ 333              		@ frame_needed = 0, uses_anonymous_args = 0
+ 138:../core/src/dma.c ****     uint32_t tc_flag = DMA_GetTCFlag(hdma->ChannelIndex);
+ 334              		.loc 1 138 5 view .LVU100
+ 137:../core/src/dma.c ****     uint32_t tc_flag = DMA_GetTCFlag(hdma->ChannelIndex);
+ 335              		.loc 1 137 1 is_stmt 0 view .LVU101
+ 336 0000 70B5     		push	{r4, r5, r6, lr}
+ 337              	.LCFI6:
+ 338              		.cfi_def_cfa_offset 16
+ 339              		.cfi_offset 4, -16
+ 340              		.cfi_offset 5, -12
+ 341              		.cfi_offset 6, -8
+ 342              		.cfi_offset 14, -4
+ 343              		.loc 1 138 24 view .LVU102
+ 344 0002 4379     		ldrb	r3, [r0, #5]	@ zero_extendqisi2
+ 345              	.LVL22:
+ 346              	.LBB6:
+ 347              	.LBI6:
+   9:../core/src/dma.c **** {
+ 348              		.loc 1 9 17 is_stmt 1 view .LVU103
+ 349              	.LBB7:
+  11:../core/src/dma.c ****         0,
+ 350              		.loc 1 11 5 view .LVU104
+  21:../core/src/dma.c ****     {
+ 351              		.loc 1 21 5 view .LVU105
+  21:../core/src/dma.c ****     {
+ 352              		.loc 1 21 8 is_stmt 0 view .LVU106
+ 353 0004 082B     		cmp	r3, #8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s 			page 10
+
+
+ 354              	.LBE7:
+ 355              	.LBE6:
+ 137:../core/src/dma.c ****     uint32_t tc_flag = DMA_GetTCFlag(hdma->ChannelIndex);
+ 356              		.loc 1 137 1 view .LVU107
+ 357 0006 0446     		mov	r4, r0
+ 358              	.LBB9:
+ 359              	.LBB8:
+  21:../core/src/dma.c ****     {
+ 360              		.loc 1 21 8 view .LVU108
+ 361 0008 27D8     		bhi	.L10
+  23:../core/src/dma.c ****     }
+ 362              		.loc 1 23 9 is_stmt 1 view .LVU109
+  23:../core/src/dma.c ****     }
+ 363              		.loc 1 23 24 is_stmt 0 view .LVU110
+ 364 000a 144A     		ldr	r2, .L32
+ 365 000c 52F82360 		ldr	r6, [r2, r3, lsl #2]
+ 366              	.LVL23:
+  23:../core/src/dma.c ****     }
+ 367              		.loc 1 23 24 view .LVU111
+ 368              	.LBE8:
+ 369              	.LBE9:
+ 139:../core/src/dma.c ****     uint32_t err_flag = DMA_GetERRFlag(hdma->ChannelIndex);
+ 370              		.loc 1 139 5 is_stmt 1 view .LVU112
+ 371              	.LBB10:
+ 372              	.LBI10:
+  28:../core/src/dma.c **** {
+ 373              		.loc 1 28 17 view .LVU113
+ 374              	.LBB11:
+  30:../core/src/dma.c ****         0,
+ 375              		.loc 1 30 5 view .LVU114
+  40:../core/src/dma.c ****     {
+ 376              		.loc 1 40 5 view .LVU115
+  42:../core/src/dma.c ****     }
+ 377              		.loc 1 42 9 view .LVU116
+  42:../core/src/dma.c ****     }
+ 378              		.loc 1 42 25 is_stmt 0 view .LVU117
+ 379 0010 134A     		ldr	r2, .L32+4
+ 380 0012 52F82350 		ldr	r5, [r2, r3, lsl #2]
+ 381              	.LVL24:
+  42:../core/src/dma.c ****     }
+ 382              		.loc 1 42 25 view .LVU118
+ 383              	.LBE11:
+ 384              	.LBE10:
+ 140:../core/src/dma.c **** 
+ 141:../core/src/dma.c ****     if (tc_flag && DMA_Interrupt_Status_Get(DMA, tc_flag) != RESET)
+ 385              		.loc 1 141 5 is_stmt 1 view .LVU119
+ 386              		.loc 1 141 8 is_stmt 0 view .LVU120
+ 387 0016 76B1     		cbz	r6, .L14
+ 388              		.loc 1 141 20 discriminator 1 view .LVU121
+ 389 0018 1248     		ldr	r0, .L32+8
+ 390              	.LVL25:
+ 391              		.loc 1 141 20 discriminator 1 view .LVU122
+ 392 001a 3146     		mov	r1, r6
+ 393 001c FFF7FEFF 		bl	DMA_Interrupt_Status_Get
+ 394              	.LVL26:
+ 395              		.loc 1 141 17 discriminator 1 view .LVU123
+ 396 0020 48B1     		cbz	r0, .L14
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s 			page 11
+
+
+ 142:../core/src/dma.c ****     {
+ 143:../core/src/dma.c ****         DMA_Interrupt_Status_Clear(DMA, tc_flag);
+ 397              		.loc 1 143 9 is_stmt 1 view .LVU124
+ 398 0022 1048     		ldr	r0, .L32+8
+ 399 0024 3146     		mov	r1, r6
+ 400 0026 FFF7FEFF 		bl	DMA_Interrupt_Status_Clear
+ 401              	.LVL27:
+ 144:../core/src/dma.c ****         hdma->State = HAL_DMA_STATE_READY;
+ 402              		.loc 1 144 9 view .LVU125
+ 403              		.loc 1 144 21 is_stmt 0 view .LVU126
+ 404 002a 0123     		movs	r3, #1
+ 405 002c 2371     		strb	r3, [r4, #4]
+ 145:../core/src/dma.c ****         if (hdma->XferCpltCallback)
+ 406              		.loc 1 145 9 is_stmt 1 view .LVU127
+ 407              		.loc 1 145 17 is_stmt 0 view .LVU128
+ 408 002e 2369     		ldr	r3, [r4, #16]
+ 409              		.loc 1 145 12 view .LVU129
+ 410 0030 0BB1     		cbz	r3, .L14
+ 146:../core/src/dma.c ****         {
+ 147:../core/src/dma.c ****             hdma->XferCpltCallback(hdma);
+ 411              		.loc 1 147 13 is_stmt 1 view .LVU130
+ 412 0032 2046     		mov	r0, r4
+ 413 0034 9847     		blx	r3
+ 414              	.LVL28:
+ 415              	.L14:
+ 148:../core/src/dma.c ****         }
+ 149:../core/src/dma.c ****     }
+ 150:../core/src/dma.c **** 
+ 151:../core/src/dma.c ****     if (err_flag && DMA_Interrupt_Status_Get(DMA, err_flag) != RESET)
+ 416              		.loc 1 151 5 view .LVU131
+ 417              		.loc 1 151 8 is_stmt 0 view .LVU132
+ 418 0036 85B1     		cbz	r5, .L10
+ 419              		.loc 1 151 21 discriminator 1 view .LVU133
+ 420 0038 0A48     		ldr	r0, .L32+8
+ 421 003a 2946     		mov	r1, r5
+ 422 003c FFF7FEFF 		bl	DMA_Interrupt_Status_Get
+ 423              	.LVL29:
+ 424              		.loc 1 151 18 discriminator 1 view .LVU134
+ 425 0040 58B1     		cbz	r0, .L10
+ 152:../core/src/dma.c ****     {
+ 153:../core/src/dma.c ****         DMA_Interrupt_Status_Clear(DMA, err_flag);
+ 426              		.loc 1 153 9 is_stmt 1 view .LVU135
+ 427 0042 0848     		ldr	r0, .L32+8
+ 428 0044 2946     		mov	r1, r5
+ 429 0046 FFF7FEFF 		bl	DMA_Interrupt_Status_Clear
+ 430              	.LVL30:
+ 154:../core/src/dma.c ****         hdma->State = HAL_DMA_STATE_ERROR;
+ 431              		.loc 1 154 9 view .LVU136
+ 432              		.loc 1 154 21 is_stmt 0 view .LVU137
+ 433 004a 0323     		movs	r3, #3
+ 434 004c 2371     		strb	r3, [r4, #4]
+ 155:../core/src/dma.c ****         if (hdma->XferErrorCallback)
+ 435              		.loc 1 155 9 is_stmt 1 view .LVU138
+ 436              		.loc 1 155 17 is_stmt 0 view .LVU139
+ 437 004e 6369     		ldr	r3, [r4, #20]
+ 438              		.loc 1 155 12 view .LVU140
+ 439 0050 1BB1     		cbz	r3, .L10
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s 			page 12
+
+
+ 156:../core/src/dma.c ****         {
+ 157:../core/src/dma.c ****             hdma->XferErrorCallback(hdma);
+ 440              		.loc 1 157 13 is_stmt 1 view .LVU141
+ 441 0052 2046     		mov	r0, r4
+ 158:../core/src/dma.c ****         }
+ 159:../core/src/dma.c ****     }
+ 160:../core/src/dma.c **** }
+ 442              		.loc 1 160 1 is_stmt 0 view .LVU142
+ 443 0054 BDE87040 		pop	{r4, r5, r6, lr}
+ 444              	.LCFI7:
+ 445              		.cfi_remember_state
+ 446              		.cfi_restore 14
+ 447              		.cfi_restore 6
+ 448              		.cfi_restore 5
+ 449              		.cfi_restore 4
+ 450              		.cfi_def_cfa_offset 0
+ 451              	.LVL31:
+ 157:../core/src/dma.c ****         }
+ 452              		.loc 1 157 13 view .LVU143
+ 453 0058 1847     		bx	r3	@ indirect register sibling call
+ 454              	.LVL32:
+ 455              	.L10:
+ 456              	.LCFI8:
+ 457              		.cfi_restore_state
+ 458              		.loc 1 160 1 view .LVU144
+ 459 005a 70BD     		pop	{r4, r5, r6, pc}
+ 460              	.LVL33:
+ 461              	.L33:
+ 462              		.loc 1 160 1 view .LVU145
+ 463              		.align	2
+ 464              	.L32:
+ 465 005c 00000000 		.word	tc_flags.1
+ 466 0060 00000000 		.word	err_flags.0
+ 467 0064 00000240 		.word	1073872896
+ 468              		.cfi_endproc
+ 469              	.LFE135:
+ 471              		.section	.rodata.err_flags.0,"a"
+ 472              		.align	2
+ 475              	err_flags.0:
+ 476 0000 00000000 		.word	0
+ 477 0004 08000000 		.word	8
+ 478 0008 80000000 		.word	128
+ 479 000c 00080000 		.word	2048
+ 480 0010 00800000 		.word	32768
+ 481 0014 00000800 		.word	524288
+ 482 0018 00008000 		.word	8388608
+ 483 001c 00000008 		.word	134217728
+ 484 0020 00000080 		.word	-2147483648
+ 485              		.section	.rodata.tc_flags.1,"a"
+ 486              		.align	2
+ 489              	tc_flags.1:
+ 490 0000 00000000 		.word	0
+ 491 0004 02000000 		.word	2
+ 492 0008 20000000 		.word	32
+ 493 000c 00020000 		.word	512
+ 494 0010 00200000 		.word	8192
+ 495 0014 00000200 		.word	131072
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s 			page 13
+
+
+ 496 0018 00002000 		.word	2097152
+ 497 001c 00000002 		.word	33554432
+ 498 0020 00000020 		.word	536870912
+ 499              		.global	hdma_tim2_ch4
+ 500              		.section	.bss.hdma_tim2_ch4,"aw",%nobits
+ 501              		.align	2
+ 504              	hdma_tim2_ch4:
+ 505 0000 00000000 		.space	24
+ 505      00000000 
+ 505      00000000 
+ 505      00000000 
+ 505      00000000 
+ 506              		.global	hdma_spi1_tx
+ 507              		.section	.bss.hdma_spi1_tx,"aw",%nobits
+ 508              		.align	2
+ 511              	hdma_spi1_tx:
+ 512 0000 00000000 		.space	24
+ 512      00000000 
+ 512      00000000 
+ 512      00000000 
+ 512      00000000 
+ 513              		.global	hdma_i2c1_tx
+ 514              		.section	.bss.hdma_i2c1_tx,"aw",%nobits
+ 515              		.align	2
+ 518              	hdma_i2c1_tx:
+ 519 0000 00000000 		.space	24
+ 519      00000000 
+ 519      00000000 
+ 519      00000000 
+ 519      00000000 
+ 520              		.text
+ 521              	.Letext0:
+ 522              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 523              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 524              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 525              		.file 5 "../firmware/n32g430_std_periph_driver/inc/misc.h"
+ 526              		.file 6 "../core/inc/hal_compat.h"
+ 527              		.file 7 "../core/inc/dma.h"
+ 528              		.file 8 "../firmware/n32g430_std_periph_driver/inc/n32g430_dma.h"
+ 529              		.file 9 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s 			page 14
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 dma.c
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:21     .text.MX_DMA_Init:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:27     .text.MX_DMA_Init:00000000 MX_DMA_Init
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:114    .text.MX_DMA_Init:00000054 $d
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:411    .bss.hdma_i2c1_tx:00000000 hdma_i2c1_tx
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:121    .text.MX_DMA_SPI1_Init:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:127    .text.MX_DMA_SPI1_Init:00000000 MX_DMA_SPI1_Init
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:214    .text.MX_DMA_SPI1_Init:00000054 $d
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:404    .bss.hdma_spi1_tx:00000000 hdma_spi1_tx
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:221    .text.HAL_DMA_IRQHandler:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:227    .text.HAL_DMA_IRQHandler:00000000 HAL_DMA_IRQHandler
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:365    .text.HAL_DMA_IRQHandler:0000005c $d
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:389    .rodata.tc_flags.1:00000000 tc_flags.1
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:375    .rodata.err_flags.0:00000000 err_flags.0
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:372    .rodata.err_flags.0:00000000 $d
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:386    .rodata.tc_flags.1:00000000 $d
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:401    .bss.hdma_spi1_tx:00000000 $d
-C:\Users\Dawn\AppData\Local\Temp\ccm9jBsa.s:408    .bss.hdma_i2c1_tx:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:21     .text.MX_DMA_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:27     .text.MX_DMA_Init:00000000 MX_DMA_Init
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:114    .text.MX_DMA_Init:00000054 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:518    .bss.hdma_i2c1_tx:00000000 hdma_i2c1_tx
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:121    .text.MX_DMA_SPI1_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:127    .text.MX_DMA_SPI1_Init:00000000 MX_DMA_SPI1_Init
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:214    .text.MX_DMA_SPI1_Init:00000054 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:511    .bss.hdma_spi1_tx:00000000 hdma_spi1_tx
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:221    .text.MX_DMA_TIM2_CH4_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:227    .text.MX_DMA_TIM2_CH4_Init:00000000 MX_DMA_TIM2_CH4_Init
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:314    .text.MX_DMA_TIM2_CH4_Init:00000054 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:504    .bss.hdma_tim2_ch4:00000000 hdma_tim2_ch4
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:321    .text.HAL_DMA_IRQHandler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:327    .text.HAL_DMA_IRQHandler:00000000 HAL_DMA_IRQHandler
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:465    .text.HAL_DMA_IRQHandler:0000005c $d
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:489    .rodata.tc_flags.1:00000000 tc_flags.1
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:475    .rodata.err_flags.0:00000000 err_flags.0
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:472    .rodata.err_flags.0:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:486    .rodata.tc_flags.1:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:501    .bss.hdma_tim2_ch4:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:508    .bss.hdma_spi1_tx:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4r0TSX.s:515    .bss.hdma_i2c1_tx:00000000 $d
 
 UNDEFINED SYMBOLS
 RCC_AHB_Peripheral_Clock_Enable

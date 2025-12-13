@@ -1,0 +1,1060 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lcd_interface.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../APP/LCD/Src/lcd_interface.c"
+  20              		.section	.text.LCD_SPI_IsDMABusy,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	LCD_SPI_IsDMABusy:
+  27              	.LVL0:
+  28              	.LFB135:
+   1:../APP/LCD/Src/lcd_interface.c **** /**
+   2:../APP/LCD/Src/lcd_interface.c ****  * @file lcd_interface.c
+   3:../APP/LCD/Src/lcd_interface.c ****  * @brief LCD hardware abstraction layer implementation - SPI interface for ST7735S
+   4:../APP/LCD/Src/lcd_interface.c ****  */
+   5:../APP/LCD/Src/lcd_interface.c **** 
+   6:../APP/LCD/Src/lcd_interface.c **** #include "lcd_interface.h"
+   7:../APP/LCD/Src/lcd_interface.c **** #include "spi.h"
+   8:../APP/LCD/Src/lcd_interface.c **** #include <string.h>
+   9:../APP/LCD/Src/lcd_interface.c **** 
+  10:../APP/LCD/Src/lcd_interface.c **** /* Static buffer for SPI data */
+  11:../APP/LCD/Src/lcd_interface.c **** static uint8_t spi_data_buffer[256];
+  12:../APP/LCD/Src/lcd_interface.c **** 
+  13:../APP/LCD/Src/lcd_interface.c **** /* Global LCD interface instance */
+  14:../APP/LCD/Src/lcd_interface.c **** static LCD_Interface_t g_lcd_interface;
+  15:../APP/LCD/Src/lcd_interface.c **** 
+  16:../APP/LCD/Src/lcd_interface.c **** /* LCD SPI Interface Functions */
+  17:../APP/LCD/Src/lcd_interface.c **** 
+  18:../APP/LCD/Src/lcd_interface.c **** static HAL_StatusTypeDef LCD_SPI_SendCmd(LCD_Interface_t *iface, uint8_t cmd)
+  19:../APP/LCD/Src/lcd_interface.c **** {
+  20:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+  21:../APP/LCD/Src/lcd_interface.c ****     HAL_StatusTypeDef status;
+  22:../APP/LCD/Src/lcd_interface.c **** 
+  23:../APP/LCD/Src/lcd_interface.c ****     if (hspi == NULL)
+  24:../APP/LCD/Src/lcd_interface.c ****     {
+  25:../APP/LCD/Src/lcd_interface.c ****         return HAL_ERROR;
+  26:../APP/LCD/Src/lcd_interface.c ****     }
+  27:../APP/LCD/Src/lcd_interface.c **** 
+  28:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_CS_Enable();
+  29:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_SetDC_Cmd();
+  30:../APP/LCD/Src/lcd_interface.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 2
+
+
+  31:../APP/LCD/Src/lcd_interface.c ****     status = HAL_SPI_Transmit(hspi, &cmd, 1, 100);
+  32:../APP/LCD/Src/lcd_interface.c **** 
+  33:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_CS_Disable();
+  34:../APP/LCD/Src/lcd_interface.c **** 
+  35:../APP/LCD/Src/lcd_interface.c ****     return status;
+  36:../APP/LCD/Src/lcd_interface.c **** }
+  37:../APP/LCD/Src/lcd_interface.c **** 
+  38:../APP/LCD/Src/lcd_interface.c **** static HAL_StatusTypeDef LCD_SPI_SendData8(LCD_Interface_t *iface, uint8_t data)
+  39:../APP/LCD/Src/lcd_interface.c **** {
+  40:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+  41:../APP/LCD/Src/lcd_interface.c ****     HAL_StatusTypeDef status;
+  42:../APP/LCD/Src/lcd_interface.c **** 
+  43:../APP/LCD/Src/lcd_interface.c ****     if (hspi == NULL)
+  44:../APP/LCD/Src/lcd_interface.c ****     {
+  45:../APP/LCD/Src/lcd_interface.c ****         return HAL_ERROR;
+  46:../APP/LCD/Src/lcd_interface.c ****     }
+  47:../APP/LCD/Src/lcd_interface.c **** 
+  48:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_CS_Enable();
+  49:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_SetDC_Data();
+  50:../APP/LCD/Src/lcd_interface.c **** 
+  51:../APP/LCD/Src/lcd_interface.c ****     status = HAL_SPI_Transmit(hspi, &data, 1, 100);
+  52:../APP/LCD/Src/lcd_interface.c **** 
+  53:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_CS_Disable();
+  54:../APP/LCD/Src/lcd_interface.c **** 
+  55:../APP/LCD/Src/lcd_interface.c ****     return status;
+  56:../APP/LCD/Src/lcd_interface.c **** }
+  57:../APP/LCD/Src/lcd_interface.c **** 
+  58:../APP/LCD/Src/lcd_interface.c **** static HAL_StatusTypeDef LCD_SPI_SendData16(LCD_Interface_t *iface, uint16_t data)
+  59:../APP/LCD/Src/lcd_interface.c **** {
+  60:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+  61:../APP/LCD/Src/lcd_interface.c ****     HAL_StatusTypeDef status;
+  62:../APP/LCD/Src/lcd_interface.c ****     uint8_t buf[2];
+  63:../APP/LCD/Src/lcd_interface.c **** 
+  64:../APP/LCD/Src/lcd_interface.c ****     if (hspi == NULL)
+  65:../APP/LCD/Src/lcd_interface.c ****     {
+  66:../APP/LCD/Src/lcd_interface.c ****         return HAL_ERROR;
+  67:../APP/LCD/Src/lcd_interface.c ****     }
+  68:../APP/LCD/Src/lcd_interface.c **** 
+  69:../APP/LCD/Src/lcd_interface.c ****     buf[0] = (uint8_t)(data >> 8);
+  70:../APP/LCD/Src/lcd_interface.c ****     buf[1] = (uint8_t)(data & 0xFF);
+  71:../APP/LCD/Src/lcd_interface.c **** 
+  72:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_CS_Enable();
+  73:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_SetDC_Data();
+  74:../APP/LCD/Src/lcd_interface.c **** 
+  75:../APP/LCD/Src/lcd_interface.c ****     status = HAL_SPI_Transmit(hspi, buf, 2, 100);
+  76:../APP/LCD/Src/lcd_interface.c **** 
+  77:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_CS_Disable();
+  78:../APP/LCD/Src/lcd_interface.c **** 
+  79:../APP/LCD/Src/lcd_interface.c ****     return status;
+  80:../APP/LCD/Src/lcd_interface.c **** }
+  81:../APP/LCD/Src/lcd_interface.c **** 
+  82:../APP/LCD/Src/lcd_interface.c **** static HAL_StatusTypeDef LCD_SPI_SendData(LCD_Interface_t *iface, uint8_t *data, uint16_t len)
+  83:../APP/LCD/Src/lcd_interface.c **** {
+  84:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+  85:../APP/LCD/Src/lcd_interface.c ****     HAL_StatusTypeDef status;
+  86:../APP/LCD/Src/lcd_interface.c **** 
+  87:../APP/LCD/Src/lcd_interface.c ****     if (hspi == NULL || data == NULL)
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 3
+
+
+  88:../APP/LCD/Src/lcd_interface.c ****     {
+  89:../APP/LCD/Src/lcd_interface.c ****         return HAL_ERROR;
+  90:../APP/LCD/Src/lcd_interface.c ****     }
+  91:../APP/LCD/Src/lcd_interface.c **** 
+  92:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_CS_Enable();
+  93:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_SetDC_Data();
+  94:../APP/LCD/Src/lcd_interface.c **** 
+  95:../APP/LCD/Src/lcd_interface.c ****     status = HAL_SPI_Transmit(hspi, data, len, 500);
+  96:../APP/LCD/Src/lcd_interface.c **** 
+  97:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_CS_Disable();
+  98:../APP/LCD/Src/lcd_interface.c **** 
+  99:../APP/LCD/Src/lcd_interface.c ****     return status;
+ 100:../APP/LCD/Src/lcd_interface.c **** }
+ 101:../APP/LCD/Src/lcd_interface.c **** 
+ 102:../APP/LCD/Src/lcd_interface.c **** static HAL_StatusTypeDef LCD_SPI_SendDataDMA(LCD_Interface_t *iface, uint8_t *data, uint16_t len)
+ 103:../APP/LCD/Src/lcd_interface.c **** {
+ 104:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+ 105:../APP/LCD/Src/lcd_interface.c **** 
+ 106:../APP/LCD/Src/lcd_interface.c ****     if (hspi == NULL || data == NULL)
+ 107:../APP/LCD/Src/lcd_interface.c ****     {
+ 108:../APP/LCD/Src/lcd_interface.c ****         return HAL_ERROR;
+ 109:../APP/LCD/Src/lcd_interface.c ****     }
+ 110:../APP/LCD/Src/lcd_interface.c **** 
+ 111:../APP/LCD/Src/lcd_interface.c ****     if (len > sizeof(spi_data_buffer))
+ 112:../APP/LCD/Src/lcd_interface.c ****     {
+ 113:../APP/LCD/Src/lcd_interface.c ****         len = sizeof(spi_data_buffer);
+ 114:../APP/LCD/Src/lcd_interface.c ****     }
+ 115:../APP/LCD/Src/lcd_interface.c **** 
+ 116:../APP/LCD/Src/lcd_interface.c ****     /* Copy to static buffer for DMA */
+ 117:../APP/LCD/Src/lcd_interface.c ****     memcpy(spi_data_buffer, data, len);
+ 118:../APP/LCD/Src/lcd_interface.c **** 
+ 119:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_CS_Enable();
+ 120:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_SetDC_Data();
+ 121:../APP/LCD/Src/lcd_interface.c **** 
+ 122:../APP/LCD/Src/lcd_interface.c ****     /* Note: CS should be disabled in DMA complete callback */
+ 123:../APP/LCD/Src/lcd_interface.c ****     return HAL_SPI_Transmit_DMA(hspi, spi_data_buffer, len);
+ 124:../APP/LCD/Src/lcd_interface.c **** }
+ 125:../APP/LCD/Src/lcd_interface.c **** 
+ 126:../APP/LCD/Src/lcd_interface.c **** static bool LCD_SPI_IsDMABusy(LCD_Interface_t *iface)
+ 127:../APP/LCD/Src/lcd_interface.c **** {
+  29              		.loc 1 127 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+ 128:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+  34              		.loc 1 128 5 view .LVU1
+  35              		.loc 1 128 24 is_stmt 0 view .LVU2
+  36 0000 0068     		ldr	r0, [r0]
+  37              	.LVL1:
+ 129:../APP/LCD/Src/lcd_interface.c **** 
+ 130:../APP/LCD/Src/lcd_interface.c ****     if (hspi == NULL)
+  38              		.loc 1 130 5 is_stmt 1 view .LVU3
+  39              		.loc 1 130 8 is_stmt 0 view .LVU4
+  40 0002 18B1     		cbz	r0, .L2
+ 131:../APP/LCD/Src/lcd_interface.c ****     {
+ 132:../APP/LCD/Src/lcd_interface.c ****         return false;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 4
+
+
+ 133:../APP/LCD/Src/lcd_interface.c ****     }
+ 134:../APP/LCD/Src/lcd_interface.c **** 
+ 135:../APP/LCD/Src/lcd_interface.c ****     return (hspi->State != HAL_SPI_STATE_READY);
+  41              		.loc 1 135 5 is_stmt 1 view .LVU5
+  42              		.loc 1 135 25 is_stmt 0 view .LVU6
+  43 0004 0079     		ldrb	r0, [r0, #4]	@ zero_extendqisi2
+  44              	.LVL2:
+  45              		.loc 1 135 25 view .LVU7
+  46 0006 0138     		subs	r0, r0, #1
+  47 0008 18BF     		it	ne
+  48 000a 0120     		movne	r0, #1
+  49              	.L2:
+ 136:../APP/LCD/Src/lcd_interface.c **** }
+  50              		.loc 1 136 1 view .LVU8
+  51 000c 7047     		bx	lr
+  52              		.cfi_endproc
+  53              	.LFE135:
+  55              		.section	.text.LCD_SPI_BacklightOff,"ax",%progbits
+  56              		.align	1
+  57              		.syntax unified
+  58              		.thumb
+  59              		.thumb_func
+  61              	LCD_SPI_BacklightOff:
+  62              	.LVL3:
+  63              	.LFB138:
+ 137:../APP/LCD/Src/lcd_interface.c **** 
+ 138:../APP/LCD/Src/lcd_interface.c **** static void LCD_SPI_ResetDisplay(LCD_Interface_t *iface)
+ 139:../APP/LCD/Src/lcd_interface.c **** {
+ 140:../APP/LCD/Src/lcd_interface.c ****     (void)iface;
+ 141:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_Reset();
+ 142:../APP/LCD/Src/lcd_interface.c **** }
+ 143:../APP/LCD/Src/lcd_interface.c **** 
+ 144:../APP/LCD/Src/lcd_interface.c **** static void LCD_SPI_BacklightOn(LCD_Interface_t *iface)
+ 145:../APP/LCD/Src/lcd_interface.c **** {
+ 146:../APP/LCD/Src/lcd_interface.c ****     (void)iface;
+ 147:../APP/LCD/Src/lcd_interface.c ****     LCD_BL_ON();
+ 148:../APP/LCD/Src/lcd_interface.c **** }
+ 149:../APP/LCD/Src/lcd_interface.c **** 
+ 150:../APP/LCD/Src/lcd_interface.c **** static void LCD_SPI_BacklightOff(LCD_Interface_t *iface)
+ 151:../APP/LCD/Src/lcd_interface.c **** {
+  64              		.loc 1 151 1 is_stmt 1 view -0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68              		@ link register save eliminated.
+ 152:../APP/LCD/Src/lcd_interface.c ****     (void)iface;
+  69              		.loc 1 152 5 view .LVU10
+ 153:../APP/LCD/Src/lcd_interface.c ****     LCD_BL_OFF();
+  70              		.loc 1 153 5 view .LVU11
+  71 0000 FFF7FEBF 		b	LCD_BL_OFF
+  72              	.LVL4:
+  73              		.loc 1 153 5 is_stmt 0 view .LVU12
+  74              		.cfi_endproc
+  75              	.LFE138:
+  77              		.section	.text.LCD_SPI_BacklightOn,"ax",%progbits
+  78              		.align	1
+  79              		.syntax unified
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 5
+
+
+  80              		.thumb
+  81              		.thumb_func
+  83              	LCD_SPI_BacklightOn:
+  84              	.LVL5:
+  85              	.LFB137:
+ 145:../APP/LCD/Src/lcd_interface.c ****     (void)iface;
+  86              		.loc 1 145 1 is_stmt 1 view -0
+  87              		.cfi_startproc
+  88              		@ args = 0, pretend = 0, frame = 0
+  89              		@ frame_needed = 0, uses_anonymous_args = 0
+  90              		@ link register save eliminated.
+ 146:../APP/LCD/Src/lcd_interface.c ****     LCD_BL_ON();
+  91              		.loc 1 146 5 view .LVU14
+ 147:../APP/LCD/Src/lcd_interface.c **** }
+  92              		.loc 1 147 5 view .LVU15
+  93 0000 FFF7FEBF 		b	LCD_BL_ON
+  94              	.LVL6:
+ 147:../APP/LCD/Src/lcd_interface.c **** }
+  95              		.loc 1 147 5 is_stmt 0 view .LVU16
+  96              		.cfi_endproc
+  97              	.LFE137:
+  99              		.section	.text.LCD_SPI_ResetDisplay,"ax",%progbits
+ 100              		.align	1
+ 101              		.syntax unified
+ 102              		.thumb
+ 103              		.thumb_func
+ 105              	LCD_SPI_ResetDisplay:
+ 106              	.LVL7:
+ 107              	.LFB136:
+ 139:../APP/LCD/Src/lcd_interface.c ****     (void)iface;
+ 108              		.loc 1 139 1 is_stmt 1 view -0
+ 109              		.cfi_startproc
+ 110              		@ args = 0, pretend = 0, frame = 0
+ 111              		@ frame_needed = 0, uses_anonymous_args = 0
+ 112              		@ link register save eliminated.
+ 140:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_Reset();
+ 113              		.loc 1 140 5 view .LVU18
+ 141:../APP/LCD/Src/lcd_interface.c **** }
+ 114              		.loc 1 141 5 view .LVU19
+ 115 0000 FFF7FEBF 		b	LCD_SPI_Reset
+ 116              	.LVL8:
+ 141:../APP/LCD/Src/lcd_interface.c **** }
+ 117              		.loc 1 141 5 is_stmt 0 view .LVU20
+ 118              		.cfi_endproc
+ 119              	.LFE136:
+ 121              		.section	.text.LCD_DelayMs,"ax",%progbits
+ 122              		.align	1
+ 123              		.syntax unified
+ 124              		.thumb
+ 125              		.thumb_func
+ 127              	LCD_DelayMs:
+ 128              	.LVL9:
+ 129              	.LFB139:
+ 154:../APP/LCD/Src/lcd_interface.c **** }
+ 155:../APP/LCD/Src/lcd_interface.c **** 
+ 156:../APP/LCD/Src/lcd_interface.c **** /* Common delay function */
+ 157:../APP/LCD/Src/lcd_interface.c **** static void LCD_DelayMs(uint32_t delay)
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 6
+
+
+ 158:../APP/LCD/Src/lcd_interface.c **** {
+ 130              		.loc 1 158 1 is_stmt 1 view -0
+ 131              		.cfi_startproc
+ 132              		@ args = 0, pretend = 0, frame = 0
+ 133              		@ frame_needed = 0, uses_anonymous_args = 0
+ 134              		@ link register save eliminated.
+ 159:../APP/LCD/Src/lcd_interface.c ****     HAL_Delay(delay);
+ 135              		.loc 1 159 5 view .LVU22
+ 136 0000 FFF7FEBF 		b	HAL_Delay
+ 137              	.LVL10:
+ 138              		.loc 1 159 5 is_stmt 0 view .LVU23
+ 139              		.cfi_endproc
+ 140              	.LFE139:
+ 142              		.section	.text.LCD_SPI_SendDataDMA,"ax",%progbits
+ 143              		.align	1
+ 144              		.syntax unified
+ 145              		.thumb
+ 146              		.thumb_func
+ 148              	LCD_SPI_SendDataDMA:
+ 149              	.LVL11:
+ 150              	.LFB134:
+ 103:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+ 151              		.loc 1 103 1 is_stmt 1 view -0
+ 152              		.cfi_startproc
+ 153              		@ args = 0, pretend = 0, frame = 0
+ 154              		@ frame_needed = 0, uses_anonymous_args = 0
+ 104:../APP/LCD/Src/lcd_interface.c **** 
+ 155              		.loc 1 104 5 view .LVU25
+ 103:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+ 156              		.loc 1 103 1 is_stmt 0 view .LVU26
+ 157 0000 38B5     		push	{r3, r4, r5, lr}
+ 158              	.LCFI0:
+ 159              		.cfi_def_cfa_offset 16
+ 160              		.cfi_offset 3, -16
+ 161              		.cfi_offset 4, -12
+ 162              		.cfi_offset 5, -8
+ 163              		.cfi_offset 14, -4
+ 104:../APP/LCD/Src/lcd_interface.c **** 
+ 164              		.loc 1 104 24 view .LVU27
+ 165 0002 0568     		ldr	r5, [r0]
+ 166              	.LVL12:
+ 106:../APP/LCD/Src/lcd_interface.c ****     {
+ 167              		.loc 1 106 5 is_stmt 1 view .LVU28
+ 103:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+ 168              		.loc 1 103 1 is_stmt 0 view .LVU29
+ 169 0004 1446     		mov	r4, r2
+ 106:../APP/LCD/Src/lcd_interface.c ****     {
+ 170              		.loc 1 106 8 view .LVU30
+ 171 0006 A5B1     		cbz	r5, .L9
+ 106:../APP/LCD/Src/lcd_interface.c ****     {
+ 172              		.loc 1 106 22 discriminator 1 view .LVU31
+ 173 0008 99B1     		cbz	r1, .L9
+ 111:../APP/LCD/Src/lcd_interface.c ****     {
+ 174              		.loc 1 111 5 is_stmt 1 view .LVU32
+ 111:../APP/LCD/Src/lcd_interface.c ****     {
+ 175              		.loc 1 111 8 is_stmt 0 view .LVU33
+ 176 000a B2F5807F 		cmp	r2, #256
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 7
+
+
+ 177 000e 28BF     		it	cs
+ 178 0010 4FF48074 		movcs	r4, #256
+ 179              	.LVL13:
+ 117:../APP/LCD/Src/lcd_interface.c **** 
+ 180              		.loc 1 117 5 is_stmt 1 view .LVU34
+ 181 0014 2246     		mov	r2, r4
+ 182 0016 0848     		ldr	r0, .L14
+ 183              	.LVL14:
+ 117:../APP/LCD/Src/lcd_interface.c **** 
+ 184              		.loc 1 117 5 is_stmt 0 view .LVU35
+ 185 0018 FFF7FEFF 		bl	memcpy
+ 186              	.LVL15:
+ 119:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_SetDC_Data();
+ 187              		.loc 1 119 5 is_stmt 1 view .LVU36
+ 188 001c FFF7FEFF 		bl	LCD_SPI_CS_Enable
+ 189              	.LVL16:
+ 120:../APP/LCD/Src/lcd_interface.c **** 
+ 190              		.loc 1 120 5 view .LVU37
+ 191 0020 FFF7FEFF 		bl	LCD_SPI_SetDC_Data
+ 192              	.LVL17:
+ 123:../APP/LCD/Src/lcd_interface.c **** }
+ 193              		.loc 1 123 5 view .LVU38
+ 123:../APP/LCD/Src/lcd_interface.c **** }
+ 194              		.loc 1 123 12 is_stmt 0 view .LVU39
+ 195 0024 2246     		mov	r2, r4
+ 196 0026 2846     		mov	r0, r5
+ 197 0028 0349     		ldr	r1, .L14
+ 124:../APP/LCD/Src/lcd_interface.c **** 
+ 198              		.loc 1 124 1 view .LVU40
+ 199 002a BDE83840 		pop	{r3, r4, r5, lr}
+ 200              	.LCFI1:
+ 201              		.cfi_remember_state
+ 202              		.cfi_restore 14
+ 203              		.cfi_restore 5
+ 204              		.cfi_restore 4
+ 205              		.cfi_restore 3
+ 206              		.cfi_def_cfa_offset 0
+ 207              	.LVL18:
+ 123:../APP/LCD/Src/lcd_interface.c **** }
+ 208              		.loc 1 123 12 view .LVU41
+ 209 002e FFF7FEBF 		b	HAL_SPI_Transmit_DMA
+ 210              	.LVL19:
+ 211              	.L9:
+ 212              	.LCFI2:
+ 213              		.cfi_restore_state
+ 124:../APP/LCD/Src/lcd_interface.c **** 
+ 214              		.loc 1 124 1 view .LVU42
+ 215 0032 0120     		movs	r0, #1
+ 216              	.LVL20:
+ 124:../APP/LCD/Src/lcd_interface.c **** 
+ 217              		.loc 1 124 1 view .LVU43
+ 218 0034 38BD     		pop	{r3, r4, r5, pc}
+ 219              	.LVL21:
+ 220              	.L15:
+ 124:../APP/LCD/Src/lcd_interface.c **** 
+ 221              		.loc 1 124 1 view .LVU44
+ 222 0036 00BF     		.align	2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 8
+
+
+ 223              	.L14:
+ 224 0038 00000000 		.word	spi_data_buffer
+ 225              		.cfi_endproc
+ 226              	.LFE134:
+ 228              		.section	.text.LCD_SPI_SendData,"ax",%progbits
+ 229              		.align	1
+ 230              		.syntax unified
+ 231              		.thumb
+ 232              		.thumb_func
+ 234              	LCD_SPI_SendData:
+ 235              	.LVL22:
+ 236              	.LFB133:
+  83:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+ 237              		.loc 1 83 1 is_stmt 1 view -0
+ 238              		.cfi_startproc
+ 239              		@ args = 0, pretend = 0, frame = 0
+ 240              		@ frame_needed = 0, uses_anonymous_args = 0
+  84:../APP/LCD/Src/lcd_interface.c ****     HAL_StatusTypeDef status;
+ 241              		.loc 1 84 5 view .LVU46
+  83:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+ 242              		.loc 1 83 1 is_stmt 0 view .LVU47
+ 243 0000 70B5     		push	{r4, r5, r6, lr}
+ 244              	.LCFI3:
+ 245              		.cfi_def_cfa_offset 16
+ 246              		.cfi_offset 4, -16
+ 247              		.cfi_offset 5, -12
+ 248              		.cfi_offset 6, -8
+ 249              		.cfi_offset 14, -4
+  84:../APP/LCD/Src/lcd_interface.c ****     HAL_StatusTypeDef status;
+ 250              		.loc 1 84 24 view .LVU48
+ 251 0002 0668     		ldr	r6, [r0]
+ 252              	.LVL23:
+  85:../APP/LCD/Src/lcd_interface.c **** 
+ 253              		.loc 1 85 5 is_stmt 1 view .LVU49
+  87:../APP/LCD/Src/lcd_interface.c ****     {
+ 254              		.loc 1 87 5 view .LVU50
+  83:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+ 255              		.loc 1 83 1 is_stmt 0 view .LVU51
+ 256 0004 0C46     		mov	r4, r1
+ 257 0006 1546     		mov	r5, r2
+  87:../APP/LCD/Src/lcd_interface.c ****     {
+ 258              		.loc 1 87 8 view .LVU52
+ 259 0008 86B1     		cbz	r6, .L19
+  87:../APP/LCD/Src/lcd_interface.c ****     {
+ 260              		.loc 1 87 22 discriminator 1 view .LVU53
+ 261 000a 79B1     		cbz	r1, .L19
+  92:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_SetDC_Data();
+ 262              		.loc 1 92 5 is_stmt 1 view .LVU54
+ 263 000c FFF7FEFF 		bl	LCD_SPI_CS_Enable
+ 264              	.LVL24:
+  93:../APP/LCD/Src/lcd_interface.c **** 
+ 265              		.loc 1 93 5 view .LVU55
+ 266 0010 FFF7FEFF 		bl	LCD_SPI_SetDC_Data
+ 267              	.LVL25:
+  95:../APP/LCD/Src/lcd_interface.c **** 
+ 268              		.loc 1 95 5 view .LVU56
+  95:../APP/LCD/Src/lcd_interface.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 9
+
+
+ 269              		.loc 1 95 14 is_stmt 0 view .LVU57
+ 270 0014 2146     		mov	r1, r4
+ 271 0016 4FF4FA73 		mov	r3, #500
+ 272 001a 2A46     		mov	r2, r5
+ 273 001c 3046     		mov	r0, r6
+ 274 001e FFF7FEFF 		bl	HAL_SPI_Transmit
+ 275              	.LVL26:
+ 276 0022 0446     		mov	r4, r0
+ 277              	.LVL27:
+  97:../APP/LCD/Src/lcd_interface.c **** 
+ 278              		.loc 1 97 5 is_stmt 1 view .LVU58
+ 279 0024 FFF7FEFF 		bl	LCD_SPI_CS_Disable
+ 280              	.LVL28:
+  99:../APP/LCD/Src/lcd_interface.c **** }
+ 281              		.loc 1 99 5 view .LVU59
+ 282              	.L17:
+ 100:../APP/LCD/Src/lcd_interface.c **** 
+ 283              		.loc 1 100 1 is_stmt 0 view .LVU60
+ 284 0028 2046     		mov	r0, r4
+ 285 002a 70BD     		pop	{r4, r5, r6, pc}
+ 286              	.LVL29:
+ 287              	.L19:
+  89:../APP/LCD/Src/lcd_interface.c ****     }
+ 288              		.loc 1 89 16 view .LVU61
+ 289 002c 0124     		movs	r4, #1
+ 290 002e FBE7     		b	.L17
+ 291              		.cfi_endproc
+ 292              	.LFE133:
+ 294              		.section	.text.LCD_SPI_SendData16,"ax",%progbits
+ 295              		.align	1
+ 296              		.syntax unified
+ 297              		.thumb
+ 298              		.thumb_func
+ 300              	LCD_SPI_SendData16:
+ 301              	.LVL30:
+ 302              	.LFB132:
+  59:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+ 303              		.loc 1 59 1 is_stmt 1 view -0
+ 304              		.cfi_startproc
+ 305              		@ args = 0, pretend = 0, frame = 8
+ 306              		@ frame_needed = 0, uses_anonymous_args = 0
+  60:../APP/LCD/Src/lcd_interface.c ****     HAL_StatusTypeDef status;
+ 307              		.loc 1 60 5 view .LVU63
+  59:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+ 308              		.loc 1 59 1 is_stmt 0 view .LVU64
+ 309 0000 13B5     		push	{r0, r1, r4, lr}
+ 310              	.LCFI4:
+ 311              		.cfi_def_cfa_offset 16
+ 312              		.cfi_offset 4, -8
+ 313              		.cfi_offset 14, -4
+  60:../APP/LCD/Src/lcd_interface.c ****     HAL_StatusTypeDef status;
+ 314              		.loc 1 60 24 view .LVU65
+ 315 0002 0468     		ldr	r4, [r0]
+ 316              	.LVL31:
+  61:../APP/LCD/Src/lcd_interface.c ****     uint8_t buf[2];
+ 317              		.loc 1 61 5 is_stmt 1 view .LVU66
+  62:../APP/LCD/Src/lcd_interface.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 10
+
+
+ 318              		.loc 1 62 5 view .LVU67
+  64:../APP/LCD/Src/lcd_interface.c ****     {
+ 319              		.loc 1 64 5 view .LVU68
+  64:../APP/LCD/Src/lcd_interface.c ****     {
+ 320              		.loc 1 64 8 is_stmt 0 view .LVU69
+ 321 0004 94B1     		cbz	r4, .L22
+  69:../APP/LCD/Src/lcd_interface.c ****     buf[1] = (uint8_t)(data & 0xFF);
+ 322              		.loc 1 69 5 is_stmt 1 view .LVU70
+  70:../APP/LCD/Src/lcd_interface.c **** 
+ 323              		.loc 1 70 5 view .LVU71
+  69:../APP/LCD/Src/lcd_interface.c ****     buf[1] = (uint8_t)(data & 0xFF);
+ 324              		.loc 1 69 12 is_stmt 0 view .LVU72
+ 325 0006 49BA     		rev16	r1, r1
+ 326              	.LVL32:
+  69:../APP/LCD/Src/lcd_interface.c ****     buf[1] = (uint8_t)(data & 0xFF);
+ 327              		.loc 1 69 12 view .LVU73
+ 328 0008 ADF80410 		strh	r1, [sp, #4]	@ movhi
+  72:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_SetDC_Data();
+ 329              		.loc 1 72 5 is_stmt 1 view .LVU74
+ 330 000c FFF7FEFF 		bl	LCD_SPI_CS_Enable
+ 331              	.LVL33:
+  73:../APP/LCD/Src/lcd_interface.c **** 
+ 332              		.loc 1 73 5 view .LVU75
+ 333 0010 FFF7FEFF 		bl	LCD_SPI_SetDC_Data
+ 334              	.LVL34:
+  75:../APP/LCD/Src/lcd_interface.c **** 
+ 335              		.loc 1 75 5 view .LVU76
+  75:../APP/LCD/Src/lcd_interface.c **** 
+ 336              		.loc 1 75 14 is_stmt 0 view .LVU77
+ 337 0014 2046     		mov	r0, r4
+ 338 0016 6423     		movs	r3, #100
+ 339 0018 0222     		movs	r2, #2
+ 340 001a 01A9     		add	r1, sp, #4
+ 341 001c FFF7FEFF 		bl	HAL_SPI_Transmit
+ 342              	.LVL35:
+ 343 0020 0446     		mov	r4, r0
+ 344              	.LVL36:
+  77:../APP/LCD/Src/lcd_interface.c **** 
+ 345              		.loc 1 77 5 is_stmt 1 view .LVU78
+ 346 0022 FFF7FEFF 		bl	LCD_SPI_CS_Disable
+ 347              	.LVL37:
+  79:../APP/LCD/Src/lcd_interface.c **** }
+ 348              		.loc 1 79 5 view .LVU79
+ 349              	.L21:
+  80:../APP/LCD/Src/lcd_interface.c **** 
+ 350              		.loc 1 80 1 is_stmt 0 view .LVU80
+ 351 0026 2046     		mov	r0, r4
+ 352 0028 02B0     		add	sp, sp, #8
+ 353              	.LCFI5:
+ 354              		.cfi_remember_state
+ 355              		.cfi_def_cfa_offset 8
+ 356              		@ sp needed
+ 357 002a 10BD     		pop	{r4, pc}
+ 358              	.LVL38:
+ 359              	.L22:
+ 360              	.LCFI6:
+ 361              		.cfi_restore_state
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 11
+
+
+  66:../APP/LCD/Src/lcd_interface.c ****     }
+ 362              		.loc 1 66 16 view .LVU81
+ 363 002c 0124     		movs	r4, #1
+ 364              	.LVL39:
+  66:../APP/LCD/Src/lcd_interface.c ****     }
+ 365              		.loc 1 66 16 view .LVU82
+ 366 002e FAE7     		b	.L21
+ 367              		.cfi_endproc
+ 368              	.LFE132:
+ 370              		.section	.text.LCD_SPI_SendData8,"ax",%progbits
+ 371              		.align	1
+ 372              		.syntax unified
+ 373              		.thumb
+ 374              		.thumb_func
+ 376              	LCD_SPI_SendData8:
+ 377              	.LVL40:
+ 378              	.LFB131:
+  39:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+ 379              		.loc 1 39 1 is_stmt 1 view -0
+ 380              		.cfi_startproc
+ 381              		@ args = 0, pretend = 0, frame = 8
+ 382              		@ frame_needed = 0, uses_anonymous_args = 0
+  40:../APP/LCD/Src/lcd_interface.c ****     HAL_StatusTypeDef status;
+ 383              		.loc 1 40 5 view .LVU84
+  39:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+ 384              		.loc 1 39 1 is_stmt 0 view .LVU85
+ 385 0000 13B5     		push	{r0, r1, r4, lr}
+ 386              	.LCFI7:
+ 387              		.cfi_def_cfa_offset 16
+ 388              		.cfi_offset 4, -8
+ 389              		.cfi_offset 14, -4
+  40:../APP/LCD/Src/lcd_interface.c ****     HAL_StatusTypeDef status;
+ 390              		.loc 1 40 24 view .LVU86
+ 391 0002 0468     		ldr	r4, [r0]
+ 392              	.LVL41:
+  41:../APP/LCD/Src/lcd_interface.c **** 
+ 393              		.loc 1 41 5 is_stmt 1 view .LVU87
+  43:../APP/LCD/Src/lcd_interface.c ****     {
+ 394              		.loc 1 43 5 view .LVU88
+  39:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+ 395              		.loc 1 39 1 is_stmt 0 view .LVU89
+ 396 0004 8DF80710 		strb	r1, [sp, #7]
+  43:../APP/LCD/Src/lcd_interface.c ****     {
+ 397              		.loc 1 43 8 view .LVU90
+ 398 0008 84B1     		cbz	r4, .L25
+  48:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_SetDC_Data();
+ 399              		.loc 1 48 5 is_stmt 1 view .LVU91
+ 400 000a FFF7FEFF 		bl	LCD_SPI_CS_Enable
+ 401              	.LVL42:
+  49:../APP/LCD/Src/lcd_interface.c **** 
+ 402              		.loc 1 49 5 view .LVU92
+ 403 000e FFF7FEFF 		bl	LCD_SPI_SetDC_Data
+ 404              	.LVL43:
+  51:../APP/LCD/Src/lcd_interface.c **** 
+ 405              		.loc 1 51 5 view .LVU93
+  51:../APP/LCD/Src/lcd_interface.c **** 
+ 406              		.loc 1 51 14 is_stmt 0 view .LVU94
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 12
+
+
+ 407 0012 2046     		mov	r0, r4
+ 408 0014 6423     		movs	r3, #100
+ 409 0016 0122     		movs	r2, #1
+ 410 0018 0DF10701 		add	r1, sp, #7
+ 411 001c FFF7FEFF 		bl	HAL_SPI_Transmit
+ 412              	.LVL44:
+ 413 0020 0446     		mov	r4, r0
+ 414              	.LVL45:
+  53:../APP/LCD/Src/lcd_interface.c **** 
+ 415              		.loc 1 53 5 is_stmt 1 view .LVU95
+ 416 0022 FFF7FEFF 		bl	LCD_SPI_CS_Disable
+ 417              	.LVL46:
+  55:../APP/LCD/Src/lcd_interface.c **** }
+ 418              		.loc 1 55 5 view .LVU96
+ 419              	.L24:
+  56:../APP/LCD/Src/lcd_interface.c **** 
+ 420              		.loc 1 56 1 is_stmt 0 view .LVU97
+ 421 0026 2046     		mov	r0, r4
+ 422 0028 02B0     		add	sp, sp, #8
+ 423              	.LCFI8:
+ 424              		.cfi_remember_state
+ 425              		.cfi_def_cfa_offset 8
+ 426              		@ sp needed
+ 427 002a 10BD     		pop	{r4, pc}
+ 428              	.LVL47:
+ 429              	.L25:
+ 430              	.LCFI9:
+ 431              		.cfi_restore_state
+  45:../APP/LCD/Src/lcd_interface.c ****     }
+ 432              		.loc 1 45 16 view .LVU98
+ 433 002c 0124     		movs	r4, #1
+ 434              	.LVL48:
+  45:../APP/LCD/Src/lcd_interface.c ****     }
+ 435              		.loc 1 45 16 view .LVU99
+ 436 002e FAE7     		b	.L24
+ 437              		.cfi_endproc
+ 438              	.LFE131:
+ 440              		.section	.text.LCD_SPI_SendCmd,"ax",%progbits
+ 441              		.align	1
+ 442              		.syntax unified
+ 443              		.thumb
+ 444              		.thumb_func
+ 446              	LCD_SPI_SendCmd:
+ 447              	.LVL49:
+ 448              	.LFB130:
+  19:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+ 449              		.loc 1 19 1 is_stmt 1 view -0
+ 450              		.cfi_startproc
+ 451              		@ args = 0, pretend = 0, frame = 8
+ 452              		@ frame_needed = 0, uses_anonymous_args = 0
+  20:../APP/LCD/Src/lcd_interface.c ****     HAL_StatusTypeDef status;
+ 453              		.loc 1 20 5 view .LVU101
+  19:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+ 454              		.loc 1 19 1 is_stmt 0 view .LVU102
+ 455 0000 13B5     		push	{r0, r1, r4, lr}
+ 456              	.LCFI10:
+ 457              		.cfi_def_cfa_offset 16
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 13
+
+
+ 458              		.cfi_offset 4, -8
+ 459              		.cfi_offset 14, -4
+  20:../APP/LCD/Src/lcd_interface.c ****     HAL_StatusTypeDef status;
+ 460              		.loc 1 20 24 view .LVU103
+ 461 0002 0468     		ldr	r4, [r0]
+ 462              	.LVL50:
+  21:../APP/LCD/Src/lcd_interface.c **** 
+ 463              		.loc 1 21 5 is_stmt 1 view .LVU104
+  23:../APP/LCD/Src/lcd_interface.c ****     {
+ 464              		.loc 1 23 5 view .LVU105
+  19:../APP/LCD/Src/lcd_interface.c ****     SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)iface->handle;
+ 465              		.loc 1 19 1 is_stmt 0 view .LVU106
+ 466 0004 8DF80710 		strb	r1, [sp, #7]
+  23:../APP/LCD/Src/lcd_interface.c ****     {
+ 467              		.loc 1 23 8 view .LVU107
+ 468 0008 84B1     		cbz	r4, .L28
+  28:../APP/LCD/Src/lcd_interface.c ****     LCD_SPI_SetDC_Cmd();
+ 469              		.loc 1 28 5 is_stmt 1 view .LVU108
+ 470 000a FFF7FEFF 		bl	LCD_SPI_CS_Enable
+ 471              	.LVL51:
+  29:../APP/LCD/Src/lcd_interface.c **** 
+ 472              		.loc 1 29 5 view .LVU109
+ 473 000e FFF7FEFF 		bl	LCD_SPI_SetDC_Cmd
+ 474              	.LVL52:
+  31:../APP/LCD/Src/lcd_interface.c **** 
+ 475              		.loc 1 31 5 view .LVU110
+  31:../APP/LCD/Src/lcd_interface.c **** 
+ 476              		.loc 1 31 14 is_stmt 0 view .LVU111
+ 477 0012 2046     		mov	r0, r4
+ 478 0014 6423     		movs	r3, #100
+ 479 0016 0122     		movs	r2, #1
+ 480 0018 0DF10701 		add	r1, sp, #7
+ 481 001c FFF7FEFF 		bl	HAL_SPI_Transmit
+ 482              	.LVL53:
+ 483 0020 0446     		mov	r4, r0
+ 484              	.LVL54:
+  33:../APP/LCD/Src/lcd_interface.c **** 
+ 485              		.loc 1 33 5 is_stmt 1 view .LVU112
+ 486 0022 FFF7FEFF 		bl	LCD_SPI_CS_Disable
+ 487              	.LVL55:
+  35:../APP/LCD/Src/lcd_interface.c **** }
+ 488              		.loc 1 35 5 view .LVU113
+ 489              	.L27:
+  36:../APP/LCD/Src/lcd_interface.c **** 
+ 490              		.loc 1 36 1 is_stmt 0 view .LVU114
+ 491 0026 2046     		mov	r0, r4
+ 492 0028 02B0     		add	sp, sp, #8
+ 493              	.LCFI11:
+ 494              		.cfi_remember_state
+ 495              		.cfi_def_cfa_offset 8
+ 496              		@ sp needed
+ 497 002a 10BD     		pop	{r4, pc}
+ 498              	.LVL56:
+ 499              	.L28:
+ 500              	.LCFI12:
+ 501              		.cfi_restore_state
+  25:../APP/LCD/Src/lcd_interface.c ****     }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 14
+
+
+ 502              		.loc 1 25 16 view .LVU115
+ 503 002c 0124     		movs	r4, #1
+ 504              	.LVL57:
+  25:../APP/LCD/Src/lcd_interface.c ****     }
+ 505              		.loc 1 25 16 view .LVU116
+ 506 002e FAE7     		b	.L27
+ 507              		.cfi_endproc
+ 508              	.LFE130:
+ 510              		.section	.text.LCD_Interface_InitSPI,"ax",%progbits
+ 511              		.align	1
+ 512              		.global	LCD_Interface_InitSPI
+ 513              		.syntax unified
+ 514              		.thumb
+ 515              		.thumb_func
+ 517              	LCD_Interface_InitSPI:
+ 518              	.LVL58:
+ 519              	.LFB140:
+ 160:../APP/LCD/Src/lcd_interface.c **** }
+ 161:../APP/LCD/Src/lcd_interface.c **** 
+ 162:../APP/LCD/Src/lcd_interface.c **** /* Public Functions */
+ 163:../APP/LCD/Src/lcd_interface.c **** 
+ 164:../APP/LCD/Src/lcd_interface.c **** /**
+ 165:../APP/LCD/Src/lcd_interface.c ****  * @brief Initialize SPI interface for LCD
+ 166:../APP/LCD/Src/lcd_interface.c ****  */
+ 167:../APP/LCD/Src/lcd_interface.c **** void LCD_Interface_InitSPI(LCD_Interface_t *iface, void *hspi, bool use_dma)
+ 168:../APP/LCD/Src/lcd_interface.c **** {
+ 520              		.loc 1 168 1 is_stmt 1 view -0
+ 521              		.cfi_startproc
+ 522              		@ args = 0, pretend = 0, frame = 0
+ 523              		@ frame_needed = 0, uses_anonymous_args = 0
+ 169:../APP/LCD/Src/lcd_interface.c ****     if (iface == NULL)
+ 524              		.loc 1 169 5 view .LVU118
+ 168:../APP/LCD/Src/lcd_interface.c ****     if (iface == NULL)
+ 525              		.loc 1 168 1 is_stmt 0 view .LVU119
+ 526 0000 70B5     		push	{r4, r5, r6, lr}
+ 527              	.LCFI13:
+ 528              		.cfi_def_cfa_offset 16
+ 529              		.cfi_offset 4, -16
+ 530              		.cfi_offset 5, -12
+ 531              		.cfi_offset 6, -8
+ 532              		.cfi_offset 14, -4
+ 168:../APP/LCD/Src/lcd_interface.c ****     if (iface == NULL)
+ 533              		.loc 1 168 1 view .LVU120
+ 534 0002 0E46     		mov	r6, r1
+ 535 0004 1546     		mov	r5, r2
+ 536              		.loc 1 169 8 view .LVU121
+ 537 0006 0446     		mov	r4, r0
+ 538 0008 D0B1     		cbz	r0, .L29
+ 170:../APP/LCD/Src/lcd_interface.c ****     {
+ 171:../APP/LCD/Src/lcd_interface.c ****         return;
+ 172:../APP/LCD/Src/lcd_interface.c ****     }
+ 173:../APP/LCD/Src/lcd_interface.c **** 
+ 174:../APP/LCD/Src/lcd_interface.c ****     memset(iface, 0, sizeof(LCD_Interface_t));
+ 539              		.loc 1 174 5 is_stmt 1 view .LVU122
+ 540 000a 1822     		movs	r2, #24
+ 541              	.LVL59:
+ 542              		.loc 1 174 5 is_stmt 0 view .LVU123
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 15
+
+
+ 543 000c 0021     		movs	r1, #0
+ 544              	.LVL60:
+ 545              		.loc 1 174 5 view .LVU124
+ 546 000e 1430     		adds	r0, r0, #20
+ 547              	.LVL61:
+ 548              		.loc 1 174 5 view .LVU125
+ 549 0010 FFF7FEFF 		bl	memset
+ 550              	.LVL62:
+ 175:../APP/LCD/Src/lcd_interface.c **** 
+ 176:../APP/LCD/Src/lcd_interface.c ****     iface->handle = hspi;
+ 551              		.loc 1 176 5 is_stmt 1 view .LVU126
+ 177:../APP/LCD/Src/lcd_interface.c **** 
+ 178:../APP/LCD/Src/lcd_interface.c ****     iface->send_cmd = LCD_SPI_SendCmd;
+ 552              		.loc 1 178 21 is_stmt 0 view .LVU127
+ 553 0014 0B4B     		ldr	r3, .L38
+ 554 0016 6360     		str	r3, [r4, #4]
+ 179:../APP/LCD/Src/lcd_interface.c ****     iface->send_data8 = LCD_SPI_SendData8;
+ 555              		.loc 1 179 23 view .LVU128
+ 556 0018 0B4B     		ldr	r3, .L38+4
+ 557 001a A360     		str	r3, [r4, #8]
+ 180:../APP/LCD/Src/lcd_interface.c ****     iface->send_data16 = LCD_SPI_SendData16;
+ 558              		.loc 1 180 24 view .LVU129
+ 559 001c 0B4B     		ldr	r3, .L38+8
+ 560 001e E360     		str	r3, [r4, #12]
+ 181:../APP/LCD/Src/lcd_interface.c ****     iface->send_data = LCD_SPI_SendData;
+ 561              		.loc 1 181 22 view .LVU130
+ 562 0020 0B4B     		ldr	r3, .L38+12
+ 176:../APP/LCD/Src/lcd_interface.c **** 
+ 563              		.loc 1 176 19 view .LVU131
+ 564 0022 2660     		str	r6, [r4]
+ 178:../APP/LCD/Src/lcd_interface.c ****     iface->send_data8 = LCD_SPI_SendData8;
+ 565              		.loc 1 178 5 is_stmt 1 view .LVU132
+ 179:../APP/LCD/Src/lcd_interface.c ****     iface->send_data16 = LCD_SPI_SendData16;
+ 566              		.loc 1 179 5 view .LVU133
+ 180:../APP/LCD/Src/lcd_interface.c ****     iface->send_data = LCD_SPI_SendData;
+ 567              		.loc 1 180 5 view .LVU134
+ 568              		.loc 1 181 5 view .LVU135
+ 569              		.loc 1 181 22 is_stmt 0 view .LVU136
+ 570 0024 2361     		str	r3, [r4, #16]
+ 182:../APP/LCD/Src/lcd_interface.c **** 
+ 183:../APP/LCD/Src/lcd_interface.c ****     if (use_dma)
+ 571              		.loc 1 183 5 is_stmt 1 view .LVU137
+ 572              		.loc 1 183 8 is_stmt 0 view .LVU138
+ 573 0026 1DB1     		cbz	r5, .L31
+ 184:../APP/LCD/Src/lcd_interface.c ****     {
+ 185:../APP/LCD/Src/lcd_interface.c ****         iface->send_data_dma = LCD_SPI_SendDataDMA;
+ 574              		.loc 1 185 9 is_stmt 1 view .LVU139
+ 575              		.loc 1 185 30 is_stmt 0 view .LVU140
+ 576 0028 0A4B     		ldr	r3, .L38+16
+ 577 002a 6361     		str	r3, [r4, #20]
+ 186:../APP/LCD/Src/lcd_interface.c ****         iface->is_dma_busy = LCD_SPI_IsDMABusy;
+ 578              		.loc 1 186 9 is_stmt 1 view .LVU141
+ 579              		.loc 1 186 28 is_stmt 0 view .LVU142
+ 580 002c 0A4B     		ldr	r3, .L38+20
+ 581 002e A361     		str	r3, [r4, #24]
+ 582              	.L31:
+ 187:../APP/LCD/Src/lcd_interface.c ****     }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 16
+
+
+ 188:../APP/LCD/Src/lcd_interface.c ****     else
+ 189:../APP/LCD/Src/lcd_interface.c ****     {
+ 190:../APP/LCD/Src/lcd_interface.c ****         iface->send_data_dma = NULL;
+ 191:../APP/LCD/Src/lcd_interface.c ****         iface->is_dma_busy = NULL;
+ 192:../APP/LCD/Src/lcd_interface.c ****     }
+ 193:../APP/LCD/Src/lcd_interface.c **** 
+ 194:../APP/LCD/Src/lcd_interface.c ****     iface->delay_ms = LCD_DelayMs;
+ 583              		.loc 1 194 5 is_stmt 1 view .LVU143
+ 584              		.loc 1 194 21 is_stmt 0 view .LVU144
+ 585 0030 0A4B     		ldr	r3, .L38+24
+ 586 0032 E361     		str	r3, [r4, #28]
+ 195:../APP/LCD/Src/lcd_interface.c ****     iface->reset = LCD_SPI_ResetDisplay;
+ 587              		.loc 1 195 5 is_stmt 1 view .LVU145
+ 588              		.loc 1 195 18 is_stmt 0 view .LVU146
+ 589 0034 0A4B     		ldr	r3, .L38+28
+ 590 0036 2362     		str	r3, [r4, #32]
+ 196:../APP/LCD/Src/lcd_interface.c ****     iface->backlight_on = LCD_SPI_BacklightOn;
+ 591              		.loc 1 196 5 is_stmt 1 view .LVU147
+ 592              		.loc 1 196 25 is_stmt 0 view .LVU148
+ 593 0038 0A4B     		ldr	r3, .L38+32
+ 594 003a 6362     		str	r3, [r4, #36]
+ 197:../APP/LCD/Src/lcd_interface.c ****     iface->backlight_off = LCD_SPI_BacklightOff;
+ 595              		.loc 1 197 5 is_stmt 1 view .LVU149
+ 596              		.loc 1 197 26 is_stmt 0 view .LVU150
+ 597 003c 0A4B     		ldr	r3, .L38+36
+ 598 003e A362     		str	r3, [r4, #40]
+ 599              	.L29:
+ 198:../APP/LCD/Src/lcd_interface.c **** }
+ 600              		.loc 1 198 1 view .LVU151
+ 601 0040 70BD     		pop	{r4, r5, r6, pc}
+ 602              	.LVL63:
+ 603              	.L39:
+ 604              		.loc 1 198 1 view .LVU152
+ 605 0042 00BF     		.align	2
+ 606              	.L38:
+ 607 0044 00000000 		.word	LCD_SPI_SendCmd
+ 608 0048 00000000 		.word	LCD_SPI_SendData8
+ 609 004c 00000000 		.word	LCD_SPI_SendData16
+ 610 0050 00000000 		.word	LCD_SPI_SendData
+ 611 0054 00000000 		.word	LCD_SPI_SendDataDMA
+ 612 0058 00000000 		.word	LCD_SPI_IsDMABusy
+ 613 005c 00000000 		.word	LCD_DelayMs
+ 614 0060 00000000 		.word	LCD_SPI_ResetDisplay
+ 615 0064 00000000 		.word	LCD_SPI_BacklightOn
+ 616 0068 00000000 		.word	LCD_SPI_BacklightOff
+ 617              		.cfi_endproc
+ 618              	.LFE140:
+ 620              		.section	.text.LCD_Interface_GetInstance,"ax",%progbits
+ 621              		.align	1
+ 622              		.global	LCD_Interface_GetInstance
+ 623              		.syntax unified
+ 624              		.thumb
+ 625              		.thumb_func
+ 627              	LCD_Interface_GetInstance:
+ 628              	.LFB141:
+ 199:../APP/LCD/Src/lcd_interface.c **** 
+ 200:../APP/LCD/Src/lcd_interface.c **** /**
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 17
+
+
+ 201:../APP/LCD/Src/lcd_interface.c ****  * @brief Get the global LCD interface instance
+ 202:../APP/LCD/Src/lcd_interface.c ****  */
+ 203:../APP/LCD/Src/lcd_interface.c **** LCD_Interface_t* LCD_Interface_GetInstance(void)
+ 204:../APP/LCD/Src/lcd_interface.c **** {
+ 629              		.loc 1 204 1 is_stmt 1 view -0
+ 630              		.cfi_startproc
+ 631              		@ args = 0, pretend = 0, frame = 0
+ 632              		@ frame_needed = 0, uses_anonymous_args = 0
+ 633              		@ link register save eliminated.
+ 205:../APP/LCD/Src/lcd_interface.c ****     return &g_lcd_interface;
+ 634              		.loc 1 205 5 view .LVU154
+ 206:../APP/LCD/Src/lcd_interface.c **** }
+ 635              		.loc 1 206 1 is_stmt 0 view .LVU155
+ 636 0000 0048     		ldr	r0, .L41
+ 637 0002 7047     		bx	lr
+ 638              	.L42:
+ 639              		.align	2
+ 640              	.L41:
+ 641 0004 00000000 		.word	g_lcd_interface
+ 642              		.cfi_endproc
+ 643              	.LFE141:
+ 645              		.section	.bss.g_lcd_interface,"aw",%nobits
+ 646              		.align	2
+ 649              	g_lcd_interface:
+ 650 0000 00000000 		.space	44
+ 650      00000000 
+ 650      00000000 
+ 650      00000000 
+ 650      00000000 
+ 651              		.section	.bss.spi_data_buffer,"aw",%nobits
+ 654              	spi_data_buffer:
+ 655 0000 00000000 		.space	256
+ 655      00000000 
+ 655      00000000 
+ 655      00000000 
+ 655      00000000 
+ 656              		.text
+ 657              	.Letext0:
+ 658              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 659              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 660              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 661              		.file 5 "../core/inc/hal_compat.h"
+ 662              		.file 6 "../APP/LCD/Inc/lcd_interface.h"
+ 663              		.file 7 "../core/inc/dma.h"
+ 664              		.file 8 "../core/inc/spi.h"
+ 665              		.file 9 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/string.h"
+ 666              		.file 10 "<built-in>"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s 			page 18
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lcd_interface.c
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:21     .text.LCD_SPI_IsDMABusy:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:26     .text.LCD_SPI_IsDMABusy:00000000 LCD_SPI_IsDMABusy
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:56     .text.LCD_SPI_BacklightOff:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:61     .text.LCD_SPI_BacklightOff:00000000 LCD_SPI_BacklightOff
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:78     .text.LCD_SPI_BacklightOn:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:83     .text.LCD_SPI_BacklightOn:00000000 LCD_SPI_BacklightOn
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:100    .text.LCD_SPI_ResetDisplay:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:105    .text.LCD_SPI_ResetDisplay:00000000 LCD_SPI_ResetDisplay
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:122    .text.LCD_DelayMs:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:127    .text.LCD_DelayMs:00000000 LCD_DelayMs
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:143    .text.LCD_SPI_SendDataDMA:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:148    .text.LCD_SPI_SendDataDMA:00000000 LCD_SPI_SendDataDMA
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:224    .text.LCD_SPI_SendDataDMA:00000038 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:654    .bss.spi_data_buffer:00000000 spi_data_buffer
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:229    .text.LCD_SPI_SendData:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:234    .text.LCD_SPI_SendData:00000000 LCD_SPI_SendData
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:295    .text.LCD_SPI_SendData16:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:300    .text.LCD_SPI_SendData16:00000000 LCD_SPI_SendData16
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:371    .text.LCD_SPI_SendData8:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:376    .text.LCD_SPI_SendData8:00000000 LCD_SPI_SendData8
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:441    .text.LCD_SPI_SendCmd:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:446    .text.LCD_SPI_SendCmd:00000000 LCD_SPI_SendCmd
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:511    .text.LCD_Interface_InitSPI:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:517    .text.LCD_Interface_InitSPI:00000000 LCD_Interface_InitSPI
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:607    .text.LCD_Interface_InitSPI:00000044 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:621    .text.LCD_Interface_GetInstance:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:627    .text.LCD_Interface_GetInstance:00000000 LCD_Interface_GetInstance
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:641    .text.LCD_Interface_GetInstance:00000004 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:649    .bss.g_lcd_interface:00000000 g_lcd_interface
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:646    .bss.g_lcd_interface:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\cc4tNJWz.s:655    .bss.spi_data_buffer:00000000 $d
+
+UNDEFINED SYMBOLS
+LCD_BL_OFF
+LCD_BL_ON
+LCD_SPI_Reset
+HAL_Delay
+memcpy
+LCD_SPI_CS_Enable
+LCD_SPI_SetDC_Data
+HAL_SPI_Transmit_DMA
+HAL_SPI_Transmit
+LCD_SPI_CS_Disable
+LCD_SPI_SetDC_Cmd
+memset

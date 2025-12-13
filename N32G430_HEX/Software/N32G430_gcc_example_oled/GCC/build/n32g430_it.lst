@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 1
   28:../core/src/n32g430_it.c **** /**
   29:../core/src/n32g430_it.c **** *\*\file n32g430_it.c
   30:../core/src/n32g430_it.c **** *\*\author Nations
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s 			page 2
 
 
   31:../core/src/n32g430_it.c **** *\*\version v1.0.0
@@ -73,27 +73,31 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 1
   40:../core/src/n32g430_it.c **** #include "tim.h"
   41:../core/src/n32g430_it.c **** #include "spi.h"
   42:../core/src/n32g430_it.c **** 
-  43:../core/src/n32g430_it.c **** 
-  44:../core/src/n32g430_it.c **** /******************************************************************************/
-  45:../core/src/n32g430_it.c **** /*            Cortex-M4 Processor Exceptions Handlers                         */
-  46:../core/src/n32g430_it.c **** /******************************************************************************/
+  43:../core/src/n32g430_it.c **** #ifdef DISPLAY_USE_LCD
+  44:../core/src/n32g430_it.c **** #include "button.h"
+  45:../core/src/n32g430_it.c **** #endif
+  46:../core/src/n32g430_it.c **** 
   47:../core/src/n32g430_it.c **** 
-  48:../core/src/n32g430_it.c **** 
-  49:../core/src/n32g430_it.c **** /**
-  50:../core/src/n32g430_it.c ****  *\*\name   NMI_Handler.
-  51:../core/src/n32g430_it.c ****  *\*\fun    This function handles NMI exception.
-  52:../core/src/n32g430_it.c ****  *\*\param  none.
-  53:../core/src/n32g430_it.c ****  *\*\return none.
-  54:../core/src/n32g430_it.c ****  */
-  55:../core/src/n32g430_it.c **** void NMI_Handler(void)
-  56:../core/src/n32g430_it.c **** {
-  29              		.loc 1 56 1 view -0
+  48:../core/src/n32g430_it.c **** /******************************************************************************/
+  49:../core/src/n32g430_it.c **** /*            Cortex-M4 Processor Exceptions Handlers                         */
+  50:../core/src/n32g430_it.c **** /******************************************************************************/
+  51:../core/src/n32g430_it.c **** 
+  52:../core/src/n32g430_it.c **** 
+  53:../core/src/n32g430_it.c **** /**
+  54:../core/src/n32g430_it.c ****  *\*\name   NMI_Handler.
+  55:../core/src/n32g430_it.c ****  *\*\fun    This function handles NMI exception.
+  56:../core/src/n32g430_it.c ****  *\*\param  none.
+  57:../core/src/n32g430_it.c ****  *\*\return none.
+  58:../core/src/n32g430_it.c ****  */
+  59:../core/src/n32g430_it.c **** void NMI_Handler(void)
+  60:../core/src/n32g430_it.c **** {
+  29              		.loc 1 60 1 view -0
   30              		.cfi_startproc
   31              		@ args = 0, pretend = 0, frame = 0
   32              		@ frame_needed = 0, uses_anonymous_args = 0
   33              		@ link register save eliminated.
-  57:../core/src/n32g430_it.c **** }
-  34              		.loc 1 57 1 view .LVU1
+  61:../core/src/n32g430_it.c **** }
+  34              		.loc 1 61 1 view .LVU1
   35 0000 7047     		bx	lr
   36              		.cfi_endproc
   37              	.LFE130:
@@ -105,34 +109,34 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 1
   44              		.thumb_func
   46              	HardFault_Handler:
   47              	.LFB131:
-  58:../core/src/n32g430_it.c **** 
-  59:../core/src/n32g430_it.c **** 
-  60:../core/src/n32g430_it.c **** /**
-  61:../core/src/n32g430_it.c ****  *\*\name   HardFault_Handler.
-  62:../core/src/n32g430_it.c ****  *\*\fun    This function handles Hard Fault exception.
-  63:../core/src/n32g430_it.c ****  *\*\param  none.
-  64:../core/src/n32g430_it.c ****  *\*\return none.
-  65:../core/src/n32g430_it.c ****  */
-  66:../core/src/n32g430_it.c **** void HardFault_Handler(void)
-  67:../core/src/n32g430_it.c **** {
-  48              		.loc 1 67 1 view -0
+  62:../core/src/n32g430_it.c **** 
+  63:../core/src/n32g430_it.c **** 
+  64:../core/src/n32g430_it.c **** /**
+  65:../core/src/n32g430_it.c ****  *\*\name   HardFault_Handler.
+  66:../core/src/n32g430_it.c ****  *\*\fun    This function handles Hard Fault exception.
+  67:../core/src/n32g430_it.c ****  *\*\param  none.
+  68:../core/src/n32g430_it.c ****  *\*\return none.
+  69:../core/src/n32g430_it.c ****  */
+  70:../core/src/n32g430_it.c **** void HardFault_Handler(void)
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s 			page 3
+
+
+  71:../core/src/n32g430_it.c **** {
+  48              		.loc 1 71 1 view -0
   49              		.cfi_startproc
   50              		@ Volatile: function does not return.
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 3
-
-
   51              		@ args = 0, pretend = 0, frame = 0
   52              		@ frame_needed = 0, uses_anonymous_args = 0
   53              		@ link register save eliminated.
   54              	.L3:
-  68:../core/src/n32g430_it.c ****     /* Go to infinite loop when Hard Fault exception occurs */
-  69:../core/src/n32g430_it.c ****     while (1)
-  55              		.loc 1 69 5 view .LVU3
-  70:../core/src/n32g430_it.c ****     {
-  71:../core/src/n32g430_it.c ****     }
-  56              		.loc 1 71 5 view .LVU4
-  69:../core/src/n32g430_it.c ****     {
-  57              		.loc 1 69 11 view .LVU5
+  72:../core/src/n32g430_it.c ****     /* Go to infinite loop when Hard Fault exception occurs */
+  73:../core/src/n32g430_it.c ****     while (1)
+  55              		.loc 1 73 5 view .LVU3
+  74:../core/src/n32g430_it.c ****     {
+  75:../core/src/n32g430_it.c ****     }
+  56              		.loc 1 75 5 view .LVU4
+  73:../core/src/n32g430_it.c ****     {
+  57              		.loc 1 73 11 view .LVU5
   58 0000 FEE7     		b	.L3
   59              		.cfi_endproc
   60              	.LFE131:
@@ -144,72 +148,72 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 1
   67              		.thumb_func
   69              	MemManage_Handler:
   70              	.LFB132:
-  72:../core/src/n32g430_it.c **** }
-  73:../core/src/n32g430_it.c **** 
-  74:../core/src/n32g430_it.c **** 
-  75:../core/src/n32g430_it.c **** /**
-  76:../core/src/n32g430_it.c ****  *\*\name   MemManage_Handler.
-  77:../core/src/n32g430_it.c ****  *\*\fun    This function handles Memory Manage exception.
-  78:../core/src/n32g430_it.c ****  *\*\param  none.
-  79:../core/src/n32g430_it.c ****  *\*\return none.
-  80:../core/src/n32g430_it.c ****  */
-  81:../core/src/n32g430_it.c **** void MemManage_Handler(void)
-  82:../core/src/n32g430_it.c **** {
-  71              		.loc 1 82 1 view -0
+  76:../core/src/n32g430_it.c **** }
+  77:../core/src/n32g430_it.c **** 
+  78:../core/src/n32g430_it.c **** 
+  79:../core/src/n32g430_it.c **** /**
+  80:../core/src/n32g430_it.c ****  *\*\name   MemManage_Handler.
+  81:../core/src/n32g430_it.c ****  *\*\fun    This function handles Memory Manage exception.
+  82:../core/src/n32g430_it.c ****  *\*\param  none.
+  83:../core/src/n32g430_it.c ****  *\*\return none.
+  84:../core/src/n32g430_it.c ****  */
+  85:../core/src/n32g430_it.c **** void MemManage_Handler(void)
+  86:../core/src/n32g430_it.c **** {
+  71              		.loc 1 86 1 view -0
   72              		.cfi_startproc
   73              		@ Volatile: function does not return.
   74              		@ args = 0, pretend = 0, frame = 0
   75              		@ frame_needed = 0, uses_anonymous_args = 0
   76              		@ link register save eliminated.
   77              	.L5:
-  83:../core/src/n32g430_it.c ****     /* Go to infinite loop when Memory Manage exception occurs */
-  84:../core/src/n32g430_it.c ****     while (1)
-  78              		.loc 1 84 5 view .LVU7
-  85:../core/src/n32g430_it.c ****     {
-  86:../core/src/n32g430_it.c ****     }
-  79              		.loc 1 86 5 view .LVU8
-  84:../core/src/n32g430_it.c ****     {
-  80              		.loc 1 84 11 view .LVU9
+  87:../core/src/n32g430_it.c ****     /* Go to infinite loop when Memory Manage exception occurs */
+  88:../core/src/n32g430_it.c ****     while (1)
+  78              		.loc 1 88 5 view .LVU7
+  89:../core/src/n32g430_it.c ****     {
+  90:../core/src/n32g430_it.c ****     }
+  79              		.loc 1 90 5 view .LVU8
+  88:../core/src/n32g430_it.c ****     {
+  80              		.loc 1 88 11 view .LVU9
   81 0000 FEE7     		b	.L5
   82              		.cfi_endproc
   83              	.LFE132:
   85              		.section	.text.BusFault_Handler,"ax",%progbits
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s 			page 4
+
+
   86              		.align	1
   87              		.global	BusFault_Handler
   88              		.syntax unified
   89              		.thumb
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 4
-
-
   90              		.thumb_func
   92              	BusFault_Handler:
   93              	.LFB133:
-  87:../core/src/n32g430_it.c **** }
-  88:../core/src/n32g430_it.c **** 
-  89:../core/src/n32g430_it.c **** 
-  90:../core/src/n32g430_it.c **** /**
-  91:../core/src/n32g430_it.c ****  *\*\name   BusFault_Handler.
-  92:../core/src/n32g430_it.c ****  *\*\fun    This function handles Bus Fault exception.
-  93:../core/src/n32g430_it.c ****  *\*\param  none.
-  94:../core/src/n32g430_it.c ****  *\*\return none.
-  95:../core/src/n32g430_it.c ****  */
-  96:../core/src/n32g430_it.c **** void BusFault_Handler(void)
-  97:../core/src/n32g430_it.c **** {
-  94              		.loc 1 97 1 view -0
+  91:../core/src/n32g430_it.c **** }
+  92:../core/src/n32g430_it.c **** 
+  93:../core/src/n32g430_it.c **** 
+  94:../core/src/n32g430_it.c **** /**
+  95:../core/src/n32g430_it.c ****  *\*\name   BusFault_Handler.
+  96:../core/src/n32g430_it.c ****  *\*\fun    This function handles Bus Fault exception.
+  97:../core/src/n32g430_it.c ****  *\*\param  none.
+  98:../core/src/n32g430_it.c ****  *\*\return none.
+  99:../core/src/n32g430_it.c ****  */
+ 100:../core/src/n32g430_it.c **** void BusFault_Handler(void)
+ 101:../core/src/n32g430_it.c **** {
+  94              		.loc 1 101 1 view -0
   95              		.cfi_startproc
   96              		@ Volatile: function does not return.
   97              		@ args = 0, pretend = 0, frame = 0
   98              		@ frame_needed = 0, uses_anonymous_args = 0
   99              		@ link register save eliminated.
  100              	.L7:
-  98:../core/src/n32g430_it.c ****     /* Go to infinite loop when Bus Fault exception occurs */
-  99:../core/src/n32g430_it.c ****     while (1)
- 101              		.loc 1 99 5 view .LVU11
- 100:../core/src/n32g430_it.c ****     {
- 101:../core/src/n32g430_it.c ****     }
- 102              		.loc 1 101 5 view .LVU12
-  99:../core/src/n32g430_it.c ****     {
- 103              		.loc 1 99 11 view .LVU13
+ 102:../core/src/n32g430_it.c ****     /* Go to infinite loop when Bus Fault exception occurs */
+ 103:../core/src/n32g430_it.c ****     while (1)
+ 101              		.loc 1 103 5 view .LVU11
+ 104:../core/src/n32g430_it.c ****     {
+ 105:../core/src/n32g430_it.c ****     }
+ 102              		.loc 1 105 5 view .LVU12
+ 103:../core/src/n32g430_it.c ****     {
+ 103              		.loc 1 103 11 view .LVU13
  104 0000 FEE7     		b	.L7
  105              		.cfi_endproc
  106              	.LFE133:
@@ -221,35 +225,35 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 1
  113              		.thumb_func
  115              	UsageFault_Handler:
  116              	.LFB134:
- 102:../core/src/n32g430_it.c **** }
- 103:../core/src/n32g430_it.c **** 
- 104:../core/src/n32g430_it.c **** 
- 105:../core/src/n32g430_it.c **** /**
- 106:../core/src/n32g430_it.c ****  *\*\name   UsageFault_Handler.
- 107:../core/src/n32g430_it.c ****  *\*\fun    This function handles Usage Fault exception.
- 108:../core/src/n32g430_it.c ****  *\*\param  none.
- 109:../core/src/n32g430_it.c ****  *\*\return none.
- 110:../core/src/n32g430_it.c ****  */
- 111:../core/src/n32g430_it.c **** void UsageFault_Handler(void)
- 112:../core/src/n32g430_it.c **** {
- 117              		.loc 1 112 1 view -0
+ 106:../core/src/n32g430_it.c **** }
+ 107:../core/src/n32g430_it.c **** 
+ 108:../core/src/n32g430_it.c **** 
+ 109:../core/src/n32g430_it.c **** /**
+ 110:../core/src/n32g430_it.c ****  *\*\name   UsageFault_Handler.
+ 111:../core/src/n32g430_it.c ****  *\*\fun    This function handles Usage Fault exception.
+ 112:../core/src/n32g430_it.c ****  *\*\param  none.
+ 113:../core/src/n32g430_it.c ****  *\*\return none.
+ 114:../core/src/n32g430_it.c ****  */
+ 115:../core/src/n32g430_it.c **** void UsageFault_Handler(void)
+ 116:../core/src/n32g430_it.c **** {
+ 117              		.loc 1 116 1 view -0
  118              		.cfi_startproc
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s 			page 5
+
+
  119              		@ Volatile: function does not return.
  120              		@ args = 0, pretend = 0, frame = 0
  121              		@ frame_needed = 0, uses_anonymous_args = 0
  122              		@ link register save eliminated.
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 5
-
-
  123              	.L9:
- 113:../core/src/n32g430_it.c ****     /* Go to infinite loop when Usage Fault exception occurs */
- 114:../core/src/n32g430_it.c ****     while (1)
- 124              		.loc 1 114 5 view .LVU15
- 115:../core/src/n32g430_it.c ****     {
- 116:../core/src/n32g430_it.c ****     }
- 125              		.loc 1 116 5 view .LVU16
- 114:../core/src/n32g430_it.c ****     {
- 126              		.loc 1 114 11 view .LVU17
+ 117:../core/src/n32g430_it.c ****     /* Go to infinite loop when Usage Fault exception occurs */
+ 118:../core/src/n32g430_it.c ****     while (1)
+ 124              		.loc 1 118 5 view .LVU15
+ 119:../core/src/n32g430_it.c ****     {
+ 120:../core/src/n32g430_it.c ****     }
+ 125              		.loc 1 120 5 view .LVU16
+ 118:../core/src/n32g430_it.c ****     {
+ 126              		.loc 1 118 11 view .LVU17
  127 0000 FEE7     		b	.L9
  128              		.cfi_endproc
  129              	.LFE134:
@@ -260,25 +264,25 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 1
  135              		.thumb
  136              		.thumb_func
  138              	SVC_Handler:
- 139              	.LFB142:
+ 139              	.LFB144:
  140              		.cfi_startproc
- 117:../core/src/n32g430_it.c **** }
- 118:../core/src/n32g430_it.c **** 
- 119:../core/src/n32g430_it.c **** 
- 120:../core/src/n32g430_it.c **** /**
- 121:../core/src/n32g430_it.c ****  *\*\name   SVC_Handler.
- 122:../core/src/n32g430_it.c ****  *\*\fun    This function handles SVCall exception.
- 123:../core/src/n32g430_it.c ****  *\*\param  none.
- 124:../core/src/n32g430_it.c ****  *\*\return none.
- 125:../core/src/n32g430_it.c ****  */
- 126:../core/src/n32g430_it.c **** void SVC_Handler(void)
- 141              		.loc 1 126 6 view -0
+ 121:../core/src/n32g430_it.c **** }
+ 122:../core/src/n32g430_it.c **** 
+ 123:../core/src/n32g430_it.c **** 
+ 124:../core/src/n32g430_it.c **** /**
+ 125:../core/src/n32g430_it.c ****  *\*\name   SVC_Handler.
+ 126:../core/src/n32g430_it.c ****  *\*\fun    This function handles SVCall exception.
+ 127:../core/src/n32g430_it.c ****  *\*\param  none.
+ 128:../core/src/n32g430_it.c ****  *\*\return none.
+ 129:../core/src/n32g430_it.c ****  */
+ 130:../core/src/n32g430_it.c **** void SVC_Handler(void)
+ 141              		.loc 1 130 6 view -0
  142              		@ args = 0, pretend = 0, frame = 0
  143              		@ frame_needed = 0, uses_anonymous_args = 0
  144              		@ link register save eliminated.
  145 0000 7047     		bx	lr
  146              		.cfi_endproc
- 147              	.LFE142:
+ 147              	.LFE144:
  149              		.section	.text.DebugMon_Handler,"ax",%progbits
  150              		.align	1
  151              		.global	DebugMon_Handler
@@ -286,29 +290,29 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 1
  153              		.thumb
  154              		.thumb_func
  156              	DebugMon_Handler:
- 157              	.LFB144:
+ 157              	.LFB146:
  158              		.cfi_startproc
- 127:../core/src/n32g430_it.c **** {
- 128:../core/src/n32g430_it.c **** }
- 129:../core/src/n32g430_it.c **** 
- 130:../core/src/n32g430_it.c **** 
- 131:../core/src/n32g430_it.c **** /**
- 132:../core/src/n32g430_it.c ****  *\*\name   DebugMon_Handler.
- 133:../core/src/n32g430_it.c ****  *\*\fun    This function handles Debug Monitor exception.
- 134:../core/src/n32g430_it.c ****  *\*\param  none.
- 135:../core/src/n32g430_it.c ****  *\*\return none.
- 136:../core/src/n32g430_it.c ****  */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 6
+ 131:../core/src/n32g430_it.c **** {
+ 132:../core/src/n32g430_it.c **** }
+ 133:../core/src/n32g430_it.c **** 
+ 134:../core/src/n32g430_it.c **** 
+ 135:../core/src/n32g430_it.c **** /**
+ 136:../core/src/n32g430_it.c ****  *\*\name   DebugMon_Handler.
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s 			page 6
 
 
- 137:../core/src/n32g430_it.c **** void DebugMon_Handler(void)
- 159              		.loc 1 137 6 view -0
+ 137:../core/src/n32g430_it.c ****  *\*\fun    This function handles Debug Monitor exception.
+ 138:../core/src/n32g430_it.c ****  *\*\param  none.
+ 139:../core/src/n32g430_it.c ****  *\*\return none.
+ 140:../core/src/n32g430_it.c ****  */
+ 141:../core/src/n32g430_it.c **** void DebugMon_Handler(void)
+ 159              		.loc 1 141 6 view -0
  160              		@ args = 0, pretend = 0, frame = 0
  161              		@ frame_needed = 0, uses_anonymous_args = 0
  162              		@ link register save eliminated.
  163 0000 7047     		bx	lr
  164              		.cfi_endproc
- 165              	.LFE144:
+ 165              	.LFE146:
  167              		.section	.text.SysTick_Handler,"ax",%progbits
  168              		.align	1
  169              		.global	SysTick_Handler
@@ -317,25 +321,25 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 1
  172              		.thumb_func
  174              	SysTick_Handler:
  175              	.LFB137:
- 138:../core/src/n32g430_it.c **** {
- 139:../core/src/n32g430_it.c **** }
- 140:../core/src/n32g430_it.c **** 
- 141:../core/src/n32g430_it.c **** 
- 142:../core/src/n32g430_it.c **** /**
- 143:../core/src/n32g430_it.c ****  *\*\name   SysTick_Handler.
- 144:../core/src/n32g430_it.c ****  *\*\fun    This function handles SysTick Handler.
- 145:../core/src/n32g430_it.c ****  *\*\param  none.
- 146:../core/src/n32g430_it.c ****  *\*\return none.
- 147:../core/src/n32g430_it.c ****  */
- 148:../core/src/n32g430_it.c **** void SysTick_Handler(void)
- 149:../core/src/n32g430_it.c **** {
- 176              		.loc 1 149 1 view -0
+ 142:../core/src/n32g430_it.c **** {
+ 143:../core/src/n32g430_it.c **** }
+ 144:../core/src/n32g430_it.c **** 
+ 145:../core/src/n32g430_it.c **** 
+ 146:../core/src/n32g430_it.c **** /**
+ 147:../core/src/n32g430_it.c ****  *\*\name   SysTick_Handler.
+ 148:../core/src/n32g430_it.c ****  *\*\fun    This function handles SysTick Handler.
+ 149:../core/src/n32g430_it.c ****  *\*\param  none.
+ 150:../core/src/n32g430_it.c ****  *\*\return none.
+ 151:../core/src/n32g430_it.c ****  */
+ 152:../core/src/n32g430_it.c **** void SysTick_Handler(void)
+ 153:../core/src/n32g430_it.c **** {
+ 176              		.loc 1 153 1 view -0
  177              		.cfi_startproc
  178              		@ args = 0, pretend = 0, frame = 0
  179              		@ frame_needed = 0, uses_anonymous_args = 0
  180              		@ link register save eliminated.
- 150:../core/src/n32g430_it.c ****     HAL_IncTick();
- 181              		.loc 1 150 5 view .LVU21
+ 154:../core/src/n32g430_it.c ****     HAL_IncTick();
+ 181              		.loc 1 154 5 view .LVU21
  182 0000 FFF7FEBF 		b	HAL_IncTick
  183              	.LVL0:
  184              		.cfi_endproc
@@ -348,26 +352,26 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 1
  192              		.thumb_func
  194              	DMA_Channel1_IRQHandler:
  195              	.LFB138:
- 151:../core/src/n32g430_it.c **** }
- 152:../core/src/n32g430_it.c **** 
- 153:../core/src/n32g430_it.c **** /**
- 154:../core/src/n32g430_it.c ****  *\*\name   DMA_Channel1_IRQHandler.
- 155:../core/src/n32g430_it.c ****  *\*\fun    Handle DMA1 channel 1 interrupt (I2C1 TX).
- 156:../core/src/n32g430_it.c ****  *\*\param  none.
- 157:../core/src/n32g430_it.c ****  *\*\return none.
- 158:../core/src/n32g430_it.c ****  */
- 159:../core/src/n32g430_it.c **** void DMA_Channel1_IRQHandler(void)
- 160:../core/src/n32g430_it.c **** {
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 7
+ 155:../core/src/n32g430_it.c **** }
+ 156:../core/src/n32g430_it.c **** 
+ 157:../core/src/n32g430_it.c **** /**
+ 158:../core/src/n32g430_it.c ****  *\*\name   DMA_Channel1_IRQHandler.
+ 159:../core/src/n32g430_it.c ****  *\*\fun    Handle DMA1 channel 1 interrupt (I2C1 TX).
+ 160:../core/src/n32g430_it.c ****  *\*\param  none.
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s 			page 7
 
 
- 196              		.loc 1 160 1 view -0
+ 161:../core/src/n32g430_it.c ****  *\*\return none.
+ 162:../core/src/n32g430_it.c ****  */
+ 163:../core/src/n32g430_it.c **** void DMA_Channel1_IRQHandler(void)
+ 164:../core/src/n32g430_it.c **** {
+ 196              		.loc 1 164 1 view -0
  197              		.cfi_startproc
  198              		@ args = 0, pretend = 0, frame = 0
  199              		@ frame_needed = 0, uses_anonymous_args = 0
  200              		@ link register save eliminated.
- 161:../core/src/n32g430_it.c ****     HAL_DMA_IRQHandler(&hdma_i2c1_tx);
- 201              		.loc 1 161 5 view .LVU23
+ 165:../core/src/n32g430_it.c ****     HAL_DMA_IRQHandler(&hdma_i2c1_tx);
+ 201              		.loc 1 165 5 view .LVU23
  202 0000 0148     		ldr	r0, .L14
  203 0002 FFF7FEBF 		b	HAL_DMA_IRQHandler
  204              	.LVL1:
@@ -385,23 +389,23 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 1
  217              		.thumb_func
  219              	TIM4_IRQHandler:
  220              	.LFB139:
- 162:../core/src/n32g430_it.c **** }
- 163:../core/src/n32g430_it.c **** 
- 164:../core/src/n32g430_it.c **** /**
- 165:../core/src/n32g430_it.c ****  *\*\name   TIM4_IRQHandler.
- 166:../core/src/n32g430_it.c ****  *\*\fun    Handle TIM4 global interrupt.
- 167:../core/src/n32g430_it.c ****  *\*\param  none.
- 168:../core/src/n32g430_it.c ****  *\*\return none.
- 169:../core/src/n32g430_it.c ****  */
- 170:../core/src/n32g430_it.c **** void TIM4_IRQHandler(void)
- 171:../core/src/n32g430_it.c **** {
- 221              		.loc 1 171 1 view -0
+ 166:../core/src/n32g430_it.c **** }
+ 167:../core/src/n32g430_it.c **** 
+ 168:../core/src/n32g430_it.c **** /**
+ 169:../core/src/n32g430_it.c ****  *\*\name   TIM4_IRQHandler.
+ 170:../core/src/n32g430_it.c ****  *\*\fun    Handle TIM4 global interrupt.
+ 171:../core/src/n32g430_it.c ****  *\*\param  none.
+ 172:../core/src/n32g430_it.c ****  *\*\return none.
+ 173:../core/src/n32g430_it.c ****  */
+ 174:../core/src/n32g430_it.c **** void TIM4_IRQHandler(void)
+ 175:../core/src/n32g430_it.c **** {
+ 221              		.loc 1 175 1 view -0
  222              		.cfi_startproc
  223              		@ args = 0, pretend = 0, frame = 0
  224              		@ frame_needed = 0, uses_anonymous_args = 0
  225              		@ link register save eliminated.
- 172:../core/src/n32g430_it.c ****     HAL_TIM_IRQHandler(&htim4);
- 226              		.loc 1 172 5 view .LVU25
+ 176:../core/src/n32g430_it.c ****     HAL_TIM_IRQHandler(&htim4);
+ 226              		.loc 1 176 5 view .LVU25
  227 0000 0148     		ldr	r0, .L17
  228 0002 FFF7FEBF 		b	HAL_TIM_IRQHandler
  229              	.LVL2:
@@ -414,31 +418,31 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 1
  237              		.section	.text.DMA_Channel2_IRQHandler,"ax",%progbits
  238              		.align	1
  239              		.global	DMA_Channel2_IRQHandler
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s 			page 8
+
+
  240              		.syntax unified
  241              		.thumb
  242              		.thumb_func
  244              	DMA_Channel2_IRQHandler:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 8
-
-
  245              	.LFB140:
- 173:../core/src/n32g430_it.c **** }
- 174:../core/src/n32g430_it.c **** 
- 175:../core/src/n32g430_it.c **** /**
- 176:../core/src/n32g430_it.c ****  *\*\name   DMA_Channel2_IRQHandler.
- 177:../core/src/n32g430_it.c ****  *\*\fun    Handle DMA1 channel 2 interrupt (SPI1 TX).
- 178:../core/src/n32g430_it.c ****  *\*\param  none.
- 179:../core/src/n32g430_it.c ****  *\*\return none.
- 180:../core/src/n32g430_it.c ****  */
- 181:../core/src/n32g430_it.c **** void DMA_Channel2_IRQHandler(void)
- 182:../core/src/n32g430_it.c **** {
- 246              		.loc 1 182 1 view -0
+ 177:../core/src/n32g430_it.c **** }
+ 178:../core/src/n32g430_it.c **** 
+ 179:../core/src/n32g430_it.c **** /**
+ 180:../core/src/n32g430_it.c ****  *\*\name   DMA_Channel2_IRQHandler.
+ 181:../core/src/n32g430_it.c ****  *\*\fun    Handle DMA1 channel 2 interrupt (SPI1 TX).
+ 182:../core/src/n32g430_it.c ****  *\*\param  none.
+ 183:../core/src/n32g430_it.c ****  *\*\return none.
+ 184:../core/src/n32g430_it.c ****  */
+ 185:../core/src/n32g430_it.c **** void DMA_Channel2_IRQHandler(void)
+ 186:../core/src/n32g430_it.c **** {
+ 246              		.loc 1 186 1 view -0
  247              		.cfi_startproc
  248              		@ args = 0, pretend = 0, frame = 0
  249              		@ frame_needed = 0, uses_anonymous_args = 0
  250              		@ link register save eliminated.
- 183:../core/src/n32g430_it.c ****     HAL_DMA_IRQHandler(&hdma_spi1_tx);
- 251              		.loc 1 183 5 view .LVU27
+ 187:../core/src/n32g430_it.c ****     HAL_DMA_IRQHandler(&hdma_spi1_tx);
+ 251              		.loc 1 187 5 view .LVU27
  252 0000 0148     		ldr	r0, .L20
  253 0002 FFF7FEBF 		b	HAL_DMA_IRQHandler
  254              	.LVL3:
@@ -448,44 +452,111 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 1
  258 0008 00000000 		.word	hdma_spi1_tx
  259              		.cfi_endproc
  260              	.LFE140:
- 262              		.text
- 263              	.Letext0:
- 264              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
- 265              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
- 266              		.file 4 "../firmware/CMSIS/device/n32g430.h"
- 267              		.file 5 "../core/inc/hal_compat.h"
- 268              		.file 6 "../core/inc/dma.h"
- 269              		.file 7 "../core/inc/tim.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s 			page 9
+ 262              		.section	.text.TIM2_IRQHandler,"ax",%progbits
+ 263              		.align	1
+ 264              		.global	TIM2_IRQHandler
+ 265              		.syntax unified
+ 266              		.thumb
+ 267              		.thumb_func
+ 269              	TIM2_IRQHandler:
+ 270              	.LFB141:
+ 188:../core/src/n32g430_it.c **** }
+ 189:../core/src/n32g430_it.c **** 
+ 190:../core/src/n32g430_it.c **** #ifdef DISPLAY_USE_LCD
+ 191:../core/src/n32g430_it.c **** /**
+ 192:../core/src/n32g430_it.c ****  *\*\name   TIM2_IRQHandler.
+ 193:../core/src/n32g430_it.c ****  *\*\fun    Handle TIM2 global interrupt (Button sampling).
+ 194:../core/src/n32g430_it.c ****  *\*\param  none.
+ 195:../core/src/n32g430_it.c ****  *\*\return none.
+ 196:../core/src/n32g430_it.c ****  */
+ 197:../core/src/n32g430_it.c **** void TIM2_IRQHandler(void)
+ 198:../core/src/n32g430_it.c **** {
+ 271              		.loc 1 198 1 view -0
+ 272              		.cfi_startproc
+ 273              		@ args = 0, pretend = 0, frame = 0
+ 274              		@ frame_needed = 0, uses_anonymous_args = 0
+ 275              		@ link register save eliminated.
+ 199:../core/src/n32g430_it.c ****     Button_TIM2_IRQHandler();
+ 276              		.loc 1 199 5 view .LVU29
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s 			page 9
+
+
+ 277 0000 FFF7FEBF 		b	Button_TIM2_IRQHandler
+ 278              	.LVL4:
+ 279              		.cfi_endproc
+ 280              	.LFE141:
+ 282              		.section	.text.DMA_Channel5_IRQHandler,"ax",%progbits
+ 283              		.align	1
+ 284              		.global	DMA_Channel5_IRQHandler
+ 285              		.syntax unified
+ 286              		.thumb
+ 287              		.thumb_func
+ 289              	DMA_Channel5_IRQHandler:
+ 290              	.LFB142:
+ 200:../core/src/n32g430_it.c **** }
+ 201:../core/src/n32g430_it.c **** 
+ 202:../core/src/n32g430_it.c **** /**
+ 203:../core/src/n32g430_it.c ****  *\*\name   DMA_Channel5_IRQHandler.
+ 204:../core/src/n32g430_it.c ****  *\*\fun    Handle DMA1 channel 5 interrupt (TIM2_CH4 button sampling).
+ 205:../core/src/n32g430_it.c ****  *\*\param  none.
+ 206:../core/src/n32g430_it.c ****  *\*\return none.
+ 207:../core/src/n32g430_it.c ****  */
+ 208:../core/src/n32g430_it.c **** void DMA_Channel5_IRQHandler(void)
+ 209:../core/src/n32g430_it.c **** {
+ 291              		.loc 1 209 1 view -0
+ 292              		.cfi_startproc
+ 293              		@ args = 0, pretend = 0, frame = 0
+ 294              		@ frame_needed = 0, uses_anonymous_args = 0
+ 295              		@ link register save eliminated.
+ 210:../core/src/n32g430_it.c ****     Button_DMA_IRQHandler();
+ 296              		.loc 1 210 5 view .LVU31
+ 297 0000 FFF7FEBF 		b	Button_DMA_IRQHandler
+ 298              	.LVL5:
+ 299              		.cfi_endproc
+ 300              	.LFE142:
+ 302              		.text
+ 303              	.Letext0:
+ 304              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 305              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 306              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 307              		.file 5 "../core/inc/hal_compat.h"
+ 308              		.file 6 "../core/inc/dma.h"
+ 309              		.file 7 "../core/inc/tim.h"
+ 310              		.file 8 "../core/inc/button.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s 			page 10
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 n32g430_it.c
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:21     .text.NMI_Handler:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:27     .text.NMI_Handler:00000000 NMI_Handler
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:40     .text.HardFault_Handler:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:46     .text.HardFault_Handler:00000000 HardFault_Handler
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:63     .text.MemManage_Handler:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:69     .text.MemManage_Handler:00000000 MemManage_Handler
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:86     .text.BusFault_Handler:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:92     .text.BusFault_Handler:00000000 BusFault_Handler
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:109    .text.UsageFault_Handler:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:115    .text.UsageFault_Handler:00000000 UsageFault_Handler
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:132    .text.SVC_Handler:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:138    .text.SVC_Handler:00000000 SVC_Handler
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:150    .text.DebugMon_Handler:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:156    .text.DebugMon_Handler:00000000 DebugMon_Handler
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:168    .text.SysTick_Handler:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:174    .text.SysTick_Handler:00000000 SysTick_Handler
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:188    .text.DMA_Channel1_IRQHandler:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:194    .text.DMA_Channel1_IRQHandler:00000000 DMA_Channel1_IRQHandler
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:208    .text.DMA_Channel1_IRQHandler:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:213    .text.TIM4_IRQHandler:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:219    .text.TIM4_IRQHandler:00000000 TIM4_IRQHandler
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:233    .text.TIM4_IRQHandler:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:238    .text.DMA_Channel2_IRQHandler:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:244    .text.DMA_Channel2_IRQHandler:00000000 DMA_Channel2_IRQHandler
-C:\Users\Dawn\AppData\Local\Temp\cc7OP3iA.s:258    .text.DMA_Channel2_IRQHandler:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:21     .text.NMI_Handler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:27     .text.NMI_Handler:00000000 NMI_Handler
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:40     .text.HardFault_Handler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:46     .text.HardFault_Handler:00000000 HardFault_Handler
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:63     .text.MemManage_Handler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:69     .text.MemManage_Handler:00000000 MemManage_Handler
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:86     .text.BusFault_Handler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:92     .text.BusFault_Handler:00000000 BusFault_Handler
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:109    .text.UsageFault_Handler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:115    .text.UsageFault_Handler:00000000 UsageFault_Handler
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:132    .text.SVC_Handler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:138    .text.SVC_Handler:00000000 SVC_Handler
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:150    .text.DebugMon_Handler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:156    .text.DebugMon_Handler:00000000 DebugMon_Handler
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:168    .text.SysTick_Handler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:174    .text.SysTick_Handler:00000000 SysTick_Handler
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:188    .text.DMA_Channel1_IRQHandler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:194    .text.DMA_Channel1_IRQHandler:00000000 DMA_Channel1_IRQHandler
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:208    .text.DMA_Channel1_IRQHandler:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:213    .text.TIM4_IRQHandler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:219    .text.TIM4_IRQHandler:00000000 TIM4_IRQHandler
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:233    .text.TIM4_IRQHandler:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:238    .text.DMA_Channel2_IRQHandler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:244    .text.DMA_Channel2_IRQHandler:00000000 DMA_Channel2_IRQHandler
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:258    .text.DMA_Channel2_IRQHandler:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:263    .text.TIM2_IRQHandler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:269    .text.TIM2_IRQHandler:00000000 TIM2_IRQHandler
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:283    .text.DMA_Channel5_IRQHandler:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccUqgxrF.s:289    .text.DMA_Channel5_IRQHandler:00000000 DMA_Channel5_IRQHandler
 
 UNDEFINED SYMBOLS
 HAL_IncTick
@@ -494,3 +565,5 @@ hdma_i2c1_tx
 HAL_TIM_IRQHandler
 htim4
 hdma_spi1_tx
+Button_TIM2_IRQHandler
+Button_DMA_IRQHandler

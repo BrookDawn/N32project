@@ -1,0 +1,604 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lcd_menu_demo.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../APP/LCD/Src/lcd_menu_demo.c"
+  20              		.section	.rodata.LCD_MenuDemo_Init.str1.1,"aMS",%progbits,1
+  21              	.LC0:
+  22 0000 0D0A3D3D 		.ascii	"\015\012=== N32G430 Circular Menu ===\015\012\000"
+  22      3D204E33 
+  22      32473433 
+  22      30204369 
+  22      7263756C 
+  23              	.LC1:
+  24 0022 53686F72 		.ascii	"Short press: Next item\015\012\000"
+  24      74207072 
+  24      6573733A 
+  24      204E6578 
+  24      74206974 
+  25              	.LC2:
+  26 003b 4C6F6E67 		.ascii	"Long press: Previous item\015\012\015\012\000"
+  26      20707265 
+  26      73733A20 
+  26      50726576 
+  26      696F7573 
+  27              	.LC3:
+  28 0059 4E333247 		.ascii	"N32G430\000"
+  28      34333000 
+  29              	.LC4:
+  30 0061 43697263 		.ascii	"Circular Menu\000"
+  30      756C6172 
+  30      204D656E 
+  30      7500
+  31              	.LC5:
+  32 006f 496E6974 		.ascii	"Initializing...\000"
+  32      69616C69 
+  32      7A696E67 
+  32      2E2E2E00 
+  33              	.LC6:
+  34 007f 496E6974 		.ascii	"Initializing button...\015\012\000"
+  34      69616C69 
+  34      7A696E67 
+  34      20627574 
+  34      746F6E2E 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s 			page 2
+
+
+  35              	.LC7:
+  36 0098 42757474 		.ascii	"Button ready!\015\012\000"
+  36      6F6E2072 
+  36      65616479 
+  36      210D0A00 
+  37              	.LC8:
+  38 00a8 496E6974 		.ascii	"Initializing menu...\015\012\000"
+  38      69616C69 
+  38      7A696E67 
+  38      206D656E 
+  38      752E2E2E 
+  39              	.LC9:
+  40 00bf 426F756E 		.ascii	"Bouncing Balls\000"
+  40      63696E67 
+  40      2042616C 
+  40      6C7300
+  41              	.LC10:
+  42 00ce 47726170 		.ascii	"Graphics Test\000"
+  42      68696373 
+  42      20546573 
+  42      7400
+  43              	.LC11:
+  44 00dc 50657266 		.ascii	"Performance\000"
+  44      6F726D61 
+  44      6E636500 
+  45              	.LC12:
+  46 00e8 506C6173 		.ascii	"Plasma Effect\000"
+  46      6D612045 
+  46      66666563 
+  46      7400
+  47              	.LC13:
+  48 00f6 50617274 		.ascii	"Particles\000"
+  48      69636C65 
+  48      7300
+  49              	.LC14:
+  50 0100 53657474 		.ascii	"Settings\000"
+  50      696E6773 
+  50      00
+  51              	.LC15:
+  52 0109 41626F75 		.ascii	"About\000"
+  52      7400
+  53              	.LC16:
+  54 010f 44656D6F 		.ascii	"Demo 8\000"
+  54      203800
+  55              	.LC17:
+  56 0116 44656D6F 		.ascii	"Demo 9\000"
+  56      203900
+  57              	.LC18:
+  58 011d 44656D6F 		.ascii	"Demo 10\000"
+  58      20313000 
+  59              	.LC19:
+  60 0125 4D656E75 		.ascii	"Menu ready!\015\012\015\012\000"
+  60      20726561 
+  60      6479210D 
+  60      0A0D0A00 
+  61              	.LC20:
+  62 0135 4D656E75 		.ascii	"Menu displayed!\015\012\000"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s 			page 3
+
+
+  62      20646973 
+  62      706C6179 
+  62      6564210D 
+  62      0A00
+  63              		.section	.text.LCD_MenuDemo_Init,"ax",%progbits
+  64              		.align	1
+  65              		.global	LCD_MenuDemo_Init
+  66              		.syntax unified
+  67              		.thumb
+  68              		.thumb_func
+  70              	LCD_MenuDemo_Init:
+  71              	.LFB133:
+   1:../APP/LCD/Src/lcd_menu_demo.c **** /**
+   2:../APP/LCD/Src/lcd_menu_demo.c ****  * @file lcd_menu_demo.c
+   3:../APP/LCD/Src/lcd_menu_demo.c ****  * @brief Circular scrolling menu demo - scroll only, no submenus
+   4:../APP/LCD/Src/lcd_menu_demo.c ****  */
+   5:../APP/LCD/Src/lcd_menu_demo.c **** 
+   6:../APP/LCD/Src/lcd_menu_demo.c **** #include "lcd_menu_demo.h"
+   7:../APP/LCD/Src/lcd_menu_demo.c **** #include "lcd_init.h"
+   8:../APP/LCD/Src/lcd_menu_demo.c **** #include "lcd_menu.h"
+   9:../APP/LCD/Src/lcd_menu_demo.c **** #include "button.h"
+  10:../APP/LCD/Src/lcd_menu_demo.c **** #include "spi.h"
+  11:../APP/LCD/Src/lcd_menu_demo.c **** #include "dma.h"
+  12:../APP/LCD/Src/lcd_menu_demo.c **** #include "hal_compat.h"
+  13:../APP/LCD/Src/lcd_menu_demo.c **** #include "bsp_usart.h"
+  14:../APP/LCD/Src/lcd_menu_demo.c **** #include <stdio.h>
+  15:../APP/LCD/Src/lcd_menu_demo.c **** 
+  16:../APP/LCD/Src/lcd_menu_demo.c **** /**
+  17:../APP/LCD/Src/lcd_menu_demo.c ****  * @brief Initialize menu demo
+  18:../APP/LCD/Src/lcd_menu_demo.c ****  */
+  19:../APP/LCD/Src/lcd_menu_demo.c **** void LCD_MenuDemo_Init(void)
+  20:../APP/LCD/Src/lcd_menu_demo.c **** {
+  72              		.loc 1 20 1 view -0
+  73              		.cfi_startproc
+  74              		@ args = 0, pretend = 0, frame = 0
+  75              		@ frame_needed = 0, uses_anonymous_args = 0
+  21:../APP/LCD/Src/lcd_menu_demo.c ****     /* Initialize UART1 for debugging */
+  22:../APP/LCD/Src/lcd_menu_demo.c ****     USART1_Init();
+  76              		.loc 1 22 5 view .LVU1
+  20:../APP/LCD/Src/lcd_menu_demo.c ****     /* Initialize UART1 for debugging */
+  77              		.loc 1 20 1 is_stmt 0 view .LVU2
+  78 0000 1FB5     		push	{r0, r1, r2, r3, r4, lr}
+  79              	.LCFI0:
+  80              		.cfi_def_cfa_offset 24
+  81              		.cfi_offset 4, -8
+  82              		.cfi_offset 14, -4
+  83              		.loc 1 22 5 view .LVU3
+  84 0002 FFF7FEFF 		bl	USART1_Init
+  85              	.LVL0:
+  23:../APP/LCD/Src/lcd_menu_demo.c ****     USART1_SendString("\r\n=== N32G430 Circular Menu ===\r\n");
+  86              		.loc 1 23 5 is_stmt 1 view .LVU4
+  87 0006 3D48     		ldr	r0, .L2
+  88 0008 FFF7FEFF 		bl	USART1_SendString
+  89              	.LVL1:
+  24:../APP/LCD/Src/lcd_menu_demo.c ****     USART1_SendString("Short press: Next item\r\n");
+  90              		.loc 1 24 5 view .LVU5
+  91 000c 3C48     		ldr	r0, .L2+4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s 			page 4
+
+
+  25:../APP/LCD/Src/lcd_menu_demo.c ****     USART1_SendString("Long press: Previous item\r\n\r\n");
+  26:../APP/LCD/Src/lcd_menu_demo.c **** 
+  27:../APP/LCD/Src/lcd_menu_demo.c ****     /* Initialize DMA for SPI1 */
+  28:../APP/LCD/Src/lcd_menu_demo.c ****     MX_DMA_SPI1_Init();
+  29:../APP/LCD/Src/lcd_menu_demo.c **** 
+  30:../APP/LCD/Src/lcd_menu_demo.c ****     /* Initialize SPI1 */
+  31:../APP/LCD/Src/lcd_menu_demo.c ****     MX_SPI1_Init();
+  32:../APP/LCD/Src/lcd_menu_demo.c **** 
+  33:../APP/LCD/Src/lcd_menu_demo.c ****     /* Initialize LCD hardware */
+  34:../APP/LCD/Src/lcd_menu_demo.c ****     LCD_Init();
+  35:../APP/LCD/Src/lcd_menu_demo.c **** 
+  36:../APP/LCD/Src/lcd_menu_demo.c ****     /* Clear screen */
+  37:../APP/LCD/Src/lcd_menu_demo.c ****     LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+  92              		.loc 1 37 5 is_stmt 0 view .LVU6
+  93 000e 0024     		movs	r4, #0
+  24:../APP/LCD/Src/lcd_menu_demo.c ****     USART1_SendString("Short press: Next item\r\n");
+  94              		.loc 1 24 5 view .LVU7
+  95 0010 FFF7FEFF 		bl	USART1_SendString
+  96              	.LVL2:
+  25:../APP/LCD/Src/lcd_menu_demo.c ****     USART1_SendString("Long press: Previous item\r\n\r\n");
+  97              		.loc 1 25 5 is_stmt 1 view .LVU8
+  98 0014 3B48     		ldr	r0, .L2+8
+  99 0016 FFF7FEFF 		bl	USART1_SendString
+ 100              	.LVL3:
+  28:../APP/LCD/Src/lcd_menu_demo.c **** 
+ 101              		.loc 1 28 5 view .LVU9
+ 102 001a FFF7FEFF 		bl	MX_DMA_SPI1_Init
+ 103              	.LVL4:
+  31:../APP/LCD/Src/lcd_menu_demo.c **** 
+ 104              		.loc 1 31 5 view .LVU10
+ 105 001e FFF7FEFF 		bl	MX_SPI1_Init
+ 106              	.LVL5:
+  34:../APP/LCD/Src/lcd_menu_demo.c **** 
+ 107              		.loc 1 34 5 view .LVU11
+ 108 0022 FFF7FEFF 		bl	LCD_Init
+ 109              	.LVL6:
+ 110              		.loc 1 37 5 view .LVU12
+ 111 0026 2146     		mov	r1, r4
+ 112 0028 2046     		mov	r0, r4
+ 113 002a 0094     		str	r4, [sp]
+ 114 002c 8023     		movs	r3, #128
+ 115 002e A022     		movs	r2, #160
+ 116 0030 FFF7FEFF 		bl	LCD_Fill
+ 117              	.LVL7:
+  38:../APP/LCD/Src/lcd_menu_demo.c **** 
+  39:../APP/LCD/Src/lcd_menu_demo.c ****     /* Welcome message */
+  40:../APP/LCD/Src/lcd_menu_demo.c ****     LCD_ShowString(35, 60, (const u8 *)"N32G430", CYAN, BLACK, 24, 0);
+ 118              		.loc 1 40 5 view .LVU13
+ 119 0034 1823     		movs	r3, #24
+ 120 0036 CDE90043 		strd	r4, r3, [sp]
+ 121 003a 334A     		ldr	r2, .L2+12
+ 122 003c 0294     		str	r4, [sp, #8]
+ 123 003e 47F6FF73 		movw	r3, #32767
+ 124 0042 3C21     		movs	r1, #60
+ 125 0044 2320     		movs	r0, #35
+ 126 0046 FFF7FEFF 		bl	LCD_ShowString
+ 127              	.LVL8:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s 			page 5
+
+
+  41:../APP/LCD/Src/lcd_menu_demo.c ****     LCD_ShowString(15, 90, (const u8 *)"Circular Menu", YELLOW, BLACK, 16, 0);
+ 128              		.loc 1 41 5 view .LVU14
+ 129 004a 1023     		movs	r3, #16
+ 130 004c CDE90043 		strd	r4, r3, [sp]
+ 131 0050 2E4A     		ldr	r2, .L2+16
+ 132 0052 0294     		str	r4, [sp, #8]
+ 133 0054 4FF6E073 		movw	r3, #65504
+ 134 0058 5A21     		movs	r1, #90
+ 135 005a 0F20     		movs	r0, #15
+ 136 005c FFF7FEFF 		bl	LCD_ShowString
+ 137              	.LVL9:
+  42:../APP/LCD/Src/lcd_menu_demo.c ****     LCD_ShowString(20, 115, (const u8 *)"Initializing...", WHITE, BLACK, 12, 0);
+ 138              		.loc 1 42 5 view .LVU15
+ 139 0060 0C23     		movs	r3, #12
+ 140 0062 2B4A     		ldr	r2, .L2+20
+ 141 0064 0294     		str	r4, [sp, #8]
+ 142 0066 7321     		movs	r1, #115
+ 143 0068 CDE90043 		strd	r4, r3, [sp]
+ 144 006c 1420     		movs	r0, #20
+ 145 006e 4FF6FF73 		movw	r3, #65535
+ 146 0072 FFF7FEFF 		bl	LCD_ShowString
+ 147              	.LVL10:
+  43:../APP/LCD/Src/lcd_menu_demo.c **** 
+  44:../APP/LCD/Src/lcd_menu_demo.c ****     /* Initialize button */
+  45:../APP/LCD/Src/lcd_menu_demo.c ****     USART1_SendString("Initializing button...\r\n");
+ 148              		.loc 1 45 5 view .LVU16
+ 149 0076 2748     		ldr	r0, .L2+24
+ 150 0078 FFF7FEFF 		bl	USART1_SendString
+ 151              	.LVL11:
+  46:../APP/LCD/Src/lcd_menu_demo.c ****     Button_Init();
+ 152              		.loc 1 46 5 view .LVU17
+ 153 007c FFF7FEFF 		bl	Button_Init
+ 154              	.LVL12:
+  47:../APP/LCD/Src/lcd_menu_demo.c ****     Button_StartSampling();
+ 155              		.loc 1 47 5 view .LVU18
+ 156 0080 FFF7FEFF 		bl	Button_StartSampling
+ 157              	.LVL13:
+  48:../APP/LCD/Src/lcd_menu_demo.c ****     USART1_SendString("Button ready!\r\n");
+ 158              		.loc 1 48 5 view .LVU19
+ 159 0084 2448     		ldr	r0, .L2+28
+ 160 0086 FFF7FEFF 		bl	USART1_SendString
+ 161              	.LVL14:
+  49:../APP/LCD/Src/lcd_menu_demo.c **** 
+  50:../APP/LCD/Src/lcd_menu_demo.c ****     /* Initialize menu system */
+  51:../APP/LCD/Src/lcd_menu_demo.c ****     USART1_SendString("Initializing menu...\r\n");
+ 162              		.loc 1 51 5 view .LVU20
+ 163 008a 2448     		ldr	r0, .L2+32
+ 164 008c FFF7FEFF 		bl	USART1_SendString
+ 165              	.LVL15:
+  52:../APP/LCD/Src/lcd_menu_demo.c ****     Menu_Init();
+ 166              		.loc 1 52 5 view .LVU21
+ 167 0090 FFF7FEFF 		bl	Menu_Init
+ 168              	.LVL16:
+  53:../APP/LCD/Src/lcd_menu_demo.c **** 
+  54:../APP/LCD/Src/lcd_menu_demo.c ****     /* Add menu items - no callbacks needed for scroll-only demo */
+  55:../APP/LCD/Src/lcd_menu_demo.c ****     Menu_AddItem("Bouncing Balls", NULL);
+ 169              		.loc 1 55 5 view .LVU22
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s 			page 6
+
+
+ 170 0094 2146     		mov	r1, r4
+ 171 0096 2248     		ldr	r0, .L2+36
+ 172 0098 FFF7FEFF 		bl	Menu_AddItem
+ 173              	.LVL17:
+  56:../APP/LCD/Src/lcd_menu_demo.c ****     Menu_AddItem("Graphics Test", NULL);
+ 174              		.loc 1 56 5 view .LVU23
+ 175 009c 2146     		mov	r1, r4
+ 176 009e 2148     		ldr	r0, .L2+40
+ 177 00a0 FFF7FEFF 		bl	Menu_AddItem
+ 178              	.LVL18:
+  57:../APP/LCD/Src/lcd_menu_demo.c ****     Menu_AddItem("Performance", NULL);
+ 179              		.loc 1 57 5 view .LVU24
+ 180 00a4 2146     		mov	r1, r4
+ 181 00a6 2048     		ldr	r0, .L2+44
+ 182 00a8 FFF7FEFF 		bl	Menu_AddItem
+ 183              	.LVL19:
+  58:../APP/LCD/Src/lcd_menu_demo.c ****     Menu_AddItem("Plasma Effect", NULL);
+ 184              		.loc 1 58 5 view .LVU25
+ 185 00ac 2146     		mov	r1, r4
+ 186 00ae 1F48     		ldr	r0, .L2+48
+ 187 00b0 FFF7FEFF 		bl	Menu_AddItem
+ 188              	.LVL20:
+  59:../APP/LCD/Src/lcd_menu_demo.c ****     Menu_AddItem("Particles", NULL);
+ 189              		.loc 1 59 5 view .LVU26
+ 190 00b4 2146     		mov	r1, r4
+ 191 00b6 1E48     		ldr	r0, .L2+52
+ 192 00b8 FFF7FEFF 		bl	Menu_AddItem
+ 193              	.LVL21:
+  60:../APP/LCD/Src/lcd_menu_demo.c ****     Menu_AddItem("Settings", NULL);
+ 194              		.loc 1 60 5 view .LVU27
+ 195 00bc 2146     		mov	r1, r4
+ 196 00be 1D48     		ldr	r0, .L2+56
+ 197 00c0 FFF7FEFF 		bl	Menu_AddItem
+ 198              	.LVL22:
+  61:../APP/LCD/Src/lcd_menu_demo.c ****     Menu_AddItem("About", NULL);
+ 199              		.loc 1 61 5 view .LVU28
+ 200 00c4 2146     		mov	r1, r4
+ 201 00c6 1C48     		ldr	r0, .L2+60
+ 202 00c8 FFF7FEFF 		bl	Menu_AddItem
+ 203              	.LVL23:
+  62:../APP/LCD/Src/lcd_menu_demo.c ****     Menu_AddItem("Demo 8", NULL);
+ 204              		.loc 1 62 5 view .LVU29
+ 205 00cc 2146     		mov	r1, r4
+ 206 00ce 1B48     		ldr	r0, .L2+64
+ 207 00d0 FFF7FEFF 		bl	Menu_AddItem
+ 208              	.LVL24:
+  63:../APP/LCD/Src/lcd_menu_demo.c ****     Menu_AddItem("Demo 9", NULL);
+ 209              		.loc 1 63 5 view .LVU30
+ 210 00d4 2146     		mov	r1, r4
+ 211 00d6 1A48     		ldr	r0, .L2+68
+ 212 00d8 FFF7FEFF 		bl	Menu_AddItem
+ 213              	.LVL25:
+  64:../APP/LCD/Src/lcd_menu_demo.c ****     Menu_AddItem("Demo 10", NULL);
+ 214              		.loc 1 64 5 view .LVU31
+ 215 00dc 2146     		mov	r1, r4
+ 216 00de 1948     		ldr	r0, .L2+72
+ 217 00e0 FFF7FEFF 		bl	Menu_AddItem
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s 			page 7
+
+
+ 218              	.LVL26:
+  65:../APP/LCD/Src/lcd_menu_demo.c **** 
+  66:../APP/LCD/Src/lcd_menu_demo.c ****     USART1_SendString("Menu ready!\r\n\r\n");
+ 219              		.loc 1 66 5 view .LVU32
+ 220 00e4 1848     		ldr	r0, .L2+76
+ 221 00e6 FFF7FEFF 		bl	USART1_SendString
+ 222              	.LVL27:
+  67:../APP/LCD/Src/lcd_menu_demo.c **** 
+  68:../APP/LCD/Src/lcd_menu_demo.c ****     /* Initial render - must call once to display menu */
+  69:../APP/LCD/Src/lcd_menu_demo.c ****     Menu_Render();
+ 223              		.loc 1 69 5 view .LVU33
+ 224 00ea FFF7FEFF 		bl	Menu_Render
+ 225              	.LVL28:
+  70:../APP/LCD/Src/lcd_menu_demo.c ****     USART1_SendString("Menu displayed!\r\n");
+ 226              		.loc 1 70 5 view .LVU34
+ 227 00ee 1748     		ldr	r0, .L2+80
+  71:../APP/LCD/Src/lcd_menu_demo.c **** }
+ 228              		.loc 1 71 1 is_stmt 0 view .LVU35
+ 229 00f0 04B0     		add	sp, sp, #16
+ 230              	.LCFI1:
+ 231              		.cfi_def_cfa_offset 8
+ 232              		@ sp needed
+ 233 00f2 BDE81040 		pop	{r4, lr}
+ 234              	.LCFI2:
+ 235              		.cfi_restore 14
+ 236              		.cfi_restore 4
+ 237              		.cfi_def_cfa_offset 0
+  70:../APP/LCD/Src/lcd_menu_demo.c ****     USART1_SendString("Menu displayed!\r\n");
+ 238              		.loc 1 70 5 view .LVU36
+ 239 00f6 FFF7FEBF 		b	USART1_SendString
+ 240              	.LVL29:
+ 241              	.L3:
+ 242 00fa 00BF     		.align	2
+ 243              	.L2:
+ 244 00fc 00000000 		.word	.LC0
+ 245 0100 22000000 		.word	.LC1
+ 246 0104 3B000000 		.word	.LC2
+ 247 0108 59000000 		.word	.LC3
+ 248 010c 61000000 		.word	.LC4
+ 249 0110 6F000000 		.word	.LC5
+ 250 0114 7F000000 		.word	.LC6
+ 251 0118 98000000 		.word	.LC7
+ 252 011c A8000000 		.word	.LC8
+ 253 0120 BF000000 		.word	.LC9
+ 254 0124 CE000000 		.word	.LC10
+ 255 0128 DC000000 		.word	.LC11
+ 256 012c E8000000 		.word	.LC12
+ 257 0130 F6000000 		.word	.LC13
+ 258 0134 00010000 		.word	.LC14
+ 259 0138 09010000 		.word	.LC15
+ 260 013c 0F010000 		.word	.LC16
+ 261 0140 16010000 		.word	.LC17
+ 262 0144 1D010000 		.word	.LC18
+ 263 0148 25010000 		.word	.LC19
+ 264 014c 35010000 		.word	.LC20
+ 265              		.cfi_endproc
+ 266              	.LFE133:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s 			page 8
+
+
+ 268              		.section	.rodata.LCD_MenuDemo_Main.str1.1,"aMS",%progbits,1
+ 269              	.LC21:
+ 270 0000 0D0A00   		.ascii	"\015\012\000"
+ 271              		.section	.text.LCD_MenuDemo_Main,"ax",%progbits
+ 272              		.align	1
+ 273              		.global	LCD_MenuDemo_Main
+ 274              		.syntax unified
+ 275              		.thumb
+ 276              		.thumb_func
+ 278              	LCD_MenuDemo_Main:
+ 279              	.LFB134:
+  72:../APP/LCD/Src/lcd_menu_demo.c **** 
+  73:../APP/LCD/Src/lcd_menu_demo.c **** /**
+  74:../APP/LCD/Src/lcd_menu_demo.c ****  * @brief Main loop for circular menu demo
+  75:../APP/LCD/Src/lcd_menu_demo.c ****  */
+  76:../APP/LCD/Src/lcd_menu_demo.c **** void LCD_MenuDemo_Main(void)
+  77:../APP/LCD/Src/lcd_menu_demo.c **** {
+ 280              		.loc 1 77 1 is_stmt 1 view -0
+ 281              		.cfi_startproc
+ 282              		@ args = 0, pretend = 0, frame = 80
+ 283              		@ frame_needed = 0, uses_anonymous_args = 0
+  78:../APP/LCD/Src/lcd_menu_demo.c ****     /* Optional debug output every 2 seconds */
+  79:../APP/LCD/Src/lcd_menu_demo.c ****     static uint32_t last_debug = 0;
+ 284              		.loc 1 79 5 view .LVU38
+  80:../APP/LCD/Src/lcd_menu_demo.c ****     uint32_t now = HAL_GetTick();
+ 285              		.loc 1 80 5 view .LVU39
+  77:../APP/LCD/Src/lcd_menu_demo.c ****     /* Optional debug output every 2 seconds */
+ 286              		.loc 1 77 1 is_stmt 0 view .LVU40
+ 287 0000 30B5     		push	{r4, r5, lr}
+ 288              	.LCFI3:
+ 289              		.cfi_def_cfa_offset 12
+ 290              		.cfi_offset 4, -12
+ 291              		.cfi_offset 5, -8
+ 292              		.cfi_offset 14, -4
+  81:../APP/LCD/Src/lcd_menu_demo.c ****     if (now - last_debug >= 2000) {
+ 293              		.loc 1 81 13 view .LVU41
+ 294 0002 0F4D     		ldr	r5, .L6
+  77:../APP/LCD/Src/lcd_menu_demo.c ****     /* Optional debug output every 2 seconds */
+ 295              		.loc 1 77 1 view .LVU42
+ 296 0004 95B0     		sub	sp, sp, #84
+ 297              	.LCFI4:
+ 298              		.cfi_def_cfa_offset 96
+  80:../APP/LCD/Src/lcd_menu_demo.c ****     uint32_t now = HAL_GetTick();
+ 299              		.loc 1 80 20 view .LVU43
+ 300 0006 FFF7FEFF 		bl	HAL_GetTick
+ 301              	.LVL30:
+ 302              		.loc 1 81 13 view .LVU44
+ 303 000a 2B68     		ldr	r3, [r5]
+ 304 000c C31A     		subs	r3, r0, r3
+ 305              		.loc 1 81 8 view .LVU45
+ 306 000e B3F5FA6F 		cmp	r3, #2000
+  80:../APP/LCD/Src/lcd_menu_demo.c ****     uint32_t now = HAL_GetTick();
+ 307              		.loc 1 80 20 view .LVU46
+ 308 0012 0446     		mov	r4, r0
+ 309              	.LVL31:
+ 310              		.loc 1 81 5 is_stmt 1 view .LVU47
+ 311              		.loc 1 81 8 is_stmt 0 view .LVU48
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s 			page 9
+
+
+ 312 0014 0AD3     		bcc	.L5
+ 313              	.LBB2:
+  82:../APP/LCD/Src/lcd_menu_demo.c ****         char debug_buf[80];
+ 314              		.loc 1 82 9 is_stmt 1 view .LVU49
+  83:../APP/LCD/Src/lcd_menu_demo.c ****         Button_GetDebugInfo(debug_buf, sizeof(debug_buf));
+ 315              		.loc 1 83 9 view .LVU50
+ 316 0016 5021     		movs	r1, #80
+ 317 0018 6846     		mov	r0, sp
+ 318              	.LVL32:
+ 319              		.loc 1 83 9 is_stmt 0 view .LVU51
+ 320 001a FFF7FEFF 		bl	Button_GetDebugInfo
+ 321              	.LVL33:
+  84:../APP/LCD/Src/lcd_menu_demo.c ****         USART1_SendString(debug_buf);
+ 322              		.loc 1 84 9 is_stmt 1 view .LVU52
+ 323 001e 6846     		mov	r0, sp
+ 324 0020 FFF7FEFF 		bl	USART1_SendString
+ 325              	.LVL34:
+  85:../APP/LCD/Src/lcd_menu_demo.c ****         USART1_SendString("\r\n");
+ 326              		.loc 1 85 9 view .LVU53
+ 327 0024 0748     		ldr	r0, .L6+4
+ 328 0026 FFF7FEFF 		bl	USART1_SendString
+ 329              	.LVL35:
+  86:../APP/LCD/Src/lcd_menu_demo.c ****         last_debug = now;
+ 330              		.loc 1 86 9 view .LVU54
+ 331              		.loc 1 86 20 is_stmt 0 view .LVU55
+ 332 002a 2C60     		str	r4, [r5]
+ 333              	.L5:
+ 334              		.loc 1 86 20 view .LVU56
+ 335              	.LBE2:
+  87:../APP/LCD/Src/lcd_menu_demo.c ****     }
+  88:../APP/LCD/Src/lcd_menu_demo.c **** 
+  89:../APP/LCD/Src/lcd_menu_demo.c ****     /* Handle button input */
+  90:../APP/LCD/Src/lcd_menu_demo.c ****     Menu_HandleInput();
+ 336              		.loc 1 90 5 is_stmt 1 view .LVU57
+ 337 002c FFF7FEFF 		bl	Menu_HandleInput
+ 338              	.LVL36:
+  91:../APP/LCD/Src/lcd_menu_demo.c **** 
+  92:../APP/LCD/Src/lcd_menu_demo.c ****     /* Update menu animation */
+  93:../APP/LCD/Src/lcd_menu_demo.c ****     Menu_Update();
+ 339              		.loc 1 93 5 view .LVU58
+ 340 0030 FFF7FEFF 		bl	Menu_Update
+ 341              	.LVL37:
+  94:../APP/LCD/Src/lcd_menu_demo.c **** 
+  95:../APP/LCD/Src/lcd_menu_demo.c ****     /* Render menu */
+  96:../APP/LCD/Src/lcd_menu_demo.c ****     Menu_Render();
+ 342              		.loc 1 96 5 view .LVU59
+  97:../APP/LCD/Src/lcd_menu_demo.c **** }
+ 343              		.loc 1 97 1 is_stmt 0 view .LVU60
+ 344 0034 15B0     		add	sp, sp, #84
+ 345              	.LCFI5:
+ 346              		.cfi_def_cfa_offset 12
+ 347              		@ sp needed
+ 348 0036 BDE83040 		pop	{r4, r5, lr}
+ 349              	.LCFI6:
+ 350              		.cfi_restore 14
+ 351              		.cfi_restore 5
+ 352              		.cfi_restore 4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s 			page 10
+
+
+ 353              		.cfi_def_cfa_offset 0
+ 354              	.LVL38:
+  96:../APP/LCD/Src/lcd_menu_demo.c **** }
+ 355              		.loc 1 96 5 view .LVU61
+ 356 003a FFF7FEBF 		b	Menu_Render
+ 357              	.LVL39:
+ 358              	.L7:
+ 359 003e 00BF     		.align	2
+ 360              	.L6:
+ 361 0040 00000000 		.word	last_debug.0
+ 362 0044 00000000 		.word	.LC21
+ 363              		.cfi_endproc
+ 364              	.LFE134:
+ 366              		.section	.bss.last_debug.0,"aw",%nobits
+ 367              		.align	2
+ 370              	last_debug.0:
+ 371 0000 00000000 		.space	4
+ 372              		.text
+ 373              	.Letext0:
+ 374              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 375              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 376              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 377              		.file 5 "../APP/LCD/Inc/lcd_menu.h"
+ 378              		.file 6 "../core/inc/button.h"
+ 379              		.file 7 "../APP/LCD/Inc/lcd.h"
+ 380              		.file 8 "../APP/LCD/Inc/lcd_init.h"
+ 381              		.file 9 "../core/inc/spi.h"
+ 382              		.file 10 "../core/inc/dma.h"
+ 383              		.file 11 "../core/inc/bsp_usart.h"
+ 384              		.file 12 "../core/inc/hal_compat.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lcd_menu_demo.c
+C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s:64     .text.LCD_MenuDemo_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s:70     .text.LCD_MenuDemo_Init:00000000 LCD_MenuDemo_Init
+C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s:244    .text.LCD_MenuDemo_Init:000000fc $d
+C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s:272    .text.LCD_MenuDemo_Main:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s:278    .text.LCD_MenuDemo_Main:00000000 LCD_MenuDemo_Main
+C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s:361    .text.LCD_MenuDemo_Main:00000040 $d
+C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s:370    .bss.last_debug.0:00000000 last_debug.0
+C:\Users\Dawn\AppData\Local\Temp\cczVxfdA.s:367    .bss.last_debug.0:00000000 $d
+
+UNDEFINED SYMBOLS
+USART1_Init
+USART1_SendString
+MX_DMA_SPI1_Init
+MX_SPI1_Init
+LCD_Init
+LCD_Fill
+LCD_ShowString
+Button_Init
+Button_StartSampling
+Menu_Init
+Menu_AddItem
+Menu_Render
+HAL_GetTick
+Button_GetDebugInfo
+Menu_HandleInput
+Menu_Update

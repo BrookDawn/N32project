@@ -1,0 +1,3389 @@
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 4
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lcd_advanced_demo.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "../APP/LCD/Src/lcd_advanced_demo.c"
+  20              		.section	.text.fast_sin,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	fast_sin:
+  27              	.LVL0:
+  28              	.LFB135:
+   1:../APP/LCD/Src/lcd_advanced_demo.c **** /**
+   2:../APP/LCD/Src/lcd_advanced_demo.c ****  * @file lcd_advanced_demo.c
+   3:../APP/LCD/Src/lcd_advanced_demo.c ****  * @brief Advanced LCD demo - optimized for N32G430 32KB RAM
+   4:../APP/LCD/Src/lcd_advanced_demo.c ****  * @note Due to RAM constraints, using direct LCD writes instead of full framebuffer
+   5:../APP/LCD/Src/lcd_advanced_demo.c ****  */
+   6:../APP/LCD/Src/lcd_advanced_demo.c **** 
+   7:../APP/LCD/Src/lcd_advanced_demo.c **** #include "lcd_advanced_demo.h"
+   8:../APP/LCD/Src/lcd_advanced_demo.c **** #include "lcd_init.h"
+   9:../APP/LCD/Src/lcd_advanced_demo.c **** #include "lcd.h"
+  10:../APP/LCD/Src/lcd_advanced_demo.c **** #include "spi.h"
+  11:../APP/LCD/Src/lcd_advanced_demo.c **** #include "dma.h"
+  12:../APP/LCD/Src/lcd_advanced_demo.c **** #include "hal_compat.h"
+  13:../APP/LCD/Src/lcd_advanced_demo.c **** #include <stdlib.h>
+  14:../APP/LCD/Src/lcd_advanced_demo.c **** #include <stdio.h>
+  15:../APP/LCD/Src/lcd_advanced_demo.c **** 
+  16:../APP/LCD/Src/lcd_advanced_demo.c **** /* Demo states */
+  17:../APP/LCD/Src/lcd_advanced_demo.c **** typedef enum {
+  18:../APP/LCD/Src/lcd_advanced_demo.c ****     DEMO_BOUNCING_BALLS,
+  19:../APP/LCD/Src/lcd_advanced_demo.c ****     DEMO_PLASMA_EFFECT,
+  20:../APP/LCD/Src/lcd_advanced_demo.c ****     DEMO_PARTICLES,
+  21:../APP/LCD/Src/lcd_advanced_demo.c ****     DEMO_GRAPHICS_TEST,
+  22:../APP/LCD/Src/lcd_advanced_demo.c ****     DEMO_PERFORMANCE,
+  23:../APP/LCD/Src/lcd_advanced_demo.c ****     DEMO_COUNT
+  24:../APP/LCD/Src/lcd_advanced_demo.c **** } DemoState_t;
+  25:../APP/LCD/Src/lcd_advanced_demo.c **** 
+  26:../APP/LCD/Src/lcd_advanced_demo.c **** /* Particle system */
+  27:../APP/LCD/Src/lcd_advanced_demo.c **** #define MAX_PARTICLES 30
+  28:../APP/LCD/Src/lcd_advanced_demo.c **** typedef struct {
+  29:../APP/LCD/Src/lcd_advanced_demo.c ****     float x, y;
+  30:../APP/LCD/Src/lcd_advanced_demo.c ****     float vx, vy;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 2
+
+
+  31:../APP/LCD/Src/lcd_advanced_demo.c ****     uint16_t color;
+  32:../APP/LCD/Src/lcd_advanced_demo.c ****     uint8_t life;
+  33:../APP/LCD/Src/lcd_advanced_demo.c ****     bool active;
+  34:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Previous position for erasing */
+  35:../APP/LCD/Src/lcd_advanced_demo.c ****     float prev_x, prev_y;
+  36:../APP/LCD/Src/lcd_advanced_demo.c **** } Particle_t;
+  37:../APP/LCD/Src/lcd_advanced_demo.c **** 
+  38:../APP/LCD/Src/lcd_advanced_demo.c **** /* Bouncing ball */
+  39:../APP/LCD/Src/lcd_advanced_demo.c **** #define MAX_BALLS 5
+  40:../APP/LCD/Src/lcd_advanced_demo.c **** typedef struct {
+  41:../APP/LCD/Src/lcd_advanced_demo.c ****     float x, y;
+  42:../APP/LCD/Src/lcd_advanced_demo.c ****     float vx, vy;
+  43:../APP/LCD/Src/lcd_advanced_demo.c ****     uint8_t radius;
+  44:../APP/LCD/Src/lcd_advanced_demo.c ****     uint16_t color;
+  45:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Previous position for erasing */
+  46:../APP/LCD/Src/lcd_advanced_demo.c ****     float prev_x, prev_y;
+  47:../APP/LCD/Src/lcd_advanced_demo.c **** } Ball_t;
+  48:../APP/LCD/Src/lcd_advanced_demo.c **** 
+  49:../APP/LCD/Src/lcd_advanced_demo.c **** /* Demo context */
+  50:../APP/LCD/Src/lcd_advanced_demo.c **** static struct {
+  51:../APP/LCD/Src/lcd_advanced_demo.c ****     DemoState_t state;
+  52:../APP/LCD/Src/lcd_advanced_demo.c ****     uint32_t last_switch_time;
+  53:../APP/LCD/Src/lcd_advanced_demo.c ****     uint32_t frame_count;
+  54:../APP/LCD/Src/lcd_advanced_demo.c ****     uint32_t fps;
+  55:../APP/LCD/Src/lcd_advanced_demo.c ****     uint32_t last_fps_time;
+  56:../APP/LCD/Src/lcd_advanced_demo.c **** 
+  57:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Bouncing balls */
+  58:../APP/LCD/Src/lcd_advanced_demo.c ****     Ball_t balls[MAX_BALLS];
+  59:../APP/LCD/Src/lcd_advanced_demo.c ****     bool balls_initialized;
+  60:../APP/LCD/Src/lcd_advanced_demo.c **** 
+  61:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Particles */
+  62:../APP/LCD/Src/lcd_advanced_demo.c ****     Particle_t particles[MAX_PARTICLES];
+  63:../APP/LCD/Src/lcd_advanced_demo.c ****     uint32_t particle_spawn_timer;
+  64:../APP/LCD/Src/lcd_advanced_demo.c ****     bool particles_initialized;
+  65:../APP/LCD/Src/lcd_advanced_demo.c **** 
+  66:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Plasma effect */
+  67:../APP/LCD/Src/lcd_advanced_demo.c ****     uint32_t plasma_time;
+  68:../APP/LCD/Src/lcd_advanced_demo.c **** 
+  69:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Graphics test */
+  70:../APP/LCD/Src/lcd_advanced_demo.c ****     bool graphics_initialized;
+  71:../APP/LCD/Src/lcd_advanced_demo.c **** 
+  72:../APP/LCD/Src/lcd_advanced_demo.c **** } demo_ctx;
+  73:../APP/LCD/Src/lcd_advanced_demo.c **** 
+  74:../APP/LCD/Src/lcd_advanced_demo.c **** /* Color palette for effects */
+  75:../APP/LCD/Src/lcd_advanced_demo.c **** static const uint16_t rainbow_colors[] = {
+  76:../APP/LCD/Src/lcd_advanced_demo.c ****     RED, 0xFC00, YELLOW, GREEN,    // RED, ORANGE, YELLOW, GREEN
+  77:../APP/LCD/Src/lcd_advanced_demo.c ****     CYAN, BLUE, 0x8010, MAGENTA    // CYAN, BLUE, PURPLE, MAGENTA
+  78:../APP/LCD/Src/lcd_advanced_demo.c **** };
+  79:../APP/LCD/Src/lcd_advanced_demo.c **** #define RAINBOW_SIZE (sizeof(rainbow_colors) / sizeof(rainbow_colors[0]))
+  80:../APP/LCD/Src/lcd_advanced_demo.c **** 
+  81:../APP/LCD/Src/lcd_advanced_demo.c **** /* Helper: Generate random color */
+  82:../APP/LCD/Src/lcd_advanced_demo.c **** static uint16_t random_color(void) {
+  83:../APP/LCD/Src/lcd_advanced_demo.c ****     return rainbow_colors[rand() % RAINBOW_SIZE];
+  84:../APP/LCD/Src/lcd_advanced_demo.c **** }
+  85:../APP/LCD/Src/lcd_advanced_demo.c **** 
+  86:../APP/LCD/Src/lcd_advanced_demo.c **** /* Helper: Generate random float between min and max */
+  87:../APP/LCD/Src/lcd_advanced_demo.c **** static float randf(float min, float max) {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 3
+
+
+  88:../APP/LCD/Src/lcd_advanced_demo.c ****     return min + (float)rand() / RAND_MAX * (max - min);
+  89:../APP/LCD/Src/lcd_advanced_demo.c **** }
+  90:../APP/LCD/Src/lcd_advanced_demo.c **** 
+  91:../APP/LCD/Src/lcd_advanced_demo.c **** /* Helper: Fast sine approximation (Taylor series) */
+  92:../APP/LCD/Src/lcd_advanced_demo.c **** static float fast_sin(float x) {
+  29              		.loc 1 92 32 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  93:../APP/LCD/Src/lcd_advanced_demo.c ****     while (x > 3.14159f) x -= 6.28318f;
+  34              		.loc 1 93 5 view .LVU1
+  35              		.loc 1 93 14 is_stmt 0 discriminator 1 view .LVU2
+  36 0000 DFED167A 		vldr.32	s15, .L6
+  37              		.loc 1 93 28 discriminator 2 view .LVU3
+  38 0004 9FED167A 		vldr.32	s14, .L6+4
+  39              	.LVL1:
+  40              	.L2:
+  41              		.loc 1 93 14 is_stmt 1 discriminator 1 view .LVU4
+  42 0008 B4EEE70A 		vcmpe.f32	s0, s15
+  43 000c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+  44 0010 1DDC     		bgt	.L3
+  94:../APP/LCD/Src/lcd_advanced_demo.c ****     while (x < -3.14159f) x += 6.28318f;
+  45              		.loc 1 94 14 is_stmt 0 discriminator 1 view .LVU5
+  46 0012 DFED147A 		vldr.32	s15, .L6+8
+  47              		.loc 1 94 29 discriminator 2 view .LVU6
+  48 0016 9FED127A 		vldr.32	s14, .L6+4
+  49              	.LVL2:
+  50              	.L4:
+  51              		.loc 1 94 14 is_stmt 1 discriminator 1 view .LVU7
+  52 001a B4EEE70A 		vcmpe.f32	s0, s15
+  53 001e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+  54 0022 17D4     		bmi	.L5
+  95:../APP/LCD/Src/lcd_advanced_demo.c ****     return x - (x*x*x)/6.0f + (x*x*x*x*x)/120.0f;
+  55              		.loc 1 95 5 view .LVU8
+  56              		.loc 1 95 18 is_stmt 0 view .LVU9
+  57 0024 60EE007A 		vmul.f32	s15, s0, s0
+  58              		.loc 1 95 42 view .LVU10
+  59 0028 9FED0F6A 		vldr.32	s12, .L6+12
+  60              		.loc 1 95 20 view .LVU11
+  61 002c 67EE807A 		vmul.f32	s15, s15, s0
+  62              		.loc 1 95 37 view .LVU12
+  63 0030 27EE807A 		vmul.f32	s14, s15, s0
+  64              		.loc 1 95 39 view .LVU13
+  65 0034 27EE007A 		vmul.f32	s14, s14, s0
+  66              		.loc 1 95 42 view .LVU14
+  67 0038 C7EE066A 		vdiv.f32	s13, s14, s12
+  68              		.loc 1 95 23 view .LVU15
+  69 003c B1EE086A 		vmov.f32	s12, #6.0e+0
+  70 0040 87EE867A 		vdiv.f32	s14, s15, s12
+  71              		.loc 1 95 14 view .LVU16
+  72 0044 30EE470A 		vsub.f32	s0, s0, s14
+  73              	.LVL3:
+  96:../APP/LCD/Src/lcd_advanced_demo.c **** }
+  74              		.loc 1 96 1 view .LVU17
+  75 0048 36EE800A 		vadd.f32	s0, s13, s0
+  76 004c 7047     		bx	lr
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 4
+
+
+  77              	.LVL4:
+  78              	.L3:
+  93:../APP/LCD/Src/lcd_advanced_demo.c ****     while (x < -3.14159f) x += 6.28318f;
+  79              		.loc 1 93 26 is_stmt 1 discriminator 2 view .LVU18
+  93:../APP/LCD/Src/lcd_advanced_demo.c ****     while (x < -3.14159f) x += 6.28318f;
+  80              		.loc 1 93 28 is_stmt 0 discriminator 2 view .LVU19
+  81 004e 30EE470A 		vsub.f32	s0, s0, s14
+  82              	.LVL5:
+  93:../APP/LCD/Src/lcd_advanced_demo.c ****     while (x < -3.14159f) x += 6.28318f;
+  83              		.loc 1 93 28 discriminator 2 view .LVU20
+  84 0052 D9E7     		b	.L2
+  85              	.LVL6:
+  86              	.L5:
+  94:../APP/LCD/Src/lcd_advanced_demo.c ****     return x - (x*x*x)/6.0f + (x*x*x*x*x)/120.0f;
+  87              		.loc 1 94 27 is_stmt 1 discriminator 2 view .LVU21
+  94:../APP/LCD/Src/lcd_advanced_demo.c ****     return x - (x*x*x)/6.0f + (x*x*x*x*x)/120.0f;
+  88              		.loc 1 94 29 is_stmt 0 discriminator 2 view .LVU22
+  89 0054 30EE070A 		vadd.f32	s0, s0, s14
+  90              	.LVL7:
+  94:../APP/LCD/Src/lcd_advanced_demo.c ****     return x - (x*x*x)/6.0f + (x*x*x*x*x)/120.0f;
+  91              		.loc 1 94 29 discriminator 2 view .LVU23
+  92 0058 DFE7     		b	.L4
+  93              	.L7:
+  94 005a 00BF     		.align	2
+  95              	.L6:
+  96 005c D00F4940 		.word	1078530000
+  97 0060 D00FC940 		.word	1086918608
+  98 0064 D00F49C0 		.word	-1068953648
+  99 0068 0000F042 		.word	1123024896
+ 100              		.cfi_endproc
+ 101              	.LFE135:
+ 103              		.section	.text.init_particles,"ax",%progbits
+ 104              		.align	1
+ 105              		.syntax unified
+ 106              		.thumb
+ 107              		.thumb_func
+ 109              	init_particles:
+ 110              	.LFB140:
+  97:../APP/LCD/Src/lcd_advanced_demo.c **** 
+  98:../APP/LCD/Src/lcd_advanced_demo.c **** /* Helper: Fast cosine approximation */
+  99:../APP/LCD/Src/lcd_advanced_demo.c **** static float fast_cos(float x) {
+ 100:../APP/LCD/Src/lcd_advanced_demo.c ****     return fast_sin(x + 1.5708f);
+ 101:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 102:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 103:../APP/LCD/Src/lcd_advanced_demo.c **** /**
+ 104:../APP/LCD/Src/lcd_advanced_demo.c ****  * @brief Initialize bouncing balls
+ 105:../APP/LCD/Src/lcd_advanced_demo.c ****  */
+ 106:../APP/LCD/Src/lcd_advanced_demo.c **** static void init_balls(void) {
+ 107:../APP/LCD/Src/lcd_advanced_demo.c ****     for (int i = 0; i < MAX_BALLS; i++) {
+ 108:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].x = randf(10, LCD_W - 10);
+ 109:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].y = randf(10, LCD_H - 10);
+ 110:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].prev_x = demo_ctx.balls[i].x;
+ 111:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].prev_y = demo_ctx.balls[i].y;
+ 112:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].vx = randf(-2.0f, 2.0f);
+ 113:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].vy = randf(-2.0f, 2.0f);
+ 114:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].radius = 5 + (i * 2);
+ 115:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].color = rainbow_colors[i % RAINBOW_SIZE];
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 5
+
+
+ 116:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 117:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 118:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 119:../APP/LCD/Src/lcd_advanced_demo.c **** /**
+ 120:../APP/LCD/Src/lcd_advanced_demo.c ****  * @brief Update and draw bouncing balls with partial refresh
+ 121:../APP/LCD/Src/lcd_advanced_demo.c ****  */
+ 122:../APP/LCD/Src/lcd_advanced_demo.c **** static void demo_bouncing_balls(void) {
+ 123:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Clear screen and draw title only once */
+ 124:../APP/LCD/Src/lcd_advanced_demo.c ****     if (!demo_ctx.balls_initialized) {
+ 125:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 126:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(5, 5, (const u8 *)"Bouncing Balls", WHITE, BLACK, 12, 0);
+ 127:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls_initialized = true;
+ 128:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 129:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 130:../APP/LCD/Src/lcd_advanced_demo.c ****     for (int i = 0; i < MAX_BALLS; i++) {
+ 131:../APP/LCD/Src/lcd_advanced_demo.c ****         Ball_t *ball = &demo_ctx.balls[i];
+ 132:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 133:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old position */
+ 134:../APP/LCD/Src/lcd_advanced_demo.c ****         Draw_Circle((uint16_t)ball->prev_x, (uint16_t)ball->prev_y, ball->radius + 1, BLACK);
+ 135:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 136:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Save current position */
+ 137:../APP/LCD/Src/lcd_advanced_demo.c ****         ball->prev_x = ball->x;
+ 138:../APP/LCD/Src/lcd_advanced_demo.c ****         ball->prev_y = ball->y;
+ 139:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 140:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Update position */
+ 141:../APP/LCD/Src/lcd_advanced_demo.c ****         ball->x += ball->vx;
+ 142:../APP/LCD/Src/lcd_advanced_demo.c ****         ball->y += ball->vy;
+ 143:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 144:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Bounce off walls */
+ 145:../APP/LCD/Src/lcd_advanced_demo.c ****         if (ball->x - ball->radius < 0 || ball->x + ball->radius >= LCD_W) {
+ 146:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vx = -ball->vx;
+ 147:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->x = (ball->x < LCD_W / 2) ? ball->radius : LCD_W - ball->radius - 1;
+ 148:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 149:../APP/LCD/Src/lcd_advanced_demo.c ****         if (ball->y - ball->radius < 0 || ball->y + ball->radius >= LCD_H) {
+ 150:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vy = -ball->vy;
+ 151:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->y = (ball->y < LCD_H / 2) ? ball->radius : LCD_H - ball->radius - 1;
+ 152:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 153:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 154:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Draw ball at new position */
+ 155:../APP/LCD/Src/lcd_advanced_demo.c ****         Draw_Circle((uint16_t)ball->x, (uint16_t)ball->y, ball->radius, ball->color);
+ 156:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 157:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 158:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 159:../APP/LCD/Src/lcd_advanced_demo.c **** /**
+ 160:../APP/LCD/Src/lcd_advanced_demo.c ****  * @brief Plasma effect demo (simplified for performance)
+ 161:../APP/LCD/Src/lcd_advanced_demo.c ****  */
+ 162:../APP/LCD/Src/lcd_advanced_demo.c **** static void demo_plasma_effect(void) {
+ 163:../APP/LCD/Src/lcd_advanced_demo.c ****     demo_ctx.plasma_time++;
+ 164:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 165:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Draw simplified plasma pattern */
+ 166:../APP/LCD/Src/lcd_advanced_demo.c ****     for (uint16_t y = 0; y < LCD_H; y += 2) {
+ 167:../APP/LCD/Src/lcd_advanced_demo.c ****         for (uint16_t x = 0; x < LCD_W; x += 2) {
+ 168:../APP/LCD/Src/lcd_advanced_demo.c ****             float cx = (x - LCD_W/2) / 20.0f;
+ 169:../APP/LCD/Src/lcd_advanced_demo.c ****             float cy = (y - LCD_H/2) / 20.0f;
+ 170:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 171:../APP/LCD/Src/lcd_advanced_demo.c ****             float v = fast_sin(cx + demo_ctx.plasma_time * 0.1f) +
+ 172:../APP/LCD/Src/lcd_advanced_demo.c ****                       fast_sin(cy + demo_ctx.plasma_time * 0.08f);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 6
+
+
+ 173:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 174:../APP/LCD/Src/lcd_advanced_demo.c ****             int color_idx = ((int)(v * 2.0f) + demo_ctx.plasma_time / 10) % RAINBOW_SIZE;
+ 175:../APP/LCD/Src/lcd_advanced_demo.c ****             if (color_idx < 0) color_idx += RAINBOW_SIZE;
+ 176:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 177:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawPoint(x, y, rainbow_colors[color_idx]);
+ 178:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 179:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 180:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 181:../APP/LCD/Src/lcd_advanced_demo.c ****     LCD_ShowString(5, 5, (const u8 *)"Plasma Effect", WHITE, BLACK, 12, 0);
+ 182:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 183:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 184:../APP/LCD/Src/lcd_advanced_demo.c **** /**
+ 185:../APP/LCD/Src/lcd_advanced_demo.c ****  * @brief Initialize particle system
+ 186:../APP/LCD/Src/lcd_advanced_demo.c ****  */
+ 187:../APP/LCD/Src/lcd_advanced_demo.c **** static void init_particles(void) {
+ 111              		.loc 1 187 34 is_stmt 1 view -0
+ 112              		.cfi_startproc
+ 113              		@ args = 0, pretend = 0, frame = 0
+ 114              		@ frame_needed = 0, uses_anonymous_args = 0
+ 115              		@ link register save eliminated.
+ 188:../APP/LCD/Src/lcd_advanced_demo.c ****     for (int i = 0; i < MAX_PARTICLES; i++) {
+ 116              		.loc 1 188 5 view .LVU25
+ 117              	.LBB2:
+ 118              		.loc 1 188 10 view .LVU26
+ 119              	.LVL8:
+ 120              		.loc 1 188 23 discriminator 1 view .LVU27
+ 121 0000 064A     		ldr	r2, .L11
+ 122              		.loc 1 188 14 is_stmt 0 view .LVU28
+ 123 0002 0023     		movs	r3, #0
+ 124 0004 1046     		mov	r0, r2
+ 189:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.particles[i].active = false;
+ 125              		.loc 1 189 38 view .LVU29
+ 126 0006 1946     		mov	r1, r3
+ 127              	.LVL9:
+ 128              	.L9:
+ 129              		.loc 1 189 9 is_stmt 1 view .LVU30
+ 188:../APP/LCD/Src/lcd_advanced_demo.c ****     for (int i = 0; i < MAX_PARTICLES; i++) {
+ 130              		.loc 1 188 41 is_stmt 0 discriminator 3 view .LVU31
+ 131 0008 0133     		adds	r3, r3, #1
+ 132              	.LVL10:
+ 188:../APP/LCD/Src/lcd_advanced_demo.c ****     for (int i = 0; i < MAX_PARTICLES; i++) {
+ 133              		.loc 1 188 23 discriminator 1 view .LVU32
+ 134 000a 1E2B     		cmp	r3, #30
+ 135              		.loc 1 189 38 view .LVU33
+ 136 000c 82F8B710 		strb	r1, [r2, #183]
+ 188:../APP/LCD/Src/lcd_advanced_demo.c ****     for (int i = 0; i < MAX_PARTICLES; i++) {
+ 137              		.loc 1 188 41 is_stmt 1 discriminator 3 view .LVU34
+ 138              	.LVL11:
+ 188:../APP/LCD/Src/lcd_advanced_demo.c ****     for (int i = 0; i < MAX_PARTICLES; i++) {
+ 139              		.loc 1 188 23 discriminator 1 view .LVU35
+ 140 0010 02F11C02 		add	r2, r2, #28
+ 141 0014 F8D1     		bne	.L9
+ 142              	.LBE2:
+ 190:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 191:../APP/LCD/Src/lcd_advanced_demo.c ****     demo_ctx.particle_spawn_timer = 0;
+ 143              		.loc 1 191 5 view .LVU36
+ 144              		.loc 1 191 35 is_stmt 0 view .LVU37
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 7
+
+
+ 145 0016 C0F8EC13 		str	r1, [r0, #1004]
+ 192:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 146              		.loc 1 192 1 view .LVU38
+ 147 001a 7047     		bx	lr
+ 148              	.L12:
+ 149              		.align	2
+ 150              	.L11:
+ 151 001c 00000000 		.word	demo_ctx
+ 152              		.cfi_endproc
+ 153              	.LFE140:
+ 155              		.section	.text.randf,"ax",%progbits
+ 156              		.align	1
+ 157              		.syntax unified
+ 158              		.thumb
+ 159              		.thumb_func
+ 161              	randf:
+ 162              	.LVL12:
+ 163              	.LFB134:
+  87:../APP/LCD/Src/lcd_advanced_demo.c ****     return min + (float)rand() / RAND_MAX * (max - min);
+ 164              		.loc 1 87 42 is_stmt 1 view -0
+ 165              		.cfi_startproc
+ 166              		@ args = 0, pretend = 0, frame = 0
+ 167              		@ frame_needed = 0, uses_anonymous_args = 0
+  88:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 168              		.loc 1 88 5 view .LVU40
+  87:../APP/LCD/Src/lcd_advanced_demo.c ****     return min + (float)rand() / RAND_MAX * (max - min);
+ 169              		.loc 1 87 42 is_stmt 0 view .LVU41
+ 170 0000 08B5     		push	{r3, lr}
+ 171              	.LCFI0:
+ 172              		.cfi_def_cfa_offset 8
+ 173              		.cfi_offset 3, -8
+ 174              		.cfi_offset 14, -4
+ 175 0002 2DED028B 		vpush.64	{d8}
+ 176              	.LCFI1:
+ 177              		.cfi_def_cfa_offset 16
+ 178              		.cfi_offset 80, -16
+ 179              		.cfi_offset 81, -12
+  87:../APP/LCD/Src/lcd_advanced_demo.c ****     return min + (float)rand() / RAND_MAX * (max - min);
+ 180              		.loc 1 87 42 view .LVU42
+ 181 0006 F0EE408A 		vmov.f32	s17, s0
+ 182 000a B0EE608A 		vmov.f32	s16, s1
+  88:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 183              		.loc 1 88 25 view .LVU43
+ 184 000e FFF7FEFF 		bl	rand
+ 185              	.LVL13:
+  88:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 186              		.loc 1 88 50 discriminator 1 view .LVU44
+ 187 0012 78EE680A 		vsub.f32	s1, s16, s17
+  89:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 188              		.loc 1 89 1 view .LVU45
+ 189 0016 B0EE680A 		vmov.f32	s0, s17
+ 190 001a BDEC028B 		vldm	sp!, {d8}
+ 191              	.LCFI2:
+ 192              		.cfi_restore 80
+ 193              		.cfi_restore 81
+ 194              		.cfi_def_cfa_offset 8
+ 195              	.LVL14:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 8
+
+
+  88:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 196              		.loc 1 88 25 view .LVU46
+ 197 001e 07EE900A 		vmov	s15, r0	@ int
+  88:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 198              		.loc 1 88 32 discriminator 1 view .LVU47
+ 199 0022 FAEEE07A 		vcvt.f32.s32	s15, s15, #31
+  89:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 200              		.loc 1 89 1 view .LVU48
+ 201 0026 A7EEA00A 		vfma.f32	s0, s15, s1
+ 202 002a 08BD     		pop	{r3, pc}
+ 203              		.cfi_endproc
+ 204              	.LFE134:
+ 206              		.section	.text.init_balls,"ax",%progbits
+ 207              		.align	1
+ 208              		.syntax unified
+ 209              		.thumb
+ 210              		.thumb_func
+ 212              	init_balls:
+ 213              	.LFB137:
+ 106:../APP/LCD/Src/lcd_advanced_demo.c ****     for (int i = 0; i < MAX_BALLS; i++) {
+ 214              		.loc 1 106 30 is_stmt 1 view -0
+ 215              		.cfi_startproc
+ 216              		@ args = 0, pretend = 0, frame = 0
+ 217              		@ frame_needed = 0, uses_anonymous_args = 0
+ 107:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].x = randf(10, LCD_W - 10);
+ 218              		.loc 1 107 5 view .LVU50
+ 219              	.LBB3:
+ 107:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].x = randf(10, LCD_W - 10);
+ 220              		.loc 1 107 10 view .LVU51
+ 221              	.LVL15:
+ 107:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].x = randf(10, LCD_W - 10);
+ 222              		.loc 1 107 23 discriminator 1 view .LVU52
+ 223              	.LBE3:
+ 106:../APP/LCD/Src/lcd_advanced_demo.c ****     for (int i = 0; i < MAX_BALLS; i++) {
+ 224              		.loc 1 106 30 is_stmt 0 view .LVU53
+ 225 0000 70B5     		push	{r4, r5, r6, lr}
+ 226              	.LCFI3:
+ 227              		.cfi_def_cfa_offset 16
+ 228              		.cfi_offset 4, -16
+ 229              		.cfi_offset 5, -12
+ 230              		.cfi_offset 6, -8
+ 231              		.cfi_offset 14, -4
+ 232 0002 1D4C     		ldr	r4, .L17
+ 233 0004 1D4E     		ldr	r6, .L17+4
+ 234 0006 2DED028B 		vpush.64	{d8}
+ 235              	.LCFI4:
+ 236              		.cfi_def_cfa_offset 24
+ 237              		.cfi_offset 80, -24
+ 238              		.cfi_offset 81, -20
+ 239              	.LBB4:
+ 108:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].y = randf(10, LCD_H - 10);
+ 240              		.loc 1 108 31 view .LVU54
+ 241 000a DFED1D8A 		vldr.32	s17, .L17+8
+ 109:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].prev_x = demo_ctx.balls[i].x;
+ 242              		.loc 1 109 31 view .LVU55
+ 243 000e 9FED1D8A 		vldr.32	s16, .L17+12
+ 244              	.LBE4:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 9
+
+
+ 106:../APP/LCD/Src/lcd_advanced_demo.c ****     for (int i = 0; i < MAX_BALLS; i++) {
+ 245              		.loc 1 106 30 view .LVU56
+ 246 0012 0525     		movs	r5, #5
+ 247              	.LVL16:
+ 248              	.L15:
+ 249              	.LBB5:
+ 108:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].y = randf(10, LCD_H - 10);
+ 250              		.loc 1 108 9 is_stmt 1 view .LVU57
+ 108:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].y = randf(10, LCD_H - 10);
+ 251              		.loc 1 108 31 is_stmt 0 view .LVU58
+ 252 0014 F0EE680A 		vmov.f32	s1, s17
+ 253 0018 B2EE040A 		vmov.f32	s0, #1.0e+1
+ 254 001c FFF7FEFF 		bl	randf
+ 255              	.LVL17:
+ 109:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].prev_x = demo_ctx.balls[i].x;
+ 256              		.loc 1 109 31 view .LVU59
+ 257 0020 F0EE480A 		vmov.f32	s1, s16
+ 108:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].y = randf(10, LCD_H - 10);
+ 258              		.loc 1 108 29 discriminator 1 view .LVU60
+ 259 0024 84ED050A 		vstr.32	s0, [r4, #20]
+ 109:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].prev_x = demo_ctx.balls[i].x;
+ 260              		.loc 1 109 9 is_stmt 1 view .LVU61
+ 109:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].prev_x = demo_ctx.balls[i].x;
+ 261              		.loc 1 109 31 is_stmt 0 view .LVU62
+ 262 0028 B2EE040A 		vmov.f32	s0, #1.0e+1
+ 263 002c FFF7FEFF 		bl	randf
+ 264              	.LVL18:
+ 110:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].prev_y = demo_ctx.balls[i].y;
+ 265              		.loc 1 110 34 view .LVU63
+ 266 0030 6369     		ldr	r3, [r4, #20]	@ float
+ 267 0032 A362     		str	r3, [r4, #40]	@ float
+ 109:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].prev_x = demo_ctx.balls[i].x;
+ 268              		.loc 1 109 29 discriminator 1 view .LVU64
+ 269 0034 84ED060A 		vstr.32	s0, [r4, #24]
+ 110:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].prev_y = demo_ctx.balls[i].y;
+ 270              		.loc 1 110 9 is_stmt 1 view .LVU65
+ 111:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].vx = randf(-2.0f, 2.0f);
+ 271              		.loc 1 111 9 view .LVU66
+ 111:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].vx = randf(-2.0f, 2.0f);
+ 272              		.loc 1 111 34 is_stmt 0 view .LVU67
+ 273 0038 84ED0B0A 		vstr.32	s0, [r4, #44]
+ 112:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].vy = randf(-2.0f, 2.0f);
+ 274              		.loc 1 112 9 is_stmt 1 view .LVU68
+ 112:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].vy = randf(-2.0f, 2.0f);
+ 275              		.loc 1 112 32 is_stmt 0 view .LVU69
+ 276 003c F0EE000A 		vmov.f32	s1, #2.0e+0
+ 277 0040 B8EE000A 		vmov.f32	s0, #-2.0e+0
+ 278 0044 FFF7FEFF 		bl	randf
+ 279              	.LVL19:
+ 113:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].radius = 5 + (i * 2);
+ 280              		.loc 1 113 32 view .LVU70
+ 281 0048 F0EE000A 		vmov.f32	s1, #2.0e+0
+ 112:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].vy = randf(-2.0f, 2.0f);
+ 282              		.loc 1 112 30 discriminator 1 view .LVU71
+ 283 004c 84ED070A 		vstr.32	s0, [r4, #28]
+ 113:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].radius = 5 + (i * 2);
+ 284              		.loc 1 113 9 is_stmt 1 view .LVU72
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 10
+
+
+ 113:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].radius = 5 + (i * 2);
+ 285              		.loc 1 113 32 is_stmt 0 view .LVU73
+ 286 0050 B8EE000A 		vmov.f32	s0, #-2.0e+0
+ 287 0054 FFF7FEFF 		bl	randf
+ 288              	.LVL20:
+ 114:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].color = rainbow_colors[i % RAINBOW_SIZE];
+ 289              		.loc 1 114 34 view .LVU74
+ 290 0058 84F82450 		strb	r5, [r4, #36]
+ 107:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].x = randf(10, LCD_W - 10);
+ 291              		.loc 1 107 23 discriminator 1 view .LVU75
+ 292 005c 0235     		adds	r5, r5, #2
+ 293 005e EDB2     		uxtb	r5, r5
+ 115:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 294              		.loc 1 115 49 view .LVU76
+ 295 0060 36F8023B 		ldrh	r3, [r6], #2
+ 113:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].radius = 5 + (i * 2);
+ 296              		.loc 1 113 30 discriminator 1 view .LVU77
+ 297 0064 84ED080A 		vstr.32	s0, [r4, #32]
+ 114:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].color = rainbow_colors[i % RAINBOW_SIZE];
+ 298              		.loc 1 114 9 is_stmt 1 view .LVU78
+ 115:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 299              		.loc 1 115 9 view .LVU79
+ 107:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].x = randf(10, LCD_W - 10);
+ 300              		.loc 1 107 23 is_stmt 0 discriminator 1 view .LVU80
+ 301 0068 0F2D     		cmp	r5, #15
+ 115:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 302              		.loc 1 115 33 view .LVU81
+ 303 006a E384     		strh	r3, [r4, #38]	@ movhi
+ 107:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].x = randf(10, LCD_W - 10);
+ 304              		.loc 1 107 37 is_stmt 1 discriminator 3 view .LVU82
+ 107:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls[i].x = randf(10, LCD_W - 10);
+ 305              		.loc 1 107 23 discriminator 1 view .LVU83
+ 306 006c 04F11C04 		add	r4, r4, #28
+ 307 0070 D0D1     		bne	.L15
+ 308              	.LBE5:
+ 117:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 309              		.loc 1 117 1 is_stmt 0 view .LVU84
+ 310 0072 BDEC028B 		vldm	sp!, {d8}
+ 311              	.LCFI5:
+ 312              		.cfi_restore 80
+ 313              		.cfi_restore 81
+ 314              		.cfi_def_cfa_offset 16
+ 315 0076 70BD     		pop	{r4, r5, r6, pc}
+ 316              	.L18:
+ 317              		.align	2
+ 318              	.L17:
+ 319 0078 00000000 		.word	demo_ctx
+ 320 007c 00000000 		.word	rainbow_colors
+ 321 0080 00001643 		.word	1125515264
+ 322 0084 0000EC42 		.word	1122762752
+ 323              		.cfi_endproc
+ 324              	.LFE137:
+ 326              		.section	.rodata.LCD_AdvancedDemo_Init.str1.1,"aMS",%progbits,1
+ 327              	.LC0:
+ 328 0000 4E333247 		.ascii	"N32G430\000"
+ 328      34333000 
+ 329              	.LC1:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 11
+
+
+ 330 0008 41647661 		.ascii	"Advanced Demo\000"
+ 330      6E636564 
+ 330      2044656D 
+ 330      6F00
+ 331              	.LC2:
+ 332 0016 53504920 		.ascii	"SPI + DMA\000"
+ 332      2B20444D 
+ 332      4100
+ 333              		.section	.text.LCD_AdvancedDemo_Init,"ax",%progbits
+ 334              		.align	1
+ 335              		.global	LCD_AdvancedDemo_Init
+ 336              		.syntax unified
+ 337              		.thumb
+ 338              		.thumb_func
+ 340              	LCD_AdvancedDemo_Init:
+ 341              	.LFB145:
+ 193:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 194:../APP/LCD/Src/lcd_advanced_demo.c **** /**
+ 195:../APP/LCD/Src/lcd_advanced_demo.c ****  * @brief Spawn a new particle
+ 196:../APP/LCD/Src/lcd_advanced_demo.c ****  */
+ 197:../APP/LCD/Src/lcd_advanced_demo.c **** static void spawn_particle(float x, float y) {
+ 198:../APP/LCD/Src/lcd_advanced_demo.c ****     for (int i = 0; i < MAX_PARTICLES; i++) {
+ 199:../APP/LCD/Src/lcd_advanced_demo.c ****         if (!demo_ctx.particles[i].active) {
+ 200:../APP/LCD/Src/lcd_advanced_demo.c ****             Particle_t *p = &demo_ctx.particles[i];
+ 201:../APP/LCD/Src/lcd_advanced_demo.c ****             p->x = x;
+ 202:../APP/LCD/Src/lcd_advanced_demo.c ****             p->y = y;
+ 203:../APP/LCD/Src/lcd_advanced_demo.c ****             p->prev_x = x;
+ 204:../APP/LCD/Src/lcd_advanced_demo.c ****             p->prev_y = y;
+ 205:../APP/LCD/Src/lcd_advanced_demo.c ****             p->vx = randf(-3.0f, 3.0f);
+ 206:../APP/LCD/Src/lcd_advanced_demo.c ****             p->vy = randf(-4.0f, -1.0f);
+ 207:../APP/LCD/Src/lcd_advanced_demo.c ****             p->color = random_color();
+ 208:../APP/LCD/Src/lcd_advanced_demo.c ****             p->life = 60;
+ 209:../APP/LCD/Src/lcd_advanced_demo.c ****             p->active = true;
+ 210:../APP/LCD/Src/lcd_advanced_demo.c ****             break;
+ 211:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 212:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 213:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 214:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 215:../APP/LCD/Src/lcd_advanced_demo.c **** /**
+ 216:../APP/LCD/Src/lcd_advanced_demo.c ****  * @brief Particle effect demo with partial refresh
+ 217:../APP/LCD/Src/lcd_advanced_demo.c ****  */
+ 218:../APP/LCD/Src/lcd_advanced_demo.c **** static void demo_particles(void) {
+ 219:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Clear screen only once */
+ 220:../APP/LCD/Src/lcd_advanced_demo.c ****     if (!demo_ctx.particles_initialized) {
+ 221:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 222:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(5, 5, (const u8 *)"Particle Fountain", WHITE, BLACK, 12, 0);
+ 223:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.particles_initialized = true;
+ 224:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 225:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 226:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Spawn particles from bottom center */
+ 227:../APP/LCD/Src/lcd_advanced_demo.c ****     demo_ctx.particle_spawn_timer++;
+ 228:../APP/LCD/Src/lcd_advanced_demo.c ****     if (demo_ctx.particle_spawn_timer >= 3) {
+ 229:../APP/LCD/Src/lcd_advanced_demo.c ****         spawn_particle(LCD_W / 2.0f, LCD_H - 5.0f);
+ 230:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.particle_spawn_timer = 0;
+ 231:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 232:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 233:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Update and draw particles */
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 12
+
+
+ 234:../APP/LCD/Src/lcd_advanced_demo.c ****     for (int i = 0; i < MAX_PARTICLES; i++) {
+ 235:../APP/LCD/Src/lcd_advanced_demo.c ****         Particle_t *p = &demo_ctx.particles[i];
+ 236:../APP/LCD/Src/lcd_advanced_demo.c ****         if (!p->active) continue;
+ 237:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 238:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old position */
+ 239:../APP/LCD/Src/lcd_advanced_demo.c ****         if (p->prev_x >= 0 && p->prev_x < LCD_W && p->prev_y >= 0 && p->prev_y < LCD_H) {
+ 240:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y, BLACK);
+ 241:../APP/LCD/Src/lcd_advanced_demo.c ****             if (p->life > 10) {
+ 242:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->prev_x + 1, (uint16_t)p->prev_y, BLACK);
+ 243:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y + 1, BLACK);
+ 244:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 245:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 246:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 247:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Save old position */
+ 248:../APP/LCD/Src/lcd_advanced_demo.c ****         p->prev_x = p->x;
+ 249:../APP/LCD/Src/lcd_advanced_demo.c ****         p->prev_y = p->y;
+ 250:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 251:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Update physics */
+ 252:../APP/LCD/Src/lcd_advanced_demo.c ****         p->vy += 0.2f;  /* Gravity */
+ 253:../APP/LCD/Src/lcd_advanced_demo.c ****         p->x += p->vx;
+ 254:../APP/LCD/Src/lcd_advanced_demo.c ****         p->y += p->vy;
+ 255:../APP/LCD/Src/lcd_advanced_demo.c ****         p->life--;
+ 256:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 257:../APP/LCD/Src/lcd_advanced_demo.c ****         if (p->life == 0 || p->y >= LCD_H) {
+ 258:../APP/LCD/Src/lcd_advanced_demo.c ****             p->active = false;
+ 259:../APP/LCD/Src/lcd_advanced_demo.c ****             continue;
+ 260:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 261:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 262:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Draw particle at new position */
+ 263:../APP/LCD/Src/lcd_advanced_demo.c ****         if (p->x >= 0 && p->x < LCD_W && p->y >= 0 && p->y < LCD_H) {
+ 264:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawPoint((uint16_t)p->x, (uint16_t)p->y, p->color);
+ 265:../APP/LCD/Src/lcd_advanced_demo.c ****             if (p->life > 10) {
+ 266:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->x + 1, (uint16_t)p->y, p->color);
+ 267:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->x, (uint16_t)p->y + 1, p->color);
+ 268:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 269:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 270:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 271:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 272:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 273:../APP/LCD/Src/lcd_advanced_demo.c **** /**
+ 274:../APP/LCD/Src/lcd_advanced_demo.c ****  * @brief Graphics benchmark with partial refresh
+ 275:../APP/LCD/Src/lcd_advanced_demo.c ****  */
+ 276:../APP/LCD/Src/lcd_advanced_demo.c **** static void demo_graphics_test(void) {
+ 277:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint32_t anim_frame = 0;
+ 278:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint16_t prev_rect_x[5] = {0};
+ 279:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint16_t prev_line_x2[8] = {0};
+ 280:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint16_t prev_line_y2[8] = {0};
+ 281:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint8_t prev_circle_r[3] = {0};
+ 282:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 283:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Clear screen only once */
+ 284:../APP/LCD/Src/lcd_advanced_demo.c ****     if (!demo_ctx.graphics_initialized) {
+ 285:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 286:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(5, 5, (const u8 *)"Graphics Test", WHITE, BLACK, 12, 0);
+ 287:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.graphics_initialized = true;
+ 288:../APP/LCD/Src/lcd_advanced_demo.c ****         anim_frame = 0;  /* Reset animation */
+ 289:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 290:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 13
+
+
+ 291:../APP/LCD/Src/lcd_advanced_demo.c ****     anim_frame++;
+ 292:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 293:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Moving rectangles - erase old, draw new */
+ 294:../APP/LCD/Src/lcd_advanced_demo.c ****     for (int i = 0; i < 5; i++) {
+ 295:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old rectangle */
+ 296:../APP/LCD/Src/lcd_advanced_demo.c ****         if (anim_frame > 1) {
+ 297:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_Fill(prev_rect_x[i], 10 + i * 15, prev_rect_x[i] + 15, 20 + i * 15, BLACK);
+ 298:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 299:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 300:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Draw new rectangle */
+ 301:../APP/LCD/Src/lcd_advanced_demo.c ****         uint16_t x = (anim_frame * 2 + i * 20) % (LCD_W - 15);
+ 302:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(x, 10 + i * 15, x + 15, 20 + i * 15, rainbow_colors[i]);
+ 303:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_rect_x[i] = x;
+ 304:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 305:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 306:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Rotating lines - erase old, draw new */
+ 307:../APP/LCD/Src/lcd_advanced_demo.c ****     for (int i = 0; i < 8; i++) {
+ 308:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old line */
+ 309:../APP/LCD/Src/lcd_advanced_demo.c ****         if (anim_frame > 1) {
+ 310:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawLine(LCD_W / 2, 80, prev_line_x2[i], prev_line_y2[i], BLACK);
+ 311:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 312:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 313:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Draw new line */
+ 314:../APP/LCD/Src/lcd_advanced_demo.c ****         float angle = (anim_frame * 2 + i * 45) * 0.01745f;
+ 315:../APP/LCD/Src/lcd_advanced_demo.c ****         int x2 = LCD_W / 2 + (int)(fast_cos(angle) * 30);
+ 316:../APP/LCD/Src/lcd_advanced_demo.c ****         int y2 = 80 + (int)(fast_sin(angle) * 30);
+ 317:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_DrawLine(LCD_W / 2, 80, x2, y2, rainbow_colors[i]);
+ 318:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_line_x2[i] = x2;
+ 319:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_line_y2[i] = y2;
+ 320:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 321:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 322:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Growing circles - erase old, draw new */
+ 323:../APP/LCD/Src/lcd_advanced_demo.c ****     for (int i = 0; i < 3; i++) {
+ 324:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old circle */
+ 325:../APP/LCD/Src/lcd_advanced_demo.c ****         if (anim_frame > 1 && prev_circle_r[i] > 0) {
+ 326:../APP/LCD/Src/lcd_advanced_demo.c ****             Draw_Circle(30 + i * 35, 130, prev_circle_r[i], BLACK);
+ 327:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 328:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 329:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Draw new circle */
+ 330:../APP/LCD/Src/lcd_advanced_demo.c ****         uint8_t r = ((anim_frame + i * 20) % 40) / 2;
+ 331:../APP/LCD/Src/lcd_advanced_demo.c ****         Draw_Circle(30 + i * 35, 130, r, rainbow_colors[i * 2]);
+ 332:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_circle_r[i] = r;
+ 333:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 334:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 335:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 336:../APP/LCD/Src/lcd_advanced_demo.c **** /**
+ 337:../APP/LCD/Src/lcd_advanced_demo.c ****  * @brief Performance metrics display with partial refresh
+ 338:../APP/LCD/Src/lcd_advanced_demo.c ****  */
+ 339:../APP/LCD/Src/lcd_advanced_demo.c **** static void demo_performance(void) {
+ 340:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint32_t last_update = 0;
+ 341:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint32_t prev_fps = 0;
+ 342:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint16_t prev_bar_width = 0;
+ 343:../APP/LCD/Src/lcd_advanced_demo.c ****     static bool initialized = false;
+ 344:../APP/LCD/Src/lcd_advanced_demo.c ****     uint32_t current_time = HAL_GetTick();
+ 345:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 346:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Initialize only once */
+ 347:../APP/LCD/Src/lcd_advanced_demo.c ****     if (!initialized) {
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 14
+
+
+ 348:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 349:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(10, 10, (const u8 *)"Performance Test", YELLOW, BLACK, 16, 0);
+ 350:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(10, 60, (const u8 *)"LCD: 128x160", CYAN, BLACK, 12, 0);
+ 351:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(10, 80, (const u8 *)"SPI DMA: ON", MAGENTA, BLACK, 12, 0);
+ 352:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(10, 100, (const u8 *)"Partial Refresh", MAGENTA, BLACK, 12, 0);
+ 353:../APP/LCD/Src/lcd_advanced_demo.c ****         initialized = true;
+ 354:../APP/LCD/Src/lcd_advanced_demo.c ****         last_update = current_time;
+ 355:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 356:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 357:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Update FPS display only every 500ms to reduce overhead */
+ 358:../APP/LCD/Src/lcd_advanced_demo.c ****     if (current_time - last_update >= 500 && demo_ctx.fps != prev_fps) {
+ 359:../APP/LCD/Src/lcd_advanced_demo.c ****         char fps_str[32];
+ 360:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 361:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old FPS text area */
+ 362:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(10, 35, 120, 50, BLACK);
+ 363:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 364:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Draw new FPS */
+ 365:../APP/LCD/Src/lcd_advanced_demo.c ****         sprintf(fps_str, "FPS: %lu", demo_ctx.fps);
+ 366:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(10, 35, (const u8 *)fps_str, GREEN, BLACK, 16, 0);
+ 367:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 368:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_fps = demo_ctx.fps;
+ 369:../APP/LCD/Src/lcd_advanced_demo.c ****         last_update = current_time;
+ 370:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 371:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 372:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Animated progress bar - update every 3 frames to reduce overhead */
+ 373:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint32_t bar_anim = 0;
+ 374:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint8_t frame_skip = 0;
+ 375:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 376:../APP/LCD/Src/lcd_advanced_demo.c ****     frame_skip++;
+ 377:../APP/LCD/Src/lcd_advanced_demo.c ****     if (frame_skip >= 3) {
+ 378:../APP/LCD/Src/lcd_advanced_demo.c ****         frame_skip = 0;
+ 379:../APP/LCD/Src/lcd_advanced_demo.c ****         bar_anim++;
+ 380:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 381:../APP/LCD/Src/lcd_advanced_demo.c ****         uint16_t bar_width = (bar_anim % 100) * (LCD_W - 20) / 100;
+ 382:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 383:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Only redraw bar if width changed significantly */
+ 384:../APP/LCD/Src/lcd_advanced_demo.c ****         if (bar_width != prev_bar_width) {
+ 385:../APP/LCD/Src/lcd_advanced_demo.c ****             /* Erase old bar end */
+ 386:../APP/LCD/Src/lcd_advanced_demo.c ****             if (prev_bar_width > bar_width) {
+ 387:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_Fill(10 + bar_width, 120, 10 + prev_bar_width, 130, GRAYBLUE);
+ 388:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 389:../APP/LCD/Src/lcd_advanced_demo.c ****             /* Draw new bar portion */
+ 390:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_Fill(10 + prev_bar_width, 120, 10 + bar_width, 130, GREEN);
+ 391:../APP/LCD/Src/lcd_advanced_demo.c ****             prev_bar_width = bar_width;
+ 392:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 393:../APP/LCD/Src/lcd_advanced_demo.c ****             /* Redraw background when bar resets */
+ 394:../APP/LCD/Src/lcd_advanced_demo.c ****             if (bar_width < 5 && prev_bar_width > 90) {
+ 395:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_Fill(10, 120, LCD_W - 10, 130, GRAYBLUE);
+ 396:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 397:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 398:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 399:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 400:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 401:../APP/LCD/Src/lcd_advanced_demo.c **** /**
+ 402:../APP/LCD/Src/lcd_advanced_demo.c ****  * @brief Initialize advanced demo
+ 403:../APP/LCD/Src/lcd_advanced_demo.c ****  */
+ 404:../APP/LCD/Src/lcd_advanced_demo.c **** void LCD_AdvancedDemo_Init(void)
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 15
+
+
+ 405:../APP/LCD/Src/lcd_advanced_demo.c **** {
+ 342              		.loc 1 405 1 is_stmt 1 view -0
+ 343              		.cfi_startproc
+ 344              		@ args = 0, pretend = 0, frame = 0
+ 345              		@ frame_needed = 0, uses_anonymous_args = 0
+ 406:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Initialize DMA for SPI1 */
+ 407:../APP/LCD/Src/lcd_advanced_demo.c ****     MX_DMA_SPI1_Init();
+ 346              		.loc 1 407 5 view .LVU86
+ 405:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Initialize DMA for SPI1 */
+ 347              		.loc 1 405 1 is_stmt 0 view .LVU87
+ 348 0000 30B5     		push	{r4, r5, lr}
+ 349              	.LCFI6:
+ 350              		.cfi_def_cfa_offset 12
+ 351              		.cfi_offset 4, -12
+ 352              		.cfi_offset 5, -8
+ 353              		.cfi_offset 14, -4
+ 354 0002 85B0     		sub	sp, sp, #20
+ 355              	.LCFI7:
+ 356              		.cfi_def_cfa_offset 32
+ 408:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 409:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Initialize SPI1 */
+ 410:../APP/LCD/Src/lcd_advanced_demo.c ****     MX_SPI1_Init();
+ 411:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 412:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Initialize LCD hardware */
+ 413:../APP/LCD/Src/lcd_advanced_demo.c ****     LCD_Init();
+ 414:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 415:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Clear screen */
+ 416:../APP/LCD/Src/lcd_advanced_demo.c ****     LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 357              		.loc 1 416 5 view .LVU88
+ 358 0004 0024     		movs	r4, #0
+ 407:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 359              		.loc 1 407 5 view .LVU89
+ 360 0006 FFF7FEFF 		bl	MX_DMA_SPI1_Init
+ 361              	.LVL21:
+ 410:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 362              		.loc 1 410 5 is_stmt 1 view .LVU90
+ 363 000a FFF7FEFF 		bl	MX_SPI1_Init
+ 364              	.LVL22:
+ 413:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 365              		.loc 1 413 5 view .LVU91
+ 366 000e FFF7FEFF 		bl	LCD_Init
+ 367              	.LVL23:
+ 368              		.loc 1 416 5 view .LVU92
+ 369 0012 2146     		mov	r1, r4
+ 370 0014 2046     		mov	r0, r4
+ 371 0016 0094     		str	r4, [sp]
+ 372 0018 8023     		movs	r3, #128
+ 373 001a A022     		movs	r2, #160
+ 374 001c FFF7FEFF 		bl	LCD_Fill
+ 375              	.LVL24:
+ 417:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 418:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Welcome message */
+ 419:../APP/LCD/Src/lcd_advanced_demo.c ****     LCD_ShowString(20, 60, (const u8 *)"N32G430", CYAN, BLACK, 24, 0);
+ 376              		.loc 1 419 5 view .LVU93
+ 377 0020 1823     		movs	r3, #24
+ 378 0022 CDE90043 		strd	r4, r3, [sp]
+ 379 0026 1A4A     		ldr	r2, .L20
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 16
+
+
+ 380 0028 0294     		str	r4, [sp, #8]
+ 381 002a 47F6FF73 		movw	r3, #32767
+ 382 002e 3C21     		movs	r1, #60
+ 383 0030 1420     		movs	r0, #20
+ 384 0032 FFF7FEFF 		bl	LCD_ShowString
+ 385              	.LVL25:
+ 420:../APP/LCD/Src/lcd_advanced_demo.c ****     LCD_ShowString(15, 90, (const u8 *)"Advanced Demo", YELLOW, BLACK, 16, 0);
+ 386              		.loc 1 420 5 view .LVU94
+ 387 0036 1023     		movs	r3, #16
+ 388 0038 CDE90043 		strd	r4, r3, [sp]
+ 389 003c 154A     		ldr	r2, .L20+4
+ 390 003e 0294     		str	r4, [sp, #8]
+ 391 0040 4FF6E073 		movw	r3, #65504
+ 392 0044 5A21     		movs	r1, #90
+ 393 0046 0F20     		movs	r0, #15
+ 394 0048 FFF7FEFF 		bl	LCD_ShowString
+ 395              	.LVL26:
+ 421:../APP/LCD/Src/lcd_advanced_demo.c ****     LCD_ShowString(35, 115, (const u8 *)"SPI + DMA", WHITE, BLACK, 12, 0);
+ 396              		.loc 1 421 5 view .LVU95
+ 397 004c 0C23     		movs	r3, #12
+ 398 004e 124A     		ldr	r2, .L20+8
+ 422:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 423:../APP/LCD/Src/lcd_advanced_demo.c ****     HAL_Delay(2000);
+ 424:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 425:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Initialize demo state */
+ 426:../APP/LCD/Src/lcd_advanced_demo.c ****     demo_ctx.state = DEMO_BOUNCING_BALLS;
+ 399              		.loc 1 426 20 is_stmt 0 view .LVU96
+ 400 0050 124D     		ldr	r5, .L20+12
+ 421:../APP/LCD/Src/lcd_advanced_demo.c ****     LCD_ShowString(35, 115, (const u8 *)"SPI + DMA", WHITE, BLACK, 12, 0);
+ 401              		.loc 1 421 5 view .LVU97
+ 402 0052 0294     		str	r4, [sp, #8]
+ 403 0054 7321     		movs	r1, #115
+ 404 0056 CDE90043 		strd	r4, r3, [sp]
+ 405 005a 2320     		movs	r0, #35
+ 406 005c 4FF6FF73 		movw	r3, #65535
+ 407 0060 FFF7FEFF 		bl	LCD_ShowString
+ 408              	.LVL27:
+ 423:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 409              		.loc 1 423 5 is_stmt 1 view .LVU98
+ 410 0064 4FF4FA60 		mov	r0, #2000
+ 411 0068 FFF7FEFF 		bl	HAL_Delay
+ 412              	.LVL28:
+ 413              		.loc 1 426 5 view .LVU99
+ 414              		.loc 1 426 20 is_stmt 0 view .LVU100
+ 415 006c 2C70     		strb	r4, [r5]
+ 427:../APP/LCD/Src/lcd_advanced_demo.c ****     demo_ctx.last_switch_time = HAL_GetTick();
+ 416              		.loc 1 427 5 is_stmt 1 view .LVU101
+ 417              		.loc 1 427 33 is_stmt 0 view .LVU102
+ 418 006e FFF7FEFF 		bl	HAL_GetTick
+ 419              	.LVL29:
+ 428:../APP/LCD/Src/lcd_advanced_demo.c ****     demo_ctx.frame_count = 0;
+ 429:../APP/LCD/Src/lcd_advanced_demo.c ****     demo_ctx.fps = 0;
+ 420              		.loc 1 429 18 view .LVU103
+ 421 0072 EC60     		str	r4, [r5, #12]
+ 428:../APP/LCD/Src/lcd_advanced_demo.c ****     demo_ctx.frame_count = 0;
+ 422              		.loc 1 428 26 view .LVU104
+ 423 0074 C5E90104 		strd	r0, r4, [r5, #4]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 17
+
+
+ 424              		.loc 1 429 5 is_stmt 1 view .LVU105
+ 430:../APP/LCD/Src/lcd_advanced_demo.c ****     demo_ctx.last_fps_time = HAL_GetTick();
+ 425              		.loc 1 430 5 view .LVU106
+ 426              		.loc 1 430 30 is_stmt 0 view .LVU107
+ 427 0078 FFF7FEFF 		bl	HAL_GetTick
+ 428              	.LVL30:
+ 429              		.loc 1 430 28 discriminator 1 view .LVU108
+ 430 007c 2861     		str	r0, [r5, #16]
+ 431:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 432:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Initialize sub-demos */
+ 433:../APP/LCD/Src/lcd_advanced_demo.c ****     init_balls();
+ 431              		.loc 1 433 5 is_stmt 1 view .LVU109
+ 432 007e FFF7FEFF 		bl	init_balls
+ 433              	.LVL31:
+ 434:../APP/LCD/Src/lcd_advanced_demo.c ****     init_particles();
+ 434              		.loc 1 434 5 view .LVU110
+ 435 0082 FFF7FEFF 		bl	init_particles
+ 436              	.LVL32:
+ 435:../APP/LCD/Src/lcd_advanced_demo.c ****     demo_ctx.plasma_time = 0;
+ 437              		.loc 1 435 5 view .LVU111
+ 438              		.loc 1 435 26 is_stmt 0 view .LVU112
+ 439 0086 C5F8F443 		str	r4, [r5, #1012]
+ 436:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 440              		.loc 1 436 1 view .LVU113
+ 441 008a 05B0     		add	sp, sp, #20
+ 442              	.LCFI8:
+ 443              		.cfi_def_cfa_offset 12
+ 444              		@ sp needed
+ 445 008c 30BD     		pop	{r4, r5, pc}
+ 446              	.L21:
+ 447 008e 00BF     		.align	2
+ 448              	.L20:
+ 449 0090 00000000 		.word	.LC0
+ 450 0094 08000000 		.word	.LC1
+ 451 0098 16000000 		.word	.LC2
+ 452 009c 00000000 		.word	demo_ctx
+ 453              		.cfi_endproc
+ 454              	.LFE145:
+ 456              		.section	.rodata.LCD_AdvancedDemo_Main.str1.1,"aMS",%progbits,1
+ 457              	.LC3:
+ 458 0000 426F756E 		.ascii	"Bouncing Balls\000"
+ 458      63696E67 
+ 458      2042616C 
+ 458      6C7300
+ 459              	.LC4:
+ 460 000f 506C6173 		.ascii	"Plasma Effect\000"
+ 460      6D612045 
+ 460      66666563 
+ 460      7400
+ 461              	.LC5:
+ 462 001d 50617274 		.ascii	"Particle Fountain\000"
+ 462      69636C65 
+ 462      20466F75 
+ 462      6E746169 
+ 462      6E00
+ 463              	.LC6:
+ 464 002f 47726170 		.ascii	"Graphics Test\000"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 18
+
+
+ 464      68696373 
+ 464      20546573 
+ 464      7400
+ 465              	.LC7:
+ 466 003d 50657266 		.ascii	"Performance Test\000"
+ 466      6F726D61 
+ 466      6E636520 
+ 466      54657374 
+ 466      00
+ 467              	.LC8:
+ 468 004e 4C43443A 		.ascii	"LCD: 128x160\000"
+ 468      20313238 
+ 468      78313630 
+ 468      00
+ 469              	.LC9:
+ 470 005b 53504920 		.ascii	"SPI DMA: ON\000"
+ 470      444D413A 
+ 470      204F4E00 
+ 471              	.LC10:
+ 472 0067 50617274 		.ascii	"Partial Refresh\000"
+ 472      69616C20 
+ 472      52656672 
+ 472      65736800 
+ 473              	.LC11:
+ 474 0077 4650533A 		.ascii	"FPS: %lu\000"
+ 474      20256C75 
+ 474      00
+ 475              		.section	.text.LCD_AdvancedDemo_Main,"ax",%progbits
+ 476              		.align	1
+ 477              		.global	LCD_AdvancedDemo_Main
+ 478              		.syntax unified
+ 479              		.thumb
+ 480              		.thumb_func
+ 482              	LCD_AdvancedDemo_Main:
+ 483              	.LFB146:
+ 437:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 438:../APP/LCD/Src/lcd_advanced_demo.c **** /**
+ 439:../APP/LCD/Src/lcd_advanced_demo.c ****  * @brief Main demo loop
+ 440:../APP/LCD/Src/lcd_advanced_demo.c ****  */
+ 441:../APP/LCD/Src/lcd_advanced_demo.c **** void LCD_AdvancedDemo_Main(void)
+ 442:../APP/LCD/Src/lcd_advanced_demo.c **** {
+ 484              		.loc 1 442 1 is_stmt 1 view -0
+ 485              		.cfi_startproc
+ 486              		@ args = 0, pretend = 0, frame = 40
+ 487              		@ frame_needed = 0, uses_anonymous_args = 0
+ 443:../APP/LCD/Src/lcd_advanced_demo.c ****     static DemoState_t prev_state = DEMO_COUNT;  /* Track state changes */
+ 488              		.loc 1 443 5 view .LVU115
+ 444:../APP/LCD/Src/lcd_advanced_demo.c ****     uint32_t current_time = HAL_GetTick();
+ 489              		.loc 1 444 5 view .LVU116
+ 442:../APP/LCD/Src/lcd_advanced_demo.c ****     static DemoState_t prev_state = DEMO_COUNT;  /* Track state changes */
+ 490              		.loc 1 442 1 is_stmt 0 view .LVU117
+ 491 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 492              	.LCFI9:
+ 493              		.cfi_def_cfa_offset 36
+ 494              		.cfi_offset 4, -36
+ 495              		.cfi_offset 5, -32
+ 496              		.cfi_offset 6, -28
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 19
+
+
+ 497              		.cfi_offset 7, -24
+ 498              		.cfi_offset 8, -20
+ 499              		.cfi_offset 9, -16
+ 500              		.cfi_offset 10, -12
+ 501              		.cfi_offset 11, -8
+ 502              		.cfi_offset 14, -4
+ 503 0004 2DED048B 		vpush.64	{d8, d9}
+ 504              	.LCFI10:
+ 505              		.cfi_def_cfa_offset 52
+ 506              		.cfi_offset 80, -52
+ 507              		.cfi_offset 81, -48
+ 508              		.cfi_offset 82, -44
+ 509              		.cfi_offset 83, -40
+ 445:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 446:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Update FPS counter */
+ 447:../APP/LCD/Src/lcd_advanced_demo.c ****     demo_ctx.frame_count++;
+ 510              		.loc 1 447 13 view .LVU118
+ 511 0008 A84C     		ldr	r4, .L106
+ 442:../APP/LCD/Src/lcd_advanced_demo.c ****     static DemoState_t prev_state = DEMO_COUNT;  /* Track state changes */
+ 512              		.loc 1 442 1 view .LVU119
+ 513 000a 8FB0     		sub	sp, sp, #60
+ 514              	.LCFI11:
+ 515              		.cfi_def_cfa_offset 112
+ 444:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 516              		.loc 1 444 29 view .LVU120
+ 517 000c FFF7FEFF 		bl	HAL_GetTick
+ 518              	.LVL33:
+ 519              		.loc 1 447 5 is_stmt 1 view .LVU121
+ 448:../APP/LCD/Src/lcd_advanced_demo.c ****     if (current_time - demo_ctx.last_fps_time >= 1000) {
+ 520              		.loc 1 448 22 is_stmt 0 view .LVU122
+ 521 0010 2269     		ldr	r2, [r4, #16]
+ 447:../APP/LCD/Src/lcd_advanced_demo.c ****     if (current_time - demo_ctx.last_fps_time >= 1000) {
+ 522              		.loc 1 447 25 view .LVU123
+ 523 0012 A368     		ldr	r3, [r4, #8]
+ 524              		.loc 1 448 22 view .LVU124
+ 525 0014 821A     		subs	r2, r0, r2
+ 526              		.loc 1 448 8 view .LVU125
+ 527 0016 B2F57A7F 		cmp	r2, #1000
+ 447:../APP/LCD/Src/lcd_advanced_demo.c ****     if (current_time - demo_ctx.last_fps_time >= 1000) {
+ 528              		.loc 1 447 25 view .LVU126
+ 529 001a 03F10103 		add	r3, r3, #1
+ 530 001e A360     		str	r3, [r4, #8]
+ 531              		.loc 1 448 5 is_stmt 1 view .LVU127
+ 449:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.fps = demo_ctx.frame_count;
+ 532              		.loc 1 449 9 view .LVU128
+ 533              		.loc 1 449 22 is_stmt 0 view .LVU129
+ 534 0020 22BF     		ittt	cs
+ 535 0022 E360     		strcs	r3, [r4, #12]
+ 450:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.frame_count = 0;
+ 536              		.loc 1 450 9 is_stmt 1 view .LVU130
+ 537              		.loc 1 450 30 is_stmt 0 view .LVU131
+ 538 0024 0023     		movcs	r3, #0
+ 539 0026 A360     		strcs	r3, [r4, #8]
+ 451:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.last_fps_time = current_time;
+ 540              		.loc 1 451 9 is_stmt 1 view .LVU132
+ 452:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 453:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 20
+
+
+ 454:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Switch demo every 5 seconds */
+ 455:../APP/LCD/Src/lcd_advanced_demo.c ****     if (current_time - demo_ctx.last_switch_time >= 5000) {
+ 541              		.loc 1 455 22 is_stmt 0 view .LVU133
+ 542 0028 6368     		ldr	r3, [r4, #4]
+ 451:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.last_fps_time = current_time;
+ 543              		.loc 1 451 32 view .LVU134
+ 544 002a 28BF     		it	cs
+ 545 002c 2061     		strcs	r0, [r4, #16]
+ 546              		.loc 1 455 5 is_stmt 1 view .LVU135
+ 547              		.loc 1 455 22 is_stmt 0 view .LVU136
+ 548 002e C31A     		subs	r3, r0, r3
+ 549              		.loc 1 455 8 view .LVU137
+ 550 0030 41F28732 		movw	r2, #4999
+ 551 0034 9342     		cmp	r3, r2
+ 552 0036 09D9     		bls	.L24
+ 456:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.last_switch_time = current_time;
+ 457:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.state = (DemoState_t)((demo_ctx.state + 1) % DEMO_COUNT);
+ 553              		.loc 1 457 49 view .LVU138
+ 554 0038 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 456:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.last_switch_time = current_time;
+ 555              		.loc 1 456 9 is_stmt 1 view .LVU139
+ 456:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.last_switch_time = current_time;
+ 556              		.loc 1 456 35 is_stmt 0 view .LVU140
+ 557 003a 6060     		str	r0, [r4, #4]
+ 558              		.loc 1 457 9 is_stmt 1 view .LVU141
+ 559              		.loc 1 457 56 is_stmt 0 view .LVU142
+ 560 003c 0133     		adds	r3, r3, #1
+ 561              		.loc 1 457 61 view .LVU143
+ 562 003e 0522     		movs	r2, #5
+ 563 0040 B3FBF2F2 		udiv	r2, r3, r2
+ 564 0044 02EB8202 		add	r2, r2, r2, lsl #2
+ 565 0048 9B1A     		subs	r3, r3, r2
+ 566              		.loc 1 457 26 view .LVU144
+ 567 004a 2370     		strb	r3, [r4]
+ 568              	.L24:
+ 458:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 459:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 460:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Detect state change and reset flags */
+ 461:../APP/LCD/Src/lcd_advanced_demo.c ****     if (demo_ctx.state != prev_state) {
+ 569              		.loc 1 461 5 is_stmt 1 view .LVU145
+ 570              		.loc 1 461 24 is_stmt 0 view .LVU146
+ 571 004c 984A     		ldr	r2, .L106+4
+ 572              		.loc 1 461 17 view .LVU147
+ 573 004e 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 574              		.loc 1 461 8 view .LVU148
+ 575 0050 1178     		ldrb	r1, [r2]	@ zero_extendqisi2
+ 576 0052 9942     		cmp	r1, r3
+ 577 0054 0AD0     		beq	.L26
+ 462:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_state = demo_ctx.state;
+ 578              		.loc 1 462 9 is_stmt 1 view .LVU149
+ 463:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 464:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Reset initialization flags */
+ 465:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls_initialized = false;
+ 579              		.loc 1 465 36 is_stmt 0 view .LVU150
+ 580 0056 0021     		movs	r1, #0
+ 462:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_state = demo_ctx.state;
+ 581              		.loc 1 462 20 view .LVU151
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 21
+
+
+ 582 0058 1370     		strb	r3, [r2]
+ 583              		.loc 1 465 9 is_stmt 1 view .LVU152
+ 584              		.loc 1 465 36 is_stmt 0 view .LVU153
+ 585 005a 84F8A010 		strb	r1, [r4, #160]
+ 466:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.particles_initialized = false;
+ 586              		.loc 1 466 9 is_stmt 1 view .LVU154
+ 587              		.loc 1 466 40 is_stmt 0 view .LVU155
+ 588 005e 84F8F013 		strb	r1, [r4, #1008]
+ 467:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.graphics_initialized = false;
+ 589              		.loc 1 467 9 is_stmt 1 view .LVU156
+ 590              		.loc 1 467 39 is_stmt 0 view .LVU157
+ 591 0062 84F8F813 		strb	r1, [r4, #1016]
+ 468:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 469:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Re-initialize when switching */
+ 470:../APP/LCD/Src/lcd_advanced_demo.c ****         if (demo_ctx.state == DEMO_BOUNCING_BALLS) {
+ 592              		.loc 1 470 9 is_stmt 1 view .LVU158
+ 593              		.loc 1 470 12 is_stmt 0 view .LVU159
+ 594 0066 63B9     		cbnz	r3, .L27
+ 471:../APP/LCD/Src/lcd_advanced_demo.c ****             init_balls();
+ 595              		.loc 1 471 13 is_stmt 1 view .LVU160
+ 596 0068 FFF7FEFF 		bl	init_balls
+ 597              	.LVL34:
+ 598              	.L26:
+ 472:../APP/LCD/Src/lcd_advanced_demo.c ****         } else if (demo_ctx.state == DEMO_PARTICLES) {
+ 473:../APP/LCD/Src/lcd_advanced_demo.c ****             init_particles();
+ 474:../APP/LCD/Src/lcd_advanced_demo.c ****         } else if (demo_ctx.state == DEMO_PLASMA_EFFECT) {
+ 475:../APP/LCD/Src/lcd_advanced_demo.c ****             /* Clear screen for plasma */
+ 476:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 477:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 478:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 479:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 480:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Run current demo */
+ 481:../APP/LCD/Src/lcd_advanced_demo.c ****     switch (demo_ctx.state) {
+ 599              		.loc 1 481 5 view .LVU161
+ 600 006c 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 601 006e 042B     		cmp	r3, #4
+ 602 0070 00F2D683 		bhi	.L30
+ 603 0074 DFE813F0 		tbh	[pc, r3, lsl #1]
+ 604              	.L32:
+ 605 0078 1300     		.2byte	(.L36-.L32)/2
+ 606 007a C100     		.2byte	(.L35-.L32)/2
+ 607 007c 3001     		.2byte	(.L34-.L32)/2
+ 608 007e 6802     		.2byte	(.L33-.L32)/2
+ 609 0080 3503     		.2byte	(.L31-.L32)/2
+ 610              	.LVL35:
+ 611              		.p2align 1
+ 612              	.L27:
+ 472:../APP/LCD/Src/lcd_advanced_demo.c ****         } else if (demo_ctx.state == DEMO_PARTICLES) {
+ 613              		.loc 1 472 16 view .LVU162
+ 472:../APP/LCD/Src/lcd_advanced_demo.c ****         } else if (demo_ctx.state == DEMO_PARTICLES) {
+ 614              		.loc 1 472 19 is_stmt 0 view .LVU163
+ 615 0082 022B     		cmp	r3, #2
+ 616 0084 02D1     		bne	.L28
+ 473:../APP/LCD/Src/lcd_advanced_demo.c ****         } else if (demo_ctx.state == DEMO_PLASMA_EFFECT) {
+ 617              		.loc 1 473 13 is_stmt 1 view .LVU164
+ 618 0086 FFF7FEFF 		bl	init_particles
+ 619              	.LVL36:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 22
+
+
+ 473:../APP/LCD/Src/lcd_advanced_demo.c ****         } else if (demo_ctx.state == DEMO_PLASMA_EFFECT) {
+ 620              		.loc 1 473 13 is_stmt 0 view .LVU165
+ 621 008a EFE7     		b	.L26
+ 622              	.LVL37:
+ 623              	.L28:
+ 474:../APP/LCD/Src/lcd_advanced_demo.c ****             /* Clear screen for plasma */
+ 624              		.loc 1 474 16 is_stmt 1 view .LVU166
+ 474:../APP/LCD/Src/lcd_advanced_demo.c ****             /* Clear screen for plasma */
+ 625              		.loc 1 474 19 is_stmt 0 view .LVU167
+ 626 008c 012B     		cmp	r3, #1
+ 627 008e EDD1     		bne	.L26
+ 476:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 628              		.loc 1 476 13 is_stmt 1 view .LVU168
+ 629 0090 0091     		str	r1, [sp]
+ 630 0092 8023     		movs	r3, #128
+ 631 0094 A022     		movs	r2, #160
+ 632 0096 0846     		mov	r0, r1
+ 633              	.LVL38:
+ 476:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 634              		.loc 1 476 13 is_stmt 0 view .LVU169
+ 635 0098 FFF7FEFF 		bl	LCD_Fill
+ 636              	.LVL39:
+ 637 009c E6E7     		b	.L26
+ 638              	.L36:
+ 482:../APP/LCD/Src/lcd_advanced_demo.c ****         case DEMO_BOUNCING_BALLS:
+ 483:../APP/LCD/Src/lcd_advanced_demo.c ****             demo_bouncing_balls();
+ 639              		.loc 1 483 13 is_stmt 1 view .LVU170
+ 640              	.LBB41:
+ 641              	.LBI41:
+ 122:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Clear screen and draw title only once */
+ 642              		.loc 1 122 13 view .LVU171
+ 643              	.LBB42:
+ 124:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 644              		.loc 1 124 5 view .LVU172
+ 124:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 645              		.loc 1 124 8 is_stmt 0 view .LVU173
+ 646 009e 94F8A050 		ldrb	r5, [r4, #160]	@ zero_extendqisi2
+ 647 00a2 A5B9     		cbnz	r5, .L37
+ 125:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(5, 5, (const u8 *)"Bouncing Balls", WHITE, BLACK, 12, 0);
+ 648              		.loc 1 125 9 is_stmt 1 view .LVU174
+ 649 00a4 8023     		movs	r3, #128
+ 650 00a6 A022     		movs	r2, #160
+ 651 00a8 2946     		mov	r1, r5
+ 652 00aa 2846     		mov	r0, r5
+ 653 00ac 0095     		str	r5, [sp]
+ 654 00ae FFF7FEFF 		bl	LCD_Fill
+ 655              	.LVL40:
+ 126:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.balls_initialized = true;
+ 656              		.loc 1 126 9 view .LVU175
+ 657 00b2 0C23     		movs	r3, #12
+ 658 00b4 0521     		movs	r1, #5
+ 659 00b6 CDE90053 		strd	r5, r3, [sp]
+ 660 00ba 7E4A     		ldr	r2, .L106+8
+ 661 00bc 0295     		str	r5, [sp, #8]
+ 662 00be 4FF6FF73 		movw	r3, #65535
+ 663 00c2 0846     		mov	r0, r1
+ 664 00c4 FFF7FEFF 		bl	LCD_ShowString
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 23
+
+
+ 665              	.LVL41:
+ 127:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 666              		.loc 1 127 9 view .LVU176
+ 127:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 667              		.loc 1 127 36 is_stmt 0 view .LVU177
+ 668 00c8 0123     		movs	r3, #1
+ 669 00ca 84F8A030 		strb	r3, [r4, #160]
+ 670              	.L37:
+ 671              	.LVL42:
+ 672              	.LBB43:
+ 130:../APP/LCD/Src/lcd_advanced_demo.c ****         Ball_t *ball = &demo_ctx.balls[i];
+ 673              		.loc 1 130 23 is_stmt 1 discriminator 1 view .LVU178
+ 674 00ce 774C     		ldr	r4, .L106
+ 675              	.LBB44:
+ 147:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 676              		.loc 1 147 21 is_stmt 0 view .LVU179
+ 677 00d0 9FED798A 		vldr.32	s16, .L106+12
+ 145:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vx = -ball->vx;
+ 678              		.loc 1 145 40 discriminator 1 view .LVU180
+ 679 00d4 DFED798A 		vldr.32	s17, .L106+16
+ 151:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 680              		.loc 1 151 21 view .LVU181
+ 681 00d8 9FED799A 		vldr.32	s18, .L106+20
+ 682              	.LBE44:
+ 683              	.LBE43:
+ 684              	.LBE42:
+ 685              	.LBE41:
+ 442:../APP/LCD/Src/lcd_advanced_demo.c ****     static DemoState_t prev_state = DEMO_COUNT;  /* Track state changes */
+ 686              		.loc 1 442 1 view .LVU182
+ 687 00dc 0025     		movs	r5, #0
+ 688              	.LVL43:
+ 689              	.L46:
+ 690              	.LBB49:
+ 691              	.LBB48:
+ 692              	.LBB47:
+ 693              	.LBB45:
+ 131:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 694              		.loc 1 131 9 is_stmt 1 view .LVU183
+ 134:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 695              		.loc 1 134 9 view .LVU184
+ 696 00de 94ED0B7A 		vldr.32	s14, [r4, #44]
+ 697 00e2 D4ED0A7A 		vldr.32	s15, [r4, #40]
+ 698 00e6 94F82420 		ldrb	r2, [r4, #36]	@ zero_extendqisi2
+ 699 00ea BCEEC77A 		vcvt.u32.f32	s14, s14
+ 700 00ee FCEEE77A 		vcvt.u32.f32	s15, s15
+ 701 00f2 17EE101A 		vmov	r1, s14	@ int
+ 702 00f6 17EE900A 		vmov	r0, s15	@ int
+ 703 00fa 0132     		adds	r2, r2, #1
+ 704 00fc D2B2     		uxtb	r2, r2
+ 705 00fe 0023     		movs	r3, #0
+ 706 0100 89B2     		uxth	r1, r1
+ 707 0102 80B2     		uxth	r0, r0
+ 708 0104 FFF7FEFF 		bl	Draw_Circle
+ 709              	.LVL44:
+ 137:../APP/LCD/Src/lcd_advanced_demo.c ****         ball->prev_y = ball->y;
+ 710              		.loc 1 137 9 view .LVU185
+ 145:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vx = -ball->vx;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 24
+
+
+ 711              		.loc 1 145 27 is_stmt 0 view .LVU186
+ 712 0108 94F82420 		ldrb	r2, [r4, #36]	@ zero_extendqisi2
+ 137:../APP/LCD/Src/lcd_advanced_demo.c ****         ball->prev_y = ball->y;
+ 713              		.loc 1 137 28 view .LVU187
+ 714 010c D4ED056A 		vldr.32	s13, [r4, #20]
+ 141:../APP/LCD/Src/lcd_advanced_demo.c ****         ball->y += ball->vy;
+ 715              		.loc 1 141 24 view .LVU188
+ 716 0110 D4ED075A 		vldr.32	s11, [r4, #28]
+ 137:../APP/LCD/Src/lcd_advanced_demo.c ****         ball->prev_y = ball->y;
+ 717              		.loc 1 137 22 view .LVU189
+ 718 0114 C4ED0A6A 		vstr.32	s13, [r4, #40]
+ 138:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 719              		.loc 1 138 9 is_stmt 1 view .LVU190
+ 145:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vx = -ball->vx;
+ 720              		.loc 1 145 21 is_stmt 0 view .LVU191
+ 721 0118 07EE902A 		vmov	s15, r2	@ int
+ 141:../APP/LCD/Src/lcd_advanced_demo.c ****         ball->y += ball->vy;
+ 722              		.loc 1 141 17 view .LVU192
+ 723 011c 76EEA56A 		vadd.f32	s13, s13, s11
+ 145:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vx = -ball->vx;
+ 724              		.loc 1 145 21 view .LVU193
+ 725 0120 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 138:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 726              		.loc 1 138 28 view .LVU194
+ 727 0124 94ED067A 		vldr.32	s14, [r4, #24]
+ 142:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 728              		.loc 1 142 24 view .LVU195
+ 729 0128 94ED086A 		vldr.32	s12, [r4, #32]
+ 138:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 730              		.loc 1 138 22 view .LVU196
+ 731 012c 84ED0B7A 		vstr.32	s14, [r4, #44]
+ 141:../APP/LCD/Src/lcd_advanced_demo.c ****         ball->y += ball->vy;
+ 732              		.loc 1 141 9 is_stmt 1 view .LVU197
+ 145:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vx = -ball->vx;
+ 733              		.loc 1 145 21 is_stmt 0 view .LVU198
+ 734 0130 36EEE75A 		vsub.f32	s10, s13, s15
+ 142:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 735              		.loc 1 142 17 view .LVU199
+ 736 0134 37EE067A 		vadd.f32	s14, s14, s12
+ 145:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vx = -ball->vx;
+ 737              		.loc 1 145 12 view .LVU200
+ 738 0138 B5EEC05A 		vcmpe.f32	s10, #0
+ 739 013c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 141:../APP/LCD/Src/lcd_advanced_demo.c ****         ball->y += ball->vy;
+ 740              		.loc 1 141 17 view .LVU201
+ 741 0140 C4ED056A 		vstr.32	s13, [r4, #20]
+ 142:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 742              		.loc 1 142 9 is_stmt 1 view .LVU202
+ 142:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 743              		.loc 1 142 17 is_stmt 0 view .LVU203
+ 744 0144 84ED067A 		vstr.32	s14, [r4, #24]
+ 145:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vx = -ball->vx;
+ 745              		.loc 1 145 9 is_stmt 1 view .LVU204
+ 145:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vx = -ball->vx;
+ 746              		.loc 1 145 12 is_stmt 0 view .LVU205
+ 747 0148 06D4     		bmi	.L38
+ 145:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vx = -ball->vx;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 25
+
+
+ 748              		.loc 1 145 51 discriminator 1 view .LVU206
+ 749 014a 36EEA75A 		vadd.f32	s10, s13, s15
+ 145:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vx = -ball->vx;
+ 750              		.loc 1 145 40 discriminator 1 view .LVU207
+ 751 014e B4EEE85A 		vcmpe.f32	s10, s17
+ 752 0152 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 753 0156 13DB     		blt	.L39
+ 754              	.L38:
+ 146:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->x = (ball->x < LCD_W / 2) ? ball->radius : LCD_W - ball->radius - 1;
+ 755              		.loc 1 146 13 is_stmt 1 view .LVU208
+ 147:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 756              		.loc 1 147 21 is_stmt 0 view .LVU209
+ 757 0158 F4EEC86A 		vcmpe.f32	s13, s16
+ 758 015c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 147:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 759              		.loc 1 147 83 discriminator 2 view .LVU210
+ 760 0160 5EBF     		ittt	pl
+ 761 0162 C2F19F03 		rsbpl	r3, r2, #159
+ 762 0166 06EE903A 		vmovpl	s13, r3	@ int
+ 147:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 763              		.loc 1 147 21 discriminator 2 view .LVU211
+ 764 016a F8EEE66A 		vcvtpl.f32.s32	s13, s13
+ 146:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->x = (ball->x < LCD_W / 2) ? ball->radius : LCD_W - ball->radius - 1;
+ 765              		.loc 1 146 24 view .LVU212
+ 766 016e F1EE655A 		vneg.f32	s11, s11
+ 147:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 767              		.loc 1 147 21 discriminator 1 view .LVU213
+ 768 0172 48BF     		it	mi
+ 769 0174 F0EE676A 		vmovmi.f32	s13, s15
+ 146:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->x = (ball->x < LCD_W / 2) ? ball->radius : LCD_W - ball->radius - 1;
+ 770              		.loc 1 146 22 view .LVU214
+ 771 0178 C4ED075A 		vstr.32	s11, [r4, #28]
+ 147:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 772              		.loc 1 147 13 is_stmt 1 view .LVU215
+ 147:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 773              		.loc 1 147 21 is_stmt 0 discriminator 4 view .LVU216
+ 774 017c C4ED056A 		vstr.32	s13, [r4, #20]
+ 775              	.L39:
+ 149:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vy = -ball->vy;
+ 776              		.loc 1 149 9 is_stmt 1 view .LVU217
+ 149:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vy = -ball->vy;
+ 777              		.loc 1 149 21 is_stmt 0 view .LVU218
+ 778 0180 77EE676A 		vsub.f32	s13, s14, s15
+ 149:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vy = -ball->vy;
+ 779              		.loc 1 149 12 view .LVU219
+ 780 0184 F5EEC06A 		vcmpe.f32	s13, #0
+ 781 0188 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 782 018c 08D4     		bmi	.L42
+ 149:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vy = -ball->vy;
+ 783              		.loc 1 149 51 discriminator 1 view .LVU220
+ 784 018e 77EE276A 		vadd.f32	s13, s14, s15
+ 149:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->vy = -ball->vy;
+ 785              		.loc 1 149 40 discriminator 1 view .LVU221
+ 786 0192 DFED4C5A 		vldr.32	s11, .L106+24
+ 787 0196 F4EEE56A 		vcmpe.f32	s13, s11
+ 788 019a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 789 019e 10DB     		blt	.L43
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 26
+
+
+ 790              	.L42:
+ 150:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->y = (ball->y < LCD_H / 2) ? ball->radius : LCD_H - ball->radius - 1;
+ 791              		.loc 1 150 13 is_stmt 1 view .LVU222
+ 151:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 792              		.loc 1 151 21 is_stmt 0 view .LVU223
+ 793 01a0 B4EEC97A 		vcmpe.f32	s14, s18
+ 794 01a4 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 151:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 795              		.loc 1 151 83 discriminator 2 view .LVU224
+ 796 01a8 5EBF     		ittt	pl
+ 797 01aa C2F17F03 		rsbpl	r3, r2, #127
+ 798 01ae 07EE903A 		vmovpl	s15, r3	@ int
+ 151:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 799              		.loc 1 151 21 discriminator 2 view .LVU225
+ 800 01b2 F8EEE77A 		vcvtpl.f32.s32	s15, s15
+ 150:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->y = (ball->y < LCD_H / 2) ? ball->radius : LCD_H - ball->radius - 1;
+ 801              		.loc 1 150 24 view .LVU226
+ 802 01b6 B1EE466A 		vneg.f32	s12, s12
+ 150:../APP/LCD/Src/lcd_advanced_demo.c ****             ball->y = (ball->y < LCD_H / 2) ? ball->radius : LCD_H - ball->radius - 1;
+ 803              		.loc 1 150 22 view .LVU227
+ 804 01ba 84ED086A 		vstr.32	s12, [r4, #32]
+ 151:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 805              		.loc 1 151 13 is_stmt 1 view .LVU228
+ 151:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 806              		.loc 1 151 21 is_stmt 0 discriminator 4 view .LVU229
+ 807 01be C4ED067A 		vstr.32	s15, [r4, #24]
+ 808              	.L43:
+ 155:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 809              		.loc 1 155 9 is_stmt 1 view .LVU230
+ 810 01c2 94ED067A 		vldr.32	s14, [r4, #24]
+ 811 01c6 D4ED057A 		vldr.32	s15, [r4, #20]
+ 812 01ca E38C     		ldrh	r3, [r4, #38]
+ 813 01cc BCEEC77A 		vcvt.u32.f32	s14, s14
+ 814 01d0 FCEEE77A 		vcvt.u32.f32	s15, s15
+ 815 01d4 17EE101A 		vmov	r1, s14	@ int
+ 816 01d8 17EE900A 		vmov	r0, s15	@ int
+ 817 01dc 89B2     		uxth	r1, r1
+ 818 01de 80B2     		uxth	r0, r0
+ 819              	.LBE45:
+ 130:../APP/LCD/Src/lcd_advanced_demo.c ****         Ball_t *ball = &demo_ctx.balls[i];
+ 820              		.loc 1 130 37 is_stmt 0 discriminator 2 view .LVU231
+ 821 01e0 0135     		adds	r5, r5, #1
+ 822              	.LVL45:
+ 823              	.LBB46:
+ 155:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 824              		.loc 1 155 9 view .LVU232
+ 825 01e2 FFF7FEFF 		bl	Draw_Circle
+ 826              	.LVL46:
+ 827              	.LBE46:
+ 130:../APP/LCD/Src/lcd_advanced_demo.c ****         Ball_t *ball = &demo_ctx.balls[i];
+ 828              		.loc 1 130 37 is_stmt 1 discriminator 2 view .LVU233
+ 130:../APP/LCD/Src/lcd_advanced_demo.c ****         Ball_t *ball = &demo_ctx.balls[i];
+ 829              		.loc 1 130 23 discriminator 1 view .LVU234
+ 830 01e6 052D     		cmp	r5, #5
+ 831 01e8 04F11C04 		add	r4, r4, #28
+ 832 01ec 7FF477AF 		bne	.L46
+ 833              	.LVL47:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 27
+
+
+ 834              	.L22:
+ 130:../APP/LCD/Src/lcd_advanced_demo.c ****         Ball_t *ball = &demo_ctx.balls[i];
+ 835              		.loc 1 130 23 is_stmt 0 discriminator 1 view .LVU235
+ 836              	.LBE47:
+ 837              	.LBE48:
+ 838              	.LBE49:
+ 484:../APP/LCD/Src/lcd_advanced_demo.c ****             break;
+ 485:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 486:../APP/LCD/Src/lcd_advanced_demo.c ****         case DEMO_PLASMA_EFFECT:
+ 487:../APP/LCD/Src/lcd_advanced_demo.c ****             /* Plasma needs full redraw */
+ 488:../APP/LCD/Src/lcd_advanced_demo.c ****             demo_plasma_effect();
+ 489:../APP/LCD/Src/lcd_advanced_demo.c ****             break;
+ 490:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 491:../APP/LCD/Src/lcd_advanced_demo.c ****         case DEMO_PARTICLES:
+ 492:../APP/LCD/Src/lcd_advanced_demo.c ****             demo_particles();
+ 493:../APP/LCD/Src/lcd_advanced_demo.c ****             break;
+ 494:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 495:../APP/LCD/Src/lcd_advanced_demo.c ****         case DEMO_GRAPHICS_TEST:
+ 496:../APP/LCD/Src/lcd_advanced_demo.c ****             demo_graphics_test();
+ 497:../APP/LCD/Src/lcd_advanced_demo.c ****             break;
+ 498:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 499:../APP/LCD/Src/lcd_advanced_demo.c ****         case DEMO_PERFORMANCE:
+ 500:../APP/LCD/Src/lcd_advanced_demo.c ****             demo_performance();
+ 501:../APP/LCD/Src/lcd_advanced_demo.c ****             break;
+ 502:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 503:../APP/LCD/Src/lcd_advanced_demo.c ****         default:
+ 504:../APP/LCD/Src/lcd_advanced_demo.c ****             demo_ctx.state = DEMO_BOUNCING_BALLS;
+ 505:../APP/LCD/Src/lcd_advanced_demo.c ****             break;
+ 506:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 507:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 508:../APP/LCD/Src/lcd_advanced_demo.c ****     /* No delay - run as fast as possible for max FPS */
+ 509:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 839              		.loc 1 509 1 view .LVU236
+ 840 01f0 0FB0     		add	sp, sp, #60
+ 841              	.LCFI12:
+ 842              		.cfi_remember_state
+ 843              		.cfi_def_cfa_offset 52
+ 844              		@ sp needed
+ 845 01f2 BDEC048B 		vldm	sp!, {d8-d9}
+ 846              	.LCFI13:
+ 847              		.cfi_restore 82
+ 848              		.cfi_restore 83
+ 849              		.cfi_restore 80
+ 850              		.cfi_restore 81
+ 851              		.cfi_def_cfa_offset 36
+ 852 01f6 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 853              	.L35:
+ 854              	.LCFI14:
+ 855              		.cfi_restore_state
+ 488:../APP/LCD/Src/lcd_advanced_demo.c ****             break;
+ 856              		.loc 1 488 13 is_stmt 1 view .LVU237
+ 857              	.LBB50:
+ 858              	.LBI50:
+ 162:../APP/LCD/Src/lcd_advanced_demo.c ****     demo_ctx.plasma_time++;
+ 859              		.loc 1 162 13 view .LVU238
+ 860              	.LBB51:
+ 163:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 28
+
+
+ 861              		.loc 1 163 5 view .LVU239
+ 163:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 862              		.loc 1 163 25 is_stmt 0 view .LVU240
+ 863 01fa D4F8F433 		ldr	r3, [r4, #1012]
+ 864              	.LBB52:
+ 865              	.LBB53:
+ 866              	.LBB54:
+ 171:../APP/LCD/Src/lcd_advanced_demo.c ****                       fast_sin(cy + demo_ctx.plasma_time * 0.08f);
+ 867              		.loc 1 171 23 view .LVU241
+ 868 01fe DFED329A 		vldr.32	s19, .L106+28
+ 869              	.LBE54:
+ 870              	.LBE53:
+ 871              	.LBE52:
+ 163:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 872              		.loc 1 163 25 view .LVU242
+ 873 0202 0133     		adds	r3, r3, #1
+ 874 0204 C4F8F433 		str	r3, [r4, #1012]
+ 166:../APP/LCD/Src/lcd_advanced_demo.c ****         for (uint16_t x = 0; x < LCD_W; x += 2) {
+ 875              		.loc 1 166 5 is_stmt 1 view .LVU243
+ 876              	.LBB59:
+ 166:../APP/LCD/Src/lcd_advanced_demo.c ****         for (uint16_t x = 0; x < LCD_W; x += 2) {
+ 877              		.loc 1 166 10 view .LVU244
+ 878              	.LVL48:
+ 166:../APP/LCD/Src/lcd_advanced_demo.c ****         for (uint16_t x = 0; x < LCD_W; x += 2) {
+ 879              		.loc 1 166 28 discriminator 1 view .LVU245
+ 880              	.LBE59:
+ 163:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 881              		.loc 1 163 25 is_stmt 0 view .LVU246
+ 882 0208 0026     		movs	r6, #0
+ 883              	.LBB60:
+ 884              	.LBB58:
+ 885              	.LBB55:
+ 169:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 886              		.loc 1 169 19 view .LVU247
+ 887 020a B3EE048A 		vmov.f32	s16, #2.0e+1
+ 888              	.LVL49:
+ 889              	.L48:
+ 169:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 890              		.loc 1 169 27 view .LVU248
+ 891 020e A6F14003 		sub	r3, r6, #64
+ 892 0212 07EE903A 		vmov	s15, r3	@ int
+ 169:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 893              		.loc 1 169 38 view .LVU249
+ 894 0216 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 172:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 895              		.loc 1 172 23 view .LVU250
+ 896 021a DFED2C8A 		vldr.32	s17, .L106+32
+ 177:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 897              		.loc 1 177 47 view .LVU251
+ 898 021e 2C4F     		ldr	r7, .L106+36
+ 169:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 899              		.loc 1 169 19 view .LVU252
+ 900 0220 87EE889A 		vdiv.f32	s18, s15, s16
+ 901 0224 1FFA86F8 		uxth	r8, r6
+ 902              	.LVL50:
+ 169:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 903              		.loc 1 169 19 view .LVU253
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 29
+
+
+ 904              	.LBE55:
+ 167:../APP/LCD/Src/lcd_advanced_demo.c ****             float cx = (x - LCD_W/2) / 20.0f;
+ 905              		.loc 1 167 32 is_stmt 1 discriminator 1 view .LVU254
+ 906              	.LBB56:
+ 169:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 907              		.loc 1 169 19 is_stmt 0 view .LVU255
+ 908 0228 0025     		movs	r5, #0
+ 909              	.LVL51:
+ 910              	.L49:
+ 168:../APP/LCD/Src/lcd_advanced_demo.c ****             float cy = (y - LCD_H/2) / 20.0f;
+ 911              		.loc 1 168 13 is_stmt 1 view .LVU256
+ 169:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 912              		.loc 1 169 13 view .LVU257
+ 171:../APP/LCD/Src/lcd_advanced_demo.c ****                       fast_sin(cy + demo_ctx.plasma_time * 0.08f);
+ 913              		.loc 1 171 13 view .LVU258
+ 171:../APP/LCD/Src/lcd_advanced_demo.c ****                       fast_sin(cy + demo_ctx.plasma_time * 0.08f);
+ 914              		.loc 1 171 45 is_stmt 0 view .LVU259
+ 915 022a D4F8F433 		ldr	r3, [r4, #1012]
+ 168:../APP/LCD/Src/lcd_advanced_demo.c ****             float cy = (y - LCD_H/2) / 20.0f;
+ 916              		.loc 1 168 27 view .LVU260
+ 917 022e A5F15002 		sub	r2, r5, #80
+ 177:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 918              		.loc 1 177 13 view .LVU261
+ 919 0232 A8B2     		uxth	r0, r5
+ 920 0234 4146     		mov	r1, r8
+ 921              	.LBE56:
+ 167:../APP/LCD/Src/lcd_advanced_demo.c ****             float cx = (x - LCD_W/2) / 20.0f;
+ 922              		.loc 1 167 32 discriminator 1 view .LVU262
+ 923 0236 0235     		adds	r5, r5, #2
+ 924              	.LVL52:
+ 925              	.LBB57:
+ 171:../APP/LCD/Src/lcd_advanced_demo.c ****                       fast_sin(cy + demo_ctx.plasma_time * 0.08f);
+ 926              		.loc 1 171 58 view .LVU263
+ 927 0238 07EE903A 		vmov	s15, r3	@ int
+ 928 023c B8EE675A 		vcvt.f32.u32	s10, s15
+ 168:../APP/LCD/Src/lcd_advanced_demo.c ****             float cy = (y - LCD_H/2) / 20.0f;
+ 929              		.loc 1 168 27 view .LVU264
+ 930 0240 07EE902A 		vmov	s15, r2	@ int
+ 168:../APP/LCD/Src/lcd_advanced_demo.c ****             float cy = (y - LCD_H/2) / 20.0f;
+ 931              		.loc 1 168 38 view .LVU265
+ 932 0244 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 174:../APP/LCD/Src/lcd_advanced_demo.c ****             if (color_idx < 0) color_idx += RAINBOW_SIZE;
+ 933              		.loc 1 174 69 view .LVU266
+ 934 0248 0A22     		movs	r2, #10
+ 168:../APP/LCD/Src/lcd_advanced_demo.c ****             float cy = (y - LCD_H/2) / 20.0f;
+ 935              		.loc 1 168 19 view .LVU267
+ 936 024a 87EE880A 		vdiv.f32	s0, s15, s16
+ 171:../APP/LCD/Src/lcd_advanced_demo.c ****                       fast_sin(cy + demo_ctx.plasma_time * 0.08f);
+ 937              		.loc 1 171 23 view .LVU268
+ 938 024e A5EE290A 		vfma.f32	s0, s10, s19
+ 939 0252 FFF7FEFF 		bl	fast_sin
+ 940              	.LVL53:
+ 941 0256 F0EE405A 		vmov.f32	s11, s0
+ 172:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 942              		.loc 1 172 23 view .LVU269
+ 943 025a B0EE490A 		vmov.f32	s0, s18
+ 944 025e A5EE280A 		vfma.f32	s0, s10, s17
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 30
+
+
+ 945 0262 FFF7FEFF 		bl	fast_sin
+ 946              	.LVL54:
+ 174:../APP/LCD/Src/lcd_advanced_demo.c ****             if (color_idx < 0) color_idx += RAINBOW_SIZE;
+ 947              		.loc 1 174 13 is_stmt 1 view .LVU270
+ 175:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 948              		.loc 1 175 13 view .LVU271
+ 177:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 949              		.loc 1 177 13 view .LVU272
+ 174:../APP/LCD/Src/lcd_advanced_demo.c ****             if (color_idx < 0) color_idx += RAINBOW_SIZE;
+ 950              		.loc 1 174 69 is_stmt 0 view .LVU273
+ 951 0266 B3FBF2F3 		udiv	r3, r3, r2
+ 952              	.LVL55:
+ 171:../APP/LCD/Src/lcd_advanced_demo.c ****                       fast_sin(cy + demo_ctx.plasma_time * 0.08f);
+ 953              		.loc 1 171 19 view .LVU274
+ 954 026a 35EE800A 		vadd.f32	s0, s11, s0
+ 955              	.LVL56:
+ 174:../APP/LCD/Src/lcd_advanced_demo.c ****             if (color_idx < 0) color_idx += RAINBOW_SIZE;
+ 956              		.loc 1 174 38 view .LVU275
+ 957 026e 30EE000A 		vadd.f32	s0, s0, s0
+ 958              	.LVL57:
+ 174:../APP/LCD/Src/lcd_advanced_demo.c ****             if (color_idx < 0) color_idx += RAINBOW_SIZE;
+ 959              		.loc 1 174 30 view .LVU276
+ 960 0272 BDEEC00A 		vcvt.s32.f32	s0, s0
+ 174:../APP/LCD/Src/lcd_advanced_demo.c ****             if (color_idx < 0) color_idx += RAINBOW_SIZE;
+ 961              		.loc 1 174 46 view .LVU277
+ 962 0276 10EE102A 		vmov	r2, s0	@ int
+ 963 027a 1A44     		add	r2, r2, r3
+ 174:../APP/LCD/Src/lcd_advanced_demo.c ****             if (color_idx < 0) color_idx += RAINBOW_SIZE;
+ 964              		.loc 1 174 17 view .LVU278
+ 965 027c 02F00703 		and	r3, r2, #7
+ 177:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 966              		.loc 1 177 13 view .LVU279
+ 967 0280 37F81320 		ldrh	r2, [r7, r3, lsl #1]
+ 968 0284 FFF7FEFF 		bl	LCD_DrawPoint
+ 969              	.LVL58:
+ 177:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 970              		.loc 1 177 13 view .LVU280
+ 971              	.LBE57:
+ 167:../APP/LCD/Src/lcd_advanced_demo.c ****             float cx = (x - LCD_W/2) / 20.0f;
+ 972              		.loc 1 167 43 is_stmt 1 discriminator 2 view .LVU281
+ 167:../APP/LCD/Src/lcd_advanced_demo.c ****             float cx = (x - LCD_W/2) / 20.0f;
+ 973              		.loc 1 167 32 discriminator 1 view .LVU282
+ 974 0288 A02D     		cmp	r5, #160
+ 975 028a CED1     		bne	.L49
+ 976              	.LBE58:
+ 166:../APP/LCD/Src/lcd_advanced_demo.c ****         for (uint16_t x = 0; x < LCD_W; x += 2) {
+ 977              		.loc 1 166 39 discriminator 2 view .LVU283
+ 978              	.LVL59:
+ 166:../APP/LCD/Src/lcd_advanced_demo.c ****         for (uint16_t x = 0; x < LCD_W; x += 2) {
+ 979              		.loc 1 166 28 discriminator 1 view .LVU284
+ 980 028c 0236     		adds	r6, r6, #2
+ 981              	.LVL60:
+ 166:../APP/LCD/Src/lcd_advanced_demo.c ****         for (uint16_t x = 0; x < LCD_W; x += 2) {
+ 982              		.loc 1 166 28 is_stmt 0 discriminator 1 view .LVU285
+ 983 028e 802E     		cmp	r6, #128
+ 984 0290 BDD1     		bne	.L48
+ 985              	.LBE60:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 31
+
+
+ 181:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 986              		.loc 1 181 5 is_stmt 1 view .LVU286
+ 987 0292 0023     		movs	r3, #0
+ 988 0294 0C22     		movs	r2, #12
+ 989 0296 0521     		movs	r1, #5
+ 990 0298 CDE90123 		strd	r2, r3, [sp, #4]
+ 991 029c 0093     		str	r3, [sp]
+ 992 029e 0D4A     		ldr	r2, .L106+40
+ 993 02a0 4FF6FF73 		movw	r3, #65535
+ 994 02a4 0846     		mov	r0, r1
+ 995 02a6 FFF7FEFF 		bl	LCD_ShowString
+ 996              	.LVL61:
+ 181:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 997              		.loc 1 181 5 is_stmt 0 view .LVU287
+ 998              	.LBE51:
+ 999              	.LBE50:
+ 489:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1000              		.loc 1 489 13 is_stmt 1 view .LVU288
+ 1001              	.LBB62:
+ 1002              	.LBB61:
+ 182:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1003              		.loc 1 182 1 is_stmt 0 view .LVU289
+ 1004 02aa A1E7     		b	.L22
+ 1005              	.L107:
+ 1006              		.align	2
+ 1007              	.L106:
+ 1008 02ac 00000000 		.word	demo_ctx
+ 1009 02b0 00000000 		.word	prev_state.11
+ 1010 02b4 00000000 		.word	.LC3
+ 1011 02b8 0000A042 		.word	1117782016
+ 1012 02bc 00002043 		.word	1126170624
+ 1013 02c0 00008042 		.word	1115684864
+ 1014 02c4 00000043 		.word	1124073472
+ 1015 02c8 CDCCCC3D 		.word	1036831949
+ 1016 02cc 0AD7A33D 		.word	1034147594
+ 1017 02d0 00000000 		.word	rainbow_colors
+ 1018 02d4 0F000000 		.word	.LC4
+ 1019              	.L34:
+ 1020              	.LBE61:
+ 1021              	.LBE62:
+ 492:../APP/LCD/Src/lcd_advanced_demo.c ****             break;
+ 1022              		.loc 1 492 13 is_stmt 1 view .LVU290
+ 1023              	.LBB63:
+ 1024              	.LBI63:
+ 218:../APP/LCD/Src/lcd_advanced_demo.c ****     /* Clear screen only once */
+ 1025              		.loc 1 218 13 view .LVU291
+ 1026              	.LBB64:
+ 220:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 1027              		.loc 1 220 5 view .LVU292
+ 220:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 1028              		.loc 1 220 8 is_stmt 0 view .LVU293
+ 1029 02d8 94F8F053 		ldrb	r5, [r4, #1008]	@ zero_extendqisi2
+ 1030 02dc A5B9     		cbnz	r5, .L51
+ 221:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(5, 5, (const u8 *)"Particle Fountain", WHITE, BLACK, 12, 0);
+ 1031              		.loc 1 221 9 is_stmt 1 view .LVU294
+ 1032 02de 8023     		movs	r3, #128
+ 1033 02e0 A022     		movs	r2, #160
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 32
+
+
+ 1034 02e2 2946     		mov	r1, r5
+ 1035 02e4 2846     		mov	r0, r5
+ 1036 02e6 0095     		str	r5, [sp]
+ 1037 02e8 FFF7FEFF 		bl	LCD_Fill
+ 1038              	.LVL62:
+ 222:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.particles_initialized = true;
+ 1039              		.loc 1 222 9 view .LVU295
+ 1040 02ec 0C23     		movs	r3, #12
+ 1041 02ee 0521     		movs	r1, #5
+ 1042 02f0 CDE90053 		strd	r5, r3, [sp]
+ 1043 02f4 8C4A     		ldr	r2, .L108
+ 1044 02f6 0295     		str	r5, [sp, #8]
+ 1045 02f8 4FF6FF73 		movw	r3, #65535
+ 1046 02fc 0846     		mov	r0, r1
+ 1047 02fe FFF7FEFF 		bl	LCD_ShowString
+ 1048              	.LVL63:
+ 223:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1049              		.loc 1 223 9 view .LVU296
+ 223:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1050              		.loc 1 223 40 is_stmt 0 view .LVU297
+ 1051 0302 0123     		movs	r3, #1
+ 1052 0304 84F8F033 		strb	r3, [r4, #1008]
+ 1053              	.L51:
+ 227:../APP/LCD/Src/lcd_advanced_demo.c ****     if (demo_ctx.particle_spawn_timer >= 3) {
+ 1054              		.loc 1 227 5 is_stmt 1 view .LVU298
+ 227:../APP/LCD/Src/lcd_advanced_demo.c ****     if (demo_ctx.particle_spawn_timer >= 3) {
+ 1055              		.loc 1 227 34 is_stmt 0 view .LVU299
+ 1056 0308 D4F8EC33 		ldr	r3, [r4, #1004]
+ 1057 030c 0133     		adds	r3, r3, #1
+ 228:../APP/LCD/Src/lcd_advanced_demo.c ****         spawn_particle(LCD_W / 2.0f, LCD_H - 5.0f);
+ 1058              		.loc 1 228 8 view .LVU300
+ 1059 030e 022B     		cmp	r3, #2
+ 227:../APP/LCD/Src/lcd_advanced_demo.c ****     if (demo_ctx.particle_spawn_timer >= 3) {
+ 1060              		.loc 1 227 34 view .LVU301
+ 1061 0310 C4F8EC33 		str	r3, [r4, #1004]
+ 228:../APP/LCD/Src/lcd_advanced_demo.c ****         spawn_particle(LCD_W / 2.0f, LCD_H - 5.0f);
+ 1062              		.loc 1 228 5 is_stmt 1 view .LVU302
+ 228:../APP/LCD/Src/lcd_advanced_demo.c ****         spawn_particle(LCD_W / 2.0f, LCD_H - 5.0f);
+ 1063              		.loc 1 228 8 is_stmt 0 view .LVU303
+ 1064 0314 33D9     		bls	.L52
+ 1065 0316 854B     		ldr	r3, .L108+4
+ 1066              	.LBB65:
+ 1067              	.LBB66:
+ 198:../APP/LCD/Src/lcd_advanced_demo.c ****         if (!demo_ctx.particles[i].active) {
+ 1068              		.loc 1 198 14 view .LVU304
+ 1069 0318 0025     		movs	r5, #0
+ 1070              	.L55:
+ 1071              	.LVL64:
+ 199:../APP/LCD/Src/lcd_advanced_demo.c ****             Particle_t *p = &demo_ctx.particles[i];
+ 1072              		.loc 1 199 9 is_stmt 1 view .LVU305
+ 199:../APP/LCD/Src/lcd_advanced_demo.c ****             Particle_t *p = &demo_ctx.particles[i];
+ 1073              		.loc 1 199 12 is_stmt 0 view .LVU306
+ 1074 031a 93F8B720 		ldrb	r2, [r3, #183]	@ zero_extendqisi2
+ 1075 031e 002A     		cmp	r2, #0
+ 1076 0320 40F0B380 		bne	.L53
+ 1077              	.LBB67:
+ 200:../APP/LCD/Src/lcd_advanced_demo.c ****             p->x = x;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 33
+
+
+ 1078              		.loc 1 200 13 is_stmt 1 view .LVU307
+ 1079              	.LVL65:
+ 201:../APP/LCD/Src/lcd_advanced_demo.c ****             p->y = y;
+ 1080              		.loc 1 201 13 view .LVU308
+ 201:../APP/LCD/Src/lcd_advanced_demo.c ****             p->y = y;
+ 1081              		.loc 1 201 18 is_stmt 0 view .LVU309
+ 1082 0324 1C23     		movs	r3, #28
+ 1083 0326 03FB0545 		mla	r5, r3, r5, r4
+ 1084              	.LVL66:
+ 201:../APP/LCD/Src/lcd_advanced_demo.c ****             p->y = y;
+ 1085              		.loc 1 201 18 view .LVU310
+ 1086 032a 814A     		ldr	r2, .L108+8
+ 202:../APP/LCD/Src/lcd_advanced_demo.c ****             p->prev_x = x;
+ 1087              		.loc 1 202 18 view .LVU311
+ 1088 032c 814B     		ldr	r3, .L108+12
+ 1089 032e C5F8A830 		str	r3, [r5, #168]	@ float
+ 205:../APP/LCD/Src/lcd_advanced_demo.c ****             p->vy = randf(-4.0f, -1.0f);
+ 1090              		.loc 1 205 21 view .LVU312
+ 1091 0332 F0EE080A 		vmov.f32	s1, #3.0e+0
+ 1092 0336 B8EE080A 		vmov.f32	s0, #-3.0e+0
+ 204:../APP/LCD/Src/lcd_advanced_demo.c ****             p->vx = randf(-3.0f, 3.0f);
+ 1093              		.loc 1 204 23 view .LVU313
+ 1094 033a C5F8BC30 		str	r3, [r5, #188]	@ float
+ 201:../APP/LCD/Src/lcd_advanced_demo.c ****             p->y = y;
+ 1095              		.loc 1 201 18 view .LVU314
+ 1096 033e C5F8A420 		str	r2, [r5, #164]	@ float
+ 202:../APP/LCD/Src/lcd_advanced_demo.c ****             p->prev_x = x;
+ 1097              		.loc 1 202 13 is_stmt 1 view .LVU315
+ 203:../APP/LCD/Src/lcd_advanced_demo.c ****             p->prev_y = y;
+ 1098              		.loc 1 203 13 view .LVU316
+ 203:../APP/LCD/Src/lcd_advanced_demo.c ****             p->prev_y = y;
+ 1099              		.loc 1 203 23 is_stmt 0 view .LVU317
+ 1100 0342 C5F8B820 		str	r2, [r5, #184]	@ float
+ 204:../APP/LCD/Src/lcd_advanced_demo.c ****             p->vx = randf(-3.0f, 3.0f);
+ 1101              		.loc 1 204 13 is_stmt 1 view .LVU318
+ 205:../APP/LCD/Src/lcd_advanced_demo.c ****             p->vy = randf(-4.0f, -1.0f);
+ 1102              		.loc 1 205 13 view .LVU319
+ 205:../APP/LCD/Src/lcd_advanced_demo.c ****             p->vy = randf(-4.0f, -1.0f);
+ 1103              		.loc 1 205 21 is_stmt 0 view .LVU320
+ 1104 0346 FFF7FEFF 		bl	randf
+ 1105              	.LVL67:
+ 206:../APP/LCD/Src/lcd_advanced_demo.c ****             p->color = random_color();
+ 1106              		.loc 1 206 21 view .LVU321
+ 1107 034a FFEE000A 		vmov.f32	s1, #-1.0e+0
+ 205:../APP/LCD/Src/lcd_advanced_demo.c ****             p->vy = randf(-4.0f, -1.0f);
+ 1108              		.loc 1 205 19 discriminator 1 view .LVU322
+ 1109 034e 85ED2B0A 		vstr.32	s0, [r5, #172]
+ 206:../APP/LCD/Src/lcd_advanced_demo.c ****             p->color = random_color();
+ 1110              		.loc 1 206 13 is_stmt 1 view .LVU323
+ 206:../APP/LCD/Src/lcd_advanced_demo.c ****             p->color = random_color();
+ 1111              		.loc 1 206 21 is_stmt 0 view .LVU324
+ 1112 0352 B9EE000A 		vmov.f32	s0, #-4.0e+0
+ 1113 0356 FFF7FEFF 		bl	randf
+ 1114              	.LVL68:
+ 206:../APP/LCD/Src/lcd_advanced_demo.c ****             p->color = random_color();
+ 1115              		.loc 1 206 19 discriminator 1 view .LVU325
+ 1116 035a 85ED2C0A 		vstr.32	s0, [r5, #176]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 34
+
+
+ 207:../APP/LCD/Src/lcd_advanced_demo.c ****             p->life = 60;
+ 1117              		.loc 1 207 13 is_stmt 1 view .LVU326
+ 1118              	.LBB68:
+ 1119              	.LBI68:
+  82:../APP/LCD/Src/lcd_advanced_demo.c ****     return rainbow_colors[rand() % RAINBOW_SIZE];
+ 1120              		.loc 1 82 17 view .LVU327
+ 1121              	.LBB69:
+  83:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 1122              		.loc 1 83 5 view .LVU328
+  83:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 1123              		.loc 1 83 27 is_stmt 0 view .LVU329
+ 1124 035e FFF7FEFF 		bl	rand
+ 1125              	.LVL69:
+ 1126              	.LBE69:
+ 1127              	.LBE68:
+ 207:../APP/LCD/Src/lcd_advanced_demo.c ****             p->life = 60;
+ 1128              		.loc 1 207 22 discriminator 1 view .LVU330
+ 1129 0362 754B     		ldr	r3, .L108+16
+ 1130              	.LBB71:
+ 1131              	.LBB70:
+  83:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 1132              		.loc 1 83 34 discriminator 1 view .LVU331
+ 1133 0364 00F00700 		and	r0, r0, #7
+ 1134              	.LBE70:
+ 1135              	.LBE71:
+ 207:../APP/LCD/Src/lcd_advanced_demo.c ****             p->life = 60;
+ 1136              		.loc 1 207 22 discriminator 1 view .LVU332
+ 1137 0368 33F81030 		ldrh	r3, [r3, r0, lsl #1]
+ 1138 036c A5F8B430 		strh	r3, [r5, #180]	@ movhi
+ 208:../APP/LCD/Src/lcd_advanced_demo.c ****             p->active = true;
+ 1139              		.loc 1 208 13 is_stmt 1 view .LVU333
+ 209:../APP/LCD/Src/lcd_advanced_demo.c ****             break;
+ 1140              		.loc 1 209 13 view .LVU334
+ 208:../APP/LCD/Src/lcd_advanced_demo.c ****             p->active = true;
+ 1141              		.loc 1 208 21 is_stmt 0 view .LVU335
+ 1142 0370 4FF49E73 		mov	r3, #316
+ 1143 0374 A5F8B630 		strh	r3, [r5, #182]	@ movhi
+ 210:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 1144              		.loc 1 210 13 is_stmt 1 view .LVU336
+ 1145              	.LVL70:
+ 1146              	.L54:
+ 210:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 1147              		.loc 1 210 13 is_stmt 0 view .LVU337
+ 1148              	.LBE67:
+ 1149              	.LBE66:
+ 1150              	.LBE65:
+ 230:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1151              		.loc 1 230 9 is_stmt 1 view .LVU338
+ 230:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1152              		.loc 1 230 39 is_stmt 0 view .LVU339
+ 1153 0378 0023     		movs	r3, #0
+ 1154 037a C4F8EC33 		str	r3, [r4, #1004]
+ 1155              	.L52:
+ 1156              	.LVL71:
+ 1157              	.LBB74:
+ 234:../APP/LCD/Src/lcd_advanced_demo.c ****         Particle_t *p = &demo_ctx.particles[i];
+ 1158              		.loc 1 234 23 is_stmt 1 discriminator 1 view .LVU340
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 35
+
+
+ 1159 037e 6B4C     		ldr	r4, .L108+4
+ 1160              	.LBB75:
+ 252:../APP/LCD/Src/lcd_advanced_demo.c ****         p->x += p->vx;
+ 1161              		.loc 1 252 15 is_stmt 0 view .LVU341
+ 1162 0380 9FED6E9A 		vldr.32	s18, .L108+20
+ 257:../APP/LCD/Src/lcd_advanced_demo.c ****             p->active = false;
+ 1163              		.loc 1 257 26 discriminator 2 view .LVU342
+ 1164 0384 9FED6E8A 		vldr.32	s16, .L108+24
+ 263:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawPoint((uint16_t)p->x, (uint16_t)p->y, p->color);
+ 1165              		.loc 1 263 23 discriminator 1 view .LVU343
+ 1166 0388 DFED6E8A 		vldr.32	s17, .L108+28
+ 1167              	.LBE75:
+ 1168              	.LBE74:
+ 1169              	.LBB78:
+ 1170              	.LBB72:
+ 198:../APP/LCD/Src/lcd_advanced_demo.c ****         if (!demo_ctx.particles[i].active) {
+ 1171              		.loc 1 198 14 view .LVU344
+ 1172 038c 0025     		movs	r5, #0
+ 1173              	.LVL72:
+ 1174              	.L71:
+ 198:../APP/LCD/Src/lcd_advanced_demo.c ****         if (!demo_ctx.particles[i].active) {
+ 1175              		.loc 1 198 14 view .LVU345
+ 1176              	.LBE72:
+ 1177              	.LBE78:
+ 1178              	.LBB79:
+ 1179              	.LBB76:
+ 235:../APP/LCD/Src/lcd_advanced_demo.c ****         if (!p->active) continue;
+ 1180              		.loc 1 235 9 is_stmt 1 view .LVU346
+ 236:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1181              		.loc 1 236 9 view .LVU347
+ 236:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1182              		.loc 1 236 12 is_stmt 0 view .LVU348
+ 1183 038e 94F8B730 		ldrb	r3, [r4, #183]	@ zero_extendqisi2
+ 1184 0392 002B     		cmp	r3, #0
+ 1185 0394 73D0     		beq	.L57
+ 239:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y, BLACK);
+ 1186              		.loc 1 239 9 is_stmt 1 view .LVU349
+ 239:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y, BLACK);
+ 1187              		.loc 1 239 14 is_stmt 0 view .LVU350
+ 1188 0396 D4ED2E7A 		vldr.32	s15, [r4, #184]
+ 239:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y, BLACK);
+ 1189              		.loc 1 239 12 view .LVU351
+ 1190 039a F5EEC07A 		vcmpe.f32	s15, #0
+ 1191 039e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1192 03a2 45DB     		blt	.L59
+ 239:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y, BLACK);
+ 1193              		.loc 1 239 28 discriminator 1 view .LVU352
+ 1194 03a4 F4EEE87A 		vcmpe.f32	s15, s17
+ 1195 03a8 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1196 03ac 40D5     		bpl	.L59
+ 239:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y, BLACK);
+ 1197              		.loc 1 239 53 discriminator 2 view .LVU353
+ 1198 03ae 94ED2F7A 		vldr.32	s14, [r4, #188]
+ 239:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y, BLACK);
+ 1199              		.loc 1 239 49 discriminator 2 view .LVU354
+ 1200 03b2 B5EEC07A 		vcmpe.f32	s14, #0
+ 1201 03b6 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 36
+
+
+ 1202 03ba 39DB     		blt	.L59
+ 239:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y, BLACK);
+ 1203              		.loc 1 239 67 discriminator 3 view .LVU355
+ 1204 03bc B4EEC87A 		vcmpe.f32	s14, s16
+ 1205 03c0 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1206 03c4 34D5     		bpl	.L59
+ 240:../APP/LCD/Src/lcd_advanced_demo.c ****             if (p->life > 10) {
+ 1207              		.loc 1 240 13 is_stmt 1 view .LVU356
+ 1208 03c6 BCEEC77A 		vcvt.u32.f32	s14, s14
+ 1209 03ca FCEEE77A 		vcvt.u32.f32	s15, s15
+ 1210 03ce 17EE103A 		vmov	r3, s14	@ int
+ 1211 03d2 99B2     		uxth	r1, r3
+ 1212 03d4 17EE903A 		vmov	r3, s15	@ int
+ 1213 03d8 0022     		movs	r2, #0
+ 1214 03da 98B2     		uxth	r0, r3
+ 1215 03dc FFF7FEFF 		bl	LCD_DrawPoint
+ 1216              	.LVL73:
+ 241:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->prev_x + 1, (uint16_t)p->prev_y, BLACK);
+ 1217              		.loc 1 241 13 view .LVU357
+ 241:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->prev_x + 1, (uint16_t)p->prev_y, BLACK);
+ 1218              		.loc 1 241 16 is_stmt 0 view .LVU358
+ 1219 03e0 94F8B630 		ldrb	r3, [r4, #182]	@ zero_extendqisi2
+ 1220 03e4 0A2B     		cmp	r3, #10
+ 1221 03e6 23D9     		bls	.L59
+ 242:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y + 1, BLACK);
+ 1222              		.loc 1 242 17 is_stmt 1 view .LVU359
+ 242:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y + 1, BLACK);
+ 1223              		.loc 1 242 31 is_stmt 0 view .LVU360
+ 1224 03e8 D4ED2E7A 		vldr.32	s15, [r4, #184]
+ 242:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y + 1, BLACK);
+ 1225              		.loc 1 242 17 view .LVU361
+ 1226 03ec 94ED2F7A 		vldr.32	s14, [r4, #188]
+ 242:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y + 1, BLACK);
+ 1227              		.loc 1 242 31 view .LVU362
+ 1228 03f0 FCEEE77A 		vcvt.u32.f32	s15, s15
+ 242:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y + 1, BLACK);
+ 1229              		.loc 1 242 17 view .LVU363
+ 1230 03f4 BCEEC77A 		vcvt.u32.f32	s14, s14
+ 242:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y + 1, BLACK);
+ 1231              		.loc 1 242 31 view .LVU364
+ 1232 03f8 17EE900A 		vmov	r0, s15	@ int
+ 242:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->prev_x, (uint16_t)p->prev_y + 1, BLACK);
+ 1233              		.loc 1 242 17 view .LVU365
+ 1234 03fc 17EE103A 		vmov	r3, s14	@ int
+ 1235 0400 0130     		adds	r0, r0, #1
+ 1236 0402 99B2     		uxth	r1, r3
+ 1237 0404 0022     		movs	r2, #0
+ 1238 0406 80B2     		uxth	r0, r0
+ 1239 0408 FFF7FEFF 		bl	LCD_DrawPoint
+ 1240              	.LVL74:
+ 243:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 1241              		.loc 1 243 17 is_stmt 1 view .LVU366
+ 243:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 1242              		.loc 1 243 52 is_stmt 0 view .LVU367
+ 1243 040c D4ED2F7A 		vldr.32	s15, [r4, #188]
+ 1244 0410 FCEEE77A 		vcvt.u32.f32	s15, s15
+ 243:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 37
+
+
+ 1245              		.loc 1 243 17 view .LVU368
+ 1246 0414 0022     		movs	r2, #0
+ 243:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 1247              		.loc 1 243 52 view .LVU369
+ 1248 0416 17EE901A 		vmov	r1, s15	@ int
+ 243:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 1249              		.loc 1 243 17 view .LVU370
+ 1250 041a D4ED2E7A 		vldr.32	s15, [r4, #184]
+ 1251 041e FCEEE77A 		vcvt.u32.f32	s15, s15
+ 1252 0422 0131     		adds	r1, r1, #1
+ 1253 0424 17EE903A 		vmov	r3, s15	@ int
+ 1254 0428 89B2     		uxth	r1, r1
+ 1255 042a 98B2     		uxth	r0, r3
+ 1256 042c FFF7FEFF 		bl	LCD_DrawPoint
+ 1257              	.LVL75:
+ 1258              	.L59:
+ 248:../APP/LCD/Src/lcd_advanced_demo.c ****         p->prev_y = p->y;
+ 1259              		.loc 1 248 9 is_stmt 1 view .LVU371
+ 252:../APP/LCD/Src/lcd_advanced_demo.c ****         p->x += p->vx;
+ 1260              		.loc 1 252 15 is_stmt 0 view .LVU372
+ 1261 0430 D4ED2C6A 		vldr.32	s13, [r4, #176]
+ 248:../APP/LCD/Src/lcd_advanced_demo.c ****         p->prev_y = p->y;
+ 1262              		.loc 1 248 22 view .LVU373
+ 1263 0434 D4ED297A 		vldr.32	s15, [r4, #164]
+ 249:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1264              		.loc 1 249 22 view .LVU374
+ 1265 0438 94ED2A7A 		vldr.32	s14, [r4, #168]
+ 255:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1266              		.loc 1 255 16 view .LVU375
+ 1267 043c 94F8B630 		ldrb	r3, [r4, #182]	@ zero_extendqisi2
+ 253:../APP/LCD/Src/lcd_advanced_demo.c ****         p->y += p->vy;
+ 1268              		.loc 1 253 14 view .LVU376
+ 1269 0440 94ED2B6A 		vldr.32	s12, [r4, #172]
+ 248:../APP/LCD/Src/lcd_advanced_demo.c ****         p->prev_y = p->y;
+ 1270              		.loc 1 248 19 view .LVU377
+ 1271 0444 C4ED2E7A 		vstr.32	s15, [r4, #184]
+ 249:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1272              		.loc 1 249 9 is_stmt 1 view .LVU378
+ 252:../APP/LCD/Src/lcd_advanced_demo.c ****         p->x += p->vx;
+ 1273              		.loc 1 252 15 is_stmt 0 view .LVU379
+ 1274 0448 76EE896A 		vadd.f32	s13, s13, s18
+ 253:../APP/LCD/Src/lcd_advanced_demo.c ****         p->y += p->vy;
+ 1275              		.loc 1 253 14 view .LVU380
+ 1276 044c 77EE867A 		vadd.f32	s15, s15, s12
+ 249:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1277              		.loc 1 249 19 view .LVU381
+ 1278 0450 84ED2F7A 		vstr.32	s14, [r4, #188]
+ 252:../APP/LCD/Src/lcd_advanced_demo.c ****         p->x += p->vx;
+ 1279              		.loc 1 252 9 is_stmt 1 view .LVU382
+ 255:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1280              		.loc 1 255 16 is_stmt 0 view .LVU383
+ 1281 0454 013B     		subs	r3, r3, #1
+ 254:../APP/LCD/Src/lcd_advanced_demo.c ****         p->life--;
+ 1282              		.loc 1 254 14 view .LVU384
+ 1283 0456 37EE267A 		vadd.f32	s14, s14, s13
+ 255:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1284              		.loc 1 255 16 view .LVU385
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 38
+
+
+ 1285 045a DBB2     		uxtb	r3, r3
+ 252:../APP/LCD/Src/lcd_advanced_demo.c ****         p->x += p->vx;
+ 1286              		.loc 1 252 15 view .LVU386
+ 1287 045c C4ED2C6A 		vstr.32	s13, [r4, #176]
+ 253:../APP/LCD/Src/lcd_advanced_demo.c ****         p->y += p->vy;
+ 1288              		.loc 1 253 9 is_stmt 1 view .LVU387
+ 253:../APP/LCD/Src/lcd_advanced_demo.c ****         p->y += p->vy;
+ 1289              		.loc 1 253 14 is_stmt 0 view .LVU388
+ 1290 0460 C4ED297A 		vstr.32	s15, [r4, #164]
+ 254:../APP/LCD/Src/lcd_advanced_demo.c ****         p->life--;
+ 1291              		.loc 1 254 9 is_stmt 1 view .LVU389
+ 254:../APP/LCD/Src/lcd_advanced_demo.c ****         p->life--;
+ 1292              		.loc 1 254 14 is_stmt 0 view .LVU390
+ 1293 0464 84ED2A7A 		vstr.32	s14, [r4, #168]
+ 255:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1294              		.loc 1 255 9 is_stmt 1 view .LVU391
+ 255:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1295              		.loc 1 255 16 is_stmt 0 view .LVU392
+ 1296 0468 84F8B630 		strb	r3, [r4, #182]
+ 257:../APP/LCD/Src/lcd_advanced_demo.c ****             p->active = false;
+ 1297              		.loc 1 257 9 is_stmt 1 view .LVU393
+ 257:../APP/LCD/Src/lcd_advanced_demo.c ****             p->active = false;
+ 1298              		.loc 1 257 12 is_stmt 0 view .LVU394
+ 1299 046c 23B1     		cbz	r3, .L64
+ 257:../APP/LCD/Src/lcd_advanced_demo.c ****             p->active = false;
+ 1300              		.loc 1 257 26 discriminator 2 view .LVU395
+ 1301 046e B4EEC87A 		vcmpe.f32	s14, s16
+ 1302 0472 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1303 0476 0FDB     		blt	.L104
+ 1304              	.L64:
+ 258:../APP/LCD/Src/lcd_advanced_demo.c ****             continue;
+ 1305              		.loc 1 258 13 is_stmt 1 view .LVU396
+ 258:../APP/LCD/Src/lcd_advanced_demo.c ****             continue;
+ 1306              		.loc 1 258 23 is_stmt 0 view .LVU397
+ 1307 0478 0023     		movs	r3, #0
+ 1308 047a 84F8B730 		strb	r3, [r4, #183]
+ 259:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 1309              		.loc 1 259 13 is_stmt 1 view .LVU398
+ 1310              	.L57:
+ 1311              	.LBE76:
+ 234:../APP/LCD/Src/lcd_advanced_demo.c ****         Particle_t *p = &demo_ctx.particles[i];
+ 1312              		.loc 1 234 41 discriminator 2 view .LVU399
+ 1313 047e 0135     		adds	r5, r5, #1
+ 1314              	.LVL76:
+ 234:../APP/LCD/Src/lcd_advanced_demo.c ****         Particle_t *p = &demo_ctx.particles[i];
+ 1315              		.loc 1 234 23 discriminator 1 view .LVU400
+ 1316 0480 1E2D     		cmp	r5, #30
+ 1317 0482 04F11C04 		add	r4, r4, #28
+ 1318 0486 82D1     		bne	.L71
+ 1319 0488 B2E6     		b	.L22
+ 1320              	.LVL77:
+ 1321              	.L53:
+ 234:../APP/LCD/Src/lcd_advanced_demo.c ****         Particle_t *p = &demo_ctx.particles[i];
+ 1322              		.loc 1 234 23 is_stmt 0 discriminator 1 view .LVU401
+ 1323              	.LBE79:
+ 1324              	.LBB80:
+ 1325              	.LBB73:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 39
+
+
+ 198:../APP/LCD/Src/lcd_advanced_demo.c ****         if (!demo_ctx.particles[i].active) {
+ 1326              		.loc 1 198 41 is_stmt 1 discriminator 2 view .LVU402
+ 1327 048a 0135     		adds	r5, r5, #1
+ 1328              	.LVL78:
+ 198:../APP/LCD/Src/lcd_advanced_demo.c ****         if (!demo_ctx.particles[i].active) {
+ 1329              		.loc 1 198 23 discriminator 1 view .LVU403
+ 1330 048c 1E2D     		cmp	r5, #30
+ 1331 048e 03F11C03 		add	r3, r3, #28
+ 1332 0492 7FF442AF 		bne	.L55
+ 1333 0496 6FE7     		b	.L54
+ 1334              	.LVL79:
+ 1335              	.L104:
+ 198:../APP/LCD/Src/lcd_advanced_demo.c ****         if (!demo_ctx.particles[i].active) {
+ 1336              		.loc 1 198 23 is_stmt 0 discriminator 1 view .LVU404
+ 1337              	.LBE73:
+ 1338              	.LBE80:
+ 1339              	.LBB81:
+ 1340              	.LBB77:
+ 263:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawPoint((uint16_t)p->x, (uint16_t)p->y, p->color);
+ 1341              		.loc 1 263 9 is_stmt 1 view .LVU405
+ 263:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawPoint((uint16_t)p->x, (uint16_t)p->y, p->color);
+ 1342              		.loc 1 263 12 is_stmt 0 view .LVU406
+ 1343 0498 F5EEC07A 		vcmpe.f32	s15, #0
+ 1344 049c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1345 04a0 EDDB     		blt	.L57
+ 263:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawPoint((uint16_t)p->x, (uint16_t)p->y, p->color);
+ 1346              		.loc 1 263 23 discriminator 1 view .LVU407
+ 1347 04a2 F4EEE87A 		vcmpe.f32	s15, s17
+ 1348 04a6 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1349 04aa E8D5     		bpl	.L57
+ 263:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawPoint((uint16_t)p->x, (uint16_t)p->y, p->color);
+ 1350              		.loc 1 263 39 discriminator 2 view .LVU408
+ 1351 04ac B5EEC07A 		vcmpe.f32	s14, #0
+ 1352 04b0 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1353 04b4 E3DB     		blt	.L57
+ 264:../APP/LCD/Src/lcd_advanced_demo.c ****             if (p->life > 10) {
+ 1354              		.loc 1 264 13 is_stmt 1 view .LVU409
+ 1355 04b6 BCEEC77A 		vcvt.u32.f32	s14, s14
+ 1356 04ba FCEEE77A 		vcvt.u32.f32	s15, s15
+ 1357 04be 17EE103A 		vmov	r3, s14	@ int
+ 1358 04c2 99B2     		uxth	r1, r3
+ 1359 04c4 17EE903A 		vmov	r3, s15	@ int
+ 1360 04c8 B4F8B420 		ldrh	r2, [r4, #180]
+ 1361 04cc 98B2     		uxth	r0, r3
+ 1362 04ce FFF7FEFF 		bl	LCD_DrawPoint
+ 1363              	.LVL80:
+ 265:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->x + 1, (uint16_t)p->y, p->color);
+ 1364              		.loc 1 265 13 view .LVU410
+ 265:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->x + 1, (uint16_t)p->y, p->color);
+ 1365              		.loc 1 265 16 is_stmt 0 view .LVU411
+ 1366 04d2 94F8B630 		ldrb	r3, [r4, #182]	@ zero_extendqisi2
+ 1367 04d6 0A2B     		cmp	r3, #10
+ 1368 04d8 D1D9     		bls	.L57
+ 266:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->x, (uint16_t)p->y + 1, p->color);
+ 1369              		.loc 1 266 17 is_stmt 1 view .LVU412
+ 266:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->x, (uint16_t)p->y + 1, p->color);
+ 1370              		.loc 1 266 31 is_stmt 0 view .LVU413
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 40
+
+
+ 1371 04da D4ED297A 		vldr.32	s15, [r4, #164]
+ 266:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->x, (uint16_t)p->y + 1, p->color);
+ 1372              		.loc 1 266 17 view .LVU414
+ 1373 04de 94ED2A7A 		vldr.32	s14, [r4, #168]
+ 1374 04e2 B4F8B420 		ldrh	r2, [r4, #180]
+ 266:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->x, (uint16_t)p->y + 1, p->color);
+ 1375              		.loc 1 266 31 view .LVU415
+ 1376 04e6 FCEEE77A 		vcvt.u32.f32	s15, s15
+ 266:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->x, (uint16_t)p->y + 1, p->color);
+ 1377              		.loc 1 266 17 view .LVU416
+ 1378 04ea BCEEC77A 		vcvt.u32.f32	s14, s14
+ 266:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->x, (uint16_t)p->y + 1, p->color);
+ 1379              		.loc 1 266 31 view .LVU417
+ 1380 04ee 17EE900A 		vmov	r0, s15	@ int
+ 266:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_DrawPoint((uint16_t)p->x, (uint16_t)p->y + 1, p->color);
+ 1381              		.loc 1 266 17 view .LVU418
+ 1382 04f2 17EE103A 		vmov	r3, s14	@ int
+ 1383 04f6 0130     		adds	r0, r0, #1
+ 1384 04f8 99B2     		uxth	r1, r3
+ 1385 04fa 80B2     		uxth	r0, r0
+ 1386 04fc FFF7FEFF 		bl	LCD_DrawPoint
+ 1387              	.LVL81:
+ 267:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 1388              		.loc 1 267 17 is_stmt 1 view .LVU419
+ 267:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 1389              		.loc 1 267 47 is_stmt 0 view .LVU420
+ 1390 0500 D4ED2A7A 		vldr.32	s15, [r4, #168]
+ 267:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 1391              		.loc 1 267 17 view .LVU421
+ 1392 0504 B4F8B420 		ldrh	r2, [r4, #180]
+ 267:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 1393              		.loc 1 267 47 view .LVU422
+ 1394 0508 FCEEE77A 		vcvt.u32.f32	s15, s15
+ 1395 050c 17EE901A 		vmov	r1, s15	@ int
+ 267:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 1396              		.loc 1 267 17 view .LVU423
+ 1397 0510 D4ED297A 		vldr.32	s15, [r4, #164]
+ 1398 0514 FCEEE77A 		vcvt.u32.f32	s15, s15
+ 1399 0518 0131     		adds	r1, r1, #1
+ 1400 051a 17EE903A 		vmov	r3, s15	@ int
+ 1401 051e 89B2     		uxth	r1, r1
+ 1402 0520 98B2     		uxth	r0, r3
+ 1403 0522 FFF7FEFF 		bl	LCD_DrawPoint
+ 1404              	.LVL82:
+ 1405 0526 AAE7     		b	.L57
+ 1406              	.L109:
+ 1407              		.align	2
+ 1408              	.L108:
+ 1409 0528 1D000000 		.word	.LC5
+ 1410 052c 00000000 		.word	demo_ctx
+ 1411 0530 0000A042 		.word	1117782016
+ 1412 0534 0000F642 		.word	1123418112
+ 1413 0538 00000000 		.word	rainbow_colors
+ 1414 053c CDCC4C3E 		.word	1045220557
+ 1415 0540 00000043 		.word	1124073472
+ 1416 0544 00002043 		.word	1126170624
+ 1417              	.LVL83:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 41
+
+
+ 1418              	.L33:
+ 267:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 1419              		.loc 1 267 17 view .LVU424
+ 1420              	.LBE77:
+ 1421              	.LBE81:
+ 1422              	.LBE64:
+ 1423              	.LBE63:
+ 496:../APP/LCD/Src/lcd_advanced_demo.c ****             break;
+ 1424              		.loc 1 496 13 is_stmt 1 view .LVU425
+ 1425              	.LBB82:
+ 1426              	.LBI82:
+ 276:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint32_t anim_frame = 0;
+ 1427              		.loc 1 276 13 view .LVU426
+ 1428              	.LBB83:
+ 277:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint16_t prev_rect_x[5] = {0};
+ 1429              		.loc 1 277 5 view .LVU427
+ 278:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint16_t prev_line_x2[8] = {0};
+ 1430              		.loc 1 278 5 view .LVU428
+ 279:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint16_t prev_line_y2[8] = {0};
+ 1431              		.loc 1 279 5 view .LVU429
+ 280:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint8_t prev_circle_r[3] = {0};
+ 1432              		.loc 1 280 5 view .LVU430
+ 281:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1433              		.loc 1 281 5 view .LVU431
+ 284:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 1434              		.loc 1 284 5 view .LVU432
+ 284:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 1435              		.loc 1 284 8 is_stmt 0 view .LVU433
+ 1436 0548 94F8F863 		ldrb	r6, [r4, #1016]	@ zero_extendqisi2
+ 1437 054c B64D     		ldr	r5, .L110
+ 1438 054e AEB9     		cbnz	r6, .L73
+ 285:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(5, 5, (const u8 *)"Graphics Test", WHITE, BLACK, 12, 0);
+ 1439              		.loc 1 285 9 is_stmt 1 view .LVU434
+ 1440 0550 8023     		movs	r3, #128
+ 1441 0552 A022     		movs	r2, #160
+ 1442 0554 3146     		mov	r1, r6
+ 1443 0556 3046     		mov	r0, r6
+ 1444 0558 0096     		str	r6, [sp]
+ 1445 055a FFF7FEFF 		bl	LCD_Fill
+ 1446              	.LVL84:
+ 286:../APP/LCD/Src/lcd_advanced_demo.c ****         demo_ctx.graphics_initialized = true;
+ 1447              		.loc 1 286 9 view .LVU435
+ 1448 055e 0C23     		movs	r3, #12
+ 1449 0560 0521     		movs	r1, #5
+ 1450 0562 CDE90063 		strd	r6, r3, [sp]
+ 1451 0566 B14A     		ldr	r2, .L110+4
+ 1452 0568 0296     		str	r6, [sp, #8]
+ 1453 056a 4FF6FF73 		movw	r3, #65535
+ 1454 056e 0846     		mov	r0, r1
+ 1455 0570 FFF7FEFF 		bl	LCD_ShowString
+ 1456              	.LVL85:
+ 287:../APP/LCD/Src/lcd_advanced_demo.c ****         anim_frame = 0;  /* Reset animation */
+ 1457              		.loc 1 287 9 view .LVU436
+ 287:../APP/LCD/Src/lcd_advanced_demo.c ****         anim_frame = 0;  /* Reset animation */
+ 1458              		.loc 1 287 39 is_stmt 0 view .LVU437
+ 1459 0574 0123     		movs	r3, #1
+ 1460 0576 84F8F833 		strb	r3, [r4, #1016]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 42
+
+
+ 288:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1461              		.loc 1 288 9 is_stmt 1 view .LVU438
+ 288:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1462              		.loc 1 288 20 is_stmt 0 view .LVU439
+ 1463 057a 2E60     		str	r6, [r5]
+ 1464              	.L73:
+ 291:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1465              		.loc 1 291 5 is_stmt 1 view .LVU440
+ 291:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1466              		.loc 1 291 15 is_stmt 0 view .LVU441
+ 1467 057c 2B68     		ldr	r3, [r5]
+ 1468 057e AC4F     		ldr	r7, .L110+8
+ 1469 0580 DFF8E092 		ldr	r9, .L110+60
+ 1470 0584 0133     		adds	r3, r3, #1
+ 1471 0586 2B60     		str	r3, [r5]
+ 294:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old rectangle */
+ 1472              		.loc 1 294 5 is_stmt 1 view .LVU442
+ 1473              	.LBB84:
+ 294:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old rectangle */
+ 1474              		.loc 1 294 10 view .LVU443
+ 1475              	.LVL86:
+ 294:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old rectangle */
+ 1476              		.loc 1 294 23 discriminator 1 view .LVU444
+ 1477              	.LBE84:
+ 291:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1478              		.loc 1 291 15 is_stmt 0 view .LVU445
+ 1479 0588 BA46     		mov	r10, r7
+ 1480 058a 0A26     		movs	r6, #10
+ 1481 058c 4FF00008 		mov	r8, #0
+ 1482              	.LBB89:
+ 1483              	.LBB85:
+ 301:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(x, 10 + i * 15, x + 15, 20 + i * 15, rainbow_colors[i]);
+ 1484              		.loc 1 301 48 view .LVU446
+ 1485 0590 4FF0910B 		mov	fp, #145
+ 1486              	.LVL87:
+ 1487              	.L75:
+ 296:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_Fill(prev_rect_x[i], 10 + i * 15, prev_rect_x[i] + 15, 20 + i * 15, BLACK);
+ 1488              		.loc 1 296 9 is_stmt 1 view .LVU447
+ 296:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_Fill(prev_rect_x[i], 10 + i * 15, prev_rect_x[i] + 15, 20 + i * 15, BLACK);
+ 1489              		.loc 1 296 12 is_stmt 0 view .LVU448
+ 1490 0594 2A68     		ldr	r2, [r5]
+ 297:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 1491              		.loc 1 297 13 view .LVU449
+ 1492 0596 06F10A03 		add	r3, r6, #10
+ 296:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_Fill(prev_rect_x[i], 10 + i * 15, prev_rect_x[i] + 15, 20 + i * 15, BLACK);
+ 1493              		.loc 1 296 12 view .LVU450
+ 1494 059a 012A     		cmp	r2, #1
+ 297:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 1495              		.loc 1 297 13 view .LVU451
+ 1496 059c 9BB2     		uxth	r3, r3
+ 296:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_Fill(prev_rect_x[i], 10 + i * 15, prev_rect_x[i] + 15, 20 + i * 15, BLACK);
+ 1497              		.loc 1 296 12 view .LVU452
+ 1498 059e 0BD9     		bls	.L74
+ 297:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 1499              		.loc 1 297 13 is_stmt 1 view .LVU453
+ 1500 05a0 B9F80000 		ldrh	r0, [r9]
+ 1501 05a4 0593     		str	r3, [sp, #20]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 43
+
+
+ 1502 05a6 00F10F02 		add	r2, r0, #15
+ 1503 05aa 0021     		movs	r1, #0
+ 1504 05ac 0091     		str	r1, [sp]
+ 1505 05ae 92B2     		uxth	r2, r2
+ 1506 05b0 3146     		mov	r1, r6
+ 1507 05b2 FFF7FEFF 		bl	LCD_Fill
+ 1508              	.LVL88:
+ 1509 05b6 059B     		ldr	r3, [sp, #20]
+ 1510              	.L74:
+ 301:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(x, 10 + i * 15, x + 15, 20 + i * 15, rainbow_colors[i]);
+ 1511              		.loc 1 301 9 view .LVU454
+ 301:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(x, 10 + i * 15, x + 15, 20 + i * 15, rainbow_colors[i]);
+ 1512              		.loc 1 301 34 is_stmt 0 view .LVU455
+ 1513 05b8 2C68     		ldr	r4, [r5]
+ 302:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_rect_x[i] = x;
+ 1514              		.loc 1 302 69 view .LVU456
+ 1515 05ba 3AF8021B 		ldrh	r1, [r10], #2
+ 302:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_rect_x[i] = x;
+ 1516              		.loc 1 302 9 view .LVU457
+ 1517 05be 0091     		str	r1, [sp]
+ 301:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(x, 10 + i * 15, x + 15, 20 + i * 15, rainbow_colors[i]);
+ 1518              		.loc 1 301 38 view .LVU458
+ 1519 05c0 08EB4404 		add	r4, r8, r4, lsl #1
+ 301:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(x, 10 + i * 15, x + 15, 20 + i * 15, rainbow_colors[i]);
+ 1520              		.loc 1 301 48 view .LVU459
+ 1521 05c4 B4FBFBF2 		udiv	r2, r4, fp
+ 1522 05c8 0BFB1244 		mls	r4, fp, r2, r4
+ 301:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(x, 10 + i * 15, x + 15, 20 + i * 15, rainbow_colors[i]);
+ 1523              		.loc 1 301 18 view .LVU460
+ 1524 05cc A4B2     		uxth	r4, r4
+ 1525              	.LVL89:
+ 302:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_rect_x[i] = x;
+ 1526              		.loc 1 302 9 is_stmt 1 view .LVU461
+ 1527 05ce 3146     		mov	r1, r6
+ 1528 05d0 04F10F02 		add	r2, r4, #15
+ 1529              	.LBE85:
+ 294:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old rectangle */
+ 1530              		.loc 1 294 23 is_stmt 0 discriminator 1 view .LVU462
+ 1531 05d4 0F36     		adds	r6, r6, #15
+ 1532              	.LBB86:
+ 302:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_rect_x[i] = x;
+ 1533              		.loc 1 302 9 view .LVU463
+ 1534 05d6 92B2     		uxth	r2, r2
+ 1535 05d8 2046     		mov	r0, r4
+ 1536              	.LBE86:
+ 294:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old rectangle */
+ 1537              		.loc 1 294 23 discriminator 1 view .LVU464
+ 1538 05da B6B2     		uxth	r6, r6
+ 1539              	.LBB87:
+ 302:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_rect_x[i] = x;
+ 1540              		.loc 1 302 9 view .LVU465
+ 1541 05dc FFF7FEFF 		bl	LCD_Fill
+ 1542              	.LVL90:
+ 303:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1543              		.loc 1 303 9 is_stmt 1 view .LVU466
+ 1544              	.LBE87:
+ 294:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old rectangle */
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 44
+
+
+ 1545              		.loc 1 294 23 is_stmt 0 discriminator 1 view .LVU467
+ 1546 05e0 552E     		cmp	r6, #85
+ 1547              	.LBB88:
+ 303:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1548              		.loc 1 303 24 view .LVU468
+ 1549 05e2 29F8024B 		strh	r4, [r9], #2	@ movhi
+ 1550              	.LBE88:
+ 294:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old rectangle */
+ 1551              		.loc 1 294 29 is_stmt 1 discriminator 2 view .LVU469
+ 294:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old rectangle */
+ 1552              		.loc 1 294 23 discriminator 1 view .LVU470
+ 1553 05e6 08F11408 		add	r8, r8, #20
+ 1554 05ea D3D1     		bne	.L75
+ 1555 05ec DFF878A2 		ldr	r10, .L110+64
+ 1556 05f0 DFF87892 		ldr	r9, .L110+68
+ 1557              	.LBE89:
+ 1558              	.LBB90:
+ 1559              	.LBB91:
+ 314:../APP/LCD/Src/lcd_advanced_demo.c ****         int x2 = LCD_W / 2 + (int)(fast_cos(angle) * 30);
+ 1560              		.loc 1 314 15 is_stmt 0 view .LVU471
+ 1561 05f4 DFED8F8A 		vldr.32	s17, .L110+12
+ 1562              	.LBB92:
+ 1563              	.LBB93:
+ 100:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 1564              		.loc 1 100 12 view .LVU472
+ 1565 05f8 9FED8F8A 		vldr.32	s16, .L110+16
+ 1566              	.LBE93:
+ 1567              	.LBE92:
+ 1568              	.LBE91:
+ 1569              	.LBE90:
+ 1570              	.LBB101:
+ 294:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old rectangle */
+ 1571              		.loc 1 294 23 discriminator 1 view .LVU473
+ 1572 05fc 4FF00008 		mov	r8, #0
+ 1573              	.LVL91:
+ 1574              	.L77:
+ 294:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old rectangle */
+ 1575              		.loc 1 294 23 discriminator 1 view .LVU474
+ 1576              	.LBE101:
+ 1577              	.LBB102:
+ 1578              	.LBB98:
+ 309:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawLine(LCD_W / 2, 80, prev_line_x2[i], prev_line_y2[i], BLACK);
+ 1579              		.loc 1 309 9 is_stmt 1 view .LVU475
+ 309:../APP/LCD/Src/lcd_advanced_demo.c ****             LCD_DrawLine(LCD_W / 2, 80, prev_line_x2[i], prev_line_y2[i], BLACK);
+ 1580              		.loc 1 309 12 is_stmt 0 view .LVU476
+ 1581 0600 2B68     		ldr	r3, [r5]
+ 1582 0602 012B     		cmp	r3, #1
+ 1583 0604 09D9     		bls	.L76
+ 310:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 1584              		.loc 1 310 13 is_stmt 1 view .LVU477
+ 1585 0606 0023     		movs	r3, #0
+ 1586 0608 0093     		str	r3, [sp]
+ 1587 060a 5021     		movs	r1, #80
+ 1588 060c B9F80030 		ldrh	r3, [r9]
+ 1589 0610 BAF80020 		ldrh	r2, [r10]
+ 1590 0614 0846     		mov	r0, r1
+ 1591 0616 FFF7FEFF 		bl	LCD_DrawLine
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 45
+
+
+ 1592              	.LVL92:
+ 1593              	.L76:
+ 314:../APP/LCD/Src/lcd_advanced_demo.c ****         int x2 = LCD_W / 2 + (int)(fast_cos(angle) * 30);
+ 1594              		.loc 1 314 9 view .LVU478
+ 314:../APP/LCD/Src/lcd_advanced_demo.c ****         int x2 = LCD_W / 2 + (int)(fast_cos(angle) * 30);
+ 1595              		.loc 1 314 35 is_stmt 0 view .LVU479
+ 1596 061a 2B68     		ldr	r3, [r5]
+ 314:../APP/LCD/Src/lcd_advanced_demo.c ****         int x2 = LCD_W / 2 + (int)(fast_cos(angle) * 30);
+ 1597              		.loc 1 314 39 view .LVU480
+ 1598 061c 08EB4303 		add	r3, r8, r3, lsl #1
+ 1599 0620 05EE103A 		vmov	s10, r3	@ int
+ 314:../APP/LCD/Src/lcd_advanced_demo.c ****         int x2 = LCD_W / 2 + (int)(fast_cos(angle) * 30);
+ 1600              		.loc 1 314 49 view .LVU481
+ 1601 0624 B8EE455A 		vcvt.f32.u32	s10, s10
+ 317:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_line_x2[i] = x2;
+ 1602              		.loc 1 317 9 view .LVU482
+ 1603 0628 5021     		movs	r1, #80
+ 314:../APP/LCD/Src/lcd_advanced_demo.c ****         int x2 = LCD_W / 2 + (int)(fast_cos(angle) * 30);
+ 1604              		.loc 1 314 15 view .LVU483
+ 1605 062a 25EE285A 		vmul.f32	s10, s10, s17
+ 1606              	.LVL93:
+ 315:../APP/LCD/Src/lcd_advanced_demo.c ****         int y2 = 80 + (int)(fast_sin(angle) * 30);
+ 1607              		.loc 1 315 9 is_stmt 1 view .LVU484
+ 1608              	.LBB96:
+ 1609              	.LBI92:
+  99:../APP/LCD/Src/lcd_advanced_demo.c ****     return fast_sin(x + 1.5708f);
+ 1610              		.loc 1 99 14 view .LVU485
+ 1611              	.LBB94:
+ 100:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 1612              		.loc 1 100 5 view .LVU486
+ 1613              	.LBE94:
+ 1614              	.LBE96:
+ 317:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_line_x2[i] = x2;
+ 1615              		.loc 1 317 9 is_stmt 0 view .LVU487
+ 1616 062e 0846     		mov	r0, r1
+ 1617              	.LBB97:
+ 1618              	.LBB95:
+ 100:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 1619              		.loc 1 100 12 view .LVU488
+ 1620 0630 35EE080A 		vadd.f32	s0, s10, s16
+ 1621 0634 FFF7FEFF 		bl	fast_sin
+ 1622              	.LVL94:
+ 1623 0638 F0EE405A 		vmov.f32	s11, s0
+ 1624              	.LVL95:
+ 100:../APP/LCD/Src/lcd_advanced_demo.c **** }
+ 1625              		.loc 1 100 12 view .LVU489
+ 1626              	.LBE95:
+ 1627              	.LBE97:
+ 316:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_DrawLine(LCD_W / 2, 80, x2, y2, rainbow_colors[i]);
+ 1628              		.loc 1 316 9 is_stmt 1 view .LVU490
+ 316:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_DrawLine(LCD_W / 2, 80, x2, y2, rainbow_colors[i]);
+ 1629              		.loc 1 316 29 is_stmt 0 view .LVU491
+ 1630 063c B0EE450A 		vmov.f32	s0, s10
+ 1631              	.LVL96:
+ 316:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_DrawLine(LCD_W / 2, 80, x2, y2, rainbow_colors[i]);
+ 1632              		.loc 1 316 29 view .LVU492
+ 1633 0640 FFF7FEFF 		bl	fast_sin
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 46
+
+
+ 1634              	.LVL97:
+ 317:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_line_x2[i] = x2;
+ 1635              		.loc 1 317 9 is_stmt 1 view .LVU493
+ 315:../APP/LCD/Src/lcd_advanced_demo.c ****         int y2 = 80 + (int)(fast_sin(angle) * 30);
+ 1636              		.loc 1 315 52 is_stmt 0 discriminator 1 view .LVU494
+ 1637 0644 F3EE0E7A 		vmov.f32	s15, #3.0e+1
+ 1638 0648 65EEA75A 		vmul.f32	s11, s11, s15
+ 1639              	.LVL98:
+ 316:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_DrawLine(LCD_W / 2, 80, x2, y2, rainbow_colors[i]);
+ 1640              		.loc 1 316 45 discriminator 1 view .LVU495
+ 1641 064c 20EE270A 		vmul.f32	s0, s0, s15
+ 1642              	.LVL99:
+ 315:../APP/LCD/Src/lcd_advanced_demo.c ****         int y2 = 80 + (int)(fast_sin(angle) * 30);
+ 1643              		.loc 1 315 30 discriminator 1 view .LVU496
+ 1644 0650 BDEEE57A 		vcvt.s32.f32	s14, s11
+ 316:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_DrawLine(LCD_W / 2, 80, x2, y2, rainbow_colors[i]);
+ 1645              		.loc 1 316 23 discriminator 1 view .LVU497
+ 1646 0654 FDEEC07A 		vcvt.s32.f32	s15, s0
+ 315:../APP/LCD/Src/lcd_advanced_demo.c ****         int y2 = 80 + (int)(fast_sin(angle) * 30);
+ 1647              		.loc 1 315 30 discriminator 1 view .LVU498
+ 1648 0658 17EE104A 		vmov	r4, s14	@ int
+ 316:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_DrawLine(LCD_W / 2, 80, x2, y2, rainbow_colors[i]);
+ 1649              		.loc 1 316 23 discriminator 1 view .LVU499
+ 1650 065c 17EE906A 		vmov	r6, s15	@ int
+ 315:../APP/LCD/Src/lcd_advanced_demo.c ****         int y2 = 80 + (int)(fast_sin(angle) * 30);
+ 1651              		.loc 1 315 13 discriminator 1 view .LVU500
+ 1652 0660 5034     		adds	r4, r4, #80
+ 316:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_DrawLine(LCD_W / 2, 80, x2, y2, rainbow_colors[i]);
+ 1653              		.loc 1 316 13 discriminator 1 view .LVU501
+ 1654 0662 5036     		adds	r6, r6, #80
+ 317:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_line_x2[i] = x2;
+ 1655              		.loc 1 317 59 view .LVU502
+ 1656 0664 37F8023B 		ldrh	r3, [r7], #2
+ 317:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_line_x2[i] = x2;
+ 1657              		.loc 1 317 9 view .LVU503
+ 1658 0668 0093     		str	r3, [sp]
+ 1659 066a A4B2     		uxth	r4, r4
+ 1660 066c B6B2     		uxth	r6, r6
+ 1661 066e 3346     		mov	r3, r6
+ 1662 0670 2246     		mov	r2, r4
+ 1663              	.LBE98:
+ 307:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old line */
+ 1664              		.loc 1 307 23 discriminator 1 view .LVU504
+ 1665 0672 08F12D08 		add	r8, r8, #45
+ 1666              	.LBB99:
+ 317:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_line_x2[i] = x2;
+ 1667              		.loc 1 317 9 view .LVU505
+ 1668 0676 FFF7FEFF 		bl	LCD_DrawLine
+ 1669              	.LVL100:
+ 318:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_line_y2[i] = y2;
+ 1670              		.loc 1 318 9 is_stmt 1 view .LVU506
+ 1671              	.LBE99:
+ 307:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old line */
+ 1672              		.loc 1 307 23 is_stmt 0 discriminator 1 view .LVU507
+ 1673 067a B8F5B47F 		cmp	r8, #360
+ 1674              	.LBB100:
+ 318:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_line_y2[i] = y2;
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 47
+
+
+ 1675              		.loc 1 318 25 view .LVU508
+ 1676 067e 2AF8024B 		strh	r4, [r10], #2	@ movhi
+ 319:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1677              		.loc 1 319 9 is_stmt 1 view .LVU509
+ 319:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1678              		.loc 1 319 25 is_stmt 0 view .LVU510
+ 1679 0682 29F8026B 		strh	r6, [r9], #2	@ movhi
+ 1680              	.LBE100:
+ 307:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old line */
+ 1681              		.loc 1 307 29 is_stmt 1 discriminator 2 view .LVU511
+ 307:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old line */
+ 1682              		.loc 1 307 23 discriminator 1 view .LVU512
+ 1683 0686 BBD1     		bne	.L77
+ 1684 0688 6C4F     		ldr	r7, .L110+20
+ 1685 068a 4FF01E0A 		mov	r10, #30
+ 1686              	.LBE102:
+ 1687              	.LBB103:
+ 323:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old circle */
+ 1688              		.loc 1 323 14 is_stmt 0 view .LVU513
+ 1689 068e 0026     		movs	r6, #0
+ 1690              	.LBB104:
+ 330:../APP/LCD/Src/lcd_advanced_demo.c ****         Draw_Circle(30 + i * 35, 130, r, rainbow_colors[i * 2]);
+ 1691              		.loc 1 330 34 view .LVU514
+ 1692 0690 4FF01409 		mov	r9, #20
+ 330:../APP/LCD/Src/lcd_advanced_demo.c ****         Draw_Circle(30 + i * 35, 130, r, rainbow_colors[i * 2]);
+ 1693              		.loc 1 330 44 view .LVU515
+ 1694 0694 4FF02808 		mov	r8, #40
+ 1695              	.L79:
+ 1696              	.LVL101:
+ 325:../APP/LCD/Src/lcd_advanced_demo.c ****             Draw_Circle(30 + i * 35, 130, prev_circle_r[i], BLACK);
+ 1697              		.loc 1 325 9 is_stmt 1 view .LVU516
+ 325:../APP/LCD/Src/lcd_advanced_demo.c ****             Draw_Circle(30 + i * 35, 130, prev_circle_r[i], BLACK);
+ 1698              		.loc 1 325 12 is_stmt 0 view .LVU517
+ 1699 0698 2B68     		ldr	r3, [r5]
+ 1700 069a 012B     		cmp	r3, #1
+ 1701 069c 06D9     		bls	.L78
+ 325:../APP/LCD/Src/lcd_advanced_demo.c ****             Draw_Circle(30 + i * 35, 130, prev_circle_r[i], BLACK);
+ 1702              		.loc 1 325 44 discriminator 1 view .LVU518
+ 1703 069e 3A78     		ldrb	r2, [r7]	@ zero_extendqisi2
+ 325:../APP/LCD/Src/lcd_advanced_demo.c ****             Draw_Circle(30 + i * 35, 130, prev_circle_r[i], BLACK);
+ 1704              		.loc 1 325 28 discriminator 1 view .LVU519
+ 1705 06a0 22B1     		cbz	r2, .L78
+ 326:../APP/LCD/Src/lcd_advanced_demo.c ****         }
+ 1706              		.loc 1 326 13 is_stmt 1 view .LVU520
+ 1707 06a2 0023     		movs	r3, #0
+ 1708 06a4 8221     		movs	r1, #130
+ 1709 06a6 5046     		mov	r0, r10
+ 1710 06a8 FFF7FEFF 		bl	Draw_Circle
+ 1711              	.LVL102:
+ 1712              	.L78:
+ 330:../APP/LCD/Src/lcd_advanced_demo.c ****         Draw_Circle(30 + i * 35, 130, r, rainbow_colors[i * 2]);
+ 1713              		.loc 1 330 9 view .LVU521
+ 330:../APP/LCD/Src/lcd_advanced_demo.c ****         Draw_Circle(30 + i * 35, 130, r, rainbow_colors[i * 2]);
+ 1714              		.loc 1 330 34 is_stmt 0 view .LVU522
+ 1715 06ac 2C68     		ldr	r4, [r5]
+ 1716 06ae 09FB0644 		mla	r4, r9, r6, r4
+ 330:../APP/LCD/Src/lcd_advanced_demo.c ****         Draw_Circle(30 + i * 35, 130, r, rainbow_colors[i * 2]);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 48
+
+
+ 1717              		.loc 1 330 44 view .LVU523
+ 1718 06b2 B4FBF8F3 		udiv	r3, r4, r8
+ 1719 06b6 08FB1344 		mls	r4, r8, r3, r4
+ 331:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_circle_r[i] = r;
+ 1720              		.loc 1 331 9 view .LVU524
+ 1721 06ba 5D4B     		ldr	r3, .L110+8
+ 330:../APP/LCD/Src/lcd_advanced_demo.c ****         Draw_Circle(30 + i * 35, 130, r, rainbow_colors[i * 2]);
+ 1722              		.loc 1 330 17 view .LVU525
+ 1723 06bc C4F34704 		ubfx	r4, r4, #1, #8
+ 1724              	.LVL103:
+ 331:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_circle_r[i] = r;
+ 1725              		.loc 1 331 9 is_stmt 1 view .LVU526
+ 1726 06c0 33F82630 		ldrh	r3, [r3, r6, lsl #2]
+ 1727 06c4 5046     		mov	r0, r10
+ 1728 06c6 2246     		mov	r2, r4
+ 1729 06c8 8221     		movs	r1, #130
+ 1730              	.LBE104:
+ 323:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old circle */
+ 1731              		.loc 1 323 29 is_stmt 0 discriminator 2 view .LVU527
+ 1732 06ca 0136     		adds	r6, r6, #1
+ 1733              	.LVL104:
+ 1734              	.LBB105:
+ 331:../APP/LCD/Src/lcd_advanced_demo.c ****         prev_circle_r[i] = r;
+ 1735              		.loc 1 331 9 view .LVU528
+ 1736 06cc FFF7FEFF 		bl	Draw_Circle
+ 1737              	.LVL105:
+ 332:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1738              		.loc 1 332 9 is_stmt 1 view .LVU529
+ 1739              	.LBE105:
+ 323:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old circle */
+ 1740              		.loc 1 323 23 is_stmt 0 discriminator 1 view .LVU530
+ 1741 06d0 0AF1230A 		add	r10, r10, #35
+ 1742 06d4 032E     		cmp	r6, #3
+ 1743              	.LBB106:
+ 332:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1744              		.loc 1 332 26 view .LVU531
+ 1745 06d6 07F8014B 		strb	r4, [r7], #1
+ 1746              	.LBE106:
+ 323:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old circle */
+ 1747              		.loc 1 323 29 is_stmt 1 discriminator 2 view .LVU532
+ 1748              	.LVL106:
+ 323:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old circle */
+ 1749              		.loc 1 323 23 discriminator 1 view .LVU533
+ 1750 06da 1FFA8AFA 		uxth	r10, r10
+ 1751 06de DBD1     		bne	.L79
+ 1752 06e0 86E5     		b	.L22
+ 1753              	.LVL107:
+ 1754              	.L31:
+ 323:../APP/LCD/Src/lcd_advanced_demo.c ****         /* Erase old circle */
+ 1755              		.loc 1 323 23 is_stmt 0 discriminator 1 view .LVU534
+ 1756              	.LBE103:
+ 1757              	.LBE83:
+ 1758              	.LBE82:
+ 500:../APP/LCD/Src/lcd_advanced_demo.c ****             break;
+ 1759              		.loc 1 500 13 is_stmt 1 view .LVU535
+ 1760              	.LBB107:
+ 1761              	.LBI107:
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 49
+
+
+ 339:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint32_t last_update = 0;
+ 1762              		.loc 1 339 13 view .LVU536
+ 1763              	.LBB108:
+ 340:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint32_t prev_fps = 0;
+ 1764              		.loc 1 340 5 view .LVU537
+ 341:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint16_t prev_bar_width = 0;
+ 1765              		.loc 1 341 5 view .LVU538
+ 342:../APP/LCD/Src/lcd_advanced_demo.c ****     static bool initialized = false;
+ 1766              		.loc 1 342 5 view .LVU539
+ 343:../APP/LCD/Src/lcd_advanced_demo.c ****     uint32_t current_time = HAL_GetTick();
+ 1767              		.loc 1 343 5 view .LVU540
+ 344:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1768              		.loc 1 344 5 view .LVU541
+ 347:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 1769              		.loc 1 347 9 is_stmt 0 view .LVU542
+ 1770 06e2 DFF88C81 		ldr	r8, .L110+72
+ 1771 06e6 564F     		ldr	r7, .L110+24
+ 344:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1772              		.loc 1 344 29 view .LVU543
+ 1773 06e8 FFF7FEFF 		bl	HAL_GetTick
+ 1774              	.LVL108:
+ 347:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 1775              		.loc 1 347 8 view .LVU544
+ 1776 06ec 98F80050 		ldrb	r5, [r8]	@ zero_extendqisi2
+ 344:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1777              		.loc 1 344 29 view .LVU545
+ 1778 06f0 0646     		mov	r6, r0
+ 1779              	.LVL109:
+ 347:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 1780              		.loc 1 347 5 is_stmt 1 view .LVU546
+ 347:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+ 1781              		.loc 1 347 8 is_stmt 0 view .LVU547
+ 1782 06f2 002D     		cmp	r5, #0
+ 1783 06f4 3CD1     		bne	.L80
+ 348:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(10, 10, (const u8 *)"Performance Test", YELLOW, BLACK, 16, 0);
+ 1784              		.loc 1 348 9 is_stmt 1 view .LVU548
+ 1785 06f6 8023     		movs	r3, #128
+ 1786 06f8 A022     		movs	r2, #160
+ 1787 06fa 2946     		mov	r1, r5
+ 1788 06fc 2846     		mov	r0, r5
+ 1789              	.LVL110:
+ 348:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(10, 10, (const u8 *)"Performance Test", YELLOW, BLACK, 16, 0);
+ 1790              		.loc 1 348 9 is_stmt 0 view .LVU549
+ 1791 06fe 0095     		str	r5, [sp]
+ 1792 0700 FFF7FEFF 		bl	LCD_Fill
+ 1793              	.LVL111:
+ 349:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(10, 60, (const u8 *)"LCD: 128x160", CYAN, BLACK, 12, 0);
+ 1794              		.loc 1 349 9 is_stmt 1 view .LVU550
+ 1795 0704 0A21     		movs	r1, #10
+ 1796 0706 1023     		movs	r3, #16
+ 1797 0708 0846     		mov	r0, r1
+ 350:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(10, 80, (const u8 *)"SPI DMA: ON", MAGENTA, BLACK, 12, 0);
+ 1798              		.loc 1 350 9 is_stmt 0 view .LVU551
+ 1799 070a 0C24     		movs	r4, #12
+ 349:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(10, 60, (const u8 *)"LCD: 128x160", CYAN, BLACK, 12, 0);
+ 1800              		.loc 1 349 9 view .LVU552
+ 1801 070c CDE90053 		strd	r5, r3, [sp]
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 50
+
+
+ 1802 0710 4C4A     		ldr	r2, .L110+28
+ 1803 0712 0295     		str	r5, [sp, #8]
+ 1804 0714 4FF6E073 		movw	r3, #65504
+ 1805 0718 FFF7FEFF 		bl	LCD_ShowString
+ 1806              	.LVL112:
+ 350:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(10, 80, (const u8 *)"SPI DMA: ON", MAGENTA, BLACK, 12, 0);
+ 1807              		.loc 1 350 9 is_stmt 1 view .LVU553
+ 1808 071c 4A4A     		ldr	r2, .L110+32
+ 1809 071e 0295     		str	r5, [sp, #8]
+ 1810 0720 47F6FF73 		movw	r3, #32767
+ 1811 0724 3C21     		movs	r1, #60
+ 1812 0726 0A20     		movs	r0, #10
+ 1813 0728 CDE90054 		strd	r5, r4, [sp]
+ 1814 072c FFF7FEFF 		bl	LCD_ShowString
+ 1815              	.LVL113:
+ 351:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(10, 100, (const u8 *)"Partial Refresh", MAGENTA, BLACK, 12, 0);
+ 1816              		.loc 1 351 9 view .LVU554
+ 1817 0730 464A     		ldr	r2, .L110+36
+ 1818 0732 0095     		str	r5, [sp]
+ 1819 0734 4FF61F03 		movw	r3, #63519
+ 1820 0738 5021     		movs	r1, #80
+ 1821 073a 0A20     		movs	r0, #10
+ 1822 073c CDE90145 		strd	r4, r5, [sp, #4]
+ 1823 0740 FFF7FEFF 		bl	LCD_ShowString
+ 1824              	.LVL114:
+ 352:../APP/LCD/Src/lcd_advanced_demo.c ****         initialized = true;
+ 1825              		.loc 1 352 9 view .LVU555
+ 1826 0744 4FF61F03 		movw	r3, #63519
+ 1827 0748 CDE90145 		strd	r4, r5, [sp, #4]
+ 1828 074c 404A     		ldr	r2, .L110+40
+ 1829 074e 0095     		str	r5, [sp]
+ 1830 0750 6421     		movs	r1, #100
+ 1831 0752 0A20     		movs	r0, #10
+ 1832 0754 FFF7FEFF 		bl	LCD_ShowString
+ 1833              	.LVL115:
+ 353:../APP/LCD/Src/lcd_advanced_demo.c ****         last_update = current_time;
+ 1834              		.loc 1 353 9 view .LVU556
+ 353:../APP/LCD/Src/lcd_advanced_demo.c ****         last_update = current_time;
+ 1835              		.loc 1 353 21 is_stmt 0 view .LVU557
+ 1836 0758 0123     		movs	r3, #1
+ 1837 075a 88F80030 		strb	r3, [r8]
+ 354:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1838              		.loc 1 354 9 is_stmt 1 view .LVU558
+ 1839              	.L105:
+ 1840              	.LBB109:
+ 369:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1841              		.loc 1 369 9 view .LVU559
+ 369:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1842              		.loc 1 369 21 is_stmt 0 view .LVU560
+ 1843 075e 3E60     		str	r6, [r7]
+ 1844              	.L81:
+ 369:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1845              		.loc 1 369 21 view .LVU561
+ 1846              	.LBE109:
+ 373:../APP/LCD/Src/lcd_advanced_demo.c ****     static uint8_t frame_skip = 0;
+ 1847              		.loc 1 373 5 is_stmt 1 view .LVU562
+ 374:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 51
+
+
+ 1848              		.loc 1 374 5 view .LVU563
+ 376:../APP/LCD/Src/lcd_advanced_demo.c ****     if (frame_skip >= 3) {
+ 1849              		.loc 1 376 5 view .LVU564
+ 376:../APP/LCD/Src/lcd_advanced_demo.c ****     if (frame_skip >= 3) {
+ 1850              		.loc 1 376 15 is_stmt 0 view .LVU565
+ 1851 0760 3C4A     		ldr	r2, .L110+44
+ 1852 0762 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 1853 0764 0133     		adds	r3, r3, #1
+ 1854 0766 DBB2     		uxtb	r3, r3
+ 377:../APP/LCD/Src/lcd_advanced_demo.c ****         frame_skip = 0;
+ 1855              		.loc 1 377 5 is_stmt 1 view .LVU566
+ 377:../APP/LCD/Src/lcd_advanced_demo.c ****         frame_skip = 0;
+ 1856              		.loc 1 377 8 is_stmt 0 view .LVU567
+ 1857 0768 022B     		cmp	r3, #2
+ 1858 076a 29D8     		bhi	.L82
+ 376:../APP/LCD/Src/lcd_advanced_demo.c ****     if (frame_skip >= 3) {
+ 1859              		.loc 1 376 15 view .LVU568
+ 1860 076c 1370     		strb	r3, [r2]
+ 1861 076e 3FE5     		b	.L22
+ 1862              	.LVL116:
+ 1863              	.L80:
+ 358:../APP/LCD/Src/lcd_advanced_demo.c ****         char fps_str[32];
+ 1864              		.loc 1 358 5 is_stmt 1 view .LVU569
+ 358:../APP/LCD/Src/lcd_advanced_demo.c ****         char fps_str[32];
+ 1865              		.loc 1 358 22 is_stmt 0 view .LVU570
+ 1866 0770 3B68     		ldr	r3, [r7]
+ 1867 0772 C31A     		subs	r3, r0, r3
+ 358:../APP/LCD/Src/lcd_advanced_demo.c ****         char fps_str[32];
+ 1868              		.loc 1 358 8 view .LVU571
+ 1869 0774 B3F5FA7F 		cmp	r3, #500
+ 1870 0778 F2D3     		bcc	.L81
+ 358:../APP/LCD/Src/lcd_advanced_demo.c ****         char fps_str[32];
+ 1871              		.loc 1 358 59 discriminator 1 view .LVU572
+ 1872 077a DFF8F880 		ldr	r8, .L110+76
+ 358:../APP/LCD/Src/lcd_advanced_demo.c ****         char fps_str[32];
+ 1873              		.loc 1 358 43 discriminator 1 view .LVU573
+ 1874 077e E268     		ldr	r2, [r4, #12]
+ 1875 0780 D8F80030 		ldr	r3, [r8]
+ 1876 0784 9A42     		cmp	r2, r3
+ 1877 0786 EBD0     		beq	.L81
+ 1878              	.LBB110:
+ 359:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1879              		.loc 1 359 9 is_stmt 1 view .LVU574
+ 362:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1880              		.loc 1 362 9 view .LVU575
+ 1881 0788 0025     		movs	r5, #0
+ 1882 078a 3223     		movs	r3, #50
+ 1883 078c 7822     		movs	r2, #120
+ 1884 078e 2321     		movs	r1, #35
+ 1885 0790 0A20     		movs	r0, #10
+ 1886              	.LVL117:
+ 362:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1887              		.loc 1 362 9 is_stmt 0 view .LVU576
+ 1888 0792 0095     		str	r5, [sp]
+ 1889 0794 FFF7FEFF 		bl	LCD_Fill
+ 1890              	.LVL118:
+ 365:../APP/LCD/Src/lcd_advanced_demo.c ****         LCD_ShowString(10, 35, (const u8 *)fps_str, GREEN, BLACK, 16, 0);
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 52
+
+
+ 1891              		.loc 1 365 9 is_stmt 1 view .LVU577
+ 1892 0798 E268     		ldr	r2, [r4, #12]
+ 1893 079a 2F49     		ldr	r1, .L110+48
+ 1894 079c 06A8     		add	r0, sp, #24
+ 1895 079e FFF7FEFF 		bl	sprintf
+ 1896              	.LVL119:
+ 366:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1897              		.loc 1 366 9 view .LVU578
+ 1898 07a2 1023     		movs	r3, #16
+ 1899 07a4 CDE90053 		strd	r5, r3, [sp]
+ 1900 07a8 0295     		str	r5, [sp, #8]
+ 1901 07aa 4FF4FC63 		mov	r3, #2016
+ 1902 07ae 06AA     		add	r2, sp, #24
+ 1903 07b0 2321     		movs	r1, #35
+ 1904 07b2 0A20     		movs	r0, #10
+ 1905 07b4 FFF7FEFF 		bl	LCD_ShowString
+ 1906              	.LVL120:
+ 368:../APP/LCD/Src/lcd_advanced_demo.c ****         last_update = current_time;
+ 1907              		.loc 1 368 9 view .LVU579
+ 368:../APP/LCD/Src/lcd_advanced_demo.c ****         last_update = current_time;
+ 1908              		.loc 1 368 18 is_stmt 0 view .LVU580
+ 1909 07b8 E368     		ldr	r3, [r4, #12]
+ 1910 07ba C8F80030 		str	r3, [r8]
+ 1911 07be CEE7     		b	.L105
+ 1912              	.L82:
+ 368:../APP/LCD/Src/lcd_advanced_demo.c ****         last_update = current_time;
+ 1913              		.loc 1 368 18 view .LVU581
+ 1914              	.LBE110:
+ 1915              	.LBB111:
+ 378:../APP/LCD/Src/lcd_advanced_demo.c ****         bar_anim++;
+ 1916              		.loc 1 378 9 is_stmt 1 view .LVU582
+ 378:../APP/LCD/Src/lcd_advanced_demo.c ****         bar_anim++;
+ 1917              		.loc 1 378 20 is_stmt 0 view .LVU583
+ 1918 07c0 0023     		movs	r3, #0
+ 1919 07c2 1370     		strb	r3, [r2]
+ 379:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1920              		.loc 1 379 9 is_stmt 1 view .LVU584
+ 379:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1921              		.loc 1 379 17 is_stmt 0 view .LVU585
+ 1922 07c4 254A     		ldr	r2, .L110+52
+ 384:../APP/LCD/Src/lcd_advanced_demo.c ****             /* Erase old bar end */
+ 1923              		.loc 1 384 23 view .LVU586
+ 1924 07c6 264E     		ldr	r6, .L110+56
+ 1925              	.LVL121:
+ 379:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1926              		.loc 1 379 17 view .LVU587
+ 1927 07c8 1368     		ldr	r3, [r2]
+ 1928 07ca 0133     		adds	r3, r3, #1
+ 1929 07cc 1360     		str	r3, [r2]
+ 381:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1930              		.loc 1 381 9 is_stmt 1 view .LVU588
+ 381:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1931              		.loc 1 381 40 is_stmt 0 view .LVU589
+ 1932 07ce 6422     		movs	r2, #100
+ 1933 07d0 B3FBF2F1 		udiv	r1, r3, r2
+ 1934 07d4 02FB1134 		mls	r4, r2, r1, r3
+ 381:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 53
+
+
+ 1935              		.loc 1 381 47 view .LVU590
+ 1936 07d8 8C23     		movs	r3, #140
+ 1937 07da 5C43     		muls	r4, r3, r4
+ 381:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1938              		.loc 1 381 62 view .LVU591
+ 1939 07dc B4FBF2F4 		udiv	r4, r4, r2
+ 384:../APP/LCD/Src/lcd_advanced_demo.c ****             /* Erase old bar end */
+ 1940              		.loc 1 384 23 view .LVU592
+ 1941 07e0 3288     		ldrh	r2, [r6]
+ 381:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1942              		.loc 1 381 18 view .LVU593
+ 1943 07e2 A4B2     		uxth	r4, r4
+ 1944              	.LVL122:
+ 384:../APP/LCD/Src/lcd_advanced_demo.c ****             /* Erase old bar end */
+ 1945              		.loc 1 384 9 is_stmt 1 view .LVU594
+ 384:../APP/LCD/Src/lcd_advanced_demo.c ****             /* Erase old bar end */
+ 1946              		.loc 1 384 12 is_stmt 0 view .LVU595
+ 1947 07e4 9442     		cmp	r4, r2
+ 1948 07e6 3FF403AD 		beq	.L22
+ 386:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_Fill(10 + bar_width, 120, 10 + prev_bar_width, 130, GRAYBLUE);
+ 1949              		.loc 1 386 13 is_stmt 1 view .LVU596
+ 387:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 1950              		.loc 1 387 17 is_stmt 0 view .LVU597
+ 1951 07ea 04F10A05 		add	r5, r4, #10
+ 1952 07ee ADB2     		uxth	r5, r5
+ 386:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_Fill(10 + bar_width, 120, 10 + prev_bar_width, 130, GRAYBLUE);
+ 1953              		.loc 1 386 16 view .LVU598
+ 1954 07f0 09D2     		bcs	.L83
+ 387:../APP/LCD/Src/lcd_advanced_demo.c ****             }
+ 1955              		.loc 1 387 17 is_stmt 1 view .LVU599
+ 1956 07f2 45F25843 		movw	r3, #21592
+ 1957 07f6 0A32     		adds	r2, r2, #10
+ 1958 07f8 0093     		str	r3, [sp]
+ 1959 07fa 92B2     		uxth	r2, r2
+ 1960 07fc 8223     		movs	r3, #130
+ 1961 07fe 7821     		movs	r1, #120
+ 1962 0800 2846     		mov	r0, r5
+ 1963 0802 FFF7FEFF 		bl	LCD_Fill
+ 1964              	.LVL123:
+ 1965              	.L83:
+ 390:../APP/LCD/Src/lcd_advanced_demo.c ****             prev_bar_width = bar_width;
+ 1966              		.loc 1 390 13 view .LVU600
+ 1967 0806 3088     		ldrh	r0, [r6]
+ 1968 0808 4FF4FC63 		mov	r3, #2016
+ 1969 080c 0A30     		adds	r0, r0, #10
+ 1970 080e 0093     		str	r3, [sp]
+ 1971 0810 2A46     		mov	r2, r5
+ 1972 0812 8223     		movs	r3, #130
+ 1973 0814 7821     		movs	r1, #120
+ 1974 0816 80B2     		uxth	r0, r0
+ 1975 0818 FFF7FEFF 		bl	LCD_Fill
+ 1976              	.LVL124:
+ 391:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1977              		.loc 1 391 13 view .LVU601
+ 391:../APP/LCD/Src/lcd_advanced_demo.c **** 
+ 1978              		.loc 1 391 28 is_stmt 0 view .LVU602
+ 1979 081c 3480     		strh	r4, [r6]	@ movhi
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 54
+
+
+ 394:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_Fill(10, 120, LCD_W - 10, 130, GRAYBLUE);
+ 1980              		.loc 1 394 13 is_stmt 1 view .LVU603
+ 1981 081e E7E4     		b	.L22
+ 1982              	.LVL125:
+ 1983              	.L30:
+ 394:../APP/LCD/Src/lcd_advanced_demo.c ****                 LCD_Fill(10, 120, LCD_W - 10, 130, GRAYBLUE);
+ 1984              		.loc 1 394 13 is_stmt 0 view .LVU604
+ 1985              	.LBE111:
+ 1986              	.LBE108:
+ 1987              	.LBE107:
+ 504:../APP/LCD/Src/lcd_advanced_demo.c ****             break;
+ 1988              		.loc 1 504 13 is_stmt 1 view .LVU605
+ 504:../APP/LCD/Src/lcd_advanced_demo.c ****             break;
+ 1989              		.loc 1 504 28 is_stmt 0 view .LVU606
+ 1990 0820 0023     		movs	r3, #0
+ 1991 0822 2370     		strb	r3, [r4]
+ 505:../APP/LCD/Src/lcd_advanced_demo.c ****     }
+ 1992              		.loc 1 505 13 is_stmt 1 view .LVU607
+ 1993              		.loc 1 509 1 is_stmt 0 view .LVU608
+ 1994 0824 E4E4     		b	.L22
+ 1995              	.L111:
+ 1996 0826 00BF     		.align	2
+ 1997              	.L110:
+ 1998 0828 00000000 		.word	anim_frame.10
+ 1999 082c 2F000000 		.word	.LC6
+ 2000 0830 00000000 		.word	rainbow_colors
+ 2001 0834 4DF38E3C 		.word	1016001357
+ 2002 0838 F90FC93F 		.word	1070141433
+ 2003 083c 00000000 		.word	prev_circle_r.6
+ 2004 0840 00000000 		.word	last_update.4
+ 2005 0844 3D000000 		.word	.LC7
+ 2006 0848 4E000000 		.word	.LC8
+ 2007 084c 5B000000 		.word	.LC9
+ 2008 0850 67000000 		.word	.LC10
+ 2009 0854 00000000 		.word	frame_skip.2
+ 2010 0858 77000000 		.word	.LC11
+ 2011 085c 00000000 		.word	bar_anim.1
+ 2012 0860 00000000 		.word	prev_bar_width.0
+ 2013 0864 00000000 		.word	prev_rect_x.9
+ 2014 0868 00000000 		.word	prev_line_x2.8
+ 2015 086c 00000000 		.word	prev_line_y2.7
+ 2016 0870 00000000 		.word	initialized.5
+ 2017 0874 00000000 		.word	prev_fps.3
+ 2018              		.cfi_endproc
+ 2019              	.LFE146:
+ 2021              		.section	.bss.prev_bar_width.0,"aw",%nobits
+ 2022              		.align	1
+ 2025              	prev_bar_width.0:
+ 2026 0000 0000     		.space	2
+ 2027              		.section	.bss.bar_anim.1,"aw",%nobits
+ 2028              		.align	2
+ 2031              	bar_anim.1:
+ 2032 0000 00000000 		.space	4
+ 2033              		.section	.bss.frame_skip.2,"aw",%nobits
+ 2036              	frame_skip.2:
+ 2037 0000 00       		.space	1
+ 2038              		.section	.bss.prev_fps.3,"aw",%nobits
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 55
+
+
+ 2039              		.align	2
+ 2042              	prev_fps.3:
+ 2043 0000 00000000 		.space	4
+ 2044              		.section	.bss.last_update.4,"aw",%nobits
+ 2045              		.align	2
+ 2048              	last_update.4:
+ 2049 0000 00000000 		.space	4
+ 2050              		.section	.bss.initialized.5,"aw",%nobits
+ 2053              	initialized.5:
+ 2054 0000 00       		.space	1
+ 2055              		.section	.bss.prev_circle_r.6,"aw",%nobits
+ 2058              	prev_circle_r.6:
+ 2059 0000 000000   		.space	3
+ 2060              		.section	.bss.prev_line_y2.7,"aw",%nobits
+ 2061              		.align	1
+ 2064              	prev_line_y2.7:
+ 2065 0000 00000000 		.space	16
+ 2065      00000000 
+ 2065      00000000 
+ 2065      00000000 
+ 2066              		.section	.bss.prev_line_x2.8,"aw",%nobits
+ 2067              		.align	1
+ 2070              	prev_line_x2.8:
+ 2071 0000 00000000 		.space	16
+ 2071      00000000 
+ 2071      00000000 
+ 2071      00000000 
+ 2072              		.section	.bss.prev_rect_x.9,"aw",%nobits
+ 2073              		.align	1
+ 2076              	prev_rect_x.9:
+ 2077 0000 00000000 		.space	10
+ 2077      00000000 
+ 2077      0000
+ 2078              		.section	.bss.anim_frame.10,"aw",%nobits
+ 2079              		.align	2
+ 2082              	anim_frame.10:
+ 2083 0000 00000000 		.space	4
+ 2084              		.section	.data.prev_state.11,"aw"
+ 2087              	prev_state.11:
+ 2088 0000 05       		.byte	5
+ 2089              		.section	.rodata.rainbow_colors,"a"
+ 2090              		.align	1
+ 2093              	rainbow_colors:
+ 2094 0000 00F8     		.short	-2048
+ 2095 0002 00FC     		.short	-1024
+ 2096 0004 E0FF     		.short	-32
+ 2097 0006 E007     		.short	2016
+ 2098 0008 FF7F     		.short	32767
+ 2099 000a 1F00     		.short	31
+ 2100 000c 1080     		.short	-32752
+ 2101 000e 1FF8     		.short	-2017
+ 2102              		.section	.bss.demo_ctx,"aw",%nobits
+ 2103              		.align	2
+ 2106              	demo_ctx:
+ 2107 0000 00000000 		.space	1020
+ 2107      00000000 
+ 2107      00000000 
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 56
+
+
+ 2107      00000000 
+ 2107      00000000 
+ 2108              		.text
+ 2109              	.Letext0:
+ 2110              		.file 2 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/machine/_default_types.h"
+ 2111              		.file 3 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/sys/_stdint.h"
+ 2112              		.file 4 "../firmware/CMSIS/device/n32g430.h"
+ 2113              		.file 5 "../APP/LCD/Inc/lcd.h"
+ 2114              		.file 6 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/stdlib.h"
+ 2115              		.file 7 "../core/inc/hal_compat.h"
+ 2116              		.file 8 "../APP/LCD/Inc/lcd_init.h"
+ 2117              		.file 9 "../core/inc/spi.h"
+ 2118              		.file 10 "../core/inc/dma.h"
+ 2119              		.file 11 "D:/Tool/arm-gnu-toolchain/arm-none-eabi/include/stdio.h"
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 57
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lcd_advanced_demo.c
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:21     .text.fast_sin:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:26     .text.fast_sin:00000000 fast_sin
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:96     .text.fast_sin:0000005c $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:104    .text.init_particles:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:109    .text.init_particles:00000000 init_particles
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:151    .text.init_particles:0000001c $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2106   .bss.demo_ctx:00000000 demo_ctx
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:156    .text.randf:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:161    .text.randf:00000000 randf
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:207    .text.init_balls:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:212    .text.init_balls:00000000 init_balls
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:319    .text.init_balls:00000078 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2093   .rodata.rainbow_colors:00000000 rainbow_colors
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:334    .text.LCD_AdvancedDemo_Init:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:340    .text.LCD_AdvancedDemo_Init:00000000 LCD_AdvancedDemo_Init
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:449    .text.LCD_AdvancedDemo_Init:00000090 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:476    .text.LCD_AdvancedDemo_Main:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:482    .text.LCD_AdvancedDemo_Main:00000000 LCD_AdvancedDemo_Main
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:605    .text.LCD_AdvancedDemo_Main:00000078 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:611    .text.LCD_AdvancedDemo_Main:00000082 $t
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:1008   .text.LCD_AdvancedDemo_Main:000002ac $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2087   .data.prev_state.11:00000000 prev_state.11
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:1029   .text.LCD_AdvancedDemo_Main:000002d8 $t
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:1409   .text.LCD_AdvancedDemo_Main:00000528 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:1436   .text.LCD_AdvancedDemo_Main:00000548 $t
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:1998   .text.LCD_AdvancedDemo_Main:00000828 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2082   .bss.anim_frame.10:00000000 anim_frame.10
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2058   .bss.prev_circle_r.6:00000000 prev_circle_r.6
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2048   .bss.last_update.4:00000000 last_update.4
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2036   .bss.frame_skip.2:00000000 frame_skip.2
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2031   .bss.bar_anim.1:00000000 bar_anim.1
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2025   .bss.prev_bar_width.0:00000000 prev_bar_width.0
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2076   .bss.prev_rect_x.9:00000000 prev_rect_x.9
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2070   .bss.prev_line_x2.8:00000000 prev_line_x2.8
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2064   .bss.prev_line_y2.7:00000000 prev_line_y2.7
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2053   .bss.initialized.5:00000000 initialized.5
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2042   .bss.prev_fps.3:00000000 prev_fps.3
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2022   .bss.prev_bar_width.0:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2028   .bss.bar_anim.1:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2037   .bss.frame_skip.2:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2039   .bss.prev_fps.3:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2045   .bss.last_update.4:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2054   .bss.initialized.5:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2059   .bss.prev_circle_r.6:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2061   .bss.prev_line_y2.7:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2067   .bss.prev_line_x2.8:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2073   .bss.prev_rect_x.9:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2079   .bss.anim_frame.10:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2090   .rodata.rainbow_colors:00000000 $d
+C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s:2103   .bss.demo_ctx:00000000 $d
+
+UNDEFINED SYMBOLS
+rand
+MX_DMA_SPI1_Init
+MX_SPI1_Init
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccCmWBDU.s 			page 58
+
+
+LCD_Init
+LCD_Fill
+LCD_ShowString
+HAL_Delay
+HAL_GetTick
+Draw_Circle
+LCD_DrawPoint
+LCD_DrawLine
+sprintf

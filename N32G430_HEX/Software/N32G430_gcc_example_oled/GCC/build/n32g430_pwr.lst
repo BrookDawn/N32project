@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
   28:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c **** /**
   29:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\file n32g430_pwr.c
   30:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\author Nations
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 2
 
 
   31:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c **** *\*\version v1.0.0
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
   61:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c ****     *(__IO uint32_t*)PWR_CTRL_DBKP_BITBAND = (uint32_t)ENABLE;
   55              		.loc 1 61 5 view .LVU3
   56              		.loc 1 61 44 is_stmt 0 view .LVU4
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 3
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 3
 
 
   57 0000 014B     		ldr	r3, .L3
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  102              		.thumb_func
  104              	PWR_PVD_Enable:
  105              	.LFB133:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 4
 
 
   74:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c **** 
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  141 0000 014B     		ldr	r3, .L12
  142 0002 0022     		movs	r2, #0
  143 0004 1A61     		str	r2, [r3, #16]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 5
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 5
 
 
   95:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c **** }
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  172 0002 1368     		ldr	r3, [r2]
  173              	.LVL2:
  123:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Clear PLS[7:5] bits and MSB bit */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 6
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 6
 
 
  124:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c ****     temp_value &= PWR_CTRL_PLSMSB_MASK;
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  208              		@ link register save eliminated.
  146:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c ****     switch(pin)
  209              		.loc 1 146 5 view .LVU30
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 7
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 7
 
 
  210 0000 B0F5007F 		cmp	r0, #512
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  249              		.loc 1 158 13 is_stmt 1 view .LVU49
  250              		.loc 1 158 58 is_stmt 0 view .LVU50
  251 0036 C3F8A820 		str	r2, [r3, #168]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 8
 
 
  159:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c ****             break;
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  287 0012 074B     		ldr	r3, .L27
  288 0014 0022     		movs	r2, #0
  289 0016 C3F8A020 		str	r2, [r3, #160]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 9
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 9
 
 
  180:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c ****             break;
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  326              		.loc 1 199 1 is_stmt 1 view -0
  327              		.cfi_startproc
  328              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 10
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 10
 
 
  329              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  373              		.section	.text.PWR_SLEEP_Mode_Enter,"ax",%progbits
  374              		.align	1
  375              		.global	PWR_SLEEP_Mode_Enter
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 11
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 11
 
 
  376              		.syntax unified
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  237:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c ****     {
  238:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c ****         /* Sleep-now */
  239:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c ****         SCB->SCR &= (uint32_t) ~((uint32_t)SCB_SCR_SLEEPONEXIT);
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 12
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 12
 
 
  406              		.loc 1 239 18 view .LVU83
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  253:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c ****         __WFE();
  442              		.loc 1 253 9 view .LVU94
  443              	@ 253 "../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c" 1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 13
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 13
 
 
  444 002e 20BF     		wfe
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  479              		.loc 1 274 16 is_stmt 0 view .LVU101
  480 0004 23F00303 		bic	r3, r3, #3
  481              	.LVL10:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 14
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 14
 
 
  275:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* Set LPS bit according to PWR_Regulator value */
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  513              		.loc 1 296 5 view .LVU114
  514              		.loc 1 296 8 is_stmt 0 view .LVU115
  515 001c 1A69     		ldr	r2, [r3, #16]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 15
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 15
 
 
  516              		.loc 1 296 14 view .LVU116
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  557              		.cfi_startproc
  558              		@ args = 0, pretend = 0, frame = 0
  559              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 16
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 16
 
 
  560              		@ link register save eliminated.
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  595              		.syntax unified
  596              	@ 326 "../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c" 1
  597 0020 30BF     		wfi
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 17
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 17
 
 
  598              	@ 0 "" 2
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  639              		.thumb
  640              		.thumb_func
  642              	PWR_STANDBY_Mode_Enter:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 18
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 18
 
 
  643              	.LVL20:
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  362:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c ****     if (enter_mode == PWR_STANDBY_ENTRY_WFI)
  673              		.loc 1 362 8 view .LVU158
  674 001e 0128     		cmp	r0, #1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 19
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 19
 
 
  356:../firmware/n32g430_std_periph_driver/src/n32g430_pwr.c ****     /* This option is used to ensure that store operations are completed */
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  717              		.global	PWR_Flag_Status_Get
  718              		.syntax unified
  719              		.thumb
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 20
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 20
 
 
  720              		.thumb_func
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  749              		.section	.text.PWR_Flag_Status_Clear,"ax",%progbits
  750              		.align	1
  751              		.global	PWR_Flag_Status_Clear
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 21
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 21
 
 
  752              		.syntax unified
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  783 0014 00700040 		.word	1073770496
  784              		.cfi_endproc
  785              	.LFE145:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 22
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 22
 
 
  787              		.text
@@ -1269,58 +1269,58 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 1
  792              		.file 5 "../firmware/CMSIS/device/n32g430.h"
  793              		.file 6 "../firmware/n32g430_std_periph_driver/inc/n32g430_pwr.h"
  794              		.file 7 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s 			page 23
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s 			page 23
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 n32g430_pwr.c
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:21     .text.PWR_Reset:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:27     .text.PWR_Reset:00000000 PWR_Reset
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:42     .text.PWR_RTC_Backup_Access_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:48     .text.PWR_RTC_Backup_Access_Enable:00000000 PWR_RTC_Backup_Access_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:65     .text.PWR_RTC_Backup_Access_Enable:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:70     .text.PWR_RTC_Backup_Access_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:76     .text.PWR_RTC_Backup_Access_Disable:00000000 PWR_RTC_Backup_Access_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:93     .text.PWR_RTC_Backup_Access_Disable:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:98     .text.PWR_PVD_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:104    .text.PWR_PVD_Enable:00000000 PWR_PVD_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:121    .text.PWR_PVD_Enable:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:126    .text.PWR_PVD_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:132    .text.PWR_PVD_Disable:00000000 PWR_PVD_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:149    .text.PWR_PVD_Disable:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:154    .text.PWR_PVD_Level_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:160    .text.PWR_PVD_Level_Config:00000000 PWR_PVD_Level_Config
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:190    .text.PWR_PVD_Level_Config:00000010 $d
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:195    .text.PWR_Wakeup_Pin_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:201    .text.PWR_Wakeup_Pin_Enable:00000000 PWR_Wakeup_Pin_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:259    .text.PWR_Wakeup_Pin_Enable:0000003c $d
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:264    .text.PWR_Wakeup_Pin_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:270    .text.PWR_Wakeup_Pin_Disable:00000000 PWR_Wakeup_Pin_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:313    .text.PWR_Wakeup_Pin_Disable:00000030 $d
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:318    .text.PWR_RTC_Wakeup_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:324    .text.PWR_RTC_Wakeup_Enable:00000000 PWR_RTC_Wakeup_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:341    .text.PWR_RTC_Wakeup_Enable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:346    .text.PWR_RTC_Wakeup_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:352    .text.PWR_RTC_Wakeup_Disable:00000000 PWR_RTC_Wakeup_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:369    .text.PWR_RTC_Wakeup_Disable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:374    .text.PWR_SLEEP_Mode_Enter:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:380    .text.PWR_SLEEP_Mode_Enter:00000000 PWR_SLEEP_Mode_Enter
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:453    .text.PWR_SLEEP_Mode_Enter:00000034 $d
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:458    .text.PWR_STOP0_Mode_Enter:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:464    .text.PWR_STOP0_Mode_Enter:00000000 PWR_STOP0_Mode_Enter
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:541    .text.PWR_STOP0_Mode_Enter:00000030 $d
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:547    .text.PWR_STOP2_Mode_Enter:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:553    .text.PWR_STOP2_Mode_Enter:00000000 PWR_STOP2_Mode_Enter
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:630    .text.PWR_STOP2_Mode_Enter:00000034 $d
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:636    .text.PWR_STANDBY_Mode_Enter:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:642    .text.PWR_STANDBY_Mode_Enter:00000000 PWR_STANDBY_Mode_Enter
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:710    .text.PWR_STANDBY_Mode_Enter:00000034 $d
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:716    .text.PWR_Flag_Status_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:722    .text.PWR_Flag_Status_Get:00000000 PWR_Flag_Status_Get
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:745    .text.PWR_Flag_Status_Get:00000010 $d
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:750    .text.PWR_Flag_Status_Clear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:756    .text.PWR_Flag_Status_Clear:00000000 PWR_Flag_Status_Clear
-C:\Users\Dawn\AppData\Local\Temp\ccQlQV1O.s:783    .text.PWR_Flag_Status_Clear:00000014 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:21     .text.PWR_Reset:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:27     .text.PWR_Reset:00000000 PWR_Reset
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:42     .text.PWR_RTC_Backup_Access_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:48     .text.PWR_RTC_Backup_Access_Enable:00000000 PWR_RTC_Backup_Access_Enable
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:65     .text.PWR_RTC_Backup_Access_Enable:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:70     .text.PWR_RTC_Backup_Access_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:76     .text.PWR_RTC_Backup_Access_Disable:00000000 PWR_RTC_Backup_Access_Disable
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:93     .text.PWR_RTC_Backup_Access_Disable:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:98     .text.PWR_PVD_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:104    .text.PWR_PVD_Enable:00000000 PWR_PVD_Enable
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:121    .text.PWR_PVD_Enable:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:126    .text.PWR_PVD_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:132    .text.PWR_PVD_Disable:00000000 PWR_PVD_Disable
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:149    .text.PWR_PVD_Disable:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:154    .text.PWR_PVD_Level_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:160    .text.PWR_PVD_Level_Config:00000000 PWR_PVD_Level_Config
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:190    .text.PWR_PVD_Level_Config:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:195    .text.PWR_Wakeup_Pin_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:201    .text.PWR_Wakeup_Pin_Enable:00000000 PWR_Wakeup_Pin_Enable
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:259    .text.PWR_Wakeup_Pin_Enable:0000003c $d
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:264    .text.PWR_Wakeup_Pin_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:270    .text.PWR_Wakeup_Pin_Disable:00000000 PWR_Wakeup_Pin_Disable
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:313    .text.PWR_Wakeup_Pin_Disable:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:318    .text.PWR_RTC_Wakeup_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:324    .text.PWR_RTC_Wakeup_Enable:00000000 PWR_RTC_Wakeup_Enable
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:341    .text.PWR_RTC_Wakeup_Enable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:346    .text.PWR_RTC_Wakeup_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:352    .text.PWR_RTC_Wakeup_Disable:00000000 PWR_RTC_Wakeup_Disable
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:369    .text.PWR_RTC_Wakeup_Disable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:374    .text.PWR_SLEEP_Mode_Enter:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:380    .text.PWR_SLEEP_Mode_Enter:00000000 PWR_SLEEP_Mode_Enter
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:453    .text.PWR_SLEEP_Mode_Enter:00000034 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:458    .text.PWR_STOP0_Mode_Enter:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:464    .text.PWR_STOP0_Mode_Enter:00000000 PWR_STOP0_Mode_Enter
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:541    .text.PWR_STOP0_Mode_Enter:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:547    .text.PWR_STOP2_Mode_Enter:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:553    .text.PWR_STOP2_Mode_Enter:00000000 PWR_STOP2_Mode_Enter
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:630    .text.PWR_STOP2_Mode_Enter:00000034 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:636    .text.PWR_STANDBY_Mode_Enter:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:642    .text.PWR_STANDBY_Mode_Enter:00000000 PWR_STANDBY_Mode_Enter
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:710    .text.PWR_STANDBY_Mode_Enter:00000034 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:716    .text.PWR_Flag_Status_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:722    .text.PWR_Flag_Status_Get:00000000 PWR_Flag_Status_Get
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:745    .text.PWR_Flag_Status_Get:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:750    .text.PWR_Flag_Status_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:756    .text.PWR_Flag_Status_Clear:00000000 PWR_Flag_Status_Clear
+C:\Users\Dawn\AppData\Local\Temp\cc2GqFcT.s:783    .text.PWR_Flag_Status_Clear:00000014 $d
 
 UNDEFINED SYMBOLS
 RCC_APB1_Peripheral_Reset

@@ -4,7 +4,11 @@
       "Bash(make clean)",
       "Bash(if exist build rmdir /s /q build)",
       "Bash(make)",
-      "Bash(make:*)"
+      "Bash(make:*)",
+      "Bash(find:*)",
+      "Bash(dir:*)",
+      "Bash(ls:*)",
+      "Bash(arm-none-eabi-size:*)"
     ]
   }
 }

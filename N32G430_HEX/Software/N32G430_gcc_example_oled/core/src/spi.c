@@ -13,6 +13,11 @@ SPI_HandleTypeDef hspi1;
 
 static void SPI_DMA_TxCplt(DMA_HandleTypeDef *hdma);
 
+#ifdef DISPLAY_USE_LCD
+/* Forward declaration for LCD DMA callback */
+void HAL_SPI_TxCpltCallback_LCD(SPI_HandleTypeDef *hspi);
+#endif
+
 /**
  * @brief Initialize SPI1 for OLED
  * @note  PA5: SCK (AF0), PA7: MOSI (AF0)
@@ -48,9 +53,9 @@ void MX_SPI1_Init(void)
     GPIO_InitStructure.GPIO_Current     = GPIO_DS_8MA;
     GPIO_Peripheral_Initialize(GPIOA, &GPIO_InitStructure);
 
-    /* Configure DC pin: PB0 and CS pin: PB1 (GPIO output) */
+    /* Configure DC pin: PB0, CS pin: PB1, BL pin: PB10 (GPIO output) */
     GPIO_Structure_Initialize(&GPIO_InitStructure);
-    GPIO_InitStructure.Pin              = GPIO_PIN_0 | GPIO_PIN_1;
+    GPIO_InitStructure.Pin              = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_10;
     GPIO_InitStructure.GPIO_Mode        = GPIO_MODE_OUT_PP;
     GPIO_InitStructure.GPIO_Pull        = GPIO_NO_PULL;
     GPIO_InitStructure.GPIO_Slew_Rate   = GPIO_SLEW_RATE_FAST;
@@ -58,9 +63,13 @@ void MX_SPI1_Init(void)
     GPIO_Peripheral_Initialize(GPIOB, &GPIO_InitStructure);
 
     /* Set default pin states */
-    OLED_RES_HIGH();   /* RES high (not reset) */
-    OLED_DC_HIGH();    /* DC high (data mode) */
-    OLED_CS_HIGH();    /* CS high (not selected) */
+    DISPLAY_RES_HIGH();   /* RES high (not reset) */
+    DISPLAY_DC_HIGH();    /* DC high (data mode) */
+    DISPLAY_CS_HIGH();    /* CS high (not selected) */
+
+#if DISPLAY_HAS_BACKLIGHT
+    LCD_BL_LOW();         /* BL off initially (will be turned on in LCD_Init) */
+#endif
 
     /* Reset SPI1 */
     SPI_I2S_Reset(SPI1);
@@ -70,8 +79,13 @@ void MX_SPI1_Init(void)
     SPI_InitStructure.DataDirection     = SPI_DIR_SINGLELINE_TX;        /* TX only */
     SPI_InitStructure.SpiMode           = SPI_MODE_MASTER;              /* Master mode */
     SPI_InitStructure.DataLen           = SPI_DATA_SIZE_8BITS;          /* 8-bit data */
+#ifdef DISPLAY_USE_LCD
+    SPI_InitStructure.CLKPOL            = SPI_CLKPOL_LOW;               /* CPOL=0 (ST7735S Mode 0) */
+    SPI_InitStructure.CLKPHA            = SPI_CLKPHA_FIRST_EDGE;        /* CPHA=0 (ST7735S Mode 0) */
+#else
     SPI_InitStructure.CLKPOL            = SPI_CLKPOL_HIGH;              /* CPOL=1 (SSD1306 Mode 3) */
     SPI_InitStructure.CLKPHA            = SPI_CLKPHA_SECOND_EDGE;       /* CPHA=1 (SSD1306 Mode 3) */
+#endif
     SPI_InitStructure.NSS               = SPI_NSS_SOFT;                 /* Software NSS */
     SPI_InitStructure.BaudRatePres      = SPI_BR_PRESCALER_2;           /* APB2/2 = fastest */
     SPI_InitStructure.FirstBit          = SPI_FB_MSB;                   /* MSB first */
@@ -236,7 +250,12 @@ static void SPI_DMA_TxCplt(DMA_HandleTypeDef *hdma)
 
     hdma->State = HAL_DMA_STATE_READY;
     hspi->State = HAL_SPI_STATE_READY;
+
+#ifdef DISPLAY_USE_LCD
+    HAL_SPI_TxCpltCallback_LCD(hspi);
+#else
     HAL_SPI_TxCpltCallback(hspi);
+#endif
 }
 
 /**
@@ -246,6 +265,18 @@ __attribute__((weak)) void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
 {
     (void)hspi;
 }
+
+#ifdef DISPLAY_USE_LCD
+/* LCD buffer DMA complete callback */
+extern void LCD_Buffer_DMAComplete(void);
+
+void HAL_SPI_TxCpltCallback_LCD(SPI_HandleTypeDef *hspi)
+{
+    if (hspi == &hspi1) {
+        LCD_Buffer_DMAComplete();
+    }
+}
+#endif
 
 /* OLED SPI control functions */
 
@@ -290,4 +321,65 @@ void OLED_SPI_CS_Enable(void)
 void OLED_SPI_CS_Disable(void)
 {
     OLED_CS_HIGH();
+}
+
+/* LCD SPI control functions */
+
+/**
+ * @brief Reset LCD display
+ */
+void LCD_SPI_Reset(void)
+{
+    DISPLAY_RES_LOW();
+    HAL_Delay(10);
+    DISPLAY_RES_HIGH();
+    HAL_Delay(10);
+}
+
+/**
+ * @brief Set DC pin low for command mode (LCD)
+ */
+void LCD_SPI_SetDC_Cmd(void)
+{
+    DISPLAY_DC_LOW();
+}
+
+/**
+ * @brief Set DC pin high for data mode (LCD)
+ */
+void LCD_SPI_SetDC_Data(void)
+{
+    DISPLAY_DC_HIGH();
+}
+
+/**
+ * @brief Enable CS (active low) for LCD
+ */
+void LCD_SPI_CS_Enable(void)
+{
+    DISPLAY_CS_LOW();
+}
+
+/**
+ * @brief Disable CS for LCD
+ */
+void LCD_SPI_CS_Disable(void)
+{
+    DISPLAY_CS_HIGH();
+}
+
+/**
+ * @brief Turn on LCD backlight
+ */
+void LCD_BL_ON(void)
+{
+    LCD_BL_HIGH();
+}
+
+/**
+ * @brief Turn off LCD backlight
+ */
+void LCD_BL_OFF(void)
+{
+    LCD_BL_LOW();
 }

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
   28:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** /**
   29:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\file n32g430_comp.c
   30:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\author Nations
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 2
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 2
 
 
   31:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\version v1.0.0
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
   61              		.syntax unified
   62              		.thumb
   63              		.thumb_func
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 3
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 3
 
 
   65              	COMP_Initializes_Structure:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
   82 0000 0023     		movs	r3, #0
   76:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****     /* Initialize the PolRev */
   83              		.loc 1 76 40 view .LVU17
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 4
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 4
 
 
   84 0002 C0E90033 		strd	r3, r3, [r0]
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  115              		.loc 1 109 1 is_stmt 1 view -0
  116              		.cfi_startproc
  117              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 5
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 5
 
 
  118              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  123:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             break;
  159              		.loc 1 123 13 is_stmt 1 view .LVU43
  160 0038 7047     		bx	lr
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 6
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 6
 
 
  161              	.L5:
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  143:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\          - Value must be greater than SAMPW / 2 .
  144:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\return  none
  145:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** **/
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 7
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 7
 
 
  146:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** void COMP_Filter_Threshold_Config(COMPX COMPx, uint8_t Threshold_value)
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  237              		.loc 1 160 23 is_stmt 0 view .LVU65
  238 0030 5A6A     		ldr	r2, [r3, #36]
  239              		.loc 1 160 29 view .LVU66
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 8
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 8
 
 
  240 0032 42EA4102 		orr	r2, r2, r1, lsl #1
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  176:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\param   COMPx :
  177:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\          - COMP1
  178:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\          - COMP2
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 9
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 9
 
 
  179:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\          - COMP3
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  192:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             break;
  311              		.loc 1 192 13 is_stmt 1 view .LVU84
  192:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             break;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 10
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 10
 
 
  312              		.loc 1 192 23 is_stmt 0 view .LVU85
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  350              		.cfi_startproc
  351              		@ args = 0, pretend = 0, frame = 0
  352              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 11
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 11
 
 
  353              		@ link register save eliminated.
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  385              		.loc 1 222 29 view .LVU103
  386 001e 23F00103 		bic	r3, r3, #1
  387 0022 1B04     		lsls	r3, r3, #16
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 12
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 12
 
 
  388 0024 1B0C     		lsrs	r3, r3, #16
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  425              		@ args = 0, pretend = 0, frame = 0
  426              		@ frame_needed = 0, uses_anonymous_args = 0
  427              		@ link register save eliminated.
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 13
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 13
 
 
  246:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****     switch (COMPx)
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  457              	.LVL15:
  458              	.L28:
  459              		.loc 1 269 1 view .LVU122
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 14
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 14
 
 
  460              	.LBE13:
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  498              		.loc 1 269 1 is_stmt 0 view .LVU139
  499 0036 7047     		bx	lr
  500              	.L32:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 15
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 15
 
 
  501              		.align	2
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  535 000a 0D4B     		ldr	r3, .L37
  536 000c 1A69     		ldr	r2, [r3, #16]
  537              		.loc 1 290 29 view .LVU145
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 16
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 16
 
 
  538 000e 22F4E022 		bic	r2, r2, #458752
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  567              		.loc 1 298 29 view .LVU158
  568 0028 0A43     		orrs	r2, r2, r1
  569 002a 1A62     		str	r2, [r3, #32]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 17
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 17
 
 
  299:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****         case COMP3:
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  321:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\          - COMP_HYST_MID     15mV-level
  322:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\          - COMP_HYST_HIGH    25mV-level   
  323:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\return  none
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 18
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 18
 
 
  324:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** **/
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  344:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             /* Set COMPx_CTRL HYST[1:0] bits */
  345:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             COMP->Cmp3.CTRL |= hyst_mode;
  346:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             break;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 19
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 19
 
 
  347:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****         default:
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  676              		.loc 1 346 13 is_stmt 1 view .LVU194
  677              	.L39:
  678              		.loc 1 350 1 is_stmt 0 view .LVU195
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 20
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 20
 
 
  679 003e 7047     		bx	lr
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  714              		.loc 1 370 23 is_stmt 0 view .LVU200
  715 000a 0D4B     		ldr	r3, .L49
  716 000c 1A69     		ldr	r2, [r3, #16]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 21
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 21
 
 
  717              		.loc 1 370 29 view .LVU201
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  378:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             break;
  747              		.loc 1 378 29 view .LVU214
  748 0028 0A43     		orrs	r2, r2, r1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 22
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 22
 
 
  749 002a 1A62     		str	r2, [r3, #32]
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  400:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP1_INPSEL_PA0                   
  401:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP1_INPSEL_PA2                   
  402:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP1_INPSEL_PA12                  
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 23
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 23
 
 
  403:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP1_INPSEL_PB3                   
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  808 000e 22F0E002 		bic	r2, r2, #224
  809 0012 1A61     		str	r2, [r3, #16]
  435:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             /* Set COMPx_CTRL INPSEL[2:0] bits */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 24
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 24
 
 
  436:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             COMP->Cmp1.CTRL |= vpsel;
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  443:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****         case COMP3:
  840              		.loc 1 443 13 is_stmt 1 view .LVU243
  841 002c 7047     		bx	lr
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 25
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 25
 
 
  842              	.L53:
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  468:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP1_INMSEL_PB5                   
  469:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP1_INMSEL_FLOAT                 
  470:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP1_INMSEL_FLOAT                 
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 26
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 26
 
 
  471:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP1_INMSEL_FLOAT                            
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  900              		.loc 1 500 13 is_stmt 1 view .LVU258
  901              		.loc 1 500 23 is_stmt 0 view .LVU259
  902 0014 1A69     		ldr	r2, [r3, #16]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 27
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 27
 
 
  903              		.loc 1 500 29 view .LVU260
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  510:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             /* Set COMPx_CTRL INMSEL[2:0] bits */
  933              		.loc 1 510 13 view .LVU272
  510:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             /* Set COMPx_CTRL INMSEL[2:0] bits */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 28
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 28
 
 
  934              		.loc 1 510 23 is_stmt 0 view .LVU273
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  536:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP1_OUTSEL_TIM5_IC1              
  537:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP1_OUTSEL_TIM8_IC1              
  538:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP1_OUTSEL_TIM8_OCREFCLEAR       
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 29
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 29
 
 
  539:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP1_OUTSEL_TIM8_BKIN             
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  576:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****     {
  577:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****         case COMP1:
  578:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             /* Clear COMPx_CTRL OUTTRG[4:0] bits */
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 30
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 30
 
 
  579:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             COMP->Cmp1.CTRL &= COMP_OUTSEL_MASK;
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1013 0024 1A62     		str	r2, [r3, #32]
  588:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             break;
  1014              		.loc 1 588 13 is_stmt 1 view .LVU296
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 31
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 31
 
 
  588:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             break;
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  604:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\param   COMPx :
  605:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\          - COMP1
  606:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\          - COMP2
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 32
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 32
 
 
  607:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\          - COMP3
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  620:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             break;
  1087              		.loc 1 620 13 is_stmt 1 view .LVU316
  620:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****             break;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 33
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 33
 
 
  1088              		.loc 1 620 23 is_stmt 0 view .LVU317
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1126              		.cfi_startproc
  1127              		@ args = 0, pretend = 0, frame = 0
  1128              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 34
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 34
 
 
  1129              		@ link register save eliminated.
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1161 001e 1362     		str	r3, [r2, #32]
  651:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****         case COMP3:
  1162              		.loc 1 651 13 is_stmt 1 view .LVU336
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 35
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 35
 
 
  1163 0020 7047     		bx	lr
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1202              		.loc 1 672 16 view .LVU345
  1203 0004 0343     		orrs	r3, r3, r0
  1204 0006 D360     		str	r3, [r2, #12]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 36
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 36
 
 
  673:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** }
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1246              	.L86:
  1247 0016 00BF     		.align	2
  1248              	.L85:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 37
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 37
 
 
  1249 0018 00240040 		.word	1073751040
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1293              	.LFB148:
  702:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** 
  703:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** /**
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 38
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 38
 
 
  704:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\name    COMP_Interrupt_Disable.
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1327              		@ frame_needed = 0, uses_anonymous_args = 0
  1328              		@ link register save eliminated.
  727:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****     return COMP->INTSTS;
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 39
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 39
 
 
  1329              		.loc 1 727 5 view .LVU366
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1359 0000 13B5     		push	{r0, r1, r4, lr}
  1360              	.LCFI2:
  1361              		.cfi_def_cfa_offset 16
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 40
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 40
 
 
  1362              		.cfi_offset 4, -8
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1407              		.loc 1 761 5 view .LVU383
  1408              		.loc 1 761 19 is_stmt 0 view .LVU384
  1409 0054 019A     		ldr	r2, [sp, #4]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 41
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 41
 
 
  1410 0056 024B     		ldr	r3, .L97
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1456              		.section	.text.COMP_Window_Mode_Disable,"ax",%progbits
  1457              		.align	1
  1458              		.global	COMP_Window_Mode_Disable
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 42
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 42
 
 
  1459              		.syntax unified
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  791:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****     COMP->CMP2OSEL = COMP_CMP2XO_ENABLE;
  1498              		.loc 1 791 5 view .LVU396
  1499              		.loc 1 791 20 is_stmt 0 view .LVU397
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 43
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 43
 
 
  1500 0000 014B     		ldr	r3, .L106
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1547              	COMP_Output_Status_Get:
  1548              	.LVL66:
  1549              	.LFB155:
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 44
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 44
 
 
  803:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** /**
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1574              		.loc 1 822 27 is_stmt 0 view .LVU413
  1575 000e 0CBF     		ite	eq
  1576 0010 186A     		ldreq	r0, [r3, #32]
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 45
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 45
 
 
  1577              	.LVL69:
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1616              	.L119:
  1617 0010 00240040 		.word	1073751040
  1618              		.cfi_endproc
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 46
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 46
 
 
  1619              	.LFE156:
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  858:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** 
  859:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** /**
  860:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\name    COMP_Filter_Control_Config.
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 47
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 47
 
 
  861:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\fun     Configures the COMP filter control value.
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  881:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****         COMP_Filter_Enable(COMPx);
  1695              		.loc 1 881 9 is_stmt 1 view .LVU437
  882:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****     }
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 48
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 48
 
 
  883:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****     else
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  894:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\          - COMP2
  895:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\          - COMP3
  896:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\param   COMP_initstruct :
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 49
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 49
 
 
  897:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\          - Blking
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  951:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP3_OUTSEL_TIM8_BKIN             
  952:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP3_OUTSEL_TIM1_BKIN_TIM8_BKIN   
  953:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP3_OUTSEL_LPTIM_ETR              
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 50
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 50
 
 
  954:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\          - InpSel                
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
 1008:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP3_INMSEL_FLOAT                
 1009:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - COMP3_INMSEL_FLOAT                             
 1010:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\          - En
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 51
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 51
 
 
 1011:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c **** *\*\            - ENABLE
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1770 0016 1ED1     		bne	.L127
 1030:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****     {
 1031:../firmware/n32g430_std_periph_driver/src/n32g430_comp.c ****         COMP_Filter_Enable(COMPx);
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 52
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 52
 
 
  1771              		.loc 1 1031 9 is_stmt 1 view .LVU454
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1807              		.loc 1 1049 8 is_stmt 0 view .LVU464
  1808 0048 A369     		ldr	r3, [r4, #24]
  1809 004a 012B     		cmp	r3, #1
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 53
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 53
 
 
  1810 004c 06D1     		bne	.L129
@@ -3175,100 +3175,100 @@ ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 1
  1854              		.file 4 "../firmware/CMSIS/device/n32g430.h"
  1855              		.file 5 "../firmware/n32g430_std_periph_driver/inc/n32g430_comp.h"
  1856              		.file 6 "../firmware/n32g430_std_periph_driver/inc/n32g430_rcc.h"
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 54
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 54
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 n32g430_comp.c
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:21     .text.COMP_Reset:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:27     .text.COMP_Reset:00000000 COMP_Reset
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:59     .text.COMP_Initializes_Structure:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:65     .text.COMP_Initializes_Structure:00000000 COMP_Initializes_Structure
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:106    .text.COMP_Filter_SampWindow_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:112    .text.COMP_Filter_SampWindow_Config:00000000 COMP_Filter_SampWindow_Config
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:184    .text.COMP_Filter_SampWindow_Config:00000054 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:189    .text.COMP_Filter_Threshold_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:195    .text.COMP_Filter_Threshold_Config:00000000 COMP_Filter_Threshold_Config
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:267    .text.COMP_Filter_Threshold_Config:00000054 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:272    .text.COMP_Filter_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:278    .text.COMP_Filter_Enable:00000000 COMP_Filter_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:335    .text.COMP_Filter_Enable:00000030 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:340    .text.COMP_Filter_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:346    .text.COMP_Filter_Disable:00000000 COMP_Filter_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:409    .text.COMP_Filter_Disable:0000003c $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:414    .text.COMP_Filter_Clock_Prescale_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:420    .text.COMP_Filter_Clock_Prescale_Config:00000000 COMP_Filter_Clock_Prescale_Config
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:503    .text.COMP_Filter_Clock_Prescale_Config:00000038 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:508    .text.COMP_Blking_Soucre_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:514    .text.COMP_Blking_Soucre_Config:00000000 COMP_Blking_Soucre_Config
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:593    .text.COMP_Blking_Soucre_Config:00000040 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:598    .text.COMP_Hysteresis_Level_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:604    .text.COMP_Hysteresis_Level_Config:00000000 COMP_Hysteresis_Level_Config
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:683    .text.COMP_Hysteresis_Level_Config:00000040 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:688    .text.COMP_Output_Polarity_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:694    .text.COMP_Output_Polarity_Config:00000000 COMP_Output_Polarity_Config
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:773    .text.COMP_Output_Polarity_Config:00000040 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:778    .text.COMP_InpSel_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:784    .text.COMP_InpSel_Config:00000000 COMP_InpSel_Config
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:863    .text.COMP_InpSel_Config:00000040 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:868    .text.COMP_InmSel_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:874    .text.COMP_InmSel_Config:00000000 COMP_InmSel_Config
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:953    .text.COMP_InmSel_Config:00000040 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:958    .text.COMP_Output_Trigger_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:964    .text.COMP_Output_Trigger_Config:00000000 COMP_Output_Trigger_Config
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1043   .text.COMP_Output_Trigger_Config:00000040 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1048   .text.COMP_ON:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1054   .text.COMP_ON:00000000 COMP_ON
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1111   .text.COMP_ON:00000030 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1116   .text.COMP_OFF:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1122   .text.COMP_OFF:00000000 COMP_OFF
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1179   .text.COMP_OFF:00000030 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1184   .text.COMP_Lock_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1190   .text.COMP_Lock_Config:00000000 COMP_Lock_Config
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1210   .text.COMP_Lock_Config:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1215   .text.COMP_LowPower_Clock_Select:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1221   .text.COMP_LowPower_Clock_Select:00000000 COMP_LowPower_Clock_Select
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1249   .text.COMP_LowPower_Clock_Select:00000018 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1254   .text.COMP_Interrupt_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1260   .text.COMP_Interrupt_Enable:00000000 COMP_Interrupt_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1280   .text.COMP_Interrupt_Enable:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1285   .text.COMP_Interrupt_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1291   .text.COMP_Interrupt_Disable:00000000 COMP_Interrupt_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1311   .text.COMP_Interrupt_Disable:0000000c $d
-ARM GAS  C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s 			page 55
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:21     .text.COMP_Reset:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:27     .text.COMP_Reset:00000000 COMP_Reset
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:59     .text.COMP_Initializes_Structure:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:65     .text.COMP_Initializes_Structure:00000000 COMP_Initializes_Structure
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:106    .text.COMP_Filter_SampWindow_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:112    .text.COMP_Filter_SampWindow_Config:00000000 COMP_Filter_SampWindow_Config
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:184    .text.COMP_Filter_SampWindow_Config:00000054 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:189    .text.COMP_Filter_Threshold_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:195    .text.COMP_Filter_Threshold_Config:00000000 COMP_Filter_Threshold_Config
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:267    .text.COMP_Filter_Threshold_Config:00000054 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:272    .text.COMP_Filter_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:278    .text.COMP_Filter_Enable:00000000 COMP_Filter_Enable
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:335    .text.COMP_Filter_Enable:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:340    .text.COMP_Filter_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:346    .text.COMP_Filter_Disable:00000000 COMP_Filter_Disable
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:409    .text.COMP_Filter_Disable:0000003c $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:414    .text.COMP_Filter_Clock_Prescale_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:420    .text.COMP_Filter_Clock_Prescale_Config:00000000 COMP_Filter_Clock_Prescale_Config
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:503    .text.COMP_Filter_Clock_Prescale_Config:00000038 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:508    .text.COMP_Blking_Soucre_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:514    .text.COMP_Blking_Soucre_Config:00000000 COMP_Blking_Soucre_Config
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:593    .text.COMP_Blking_Soucre_Config:00000040 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:598    .text.COMP_Hysteresis_Level_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:604    .text.COMP_Hysteresis_Level_Config:00000000 COMP_Hysteresis_Level_Config
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:683    .text.COMP_Hysteresis_Level_Config:00000040 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:688    .text.COMP_Output_Polarity_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:694    .text.COMP_Output_Polarity_Config:00000000 COMP_Output_Polarity_Config
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:773    .text.COMP_Output_Polarity_Config:00000040 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:778    .text.COMP_InpSel_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:784    .text.COMP_InpSel_Config:00000000 COMP_InpSel_Config
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:863    .text.COMP_InpSel_Config:00000040 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:868    .text.COMP_InmSel_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:874    .text.COMP_InmSel_Config:00000000 COMP_InmSel_Config
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:953    .text.COMP_InmSel_Config:00000040 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:958    .text.COMP_Output_Trigger_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:964    .text.COMP_Output_Trigger_Config:00000000 COMP_Output_Trigger_Config
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1043   .text.COMP_Output_Trigger_Config:00000040 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1048   .text.COMP_ON:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1054   .text.COMP_ON:00000000 COMP_ON
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1111   .text.COMP_ON:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1116   .text.COMP_OFF:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1122   .text.COMP_OFF:00000000 COMP_OFF
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1179   .text.COMP_OFF:00000030 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1184   .text.COMP_Lock_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1190   .text.COMP_Lock_Config:00000000 COMP_Lock_Config
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1210   .text.COMP_Lock_Config:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1215   .text.COMP_LowPower_Clock_Select:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1221   .text.COMP_LowPower_Clock_Select:00000000 COMP_LowPower_Clock_Select
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1249   .text.COMP_LowPower_Clock_Select:00000018 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1254   .text.COMP_Interrupt_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1260   .text.COMP_Interrupt_Enable:00000000 COMP_Interrupt_Enable
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1280   .text.COMP_Interrupt_Enable:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1285   .text.COMP_Interrupt_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1291   .text.COMP_Interrupt_Disable:00000000 COMP_Interrupt_Disable
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1311   .text.COMP_Interrupt_Disable:0000000c $d
+ARM GAS  C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s 			page 55
 
 
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1316   .text.COMP_Interrupt_Status_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1322   .text.COMP_Interrupt_Status_Get:00000000 COMP_Interrupt_Status_Get
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1339   .text.COMP_Interrupt_Status_Get:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1344   .text.COMP_Voltage_Reference_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1350   .text.COMP_Voltage_Reference_Config:00000000 COMP_Voltage_Reference_Config
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1424   .text.COMP_Voltage_Reference_Config:00000060 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1429   .text.COMP_Window_Mode_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1435   .text.COMP_Window_Mode_Enable:00000000 COMP_Window_Mode_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1452   .text.COMP_Window_Mode_Enable:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1457   .text.COMP_Window_Mode_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1463   .text.COMP_Window_Mode_Disable:00000000 COMP_Window_Mode_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1480   .text.COMP_Window_Mode_Disable:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1485   .text.COMP2_Output_Xor_Enable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1491   .text.COMP2_Output_Xor_Enable:00000000 COMP2_Output_Xor_Enable
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1508   .text.COMP2_Output_Xor_Enable:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1513   .text.COMP2_Output_Xor_Disable:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1519   .text.COMP2_Output_Xor_Disable:00000000 COMP2_Output_Xor_Disable
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1536   .text.COMP2_Output_Xor_Disable:00000008 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1541   .text.COMP_Output_Status_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1547   .text.COMP_Output_Status_Get:00000000 COMP_Output_Status_Get
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1585   .text.COMP_Output_Status_Get:00000018 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1590   .text.COMP_Interrupt_Status_OneComp_Get:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1596   .text.COMP_Interrupt_Status_OneComp_Get:00000000 COMP_Interrupt_Status_OneComp_Get
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1617   .text.COMP_Interrupt_Status_OneComp_Get:00000010 $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1622   .text.COMP_Interrupt_Status_OneComp_Clear:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1628   .text.COMP_Interrupt_Status_OneComp_Clear:00000000 COMP_Interrupt_Status_OneComp_Clear
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1649   .text.COMP_Interrupt_Status_OneComp_Clear:0000000c $d
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1654   .text.COMP_Filter_Control_Config:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1660   .text.COMP_Filter_Control_Config:00000000 COMP_Filter_Control_Config
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1729   .text.COMP_Initializes:00000000 $t
-C:\Users\Dawn\AppData\Local\Temp\ccGZo2O0.s:1735   .text.COMP_Initializes:00000000 COMP_Initializes
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1316   .text.COMP_Interrupt_Status_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1322   .text.COMP_Interrupt_Status_Get:00000000 COMP_Interrupt_Status_Get
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1339   .text.COMP_Interrupt_Status_Get:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1344   .text.COMP_Voltage_Reference_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1350   .text.COMP_Voltage_Reference_Config:00000000 COMP_Voltage_Reference_Config
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1424   .text.COMP_Voltage_Reference_Config:00000060 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1429   .text.COMP_Window_Mode_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1435   .text.COMP_Window_Mode_Enable:00000000 COMP_Window_Mode_Enable
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1452   .text.COMP_Window_Mode_Enable:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1457   .text.COMP_Window_Mode_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1463   .text.COMP_Window_Mode_Disable:00000000 COMP_Window_Mode_Disable
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1480   .text.COMP_Window_Mode_Disable:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1485   .text.COMP2_Output_Xor_Enable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1491   .text.COMP2_Output_Xor_Enable:00000000 COMP2_Output_Xor_Enable
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1508   .text.COMP2_Output_Xor_Enable:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1513   .text.COMP2_Output_Xor_Disable:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1519   .text.COMP2_Output_Xor_Disable:00000000 COMP2_Output_Xor_Disable
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1536   .text.COMP2_Output_Xor_Disable:00000008 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1541   .text.COMP_Output_Status_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1547   .text.COMP_Output_Status_Get:00000000 COMP_Output_Status_Get
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1585   .text.COMP_Output_Status_Get:00000018 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1590   .text.COMP_Interrupt_Status_OneComp_Get:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1596   .text.COMP_Interrupt_Status_OneComp_Get:00000000 COMP_Interrupt_Status_OneComp_Get
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1617   .text.COMP_Interrupt_Status_OneComp_Get:00000010 $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1622   .text.COMP_Interrupt_Status_OneComp_Clear:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1628   .text.COMP_Interrupt_Status_OneComp_Clear:00000000 COMP_Interrupt_Status_OneComp_Clear
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1649   .text.COMP_Interrupt_Status_OneComp_Clear:0000000c $d
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1654   .text.COMP_Filter_Control_Config:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1660   .text.COMP_Filter_Control_Config:00000000 COMP_Filter_Control_Config
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1729   .text.COMP_Initializes:00000000 $t
+C:\Users\Dawn\AppData\Local\Temp\cc2F6GkV.s:1735   .text.COMP_Initializes:00000000 COMP_Initializes
 
 UNDEFINED SYMBOLS
 RCC_APB1_Peripheral_Reset
