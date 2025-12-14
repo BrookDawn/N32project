@@ -1,0 +1,6 @@
+# build output
+**/build/
+*.lst
+*.map
+*.elf
+*.hex
