@@ -52,6 +52,7 @@ CROSS_COMPILE = arm-none-eabi-
 ######################################
 C_DIRS = ../core/src
 C_DIRS += ../APP/Src
+C_DIRS += ../APP/u8g2
 C_DIRS += ../firmware/CMSIS/device
 C_DIRS += ../firmware/n32g430_std_periph_driver/src
 SRC_OBJS_DIRS = $(foreach DIR, $(C_DIRS), $(wildcard $(DIR)/*.c))
@@ -67,6 +68,7 @@ ASM_SOURCES = ../firmware/CMSIS/device/startup/startup_$(TARGET_PLATFORM)_gcc.s
 ######################################
 C_INCS = ../core/inc
 C_INCS += ../APP/Inc
+C_INCS += ../APP/u8g2
 C_INCS += ../firmware/CMSIS/core
 C_INCS += ../firmware/CMSIS/device
 C_INCS += ../firmware/n32g430_std_periph_driver/inc

@@ -43,7 +43,7 @@ typedef enum {
   * @brief  OLED屏幕尺寸枚举
   */
 typedef enum {
-    OLED_SIZE_128X64 = 0,      /* 128x64像素 */
+    OLED_SIZE_128X64 = 0,     /* 128x64像素 */
     OLED_SIZE_128X32          /* 128x32像素 */
 } OLED_SizeType_t;
 

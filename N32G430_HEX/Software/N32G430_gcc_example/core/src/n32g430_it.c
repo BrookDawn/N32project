@@ -38,6 +38,7 @@
 #include "hal_compat.h"
 #include "dma.h"
 #include "tim.h"
+#include "oled_app.h"
 
 
 /******************************************************************************/
@@ -179,4 +180,126 @@ void TIM4_IRQHandler(void)
 /*  available peripheral interrupt handler's name please refer to the startup */
 /*  file (startup_n32g430.s).                                                 */
 /******************************************************************************/
+
+/* Key debounce variables */
+static volatile uint32_t last_key_time[2] = {0, 0};  /* 0: PB10, 1: PB11 */
+static volatile uint32_t key_press_time[2] = {0, 0}; /* Key press start time */
+static volatile uint8_t key_pressed[2] = {0, 0};     /* Key pressed flag */
+static volatile uint8_t long_press_triggered[2] = {0, 0}; /* Long press triggered flag */
+#define KEY_DEBOUNCE_TIME_MS  50   /* Debounce time in milliseconds */
+#define KEY_LONG_PRESS_TIME_MS 1000 /* Long press time in milliseconds */
+
+/**
+ *\*\name   EXTI15_10_IRQHandler.
+ *\*\fun    Handle EXTI Line[15:10] interrupt (Key interrupts).
+ *\*\param  none.
+ *\*\return none.
+ */
+void EXTI15_10_IRQHandler(void)
+{
+    uint32_t current_time = HAL_GetTick();
+
+    /* Check EXTI Line 10 (PB10 - Left Key) */
+    if (EXTI_Interrupt_Status_Get(EXTI_LINE10) != RESET)
+    {
+        /* Check if key is pressed (falling edge) */
+        if (GPIO_Input_Pin_Data_Get(GPIOB, GPIO_PIN_10) == 0)
+        {
+            /* Debounce check */
+            if ((current_time - last_key_time[0]) > KEY_DEBOUNCE_TIME_MS)
+            {
+                last_key_time[0] = current_time;
+                key_press_time[0] = current_time;
+                key_pressed[0] = 1;
+                long_press_triggered[0] = 0;
+            }
+        }
+        else  /* Key released */
+        {
+            if (key_pressed[0])
+            {
+                uint32_t press_duration = current_time - key_press_time[0];
+
+                /* Only trigger short press if long press wasn't triggered */
+                if (!long_press_triggered[0] && press_duration < KEY_LONG_PRESS_TIME_MS)
+                {
+                    OLED_App_KeyCallback(GPIO_PIN_10);
+                }
+
+                key_pressed[0] = 0;
+                long_press_triggered[0] = 0;
+            }
+        }
+        /* Clear interrupt flag */
+        EXTI_Interrupt_Status_Clear(EXTI_LINE10);
+    }
+
+    /* Check EXTI Line 11 (PB11 - Right Key) */
+    if (EXTI_Interrupt_Status_Get(EXTI_LINE11) != RESET)
+    {
+        /* Check if key is pressed (falling edge) */
+        if (GPIO_Input_Pin_Data_Get(GPIOB, GPIO_PIN_11) == 0)
+        {
+            /* Debounce check */
+            if ((current_time - last_key_time[1]) > KEY_DEBOUNCE_TIME_MS)
+            {
+                last_key_time[1] = current_time;
+                key_press_time[1] = current_time;
+                key_pressed[1] = 1;
+                long_press_triggered[1] = 0;
+            }
+        }
+        else  /* Key released */
+        {
+            if (key_pressed[1])
+            {
+                uint32_t press_duration = current_time - key_press_time[1];
+
+                /* Only trigger short press if long press wasn't triggered */
+                if (!long_press_triggered[1] && press_duration < KEY_LONG_PRESS_TIME_MS)
+                {
+                    OLED_App_KeyCallback(GPIO_PIN_11);
+                }
+
+                key_pressed[1] = 0;
+                long_press_triggered[1] = 0;
+            }
+        }
+        /* Clear interrupt flag */
+        EXTI_Interrupt_Status_Clear(EXTI_LINE11);
+    }
+}
+
+/**
+ *\*\name   BSP_KEY_CheckLongPress.
+ *\*\fun    Check for long press events (should be called periodically).
+ *\*\param  none.
+ *\*\return none.
+ */
+void BSP_KEY_CheckLongPress(void)
+{
+    uint32_t current_time = HAL_GetTick();
+
+    /* Check PB10 long press */
+    if (key_pressed[0] && !long_press_triggered[0])
+    {
+        if ((current_time - key_press_time[0]) >= KEY_LONG_PRESS_TIME_MS)
+        {
+            long_press_triggered[0] = 1;
+            /* Trigger long press callback with special flag */
+            OLED_App_KeyCallback(GPIO_PIN_10 | 0x8000);  /* MSB indicates long press */
+        }
+    }
+
+    /* Check PB11 long press */
+    if (key_pressed[1] && !long_press_triggered[1])
+    {
+        if ((current_time - key_press_time[1]) >= KEY_LONG_PRESS_TIME_MS)
+        {
+            long_press_triggered[1] = 1;
+            /* Trigger long press callback with special flag */
+            OLED_App_KeyCallback(GPIO_PIN_11 | 0x8000);  /* MSB indicates long press */
+        }
+    }
+}
 

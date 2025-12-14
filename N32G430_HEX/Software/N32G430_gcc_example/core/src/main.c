@@ -34,11 +34,13 @@
 
 #include "main.h"
 #include "bsp_led.h"
+#include "bsp_key.h"
 #include "hal_compat.h"
 #include "dma.h"
 #include "i2c.h"
 #include "tim.h"
-#include "oled_test_demo.h"
+#include "oled_app.h"
+#include "oled_direct_test.h"  
 
 /**
  *\*\name   main.
@@ -55,14 +57,32 @@ int main(void)
     LED_Initialize(LED2_GPIO_PORT, LED2_GPIO_PIN | LED3_GPIO_PIN, LED2_GPIO_CLK);
     LED_Off(LED2_GPIO_PORT, LED1_GPIO_PIN | LED2_GPIO_PIN | LED3_GPIO_PIN);
 
+    /* Initialize peripherals */
     MX_DMA_Init();
     MX_I2C1_Init();
     MX_TIM4_Init();
-    OLED_TestDemo_Init();
+
+    /* Initialize keys (PB10, PB11) */
+    BSP_KEY_Init();
+
+    /* 先用直接测试验证OLED硬件（3秒） */
+    LED_On(LED2_GPIO_PORT, LED1_GPIO_PIN);  /* LED1亮=开始直接测试 */
+    OLED_DirectTest(&hi2c1, 0x78);
+    HAL_Delay(3000);
+    LED_Off(LED2_GPIO_PORT, LED1_GPIO_PIN);
+
+    /* 然后用U8G2测试 */
+    LED_On(LED2_GPIO_PORT, LED2_GPIO_PIN);  /* LED2亮=开始U8G2测试 */
+    OLED_App_Init();
+    LED_Off(LED2_GPIO_PORT, LED2_GPIO_PIN);
 
     while(1)
     {
-        OLED_TestDemo_Main();
+        /* Update OLED application (check long press, etc.) */
+        OLED_App_Update();
+
+        /* Small delay to reduce CPU usage */
+        HAL_Delay(10);
     }
 }
 
