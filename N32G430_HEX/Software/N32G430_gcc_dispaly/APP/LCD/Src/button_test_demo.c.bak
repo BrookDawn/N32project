@@ -1,0 +1,180 @@
+/**
+ * @file button_test_demo.c
+ * @brief Button test demo with UART logging and DMA buffer analysis
+ */
+
+#include "button_test_demo.h"
+#include "button.h"
+#include "lcd_init.h"
+#include "lcd.h"
+#include "spi.h"
+#include "dma.h"
+#include "bsp_usart.h"
+#include "hal_compat.h"
+#include <stdio.h>
+#include <stdarg.h>
+#include <string.h>
+
+/* Test statistics */
+static struct {
+    uint32_t short_press_count;
+    uint32_t long_press_count;
+    uint32_t release_count;
+    uint32_t last_event_time;
+} test_stats = {0};
+
+/**
+ * @brief Print log to UART1
+ */
+static void log_print(const char *format, ...)
+{
+    char buffer[128];
+    va_list args;
+    va_start(args, format);
+    vsnprintf(buffer, sizeof(buffer), format, args);
+    va_end(args);
+
+    /* Send to UART1 */
+    for (uint32_t i = 0; i < strlen(buffer); i++) {
+        while (USART_Flag_Status_Get(USART1, USART_FLAG_TXDE) == RESET);
+        USART_Data_Send(USART1, buffer[i]);
+    }
+}
+
+/**
+ * @brief Update LCD display with test results
+ */
+static void update_display(void)
+{
+    char str[32];
+
+    /* Clear display area */
+    LCD_Fill(0, 30, LCD_W, LCD_H, BLACK);
+
+    /* Display statistics */
+    LCD_ShowString(5, 30, (const u8 *)"Button Test", CYAN, BLACK, 16, 0);
+
+    sprintf(str, "Short: %lu", test_stats.short_press_count);
+    LCD_ShowString(5, 55, (const u8 *)str, WHITE, BLACK, 12, 0);
+
+    sprintf(str, "Long:  %lu", test_stats.long_press_count);
+    LCD_ShowString(5, 75, (const u8 *)str, YELLOW, BLACK, 12, 0);
+
+    sprintf(str, "Release: %lu", test_stats.release_count);
+    LCD_ShowString(5, 95, (const u8 *)str, GREEN, BLACK, 12, 0);
+
+    /* Display instructions */
+    LCD_ShowString(5, 120, (const u8 *)"PB11: Test button", GRAYBLUE, BLACK, 12, 0);
+    LCD_ShowString(5, 135, (const u8 *)"Short: <70ms", GRAYBLUE, BLACK, 12, 0);
+    LCD_ShowString(5, 150, (const u8 *)"Long:  >=70ms", GRAYBLUE, BLACK, 12, 0);
+}
+
+/**
+ * @brief Initialize button test demo
+ */
+void ButtonTest_Init(void)
+{
+    /* Initialize DMA for SPI1 */
+    MX_DMA_SPI1_Init();
+
+    /* Initialize SPI1 */
+    MX_SPI1_Init();
+
+    /* Initialize LCD hardware */
+    LCD_Init();
+
+    /* Clear screen */
+    LCD_Fill(0, 0, LCD_W, LCD_H, BLACK);
+
+    /* Display title */
+    LCD_Fill(0, 0, LCD_W, 25, BLUE);
+    LCD_ShowString(15, 5, (const u8 *)"Button Test Demo", WHITE, BLUE, 16, 0);
+
+    /* Initialize UART1 for logging (already initialized in bsp_usart) */
+    log_print("\r\n========================================\r\n");
+    log_print("Button Test Demo Started\r\n");
+    log_print("========================================\r\n");
+    log_print("Configuration:\r\n");
+    log_print("  - Sample size: 30 samples (30ms)\r\n");
+    log_print("  - Threshold: 21/30 (0.7 weight)\r\n");
+    log_print("  - Long press: 70ms\r\n");
+    log_print("  - Debounce: 50ms\r\n");
+    log_print("========================================\r\n\r\n");
+
+    /* Initialize button with DMA */
+    Button_Init();
+    Button_StartSampling();
+
+    /* Reset statistics */
+    test_stats.short_press_count = 0;
+    test_stats.long_press_count = 0;
+    test_stats.release_count = 0;
+    test_stats.last_event_time = 0;
+
+    /* Initial display update */
+    update_display();
+}
+
+/**
+ * @brief Main loop for button test demo
+ */
+void ButtonTest_Main(void)
+{
+    ButtonEvent_t event = Button_GetEvent();
+    uint32_t current_time = HAL_GetTick();
+
+    if (event != BUTTON_EVENT_NONE) {
+        uint32_t duration = current_time - test_stats.last_event_time;
+
+        switch (event) {
+            case BUTTON_EVENT_PRESS:
+                test_stats.short_press_count++;
+                test_stats.last_event_time = current_time;
+
+                /* Log to UART */
+                log_print("[%lu ms] SHORT PRESS detected (count: %lu)\r\n",
+                         current_time, test_stats.short_press_count);
+                log_print("  - Duration since last event: %lu ms\r\n", duration);
+                log_print("  - DMA buffer threshold: 21/30 samples\r\n");
+
+                /* Flash LCD indication */
+                LCD_Fill(0, 30, LCD_W, 50, GREEN);
+                HAL_Delay(100);
+                update_display();
+                break;
+
+            case BUTTON_EVENT_LONG_PRESS:
+                test_stats.long_press_count++;
+
+                /* Log to UART */
+                log_print("[%lu ms] LONG PRESS detected (count: %lu)\r\n",
+                         current_time, test_stats.long_press_count);
+                log_print("  - Press duration: >= 70ms\r\n");
+                log_print("  - Total long presses: %lu\r\n", test_stats.long_press_count);
+
+                /* Flash LCD indication */
+                LCD_Fill(0, 30, LCD_W, 50, YELLOW);
+                HAL_Delay(100);
+                update_display();
+                break;
+
+            case BUTTON_EVENT_RELEASE:
+                test_stats.release_count++;
+
+                /* Log to UART */
+                log_print("[%lu ms] RELEASE detected (count: %lu)\r\n",
+                         current_time, test_stats.release_count);
+                log_print("  - Duration since press: %lu ms\r\n\r\n", duration);
+
+                /* Update display */
+                update_display();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /* Small delay to prevent CPU hogging */
+    HAL_Delay(5);
+}
