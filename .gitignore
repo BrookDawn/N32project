@@ -4,3 +4,8 @@
 *.map
 *.elf
 *.hex
+*.bin
+*.axf
+
+# Claude Code
+.claude/
