@@ -27,8 +27,10 @@ build/main.o: ../core/src/main.c ../rt-thread/include/rtthread.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_wwdg.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h \
  ../firmware/n32g430_std_periph_driver/inc/misc.h ../core/inc/bsp_led.h \
- ../core/inc/bsp_usart.h ../RTT/Ins/SEGGER_RTT.h \
- ../RTT/Ins/SEGGER_RTT_Conf.h
+ ../core/inc/bsp_usart.h ../core/inc/bsp_elab_adapter.h \
+ ../APP/Ins/elab_led.h ../APP/Elab_LOG/elab_log.h \
+ ../APP/Elab_LOG/elab_std.h ../APP/Elab_LOG/elab_def.h \
+ ../APP/Elab_LOG/elab_common.h ../APP/Elab_LOG/usart_interface.h
 ../rt-thread/include/rtthread.h:
 ../rt-thread/include/rtdef.h:
 ../rt-thread/bsp/rtconfig.h:
@@ -64,5 +66,10 @@ build/main.o: ../core/src/main.c ../rt-thread/include/rtthread.h \
 ../firmware/n32g430_std_periph_driver/inc/misc.h:
 ../core/inc/bsp_led.h:
 ../core/inc/bsp_usart.h:
-../RTT/Ins/SEGGER_RTT.h:
-../RTT/Ins/SEGGER_RTT_Conf.h:
+../core/inc/bsp_elab_adapter.h:
+../APP/Ins/elab_led.h:
+../APP/Elab_LOG/elab_log.h:
+../APP/Elab_LOG/elab_std.h:
+../APP/Elab_LOG/elab_def.h:
+../APP/Elab_LOG/elab_common.h:
+../APP/Elab_LOG/usart_interface.h:

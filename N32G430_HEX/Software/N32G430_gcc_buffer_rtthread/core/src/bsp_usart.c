@@ -10,6 +10,7 @@
 #include "n32g430.h"
 #include "bsp_usart.h"
 #include "bsp_delay.h"
+#include "usart_interface.h"
 
 /* 接收缓冲区 */
 static uint8_t usart1_rx_buffer[USART1_RX_BUFFER_SIZE];
@@ -213,3 +214,84 @@ void USART1_IRQHandler(void)
         }
     }
 }
+
+
+/*=========================== [Printf Redirection] ======================*/
+
+/**
+ *\*\name   usart_bsp_init.
+ *\*\fun    BSP weak function override for usart_interface initialization.
+ *\*\param  config: USART configuration (ignored, using USART1_Init).
+ *\*\return USART_STATUS_OK.
+**/
+usart_status_t usart_bsp_init(const usart_config_t *config)
+{
+    (void)config;  /* Ignore config, USART1 already initialized in board.c */
+    /* USART1 已经在 board.c 的 rt_hw_board_init() 中初始化 */
+    /* 直接返回成功，允许 interface 层正常工作 */
+    return USART_STATUS_OK;
+}
+
+/**
+ *\*\name   usart_bsp_putchar.
+ *\*\fun    BSP weak function override for usart_interface.
+ *\*\param  ch: character to send.
+ *\*\return sent character.
+**/
+int usart_bsp_putchar(int ch)
+{
+    USART1_SendByte((uint8_t)ch);
+    return ch;
+}
+
+#ifdef __ARMCC_VERSION      /* Keil compiler */
+    #pragma import(__use_no_semihosting_swi)
+    void _sys_exit(int return_code)
+    {
+        (void)return_code;
+    }
+
+    struct __FILE
+    {
+        int handle;
+    };
+
+    FILE __stdout;
+
+    int fputc(int ch, FILE *f)
+    {
+        (void)f;
+        return usart_interface_putchar(ch);
+    }
+
+#elif defined (__GNUC__)    /* GCC compiler */
+
+    int __io_putchar(int ch)
+    {
+        return usart_interface_putchar(ch);
+    }
+
+    int _write(int file, char *ptr, int len)
+    {
+        (void)file;
+        int i = 0;
+        for (i = 0; i < len; i++) {
+            __io_putchar(*ptr++);
+        }
+        return len;
+    }
+
+#elif defined (__ICCARM__)  /* IAR compiler */
+
+    size_t __write(int handle, const unsigned char *buf, size_t size)
+    {
+        (void)handle;
+        size_t i = 0;
+        for (i = 0; i < size; i++) {
+            usart_interface_putchar(buf[i]);
+        }
+        return size;
+    }
+
+#endif
+

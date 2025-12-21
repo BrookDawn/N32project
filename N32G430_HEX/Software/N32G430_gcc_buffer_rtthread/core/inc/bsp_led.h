@@ -43,31 +43,15 @@ extern "C" {
 #include "n32g430.h"
 
 /** Define the GPIO port to which the LED is connected **/
-#define LED1_GPIO_PORT    	GPIOA			              /* GPIO port */
-#define LED1_GPIO_CLK 	    RCC_AHB_PERIPH_GPIOA		/* GPIO port clock */
-#define LED1_GPIO_PIN		GPIO_PIN_1			        /* GPIO connected to the SCL clock line */
-
-#define LED2_GPIO_PORT    	GPIOA			              /* GPIO port */
-#define LED2_GPIO_CLK 	    RCC_AHB_PERIPH_GPIOA		/* GPIO port clock */
-#define LED2_GPIO_PIN		GPIO_PIN_2			        /* GPIO connected to the SCL clock line */
-
-#define LED3_GPIO_PORT    	GPIOA			              /* GPIO port */
-#define LED3_GPIO_CLK 	    RCC_AHB_PERIPH_GPIOB		/* GPIO port clock */
-#define LED3_GPIO_PIN		GPIO_PIN_3			        /* GPIO connected to the SCL clock line */
+#define LED1_GPIO_PORT    	GPIOB			                /* GPIO port */
+#define LED1_GPIO_CLK 	    RCC_AHB_PERIPH_GPIOB		    /* GPIO port clock */
+#define LED1_GPIO_PIN		GPIO_PIN_2			            /* GPIO connected to the SCL clock line */
 
 
 /** Define macros that control IO **/
 #define LED1_TOGGLE		    {LED1_GPIO_PORT->POD ^= LED1_GPIO_PIN;}
-#define LED1_ON		        {LED1_GPIO_PORT->PBSC = LED1_GPIO_PIN;}
-#define LED1_OFF		    {LED1_GPIO_PORT->PBC = LED1_GPIO_PIN;}
-
-#define LED2_TOGGLE		    {LED2_GPIO_PORT->POD ^= LED2_GPIO_PIN;}
-#define LED2_ON		        {LED2_GPIO_PORT->PBSC = LED2_GPIO_PIN;}
-#define LED2_OFF	        {LED2_GPIO_PORT->PBC = LED2_GPIO_PIN;}
-
-#define LED3_TOGGLE		    {LED3_GPIO_PORT->POD ^= LED3_GPIO_PIN;}
-#define LED3_ON		        {LED3_GPIO_PORT->PBSC = LED3_GPIO_PIN;}
-#define LED3_OFF		    {LED3_GPIO_PORT->PBC = LED3_GPIO_PIN;}
+#define LED1_ON		        {LED1_GPIO_PORT->PBC = LED1_GPIO_PIN;}   /* Sink current LED: LOW to turn ON */
+#define LED1_OFF		    {LED1_GPIO_PORT->PBSC = LED1_GPIO_PIN;} /* Sink current LED: HIGH to turn OFF */
 
 
 void LED_Initialize(GPIO_Module* GPIOx, uint16_t pin, uint32_t AHB_periph);

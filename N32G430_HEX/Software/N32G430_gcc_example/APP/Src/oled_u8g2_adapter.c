@@ -41,18 +41,17 @@ static uint8_t g_i2c_addr = 0;
   * @retval 1=成功，0=失败
   *
   * @note   重要：U8G2的CAD层会在发送命令/数据前添加控制字节(0x00/0x40)
-  *         但是u8x8_ClearDisplay/FillDisplay会绕过CAD层直接调用byte层
-  *         因此需要在END_TRANSFER时检测并自动添加控制字节
+  *         CAD层已经处理了控制字节，我们只需要直接发送buffer即可
   */
 uint8_t u8x8_byte_hw_i2c(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr)
 {
-    static uint8_t buffer[130];  /* 预留空间给控制字节 */
+    static uint8_t buffer[132];  /* 预留空间: 最多128字节数据 + 可能的控制字节 */
     static uint8_t buf_idx;
     uint8_t *data;
 
     switch(msg)
     {
-        case U8X8_MSG_BYTE_SEND:  /* 等同于 U8X8_MSG_CAD_SEND_DATA */
+        case U8X8_MSG_BYTE_SEND:
             /* 收集字节到buffer */
             data = (uint8_t *)arg_ptr;
             while(arg_int > 0)
@@ -79,24 +78,8 @@ uint8_t u8x8_byte_hw_i2c(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_p
         case U8X8_MSG_BYTE_END_TRANSFER:
             if(g_hi2c != NULL && buf_idx > 0)
             {
-                uint8_t *send_buf = buffer;
-                uint16_t send_len = buf_idx;
-
-                /* 改进的检测逻辑：
-                 * 规则1: 如果buf_idx >= 8，肯定是tile数据（每个tile是8字节），需要0x40
-                 * 规则2: 如果buffer[0]不是0x00或0x40，也是数据
-                 * 规则3: 否则，已经有CAD层添加的控制字节，直接发送
-                 */
-                if(buf_idx >= 8 || (buffer[0] != 0x00 && buffer[0] != 0x40))
-                {
-                    /* 需要添加数据控制字节0x40 */
-                    memmove(&buffer[1], &buffer[0], buf_idx);
-                    buffer[0] = 0x40;
-                    send_len = buf_idx + 1;
-                }
-
-                /* 发送buffer内容 */
-                HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(g_hi2c, g_i2c_addr, send_buf, send_len, I2C_TIMEOUT);
+                /* CAD层已经添加了控制字节（0x00或0x40），直接发送即可 */
+                HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(g_hi2c, g_i2c_addr, buffer, buf_idx, I2C_TIMEOUT);
                 if(status != HAL_OK)
                 {
                     return 0;  /* 传输失败 */

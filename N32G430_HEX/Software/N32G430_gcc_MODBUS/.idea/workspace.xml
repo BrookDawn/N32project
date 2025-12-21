@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="08eb7c97-bed2-4ae5-936e-ddd75dfddfc5" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/.idea/editor.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/core/arm_common_tables.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/core/arm_const_structs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/core/arm_math.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/core/cmsis_armcc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/core/cmsis_armclang.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/core/cmsis_compiler.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/core/cmsis_gcc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/core/cmsis_iccarm.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/core/cmsis_version.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/core/core_cm4.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/core/mpu_armv7.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/device/n32g430.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/device/n32g430_conf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/device/startup/startup_n32g430.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/device/startup/startup_n32g430_EWARM.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/device/startup/startup_n32g430_gcc.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/device/system_n32g430.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/CMSIS/device/system_n32g430.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/FreeRTOS.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/StackMacros.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/atomic.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/croutine.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/deprecated_definitions.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/event_groups.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/list.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/message_buffer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/mpu_prototypes.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/mpu_syscall_numbers.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/mpu_wrappers.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/newlib-freertos.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/picolibc-freertos.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/portable.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/projdefs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/queue.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/semphr.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/stack_macros.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/stdint.readme" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/stream_buffer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/task.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Inc/timers.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/MemMang/heap_4.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Src/event_groups.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Src/list.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Src/queue.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Src/tasks.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/Src/timers.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/portable/GCC/ARM_CM4F/port.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/N32_assert.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/N32_assert.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/N32_assert.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/event_groups.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/event_groups.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/event_groups.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/gpio.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/gpio.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/gpio.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/heap_4.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/heap_4.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/heap_4.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/list.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/list.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/list.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/main.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/main.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/main.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/misc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/misc.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/misc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_adc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_adc.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_adc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_dma.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_dma.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_dma.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_exti.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_exti.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_exti.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_flash.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_flash.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_flash.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_gpio.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_gpio.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_gpio.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_i2c.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_i2c.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_i2c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_pwr.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_pwr.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_pwr.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_rcc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_rcc.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_rcc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_spi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_spi.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_spi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_tim.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_tim.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_tim.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_usart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_usart.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430_usart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430c8l7_project.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430c8l7_project.elf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430c8l7_project.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/n32g430c8l7_project.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/port.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/port.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/port.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/queue.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/queue.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/queue.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/startup_n32g430_gcc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/startup_n32g430_gcc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/syscalls.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/syscalls.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/syscalls.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/system_n32g430.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/system_n32g430.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/system_n32g430.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/tasks.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/tasks.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/tasks.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/timer.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/timer.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/timer.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/timers.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/timers.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/timers.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/usart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/usart.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/build/usart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/core/inc/FreeRTOSConfig.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/core/inc/gpio.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/core/inc/n32g430_conf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/core/inc/timer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/core/inc/usart.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/core/src/N32_assert.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/core/src/gpio.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/core/src/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/core/src/syscalls.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/core/src/timer.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/core/src/usart.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/misc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_adc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_beeper.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_can.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_comp.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_crc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_dbg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_dma.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_exti.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_flash.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_gpio.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_i2c.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_iwdg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_lptim.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_pwr.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_rcc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_rtc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_spi.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_tim.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_usart.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/inc/n32g430_wwdg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/misc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_adc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_beeper.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_can.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_comp.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_crc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_dbg.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_dma.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_exti.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_flash.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_gpio.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_i2c.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_iwdg.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_lptim.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_pwr.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_rcc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_rtc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_spi.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_tim.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_usart.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430_std_periph_driver/src/n32g430_wwdg.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../N32G430-gcc-RTOS/n32g430c8l7_flash.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/core/arm_common_tables.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/core/arm_const_structs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/core/arm_math.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/core/cmsis_armcc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/core/cmsis_armclang.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/core/cmsis_compiler.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/core/cmsis_gcc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/core/cmsis_iccarm.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/core/cmsis_version.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/core/core_cm4.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/core/mpu_armv7.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/device/n32g430.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/device/n32g430_conf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/device/startup/startup_n32g430.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/device/startup/startup_n32g430_EWARM.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/device/startup/startup_n32g430_gcc.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/device/system_n32g430.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMSIS/device/system_n32g430.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/N32_assert.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/N32_assert.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/N32_assert.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/gpio.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/gpio.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/gpio.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/main.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/main.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/main.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/misc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/misc.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/misc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_adc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_adc.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_adc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_dma.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_dma.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_dma.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_exti.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_exti.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_exti.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_flash.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_flash.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_flash.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_gpio.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_gpio.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_gpio.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_i2c.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_i2c.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_i2c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_pwr.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_pwr.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_pwr.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_rcc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_rcc.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_rcc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_spi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_spi.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_spi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_tim.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_tim.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_tim.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_usart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_usart.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430_usart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430c8l7_project.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430c8l7_project.elf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430c8l7_project.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/n32g430c8l7_project.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/startup_n32g430_gcc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/startup_n32g430_gcc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/syscalls.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/syscalls.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/syscalls.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/system_n32g430.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/system_n32g430.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/system_n32g430.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/timer.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/timer.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/timer.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/usart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/usart.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/usart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/inc/gpio.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/inc/n32g430_conf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/inc/timer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/inc/usart.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/N32_assert.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/gpio.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/syscalls.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/timer.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/usart.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/misc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_adc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_beeper.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_can.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_comp.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_crc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_dbg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_dma.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_exti.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_flash.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_gpio.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_i2c.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_iwdg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_lptim.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_pwr.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_rcc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_rtc.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_spi.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_tim.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_usart.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/inc/n32g430_wwdg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/misc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_adc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_beeper.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_can.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_comp.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_crc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_dbg.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_dma.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_exti.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_flash.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_gpio.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_i2c.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_iwdg.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_lptim.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_pwr.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_rcc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_rtc.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_spi.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_tim.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_usart.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430_std_periph_driver/src/n32g430_wwdg.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/n32g430c8l7_flash.ld" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2zUITj5aD8vVHnvOM0fFBbUAEIo" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Makefile 目标.N32G430-gcc.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "F:/stm32_project/N32project/N32G430/N32G430_HEX/N32project/Software/N32G430-gcc/GCC/Makefile",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="08eb7c97-bed2-4ae5-936e-ddd75dfddfc5" name="更改" comment="" />
+      <created>1751779235633</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1751779235633</updated>
+      <workItem from="1751779236508" duration="1219000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

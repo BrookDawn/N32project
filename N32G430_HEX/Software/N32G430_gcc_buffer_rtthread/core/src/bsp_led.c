@@ -146,7 +146,7 @@ void LED_Toggle(GPIO_Module* GPIOx, uint16_t pin)
 **/
 void LED_On(GPIO_Module* GPIOx,uint16_t pin)
 {
-    GPIO_Pins_Set(GPIOx, pin);
+    GPIO_PBC_Pins_Reset(GPIOx, pin);  /* Sink current LED: LOW to turn ON */
 }
 
 
@@ -178,6 +178,6 @@ void LED_On(GPIO_Module* GPIOx,uint16_t pin)
 **/
 void LED_Off(GPIO_Module* GPIOx,uint16_t pin)
 {
-    GPIO_PBC_Pins_Reset(GPIOx, pin);
+    GPIO_Pins_Set(GPIOx, pin);  /* Sink current LED: HIGH to turn OFF */
 }
 

@@ -25,7 +25,8 @@ build/bsp_usart.o: ../core/src/bsp_usart.c \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_wwdg.h \
  ../firmware/n32g430_std_periph_driver/inc/n32g430_beeper.h \
  ../firmware/n32g430_std_periph_driver/inc/misc.h ../core/inc/bsp_usart.h \
- ../core/inc/bsp_delay.h
+ ../core/inc/bsp_delay.h ../APP/Elab_LOG/usart_interface.h \
+ ../APP/Elab_LOG/elab_std.h ../APP/Elab_LOG/elab_def.h
 ../firmware/CMSIS/device/n32g430.h:
 ../firmware/CMSIS/core/core_cm4.h:
 ../firmware/CMSIS/core/cmsis_version.h:
@@ -56,3 +57,6 @@ build/bsp_usart.o: ../core/src/bsp_usart.c \
 ../firmware/n32g430_std_periph_driver/inc/misc.h:
 ../core/inc/bsp_usart.h:
 ../core/inc/bsp_delay.h:
+../APP/Elab_LOG/usart_interface.h:
+../APP/Elab_LOG/elab_std.h:
+../APP/Elab_LOG/elab_def.h:

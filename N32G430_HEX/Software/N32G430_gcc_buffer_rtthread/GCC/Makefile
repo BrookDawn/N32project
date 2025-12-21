@@ -57,6 +57,7 @@ CROSS_COMPILE = arm-none-eabi-
 ######################################
 C_DIRS = ../core/src
 C_DIRS += ../APP/Src
+C_DIRS += ../APP/Elab_LOG
 C_DIRS += ../RTT/Src
 C_DIRS += ../firmware/CMSIS/device
 C_DIRS += ../firmware/n32g430_std_periph_driver/src
@@ -79,6 +80,7 @@ ASM_SOURCES_S = ../rt-thread/libcpu/arm/cortex-m4/context_gcc.S
 ######################################
 C_INCS = ../core/inc
 C_INCS += ../APP/Ins
+C_INCS += ../APP/Elab_LOG
 C_INCS += ../RTT/Ins
 C_INCS += ../firmware/CMSIS/core
 C_INCS += ../firmware/CMSIS/device

@@ -39,180 +39,147 @@
 #include "main.h"
 #include "bsp_led.h"
 #include "bsp_usart.h"
+#include "bsp_elab_adapter.h"
+#include "elab_led.h"
+#include "elab_log.h"
+#include "usart_interface.h"
 
-/*RTT include*/
-#include "SEGGER_RTT.h"
-
-/* Thread definitions */
-#define LED_THREAD_STACK_SIZE   256
-#define LED_THREAD_PRIORITY     20
-#define LED_THREAD_TIMESLICE    5
-
-#define UART_THREAD_STACK_SIZE  512
-#define UART_THREAD_PRIORITY    10
-#define UART_THREAD_TIMESLICE   5
-
-/* Thread control blocks */
+/* Thread control blocks and stacks */
 static struct rt_thread led_thread;
-static struct rt_thread uart_thread;
+static rt_uint8_t led_thread_stack[512];
 
-/* Thread stacks */
-ALIGN(RT_ALIGN_SIZE)
-static rt_uint8_t led_thread_stack[LED_THREAD_STACK_SIZE];
-ALIGN(RT_ALIGN_SIZE)
-static rt_uint8_t uart_thread_stack[UART_THREAD_STACK_SIZE];
+static struct rt_thread elog_thread;
+static rt_uint8_t elog_thread_stack[1024];
 
-/* Semaphore for UART data */
-static struct rt_semaphore uart_rx_sem;
-
-/**
- * LED thread entry
- * Blinks LEDs periodically
- */
-static void led_thread_entry(void *parameter)
+/* LED task thread */
+static void led_task_entry(void *parameter)
 {
-    (void)parameter;
+    uint32_t count = 0;
 
-    /* Initialize LEDs */
-    LED_Initialize(LED1_GPIO_PORT, LED1_GPIO_PIN, LED1_GPIO_CLK);
-    LED_Initialize(LED2_GPIO_PORT, LED2_GPIO_PIN | LED3_GPIO_PIN, LED2_GPIO_CLK);
-
-    /* Turn off all LEDs */
-    LED_Off(LED2_GPIO_PORT, LED1_GPIO_PIN | LED2_GPIO_PIN | LED3_GPIO_PIN);
-
-    rt_kprintf("LED thread started!\n");
+    ELOG_INFO("LED Task started");
 
     while (1)
     {
-        /* Toggle LED1 */
-        LED_Toggle(LED1_GPIO_PORT, LED1_GPIO_PIN);
-        rt_thread_mdelay(500);
+        /* Toggle LED */
+        elab_led_toggle(LED1_GPIO_PORT, LED1_GPIO_PIN);
 
-        /* Toggle LED2 */
-        LED_Toggle(LED2_GPIO_PORT, LED2_GPIO_PIN);
-        rt_thread_mdelay(500);
+        /* Print every 5 cycles */
+        if (count % 5 == 0)
+        {
+            ELOG_DEBUG("LED toggled %lu times", (unsigned long)count);
+        }
 
-        /* Toggle LED3 */
-        LED_Toggle(LED3_GPIO_PORT, LED3_GPIO_PIN);
+        count++;
+
+        /* Delay 500ms */
         rt_thread_mdelay(500);
     }
 }
 
-/**
- * UART thread entry
- * Handles UART receive and echo
- */
-static void uart_thread_entry(void *parameter)
+/* ELOG test task thread */
+static void elog_task_entry(void *parameter)
 {
-    char rx_buffer[128];
-    uint16_t rx_length;
+    uint32_t test_count = 0;
 
-    (void)parameter;
-
-    rt_kprintf("N32G430 RT-Thread Nano Started!\n");
-    rt_kprintf("UART1 Test - Baudrate: 115200\n");
-    rt_kprintf("Send any character to echo back...\n");
-
-    /* Also send to UART directly */
-    USART1_SendString("N32G430 RT-Thread Nano Started!\r\n");
-    USART1_SendString("UART1 Test - Baudrate: 115200\r\n");
-    USART1_SendString("Send any character to echo back...\r\n");
+    ELOG_INFO("ELOG Test Task started");
 
     while (1)
     {
-        /* Check UART receive buffer */
-        rx_length = USART1_ReceiveString(rx_buffer, sizeof(rx_buffer));
+        /* Test different log levels */
+        test_count++;
 
-        if (rx_length > 0)
+        switch (test_count % 5)
         {
-            /* Echo received data */
-            USART1_SendString("Received: ");
-            USART1_SendArray((uint8_t*)rx_buffer, rx_length);
-            USART1_SendString("\r\n");
+            case 0:
+                ELOG_DEBUG("This is DEBUG message #%lu", (unsigned long)test_count);
+                break;
 
-            /* Also output to RTT console */
-            rt_kprintf("Received %d bytes: %s\n", rx_length, rx_buffer);
+            case 1:
+                ELOG_INFO("This is INFO message #%lu", (unsigned long)test_count);
+                break;
 
-            /* Print LED status */
-            USART1_SendString("LED Status: ");
-            if (GPIO_Output_Pin_Data_Get(LED1_GPIO_PORT, LED1_GPIO_PIN))
-            {
-                USART1_SendString("LED1=ON ");
-            }
-            else
-            {
-                USART1_SendString("LED1=OFF ");
-            }
+            case 2:
+                ELOG_WARN("This is WARN message #%lu", (unsigned long)test_count);
+                break;
 
-            if (GPIO_Output_Pin_Data_Get(LED2_GPIO_PORT, LED2_GPIO_PIN))
-            {
-                USART1_SendString("LED2=ON ");
-            }
-            else
-            {
-                USART1_SendString("LED2=OFF ");
-            }
+            case 3:
+                ELOG_ERROR("This is ERROR message #%lu", (unsigned long)test_count);
+                break;
 
-            if (GPIO_Output_Pin_Data_Get(LED3_GPIO_PORT, LED3_GPIO_PIN))
-            {
-                USART1_SendString("LED3=ON\r\n");
-            }
-            else
-            {
-                USART1_SendString("LED3=OFF\r\n");
-            }
+            case 4:
+                ELOG_FATAL("This is FATAL message #%lu", (unsigned long)test_count);
+                break;
         }
 
-        /* Delay to prevent busy loop */
-        rt_thread_mdelay(50);
+        /* Delay 1000ms */
+        rt_thread_mdelay(1000);
     }
 }
 
 /**
  * Main function
- * Called from RT-Thread main thread
+ * RT-Thread based application with LED and ELOG tasks
  */
 int main(void)
 {
-    /* Initialize RTT */
-    SEGGER_RTT_Init();
-    SEGGER_RTT_printf(0, "N32G430 RT-Thread Nano Started!\r\n");
+    rt_err_t result;
 
-    /* Initialize UART semaphore */
-    rt_sem_init(&uart_rx_sem, "uart_rx", 0, RT_IPC_FLAG_FIFO);
+    /* 初始化Elab USART适配层，注册ops */
+    elab_usart_adapter_init();
 
-    /* Create LED thread */
-    rt_thread_init(&led_thread,
-                   "led",
-                   led_thread_entry,
-                   RT_NULL,
-                   &led_thread_stack[0],
-                   LED_THREAD_STACK_SIZE,
-                   LED_THREAD_PRIORITY,
-                   LED_THREAD_TIMESLICE);
-    rt_thread_startup(&led_thread);
+    /* 初始化USART interface层 */
+    usart_interface_init(NULL);
 
-    /* Create UART thread */
-    rt_thread_init(&uart_thread,
-                   "uart",
-                   uart_thread_entry,
-                   RT_NULL,
-                   &uart_thread_stack[0],
-                   UART_THREAD_STACK_SIZE,
-                   UART_THREAD_PRIORITY,
-                   UART_THREAD_TIMESLICE);
-    rt_thread_startup(&uart_thread);
+    /* 初始化LED */
+    elab_led_init(LED1_GPIO_PORT, LED1_GPIO_PIN, LED1_GPIO_CLK);
 
-    rt_kprintf("All threads started!\n");
+    /* 打印启动横幅 */
+    ELOG_INFO("========================================");
+    ELOG_INFO("  N32G430 RT-Thread ELOG Test");
+    ELOG_INFO("  LED Task + ELOG Task Demo");
+    ELOG_INFO("========================================");
 
-    /* Main thread can exit or do other tasks */
-    while (1)
+    /* Initialize LED task thread */
+    result = rt_thread_init(&led_thread,
+                           "led_task",
+                           led_task_entry,
+                           RT_NULL,
+                           &led_thread_stack[0],
+                           sizeof(led_thread_stack),
+                           10,
+                           20);
+
+    if (result == RT_EOK)
     {
-        /* Keep alive message every 30 seconds */
-        rt_thread_mdelay(30000);
-        rt_kprintf("System running... tick=%d\n", rt_tick_get());
-        USART1_SendString("System running...\r\n");
+        ELOG_INFO("LED task thread initialized successfully");
+        rt_thread_startup(&led_thread);
     }
+    else
+    {
+        ELOG_ERROR("Failed to initialize LED task thread!");
+    }
+
+    /* Initialize ELOG test task thread */
+    result = rt_thread_init(&elog_thread,
+                           "elog_task",
+                           elog_task_entry,
+                           RT_NULL,
+                           &elog_thread_stack[0],
+                           sizeof(elog_thread_stack),
+                           11,
+                           20);
+
+    if (result == RT_EOK)
+    {
+        ELOG_INFO("ELOG task thread initialized successfully");
+        rt_thread_startup(&elog_thread);
+    }
+    else
+    {
+        ELOG_ERROR("Failed to initialize ELOG task thread!");
+    }
+
+    ELOG_INFO("System initialization completed, entering RT-Thread scheduler...");
 
     return 0;
 }
